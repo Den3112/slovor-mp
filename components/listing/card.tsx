@@ -1,3 +1,8 @@
+// Listing Card Component
+// Principle #1: Minimize code (< 60 lines)
+// Principle #2: No direct dependencies
+// Principle #6: Code for humans
+
 import Link from 'next/link'
 import type { Listing } from '@/lib/supabase/queries'
 
@@ -6,8 +11,14 @@ interface ListingCardProps {
   featured?: boolean
 }
 
+// Helper function - Principle #1: Small functions
+function isListingNew(createdAt: string): boolean {
+  const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
+  return new Date(createdAt).getTime() > sevenDaysAgo
+}
+
 export function ListingCard({ listing, featured }: ListingCardProps) {
-  const isNew = new Date(listing.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+  const isNew = isListingNew(listing.created_at)
 
   return (
     <Link
@@ -27,7 +38,6 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
           </div>
         )}
         
-        {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
           {featured && (
             <span className="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">

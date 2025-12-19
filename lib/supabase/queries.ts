@@ -1,5 +1,6 @@
 // Supabase API queries
-// All data fetching logic centralized here (Principle #3: One Responsibility)
+// Principle #3: One responsibility - THIS IS THE ONLY PLACE FOR DB QUERIES
+// Principle #5: Errors are part of design
 
 import { createClient } from '@supabase/supabase-js'
 
@@ -8,6 +9,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-ke
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
+// Types - Principle #6: Clear naming
 export interface Category {
   id: string
   name: string
@@ -30,12 +32,14 @@ export interface Listing {
   user_id: string
 }
 
+// Principle #5: Structured error responses
 type ApiResponse<T> = 
   | { data: T; error: null }
   | { data: null; error: string }
 
 // Categories API
 export const categoriesApi = {
+  // Principle #1: Small functions (< 15 lines)
   async getAll(): Promise<ApiResponse<Category[]>> {
     try {
       const { data, error } = await supabase

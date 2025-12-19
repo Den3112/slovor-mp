@@ -1,43 +1,31 @@
-'use client'
+// All Listings Page - Server Component
+// Follows Principle #4: Server Components by default
+// Follows Principle #7: No global state
 
-import { Suspense, useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { ListingGrid } from '@/components/listing/grid'
 import { ListingFilters } from '@/components/listing/filters'
 import { ErrorState } from '@/components/ui/error-state'
-import { ListingGridSkeleton } from '@/components/ui/loading-skeleton'
-import { listingsApi, type Listing } from '@/lib/supabase/queries'
+import { listingsApi } from '@/lib/supabase/queries'
 
-function ListingsContent() {
-  const searchParams = useSearchParams()
-  const [listings, setListings] = useState<Listing[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+interface ListingsPageProps {
+  searchParams: {
+    category?: string
+    search?: string
+    sort?: string
+    priceMin?: string
+    priceMax?: string
+  }
+}
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      setLoading(true)
-      setError(null)
-      
-      const result = await listingsApi.getAll({
-        category: searchParams.get('category') || undefined,
-        search: searchParams.get('search') || undefined,
-        limit: 50,
-      })
+export default async function ListingsPage({ searchParams }: ListingsPageProps) {
+  // Principle #3: One responsibility - centralized data fetching
+  const result = await listingsApi.getAll({
+    category: searchParams.category,
+    search: searchParams.search,
+    limit: 50,
+  })
 
-      if (result.error) {
-        setError(result.error)
-      } else {
-        setListings(result.data)
-      }
-      
-      setLoading(false)
-    }
-
-    fetchListings()
-  }, [searchParams])
-
-  const searchQuery = searchParams.get('search')
+  const searchQuery = searchParams.search
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -46,7 +34,7 @@ function ListingsContent() {
           {searchQuery ? `Search results for "${searchQuery}"` : 'All Listings'}
         </h1>
         <p className="text-gray-600">
-          {loading ? 'Loading...' : `${listings.length} listings found`}
+          {result.data ? `${result.data.length} listings found` : 'Loading...'}
         </p>
       </div>
 
@@ -56,23 +44,14 @@ function ListingsContent() {
         </aside>
 
         <main className="lg:col-span-3">
-          {loading ? (
-            <ListingGridSkeleton />
-          ) : error ? (
-            <ErrorState message={error} />
+          {/* Principle #5: Errors are part of design */}
+          {result.error ? (
+            <ErrorState message={result.error} />
           ) : (
-            <ListingGrid listings={listings} />
+            <ListingGrid listings={result.data} />
           )}
         </main>
       </div>
     </div>
-  )
-}
-
-export default function ListingsPage() {
-  return (
-    <Suspense fallback={<ListingGridSkeleton />}>
-      <ListingsContent />
-    </Suspense>
   )
 }
