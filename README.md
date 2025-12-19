@@ -1,8 +1,35 @@
 # Slovor Marketplace
 
-> **⚠️ ВАЖНО:** Перед началом работы обязательно прочтите [PRINCIPLES.md](./PRINCIPLES.md)!
+> **⚠️ ВАЖНО:** Перед началом работы обязательно прочтите:
+> 1. [PRINCIPLES.md](./PRINCIPLES.md) - 🔥 ОБЯЗАТЕЛЬНЮ
+> 2. [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) - Полный контекст
+> 3. [DEVELOPMENT.md](./DEVELOPMENT.md) - Git Flow и Vercel
+
+> **🧹 ПЕРВЫЙ РАЗ?** Сделай чистку main: [QUICK_START.md](./QUICK_START.md)
 
 Modern, type-safe marketplace application built with Next.js 16, Supabase, and TypeScript.
+
+---
+
+## 🧹 Clean Main Branch (First Time Setup)
+
+**Если это твой первый раз после setup, сделай чистку:**
+
+```bash
+# Quick way
+cd slovor-mp
+git checkout dev
+chmod +x scripts/clean-main-branch.sh
+./scripts/clean-main-branch.sh
+```
+
+**Результат:**
+- `main` → 1 чистый production commit
+- `dev` → вся история разработки (14+ commits)
+
+📖 **[Полная инструкция →](./CLEAN_MAIN_BRANCH.md)**
+
+---
 
 ## 🔥 Core Principles
 
@@ -19,7 +46,36 @@ This project follows **8 mandatory principles** for clean code:
 
 📖 **[Read full principles →](./PRINCIPLES.md)**  
 🏗️ **[Architecture docs →](./ARCHITECTURE.md)**  
-🌍 **[Environment setup →](./ENVIRONMENTS.md)**
+📚 **[Project context →](./PROJECT_CONTEXT.md)**  
+🔧 **[Development guide →](./DEVELOPMENT.md)**
+
+---
+
+## 🌳 Git Flow
+
+```
+main (production)  →  https://slovor-mp.vercel.app (CLEAN HISTORY)
+  ↓
+dev (development)  →  https://slovor-mp-git-dev.vercel.app (FULL HISTORY)
+  ↓
+feature/* (local)  →  Local development
+```
+
+**Daily Work:**
+```bash
+# Always work on dev
+git checkout dev
+git pull origin dev
+# ... make changes ...
+git push origin dev  # Auto-deploys to Preview
+
+# Release to production (via PR)
+# GitHub: dev → main (Squash and merge)
+```
+
+📖 **[Full Git Flow guide →](./DEVELOPMENT.md)**
+
+---
 
 ## ✨ Features
 
@@ -32,89 +88,51 @@ This project follows **8 mandatory principles** for clean code:
 - 🎯 100% TypeScript
 - 🚀 Production ready
 
+---
+
 ## 🛠️ Tech Stack
 
 - **Framework:** Next.js 16 (App Router, RSC)
 - **Database:** Supabase (PostgreSQL)
 - **Styling:** Tailwind CSS
 - **Language:** TypeScript
-- **Deployment:** Vercel
+- **Deployment:** Vercel (auto-deploy)
+
+---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-- Supabase account
-
-### Installation
+### 1. Clone Repository
 
 ```bash
-# Clone repository
 git clone https://github.com/Den3112/slovor-mp.git
 cd slovor-mp
+```
 
-# Install dependencies
+### 2. Install Dependencies
+
+```bash
 npm install
+```
 
-# Setup environment
+### 3. Setup Environment
+
+```bash
 cp .env.local.example .env.local
-# Edit .env.local with your Supabase credentials
-
-# Run development server
-npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Add your Supabase credentials:
 
-### Get Supabase Credentials
-
-1. Go to [Supabase Dashboard](https://app.supabase.com)
-2. Select your project
-3. Go to **Settings** → **API**
-4. Copy:
-   - `URL` → `NEXT_PUBLIC_SUPABASE_URL`
-   - `anon/public` key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-
-🔧 **[Full environment setup guide →](./ENVIRONMENTS.md)**
-
-## 📁 Project Structure
-
-```
-slovor-mp/
-├── app/              # Pages (Next.js routes)
-├── components/       # UI components
-├── lib/              # Business logic, API
-├── public/           # Static assets
-├── PRINCIPLES.md     # 🔥 MANDATORY - Read first!
-├── ARCHITECTURE.md   # Technical architecture
-├── ENVIRONMENTS.md   # Environment configuration
-├── PROJECT_CONTEXT.md # Full project context
-└── README.md         # This file
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-## 📖 Documentation
+### 4. Setup Database
 
-### For Developers
-1. **[PRINCIPLES.md](./PRINCIPLES.md)** - 🔥 Read this FIRST! Mandatory coding principles
-2. **[PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md)** - Full project context for AI/devs
-3. **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Architecture and patterns
-4. **[ENVIRONMENTS.md](./ENVIRONMENTS.md)** - Environment configuration guide
-5. **[CHANGELOG.md](./CHANGELOG.md)** - All changes log
-
-### Quick Links
-- 🎯 [Core Principles](./PRINCIPLES.md) - How we write code
-- 🏗️ [Architecture](./ARCHITECTURE.md) - How we structure code
-- 🌍 [Environments](./ENVIRONMENTS.md) - How we deploy code
-- 📚 [Context](./PROJECT_CONTEXT.md) - Why we built this
-
-## 🧰 Database Setup
-
-Run this SQL in your Supabase SQL Editor:
+Run in Supabase SQL Editor:
 
 ```sql
--- Create categories table
 CREATE TABLE categories (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -124,7 +142,6 @@ CREATE TABLE categories (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create listings table
 CREATE TABLE listings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
@@ -135,151 +152,179 @@ CREATE TABLE listings (
   category_id UUID REFERENCES categories(id),
   location TEXT,
   user_id UUID,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create indexes
 CREATE INDEX idx_listings_category ON listings(category_id);
 CREATE INDEX idx_listings_created ON listings(created_at DESC);
-
--- Insert sample categories
-INSERT INTO categories (name, slug, icon) VALUES
-  ('Electronics', 'electronics', '📱'),
-  ('Vehicles', 'vehicles', '🚗'),
-  ('Real Estate', 'real-estate', '🏠'),
-  ('Fashion', 'fashion', '👗'),
-  ('Home & Garden', 'home-garden', '🛋️'),
-  ('Sports & Hobbies', 'sports-hobbies', '⚽'),
-  ('Services', 'services', '🔧'),
-  ('Jobs', 'jobs', '💼');
 ```
 
-## ⚙️ Environment Variables
+### 5. Run Development Server
 
-### Local Development
-
-Create `.env.local`:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
-NEXT_PUBLIC_DEBUG_MODE=true
+```bash
+npm run dev
 ```
 
-### Vercel (Production/Preview)
+Open [http://localhost:3000](http://localhost:3000)
 
-Add in Vercel Dashboard → Settings → Environment Variables:
+### 6. (First Time) Clean Main Branch
 
-1. `NEXT_PUBLIC_SUPABASE_URL`
-2. `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+```bash
+git checkout dev
+chmod +x scripts/clean-main-branch.sh
+./scripts/clean-main-branch.sh
+```
 
-Select appropriate environment:
-- ☑️ Production (main branch)
-- ☑️ Preview (PR branches)
+This creates clean production history. See [QUICK_START.md](./QUICK_START.md)
 
-🔐 **[Full security guide →](./ENVIRONMENTS.md#security-best-practices)**
+---
+
+## 📁 Project Structure
+
+```
+slovor-mp/
+├── app/                # Pages (Next.js routes)
+├── components/         # UI components
+├── lib/                # Business logic, API
+├── public/             # Static assets
+├── scripts/            # Utility scripts
+├── PRINCIPLES.md       # 🔥 MANDATORY - Read first!
+├── PROJECT_CONTEXT.md  # Full project context
+├── DEVELOPMENT.md      # Git Flow, Vercel setup
+├── CLEAN_MAIN_BRANCH.md # Branch cleanup guide
+├── QUICK_START.md      # Quick cleanup instructions
+├── ARCHITECTURE.md     # Technical architecture
+├── CHANGELOG.md        # Version history
+└── README.md           # This file
+```
+
+---
+
+## 📖 Documentation
+
+| File | Purpose | Priority |
+|------|---------|----------|
+| [PRINCIPLES.md](./PRINCIPLES.md) | 🔥 Mandatory coding principles | **HIGH** |
+| [QUICK_START.md](./QUICK_START.md) | Clean main branch (first time) | **HIGH** |
+| [DEVELOPMENT.md](./DEVELOPMENT.md) | Git Flow, Vercel, workflows | **HIGH** |
+| [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) | Full project context | **MEDIUM** |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | Technical architecture | **MEDIUM** |
+| [CLEAN_MAIN_BRANCH.md](./CLEAN_MAIN_BRANCH.md) | Detailed cleanup guide | **LOW** |
+| [CHANGELOG.md](./CHANGELOG.md) | Version history | **LOW** |
+| [README.md](./README.md) | This file (overview) | **LOW** |
+
+**For new developers:** Read in this order!
+
+---
 
 ## 📝 Scripts
 
 ```bash
-npm run dev       # Development server (localhost:3000)
-npm run build     # Production build (test before deploy)
+npm run dev       # Development server
+npm run build     # Production build (must pass!)
 npm start         # Start production server
-npm run lint      # Lint code (check for errors)
+npm run lint      # Lint code
+
+# Utility scripts
+./scripts/clean-main-branch.sh  # Clean main branch (first time)
 ```
+
+---
 
 ## 🚀 Deployment
 
-### Automatic (Recommended)
+### Vercel Setup
 
-```bash
-# Push to main branch
-git push origin main
-# Vercel auto-deploys to production
-```
+1. **Connect GitHub repository**
+2. **Set branches:**
+   - Production: `main` → slovor-mp.vercel.app
+   - Preview: `dev` → slovor-mp-git-dev.vercel.app
+3. **Add environment variables**
+4. **Deploy!**
 
-### Manual (Vercel CLI)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
-```bash
-# Install CLI
-npm i -g vercel
+📖 **[Detailed setup guide →](./DEVELOPMENT.md)**
 
-# Deploy to preview
-vercel
+---
 
-# Deploy to production
-vercel --prod
-```
+## ✅ Pre-Commit Checklist
 
-📦 **[Full deployment guide →](./ENVIRONMENTS.md#deployment-flow)**
+### Before pushing to `dev`:
+
+- [ ] Code follows 8 principles
+- [ ] `npm run build` passes
+- [ ] No TypeScript errors
+- [ ] Tested locally
+
+### Before merging to `main`:
+
+- [ ] Tested on dev environment
+- [ ] No critical bugs
+- [ ] CHANGELOG.md updated
+- [ ] Version bumped in package.json
+- [ ] Use "Squash and merge"
+
+---
 
 ## 🐛 Troubleshooting
 
-### Build Fails
+**Build fails?**
+- Check environment variables
+- Run `npm run build` locally
+- Clear `.next` folder
 
-```bash
-# Clear cache and rebuild
-rm -rf .next
-npm run build
-```
+**No data showing?**
+- Verify Supabase credentials
+- Check database tables exist
+- Check RLS policies
 
-### Environment Variables Not Working
+**Deployment issues?**
+- See [DEVELOPMENT.md](./DEVELOPMENT.md) troubleshooting section
 
-1. Check `.env.local` exists and has correct values
-2. Restart dev server (`npm run dev`)
-3. Verify Vercel environment variables are set
+**Need to clean main branch?**
+- See [QUICK_START.md](./QUICK_START.md)
 
-### Database Connection Issues
-
-1. Verify Supabase URL is correct
-2. Check anon key matches the project
-3. Ensure database tables exist (run SQL setup)
-
-🔧 **[Full troubleshooting guide →](./ENVIRONMENTS.md#troubleshooting)**
+---
 
 ## 🤝 Contributing
 
 **Before contributing:**
 
 1. ✅ Read [PRINCIPLES.md](./PRINCIPLES.md) - MANDATORY
-2. ✅ Read [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) - Understanding
-3. ✅ Follow checklist before commit (in PRINCIPLES.md)
-4. ✅ Update [CHANGELOG.md](./CHANGELOG.md) with your changes
+2. ✅ Read [DEVELOPMENT.md](./DEVELOPMENT.md) - Git Flow
+3. ✅ Follow pre-commit checklist
+4. ✅ Create PR from `dev` to `main` (Squash merge!)
 
-**Pull Request checklist:**
-- [ ] Code follows 8 principles
-- [ ] Build passes (`npm run build`)
-- [ ] No TypeScript errors
-- [ ] CHANGELOG.md updated
-- [ ] Tests added (when available)
+---
+
+## 📊 Current Status
+
+**Version:** 1.0.0  
+**Status:** 🟢 Production Ready  
+
+**Branches:**
+- **main:** Clean history (1 commit after cleanup)
+- **dev:** Full history (14+ commits)
+
+**Environments:**
+- **Production:** https://slovor-mp.vercel.app (✅ Live)
+- **Development:** https://slovor-mp-git-dev.vercel.app (✅ Live)
+
+---
 
 ## 📄 License
 
 Private project
+
+---
 
 ## 👤 Author
 
 **Den3112**  
 GitHub: [@Den3112](https://github.com/Den3112)
 
-## 🙏 Acknowledgments
-
-- Next.js team for amazing framework
-- Supabase for backend infrastructure
-- Vercel for hosting platform
-
 ---
 
-**Status:** 🟢 Production Ready  
-**Version:** 1.0.0  
-**Built with:** ❤️ and **8 mandatory principles**
-
----
-
-### 🔗 Quick Links
-
-- 🌐 [Live Site](https://slovor-mp.vercel.app)
-- 📚 [Documentation](./PROJECT_CONTEXT.md)
-- 🐛 [Issues](https://github.com/Den3112/slovor-mp/issues)
-- 💬 [Discussions](https://github.com/Den3112/slovor-mp/discussions)
+**Built with:** ❤️ and **8 mandatory principles**  
+**Branch strategy:** Clean `main` + Full `dev` history
