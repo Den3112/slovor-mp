@@ -2,6 +2,7 @@
 // Simple, explicit layout (Principle #4, #6)
 
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import './globals.css'
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
