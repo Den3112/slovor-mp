@@ -17,12 +17,29 @@ export default async function HomePage() {
   ])
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <section className="mb-12">
+    <div className="container mx-auto px-4 py-8 space-y-12">
+      {/* Hero Section */}
+      <section className="text-center py-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Buy & Sell Anything
+        </h1>
+        <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+          Discover great deals on electronics, vehicles, real estate and more
+        </p>
+        <Link 
+          href="/listings" 
+          className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Browse All Listings
+        </Link>
+      </section>
+
+      {/* Categories */}
+      <section>
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Categories</h1>
-          <Link href="/categories" className="text-blue-600 hover:underline">
-            View All
+          <h2 className="text-3xl font-bold text-gray-900">Categories</h2>
+          <Link href="/listings" className="text-blue-600 hover:text-blue-700 font-medium">
+            View All →
           </Link>
         </div>
         {categoriesRes.error ? (
@@ -32,11 +49,12 @@ export default async function HomePage() {
         )}
       </section>
 
+      {/* Featured Listings */}
       <section>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Featured Listings</h2>
-          <Link href="/listings" className="text-blue-600 hover:underline">
-            View All
+          <h2 className="text-3xl font-bold text-gray-900">Featured Listings</h2>
+          <Link href="/listings" className="text-blue-600 hover:text-blue-700 font-medium">
+            View All →
           </Link>
         </div>
         {listingsRes.error ? (

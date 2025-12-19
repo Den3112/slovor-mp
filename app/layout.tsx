@@ -1,5 +1,5 @@
-// Root Layout
-// Simple, explicit layout (Principle #4, #6)
+// Root layout with header and footer
+// Layout wraps all pages (Principle #2: Separation of Concerns)
 
 import type { Metadata } from 'next'
 import { Header } from '@/components/layout/header'
@@ -7,8 +7,8 @@ import { Footer } from '@/components/layout/footer'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Slovor - Marketplace',
-  description: 'Buy and sell anything in Slovakia',
+  title: 'Slovor Marketplace - Buy & Sell Anything',
+  description: 'Modern marketplace for buying and selling goods and services',
 }
 
 export default function RootLayout({
@@ -18,9 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>
