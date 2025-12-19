@@ -1,7 +1,4 @@
-# Vercel ignore file
-# This file forces Vercel to invalidate build cache
-
-# Standard ignores
 node_modules
 .next
-.env*.local
+.git
+README.md
