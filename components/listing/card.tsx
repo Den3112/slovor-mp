@@ -1,63 +1,73 @@
-// Listing Card Component
-// Small, single responsibility (Principle #1, #3)
-
-import Image from 'next/image'
 import Link from 'next/link'
-import type { Listing } from '@/lib/types/database'
+import type { Listing } from '@/lib/supabase/queries'
 
 interface ListingCardProps {
   listing: Listing
+  featured?: boolean
 }
 
-export function ListingCard({ listing }: ListingCardProps) {
-  const firstImage = listing.images?.[0]
-  const hasImage = !!firstImage
+export function ListingCard({ listing, featured }: ListingCardProps) {
+  const isNew = new Date(listing.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
   return (
     <Link
       href={`/listings/${listing.id}`}
-      className="group block overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
+      className="group block border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 bg-white"
     >
-      {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-        {hasImage ? (
-          <Image
-            src={firstImage}
+      <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+        {listing.image_url ? (
+          <img
+            src={listing.image_url}
             alt={listing.title}
-            fill
-            className="object-cover transition-transform group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
-          <div className="flex h-full items-center justify-center">
-            <span className="text-4xl text-gray-300">📷</span>
+          <div className="flex items-center justify-center h-full">
+            <span className="text-6xl">📷</span>
           </div>
         )}
-        {listing.featured && (
-          <div className="absolute top-2 right-2 rounded-full bg-yellow-400 px-2 py-1 text-xs font-semibold text-gray-900">
-            Featured
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="p-4">
-        <h3 className="mb-1 line-clamp-2 font-semibold text-gray-900 group-hover:text-blue-600">
-          {listing.title}
-        </h3>
-        <p className="mb-2 text-2xl font-bold text-blue-600">
-          {listing.price.toLocaleString()} {listing.currency}
-        </p>
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <span className="flex items-center">
-            📍 {listing.location}
-          </span>
-          {listing.category && (
-            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs">
-              {listing.category.name}
+        
+        {/* Badges */}
+        <div className="absolute top-3 left-3 flex gap-2">
+          {featured && (
+            <span className="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+              ⭐ FEATURED
+            </span>
+          )}
+          {isNew && (
+            <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+              🆕 NEW
             </span>
           )}
         </div>
+      </div>
+
+      <div className="p-4">
+        <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          {listing.title}
+        </h3>
+        
+        <div className="flex items-baseline gap-2 mb-3">
+          <span className="text-2xl font-bold text-blue-600">
+            {listing.price.toLocaleString()}
+          </span>
+          <span className="text-lg text-gray-600">{listing.currency}</span>
+        </div>
+
+        {listing.location && (
+          <p className="text-sm text-gray-500 flex items-center gap-1">
+            <span>📍</span>
+            {listing.location}
+          </p>
+        )}
+
+        {listing.category && (
+          <div className="mt-3 pt-3 border-t">
+            <span className="inline-block text-xs font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded">
+              {listing.category.name}
+            </span>
+          </div>
+        )}
       </div>
     </Link>
   )
