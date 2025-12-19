@@ -1,198 +1,110 @@
-# Architecture & Design Principles
+# Architecture & Design
 
-This document describes the core architecture principles and coding guidelines for the Slovor Marketplace project.
+> **ВАЖНО:** Прежде чем читать этот документ, ознакомься с [PRINCIPLES.md](./PRINCIPLES.md).  
+> Все архитектурные решения следуют из этих принципов.
 
-## 8 Core Principles
+## Обзор
 
-### 1. One Responsibility
+Slovor Marketplace построен на **8 обязательных принципах** простоты и явности.
 
-Each component, function, and module should have a single, well-defined responsibility.
+## Слои приложения
 
-**Example:**
+```
+┌─────────────────────────────────────┐
+│   app/          (Pages, Routes)    │  ← Presentation Layer
+└─────────────────────────────────────┘
+              ↓ props
+┌─────────────────────────────────────┐
+│   components/   (UI Components)    │  ← View Layer
+└─────────────────────────────────────┘
+              ↓ calls
+┌─────────────────────────────────────┐
+│   lib/          (Business Logic)   │  ← Data Layer
+└─────────────────────────────────────┘
+              ↓ queries
+┌─────────────────────────────────────┐
+│   Supabase      (Database)         │  ← Storage Layer
+└─────────────────────────────────────┘
+```
+
+### Правила слоёв:
+
+1. **Pages** (`app/`) — только рендеринг, никакой логики
+2. **Components** (`components/`) — получают данные через props
+3. **API** (`lib/`) — единственное место для запросов к БД
+4. **Database** — Supabase, прямой доступ запрещён
+
+## Структура проекта
+
+```
+slovor-mp/
+├── app/                      # Next.js App Router
+│   ├── page.tsx             # Homepage (RSC)
+│   ├── layout.tsx           # Root layout
+│   ├── not-found.tsx        # 404 page
+│   ├── listings/
+│   │   ├── page.tsx         # All listings
+│   │   └── [id]/
+│   │       └── page.tsx     # Listing detail
+│   └── categories/
+│       └── [slug]/
+│           └── page.tsx     # Category page
+│
+├── components/               # UI Components
+│   ├── category/
+│   │   ├── card.tsx         # CategoryCard (display)
+│   │   └── grid.tsx         # CategoryGrid (layout)
+│   ├── listing/
+│   │   ├── card.tsx         # ListingCard (display)
+│   │   ├── grid.tsx         # ListingGrid (layout)
+│   │   └── filters.tsx      # ListingFilters (client)
+│   ├── layout/
+│   │   ├── header.tsx       # Header (navigation)
+│   │   └── footer.tsx       # Footer
+│   └── ui/
+│       ├── error-state.tsx  # Error display
+│       ├── empty-state.tsx  # Empty placeholder
+│       ├── breadcrumbs.tsx  # Navigation
+│       ├── search-bar.tsx   # Search (client)
+│       └── loading-skeleton.tsx  # Loading states
+│
+├── lib/                      # Business Logic
+│   ├── supabase/
+│   │   ├── client.ts        # Supabase client
+│   │   └── queries.ts       # ALL API calls
+│   └── types/
+│       └── database.ts      # Type definitions
+│
+├── public/                   # Static assets
+│
+├── PRINCIPLES.md            # 🔥 ОБЯЗАТЕЛЬНЫЕ ПРИНЦИПЫ
+├── ARCHITECTURE.md          # This file
+└── README.md                # User documentation
+```
+
+## Принципы в коде
+
+### 1. Минимизируй код
+
+**Примеры:**
+
 ```typescript
-// ❌ Bad: Component does too many things
-function ListingPage() {
-  // Fetches data, handles state, renders UI, manages forms
-}
-
-// ✅ Good: Separated concerns
-function ListingPage() {
-  const data = useListingData() // Data fetching
-  return <ListingView data={data} /> // UI rendering
-}
-```
-
-### 2. Separation of Concerns
-
-Separate different aspects of the application into distinct layers:
-
-- **Presentation Layer**: Components (UI)
-- **Business Logic Layer**: Hooks, utilities
-- **Data Layer**: API calls, queries
-
-**Project Structure:**
-```
-app/           # Pages (Next.js routes)
-components/    # UI components
-lib/           # Business logic, utilities, API
-```
-
-### 3. Centralized Data Fetching
-
-All data fetching logic is centralized in `lib/supabase/queries.ts`.
-
-**Example:**
-```typescript
-// ✅ Good: All API calls in one place
-export const listingsApi = {
-  getAll: async () => { /* ... */ },
-  getById: async (id) => { /* ... */ },
-  getFeatured: async () => { /* ... */ },
-}
-```
-
-### 4. Server Components by Default
-
-Use React Server Components (RSC) for all pages and components unless interactivity is required.
-
-**When to use Client Components (`'use client'`):**
-- Forms with state
-- Event handlers (onClick, onChange)
-- Browser APIs (localStorage, window)
-- React hooks (useState, useEffect)
-
-**Example:**
-```typescript
-// ✅ Server Component (default)
-export default async function HomePage() {
-  const listings = await listingsApi.getAll()
-  return <ListingGrid listings={listings} />
-}
-
-// ✅ Client Component (when needed)
-'use client'
-export function SearchBar() {
-  const [search, setSearch] = useState('')
-  return <input value={search} onChange={e => setSearch(e.target.value)} />
-}
-```
-
-### 5. Graceful Error Handling
-
-All API calls return a structured response with error handling:
-
-```typescript
-type ApiResponse<T> = 
-  | { data: T; error: null }
-  | { data: null; error: string }
-
-// Usage
-const result = await listingsApi.getAll()
-if (result.error) {
-  return <ErrorState message={result.error} />
-}
-return <ListingGrid listings={result.data} />
-```
-
-### 6. Type Safety
-
-Full TypeScript type coverage. No `any` types.
-
-**Example:**
-```typescript
-// ✅ Good: Proper types
-interface Listing {
-  id: string
-  title: string
-  price: number
-  currency: string
-}
-
-interface ListingCardProps {
-  listing: Listing
-}
-
+// ✅ Короткий компонент (12 строк)
 export function ListingCard({ listing }: ListingCardProps) {
-  // ...
-}
-```
-
-### 7. Component Composition
-
-Build complex UIs from small, reusable components.
-
-**Example:**
-```typescript
-// Small, focused components
-function ListingCard({ listing }) { /* ... */ }
-function ListingGrid({ listings }) {
-  return listings.map(listing => <ListingCard listing={listing} />)
-}
-
-// Composed in pages
-function HomePage() {
-  return <ListingGrid listings={data} />
-}
-```
-
-### 8. Performance Optimization
-
-- Use Next.js Image component for images
-- Implement loading states (Suspense, skeletons)
-- ISR (Incremental Static Regeneration) with `revalidate`
-- Client-side state only when necessary
-
-**Example:**
-```typescript
-// ISR with 60-second revalidation
-export const revalidate = 60
-
-// Optimized images
-import Image from 'next/image'
-<Image src={url} width={800} height={600} alt="..." />
-```
-
-## File Naming Conventions
-
-- **Components**: `kebab-case.tsx` (e.g., `listing-card.tsx`)
-- **Pages**: Next.js conventions (`page.tsx`, `layout.tsx`)
-- **Utilities**: `camelCase.ts` (e.g., `formatPrice.ts`)
-- **Types**: `PascalCase` interfaces (e.g., `Listing`, `Category`)
-
-## Code Style Guidelines
-
-### Component Structure
-
-```typescript
-// 1. Imports
-import Link from 'next/link'
-import type { Listing } from '@/lib/supabase/queries'
-
-// 2. Types/Interfaces
-interface ListingCardProps {
-  listing: Listing
-}
-
-// 3. Component
-export function ListingCard({ listing }: ListingCardProps) {
-  // 4. Hooks (if client component)
-  // 5. Event handlers
-  // 6. Render
   return (
-    <div>
-      {/* JSX */}
-    </div>
+    <Link href={`/listings/${listing.id}`}>
+      <div>
+        <h3>{listing.title}</h3>
+        <p>{listing.price} {listing.currency}</p>
+      </div>
+    </Link>
   )
 }
-```
 
-### API Response Pattern
-
-```typescript
-// Always wrap responses
-export async function getSomething() {
+// ✅ Короткая функция (8 строк)
+export async function getListings() {
   try {
-    const { data, error } = await supabase.from('table').select()
+    const { data, error } = await supabase.from('listings').select()
     if (error) throw error
     return { data, error: null }
   } catch (error) {
@@ -201,92 +113,244 @@ export async function getSomething() {
 }
 ```
 
-### Import Order
+### 2. Минимизируй связи
 
-1. External libraries (React, Next.js)
-2. Internal components
-3. Internal utilities/types
-4. Styles
+**API изолирован в одном файле:**
 
 ```typescript
-import { useState } from 'react'
-import Link from 'next/link'
-import { ListingCard } from '@/components/listing/card'
-import { formatPrice } from '@/lib/utils'
-import type { Listing } from '@/lib/types'
+// lib/supabase/queries.ts — ЕДИНСТВЕННОЕ место для DB запросов
+export const listingsApi = {
+  getAll: async () => { /* ... */ },
+  getById: async (id: string) => { /* ... */ },
+  getFeatured: async (limit: number) => { /* ... */ },
+}
+
+export const categoriesApi = {
+  getAll: async () => { /* ... */ },
+  getBySlug: async (slug: string) => { /* ... */ },
+}
 ```
 
-## Project Conventions
+**Компоненты получают данные через props:**
 
-### Data Flow
-
-```
-Page (RSC) → fetch data → pass props → Component
-  ↓
-Error boundary → ErrorState component
-  ↓
-Loading state → Skeleton/Suspense
+```typescript
+// ✅ No direct DB access
+export function ListingGrid({ listings }: { listings: Listing[] }) {
+  return <div>{listings.map(l => <ListingCard listing={l} />)}</div>
+}
 ```
 
-### URL Structure
+### 3. Один владелец ответственности
 
-- Homepage: `/`
-- All listings: `/listings`
-- Listing detail: `/listings/[id]`
-- Category: `/categories/[slug]`
-- Search: `/listings?search=query`
+| Ответственность | Владелец | Файл |
+|----------------|----------|------|
+| DB queries | `listingsApi` | `lib/supabase/queries.ts` |
+| Listing display | `ListingCard` | `components/listing/card.tsx` |
+| Listing layout | `ListingGrid` | `components/listing/grid.tsx` |
+| Error display | `ErrorState` | `components/ui/error-state.tsx` |
+| Search | `SearchBar` | `components/ui/search-bar.tsx` |
 
-### Component Organization
+### 4. Явность важнее магии
+
+```typescript
+// ✅ Explicit: clear what happens
+export default async function HomePage() {
+  const categoriesRes = await categoriesApi.getAll()
+  const listingsRes = await listingsApi.getFeatured(6)
+  
+  return (
+    <div>
+      <CategoryGrid categories={categoriesRes.data} />
+      <ListingGrid listings={listingsRes.data} />
+    </div>
+  )
+}
+
+// ❌ Magic: where does data come from?
+export default function HomePage() {
+  const { categories, listings } = useData() // ???
+  return <div>...</div>
+}
+```
+
+### 5. Ошибки — часть дизайна
+
+**Все API вызовы возвращают структурированный ответ:**
+
+```typescript
+type ApiResponse<T> = 
+  | { data: T; error: null }
+  | { data: null; error: string }
+
+// Usage in page:
+const result = await listingsApi.getAll()
+if (result.error) {
+  return <ErrorState message={result.error} />
+}
+return <ListingGrid listings={result.data} />
+```
+
+### 6. Код для людей
+
+```typescript
+// ✅ Readable names
+interface ListingCardProps {
+  listing: Listing
+  featured?: boolean
+}
+
+function formatPrice(price: number, currency: string): string {
+  return `${price.toLocaleString()} ${currency}`
+}
+
+const isListingNew = (createdAt: string): boolean => {
+  const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
+  return new Date(createdAt).getTime() > sevenDaysAgo
+}
+
+// ❌ Cryptic
+function fmt(p: number, c: string) { return `${p} ${c}` }
+const isNew = (d: string) => Date.now() - new Date(d).getTime() < 604800000
+```
+
+### 7. Минимум глобального состояния
+
+**✅ Server Components — no state:**
+
+```typescript
+export default async function CategoryPage({ params }: Props) {
+  const category = await categoriesApi.getBySlug(params.slug)
+  const listings = await listingsApi.getAll({ category: params.slug })
+  
+  return (
+    <div>
+      <h1>{category.data.name}</h1>
+      <ListingGrid listings={listings.data} />
+    </div>
+  )
+}
+```
+
+**✅ Client Components — local state only:**
+
+```typescript
+'use client'
+export function SearchBar() {
+  const [search, setSearch] = useState('') // Local only
+  return <input value={search} onChange={e => setSearch(e.target.value)} />
+}
+```
+
+### 8. KISS
+
+```typescript
+// ✅ Simple function
+export function formatPrice(price: number, currency: string) {
+  return `${price.toLocaleString()} ${currency}`
+}
+
+// ❌ Over-engineered
+class PriceFormatter {
+  constructor(
+    private config: FormatterConfig,
+    private locale: LocaleProvider,
+    private currency: CurrencyManager
+  ) {}
+  
+  format(amount: MoneyValue): FormattedString {
+    // 50 lines of abstraction
+  }
+}
+```
+
+## Component Patterns
+
+### Server Component (default)
+
+```typescript
+// No 'use client' directive
+export default async function Page() {
+  const data = await api.getData()
+  return <Component data={data} />
+}
+```
+
+### Client Component (when needed)
+
+```typescript
+'use client'
+export function InteractiveComponent() {
+  const [state, setState] = useState()
+  return <button onClick={() => setState(...)}>Click</button>
+}
+```
+
+## Data Flow
 
 ```
-components/
-├── category/        # Category-specific components
-│   ├── card.tsx
-│   └── grid.tsx
-├── listing/         # Listing-specific components
-│   ├── card.tsx
-│   ├── grid.tsx
-│   └── filters.tsx
-├── layout/          # Layout components
-│   ├── header.tsx
-│   └── footer.tsx
-└── ui/              # Generic UI components
-    ├── error-state.tsx
-    ├── empty-state.tsx
-    └── loading-skeleton.tsx
+1. User visits /listings
+   ↓
+2. app/listings/page.tsx (Server Component)
+   ↓
+3. Calls listingsApi.getAll()
+   ↓
+4. lib/supabase/queries.ts
+   ↓
+5. Returns { data, error }
+   ↓
+6. Page checks error
+   ↓
+7. Passes data to <ListingGrid />
+   ↓
+8. <ListingGrid /> renders <ListingCard /> for each item
 ```
 
-## Testing Strategy (Future)
+## Error Handling Strategy
 
-1. **Unit tests**: Components, utilities
-2. **Integration tests**: API calls, data flows
-3. **E2E tests**: Critical user journeys
+```typescript
+// Level 1: API function
+async function getListings() {
+  try {
+    const { data, error } = await supabase.from('listings').select()
+    if (error) throw error
+    return { data, error: null }
+  } catch (error) {
+    return { data: null, error: (error as Error).message }
+  }
+}
 
-## Performance Targets
+// Level 2: Page component
+const result = await listingsApi.getAll()
+if (result.error) {
+  return <ErrorState message={result.error} />
+}
 
-- **First Contentful Paint**: < 1.5s
-- **Time to Interactive**: < 3.5s
-- **Lighthouse Score**: > 90
+// Level 3: UI component
+export function ErrorState({ message }: { message: string }) {
+  return <div className="error">{message}</div>
+}
+```
 
-## Security Considerations
+## Performance Strategy
 
-1. **Environment Variables**: Never commit `.env.local`
-2. **API Keys**: Use Supabase RLS (Row Level Security)
-3. **Input Validation**: Validate all user inputs
-4. **XSS Protection**: Use React's built-in escaping
+- **ISR**: `export const revalidate = 60` on static pages
+- **Images**: Always use `next/image`
+- **Loading**: Suspense + skeleton components
+- **RSC**: Server Components by default = less JS
 
-## Future Improvements
+## Security
 
-- [ ] Add unit tests (Jest, React Testing Library)
-- [ ] Implement authentication (Supabase Auth)
-- [ ] Add image uploads (Supabase Storage or Cloudinary)
-- [ ] Real-time updates (Supabase Realtime)
-- [ ] Analytics (Vercel Analytics)
-- [ ] SEO optimization (metadata, sitemap)
+- Environment variables for credentials
+- No API keys in client code
+- Supabase RLS for row-level security
+- Input validation on all forms
 
-## References
+## Testing Strategy (future)
 
-- [Next.js App Router](https://nextjs.org/docs/app)
-- [React Server Components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components)
-- [Supabase Documentation](https://supabase.com/docs)
-- [TypeScript Best Practices](https://typescript-eslint.io/)
+- Unit: API functions, utilities
+- Integration: Component + API
+- E2E: Critical user flows
+
+---
+
+**Remember:** Simple is better than complex. Explicit is better than implicit.
