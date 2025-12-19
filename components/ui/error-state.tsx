@@ -1,31 +1,41 @@
+'use client'
+
 // Error State Component
-// Explicit error handling (Principle #5)
+// Displays error messages to users
 
 interface ErrorStateProps {
-  error: Error
+  error: string
   retry?: () => void
 }
 
 export function ErrorState({ error, retry }: ErrorStateProps) {
   return (
-    <div className="flex min-h-[400px] items-center justify-center">
-      <div className="max-w-md text-center">
-        <div className="text-6xl mb-4">⚠️</div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
-          Something went wrong
-        </h2>
-        <p className="text-gray-600 mb-4">
-          {error.message || 'An unexpected error occurred'}
-        </p>
-        {retry && (
-          <button
-            onClick={retry}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-          >
-            Try Again
-          </button>
-        )}
+    <div className="mx-auto max-w-md rounded-lg border border-red-200 bg-red-50 p-6 text-center">
+      <div className="mb-4 text-red-600">
+        <svg
+          className="mx-auto h-12 w-12"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
       </div>
+      <h3 className="mb-2 text-lg font-semibold text-gray-900">Something went wrong</h3>
+      <p className="mb-4 text-sm text-gray-600">{error}</p>
+      {retry && (
+        <button
+          onClick={retry}
+          className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+        >
+          Try Again
+        </button>
+      )}
     </div>
   )
 }
