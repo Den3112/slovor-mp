@@ -17,24 +17,27 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
 
   // Handle errors (Principle #5)
   if (result.error) {
-    if (result.error.message.includes('not found')) {
+    if (result.error.includes('not found')) {
       notFound()
     }
-    return <ErrorState error={result.error} />
+    return <ErrorState message={result.error} />
   }
 
   const listing = result.data
-  const images = listing.images || []
+
+  if (!listing) {
+    notFound()
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {/* Images */}
+        {/* Image placeholder */}
         <div>
-          {images.length > 0 ? (
+          {listing.image_url ? (
             <div className="aspect-[4/3] overflow-hidden rounded-lg bg-gray-100">
               <Image
-                src={images[0]}
+                src={listing.image_url}
                 alt={listing.title}
                 width={800}
                 height={600}
@@ -57,10 +60,12 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
 
           {/* Info */}
           <div className="mt-6 space-y-4">
-            <div>
-              <h3 className="text-sm font-medium text-gray-500">Location</h3>
-              <p className="mt-1 text-base text-gray-900">📍 {listing.location}</p>
-            </div>
+            {listing.location && (
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Location</h3>
+                <p className="mt-1 text-base text-gray-900">📍 {listing.location}</p>
+              </div>
+            )}
 
             {listing.category && (
               <div>
@@ -75,26 +80,6 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
                 {listing.description}
               </p>
             </div>
-
-            {listing.user && (
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Seller</h3>
-                <div className="mt-1 flex items-center gap-2">
-                  {listing.user.avatar_url && (
-                    <Image
-                      src={listing.user.avatar_url}
-                      alt={listing.user.username}
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                  )}
-                  <span className="text-base text-gray-900">
-                    {listing.user.full_name || listing.user.username}
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* CTA */}
