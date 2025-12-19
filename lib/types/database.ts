@@ -17,12 +17,21 @@ export interface User {
 export interface Category {
   id: string
   name: string
+  name_sk: string
+  name_cs: string
+  name_en: string
   slug: string
   description: string | null
   icon: string | null
-  color: string | null
-  order_index: number | null
+  parent_id: string | null
+  order_index: number
+  is_active: boolean
   created_at: string
+  updated_at: string
+  // Relations
+  subcategories?: Category[]
+  parent?: Category
+  listings_count?: number
 }
 
 export interface Listing {
@@ -31,7 +40,8 @@ export interface Listing {
   description: string
   price: number
   currency: string
-  category_id: string | null
+  category_id: string
+  subcategory_id: string | null
   user_id: string
   location: string
   status: 'active' | 'sold' | 'archived'
@@ -44,6 +54,7 @@ export interface Listing {
   expires_at: string | null
   // Relations
   category?: Category
+  subcategory?: Category
   user?: User
 }
 
@@ -78,7 +89,7 @@ export interface SavedListing {
 // API Response types (Principle #5: Errors are part of design)
 export type ApiResponse<T> = 
   | { data: T; error: null }
-  | { data: null; error: Error }
+  | { data: null; error: string }
 
 export type ApiListResponse<T> = ApiResponse<{
   items: T[]

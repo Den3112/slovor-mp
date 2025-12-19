@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-20",
+  "categories": [
+    {
+      "slug": "electronics",
+      "icon": "📱",
+      "subcategories": [
+        "smartphones",
+        "laptops",
+        "tablets",
+        "cameras",
+        "audio",
+        "tv-video",
+        "gaming",
+        "accessories"
+      ]
+    },
+    {
+      "slug": "clothing",
+      "icon": "👕",
+      "subcategories": [
+        "mens-clothing",
+        "womens-clothing",
+        "shoes",
+        "accessories",
+        "bags"
+      ]
+    },
+    {
+      "slug": "home-garden",
+      "icon": "🏠",
+      "subcategories": [
+        "furniture",
+        "decor",
+        "kitchen",
+        "garden",
+        "lighting",
+        "textiles"
+      ]
+    },
+    {
+      "slug": "sports",
+      "icon": "⚽",
+      "subcategories": [
+        "fitness",
+        "cycling",
+        "winter-sports",
+        "water-sports",
+        "team-sports",
+        "outdoor"
+      ]
+    },
+    {
+      "slug": "kids-baby",
+      "icon": "👶",
+      "subcategories": [
+        "baby-gear",
+        "toys",
+        "clothing",
+        "furniture",
+        "feeding",
+        "safety"
+      ]
+    },
+    {
+      "slug": "vehicles",
+      "icon": "🚗",
+      "subcategories": [
+        "cars",
+        "motorcycles",
+        "bikes",
+        "parts",
+        "tires",
+        "accessories"
+      ]
+    },
+    {
+      "slug": "real-estate",
+      "icon": "🏡",
+      "subcategories": [
+        "apartments",
+        "houses",
+        "land",
+        "commercial",
+        "rent"
+      ]
+    },
+    {
+      "slug": "services",
+      "icon": "🔧",
+      "subcategories": [
+        "repair",
+        "cleaning",
+        "moving",
+        "tutoring",
+        "beauty",
+        "it-services"
+      ]
+    },
+    {
+      "slug": "pets",
+      "icon": "🐕",
+      "subcategories": [
+        "dogs",
+        "cats",
+        "birds",
+        "fish",
+        "supplies",
+        "services"
+      ]
+    },
+    {
+      "slug": "hobbies",
+      "icon": "🎨",
+      "subcategories": [
+        "art",
+        "crafts",
+        "collections",
+        "photography",
+        "music"
+      ]
+    }
+  ]
+}
