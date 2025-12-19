@@ -1,0 +1,88 @@
+// Database types for Slovor Marketplace
+// Simple, explicit type definitions (Principle #4: Clarity over magic)
+
+export interface User {
+  id: string
+  username: string
+  full_name: string | null
+  avatar_url: string | null
+  bio: string | null
+  phone: string | null
+  location: string | null
+  verified: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface Category {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+  icon: string | null
+  color: string | null
+  order_index: number | null
+  created_at: string
+}
+
+export interface Listing {
+  id: string
+  title: string
+  description: string
+  price: number
+  currency: string
+  category_id: string | null
+  user_id: string
+  location: string
+  status: 'active' | 'sold' | 'archived'
+  featured: boolean
+  views_count: number
+  images: string[] | null
+  metadata: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+  expires_at: string | null
+  // Relations
+  category?: Category
+  user?: User
+}
+
+export interface Message {
+  id: string
+  listing_id: string | null
+  sender_id: string
+  recipient_id: string
+  content: string
+  read: boolean
+  created_at: string
+}
+
+export interface Review {
+  id: string
+  listing_id: string | null
+  reviewer_id: string
+  reviewee_id: string
+  rating: number
+  comment: string | null
+  created_at: string
+}
+
+export interface SavedListing {
+  id: string
+  user_id: string
+  listing_id: string
+  created_at: string
+  listing?: Listing
+}
+
+// API Response types (Principle #5: Errors are part of design)
+export type ApiResponse<T> = 
+  | { data: T; error: null }
+  | { data: null; error: Error }
+
+export type ApiListResponse<T> = ApiResponse<{
+  items: T[]
+  total: number
+  page: number
+  perPage: number
+}>
