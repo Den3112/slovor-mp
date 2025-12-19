@@ -1,4 +1,4 @@
-// Home Page
+// Main homepage - Server Component
 // Server Component with explicit data fetching (Principle #4, #5)
 
 import { CategoryGrid } from '@/components/category/grid'
@@ -10,56 +10,41 @@ import Link from 'next/link'
 export const revalidate = 60 // Revalidate every 60 seconds
 
 export default async function HomePage() {
-  // Fetch data in parallel (Principle #1: Minimize code)
-  const [categoriesRes, featuredRes] = await Promise.all([
+  // Parallel data fetching (Principle #5: Graceful Error Handling)
+  const [categoriesRes, listingsRes] = await Promise.all([
     categoriesApi.getAll(),
     listingsApi.getFeatured(6),
   ])
 
-  // Handle errors explicitly (Principle #5)
-  if (categoriesRes.error) {
-    return <ErrorState error={categoriesRes.error} />
-  }
-  if (featuredRes.error) {
-    return <ErrorState error={featuredRes.error} />
-  }
-
-  const categories = categoriesRes.data
-  const featured = featuredRes.data
-
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      {/* Hero */}
-      <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-          Find anything in Slovakia
-        </h1>
-        <p className="mt-4 text-lg text-gray-600">
-          Buy and sell with confidence
-        </p>
-      </div>
-
-      {/* Categories */}
-      <div className="mb-12">
-        <h2 className="mb-6 text-2xl font-bold text-gray-900">Browse Categories</h2>
-        <CategoryGrid categories={categories} />
-      </div>
-
-      {/* Featured Listings */}
-      {featured.length > 0 && (
-        <div>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">Featured Listings</h2>
-            <Link
-              href="/listings"
-              className="text-sm font-medium text-blue-600 hover:text-blue-700"
-            >
-              View all →
-            </Link>
-          </div>
-          <ListingGrid listings={featured} />
+    <div className="container mx-auto px-4 py-8">
+      <section className="mb-12">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Categories</h1>
+          <Link href="/categories" className="text-blue-600 hover:underline">
+            View All
+          </Link>
         </div>
-      )}
+        {categoriesRes.error ? (
+          <ErrorState message={categoriesRes.error} />
+        ) : (
+          <CategoryGrid categories={categoriesRes.data} />
+        )}
+      </section>
+
+      <section>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Featured Listings</h2>
+          <Link href="/listings" className="text-blue-600 hover:underline">
+            View All
+          </Link>
+        </div>
+        {listingsRes.error ? (
+          <ErrorState message={listingsRes.error} />
+        ) : (
+          <ListingGrid listings={listingsRes.data} />
+        )}
+      </section>
     </div>
   )
 }

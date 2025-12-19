@@ -1,5 +1,5 @@
-// Category Page
-// Server Component with dynamic route (Principle #4)
+// Category page - Server Component
+// Shows category details and filtered listings
 
 import { notFound } from 'next/navigation'
 import { ListingGrid } from '@/components/listing/grid'
@@ -18,46 +18,35 @@ interface CategoryPageProps {
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const page = Number(searchParams.page) || 1
 
-  // Fetch category and listings in parallel
+  // Parallel data fetching (Principle #5)
   const [categoryRes, listingsRes] = await Promise.all([
     categoriesApi.getBySlug(params.slug),
-    listingsApi.getAll(page, 12, { categoryId: params.slug }),
+    listingsApi.getAll({ category: params.slug, limit: 12 }),
   ])
 
   // Handle errors (Principle #5)
   if (categoryRes.error) {
-    if (categoryRes.error.message.includes('not found')) {
-      notFound()
-    }
-    return <ErrorState error={categoryRes.error} />
-  }
-  if (listingsRes.error) {
-    return <ErrorState error={listingsRes.error} />
+    return <ErrorState message={categoryRes.error} />
   }
 
-  const category = categoryRes.data
-  const { items: listings, total } = listingsRes.data
+  if (!categoryRes.data) {
+    notFound()
+  }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
+    <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <div className="flex items-center gap-3">
-          {category.icon && <span className="text-5xl">{category.icon}</span>}
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">{category.name}</h1>
-            {category.description && (
-              <p className="mt-1 text-base text-gray-600">{category.description}</p>
-            )}
-          </div>
-        </div>
-        <p className="mt-4 text-sm text-gray-600">
-          {total} listing{total !== 1 ? 's' : ''} found
+        <h1 className="text-3xl font-bold mb-2">{categoryRes.data.name}</h1>
+        <p className="text-gray-600">
+          {categoryRes.data.listing_count || 0} listings
         </p>
       </div>
 
-      {/* Listings */}
-      <ListingGrid listings={listings} />
+      {listingsRes.error ? (
+        <ErrorState message={listingsRes.error} />
+      ) : (
+        <ListingGrid listings={listingsRes.data} />
+      )}
     </div>
   )
 }

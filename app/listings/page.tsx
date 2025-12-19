@@ -1,4 +1,4 @@
-// Listings Page
+// All listings page - Server Component
 // Server Component with search params (Principle #4)
 
 import { ListingGrid } from '@/components/listing/grid'
@@ -7,52 +7,38 @@ import { listingsApi } from '@/lib/supabase/queries'
 
 interface ListingsPageProps {
   searchParams: {
-    search?: string
     category?: string
-    minPrice?: string
-    maxPrice?: string
-    location?: string
+    search?: string
     page?: string
   }
 }
 
 export default async function ListingsPage({ searchParams }: ListingsPageProps) {
   const page = Number(searchParams.page) || 1
-  const filters = {
+
+  // Fetch listings with filters (Principle #5)
+  const listingsRes = await listingsApi.getAll({
+    category: searchParams.category,
     search: searchParams.search,
-    categoryId: searchParams.category,
-    minPrice: searchParams.minPrice ? Number(searchParams.minPrice) : undefined,
-    maxPrice: searchParams.maxPrice ? Number(searchParams.maxPrice) : undefined,
-    location: searchParams.location,
-  }
-
-  const result = await listingsApi.getAll(page, 12, filters)
-
-  // Handle errors (Principle #5)
-  if (result.error) {
-    return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        <ErrorState error={result.error} />
-      </div>
-    )
-  }
-
-  const { items: listings, total } = result.data
+    limit: 12,
+  })
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
+    <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">
-          {searchParams.search ? `Search results for "${searchParams.search}"` : 'All Listings'}
-        </h1>
-        <p className="mt-2 text-sm text-gray-600">
-          {total} listing{total !== 1 ? 's' : ''} found
-        </p>
+        <h1 className="text-3xl font-bold mb-2">All Listings</h1>
+        {searchParams.search && (
+          <p className="text-gray-600">
+            Search results for: {searchParams.search}
+          </p>
+        )}
       </div>
 
-      {/* Listings */}
-      <ListingGrid listings={listings} />
+      {listingsRes.error ? (
+        <ErrorState message={listingsRes.error} />
+      ) : (
+        <ListingGrid listings={listingsRes.data} />
+      )}
     </div>
   )
 }
