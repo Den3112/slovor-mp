@@ -9,24 +9,27 @@ import { ErrorState } from '@/components/ui/error-state'
 import { listingsApi } from '@/lib/supabase/queries'
 
 interface ListingsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     category?: string
     search?: string
     sort?: string
     priceMin?: string
     priceMax?: string
-  }
+  }>
 }
 
 export default async function ListingsPage({ searchParams }: ListingsPageProps) {
+  // Next.js 15+ requires awaiting searchParams
+  const params = await searchParams
+  
   // Principle #3: One responsibility - centralized data fetching
   const result = await listingsApi.getAll({
-    category: searchParams.category,
-    search: searchParams.search,
+    category: params.category,
+    search: params.search,
     limit: 50,
   })
 
-  const searchQuery = searchParams.search
+  const searchQuery = params.search
 
   return (
     <div className="container mx-auto px-4 py-8">
