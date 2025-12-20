@@ -17,16 +17,18 @@ CREATE TABLE IF NOT EXISTS categories (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Insert production categories (matching your current data)
+-- Insert Slovak marketplace categories
 INSERT INTO categories (name, slug, description, icon, order_index) VALUES
-('Electronics', 'electronics', 'Electronic devices and gadgets', '📱', 1),
-('Home & Garden', 'home-garden', 'Furniture, decor, and gardening', '🏠', 2),
-('Real Estate', 'real-estate', 'Property, apartments, and houses', '🏡', 3),
-('Jobs', 'jobs', 'Job offers and employment opportunities', '💼', 4),
-('Fashion', 'fashion', 'Clothing, accessories, and footwear', '👕', 5),
-('Sports & Hobbies', 'sports-hobbies', 'Equipment and hobby items', '⚽', 6),
-('Vehicles', 'vehicles', 'Cars, motorcycles, and transportation', '🚗', 7),
-('Services', 'services', 'Professional services and repairs', '🔧', 8)
+('Elektronika', 'elektronika', 'Počítače, telefóny, televízory a ďalšia elektronika', '📱', 1),
+('Vozidlá', 'vozidla', 'Autá, motocykle, náhradné diely', '🚗', 2),
+('Nehnuteľnosti', 'nehnutelnosti', 'Byty, domy, pozemky na predaj a prenájom', '🏠', 3),
+('Práca', 'praca', 'Ponuky práce a brigády', '💼', 4),
+('Dom a záhrada', 'dom-zahrada', 'Nábytok, záhradné potreby, vybavenie', '🏡', 5),
+('Móda', 'moda', 'Oblečenie, obuv, doplnky', '👕', 6),
+('Šport a hobby', 'sport-hobby', 'Športové potreby, hudobné nástroje, knihy', '⚽', 7),
+('Služby', 'sluzby', 'Remeselné práce, opravy, kurzy', '🔧', 8),
+('Pre deti', 'pre-deti', 'Detské oblečenie, hračky, kočíky', '🧸', 9),
+('Zvieratá', 'zvierata', 'Psy, mačky, akváriá, chovateľské potreby', '🐕', 10)
 ON CONFLICT (slug) DO UPDATE SET
   name = EXCLUDED.name,
   description = EXCLUDED.description,
@@ -39,6 +41,7 @@ ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
 -- Drop old policies if exist
 DROP POLICY IF EXISTS "Anyone can view active categories" ON categories;
 DROP POLICY IF EXISTS "Public read" ON categories;
+DROP POLICY IF EXISTS "public_read_categories" ON categories;
 
 -- Create simple public read policy
 CREATE POLICY "public_read_categories"
