@@ -12,7 +12,8 @@ interface ListingDetailPageProps {
 }
 
 export default async function ListingDetailPage({ params }: ListingDetailPageProps) {
-  const result = await listingsApi.getById(params.id)
+  const { id } = await params
+  const result = await listingsApi.getById(id)
 
   if (result.error) {
     if (result.error.includes('not found')) {
@@ -43,10 +44,10 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
           <div className="lg:col-span-2 space-y-6">
             {/* Image */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
-              {listing.image_url ? (
+              {listing.images && listing.images[0] ? (
                 <div className="aspect-[16/9] relative">
                   <Image
-                    src={listing.image_url}
+                    src={listing.images[0]}
                     alt={listing.title}
                     fill
                     className="object-cover"
@@ -62,7 +63,7 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
             {/* Details */}
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <h1 className="text-4xl font-bold text-gray-900 mb-4">{listing.title}</h1>
-              
+
               <div className="flex items-baseline gap-3 mb-6">
                 <span className="text-5xl font-bold text-blue-600">
                   {listing.price.toLocaleString()}
@@ -84,15 +85,15 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
             {/* Contact Card */}
             <div className="bg-white rounded-2xl p-6 shadow-lg sticky top-24">
               <h3 className="text-xl font-bold mb-4">Contact Seller</h3>
-              
+
               <button className="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors mb-3 text-lg">
                 📞 Call Now
               </button>
-              
+
               <button className="w-full bg-green-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-green-700 transition-colors mb-3 text-lg">
                 💬 Chat
               </button>
-              
+
               <button className="w-full border-2 border-gray-300 text-gray-700 px-6 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors text-lg">
                 ✉️ Email
               </button>
@@ -101,7 +102,7 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
             {/* Info Card */}
             <div className="bg-white rounded-2xl p-6 shadow-lg space-y-4">
               <h3 className="text-xl font-bold mb-4">Details</h3>
-              
+
               {listing.location && (
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">📍</span>
@@ -117,7 +118,7 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
                   <span className="text-2xl">🏷️</span>
                   <div>
                     <p className="text-sm text-gray-500">Category</p>
-                    <Link 
+                    <Link
                       href={`/categories/${listing.category.slug}`}
                       className="font-medium text-blue-600 hover:text-blue-700"
                     >
