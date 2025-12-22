@@ -85,13 +85,15 @@ export const listingsApi = {
     categorySlug?: string
     search?: string
     limit?: number
+    priceMin?: number
+    priceMax?: number
+    sort?: string
+    location?: string
   }): Promise<ApiResponse<Listing[]>> {
     try {
       let query = supabase
         .from('listings')
         .select('*, category:categories!inner(*)')
-        .order('created_at', { ascending: false })
-
       if (options?.categoryId) {
         query = query.eq('category_id', options.categoryId)
       }
@@ -106,6 +108,38 @@ export const listingsApi = {
 
       if (options?.limit) {
         query = query.limit(options.limit)
+      }
+
+      if (options?.priceMin) {
+        query = query.gte('price', options.priceMin)
+      }
+
+      if (options?.priceMax) {
+        query = query.lte('price', options.priceMax)
+      }
+
+      if (options?.location && options.location !== 'all') {
+        query = query.eq('location', options.location)
+      }
+
+      if (options?.sort) {
+        switch (options.sort) {
+          case 'oldest':
+            query = query.order('created_at', { ascending: true })
+            break
+          case 'price-low':
+            query = query.order('price', { ascending: true })
+            break
+          case 'price-high':
+            query = query.order('price', { ascending: false })
+            break
+          case 'newest':
+          default:
+            query = query.order('created_at', { ascending: false })
+            break
+        }
+      } else {
+        query = query.order('created_at', { ascending: false })
       }
 
       const { data, error } = await query

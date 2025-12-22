@@ -55,7 +55,12 @@
         "newest": "Newest",
         "oldest": "Oldest",
         "priceLow": "Price: Lo-Hi",
-        "priceHigh": "Price: Hi-Lo"
+        "priceHigh": "Price: Hi-Lo",
+        "location": "Location",
+        "allLocations": "All Slovakia",
+        "condition": "Condition",
+        "new": "New",
+        "used": "Used"
     },
     "categories": {
         "electronics": "Electronics",
@@ -108,5 +113,17 @@
         "transport-services": "Transport",
         "dogs": "Dogs",
         "cats": "Cats"
+    },
+    "listing": {
+        "description": "Description",
+        "contactSeller": "Contact Seller",
+        "callNow": "Call Now",
+        "liveChat": "Live Chat",
+        "sendMessage": "Send Message",
+        "itemDetails": "Item Details",
+        "location": "Location",
+        "category": "Category",
+        "postedOn": "Posted On",
+        "responseTime": "Typical response time: < 2 hours"
     }
 }

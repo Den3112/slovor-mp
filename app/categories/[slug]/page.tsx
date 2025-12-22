@@ -7,10 +7,17 @@ interface CategoryPageProps {
   params: {
     slug: string
   }
+  searchParams: {
+    sort?: string
+    priceMin?: string
+    priceMax?: string
+    location?: string
+  }
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = await params
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+  const [{ slug }, query] = await Promise.all([params, searchParams])
+
   // First get the category by slug
   const categoryRes = await categoriesApi.getBySlug(slug)
 
@@ -22,8 +29,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound()
   }
 
-  // Now get listings by category ID
-  const listingsRes = await listingsApi.getAll({ categoryId: categoryRes.data.id, limit: 50 })
+  // Now get listings by category ID, with filters
+  const listingsRes = await listingsApi.getAll({
+    categoryId: categoryRes.data.id,
+    sort: query.sort,
+    priceMin: query.priceMin ? parseInt(query.priceMin) : undefined,
+    priceMax: query.priceMax ? parseInt(query.priceMax) : undefined,
+    location: query.location,
+    limit: 50
+  })
 
   return (
     <CategoryView

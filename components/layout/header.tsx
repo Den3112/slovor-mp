@@ -8,7 +8,8 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 import type { Category } from '@/lib/types/database'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Search, Plus } from 'lucide-react'
+import { Menu, X, Search, Plus, Store, ChevronDown, LayoutGrid } from 'lucide-react'
+import { CategoryIcon } from '@/components/category/CategoryIcon'
 
 interface HeaderProps {
   categories: Category[]
@@ -60,7 +61,10 @@ export function Header({ categories }: HeaderProps) {
       {/* Top bar */}
       <div className="bg-gray-900 text-white text-xs py-1.5">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <span className="font-medium tracking-wide">🏪 Slovor Marketplace</span>
+          <div className="flex items-center gap-2">
+            <Store className="w-3.5 h-3.5 text-blue-400" />
+            <span className="font-medium tracking-wide">Slovor Marketplace</span>
+          </div>
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
             <Link href="/auth/login" className="hover:text-blue-300 transition">
@@ -77,9 +81,9 @@ export function Header({ categories }: HeaderProps) {
       <nav className="container mx-auto px-4 py-3 relative">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition shrink-0">
-            <span className="text-3xl">🏪</span>
-            <span className="hidden sm:inline">Slovor</span>
+          <Link href="/" className="flex items-center gap-2 text-2xl font-black text-blue-600 hover:text-blue-700 transition shrink-0 tracking-tighter">
+            <Store className="w-8 h-8" />
+            <span className="hidden sm:inline">SLOVOR</span>
           </Link>
 
           {/* Desktop: Mega Menu Trigger */}
@@ -87,9 +91,9 @@ export function Header({ categories }: HeaderProps) {
             <Button
               variant={megaMenuOpen ? "secondary" : "ghost"}
               onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-              className={`gap-2 text-base font-medium ${megaMenuOpen ? 'bg-blue-50 text-blue-600' : 'text-gray-700'}`}
+              className={`gap-2 text-base font-black uppercase tracking-widest ${megaMenuOpen ? 'bg-blue-50 text-blue-600' : 'text-gray-700'}`}
             >
-              <span className="text-xl">☰</span>
+              <LayoutGrid className="w-5 h-5" />
               {t.common.categories}
             </Button>
           </div>
@@ -105,9 +109,9 @@ export function Header({ categories }: HeaderProps) {
               />
               <button
                 type="submit"
-                className="px-6 py-2 bg-blue-600 text-white font-medium rounded-r-lg hover:bg-blue-700 transition"
+                className="px-6 py-2 bg-blue-600 text-white font-medium rounded-r-2xl hover:bg-blue-700 transition flex items-center justify-center"
               >
-                🔍
+                <Search className="w-5 h-5" />
               </button>
             </div>
           </form>
@@ -144,7 +148,7 @@ export function Header({ categories }: HeaderProps) {
                       href={`/categories/${cat.slug}`}
                       className="flex items-center gap-2 font-bold text-gray-900 mb-3 hover:text-blue-600 transition"
                     >
-                      <span className="text-2xl">{cat.icon}</span>
+                      <CategoryIcon slug={cat.slug} className="w-6 h-6 text-blue-600" />
                       {getCategoryName(cat)}
                     </Link>
 
@@ -180,7 +184,7 @@ export function Header({ categories }: HeaderProps) {
                 href={`/categories/${cat.slug}`}
                 className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-white hover:shadow-sm rounded-full transition whitespace-nowrap"
               >
-                <span>{cat.icon}</span>
+                <CategoryIcon slug={cat.slug} className="w-4 h-4" />
                 <span>{getCategoryName(cat)}</span>
               </Link>
             ))}
@@ -209,9 +213,9 @@ export function Header({ categories }: HeaderProps) {
                 />
                 <button
                   type="submit"
-                  className="px-4 bg-blue-600 text-white rounded-r-lg text-xl"
+                  className="px-5 bg-blue-600 text-white rounded-r-xl flex items-center justify-center"
                 >
-                  🔍
+                  <Search className="w-6 h-6" />
                 </button>
               </div>
             </form>
@@ -237,7 +241,7 @@ export function Header({ categories }: HeaderProps) {
                         href={`/categories/${cat.slug}`}
                         className="flex-1 py-3 flex items-center gap-3 font-medium text-gray-900"
                       >
-                        <span className="text-xl">{cat.icon}</span>
+                        <CategoryIcon slug={cat.slug} className="w-6 h-6 text-blue-600" />
                         {getCategoryName(cat)}
                       </Link>
                       {cat.subcategories && cat.subcategories.length > 0 && (
@@ -245,7 +249,7 @@ export function Header({ categories }: HeaderProps) {
                           onClick={() => setExpandedCategory(expandedCategory === cat.id ? null : cat.id)}
                           className="p-3 text-gray-400 active:bg-gray-50"
                         >
-                          <span className={`block transition-transform ${expandedCategory === cat.id ? 'rotate-180' : ''}`}>▼</span>
+                          <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${expandedCategory === cat.id ? 'rotate-180' : ''}`} />
                         </button>
                       )}
                     </div>
