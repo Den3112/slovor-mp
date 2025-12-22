@@ -5,9 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "db:migrate": "node scripts/migrate-db.js",
-    "db:seed": "node scripts/seed-listings.js",
-    "images:generate": "node scripts/generate-and-upload-images.js"
+    "db:seed": "node scripts/seed-with-real-images.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
