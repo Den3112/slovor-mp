@@ -4,9 +4,14 @@ module.exports = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
-        port: "",
-        pathname: "/my-account/**",
-        search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**",
       },
     ],
   },
