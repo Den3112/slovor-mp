@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
+import { Button } from '@/components/ui/button'
 
 export function ListingFilters() {
   const router = useRouter()
@@ -36,20 +37,21 @@ export function ListingFilters() {
   }
 
   return (
-    <div className="bg-white rounded-lg border p-6 space-y-6">
+    <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm space-y-8 sticky top-24">
       <div>
-        <h3 className="font-semibold text-lg mb-4">{t.filters.title}</h3>
+        <h3 className="font-black text-2xl mb-2 text-gray-900">{t.filters.title}</h3>
+        <div className="h-1 w-12 bg-blue-600 rounded-full"></div>
       </div>
 
       {/* Sort */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="space-y-3">
+        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">
           {t.filters.sortBy}
         </label>
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold text-gray-700"
         >
           <option value="newest">{t.filters.newest}</option>
           <option value="oldest">{t.filters.oldest}</option>
@@ -59,43 +61,43 @@ export function ListingFilters() {
       </div>
 
       {/* Price Range */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="space-y-3">
+        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">
           {t.filters.priceRange}
         </label>
-        <div className="flex gap-2">
+        <div className="grid grid-cols-2 gap-3">
           <input
             type="number"
             placeholder="Min"
             value={priceMin}
             onChange={(e) => setPriceMin(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold placeholder:text-gray-300"
           />
-          <span className="self-center text-gray-500">-</span>
           <input
             type="number"
             placeholder="Max"
             value={priceMax}
             onChange={(e) => setPriceMax(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold placeholder:text-gray-300"
           />
         </div>
       </div>
 
       {/* Buttons */}
-      <div className="space-y-2">
-        <button
+      <div className="flex flex-col gap-3 pt-4">
+        <Button
           onClick={applyFilters}
-          className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          className="w-full bg-blue-600 text-white py-6 rounded-2xl font-black shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           {t.filters.apply}
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="ghost"
           onClick={clearFilters}
-          className="w-full border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+          className="w-full text-gray-400 font-bold hover:text-red-500 transition-colors"
         >
           {t.filters.clear}
-        </button>
+        </Button>
       </div>
     </div>
   )
