@@ -14,7 +14,6 @@ export interface User {
   updated_at: string
 }
 
-// Updated to match production schema
 export interface Category {
   id: string
   name: string
@@ -22,11 +21,14 @@ export interface Category {
   description: string | null
   icon: string | null
   color: string | null
-  order_index: number
+  order_index: number | null
   created_at: string
-  updated_at: string
-  // Relations
-  listings_count?: number
+  parent_id?: string
+  name_sk?: string
+  name_cs?: string
+  name_en?: string
+  subcategories?: Category[]
+  listing_count?: number
 }
 
 export interface Listing {
@@ -80,7 +82,7 @@ export interface SavedListing {
 }
 
 // API Response types (Principle #5: Errors are part of design)
-export type ApiResponse<T> = 
+export type ApiResponse<T> =
   | { data: T; error: null }
   | { data: null; error: string }
 

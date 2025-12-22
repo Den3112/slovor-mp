@@ -3,52 +3,56 @@
 // Principle #5: Errors are part of design
 
 import { createClient } from '@supabase/supabase-js'
+import type { Category, Listing, ApiResponse } from '../types/database'
+export type { Category, Listing, ApiResponse }
+import type { PostgrestError } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key'
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-// Types - Principle #6: Clear naming
-export interface Category {
-  id: string
-  name: string
-  slug: string
-  icon?: string
-  listing_count?: number
-}
 
-export interface Listing {
-  id: string
-  title: string
-  description: string
-  price: number
-  currency: string
-  image_url?: string
-  category_id: string
-  category?: Category
-  created_at: string
-  location?: string
-  user_id: string
-}
-
-// Principle #5: Structured error responses
-type ApiResponse<T> = 
-  | { data: T; error: null }
-  | { data: null; error: string }
 
 // Categories API
 export const categoriesApi = {
   // Principle #1: Small functions (< 15 lines)
   async getAll(): Promise<ApiResponse<Category[]>> {
     try {
+      // Fetch all active categories
       const { data, error } = await supabase
         .from('categories')
         .select('*')
-        .order('name')
+        .order('order_index')
 
       if (error) throw error
-      return { data: data || [], error: null }
+
+      // Build tree structure
+      const categoriesMap = new Map<string, Category>()
+      const roots: Category[] = []
+
+      // First pass: create objects
+      data?.forEach((row: any) => {
+        categoriesMap.set(row.id, {
+          ...row,
+          subcategories: [], // Initialize subcategories
+        })
+      })
+
+      // Second pass: link parents and children
+      data?.forEach((row: any) => {
+        if (row.parent_id) {
+          const parent = categoriesMap.get(row.parent_id)
+          if (parent) {
+            parent.subcategories = parent.subcategories || []
+            parent.subcategories.push(categoriesMap.get(row.id)!)
+          }
+        } else {
+          roots.push(categoriesMap.get(row.id)!)
+        }
+      })
+
+      return { data: roots, error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
     }
@@ -58,9 +62,13 @@ export const categoriesApi = {
     try {
       const { data, error } = await supabase
         .from('categories')
-        .select('*')
+        .select('*, subcategories:categories(*)') // recursive join for one level? Supabase doesn't support recursive easily, but we can fake it or just get parent
         .eq('slug', slug)
         .single()
+
+      // For deep category page, we might want to know if it's a subcategory
+      // And get its children if any. 
+      // Simplified: Just get the category.
 
       if (error) throw error
       return { data, error: null }
@@ -73,18 +81,23 @@ export const categoriesApi = {
 // Listings API
 export const listingsApi = {
   async getAll(options?: {
-    category?: string
+    categoryId?: string
+    categorySlug?: string
     search?: string
     limit?: number
   }): Promise<ApiResponse<Listing[]>> {
     try {
       let query = supabase
         .from('listings')
-        .select('*, category:categories(*)')
+        .select('*, category:categories!inner(*)')
         .order('created_at', { ascending: false })
 
-      if (options?.category) {
-        query = query.eq('category_id', options.category)
+      if (options?.categoryId) {
+        query = query.eq('category_id', options.categoryId)
+      }
+
+      if (options?.categorySlug) {
+        query = query.eq('category.slug', options.categorySlug)
       }
 
       if (options?.search) {
