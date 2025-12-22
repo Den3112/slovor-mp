@@ -8,7 +8,9 @@
     "db:info": "node scripts/db-info.js",
     "db:clear": "node scripts/clear-listings.js",
     "db:seed": "node scripts/seed-with-real-images.js",
-    "db:reset": "npm run db:clear && npm run db:seed"
+    "db:fix-categories": "node scripts/fix-categories.js",
+    "db:reset": "npm run db:clear && npm run db:seed",
+    "db:full-reset": "npm run db:fix-categories && npm run db:seed"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
