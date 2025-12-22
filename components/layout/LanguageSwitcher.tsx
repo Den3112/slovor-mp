@@ -1,8 +1,18 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { useTranslation, locales, localeNames, type Locale } from '@/lib/i18n'
+import { useTranslation, type Locale } from '@/lib/i18n'
 import Image from 'next/image'
+
+// Available locales
+const locales: Locale[] = ['sk', 'cs', 'en']
+
+// Locale display names
+const localeNames: Record<Locale, string> = {
+    en: 'English',
+    sk: 'Slovenčina',
+    cs: 'Čeština',
+}
 
 // SVG Flags
 const flags: Record<Locale, string> = {
@@ -63,8 +73,9 @@ export function LanguageSwitcher() {
                         <button
                             key={loc}
                             onClick={() => handleSelect(loc)}
-                            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${locale === loc ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
-                                }`}
+                            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
+                                locale === loc ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+                            }`}
                         >
                             <div className="relative w-5 h-3.5 rounded-sm overflow-hidden shadow-sm">
                                 <Image
