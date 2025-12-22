@@ -38,6 +38,7 @@ export const translations = {
       next: 'Dalej',
       previous: 'Predchádzajúce',
       featured: 'Významné',
+      search: 'Hľadať',
     },
     footer: {
       about: 'O nás',
@@ -143,6 +144,14 @@ export const translations = {
       zvierata: 'Zvierata',
     },
     home: {
+      heroTitle: 'Nájdi, čo hľadáš',
+      heroSubtitle: 'Tisíce inzerátov každý deň. Kúp a predaj všetko - od elektroniky až po nehnutenošti.',
+      searchPlaceholder: 'Čo hľadáte?',
+      popularSearches: 'Populárne vyhľadávania',
+      categoriesTitle: 'Prechádzaj kategórie',
+      featuredListings: 'Významné inzeráty',
+      ctaTitle: 'Začni predávať dnes!',
+      ctaSubtitle: 'Jednoduché, rýchle a zadarmo. Pridaj svoj inzerát za 2 minúty.',
       hero: {
         title: 'Nájdi, čo hľadáš',
         subtitle: 'Tisíce inzerátov každý deň',
@@ -155,6 +164,12 @@ export const translations = {
         title: 'Významné inzeráty',
         subtitle: 'Najlepšie ponuky týždňa',
       },
+    },
+    trust: {
+      secure: 'Bezpečné',
+      fast: 'Rýchle',
+      free: 'Zadarmo',
+      local: 'Lokálne',
     },
   },
   cs: {
@@ -193,6 +208,7 @@ export const translations = {
       next: 'Další',
       previous: 'Předchozí',
       featured: 'Významné',
+      search: 'Hledat',
     },
     footer: {
       about: 'O nás',
@@ -298,6 +314,14 @@ export const translations = {
       zvierata: 'Zvířata',
     },
     home: {
+      heroTitle: 'Najdi, co hledáš',
+      heroSubtitle: 'Tisíce inzerátů každý den. Kup a prodej všechno - od elektroniky až po nemovitosti.',
+      searchPlaceholder: 'Co hledáte?',
+      popularSearches: 'Populární vyhledávání',
+      categoriesTitle: 'Procházej kategorie',
+      featuredListings: 'Významné inzeráty',
+      ctaTitle: 'Začni prodávat dnes!',
+      ctaSubtitle: 'Jednoduché, rychlé a zdarma. Přidej svůj inzerát za 2 minuty.',
       hero: {
         title: 'Najdi, co hledáš',
         subtitle: 'Tisíce inzerátů každý den',
@@ -310,6 +334,12 @@ export const translations = {
         title: 'Významné inzeráty',
         subtitle: 'Nejlepší nabídky týdne',
       },
+    },
+    trust: {
+      secure: 'Bezpečné',
+      fast: 'Rychlé',
+      free: 'Zdarma',
+      local: 'Lokální',
     },
   },
   en: {
@@ -348,6 +378,7 @@ export const translations = {
       next: 'Next',
       previous: 'Previous',
       featured: 'Featured',
+      search: 'Search',
     },
     footer: {
       about: 'About Us',
@@ -453,6 +484,14 @@ export const translations = {
       zvierata: 'Pets',
     },
     home: {
+      heroTitle: 'Find what you need',
+      heroSubtitle: 'Thousands of listings every day. Buy and sell everything - from electronics to real estate.',
+      searchPlaceholder: 'What are you looking for?',
+      popularSearches: 'Popular searches',
+      categoriesTitle: 'Browse Categories',
+      featuredListings: 'Featured Listings',
+      ctaTitle: 'Start selling today!',
+      ctaSubtitle: 'Simple, fast and free. Post your ad in 2 minutes.',
       hero: {
         title: 'Find what you need',
         subtitle: 'Thousands of listings every day',
@@ -465,6 +504,12 @@ export const translations = {
         title: 'Featured Listings',
         subtitle: 'Best deals of the week',
       },
+    },
+    trust: {
+      secure: 'Secure',
+      fast: 'Fast',
+      free: 'Free',
+      local: 'Local',
     },
   },
 } as const;
