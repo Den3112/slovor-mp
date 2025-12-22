@@ -5,54 +5,23 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Category, Listing, ApiResponse } from '../types/database'
 export type { Category, Listing, ApiResponse }
-import type { PostgrestError } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key'
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-
-
 // Categories API
 export const categoriesApi = {
-  // Principle #1: Small functions (< 15 lines)
   async getAll(): Promise<ApiResponse<Category[]>> {
     try {
-      // Fetch all active categories
       const { data, error } = await supabase
         .from('categories')
         .select('*')
-        .order('order_index')
+        .order('name')
 
       if (error) throw error
-
-      // Build tree structure
-      const categoriesMap = new Map<string, Category>()
-      const roots: Category[] = []
-
-      // First pass: create objects
-      data?.forEach((row: any) => {
-        categoriesMap.set(row.id, {
-          ...row,
-          subcategories: [], // Initialize subcategories
-        })
-      })
-
-      // Second pass: link parents and children
-      data?.forEach((row: any) => {
-        if (row.parent_id) {
-          const parent = categoriesMap.get(row.parent_id)
-          if (parent) {
-            parent.subcategories = parent.subcategories || []
-            parent.subcategories.push(categoriesMap.get(row.id)!)
-          }
-        } else {
-          roots.push(categoriesMap.get(row.id)!)
-        }
-      })
-
-      return { data: roots, error: null }
+      return { data: data || [], error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
     }
@@ -62,13 +31,9 @@ export const categoriesApi = {
     try {
       const { data, error } = await supabase
         .from('categories')
-        .select('*, subcategories:categories(*)') // recursive join for one level? Supabase doesn't support recursive easily, but we can fake it or just get parent
+        .select('*')
         .eq('slug', slug)
         .single()
-
-      // For deep category page, we might want to know if it's a subcategory
-      // And get its children if any. 
-      // Simplified: Just get the category.
 
       if (error) throw error
       return { data, error: null }
@@ -87,13 +52,16 @@ export const listingsApi = {
     limit?: number
     priceMin?: number
     priceMax?: number
-    sort?: string
+    condition?: 'new' | 'used'
     location?: string
+    sort?: 'newest' | 'oldest' | 'price-low' | 'price-high' | 'views'
   }): Promise<ApiResponse<Listing[]>> {
     try {
       let query = supabase
         .from('listings')
-        .select('*, category:categories!inner(*)')
+        .select('*, category:categories(*)')
+        .eq('is_active', true)
+
       if (options?.categoryId) {
         query = query.eq('category_id', options.categoryId)
       }
@@ -103,43 +71,47 @@ export const listingsApi = {
       }
 
       if (options?.search) {
-        query = query.ilike('title', `%${options.search}%`)
+        query = query.or(`title.ilike.%${options.search}%,description.ilike.%${options.search}%`)
+      }
+
+      if (options?.priceMin !== undefined) {
+        query = query.gte('price', options.priceMin)
+      }
+
+      if (options?.priceMax !== undefined) {
+        query = query.lte('price', options.priceMax)
+      }
+
+      if (options?.condition) {
+        query = query.eq('condition', options.condition)
+      }
+
+      if (options?.location && options.location !== 'all') {
+        query = query.ilike('location', `%${options.location}%`)
+      }
+
+      // Sorting
+      switch (options?.sort) {
+        case 'oldest':
+          query = query.order('created_at', { ascending: true })
+          break
+        case 'price-low':
+          query = query.order('price', { ascending: true })
+          break
+        case 'price-high':
+          query = query.order('price', { ascending: false })
+          break
+        case 'views':
+          query = query.order('views', { ascending: false })
+          break
+        case 'newest':
+        default:
+          query = query.order('created_at', { ascending: false })
+          break
       }
 
       if (options?.limit) {
         query = query.limit(options.limit)
-      }
-
-      if (options?.priceMin) {
-        query = query.gte('price', options.priceMin)
-      }
-
-      if (options?.priceMax) {
-        query = query.lte('price', options.priceMax)
-      }
-
-      if (options?.location && options.location !== 'all') {
-        query = query.eq('location', options.location)
-      }
-
-      if (options?.sort) {
-        switch (options.sort) {
-          case 'oldest':
-            query = query.order('created_at', { ascending: true })
-            break
-          case 'price-low':
-            query = query.order('price', { ascending: true })
-            break
-          case 'price-high':
-            query = query.order('price', { ascending: false })
-            break
-          case 'newest':
-          default:
-            query = query.order('created_at', { ascending: false })
-            break
-        }
-      } else {
-        query = query.order('created_at', { ascending: false })
       }
 
       const { data, error } = await query
@@ -157,9 +129,17 @@ export const listingsApi = {
         .from('listings')
         .select('*, category:categories(*)')
         .eq('id', id)
+        .eq('is_active', true)
         .single()
 
       if (error) throw error
+      
+      // Increment views
+      await supabase
+        .from('listings')
+        .update({ views: (data.views || 0) + 1 })
+        .eq('id', id)
+
       return { data, error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
@@ -171,7 +151,8 @@ export const listingsApi = {
       const { data, error } = await supabase
         .from('listings')
         .select('*, category:categories(*)')
-        .order('created_at', { ascending: false })
+        .eq('is_active', true)
+        .order('views', { ascending: false })
         .limit(limit)
 
       if (error) throw error
