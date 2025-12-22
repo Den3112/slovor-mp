@@ -6,7 +6,21 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
-import { Search, SlidersHorizontal, X, Tag, PackageCheck, TrendingUp } from 'lucide-react'
+import { Search, SlidersHorizontal, X, Tag, PackageCheck, TrendingUp, MapPin } from 'lucide-react'
+
+const LOCATIONS = [
+  'All Locations',
+  'Bratislava',
+  'Košice',
+  'Prešov',
+  'Žilina',
+  'Banská Bystrica',
+  'Nitra',
+  'Trnava',
+  'Martin',
+  'Poprad',
+  'Trenčín'
+]
 
 export function ListingFilters() {
   const router = useRouter()
@@ -19,7 +33,7 @@ export function ListingFilters() {
   const [condition, setCondition] = useState(searchParams.get('condition') || '')
   const [location, setLocation] = useState(searchParams.get('location') || '')
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest')
-  const [showAdvanced, setShowAdvanced] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
 
   const applyFilters = () => {
     const params = new URLSearchParams(searchParams.toString())
@@ -41,6 +55,8 @@ export function ListingFilters() {
     
     if (sort) params.set('sort', sort)
     else params.delete('sort')
+    
+    params.set('page', '1') // Reset to first page
     
     startTransition(() => {
       router.push(`?${params.toString()}`)
@@ -74,18 +90,37 @@ export function ListingFilters() {
         />
       </div>
 
-      {/* Advanced Filters Toggle */}
+      {/* Filters Toggle */}
       <button
-        onClick={() => setShowAdvanced(!showAdvanced)}
-        className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+        onClick={() => setShowFilters(!showFilters)}
+        className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
       >
         <SlidersHorizontal className="w-4 h-4" />
-        {showAdvanced ? 'Hide' : 'Show'} Advanced Filters
+        {showFilters ? 'Hide' : 'Show'} Filters
       </button>
 
-      {/* Advanced Filters */}
-      {showAdvanced && (
+      {/* Filters */}
+      {showFilters && (
         <div className="space-y-4 pt-4 border-t border-gray-200">
+          {/* Location */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              Location
+            </label>
+            <select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            >
+              {LOCATIONS.map(loc => (
+                <option key={loc} value={loc === 'All Locations' ? '' : loc}>
+                  {loc}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Price Range */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
