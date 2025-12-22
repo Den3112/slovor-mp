@@ -1,20 +1,9 @@
 // Production seed script with real images from Unsplash
 // Generates 420 unique listings (42 categories × 10 each) with 3 images per listing
-// Images are fetched from Unsplash and uploaded to Cloudinary
+// Uses direct Unsplash URLs (no Cloudinary upload needed for MVP)
 
 require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
-const cloudinary = require('cloudinary').v2;
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 // Configure Supabase
 const supabase = createClient(
@@ -35,22 +24,28 @@ const unsplashQueries = {
   'audio': 'headphones audio',
   'electronics': 'electronics gadget',
   'cars': 'car automobile',
+  'autá': 'car automobile',
   'vehicles': 'vehicle transport',
   'motorcycles': 'motorcycle bike',
   'cycling': 'bicycle cycling',
+  'cyklistika': 'bicycle cycling',
   'autoparts': 'car parts engine',
   'apartments': 'apartment interior',
+  'byty': 'apartment interior',
   'houses': 'house home',
+  'domy': 'house home',
   'real-estate': 'real estate building',
   'commercial': 'commercial building',
   'land': 'land property',
   'fashion': 'fashion clothing',
+  'moda': 'fashion style',
   'clothes-kids': 'kids clothing',
   'men-fashion': 'mens fashion',
   'women-fashion': 'womens fashion',
-  'moda': 'fashion style',
+  'damske-oblecenie': 'womens fashion',
   'shoes': 'shoes sneakers',
   'home-garden': 'home garden',
+  'dom-a-zahrada': 'home garden',
   'furniture': 'furniture interior',
   'kitchen': 'kitchen appliance',
   'garden': 'garden plants',
@@ -68,31 +63,16 @@ const unsplashQueries = {
   'jobs-services': 'office work',
   'praca': 'work office',
   'tutoring': 'education learning',
+  'doucovanie': 'education learning',
   'craftsmen': 'tools workshop',
+  'remesla': 'tools workshop',
   'transport-services': 'delivery truck',
   'books-education': 'books education'
 };
 
-// Upload image to Cloudinary from URL
-async function uploadToCloudinary(imageUrl, folder) {
-  try {
-    const result = await cloudinary.uploader.upload(imageUrl, {
-      folder: `slovor-mp/${folder}`,
-      transformation: [
-        { width: 1200, height: 900, crop: 'fill', quality: 'auto:good' }
-      ]
-    });
-    return result.secure_url;
-  } catch (error) {
-    console.error(`    ⚠️  Cloudinary upload failed: ${error.message}`);
-    return imageUrl; // Fallback to original URL
-  }
-}
-
 // Get Unsplash image URL
-function getUnsplashUrl(query, index) {
-  // Using Unsplash Source API for random images
-  const seed = Date.now() + index;
+function getUnsplashUrl(query, seed) {
+  // Using Unsplash Source API - direct URL, no upload needed
   return `https://source.unsplash.com/1200x900/?${encodeURIComponent(query)}&sig=${seed}`;
 }
 
@@ -103,14 +83,13 @@ const listingTemplates = {
     { title: 'Lenovo ThinkPad X1 Carbon Gen 11', desc: 'Ultralahký business notebook, Intel i7-1365U, 16GB RAM, 512GB SSD. Výborný stav, ideálny na prácu z domu. Batéria vydrží 12+ hodín.', price: [950, 1150], loc: 'Košice' },
     { title: 'ASUS ROG Strix G16', desc: 'Herný notebook s RTX 4070, Intel i9, 32GB RAM, 2TB SSD. Perfektný na AAA hry a streaming. QHD+ 240Hz displej.', price: [1600, 1900], loc: 'Bratislava' },
     { title: 'Dell XPS 15 9530', desc: 'Prémiový ultrabook s 4K OLED displejom, Intel i9, 32GB RAM, 1TB SSD. Ideálny na video editing a grafiku.', price: [1400, 1700], loc: 'Žilina' },
-    { title: 'HP EliteBook 840 G9', desc: 'Business notebook v top stave, Intel i5, 16GB RAM, 512GB SSD. Batéria vydrží 10+ hodín. Čitačka odtlačkov.', price: [650, 850], loc: 'Prešov' },
+    { title: 'HP EliteBook 840 G9', desc: 'Business notebook v top stave, Intel i5, 16GB RAM, 512GB SSD. Batéria vydrží 10+ hodín. Čítačka odtlačkov.', price: [650, 850], loc: 'Prešov' },
     { title: 'MacBook Air M2 13"', desc: 'Ľahký a výkonný notebook na každodenné použitie, 8GB RAM, 256GB SSD. Takmer nepoužitý, 11 mesiacov záruky.', price: [1050, 1250], loc: 'Nitra' },
     { title: 'Acer Swift 3 SF314', desc: 'Cenovo dostupný ultrabook, AMD Ryzen 5, 8GB RAM, 512GB SSD. Perfektný na školu/štúdium. Kovové telo.', price: [450, 600], loc: 'Trnava' },
     { title: 'Microsoft Surface Laptop 5', desc: 'Elegantný notebook s touchscreen, Intel i7, 16GB RAM, 512GB SSD. Luxusný dizajn a prémiové materiály.', price: [1100, 1350], loc: 'Banská Bystrica' },
     { title: 'MSI Creator Z16P', desc: 'Workstation pre tvorcov, RTX 4060, Intel i7, 32GB RAM, 1TB SSD. QHD+ mini-LED displej s 100% DCI-P3.', price: [1700, 2000], loc: 'Bratislava' },
     { title: 'Razer Blade 14 2024', desc: 'Kompaktný herný notebook, RTX 4070, AMD Ryzen 9, 16GB RAM, 1TB SSD. Prémiová kvalita a výkon.', price: [1500, 1800], loc: 'Košice' }
   ],
-  // Add more categories as needed - this is a sample
 };
 
 // Generate generic listing data
@@ -143,21 +122,54 @@ function generateListing(category, index, template = null) {
   };
 }
 
+// Create placeholder user if not exists
+async function ensurePlaceholderUser() {
+  const userId = '00000000-0000-0000-0000-000000000000';
+  
+  const { data: existing } = await supabase
+    .from('users')
+    .select('id')
+    .eq('id', userId)
+    .single();
+  
+  if (!existing) {
+    console.log('📝 Creating placeholder user...');
+    const { error } = await supabase
+      .from('users')
+      .insert({
+        id: userId,
+        username: 'seed_user',
+        full_name: 'Seed User',
+        verified: true
+      });
+    
+    if (error) {
+      console.error('❌ Failed to create placeholder user:', error.message);
+      throw error;
+    }
+    console.log('✅ Placeholder user created');
+  }
+}
+
 // Main seeding function
 async function seedDatabase() {
   console.log('🚀 Starting Slovor MP production seed...');
   console.log('');
   console.log('📋 Process:');
-  console.log('  1. Fetch categories from Supabase');
-  console.log('  2. For each category: generate 10 listings');
-  console.log('  3. For each listing: fetch 3 images from Unsplash');
-  console.log('  4. Upload images to Cloudinary');
+  console.log('  1. Ensure placeholder user exists');
+  console.log('  2. Fetch categories from Supabase');
+  console.log('  3. For each category: generate 10 listings');
+  console.log('  4. For each listing: get 3 Unsplash image URLs');
   console.log('  5. Create listing in database');
   console.log('');
-  console.log('⏱️  Estimated time: 15-20 minutes');
+  console.log('⏱️  Estimated time: 5-10 minutes');
   console.log('');
   
   try {
+    // Ensure placeholder user exists
+    await ensurePlaceholderUser();
+    console.log('');
+    
     // Fetch categories
     const { data: categories, error: catError } = await supabase
       .from('categories')
@@ -185,18 +197,12 @@ async function seedDatabase() {
         
         console.log(`  ⏳ [${j + 1}/10] ${listingData.title.substring(0, 40)}...`);
         
-        // Fetch and upload 3 images
+        // Get 3 Unsplash image URLs
         const imageUrls = [];
         for (let k = 0; k < 3; k++) {
-          const unsplashUrl = getUnsplashUrl(query, i * 30 + j * 3 + k);
-          const cloudinaryUrl = await uploadToCloudinary(
-            unsplashUrl,
-            `${category.slug}/listing-${j + 1}`
-          );
-          imageUrls.push(cloudinaryUrl);
+          const seed = Date.now() + i * 30 + j * 3 + k;
+          imageUrls.push(getUnsplashUrl(query, seed));
           totalImages++;
-          
-          await sleep(300); // Rate limiting
         }
         
         // Insert listing
@@ -216,6 +222,8 @@ async function seedDatabase() {
         
         console.log(`  ✅ Created with ${imageUrls.length} images`);
         totalCreated++;
+        
+        await sleep(100); // Small delay to avoid rate limiting
       }
       
       console.log('');
@@ -225,7 +233,7 @@ async function seedDatabase() {
     console.log('');
     console.log('📊 Statistics:');
     console.log(`  - Listings created: ${totalCreated}`);
-    console.log(`  - Images uploaded: ${totalImages}`);
+    console.log(`  - Images linked: ${totalImages}`);
     console.log(`  - Categories filled: ${categories.length}`);
     console.log('');
     console.log('✅ Database is ready for production!');
