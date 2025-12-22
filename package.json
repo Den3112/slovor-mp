@@ -5,7 +5,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "db:seed": "node scripts/seed-with-real-images.js"
+    "db:info": "node scripts/db-info.js",
+    "db:clear": "node scripts/clear-listings.js",
+    "db:seed": "node scripts/seed-with-real-images.js",
+    "db:reset": "npm run db:clear && npm run db:seed"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
