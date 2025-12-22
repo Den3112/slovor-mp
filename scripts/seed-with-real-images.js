@@ -1,6 +1,6 @@
-// Production seed script with real images from Unsplash
+// Production seed script with placeholder images
 // Generates 420 unique listings (42 categories × 10 each) with 3 images per listing
-// Uses direct Unsplash URLs (no Cloudinary upload needed for MVP)
+// Uses Picsum Photos (stable placeholder service)
 
 require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
@@ -16,64 +16,9 @@ const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randomChoice = (arr) => arr[random(0, arr.length - 1)];
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Unsplash image search terms per category
-const unsplashQueries = {
-  'laptops': 'laptop computer',
-  'phones': 'smartphone mobile',
-  'cameras': 'camera photography',
-  'audio': 'headphones audio',
-  'electronics': 'electronics gadget',
-  'cars': 'car automobile',
-  'autá': 'car automobile',
-  'vehicles': 'vehicle transport',
-  'motorcycles': 'motorcycle bike',
-  'cycling': 'bicycle cycling',
-  'cyklistika': 'bicycle cycling',
-  'autoparts': 'car parts engine',
-  'apartments': 'apartment interior',
-  'byty': 'apartment interior',
-  'houses': 'house home',
-  'domy': 'house home',
-  'real-estate': 'real estate building',
-  'commercial': 'commercial building',
-  'land': 'land property',
-  'fashion': 'fashion clothing',
-  'moda': 'fashion style',
-  'clothes-kids': 'kids clothing',
-  'men-fashion': 'mens fashion',
-  'women-fashion': 'womens fashion',
-  'damske-oblecenie': 'womens fashion',
-  'shoes': 'shoes sneakers',
-  'home-garden': 'home garden',
-  'dom-a-zahrada': 'home garden',
-  'furniture': 'furniture interior',
-  'kitchen': 'kitchen appliance',
-  'garden': 'garden plants',
-  'fitness': 'fitness gym',
-  'sports-equipment': 'sports equipment',
-  'sport-hobby': 'sports hobby',
-  'winter-sports': 'winter sports skiing',
-  'kids-family': 'baby kids',
-  'pre-deti': 'children toys',
-  'toys': 'toys children',
-  'strollers': 'baby stroller',
-  'dogs': 'dog pet',
-  'cats': 'cat pet',
-  'pets': 'pet animal',
-  'jobs-services': 'office work',
-  'praca': 'work office',
-  'tutoring': 'education learning',
-  'doucovanie': 'education learning',
-  'craftsmen': 'tools workshop',
-  'remesla': 'tools workshop',
-  'transport-services': 'delivery truck',
-  'books-education': 'books education'
-};
-
-// Get Unsplash image URL
-function getUnsplashUrl(query, seed) {
-  // Using Unsplash Source API - direct URL, no upload needed
-  return `https://source.unsplash.com/1200x900/?${encodeURIComponent(query)}&sig=${seed}`;
+// Get Picsum image URL (stable placeholder service)
+function getPicsumUrl(seed) {
+  return `https://picsum.photos/seed/${seed}/1200/900`;
 }
 
 // Listing templates with realistic Slovak data
@@ -155,22 +100,13 @@ async function ensurePlaceholderUser() {
 async function seedDatabase() {
   console.log('🚀 Starting Slovor MP production seed...');
   console.log('');
-  console.log('📋 Process:');
-  console.log('  1. Ensure placeholder user exists');
-  console.log('  2. Fetch categories from Supabase');
-  console.log('  3. For each category: generate 10 listings');
-  console.log('  4. For each listing: get 3 Unsplash image URLs');
-  console.log('  5. Create listing in database');
-  console.log('');
-  console.log('⏱️  Estimated time: 5-10 minutes');
+  console.log('📋 Using Picsum Photos for stable placeholder images');
   console.log('');
   
   try {
-    // Ensure placeholder user exists
     await ensurePlaceholderUser();
     console.log('');
     
-    // Fetch categories
     const { data: categories, error: catError } = await supabase
       .from('categories')
       .select('*')
@@ -182,14 +118,12 @@ async function seedDatabase() {
     console.log('');
     
     let totalCreated = 0;
-    let totalImages = 0;
     
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i];
       console.log(`📦 [${i + 1}/${categories.length}] ${category.name} (${category.slug})`);
       
       const templates = listingTemplates[category.slug] || [];
-      const query = unsplashQueries[category.slug] || category.name;
       
       for (let j = 0; j < 10; j++) {
         const template = templates[j] || null;
@@ -197,15 +131,13 @@ async function seedDatabase() {
         
         console.log(`  ⏳ [${j + 1}/10] ${listingData.title.substring(0, 40)}...`);
         
-        // Get 3 Unsplash image URLs
+        // Generate 3 unique image URLs
         const imageUrls = [];
         for (let k = 0; k < 3; k++) {
-          const seed = Date.now() + i * 30 + j * 3 + k;
-          imageUrls.push(getUnsplashUrl(query, seed));
-          totalImages++;
+          const seed = `${category.slug}-${i}-${j}-${k}`;
+          imageUrls.push(getPicsumUrl(seed));
         }
         
-        // Insert listing
         const { error: insertError } = await supabase
           .from('listings')
           .insert({
@@ -220,10 +152,8 @@ async function seedDatabase() {
           continue;
         }
         
-        console.log(`  ✅ Created with ${imageUrls.length} images`);
+        console.log(`  ✅ Created`);
         totalCreated++;
-        
-        await sleep(100); // Small delay to avoid rate limiting
       }
       
       console.log('');
@@ -233,10 +163,10 @@ async function seedDatabase() {
     console.log('');
     console.log('📊 Statistics:');
     console.log(`  - Listings created: ${totalCreated}`);
-    console.log(`  - Images linked: ${totalImages}`);
-    console.log(`  - Categories filled: ${categories.length}`);
+    console.log(`  - Images per listing: 3`);
+    console.log(`  - Total images: ${totalCreated * 3}`);
     console.log('');
-    console.log('✅ Database is ready for production!');
+    console.log('✅ Database is ready!');
     
   } catch (error) {
     console.error('❌ Seed failed:', error.message);
@@ -245,5 +175,4 @@ async function seedDatabase() {
   }
 }
 
-// Run
 seedDatabase();
