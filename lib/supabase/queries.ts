@@ -54,7 +54,7 @@ export const listingsApi = {
     priceMax?: number
     condition?: 'new' | 'used'
     location?: string
-    sort?: 'newest' | 'oldest' | 'price-low' | 'price-high' | 'views'
+    sort?: string  // Changed to string for flexibility
   }): Promise<ApiResponse<Listing[]>> {
     try {
       let query = supabase
