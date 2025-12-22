@@ -1,130 +1,193 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useTranslation } from '@/lib/i18n'
-import { Button } from '@/components/ui/button'
+// Listing Filters Component
+// Principle #1: Small component
+// Principle #7: Local state only
+
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useState, useTransition } from 'react'
+import { Search, SlidersHorizontal, X, Tag, PackageCheck, TrendingUp } from 'lucide-react'
 
 export function ListingFilters() {
   const router = useRouter()
-  const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { t } = useTranslation()
-
+  const [isPending, startTransition] = useTransition()
+  
+  const [search, setSearch] = useState(searchParams.get('search') || '')
   const [priceMin, setPriceMin] = useState(searchParams.get('priceMin') || '')
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '')
-  const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'newest')
-  const [location, setLocation] = useState(searchParams.get('location') || 'all')
-
-  const locations = [
-    'Bratislava', 'Košice', 'Žilina', 'Prešov', 'Nitra', 'Trnava', 'Trenčín', 'Banská Bystrica'
-  ]
+  const [condition, setCondition] = useState(searchParams.get('condition') || '')
+  const [location, setLocation] = useState(searchParams.get('location') || '')
+  const [sort, setSort] = useState(searchParams.get('sort') || 'newest')
+  const [showAdvanced, setShowAdvanced] = useState(false)
 
   const applyFilters = () => {
     const params = new URLSearchParams(searchParams.toString())
-
+    
+    if (search) params.set('search', search)
+    else params.delete('search')
+    
     if (priceMin) params.set('priceMin', priceMin)
     else params.delete('priceMin')
-
+    
     if (priceMax) params.set('priceMax', priceMax)
     else params.delete('priceMax')
-
-    if (sortBy !== 'newest') params.set('sort', sortBy)
-    else params.delete('sort')
-
-    if (location !== 'all') params.set('location', location)
+    
+    if (condition) params.set('condition', condition)
+    else params.delete('condition')
+    
+    if (location) params.set('location', location)
     else params.delete('location')
-
-    router.push(`${pathname}?${params.toString()}`)
+    
+    if (sort) params.set('sort', sort)
+    else params.delete('sort')
+    
+    startTransition(() => {
+      router.push(`?${params.toString()}`)
+    })
   }
 
-  const clearFilters = () => {
+  const resetFilters = () => {
+    setSearch('')
     setPriceMin('')
     setPriceMax('')
-    setSortBy('newest')
-    setLocation('all')
-    router.push(pathname)
+    setCondition('')
+    setLocation('')
+    setSort('newest')
+    startTransition(() => {
+      router.push(window.location.pathname)
+    })
   }
 
   return (
-    <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm space-y-8 sticky top-24">
-      <div>
-        <h3 className="font-black text-2xl mb-2 text-gray-900">{t.filters.title}</h3>
-        <div className="h-1 w-12 bg-blue-600 rounded-full"></div>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
+          placeholder="Search listings..."
+          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
       </div>
 
-      {/* Sort */}
-      <div className="space-y-3">
-        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">
-          {t.filters.sortBy}
-        </label>
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold text-gray-700"
-        >
-          <option value="newest">{t.filters.newest}</option>
-          <option value="oldest">{t.filters.oldest}</option>
-          <option value="price-low">{t.filters.priceLow}</option>
-          <option value="price-high">{t.filters.priceHigh}</option>
-        </select>
-      </div>
+      {/* Advanced Filters Toggle */}
+      <button
+        onClick={() => setShowAdvanced(!showAdvanced)}
+        className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+      >
+        <SlidersHorizontal className="w-4 h-4" />
+        {showAdvanced ? 'Hide' : 'Show'} Advanced Filters
+      </button>
 
-      {/* Location */}
-      <div className="space-y-3">
-        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">
-          {t.filters.location}
-        </label>
-        <select
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold text-gray-700"
-        >
-          <option value="all">{t.filters.allLocations}</option>
-          {locations.map(loc => (
-            <option key={loc} value={loc}>{loc}</option>
-          ))}
-        </select>
-      </div>
+      {/* Advanced Filters */}
+      {showAdvanced && (
+        <div className="space-y-4 pt-4 border-t border-gray-200">
+          {/* Price Range */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <Tag className="w-4 h-4" />
+              Price Range (EUR)
+            </label>
+            <div className="flex gap-2">
+              <input
+                type="number"
+                value={priceMin}
+                onChange={(e) => setPriceMin(e.target.value)}
+                placeholder="Min"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="self-center text-gray-500">—</span>
+              <input
+                type="number"
+                value={priceMax}
+                onChange={(e) => setPriceMax(e.target.value)}
+                placeholder="Max"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
 
-      {/* Price Range */}
-      <div className="space-y-3">
-        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">
-          {t.filters.priceRange}
-        </label>
-        <div className="grid grid-cols-2 gap-3">
-          <input
-            type="number"
-            placeholder="Min"
-            value={priceMin}
-            onChange={(e) => setPriceMin(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold placeholder:text-gray-300"
-          />
-          <input
-            type="number"
-            placeholder="Max"
-            value={priceMax}
-            onChange={(e) => setPriceMax(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold placeholder:text-gray-300"
-          />
+          {/* Condition */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <PackageCheck className="w-4 h-4" />
+              Condition
+            </label>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCondition('')}
+                className={`flex-1 px-4 py-2 rounded-lg border transition-colors ${
+                  condition === ''
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setCondition('new')}
+                className={`flex-1 px-4 py-2 rounded-lg border transition-colors ${
+                  condition === 'new'
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                }`}
+              >
+                New
+              </button>
+              <button
+                onClick={() => setCondition('used')}
+                className={`flex-1 px-4 py-2 rounded-lg border transition-colors ${
+                  condition === 'used'
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                }`}
+              >
+                Used
+              </button>
+            </div>
+          </div>
+
+          {/* Sort */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Sort By
+            </label>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="views">Most Viewed</option>
+            </select>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Buttons */}
-      <div className="flex flex-col gap-3 pt-4">
-        <Button
+      {/* Action Buttons */}
+      <div className="flex gap-2 pt-4 border-t border-gray-200">
+        <button
           onClick={applyFilters}
-          className="w-full bg-blue-600 text-white py-6 rounded-2xl font-black shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+          disabled={isPending}
+          className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
         >
-          {t.filters.apply}
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={clearFilters}
-          className="w-full text-gray-400 font-bold hover:text-red-500 transition-colors"
+          {isPending ? 'Applying...' : 'Apply Filters'}
+        </button>
+        <button
+          onClick={resetFilters}
+          disabled={isPending}
+          className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 disabled:opacity-50 transition-colors"
         >
-          {t.filters.clear}
-        </Button>
+          <X className="w-5 h-5" />
+        </button>
       </div>
     </div>
   )
