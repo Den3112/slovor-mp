@@ -26,13 +26,13 @@ export function CategorySelector({
   async function loadCategories() {
     setLoading(true)
     const result = await getMainCategories()
-    
+
     if (result.error) {
       setError(result.error)
-    } else {
+    } else if (result.data) {
       setCategories(result.data)
     }
-    
+
     setLoading(false)
   }
 
