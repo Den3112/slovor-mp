@@ -15,6 +15,7 @@ interface ImageGalleryProps {
 export function ImageGallery({ images, title }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [imageError, setImageError] = useState<Set<number>>(new Set())
+  const [loadingImages, setLoadingImages] = useState<Set<number>>(new Set([0]))
   const touchStartX = useRef<number>(0)
   const touchEndX = useRef<number>(0)
 
@@ -22,19 +23,23 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   if (validImages.length === 0) {
     return (
-      <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
+      <div className="w-full aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex flex-col items-center justify-center gap-3">
         <ImageOff className="w-16 h-16 text-gray-400" />
-        <span className="text-gray-500 text-lg">No images available</span>
+        <span className="text-gray-500 text-lg font-medium">No images available</span>
       </div>
     )
   }
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? validImages.length - 1 : prev - 1))
+    const newIndex = currentIndex === 0 ? validImages.length - 1 : currentIndex - 1
+    setCurrentIndex(newIndex)
+    setLoadingImages(prev => new Set([...prev, newIndex]))
   }
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev === validImages.length - 1 ? 0 : prev + 1))
+    const newIndex = currentIndex === validImages.length - 1 ? 0 : currentIndex + 1
+    setCurrentIndex(newIndex)
+    setLoadingImages(prev => new Set([...prev, newIndex]))
   }
 
   // Touch handlers for mobile swipe
@@ -61,10 +66,23 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   const handleImageError = (index: number) => {
     setImageError(prev => new Set([...prev, index]))
+    setLoadingImages(prev => {
+      const newSet = new Set(prev)
+      newSet.delete(index)
+      return newSet
+    })
     // If current image fails, move to next
     if (index === currentIndex && validImages.length > 1) {
       goToNext()
     }
+  }
+
+  const handleImageLoad = (index: number) => {
+    setLoadingImages(prev => {
+      const newSet = new Set(prev)
+      newSet.delete(index)
+      return newSet
+    })
   }
 
   return (
@@ -76,15 +94,23 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
+        {/* Loading Skeleton */}
+        {loadingImages.has(currentIndex) && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse z-10" />
+        )}
+        
         <Image
           src={validImages[currentIndex]}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
-          className="object-cover"
+          className={`object-cover transition-opacity duration-300 ${
+            loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
+          }`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
           priority={currentIndex === 0}
           onError={() => handleImageError(images.indexOf(validImages[currentIndex]))}
-          unoptimized // For external images
+          onLoad={() => handleImageLoad(currentIndex)}
+          unoptimized
         />
 
         {/* Navigation Arrows */}
@@ -92,14 +118,14 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity z-20 backdrop-blur-sm"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity z-20 backdrop-blur-sm"
               aria-label="Next image"
             >
               <ChevronRight className="w-6 h-6" />
@@ -109,7 +135,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
         {/* Image Counter */}
         {validImages.length > 1 && (
-          <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+          <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium z-20">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}
@@ -117,29 +143,39 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
       {/* Thumbnails */}
       {validImages.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {validImages.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
-                index === currentIndex
-                  ? 'border-blue-600 ring-2 ring-blue-200'
-                  : 'border-gray-300 hover:border-gray-400'
-              }`}
-              aria-label={`View image ${index + 1}`}
-            >
-              <Image
-                src={image}
-                alt={`${title} - Thumbnail ${index + 1}`}
-                fill
-                className="object-cover"
-                sizes="80px"
-                onError={() => handleImageError(images.indexOf(image))}
-                unoptimized
-              />
-            </button>
-          ))}
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+          {validImages.map((image, index) => {
+            const originalIndex = images.indexOf(image)
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index)
+                  setLoadingImages(prev => new Set([...prev, index]))
+                }}
+                className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                  index === currentIndex
+                    ? 'border-blue-600 ring-2 ring-blue-200 shadow-lg'
+                    : 'border-gray-300 hover:border-gray-400'
+                }`}
+                aria-label={`View image ${index + 1}`}
+              >
+                {loadingImages.has(index) && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse" />
+                )}
+                <Image
+                  src={image}
+                  alt={`${title} - Thumbnail ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                  onError={() => handleImageError(originalIndex)}
+                  onLoad={() => handleImageLoad(index)}
+                  unoptimized
+                />
+              </button>
+            )
+          })}
         </div>
       )}
     </div>
