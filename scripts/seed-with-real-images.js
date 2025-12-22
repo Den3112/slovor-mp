@@ -1,6 +1,6 @@
 // Production seed script with placeholder images
 // Generates 420 unique listings (42 categories × 10 each) with 3 images per listing
-// Uses Picsum Photos (stable placeholder service)
+// Uses multiple image sources with retry logic
 
 require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
@@ -16,9 +16,55 @@ const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randomChoice = (arr) => arr[random(0, arr.length - 1)];
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Get Picsum image URL (stable placeholder service)
-function getPicsumUrl(seed) {
-  return `https://picsum.photos/seed/${seed}/1200/900`;
+// Multiple image source providers with fallback
+const imageProviders = [
+  // Picsum - primary
+  (seed) => `https://picsum.photos/seed/${seed}/1200/900`,
+  // LoremFlickr - fallback 1
+  (seed) => `https://loremflickr.com/1200/900?random=${seed}`,
+  // PlaceIMG - fallback 2  
+  (seed) => `https://placeimg.com/1200/900/tech?t=${seed}`,
+];
+
+// Test image URL availability with timeout
+async function testImageUrl(url, timeout = 3000) {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    const response = await fetch(url, {
+      method: 'HEAD',
+      signal: controller.signal
+    });
+    
+    clearTimeout(timeoutId);
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+// Get working image URL with retry logic
+async function getWorkingImageUrl(seed, retries = 3) {
+  for (let providerIndex = 0; providerIndex < imageProviders.length; providerIndex++) {
+    const provider = imageProviders[providerIndex];
+    const url = provider(seed);
+    
+    for (let attempt = 0; attempt < retries; attempt++) {
+      const isWorking = await testImageUrl(url);
+      
+      if (isWorking) {
+        return url;
+      }
+      
+      if (attempt < retries - 1) {
+        await sleep(500); // Wait before retry
+      }
+    }
+  }
+  
+  // Return Picsum as last resort (will show broken image icon if fails)
+  return imageProviders[0](seed);
 }
 
 // Listing templates with realistic Slovak data
@@ -100,7 +146,7 @@ async function ensurePlaceholderUser() {
 async function seedDatabase() {
   console.log('🚀 Starting Slovor MP production seed...');
   console.log('');
-  console.log('📋 Using Picsum Photos for stable placeholder images');
+  console.log('📋 Using multiple image providers with retry logic');
   console.log('');
   
   try {
@@ -118,6 +164,7 @@ async function seedDatabase() {
     console.log('');
     
     let totalCreated = 0;
+    let totalImagesFailed = 0;
     
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i];
@@ -131,11 +178,17 @@ async function seedDatabase() {
         
         console.log(`  ⏳ [${j + 1}/10] ${listingData.title.substring(0, 40)}...`);
         
-        // Generate 3 unique image URLs
+        // Generate 3 unique image URLs with retry logic
         const imageUrls = [];
         for (let k = 0; k < 3; k++) {
-          const seed = `${category.slug}-${i}-${j}-${k}`;
-          imageUrls.push(getPicsumUrl(seed));
+          const seed = `${category.slug}-${i}-${j}-${k}-${Date.now()}`;
+          const url = await getWorkingImageUrl(seed);
+          
+          if (!url) {
+            totalImagesFailed++;
+          }
+          
+          imageUrls.push(url);
         }
         
         const { error: insertError } = await supabase
@@ -154,6 +207,9 @@ async function seedDatabase() {
         
         console.log(`  ✅ Created`);
         totalCreated++;
+        
+        // Small delay to avoid rate limiting
+        await sleep(100);
       }
       
       console.log('');
@@ -165,6 +221,7 @@ async function seedDatabase() {
     console.log(`  - Listings created: ${totalCreated}`);
     console.log(`  - Images per listing: 3`);
     console.log(`  - Total images: ${totalCreated * 3}`);
+    console.log(`  - Failed images: ${totalImagesFailed}`);
     console.log('');
     console.log('✅ Database is ready!');
     
