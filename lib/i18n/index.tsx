@@ -19,24 +19,35 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   // Initialize locale from localStorage or browser
   useEffect(() => {
-    const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
-    if (stored && translations[stored]) {
-      setLocaleState(stored)
-    } else {
-      // Detect browser language
-      const browserLang = navigator.language.split('-')[0] as Locale
-      if (translations[browserLang]) {
-        setLocaleState(browserLang)
+    try {
+      const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
+      if (stored && translations[stored]) {
+        setLocaleState(stored)
+      } else {
+        // Detect browser language
+        const browserLang = navigator.language.split('-')[0] as Locale
+        if (translations[browserLang]) {
+          setLocaleState(browserLang)
+        }
       }
+    } catch (error) {
+      // Ignore localStorage errors
+      console.warn('Failed to load locale from storage:', error)
     }
     setMounted(true)
   }, [])
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale)
-    localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
-    // Update HTML lang attribute
-    document.documentElement.lang = newLocale
+    try {
+      localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
+      // Update HTML lang attribute
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = newLocale
+      }
+    } catch (error) {
+      console.warn('Failed to save locale to storage:', error)
+    }
   }
 
   const value: I18nContextValue = {
@@ -45,11 +56,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     t: translations[locale] || translations.sk,
   }
 
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return <>{children}</>
-  }
-
+  // Return children immediately but with default locale until mounted
+  // This prevents hydration mismatch
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
