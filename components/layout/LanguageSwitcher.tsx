@@ -4,8 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { useTranslation, type Locale } from '@/lib/i18n'
 import Image from 'next/image'
 
-// Available locales
-const locales: Locale[] = ['sk', 'cs', 'en']
+// Available locales - English first as default
+const locales: Locale[] = ['en', 'sk', 'cs']
 
 // Locale display names
 const localeNames: Record<Locale, string> = {
