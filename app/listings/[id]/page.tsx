@@ -1,5 +1,18 @@
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import { ErrorState } from '@/components/ui/error-state'
+import { Breadcrumbs } from '@/components/ui/breadcrumbs'
+import { listingsApi } from '@/lib/supabase/queries'
+import { Button } from '@/components/ui/button'
 import { Phone, MessageSquare, Mail, MapPin, Calendar, Tag } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+
+interface ListingDetailPageProps {
+  params: {
+    id: string
+  }
+}
 
 export default async function ListingDetailPage({ params }: ListingDetailPageProps) {
   const { id } = await params
