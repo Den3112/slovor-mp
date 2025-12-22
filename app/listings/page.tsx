@@ -8,6 +8,7 @@ interface ListingsPageProps {
     sort?: string
     priceMin?: string
     priceMax?: string
+    location?: string
   }
 }
 
@@ -17,6 +18,10 @@ export default async function ListingsPage({ searchParams }: ListingsPageProps) 
   const result = await listingsApi.getAll({
     categorySlug: params.category,
     search: params.search,
+    sort: params.sort,
+    priceMin: params.priceMin ? parseInt(params.priceMin) : undefined,
+    priceMax: params.priceMax ? parseInt(params.priceMax) : undefined,
+    location: params.location,
     limit: 50,
   })
 

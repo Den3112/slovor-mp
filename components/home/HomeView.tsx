@@ -6,7 +6,7 @@ import { useTranslation } from '@/lib/i18n'
 import type { Category, Listing } from '@/lib/types/database'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Search } from 'lucide-react'
+import { Search, Flame, ShieldCheck, Zap, Banknote, Map, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface HomeViewProps {
@@ -105,7 +105,7 @@ export function HomeView({
                         <div className="h-1.5 w-24 bg-blue-600 rounded-full"></div>
                     </div>
                     <Link href="/listings" className="group text-blue-600 font-bold hover:text-blue-800 transition flex items-center gap-2 text-lg">
-                        {t.common.viewAll} <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        {t.common.viewAll} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
 
@@ -124,8 +124,8 @@ export function HomeView({
                     <div className="container mx-auto">
                         <div className="flex flex-col items-center text-center mb-12">
                             <span className="text-blue-600 font-bold uppercase tracking-[0.2em] text-sm mb-4">Handpicked Selections</span>
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
-                                🔥 {t.home.featuredListings}
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                                <Flame className="w-10 h-10 text-orange-500 fill-orange-500" /> {t.home.featuredListings}
                             </h2>
                             <p className="text-gray-500 max-w-2xl text-lg font-medium">
                                 Discover the most popular items trending in your area today. Premium quality guaranteed.
@@ -176,13 +176,13 @@ export function HomeView({
             <section className="container mx-auto px-4 pb-16">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {[
-                        { icon: '🛡️', title: t.trust.secure, desc: 'Verified users & payments' },
-                        { icon: '⚡', title: t.trust.fast, desc: 'Post in 2 minutes' },
-                        { icon: '💸', title: t.trust.free, desc: 'No hidden fees' },
-                        { icon: '🇸🇰', title: t.trust.local, desc: '100% Slovak marketplace' }
+                        { icon: <ShieldCheck className="w-12 h-12 text-blue-600" />, title: t.trust.secure, desc: 'Verified users & payments' },
+                        { icon: <Zap className="w-12 h-12 text-yellow-500 fill-yellow-500" />, title: t.trust.fast, desc: 'Post in 2 minutes' },
+                        { icon: <Banknote className="w-12 h-12 text-green-500" />, title: t.trust.free, desc: 'No hidden fees' },
+                        { icon: <Map className="w-12 h-12 text-blue-400" />, title: t.trust.local, desc: '100% Slovak marketplace' }
                     ].map((badge, idx) => (
                         <div key={idx} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all group">
-                            <div className="text-5xl mb-6 group-hover:scale-125 transition-transform duration-300 origin-left">
+                            <div className="mb-6 group-hover:scale-110 transition-transform duration-300 origin-left">
                                 {badge.icon}
                             </div>
                             <h3 className="font-black text-xl text-gray-900 mb-2">{badge.title}</h3>

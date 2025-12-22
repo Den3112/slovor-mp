@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import type { Category } from '@/lib/supabase/queries'
 import { useTranslation } from '@/lib/i18n'
+import { CategoryIcon } from './CategoryIcon'
 
 interface CategoryGridProps {
   categories: Category[]
@@ -46,8 +47,8 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-50/50 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
 
             {category.icon && (
-              <div className="mb-6 text-6xl group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500 drop-shadow-sm">
-                {category.icon}
+              <div className="mb-6 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500">
+                <CategoryIcon slug={category.slug} className="w-16 h-16 text-blue-600" />
               </div>
             )}
 

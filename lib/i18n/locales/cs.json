@@ -55,7 +55,12 @@
         "newest": "Nejnovější",
         "oldest": "Nejstarší",
         "priceLow": "Cena: nejnižší",
-        "priceHigh": "Cena: nejvyšší"
+        "priceHigh": "Cena: nejvyšší",
+        "location": "Lokalita",
+        "allLocations": "Celé Slovensko",
+        "condition": "Stav",
+        "new": "Nový",
+        "used": "Použitý"
     },
     "categories": {
         "electronics": "Elektronika",
@@ -108,5 +113,17 @@
         "transport-services": "Přeprava",
         "dogs": "Psi",
         "cats": "Kočky"
+    },
+    "listing": {
+        "description": "Popis",
+        "contactSeller": "Kontaktovat prodejce",
+        "callNow": "Volat nyní",
+        "liveChat": "Live Chat",
+        "sendMessage": "Poslat zprávu",
+        "itemDetails": "Detaily inzerátu",
+        "location": "Lokalita",
+        "category": "Kategorie",
+        "postedOn": "Vloženo",
+        "responseTime": "Typická odpověď: do 2 hodin"
     }
 }

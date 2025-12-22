@@ -6,6 +6,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
+import { MapPin, Star, Sparkles, Camera } from 'lucide-react'
 import type { Listing } from '@/lib/supabase/queries'
 import { useTranslation } from '@/lib/i18n'
 
@@ -46,20 +47,20 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex items-center justify-center h-full bg-gray-50">
-            <span className="text-7xl opacity-20 filter grayscale">📷</span>
+          <div className="flex items-center justify-center h-full bg-gray-100/50">
+            <Camera className="w-16 h-16 text-gray-200" />
           </div>
         )}
 
         <div className="absolute top-4 left-4 flex flex-col gap-2">
           {featured && (
-            <Badge className="bg-yellow-500 hover:bg-yellow-600 text-white border-0 font-black px-4 py-1.5 shadow-xl glass">
-              ⭐ FEATURED
+            <Badge className="bg-yellow-500 hover:bg-yellow-600 text-white border-0 font-black px-4 py-1.5 shadow-xl glass flex gap-1.5 items-center">
+              <Star className="w-3 h-3 fill-white" /> {t.home.featuredListings?.split(' ')[0]?.toUpperCase() || 'FEATURED'}
             </Badge>
           )}
           {isNew && (
-            <Badge className="bg-blue-600 hover:bg-blue-700 text-white border-0 font-black px-4 py-1.5 shadow-xl glass">
-              🆕 NEW
+            <Badge className="bg-blue-600 hover:bg-blue-700 text-white border-0 font-black px-4 py-1.5 shadow-xl glass flex gap-1.5 items-center">
+              <Sparkles className="w-3 h-3" /> NEW
             </Badge>
           )}
         </div>
@@ -83,8 +84,8 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
 
         <div className="flex flex-col gap-3">
           {listing.location && (
-            <div className="flex items-center gap-2 text-sm font-bold text-gray-500">
-              <span className="text-lg">📍</span>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-gray-500 bg-gray-50 py-1.5 px-3 rounded-xl w-fit">
+              <MapPin className="w-3.5 h-3.5 text-blue-500" />
               {listing.location}
             </div>
           )}
