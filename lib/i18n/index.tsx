@@ -14,7 +14,8 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined)
 const LOCALE_STORAGE_KEY = 'slovor-locale'
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('sk')
+  // Default to English
+  const [locale, setLocaleState] = useState<Locale>('en')
   const [mounted, setMounted] = useState(false)
 
   // Initialize locale from localStorage or browser
@@ -28,10 +29,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         const browserLang = navigator.language.split('-')[0] as Locale
         if (translations[browserLang]) {
           setLocaleState(browserLang)
+        } else {
+          // Fallback to English if browser language not supported
+          setLocaleState('en')
         }
       }
     } catch (error) {
-      // Ignore localStorage errors
+      // Ignore localStorage errors, keep English as default
       console.warn('Failed to load locale from storage:', error)
     }
     setMounted(true)
@@ -53,7 +57,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const value: I18nContextValue = {
     locale,
     setLocale,
-    t: translations[locale] || translations.sk,
+    t: translations[locale] || translations.en,
   }
 
   // Return children immediately but with default locale until mounted
