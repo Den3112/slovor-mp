@@ -78,10 +78,7 @@ async function fixCategories() {
       const cat = categories[i];
       const { error } = await supabase
         .from('categories')
-        .insert({
-          ...cat,
-          is_active: true
-        });
+        .insert(cat); // Don't add is_active
       
       if (error) {
         console.error(`  ❌ Error creating ${cat.name_en}:`, error.message);
