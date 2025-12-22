@@ -1,105 +1,93 @@
 // Listing Card Component
-// Principle #1: Minimize code (< 60 lines)
-// Principle #2: No direct dependencies
-// Principle #6: Code for humans
+// Principle #1: Small component (< 100 lines)
+// Principle #2: Receives data via props
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
-import { MapPin, Star, Sparkles, Camera } from 'lucide-react'
 import type { Listing } from '@/lib/supabase/queries'
-import { useTranslation } from '@/lib/i18n'
+import { MapPin, Eye, Sparkles } from 'lucide-react'
 
 interface ListingCardProps {
   listing: Listing
   featured?: boolean
 }
 
-// Helper function - Principle #1: Small functions
-function isListingNew(createdAt: string): boolean {
-  const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
-  return new Date(createdAt).getTime() > sevenDaysAgo
-}
-
 export function ListingCard({ listing, featured }: ListingCardProps) {
-  const { t, locale } = useTranslation()
-  const isNew = isListingNew(listing.created_at)
-
-  const categoryName = listing.category ? (
-    locale === 'sk' ? listing.category.name_sk || listing.category.name :
-      locale === 'cs' ? listing.category.name_cs || listing.category.name :
-        locale === 'en' ? listing.category.name_en || listing.category.name :
-          t.categories[listing.category.slug] || listing.category.name
-  ) : null
-
+  // Get first image from array, or fallback
+  const imageUrl = listing.images?.[0] || '/placeholder-listing.jpg'
+  
   return (
-    <Link
+    <Link 
       href={`/listings/${listing.id}`}
-      className="group block rounded-[2rem] overflow-hidden bg-white border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
+      className="group block bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
     >
-      <div className="relative aspect-[4/3] bg-gray-50 overflow-hidden">
-        {listing.images && listing.images[0] ? (
-          <Image
-            src={listing.images[0]}
-            alt={listing.title}
-            fill
-            className="object-cover group-hover:scale-110 transition-transform duration-700"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        ) : (
-          <div className="flex items-center justify-center h-full bg-gray-100/50">
-            <Camera className="w-16 h-16 text-gray-200" />
+      {/* Image */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+        <Image
+          src={imageUrl}
+          alt={listing.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        
+        {/* Featured Badge */}
+        {featured && (
+          <div className="absolute top-3 right-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+            Featured
+          </div>
+        )}
+        
+        {/* Condition Badge */}
+        {listing.condition === 'new' && (
+          <div className="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+            <Sparkles className="w-3 h-3" />
+            New
+          </div>
+        )}
+        
+        {/* Image Count */}
+        {listing.images && listing.images.length > 1 && (
+          <div className="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-medium">
+            {listing.images.length} photos
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-4">
+        {/* Category */}
+        {listing.category && (
+          <div className="text-xs text-blue-600 font-semibold mb-2">
+            {listing.category.name}
           </div>
         )}
 
-        <div className="absolute top-4 left-4 flex flex-col gap-2">
-          {featured && (
-            <Badge className="bg-yellow-500 hover:bg-yellow-600 text-white border-0 font-black px-4 py-1.5 shadow-xl glass flex gap-1.5 items-center">
-              <Star className="w-3 h-3 fill-white" /> {t.home.featuredListings?.split(' ')[0]?.toUpperCase() || 'FEATURED'}
-            </Badge>
-          )}
-          {isNew && (
-            <Badge className="bg-blue-600 hover:bg-blue-700 text-white border-0 font-black px-4 py-1.5 shadow-xl glass flex gap-1.5 items-center">
-              <Sparkles className="w-3 h-3" /> NEW
-            </Badge>
-          )}
+        {/* Title */}
+        <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          {listing.title}
+        </h3>
+
+        {/* Price */}
+        <div className="text-2xl font-bold text-gray-900 mb-3">
+          {listing.price.toLocaleString()} {listing.currency}
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-      </div>
-
-      <div className="p-6">
-        <div className="flex justify-between items-start gap-3 mb-2">
-          <h3 className="font-black text-xl text-gray-900 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
-            {listing.title}
-          </h3>
-        </div>
-
-        <div className="flex items-baseline gap-2 mb-4">
-          <span className="text-3xl font-black text-blue-600">
-            {listing.price.toLocaleString()}
-          </span>
-          <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">{listing.currency}</span>
-        </div>
-
-        <div className="flex flex-col gap-3">
+        {/* Meta Info */}
+        <div className="flex items-center justify-between text-sm text-gray-600">
           {listing.location && (
-            <div className="flex items-center gap-1.5 text-xs font-bold text-gray-500 bg-gray-50 py-1.5 px-3 rounded-xl w-fit">
-              <MapPin className="w-3.5 h-3.5 text-blue-500" />
-              {listing.location}
+            <div className="flex items-center gap-1">
+              <MapPin className="w-4 h-4" />
+              <span>{listing.location}</span>
             </div>
           )}
-
-          <div className="flex items-center justify-between mt-2 pt-4 border-t border-gray-50">
-            {categoryName && (
-              <Badge variant="outline" className="rounded-xl font-bold uppercase tracking-wider text-[10px] py-1 border-gray-100 text-gray-400">
-                {categoryName}
-              </Badge>
-            )}
-            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">
-              {new Date(listing.created_at).toLocaleDateString(locale, { month: 'short', day: 'numeric' })}
-            </span>
-          </div>
+          
+          {listing.views !== undefined && (
+            <div className="flex items-center gap-1">
+              <Eye className="w-4 h-4" />
+              <span>{listing.views}</span>
+            </div>
+          )}
         </div>
       </div>
     </Link>

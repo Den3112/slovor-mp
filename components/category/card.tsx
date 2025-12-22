@@ -1,42 +1,46 @@
-'use client'
+// Category Card Component
+// Principle #1: Small component
+// Principle #6: Use proper icons from Lucide
 
 import Link from 'next/link'
-import type { Category } from '@/lib/types/database'
-import { useTranslation } from '@/lib/i18n'
+import type { Category } from '@/lib/supabase/queries'
+import * as LucideIcons from 'lucide-react'
 
 interface CategoryCardProps {
   category: Category
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
-  const { t, locale } = useTranslation()
-
-  const getCategoryName = (cat: Category) => {
-    if (locale === 'sk') return cat.name_sk || cat.name
-    if (locale === 'cs') return cat.name_cs || cat.name
-    if (locale === 'en') return cat.name_en || cat.name
-    return t.categories[cat.slug] || cat.name
-  }
+  // Get Lucide icon by name
+  const IconComponent = category.icon_name 
+    ? (LucideIcons as any)[category.icon_name] || LucideIcons.Package
+    : LucideIcons.Package
 
   return (
     <Link
       href={`/categories/${category.slug}`}
-      className="group block overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-blue-500"
+      className="group block bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 border border-gray-100"
     >
       <div className="flex items-center gap-4">
-        {category.icon && (
-          <div className="text-4xl">{category.icon}</div>
-        )}
-        <div>
-          <h3 className="font-semibold text-gray-900 group-hover:text-blue-600">
-            {getCategoryName(category)}
+        {/* Icon */}
+        <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+          <IconComponent className="w-6 h-6 text-blue-600" />
+        </div>
+
+        {/* Content */}
+        <div className="flex-1">
+          <h3 className="font-bold text-lg text-gray-900 group-hover:text-blue-600 transition-colors">
+            {category.name}
           </h3>
-          {category.description && (
-            <p className="mt-1 text-sm text-gray-500 line-clamp-2">
-              {category.description}
+          {category.listing_count !== undefined && (
+            <p className="text-sm text-gray-600">
+              {category.listing_count} listings
             </p>
           )}
         </div>
+
+        {/* Arrow */}
+        <LucideIcons.ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
       </div>
     </Link>
   )
