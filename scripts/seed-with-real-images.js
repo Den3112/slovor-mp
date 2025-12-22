@@ -1,6 +1,7 @@
 // Production seed script - 10 listings per category
 // Generates 10 listings for each of the 25 categories
 // Total: 250 listings with 3 images each (750 images)
+// Default language: English (change locale variable if needed)
 
 require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
@@ -18,11 +19,11 @@ function getPicsumUrl(seed) {
 }
 
 // Multilingual template generator
-function generateListing(category, index, locale = 'sk') {
+function generateListing(category, index, locale = 'en') {
   const locations = {
     sk: ['Bratislava', 'Košice', 'Prešov', 'Žilina', 'Banská Bystrica', 'Nitra', 'Trnava', 'Martin'],
     cs: ['Praha', 'Brno', 'Ostrava', 'Plzeň', 'Liberec', 'Olomouc', 'Hradec Králové'],
-    en: ['Bratislava', 'Kosice', 'Presov', 'Zilina', 'Banska Bystrica', 'Nitra']
+    en: ['Bratislava', 'Kosice', 'Presov', 'Zilina', 'Banska Bystrica', 'Nitra', 'Trnava', 'Martin']
   };
 
   const templates = {
@@ -82,7 +83,7 @@ async function seedDatabase() {
     const { data: categories, error: catError } = await supabase
       .from('categories')
       .select('*')
-      .order('name_sk');
+      .order('name_en'); // Order by English name
     
     if (catError) throw catError;
     
@@ -90,11 +91,18 @@ async function seedDatabase() {
     console.log('');
     
     let totalCreated = 0;
-    const locale = 'sk'; // Change to 'cs' or 'en' if needed
+    const locale = 'en'; // DEFAULT: English (change to 'sk' or 'cs' if needed)
+    
+    console.log(`🌍 Language: ${locale.toUpperCase()}`);
+    console.log('');
     
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i];
-      console.log(`📦 [${i + 1}/${categories.length}] ${category.name_sk || category.name}`);
+      const categoryName = locale === 'sk' ? category.name_sk : 
+                           locale === 'cs' ? category.name_cs : 
+                           category.name_en || category.name;
+      
+      console.log(`📦 [${i + 1}/${categories.length}] ${categoryName}`);
       
       for (let j = 0; j < 10; j++) {
         const listingData = generateListing(category, j, locale);
@@ -130,12 +138,16 @@ async function seedDatabase() {
     console.log('🎉 Seed complete!');
     console.log('');
     console.log('📊 Statistics:');
+    console.log(`  - Language: ${locale.toUpperCase()}`);
     console.log(`  - Categories: ${categories.length}`);
     console.log(`  - Listings created: ${totalCreated}`);
     console.log(`  - Images per listing: 3`);
     console.log(`  - Total images: ${totalCreated * 3}`);
     console.log('');
     console.log('✅ Database is ready!');
+    console.log('');
+    console.log('💡 Tip: To change language, edit "locale" variable in this file');
+    console.log('   Options: "en" (English), "sk" (Slovak), "cs" (Czech)');
     
   } catch (error) {
     console.error('❌ Seed failed:', error.message);
