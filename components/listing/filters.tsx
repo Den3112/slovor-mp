@@ -1,18 +1,24 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 
 export function ListingFilters() {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const { t } = useTranslation()
 
   const [priceMin, setPriceMin] = useState(searchParams.get('priceMin') || '')
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '')
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'newest')
+  const [location, setLocation] = useState(searchParams.get('location') || 'all')
+
+  const locations = [
+    'Bratislava', 'Košice', 'Žilina', 'Prešov', 'Nitra', 'Trnava', 'Trenčín', 'Banská Bystrica'
+  ]
 
   const applyFilters = () => {
     const params = new URLSearchParams(searchParams.toString())
@@ -26,14 +32,18 @@ export function ListingFilters() {
     if (sortBy !== 'newest') params.set('sort', sortBy)
     else params.delete('sort')
 
-    router.push(`/listings?${params.toString()}`)
+    if (location !== 'all') params.set('location', location)
+    else params.delete('location')
+
+    router.push(`${pathname}?${params.toString()}`)
   }
 
   const clearFilters = () => {
     setPriceMin('')
     setPriceMax('')
     setSortBy('newest')
-    router.push('/listings')
+    setLocation('all')
+    router.push(pathname)
   }
 
   return (
@@ -57,6 +67,23 @@ export function ListingFilters() {
           <option value="oldest">{t.filters.oldest}</option>
           <option value="price-low">{t.filters.priceLow}</option>
           <option value="price-high">{t.filters.priceHigh}</option>
+        </select>
+      </div>
+
+      {/* Location */}
+      <div className="space-y-3">
+        <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">
+          {t.filters.location}
+        </label>
+        <select
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="w-full px-4 py-3 bg-gray-50 border-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold text-gray-700"
+        >
+          <option value="all">{t.filters.allLocations}</option>
+          {locations.map(loc => (
+            <option key={loc} value={loc}>{loc}</option>
+          ))}
         </select>
       </div>
 

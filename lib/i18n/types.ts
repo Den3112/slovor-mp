@@ -58,6 +58,23 @@ export interface Translations {
         oldest: string
         priceLow: string
         priceHigh: string
+        location: string
+        allLocations: string
+        condition: string
+        new: string
+        used: string
     }
     categories: Record<string, string>
+    listing: {
+        description: string
+        contactSeller: string
+        callNow: string
+        liveChat: string
+        sendMessage: string
+        itemDetails: string
+        location: string
+        category: string
+        postedOn: string
+        responseTime: string
+    }
 }
