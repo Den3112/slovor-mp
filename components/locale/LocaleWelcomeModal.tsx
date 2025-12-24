@@ -106,7 +106,10 @@ export function LocaleWelcomeModal() {
               }`}
             >
               <div className="flex items-center gap-4">
-                <span className="text-4xl">{option.flag}</span>
+                {/* Flag emoji with proper rendering */}
+                <span className="text-4xl" role="img" aria-label={option.name}>
+                  {option.flag}
+                </span>
                 <div className="text-left">
                   <p className="font-bold text-gray-900 text-lg">{option.nativeName}</p>
                   <p className="text-sm text-gray-500">{option.name}</p>
