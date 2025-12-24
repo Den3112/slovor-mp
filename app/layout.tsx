@@ -21,6 +21,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Prevent automatic translation - we handle it ourselves */}
         <meta name="google" content="notranslate" />
       </head>
       <body className="flex flex-col min-h-screen">
