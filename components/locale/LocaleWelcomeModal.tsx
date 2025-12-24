@@ -15,6 +15,7 @@ interface LocaleOption {
   flag: string
 }
 
+// Language order must match LanguageSwitcher in header: SK → CS → EN
 const localeOptions: LocaleOption[] = [
   { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: '🇸🇰' },
   { code: 'cs', name: 'Czech', nativeName: 'Čeština', flag: '🇨🇿' },
