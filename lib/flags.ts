@@ -2,9 +2,9 @@
 // This avoids issues with JSX escape sequences
 
 export const FLAGS = {
-  SK: '\uD83C\uDDF8\uD83C\uDDF0', // 🇸🇰
-  CZ: '\uD83C\uDDE8\uD83C\uDDFF', // 🇨🇿
-  GB: '\uD83C\uDDEC\uD83C\uDDE7', // 🇬🇧
+  SK: String.fromCodePoint(0x1F1F8, 0x1F1F0), // 🇸🇰
+  CZ: String.fromCodePoint(0x1F1E8, 0x1F1FF), // 🇨🇿
+  GB: String.fromCodePoint(0x1F1EC, 0x1F1E7), // 🇬🇧
 } as const
 
 export type FlagCode = keyof typeof FLAGS
