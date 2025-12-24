@@ -17,9 +17,9 @@ interface LocaleOption {
 
 // Language order must match LanguageSwitcher in header: SK → CS → EN
 const localeOptions: LocaleOption[] = [
-  { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: '🇸🇰' },
-  { code: 'cs', name: 'Czech', nativeName: 'Čeština', flag: '🇨🇿' },
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧' },
+  { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: String.fromCodePoint(0x1F1F8, 0x1F1F0) },
+  { code: 'cs', name: 'Czech', nativeName: 'Čeština', flag: String.fromCodePoint(0x1F1E8, 0x1F1FF) },
+  { code: 'en', name: 'English', nativeName: 'English', flag: String.fromCodePoint(0x1F1EC, 0x1F1E7) },
 ]
 
 export function LocaleWelcomeModal() {
@@ -85,7 +85,7 @@ export function LocaleWelcomeModal() {
             </div>
             <div className="text-center">
               <DialogTitle className="text-3xl font-black text-gray-900 mb-2">
-                Welcome to Slovor! 🎉
+                Welcome to Slovor! {String.fromCodePoint(0x1F389)}
               </DialogTitle>
               <DialogDescription className="text-base text-gray-600">
                 Choose your preferred language
