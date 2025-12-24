@@ -15,6 +15,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "1.2.4",
     "@supabase/supabase-js": "^2.39.0",
     "class-variance-authority": "0.7.1",
