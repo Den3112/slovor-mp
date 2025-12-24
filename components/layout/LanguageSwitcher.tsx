@@ -1,13 +1,20 @@
 'use client'
 
-import { useTranslation } from '@/lib/i18n'
-import { Globe } from 'lucide-react'
+import { useTranslation, type Locale } from '@/lib/i18n'
 import { useState, useRef, useEffect } from 'react'
+import { ChevronDown, Check } from 'lucide-react'
 
-const languages = [
-  { code: 'sk' as const, name: 'Slovenčina', flag: '🇸🇰' },
-  { code: 'cs' as const, name: 'Čeština', flag: '🇨🇿' },
-  { code: 'en' as const, name: 'English', flag: '🇬🇧' },
+interface LocaleOption {
+  code: Locale
+  name: string
+  flag: string
+}
+
+// Language order: SK → CS → EN
+const localeOptions: LocaleOption[] = [
+  { code: 'sk', name: 'Slovenčina', flag: '🇸🇰' },
+  { code: 'cs', name: 'Čeština', flag: '🇨🇿' },
+  { code: 'en', name: 'English', flag: '🇬🇧' },
 ]
 
 export function LanguageSwitcher() {
@@ -15,11 +22,11 @@ export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const currentLanguage = languages.find(lang => lang.code === locale) || languages[2]
+  const currentOption = localeOptions.find(opt => opt.code === locale) || localeOptions[2]
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
@@ -27,47 +34,63 @@ export function LanguageSwitcher() {
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen])
 
+  const handleLocaleChange = (newLocale: Locale) => {
+    setLocale(newLocale)
+    setIsOpen(false)
+  }
+
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Closed state: ONLY flag */}
+      {/* Trigger button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-gray-800 transition-colors"
+        className="flex items-center gap-1.5 px-2 py-1 hover:bg-gray-800 rounded transition text-white"
         aria-label="Change language"
       >
-        <span className="text-xl" role="img" aria-label={currentLanguage.name}>
-          {currentLanguage.flag}
+        <span className="text-lg" role="img" aria-label={currentOption.name}>
+          {currentOption.flag}
         </span>
+        <span className="text-xs font-bold uppercase">
+          {currentOption.code}
+        </span>
+        <ChevronDown className={`w-3 h-3 transition-transform ${
+          isOpen ? 'rotate-180' : ''
+        }`} />
       </button>
 
-      {/* Open state: Dropdown with code + name */}
+      {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
-          {languages.map((lang) => (
+        <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[180px] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+          {localeOptions.map((option) => (
             <button
-              key={lang.code}
-              onClick={() => {
-                setLocale(lang.code)
-                setIsOpen(false)
-              }}
-              className={`w-full px-4 py-2.5 text-left flex items-center gap-3 transition-colors ${
-                locale === lang.code
-                  ? 'bg-blue-50 text-blue-600 font-semibold'
-                  : 'hover:bg-gray-50 text-gray-700'
+              key={option.code}
+              onClick={() => handleLocaleChange(option.code)}
+              className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition ${
+                locale === option.code
+                  ? 'bg-blue-50 text-blue-600'
+                  : 'text-gray-700 hover:bg-gray-50'
               }`}
             >
-              <span className="font-bold text-sm">
-                {lang.code.toUpperCase()}
-              </span>
-              <span className="text-sm">{lang.name}</span>
-              {locale === lang.code && (
-                <svg className="w-4 h-4 ml-auto" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
+              <div className="flex items-center gap-2">
+                <span className="text-xl" role="img" aria-label={option.name}>
+                  {option.flag}
+                </span>
+                <span className="text-xs font-bold uppercase">
+                  {option.code}
+                </span>
+                <span className="text-sm font-medium">
+                  {option.name}
+                </span>
+              </div>
+              {locale === option.code && (
+                <Check className="w-4 h-4 text-blue-600" />
               )}
             </button>
           ))}
