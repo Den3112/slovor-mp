@@ -108,7 +108,7 @@ export function LocaleWelcomeModal() {
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
                 {/* Large flag emoji */}
-                <span className="text-4xl" role="img" aria-label={option.name}>
+                <span className="text-4xl">
                   {option.flag}
                 </span>
                 {/* Language code + names */}
