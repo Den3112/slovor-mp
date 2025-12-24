@@ -105,18 +105,17 @@ export function LocaleWelcomeModal() {
                   : 'border-gray-200 hover:border-blue-300 bg-white hover:bg-gray-50'
               }`}
             >
-              {/* Left side: Flag + Code */}
+              {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl" role="img" aria-label={option.name}>
-                    {option.flag}
-                  </span>
-                  <span className="text-xl font-bold text-gray-900">
-                    {option.code.toUpperCase()}
-                  </span>
-                </div>
+                {/* Large flag emoji */}
+                <span className="text-4xl" role="img" aria-label={option.name}>
+                  {option.flag}
+                </span>
+                {/* Language code + names */}
                 <div className="text-left">
-                  <p className="font-bold text-gray-900 text-lg">{option.nativeName}</p>
+                  <p className="font-bold text-gray-900 text-lg">
+                    {option.code.toUpperCase()} {option.nativeName}
+                  </p>
                   <p className="text-sm text-gray-500">{option.name}</p>
                 </div>
               </div>
