@@ -1,76 +1,58 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
+import { headers } from 'next/headers'
 
-// Country code to locale mapping
+// Map countries to supported locales
 const COUNTRY_TO_LOCALE: Record<string, string> = {
   SK: 'sk', // Slovakia
   CZ: 'cs', // Czech Republic
-  US: 'en',
-  GB: 'en',
+  US: 'en', // United States
+  GB: 'en', // United Kingdom
+  CA: 'en', // Canada
+  AU: 'en', // Australia
   // Add more mappings as needed
 }
 
-/**
- * Detect user locale based on IP geolocation
- * Uses Cloudflare's CF-IPCountry header or falls back to external API
- */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    // Try Cloudflare header first (if deployed on Vercel/Cloudflare)
-    const cfCountry = request.headers.get('cf-ipcountry')
-    if (cfCountry && COUNTRY_TO_LOCALE[cfCountry]) {
-      return NextResponse.json({ 
-        locale: COUNTRY_TO_LOCALE[cfCountry],
-        country: cfCountry,
-        source: 'cloudflare'
-      })
-    }
-
-    // Try x-vercel-ip-country (Vercel Edge)
-    const vercelCountry = request.headers.get('x-vercel-ip-country')
-    if (vercelCountry && COUNTRY_TO_LOCALE[vercelCountry]) {
-      return NextResponse.json({ 
-        locale: COUNTRY_TO_LOCALE[vercelCountry],
-        country: vercelCountry,
-        source: 'vercel'
-      })
-    }
-
-    // Fallback: try to get IP and use free geolocation API
-    const forwarded = request.headers.get('x-forwarded-for')
-    const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip')
+    const headersList = await headers()
     
-    if (ip && ip !== '127.0.0.1' && !ip.startsWith('192.168.')) {
-      // Use ip-api.com (free, no key required, 45 req/min limit)
-      const geoResponse = await fetch(`http://ip-api.com/json/${ip}?fields=countryCode`, {
-        headers: { 'User-Agent': 'Slovor-Marketplace' }
+    // Try to get country from Vercel's geo headers
+    const country = headersList.get('x-vercel-ip-country') || 
+                    headersList.get('cf-ipcountry') || // Cloudflare
+                    null
+
+    if (country && COUNTRY_TO_LOCALE[country]) {
+      return NextResponse.json({
+        locale: COUNTRY_TO_LOCALE[country],
+        country,
+        source: 'ip',
       })
-      
-      if (geoResponse.ok) {
-        const geoData = await geoResponse.json()
-        const countryCode = geoData.countryCode
-        
-        if (countryCode && COUNTRY_TO_LOCALE[countryCode]) {
-          return NextResponse.json({ 
-            locale: COUNTRY_TO_LOCALE[countryCode],
-            country: countryCode,
-            source: 'ip-api'
-          })
-        }
+    }
+
+    // Fallback: try to detect from Accept-Language header
+    const acceptLanguage = headersList.get('accept-language')
+    if (acceptLanguage) {
+      const browserLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase()
+      if (['sk', 'cs', 'en'].includes(browserLang)) {
+        return NextResponse.json({
+          locale: browserLang,
+          country: null,
+          source: 'browser',
+        })
       }
     }
 
     // Default to English
-    return NextResponse.json({ 
+    return NextResponse.json({
       locale: 'en',
       country: null,
-      source: 'default'
+      source: 'default',
     })
   } catch (error) {
-    console.error('Locale detection error:', error)
-    return NextResponse.json({ 
-      locale: 'en',
-      country: null,
-      source: 'error'
-    })
+    console.error('Error detecting locale:', error)
+    return NextResponse.json(
+      { locale: 'en', error: 'Failed to detect locale' },
+      { status: 500 }
+    )
   }
 }

@@ -18,50 +18,88 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en')
   const [mounted, setMounted] = useState(false)
 
-  // Initialize locale from localStorage or browser
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
-      if (stored && translations[stored]) {
-        setLocaleState(stored)
-        updateHtmlLang(stored)
-      } else {
-        // Detect browser language
-        const browserLang = navigator.language.split('-')[0] as Locale
-        if (translations[browserLang]) {
-          setLocaleState(browserLang)
-          updateHtmlLang(browserLang)
-        } else {
-          // Fallback to English if browser language not supported
-          setLocaleState('en')
-          updateHtmlLang('en')
-        }
-      }
-    } catch (error) {
-      // Ignore localStorage errors, keep English as default
-      console.warn('Failed to load locale from storage:', error)
-    }
-    setMounted(true)
-  }, [])
-
+  // Update HTML lang attribute and meta tags
   const updateHtmlLang = (newLocale: Locale) => {
     if (typeof document !== 'undefined') {
+      // Update html lang attribute
       document.documentElement.lang = newLocale
-      // Also update meta tags for better SEO
+      
+      // Update or create og:locale meta tag for SEO
       let metaLang = document.querySelector('meta[property="og:locale"]')
       if (!metaLang) {
         metaLang = document.createElement('meta')
         metaLang.setAttribute('property', 'og:locale')
         document.head.appendChild(metaLang)
       }
+      
       const localeMap: Record<Locale, string> = {
         sk: 'sk_SK',
         cs: 'cs_CZ',
         en: 'en_US',
       }
       metaLang.setAttribute('content', localeMap[newLocale])
+
+      // Update content language meta tag for browser translators
+      let contentLang = document.querySelector('meta[http-equiv="content-language"]')
+      if (!contentLang) {
+        contentLang = document.createElement('meta')
+        contentLang.setAttribute('http-equiv', 'content-language')
+        document.head.appendChild(contentLang)
+      }
+      contentLang.setAttribute('content', newLocale)
     }
   }
+
+  // Initialize locale from localStorage or detect from browser/IP
+  useEffect(() => {
+    const initLocale = async () => {
+      try {
+        // Check if user has already set a preference
+        const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
+        if (stored && translations[stored]) {
+          setLocaleState(stored)
+          updateHtmlLang(stored)
+          setMounted(true)
+          return
+        }
+
+        // No stored preference - try smart detection
+        // First try IP-based detection
+        try {
+          const response = await fetch('/api/detect-locale')
+          if (response.ok) {
+            const data = await response.json()
+            if (data.locale && translations[data.locale]) {
+              setLocaleState(data.locale)
+              updateHtmlLang(data.locale)
+              setMounted(true)
+              return
+            }
+          }
+        } catch (error) {
+          console.warn('IP-based locale detection failed:', error)
+        }
+
+        // Fallback to browser language
+        const browserLang = navigator.language.split('-')[0] as Locale
+        if (translations[browserLang]) {
+          setLocaleState(browserLang)
+          updateHtmlLang(browserLang)
+        } else {
+          // Final fallback to English
+          setLocaleState('en')
+          updateHtmlLang('en')
+        }
+      } catch (error) {
+        console.warn('Failed to initialize locale:', error)
+        setLocaleState('en')
+        updateHtmlLang('en')
+      }
+      setMounted(true)
+    }
+
+    initLocale()
+  }, [])
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale)
