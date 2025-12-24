@@ -33,19 +33,18 @@ export function LanguageSwitcher() {
 
   return (
     <div className="relative" ref={dropdownRef}>
+      {/* Closed state: ONLY flag */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-gray-800 transition-colors"
         aria-label="Change language"
       >
-        <span className="text-lg" role="img" aria-label={currentLanguage.name}>
+        <span className="text-xl" role="img" aria-label={currentLanguage.name}>
           {currentLanguage.flag}
-        </span>
-        <span className="text-sm font-semibold">
-          {currentLanguage.code.toUpperCase()}
         </span>
       </button>
 
+      {/* Open state: Dropdown with code + name */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
           {languages.map((lang) => (
@@ -61,8 +60,8 @@ export function LanguageSwitcher() {
                   : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
-              <span className="text-2xl" role="img" aria-label={lang.name}>
-                {lang.flag}
+              <span className="font-bold text-sm">
+                {lang.code.toUpperCase()}
               </span>
               <span className="text-sm">{lang.name}</span>
               {locale === lang.code && (
