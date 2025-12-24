@@ -38,7 +38,12 @@ export function LanguageSwitcher() {
         className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-gray-800 transition-colors"
         aria-label="Change language"
       >
-        <span className="text-xl">{currentLanguage.flag}</span>
+        <span className="text-lg" role="img" aria-label={currentLanguage.name}>
+          {currentLanguage.flag}
+        </span>
+        <span className="text-sm font-semibold">
+          {currentLanguage.code.toUpperCase()}
+        </span>
       </button>
 
       {isOpen && (
@@ -56,7 +61,9 @@ export function LanguageSwitcher() {
                   : 'hover:bg-gray-50 text-gray-700'
               }`}
             >
-              <span className="text-2xl">{lang.flag}</span>
+              <span className="text-2xl" role="img" aria-label={lang.name}>
+                {lang.flag}
+              </span>
               <span className="text-sm">{lang.name}</span>
               {locale === lang.code && (
                 <svg className="w-4 h-4 ml-auto" fill="currentColor" viewBox="0 0 20 20">
