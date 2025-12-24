@@ -1,6 +1,6 @@
 'use client'
 
-import { TranslationProvider } from '@/lib/i18n/TranslationProvider'
+import { I18nProvider } from '@/lib/i18n'
 import { LocaleWelcomeModal } from '@/components/locale/LocaleWelcomeModal'
 import { useEffect } from 'react'
 
@@ -12,9 +12,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <TranslationProvider>
+    <I18nProvider>
       <LocaleWelcomeModal />
       {children}
-    </TranslationProvider>
+    </I18nProvider>
   )
 }
