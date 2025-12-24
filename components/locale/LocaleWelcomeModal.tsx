@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
 import { useTranslation, type Locale } from '@/lib/i18n'
+import { FLAGS } from '@/lib/flags'
 
 const WELCOME_SHOWN_KEY = 'slovor-welcome-shown'
 
@@ -17,9 +18,9 @@ interface LocaleOption {
 
 // Language order must match LanguageSwitcher in header: SK → CS → EN
 const localeOptions: LocaleOption[] = [
-  { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: String.fromCodePoint(0x1F1F8, 0x1F1F0) },
-  { code: 'cs', name: 'Czech', nativeName: 'Čeština', flag: String.fromCodePoint(0x1F1E8, 0x1F1FF) },
-  { code: 'en', name: 'English', nativeName: 'English', flag: String.fromCodePoint(0x1F1EC, 0x1F1E7) },
+  { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: FLAGS.SK },
+  { code: 'cs', name: 'Czech', nativeName: 'Čeština', flag: FLAGS.CZ },
+  { code: 'en', name: 'English', nativeName: 'English', flag: FLAGS.GB },
 ]
 
 export function LocaleWelcomeModal() {
@@ -85,7 +86,7 @@ export function LocaleWelcomeModal() {
             </div>
             <div className="text-center">
               <DialogTitle className="text-3xl font-black text-gray-900 mb-2">
-                Welcome to Slovor! {String.fromCodePoint(0x1F389)}
+                Welcome to Slovor! \uD83C\uDF89
               </DialogTitle>
               <DialogDescription className="text-base text-gray-600">
                 Choose your preferred language
