@@ -9,7 +9,6 @@ import { categoriesApi } from '@/lib/supabase/queries'
 export const metadata: Metadata = {
   title: 'Slovor Marketplace - Buy & Sell Anything',
   description: 'Marketplace for buying and selling goods and services. Electronics, vehicles, real estate and more.',
-  charset: 'utf-8',
 }
 
 export default async function RootLayout({
