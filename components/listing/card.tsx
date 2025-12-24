@@ -9,6 +9,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import type { Listing } from '@/lib/supabase/queries'
 import { MapPin, Eye, Sparkles, ImageOff } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
+import { getLocalizedTitle } from '@/lib/utils/listing-i18n'
 
 interface ListingCardProps {
   listing: Listing
@@ -16,11 +18,21 @@ interface ListingCardProps {
 }
 
 export function ListingCard({ listing, featured }: ListingCardProps) {
+  const { locale, t } = useTranslation()
   const [imageError, setImageError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   
   const imageUrl = listing.images?.[0] || ''
   const hasValidImage = imageUrl && !imageError
+  const localizedTitle = getLocalizedTitle(listing, locale)
+  
+  // Get localized category name
+  const categoryName = listing.category
+    ? (locale === 'sk' ? listing.category.name_sk || listing.category.name :
+       locale === 'cs' ? listing.category.name_cs || listing.category.name :
+       locale === 'en' ? listing.category.name_en || listing.category.name :
+       t.categories[listing.category.slug] || listing.category.name)
+    : ''
   
   return (
     <Link 
@@ -33,7 +45,7 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
           <>
             <Image
               src={imageUrl}
-              alt={listing.title}
+              alt={localizedTitle}
               fill
               className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
                 isLoading ? 'blur-sm' : 'blur-0'
@@ -55,27 +67,27 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
             <ImageOff className="w-16 h-16 text-gray-400 mb-2" />
-            <span className="text-sm text-gray-500 font-medium">No image</span>
+            <span className="text-sm text-gray-500 font-medium">{t.common.noImage}</span>
           </div>
         )}
         
         {/* Badges */}
         {featured && (
           <div className="absolute top-3 right-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold z-10 shadow-lg">
-            Featured
+            {t.common.featured}
           </div>
         )}
         
         {listing.condition === 'new' && (
           <div className="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 z-10 shadow-lg">
             <Sparkles className="w-3 h-3" />
-            New
+            {t.common.new}
           </div>
         )}
         
         {listing.images && listing.images.length > 1 && (
           <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-medium z-10">
-            {listing.images.length} photos
+            {listing.images.length} {t.common.photos}
           </div>
         )}
       </div>
@@ -84,12 +96,12 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
       <div className="p-4">
         {listing.category && (
           <div className="text-xs text-blue-600 font-semibold mb-2 uppercase tracking-wide">
-            {listing.category.name}
+            {categoryName}
           </div>
         )}
 
         <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-          {listing.title}
+          {localizedTitle}
         </h3>
 
         <div className="text-2xl font-bold text-gray-900 mb-3">
