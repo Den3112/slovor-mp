@@ -54,7 +54,7 @@ export function LanguageSwitcher() {
         className="flex items-center gap-1.5 px-2 py-1 hover:bg-gray-800 rounded transition text-white"
         aria-label="Change language"
       >
-        <span className="text-lg" role="img" aria-label={currentOption.name}>
+        <span className="text-lg">
           {currentOption.flag}
         </span>
         <span className="text-xs font-bold uppercase">
@@ -79,7 +79,7 @@ export function LanguageSwitcher() {
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className="text-xl" role="img" aria-label={option.name}>
+                <span className="text-xl">
                   {option.flag}
                 </span>
                 <span className="text-xs font-bold uppercase">
