@@ -9,6 +9,7 @@ import { categoriesApi } from '@/lib/supabase/queries'
 export const metadata: Metadata = {
   title: 'Slovor Marketplace - Buy & Sell Anything',
   description: 'Marketplace for buying and selling goods and services. Electronics, vehicles, real estate and more.',
+  charset: 'utf-8',
 }
 
 export default async function RootLayout({
@@ -21,6 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta charSet="utf-8" />
         {/* Prevent automatic translation - we handle it ourselves */}
         <meta name="google" content="notranslate" />
       </head>
