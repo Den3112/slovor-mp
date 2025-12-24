@@ -8,7 +8,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   // Clear localStorage for welcome modal on dev (for testing)
   useEffect(() => {
     // Uncomment to reset welcome modal for testing:
-    // localStorage.removeItem('slovor-welcome-shown')
+    localStorage.removeItem('slovor-welcome-shown')
   }, [])
 
   return (
