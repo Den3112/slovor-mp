@@ -1,10 +1,12 @@
-// Flag emoji helper using proper Unicode code points
-// This avoids issues with JSX escape sequences
+// Flag emoji helper - direct emoji literals work best
+// Avoids issues with Unicode escape sequences and String.fromCodePoint
 
 export const FLAGS = {
-  SK: String.fromCodePoint(0x1F1F8, 0x1F1F0), // 🇸🇰
-  CZ: String.fromCodePoint(0x1F1E8, 0x1F1FF), // 🇨🇿
-  GB: String.fromCodePoint(0x1F1EC, 0x1F1E7), // 🇬🇧
+  SK: '🇸🇰',
+  CZ: '🇨🇿',
+  GB: '🇬🇧',
 } as const
+
+export const PARTY = '🎉'
 
 export type FlagCode = keyof typeof FLAGS
