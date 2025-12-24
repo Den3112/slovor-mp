@@ -9,6 +9,9 @@ import { FLAGS } from '@/lib/flags'
 
 const WELCOME_SHOWN_KEY = 'slovor-welcome-shown'
 
+// Party emoji
+const PARTY = '🎉' // 🎉
+
 interface LocaleOption {
   code: Locale
   name: string
@@ -86,7 +89,7 @@ export function LocaleWelcomeModal() {
             </div>
             <div className="text-center">
               <DialogTitle className="text-3xl font-black text-gray-900 mb-2">
-                Welcome to Slovor! \uD83C\uDF89
+                Welcome to Slovor! {PARTY}
               </DialogTitle>
               <DialogDescription className="text-base text-gray-600">
                 Choose your preferred language
