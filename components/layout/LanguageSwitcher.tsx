@@ -1,100 +1,76 @@
 'use client'
 
+import { useTranslation } from '@/lib/i18n'
+import { Globe } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
-import { useTranslation, type Locale } from '@/lib/i18n'
-import Image from 'next/image'
 
-// Available locales - English first as default
-const locales: Locale[] = ['en', 'sk', 'cs']
-
-// Locale display names
-const localeNames: Record<Locale, string> = {
-    en: 'English',
-    sk: 'Slovenčina',
-    cs: 'Čeština',
-}
-
-// SVG Flags
-const flags: Record<Locale, string> = {
-    en: '/flags/en.svg',
-    sk: '/flags/sk.svg',
-    cs: '/flags/cs.svg',
-}
+const languages = [
+  { code: 'sk' as const, name: 'Slovenčina', flag: '🇸🇰' },
+  { code: 'cs' as const, name: 'Čeština', flag: '🇨🇿' },
+  { code: 'en' as const, name: 'English', flag: '🇬🇧' },
+]
 
 export function LanguageSwitcher() {
-    const { locale, setLocale } = useTranslation()
-    const [isOpen, setIsOpen] = useState(false)
-    const dropdownRef = useRef<HTMLDivElement>(null)
+  const { locale, setLocale } = useTranslation()
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false)
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
+  const currentLanguage = languages.find(lang => lang.code === locale) || languages[2]
 
-    const handleSelect = (newLocale: Locale) => {
-        setLocale(newLocale)
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
+      }
     }
 
-    return (
-        <div className="relative" ref={dropdownRef}>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-gray-300 hover:text-white transition rounded hover:bg-gray-800 border border-transparent hover:border-gray-700"
-            >
-                <div className="relative w-5 h-3.5 rounded-sm overflow-hidden shadow-sm">
-                    <Image
-                        src={flags[locale]}
-                        alt={localeNames[locale]}
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-                <span className="hidden sm:inline">{localeNames[locale]}</span>
-                <svg
-                    className={`w-3 h-3 transition-transform text-gray-400 ${isOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
 
-            {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                    {locales.map((loc) => (
-                        <button
-                            key={loc}
-                            onClick={() => handleSelect(loc)}
-                            className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
-                                locale === loc ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
-                            }`}
-                        >
-                            <div className="relative w-5 h-3.5 rounded-sm overflow-hidden shadow-sm">
-                                <Image
-                                    src={flags[loc]}
-                                    alt={localeNames[loc]}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                            <span>{localeNames[loc]}</span>
-                            {locale === loc && (
-                                <svg className="w-4 h-4 ml-auto text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                            )}
-                        </button>
-                    ))}
-                </div>
-            )}
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+        aria-label="Change language"
+      >
+        <Globe className="w-5 h-5 text-gray-600" />
+        <span className="text-2xl">{currentLanguage.flag}</span>
+        <span className="hidden md:inline text-sm font-medium text-gray-700">
+          {currentLanguage.code.toUpperCase()}
+        </span>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => {
+                setLocale(lang.code)
+                setIsOpen(false)
+              }}
+              className={`w-full px-4 py-2 text-left flex items-center gap-3 transition-colors ${
+                locale === lang.code
+                  ? 'bg-blue-50 text-blue-600 font-semibold'
+                  : 'hover:bg-gray-50 text-gray-700'
+              }`}
+            >
+              <span className="text-2xl">{lang.flag}</span>
+              <span className="text-sm">{lang.name}</span>
+              {locale === lang.code && (
+                <svg className="w-4 h-4 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              )}
+            </button>
+          ))}
         </div>
-    )
+      )}
+    </div>
+  )
 }
