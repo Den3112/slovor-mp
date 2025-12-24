@@ -112,10 +112,10 @@ export function LocaleWelcomeModal() {
                 <span className="text-4xl">
                   {option.flag}
                 </span>
-                {/* Language code + names */}
+                {/* Language names */}
                 <div className="text-left">
                   <p className="font-bold text-gray-900 text-lg">
-                    {option.code.toUpperCase()} {option.nativeName}
+                    {option.nativeName}
                   </p>
                   <p className="text-sm text-gray-500">{option.name}</p>
                 </div>
