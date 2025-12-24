@@ -105,16 +105,16 @@ export function LocaleWelcomeModal() {
                   : 'border-gray-200 hover:border-blue-300 bg-white hover:bg-gray-50'
               }`}
             >
+              {/* Left side: Flag + Language name */}
               <div className="flex items-center gap-4">
-                {/* Flag emoji with proper rendering */}
-                <span className="text-4xl" role="img" aria-label={option.name}>
-                  {option.flag}
-                </span>
+                <span className="text-4xl">{option.flag}</span>
                 <div className="text-left">
                   <p className="font-bold text-gray-900 text-lg">{option.nativeName}</p>
                   <p className="text-sm text-gray-500">{option.name}</p>
                 </div>
               </div>
+              
+              {/* Right side: Detected badge or checkmark */}
               <div className="flex items-center gap-2">
                 {option.code === detectedLocale && selectedLocale !== option.code && (
                   <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
