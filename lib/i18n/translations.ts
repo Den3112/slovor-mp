@@ -39,6 +39,8 @@ export const translations = {
       previous: 'Predchádzajúce',
       featured: 'Významné',
       search: 'Hľadať',
+      listings: 'inzerátov',
+      found: 'nájdených',
     },
     footer: {
       about: 'O nás',
@@ -209,6 +211,8 @@ export const translations = {
       previous: 'Předchozí',
       featured: 'Významné',
       search: 'Hledat',
+      listings: 'inzerátů',
+      found: 'nalezeno',
     },
     footer: {
       about: 'O nás',
@@ -379,6 +383,8 @@ export const translations = {
       previous: 'Previous',
       featured: 'Featured',
       search: 'Search',
+      listings: 'listings',
+      found: 'found',
     },
     footer: {
       about: 'About Us',
