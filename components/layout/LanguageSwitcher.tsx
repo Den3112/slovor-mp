@@ -12,9 +12,9 @@ interface LocaleOption {
 
 // Language order: SK → CS → EN
 const localeOptions: LocaleOption[] = [
-  { code: 'sk', name: 'Slovenčina', flag: '🇸🇰' },
-  { code: 'cs', name: 'Čeština', flag: '🇨🇿' },
-  { code: 'en', name: 'English', flag: '🇬🇧' },
+  { code: 'sk', name: 'Slovenčina', flag: String.fromCodePoint(0x1F1F8, 0x1F1F0) }, // 🇸🇰
+  { code: 'cs', name: 'Čeština', flag: String.fromCodePoint(0x1F1E8, 0x1F1FF) }, // 🇨🇿
+  { code: 'en', name: 'English', flag: String.fromCodePoint(0x1F1EC, 0x1F1E7) }, // 🇬🇧
 ]
 
 export function LanguageSwitcher() {
