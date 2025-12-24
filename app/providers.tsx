@@ -1,13 +1,13 @@
 'use client'
 
 import { I18nProvider } from '@/lib/i18n'
-import { LocaleSelector } from '@/components/locale/LocaleSelector'
+import { LocaleDetector } from '@/components/locale/LocaleDetector'
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    return (
-        <I18nProvider>
-            <LocaleSelector />
-            {children}
-        </I18nProvider>
-    )
+  return (
+    <I18nProvider>
+      <LocaleDetector />
+      {children}
+    </I18nProvider>
+  )
 }
