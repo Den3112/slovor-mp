@@ -5,12 +5,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
 import { useTranslation, type Locale } from '@/lib/i18n'
-import { FLAGS } from '@/lib/flags'
+import { FLAGS, PARTY } from '@/lib/flags'
 
 const WELCOME_SHOWN_KEY = 'slovor-welcome-shown'
-
-// Party emoji
-const PARTY = '🎉' // 🎉
 
 interface LocaleOption {
   code: Locale
