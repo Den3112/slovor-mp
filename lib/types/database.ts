@@ -53,6 +53,13 @@ export interface Listing {
   created_at: string
   updated_at: string
   expires_at: string | null
+  // Localization fields
+  title_sk?: string | null
+  title_cs?: string | null
+  title_en?: string | null
+  description_sk?: string | null
+  description_cs?: string | null
+  description_en?: string | null
   // Relations
   category?: Category
   user?: User

@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState } from 'react'
@@ -8,6 +7,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { Button } from '@/components/ui/button'
 import { Phone, MessageSquare, Mail, MapPin, Calendar, Tag } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
+import { getLocalizedTitle, getLocalizedDescription } from '@/lib/utils/listing-i18n'
 import type { Listing } from '@/lib/supabase/queries'
 
 interface ListingDetailViewProps {
@@ -17,6 +17,10 @@ interface ListingDetailViewProps {
 export function ListingDetailView({ listing }: ListingDetailViewProps) {
     const { t, locale } = useTranslation()
     const [activeImage, setActiveImage] = useState(0)
+
+    // Get localized content
+    const localizedTitle = getLocalizedTitle(listing, locale)
+    const localizedDescription = getLocalizedDescription(listing, locale)
 
     // Dynamic locale check for category name
     const categoryName = (() => {
@@ -34,7 +38,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                     items={[
                         { label: t.common.allListings, href: '/listings' },
                         ...(listing.category ? [{ label: categoryName, href: `/categories/${listing.category.slug}` }] : []),
-                        { label: listing.title },
+                        { label: localizedTitle },
                     ]}
                 />
 
@@ -48,7 +52,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                     <div className="aspect-[16/10] relative">
                                         <Image
                                             src={listing.images[activeImage]}
-                                            alt={listing.title}
+                                            alt={localizedTitle}
                                             fill
                                             className="object-cover transition-all duration-700"
                                             priority
@@ -73,7 +77,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                         >
                                             <Image
                                                 src={img}
-                                                alt={`${listing.title} thumbnail ${idx + 1}`}
+                                                alt={`${localizedTitle} thumbnail ${idx + 1}`}
                                                 fill
                                                 className="object-cover"
                                             />
@@ -87,7 +91,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                         <div className="bg-white rounded-[3rem] p-10 md:p-16 shadow-xl shadow-blue-900/5 border border-gray-50">
                             <div className="flex flex-col gap-4 mb-10">
                                 <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight tracking-tighter">
-                                    {listing.title}
+                                    {localizedTitle}
                                 </h1>
                                 <div className="flex items-center gap-4">
                                     <div className="flex items-baseline gap-2">
@@ -106,7 +110,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                     {t.listing.description}
                                 </h3>
                                 <p className="text-lg text-gray-600 whitespace-pre-wrap leading-relaxed">
-                                    {listing.description}
+                                    {localizedDescription}
                                 </p>
                             </div>
                         </div>
