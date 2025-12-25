@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Marketplace for buying and selling goods and services. Electronics, vehicles, real estate and more.',
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
