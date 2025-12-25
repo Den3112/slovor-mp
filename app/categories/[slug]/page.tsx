@@ -48,11 +48,17 @@ interface CategoryPageProps {
     priceMin?: string
     priceMax?: string
     location?: string
+    page?: string
   }>
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const [{ slug }, query] = await Promise.all([params, searchParams])
+
+  // Pagination settings
+  const ITEMS_PER_PAGE = 20
+  const currentPage = Number(query.page) || 1
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE
 
   // First get the category by slug
   const categoryRes = await categoriesApi.getBySlug(slug)
@@ -65,21 +71,32 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     notFound()
   }
 
-  // Now get listings by category ID, with filters
-  const listingsRes = await listingsApi.getAll({
+  // Build filter options
+  const filterOptions = {
     categoryId: categoryRes.data.id,
     sort: query.sort,
     priceMin: query.priceMin ? parseInt(query.priceMin) : undefined,
     priceMax: query.priceMax ? parseInt(query.priceMax) : undefined,
     location: query.location,
-    limit: 50
+  }
+
+  // Get listings with pagination
+  const listingsRes = await listingsApi.getAll({
+    ...filterOptions,
+    limit: ITEMS_PER_PAGE,
+    offset,
   })
+
+  // Get total count for pagination
+  const countRes = await listingsApi.getCount(filterOptions)
 
   return (
     <CategoryView
       category={categoryRes.data}
       listings={listingsRes.data || []}
       listingsError={listingsRes.error}
+      totalCount={countRes.data || 0}
+      itemsPerPage={ITEMS_PER_PAGE}
     />
   )
 }
