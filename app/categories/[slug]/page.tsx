@@ -3,16 +3,52 @@ import { ErrorState } from '@/components/ui/error-state'
 import { CategoryView } from '@/components/category/CategoryView'
 import { categoriesApi, listingsApi } from '@/lib/supabase/queries'
 
-interface CategoryPageProps {
-  params: {
-    slug: string
+/**
+ * ISR for category pages
+ * 
+ * WHY 120 SECONDS (2 minutes):
+ * - Categories change less frequently than listings
+ * - Longer cache time = better performance
+ * - Still fresh enough for most use cases
+ */
+export const revalidate = 120
+
+/**
+ * Static Params Generation
+ * 
+ * WHAT IT DOES:
+ * - Pre-renders all category pages at build time
+ * - Generates /categories/electronics, /categories/fashion, etc.
+ * - Improves SEO (pages indexed faster)
+ * - Better Core Web Vitals scores
+ * 
+ * HOW IT WORKS:
+ * 1. At build time, fetches all categories from DB
+ * 2. Creates static HTML for each category
+ * 3. Combined with ISR, updates every 120 seconds
+ */
+export async function generateStaticParams() {
+  const categoriesRes = await categoriesApi.getAll()
+  
+  if (!categoriesRes.data) {
+    return []
   }
-  searchParams: {
+  
+  return categoriesRes.data.map((category) => ({
+    slug: category.slug,
+  }))
+}
+
+interface CategoryPageProps {
+  params: Promise<{
+    slug: string
+  }>
+  searchParams: Promise<{
     sort?: string
     priceMin?: string
     priceMax?: string
     location?: string
-  }
+  }>
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
