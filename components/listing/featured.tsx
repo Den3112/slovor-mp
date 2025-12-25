@@ -1,23 +1,29 @@
-'use client'
-
+import { listingsApi } from '@/lib/supabase/queries'
 import { ListingCard } from './card'
-import type { Listing } from '@/lib/types/database'
-import Link from 'next/link'
 
 interface FeaturedListingsProps {
-    listings: Listing[]
+  limit?: number
+  categoryId?: string
 }
 
-export function FeaturedListings({ listings }: FeaturedListingsProps) {
-    if (!listings || listings.length === 0) {
-        return null
-    }
+export async function FeaturedListings({ limit = 8, categoryId }: FeaturedListingsProps) {
+  const result = await listingsApi.getAll({ 
+    limit,
+    categoryId,
+    isFeatured: true,
+  })
 
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {listings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} featured={listing.featured} />
-            ))}
-        </div>
-    )
+  const listings = result.data || []
+
+  if (listings.length === 0) {
+    return null
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {listings.map((listing) => (
+        <ListingCard key={listing.id} listing={listing} />
+      ))}
+    </div>
+  )
 }
