@@ -1,123 +1,156 @@
-# Slovor Marketplace
+# 🛒 Slovor Marketplace
 
-> **Modern marketplace application** built with Next.js 16, Supabase, and TypeScript.
+> **Ukrainian classifieds marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS
+
+**Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)  
+**Dev Preview:** [slovor-mp-git-dev.vercel.app](https://slovor-mp-git-dev.vercel.app)
+
+---
+
+## 📚 Documentation
+
+⚠️ **All documentation has been moved to the `docs` branch!**
+
+**Quick Links:**
+- [📝 View All Documentation](https://github.com/Den3112/slovor-mp/tree/docs)
+- [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
+- [🔥 Coding Principles (MANDATORY)](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md)
+- [🏛️ Architecture](https://github.com/Den3112/slovor-mp/blob/docs/ARCHITECTURE.md)
+- [🛠️ Development Guide](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md)
+
+```bash
+# Switch to docs branch to read documentation
+git checkout docs
+```
 
 ---
 
 ## 🚀 Quick Start
 
 ```bash
-# Install
+# Clone repository
+git clone https://github.com/Den3112/slovor-mp.git
+cd slovor-mp
+
+# Switch to dev branch
+git checkout dev
+
+# Install dependencies
 npm install
 
 # Setup environment
 cp .env.example .env.local
-# Add Supabase credentials
+# Edit .env.local with your Supabase credentials
 
-# Run
+# Run development server
 npm run dev
-# Open http://localhost:3000
 ```
+
+Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 📚 Documentation
+## 🌳 Branch Structure
 
-**All documentation is in `docs` branch:**
-
-```bash
-git checkout docs
-cat principles/PRINCIPLES.md  # Read principles (MANDATORY)
-cat architecture/ARCHITECTURE.md
-git checkout dev
+```
+slovor-mp/
+├── main    → Production (stable, deployed)
+├── dev     → Development (YOU ARE HERE)
+└── docs    → All documentation
 ```
 
-**Or:** [View docs on GitHub](https://github.com/Den3112/slovor-mp/tree/docs)
-
----
-
-## 🤖 For AI/Developers
-
-**Read first:** [`.github/AI_GUIDE.md`](./.github/AI_GUIDE.md)
-
-**Key points:**
-- Only `main` and `dev` branches
-- Follow 8 mandatory principles
-- Documentation in `docs` branch
-- No `.md` files except this README
+### Workflow
+1. **Code on `dev`** - All feature development
+2. **Merge to `main`** - When ready for production
+3. **Read `docs`** - For all documentation needs
 
 ---
 
 ## 🛠️ Tech Stack
 
-- Next.js 16 (App Router, RSC)
-- Supabase (PostgreSQL)
-- TypeScript
-- Tailwind CSS
-- Vercel
+- **Framework:** Next.js 15 (App Router)
+- **UI:** React 19, Tailwind CSS
+- **Database:** Supabase (PostgreSQL)
+- **Deployment:** Vercel
+- **Language:** TypeScript (strict mode)
 
 ---
 
-## 💻 Scripts
+## 💻 Available Scripts
 
 ```bash
-npm run dev     # Development
-npm run build   # Production build (must pass!)
-npm start       # Start production
-npm run lint    # Lint code
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # TypeScript check
+npm run format       # Format with Prettier
 ```
 
 ---
 
-## 🌳 Branches
+## 🔥 Before You Code
 
-```
-main (production)  → https://slovor-mp.vercel.app
-  ↓
-dev (development)  → https://slovor-mp-git-dev.vercel.app
+**MANDATORY:** Read [PRINCIPLES.md](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md) first!
 
-docs (reference)   → All documentation (read-only)
-```
-
-**Workflow:**
-1. Work on `dev`
-2. Push to `dev` → preview deploy
-3. PR `dev` → `main` (Squash merge)
-
----
-
-## 📁 Structure
-
-```
-slovor-mp/
-├── .github/        # AI guide
-├── app/            # Pages
-├── components/     # UI
-├── lib/            # Logic, API, types
-├── public/         # Assets
-├── styles/         # CSS
-└── utils/          # Utilities
-```
+8 coding principles that MUST be followed:
+1. Component Isolation
+2. Query Pattern
+3. Error Handling
+4. Explicit Configuration
+5. Type Safety
+6. Performance Optimization
+7. Code Comments
+8. Testing Approach
 
 ---
 
-## ✅ Contributing
+## 📜 Project Status
 
-1. Read [AI Guide](./.github/AI_GUIDE.md)
-2. Read principles (in `docs` branch)
-3. Test: `npm run build`
-4. Work on `dev` only
-5. Follow TypeScript best practices
+**Current Phase:** Beta Development
+
+### ✅ Completed
+- Project structure
+- Supabase integration
+- Homepage with categories
+- Listings display
+- Category pages
+- RLS policies
+- ISR implementation
+- Strict TypeScript/ESLint
+
+### 🚧 In Progress (dev branch)
+- Environment validation
+- Middleware preparation
+- Performance optimizations
+
+### 🔮 Next Up
+- Authentication
+- User dashboard
+- Listing creation
+- Image upload
+
+---
+
+## 🤝 Contributing
+
+1. Read [DEVELOPMENT.md](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md)
+2. Create feature branch from `dev`
+3. Make changes
+4. Test locally
+5. Create PR to `dev`
 
 ---
 
 ## 🔗 Links
 
-- Production: https://slovor-mp.vercel.app
-- Preview: https://slovor-mp-git-dev.vercel.app
-- Repository: https://github.com/Den3112/slovor-mp
-- Docs: [docs branch](https://github.com/Den3112/slovor-mp/tree/docs)
+- **Production:** https://slovor-mp.vercel.app
+- **Dev Preview:** https://slovor-mp-git-dev.vercel.app
+- **Documentation:** https://github.com/Den3112/slovor-mp/tree/docs
+- **Issues:** https://github.com/Den3112/slovor-mp/issues
 
 ---
 
-**Built with ❤️ following 8 principles**
+**Branch:** `dev` (Development)  
+**Last Updated:** December 25, 2025  
+**Maintained by:** [@Den3112](https://github.com/Den3112)
