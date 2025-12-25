@@ -138,7 +138,7 @@ export function HomeView({
                             </div>
                         ) : (
                             <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
-                                <FeaturedListings listings={featuredListings} />
+                                <FeaturedListings />
                             </div>
                         )}
                     </div>
