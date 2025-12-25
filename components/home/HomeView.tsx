@@ -3,7 +3,7 @@
 import { CategoryGrid } from '@/components/category/grid'
 import { FeaturedListings } from '@/components/listing/featured'
 import { useTranslation } from '@/lib/i18n'
-import type { Category, Listing } from '@/lib/types/database'
+import type { Category } from '@/lib/types/database'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Search, Flame, ShieldCheck, Zap, Banknote, Map, ArrowRight } from 'lucide-react'
@@ -12,15 +12,11 @@ import { Button } from '@/components/ui/button'
 interface HomeViewProps {
     categories: Category[]
     categoriesError: string | null
-    featuredListings: Listing[]
-    featuredError: string | null
 }
 
 export function HomeView({
     categories,
-    categoriesError,
-    featuredListings,
-    featuredError
+    categoriesError
 }: HomeViewProps) {
     const { t } = useTranslation()
     const [searchTerm, setSearchTerm] = useState('')
@@ -132,15 +128,9 @@ export function HomeView({
                             </p>
                         </div>
 
-                        {featuredError ? (
-                            <div className="p-8 bg-red-50 text-red-600 rounded-3xl border border-red-100 text-center font-bold">
-                                {featuredError}
-                            </div>
-                        ) : (
-                            <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
-                                <FeaturedListings />
-                            </div>
-                        )}
+                        <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                            <FeaturedListings />
+                        </div>
                     </div>
                 </section>
             </div>
