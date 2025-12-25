@@ -8,7 +8,7 @@
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-debugger": "error",
     
-    // TypeScript Strict Rules
+    // TypeScript Strict Rules (v6 compatible)
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -22,7 +22,6 @@
       "error",
       { "prefer": "type-imports" }
     ],
-    "@typescript-eslint/no-unnecessary-condition": "warn",
     "@typescript-eslint/no-non-null-assertion": "warn",
     
     // Code Quality
