@@ -32,13 +32,16 @@ export async function GET() {
     // Fallback: try to detect from Accept-Language header
     const acceptLanguage = headersList.get('accept-language')
     if (acceptLanguage) {
-      const browserLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase()
-      if (['sk', 'cs', 'en'].includes(browserLang)) {
-        return NextResponse.json({
-          locale: browserLang,
-          country: null,
-          source: 'browser',
-        })
+      const parts = acceptLanguage.split(',')
+      if (parts.length > 0 && parts[0]) {
+        const browserLang = parts[0].split('-')[0]?.toLowerCase()
+        if (browserLang && ['sk', 'cs', 'en'].includes(browserLang)) {
+          return NextResponse.json({
+            locale: browserLang,
+            country: null,
+            source: 'browser',
+          })
+        }
       }
     }
 
