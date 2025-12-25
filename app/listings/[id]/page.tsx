@@ -8,13 +8,14 @@ import { ErrorState } from '@/components/ui/error-state'
 import { MapPin, Eye, Calendar, Sparkles, PackageCheck } from 'lucide-react'
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default async function ListingDetailPage({ params }: Props) {
-  const result = await listingsApi.getById(params.id)
+  const { id } = await params
+  const result = await listingsApi.getById(id)
 
   if (result.error) {
     return <ErrorState message={result.error} />
