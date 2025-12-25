@@ -4,6 +4,8 @@ import { ListingGrid } from '@/components/listing/grid'
 import { ErrorState } from '@/components/ui/error-state'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { Badge } from '@/components/ui/badge'
+import { Filters } from '@/components/category/Filters'
+import { Pagination } from '@/components/category/Pagination'
 import { useTranslation } from '@/lib/i18n'
 import type { Category, Listing } from '@/lib/types/database'
 
@@ -11,9 +13,17 @@ interface CategoryViewProps {
     category: Category
     listings: Listing[]
     listingsError: string | null
+    totalCount: number
+    itemsPerPage: number
 }
 
-export function CategoryView({ category, listings, listingsError }: CategoryViewProps) {
+export function CategoryView({ 
+    category, 
+    listings, 
+    listingsError,
+    totalCount,
+    itemsPerPage 
+}: CategoryViewProps) {
     const { t, locale } = useTranslation()
 
     // Dynamic locale check
@@ -44,7 +54,7 @@ export function CategoryView({ category, listings, listingsError }: CategoryView
                         <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-2">{categoryName}</h1>
                         <div className="flex items-center gap-3">
                             <Badge variant="secondary" className="bg-blue-50 text-blue-600 border-0 font-bold px-3">
-                                {listings.length} {t.common.listings} {t.common.found}
+                                {totalCount} {t.common.listings} {t.common.found}
                             </Badge>
                             <div className="h-1 flex-1 bg-gray-100 rounded-full hidden md:block w-32"></div>
                         </div>
@@ -52,10 +62,26 @@ export function CategoryView({ category, listings, listingsError }: CategoryView
                 </div>
             </div>
 
+            {/* Filters */}
+            <Filters />
+
+            {/* Listings or Error */}
             {listingsError ? (
                 <ErrorState message={listingsError} />
+            ) : listings.length === 0 ? (
+                <div className="text-center py-16">
+                    <p className="text-xl text-gray-600 mb-4">
+                        {t.common.noListings || 'No listings found'}
+                    </p>
+                    <p className="text-gray-500">
+                        {t.common.tryDifferentFilters || 'Try adjusting your filters'}
+                    </p>
+                </div>
             ) : (
-                <ListingGrid listings={listings} />
+                <>
+                    <ListingGrid listings={listings} />
+                    <Pagination totalItems={totalCount} itemsPerPage={itemsPerPage} />
+                </>
             )}
         </div>
     )
