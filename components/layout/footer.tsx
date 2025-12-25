@@ -2,14 +2,19 @@
 
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
+import { useEffect, useState } from 'react'
+import { categoriesApi } from '@/lib/supabase/queries'
 import type { Category } from '@/lib/types/database'
 
-interface FooterProps {
-  categories?: Category[]
-}
-
-export function Footer({ categories = [] }: FooterProps) {
+export function Footer() {
   const { t, locale } = useTranslation()
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    categoriesApi.getAll().then(res => {
+      if (res.data) setCategories(res.data)
+    })
+  }, [])
 
   // Deduplicate categories by localized name
   const uniqueCategories = categories.reduce((acc: Category[], current) => {
