@@ -4,7 +4,7 @@
 import { 
   Laptop, Car, Home, Shirt, TreePine, Dumbbell, Baby, Truck, Building, 
   Wrench, Dog, Palette, BookOpen, Music, Film, Sparkles, Gamepad2, 
-  Armchair, Shovel, Hammer, Apple, Gem, Briefcase, Plane, Ticket, 
+  Armchair, Shovel, Hammer, Gem, Briefcase, Plane, Ticket, 
   Gift, Package
 } from 'lucide-react'
 
@@ -99,7 +99,7 @@ export function CategoryIcon({ slug, className = 'w-6 h-6' }: CategoryIconProps)
     'tools-machinery': Hammer,
     'naradie-a-stroje': Hammer,
     
-    // Pets (Zvieratá)
+    // Pets (Zvierata)
     'pets': Dog,
     'zvierata': Dog,
     'dogs': Dog,
@@ -150,7 +150,7 @@ export function CategoryIcon({ slug, className = 'w-6 h-6' }: CategoryIconProps)
     
     // Gifts (Darčeky)
     'gifts': Gift,
-    'darcеky': Gift,
+    'darсеky': Gift,
     
     // Other (Ostatné)
     'other': Package,
