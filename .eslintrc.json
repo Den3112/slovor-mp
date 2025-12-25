@@ -4,19 +4,55 @@
     "next/typescript"
   ],
   "rules": {
+    // Console & Debugging
     "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-debugger": "error",
+    
+    // TypeScript Strict Rules
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports" }
+    ],
+    "@typescript-eslint/no-unnecessary-condition": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    
+    // Code Quality
     "prefer-const": "error",
     "no-var": "error",
-    "eqeqeq": ["error", "always"],
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
     "curly": ["error", "all"],
+    "no-implicit-coercion": "error",
+    "no-return-await": "error",
+    "require-await": "error",
+    "no-nested-ternary": "warn",
+    
+    // React Best Practices
+    "react/jsx-no-target-blank": "error",
+    "react/jsx-key": ["error", { "checkFragmentShorthand": true }],
+    "react/self-closing-comp": "error",
+    "react/jsx-curly-brace-presence": ["error", "never"],
+    "react/jsx-boolean-value": ["error", "never"],
+    "react/no-array-index-key": "warn",
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    
+    // Next.js Optimizations
+    "@next/next/no-img-element": "error",
+    "@next/next/no-html-link-for-pages": "error",
+    
+    // Performance
+    "no-await-in-loop": "warn",
+    
+    // Disabled (handled by Prettier or too strict)
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": "off",
