@@ -31,7 +31,8 @@ export function CategoryView({
         if (locale === 'sk') return category.name_sk || category.name
         if (locale === 'cs') return category.name_cs || category.name
         if (locale === 'en') return category.name_en || category.name
-        return t.categories[category.slug] || category.name
+        // Safe fallback for unknown category slugs
+        return (t.categories as Record<string, string>)[category.slug] || category.name
     })()
 
     return (

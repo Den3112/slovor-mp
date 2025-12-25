@@ -2,23 +2,23 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useLocale } from '@/lib/i18n'
+import { useTranslation } from '@/lib/i18n'
 import { Search, Menu, X, Globe } from 'lucide-react'
 
 const SUPPORTED_LOCALES = [
   { code: 'sk', name: 'Slovenský' },
-  { code: 'cs', name: 'Česky' },
+  { code: 'cs', name: 'Český' },
   { code: 'en', name: 'English' },
 ]
 
 export function Header() {
-  const { locale, setLocale, t } = useLocale()
+  const { locale, setLocale, t } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showLangMenu, setShowLangMenu] = useState(false)
 
   const navLinks = [
-    { href: '/', label: t('common.home') },
-    { href: '/categories', label: t('common.categories') },
+    { href: '/', label: t.common.home },
+    { href: '/categories', label: t.common.categories },
   ]
 
   const categorySlug = typeof window !== 'undefined' ? window.location.pathname.split('/')[2] : null
@@ -82,7 +82,7 @@ export function Header() {
 
             {/* Post Ad Button */}
             <button className="hidden md:flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-              {t('common.postAd')}
+              {t.common.postAd}
             </button>
 
             {/* Mobile Menu Toggle */}
@@ -109,7 +109,7 @@ export function Header() {
               </Link>
             ))}
             <button className="w-full mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-              {t('common.postAd')}
+              {t.common.postAd}
             </button>
           </nav>
         )}
@@ -124,7 +124,7 @@ export function Header() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder={t('common.searchPlaceholder')}
+                  placeholder={t.common.searchPlaceholder}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
