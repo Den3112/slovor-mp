@@ -16,7 +16,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
     if (locale === 'sk') return cat.name_sk || cat.name
     if (locale === 'cs') return cat.name_cs || cat.name
     if (locale === 'en') return cat.name_en || cat.name
-    return t.categories[cat.slug] || cat.name
+    return (t.categories as Record<string, string>)[cat.slug] || cat.name
   }
 
   // Deduplicate categories by localized name to prevent "Clothing" and "Móda" appearing together
