@@ -12,11 +12,11 @@
 <br>
 
 **Quick Links:**
-- [📝 View All Documentation](./INDEX.md)
-- [🎯 Quick Start Guide](./QUICK_START.md)
-- [🔥 Coding Principles (MANDATORY)](./PRINCIPLES.md)
-- [🏛️ Architecture](./ARCHITECTURE.md)
-- [🛠️ Development Guide](./DEVELOPMENT.md)
+- [📝 View All Documentation](https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md)
+- [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
+- [🔥 Coding Principles (MANDATORY)](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md)
+- [🏛️ Architecture](https://github.com/Den3112/slovor-mp/blob/docs/ARCHITECTURE.md)
+- [🛠️ Development Guide](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md)
 
 ---
 
@@ -86,7 +86,7 @@ npm run format       # Format with Prettier
 
 ## 🔥 Before You Code
 
-**MANDATORY:** Read [PRINCIPLES.md](./PRINCIPLES.md) first!
+**MANDATORY:** Read [PRINCIPLES.md](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md) first!
 
 8 coding principles that MUST be followed:
 1. Component Isolation
@@ -141,7 +141,7 @@ npm run format       # Format with Prettier
 
 - **Production:** https://slovor-mp.vercel.app
 - **Dev Preview:** https://slovor-mp-git-dev.vercel.app
-- **Documentation:** ./INDEX.md
+- **Documentation:** https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md
 - **Issues:** https://github.com/Den3112/slovor-mp/issues
 
 ---
