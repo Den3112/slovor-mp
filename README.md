@@ -1,33 +1,33 @@
 # 🛒 Slovor Marketplace
 
-> **Ukrainian classifieds marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS
+> **Premium Slovakian Classifieds Marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS. Featuring "Avant-Garde" UI/UX.
 
 **Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)
 **Dev Preview:** [slovor-mp-git-dev.vercel.app](https://slovor-mp-git-dev.vercel.app)
 
 ---
 
-## 📚 Documentation
+## 📚 Project Documentation
 
-<br>
+Our documentation is managed in a dedicated **`docs` branch** to keep the code repository clean.
 
-**Quick Links:**
-- [📝 View All Documentation](https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md)
+**Quick Access:**
+- [🚀 **Investor Roadmap**](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md) (Current Focus)
+- [📝 Documentation Index](https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md)
 - [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
 - [🔥 Coding Principles (MANDATORY)](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md)
 - [🏛️ Architecture](https://github.com/Den3112/slovor-mp/blob/docs/ARCHITECTURE.md)
-- [🛠️ Development Guide](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md)
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Developers)
 
 ```bash
 # Clone repository
 git clone https://github.com/Den3112/slovor-mp.git
 cd slovor-mp
 
-# Switch to dev branch
+# Switch to development branch
 git checkout dev
 
 # Install dependencies
@@ -47,105 +47,49 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🌳 Branch Structure
 
-```
-slovor-mp/
-├── main    → Production (stable, deployed)
-├── dev     → Development (YOU ARE HERE)
-└── docs    → All documentation
-```
-
-### Workflow
-1. **Code on `dev`** - All feature development
-2. **Merge to `main`** - When ready for production
-3. **Read `docs`** - For all documentation needs
+- **`main`**   → Production-ready, stable code (deployed).
+- **`dev`**    → Active development branch. Feature branches merge here.
+- **`docs`**   → All project documentation and roadmaps.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Framework:** Next.js 15 (App Router)
-- **UI:** React 19, Tailwind CSS
-- **Database:** Supabase (PostgreSQL)
+- **UI:** React 19, Tailwind CSS, Framer Motion
+- **Database:** Supabase (Auth, Database, Storage)
 - **Deployment:** Vercel
-- **Language:** TypeScript (strict mode)
-
----
-
-## 💻 Available Scripts
-
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # TypeScript check
-npm run format       # Format with Prettier
-```
-
----
-
-## 🔥 Before You Code
-
-**MANDATORY:** Read [PRINCIPLES.md](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md) first!
-
-8 coding principles that MUST be followed:
-1. Component Isolation
-2. Query Pattern
-3. Error Handling
-4. Explicit Configuration
-5. Type Safety
-6. Performance Optimization
-7. Code Comments
-8. Testing Approach
+- **Language:** TypeScript (Strict)
 
 ---
 
 ## 📜 Project Status
 
-**Current Phase:** Beta Development
+**Current Phase:** Beta Development / Investor-Ready Polish
 
 ### ✅ Completed
-- Project structure
-- Supabase integration
-- Homepage with categories
-- Listings display
-- Category pages
-- RLS policies
-- ISR implementation
-- Strict TypeScript/ESLint
+- Full "Avant-Garde" Design System
+- Supabase Integration & RLS Policies
+- Multi-language Framework (EN/SK)
+- Category & Listing Discovery Flow
+- Successfull Vercel Deployment
 
-### 🚧 In Progress (dev branch)
-- Environment validation
-- Middleware preparation
-- Performance optimizations
-
-### 🔮 Next Up
-- Authentication
-- User dashboard
-- Listing creation
-- Image upload
+### 🚧 In Focus (See [Roadmap](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md))
+- Premium User Dashboard
+- Advanced Media Management (File Uploads)
+- Smart Search & discovery interactions
 
 ---
 
 ## 🤝 Contributing
 
-1. Read [DEVELOPMENT.md](./DEVELOPMENT.md)
-2. Create feature branch from `dev`
-3. Make changes
-4. Test locally
-5. Create PR to `dev`
+1. Read [DEVELOPMENT.md](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md).
+2. Create a feature branch from `dev`.
+3. Ensure type safety and linting passes.
+4. Create a PR to `dev`.
 
 ---
 
-## 🔗 Links
-
-- **Production:** https://slovor-mp.vercel.app
-- **Dev Preview:** https://slovor-mp-git-dev.vercel.app
-- **Documentation:** https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md
-- **Issues:** https://github.com/Den3112/slovor-mp/issues
-
----
-
-**Branch:** `dev` (Development)
-**Last Updated:** December 25, 2025
+**Last Updated:** December 26, 2024
 **Maintained by:** [@Den3112](https://github.com/Den3112)
+
