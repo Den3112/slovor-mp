@@ -3,7 +3,8 @@
 // Image Gallery Component with Mobile Swipe Support
 // Principle #1: Small component (< 150 lines)
 
-import { useState, useRef, TouchEvent } from 'react'
+import { useState, useRef } from 'react'
+import type { TouchEvent } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, ImageOff } from 'lucide-react'
 

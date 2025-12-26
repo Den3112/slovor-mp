@@ -29,10 +29,10 @@ export function HomeView({
             <section className="bg-gradient-to-br from-blue-700 via-indigo-800 to-blue-900 text-white py-24 px-4 rounded-b-[4rem] shadow-2xl relative overflow-hidden">
                 {/* Dynamic Background Elements */}
                 <div className="absolute top-0 left-0 w-full h-full">
-                    <div className="absolute top-10 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-                    <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+                    <div className="absolute top-10 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700" />
                 </div>
-                <div className="absolute inset-0 opacity-5 bg-[url('/grid-pattern.svg')]"></div>
+                <div className="absolute inset-0 opacity-5 bg-[url('/grid-pattern.svg')]" />
 
                 <div className="container mx-auto max-w-5xl text-center relative z-10">
                     <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight leading-[1.1] animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -98,7 +98,7 @@ export function HomeView({
                         <h2 className="text-4xl font-black text-gray-900 mb-2 leading-tight">
                             {t.home.categoriesTitle}
                         </h2>
-                        <div className="h-1.5 w-24 bg-blue-600 rounded-full"></div>
+                        <div className="h-1.5 w-24 bg-blue-600 rounded-full" />
                     </div>
                     <Link href="/listings" className="group text-blue-600 font-bold hover:text-blue-800 transition flex items-center gap-2 text-lg">
                         {t.common.viewAll} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -138,8 +138,8 @@ export function HomeView({
             {/* CTA Section */}
             <section className="container mx-auto px-4 my-16">
                 <div className="bg-gradient-to-br from-blue-900 to-indigo-950 rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
-                    <div className="absolute -top-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px]"></div>
-                    <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px]"></div>
+                    <div className="absolute -top-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px]" />
+                    <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px]" />
 
                     <div className="relative z-10 max-w-3xl mx-auto">
                         <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
