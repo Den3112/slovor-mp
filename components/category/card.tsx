@@ -11,10 +11,15 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
-  // Get Lucide icon by name
-  const IconComponent = category.icon_name 
-    ? (LucideIcons as Record<string, LucideIcons.LucideIcon>)[category.icon_name] || LucideIcons.Package
-    : LucideIcons.Package
+  // Get Lucide icon by name with proper type handling
+  const getIconComponent = (iconName?: string): LucideIcons.LucideIcon => {
+    if (!iconName) return LucideIcons.Package
+    
+    const icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[iconName]
+    return icon || LucideIcons.Package
+  }
+
+  const IconComponent = getIconComponent(category.icon_name)
 
   return (
     <Link
