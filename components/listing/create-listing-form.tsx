@@ -7,6 +7,7 @@ import { categoriesApi, listingsApi } from '@/lib/supabase/queries'
 import type { Category } from '@/lib/types/database'
 import { Button } from '@/components/ui/button'
 import { Loader2, Upload, AlertCircle, ArrowRight, ArrowLeft, Image as ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 export function CreateListingForm() {
@@ -47,7 +48,7 @@ export function CreateListingForm() {
 
     if (authLoading) return <div className="flex justify-center p-20"><Loader2 className="animate-spin w-10 h-10 text-primary" /></div>
 
-    const updateField = (field: string, value: any) => {
+    const updateField = <K extends keyof typeof formData>(field: K, value: typeof formData[K]) => {
         setFormData(prev => ({ ...prev, [field]: value }))
     }
 
@@ -67,7 +68,7 @@ export function CreateListingForm() {
             const res = await listingsApi.create({
                 ...formData,
                 price: parseFloat(formData.price),
-                user_id: user!.id,
+                user_id: user?.id ?? '',
                 status: 'active'
             })
 
@@ -76,8 +77,8 @@ export function CreateListingForm() {
             // Success
             router.push(`/listings/${res.data.id}`)
             router.refresh()
-        } catch (err: any) {
-            setError(err.message)
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unexpected error occurred')
             setIsSubmitting(false)
         }
     }
@@ -90,8 +91,8 @@ export function CreateListingForm() {
             'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80',
             'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=400&q=80'
         ]
-        const randomImage = mockImages[Math.floor(Math.random() * mockImages.length)]!
-        setFormData(prev => ({ ...prev, images: [...prev.images, randomImage] }))
+        const randomImage = (mockImages[Math.floor(Math.random() * mockImages.length)] ?? mockImages[0]) as string
+        updateField('images', [...formData.images, randomImage])
     }
 
     return (
@@ -139,9 +140,10 @@ export function CreateListingForm() {
                         <div>
                             <label className="block text-sm font-bold mb-2">Condition</label>
                             <div className="flex gap-4">
-                                {['new', 'used'].map(c => (
+                                {(['new', 'used'] as const).map(c => (
                                     <button
                                         key={c}
+                                        type="button"
                                         onClick={() => updateField('condition', c)}
                                         className={cn(
                                             "flex-1 py-3 px-6 rounded-xl border-2 font-bold capitalize transition-all",
@@ -247,7 +249,7 @@ export function CreateListingForm() {
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {formData.images.map((img, idx) => (
                                     <div key={idx} className="relative aspect-square rounded-xl overflow-hidden group shadow-md border border-border/50">
-                                        <img src={img} alt="preview" className="w-full h-full object-cover" />
+                                        <Image src={img} alt="preview" fill className="object-cover" unoptimized />
                                         <button
                                             onClick={() => updateField('images', formData.images.filter((_, i) => i !== idx))}
                                             className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"

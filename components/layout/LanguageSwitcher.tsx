@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Guaranteed to have a value due to fallback to localeOptions[2]
-  const currentOption = (localeOptions.find(opt => opt.code === locale) || localeOptions[2])!
+  const currentOption = localeOptions.find(opt => opt.code === locale) || localeOptions[2] || { code: 'en', name: 'English', flag: '🇬🇧' } as LocaleOption
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -62,9 +62,8 @@ export function LanguageSwitcher() {
         <span className="text-xs font-bold uppercase">
           {currentOption.code}
         </span>
-        <ChevronDown className={`w-3 h-3 transition-transform ${
-          isOpen ? 'rotate-180' : ''
-        }`} />
+        <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''
+          }`} />
       </button>
 
       {/* Dropdown */}
@@ -74,11 +73,10 @@ export function LanguageSwitcher() {
             <button
               key={option.code}
               onClick={() => handleLocaleChange(option.code)}
-              className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition ${
-                locale === option.code
-                  ? 'bg-blue-50 text-blue-600'
-                  : 'text-gray-700 hover:bg-gray-50'
-              }`}
+              className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition ${locale === option.code
+                ? 'bg-blue-50 text-blue-600'
+                : 'text-gray-700 hover:bg-gray-50'
+                }`}
             >
               <div className="flex items-center gap-2">
                 <span className="text-xl">
