@@ -13,7 +13,7 @@ interface CategoryCardProps {
 export function CategoryCard({ category }: CategoryCardProps) {
   // Get Lucide icon by name
   const IconComponent = category.icon_name 
-    ? (LucideIcons as any)[category.icon_name] || LucideIcons.Package
+    ? (LucideIcons as Record<string, LucideIcons.LucideIcon>)[category.icon_name] || LucideIcons.Package
     : LucideIcons.Package
 
   return (

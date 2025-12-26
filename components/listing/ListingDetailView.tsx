@@ -57,7 +57,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                             className="object-cover transition-all duration-700"
                                             priority
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                                     </div>
                                 ) : (
                                     <div className="aspect-[16/10] flex items-center justify-center bg-gray-50">
@@ -100,13 +100,13 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                         </span>
                                         <span className="text-xl font-bold text-gray-400 uppercase tracking-widest">{listing.currency}</span>
                                     </div>
-                                    <div className="h-1 flex-1 bg-gray-100 rounded-full"></div>
+                                    <div className="h-1 flex-1 bg-gray-100 rounded-full" />
                                 </div>
                             </div>
 
                             <div className="prose prose-blue max-w-none">
                                 <h3 className="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
-                                    <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
+                                    <div className="w-2 h-8 bg-blue-600 rounded-full" />
                                     {t.listing.description}
                                 </h3>
                                 <p className="text-lg text-gray-600 whitespace-pre-wrap leading-relaxed">
@@ -121,7 +121,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                         {/* Contact Card */}
                         <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-blue-600/10 border-4 border-blue-50 sticky top-32 overflow-hidden">
                             {/* Decorative background circle */}
-                            <div className="absolute -right-20 -top-20 w-44 h-44 bg-blue-600/5 rounded-full blur-3xl"></div>
+                            <div className="absolute -right-20 -top-20 w-44 h-44 bg-blue-600/5 rounded-full blur-3xl" />
 
                             <h3 className="text-2xl font-black text-gray-900 mb-8 relative">{t.listing.contactSeller}</h3>
 

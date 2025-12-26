@@ -44,7 +44,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
             className="relative flex flex-col items-center justify-center rounded-[2.5rem] bg-white border border-gray-100 p-10 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all duration-500 overflow-hidden h-full"
           >
             {/* Background Decorative Element */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-50/50 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-50/50 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
 
             {category.icon && (
               <div className="mb-6 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500">
