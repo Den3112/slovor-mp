@@ -1,7 +1,7 @@
 // Listings View Component
 // Principle #1: Separate View from Logic
 
-import type { Listing } from '@/lib/types'
+import type { Listing } from '@/lib/supabase/queries'
 import { ListingCard } from './card'
 
 interface ListingsViewProps {

@@ -27,6 +27,7 @@ interface ListingFilterOptions {
   condition?: 'new' | 'used'
   location?: string
   sort?: string
+  isFeatured?: boolean
 }
 
 // ========================================
@@ -72,6 +73,10 @@ function applyListingFilters(
     query = query.ilike('location', `%${options.location}%`)
   }
 
+  if (options.isFeatured !== undefined) {
+    query = query.eq('featured', options.isFeatured)
+  }
+
   return query
 }
 
@@ -112,11 +117,11 @@ function applyListingPagination(
     const to = options.offset + options.limit - 1
     return query.range(from, to)
   }
-  
+
   if (options?.limit) {
     return query.limit(options.limit)
   }
-  
+
   return query
 }
 
@@ -190,7 +195,7 @@ export const categoriesApi = {
         .single()
 
       if (error) { throw error }
-      
+
       // Get listing count for this category
       const { count } = await supabase
         .from('listings')
@@ -220,15 +225,15 @@ export const listingsApi = {
    * Fetches all listings with optional filtering and sorting
    * @param options - Filter and sort options
    * @returns Array of listings matching criteria
-   * 
+   *
    * @example
    * // Get all electronics listings
    * const result = await listingsApi.getAll({ categorySlug: 'electronics' })
-   * 
+   *
    * @example
    * // Search with price filter and pagination
-   * const result = await listingsApi.getAll({ 
-   *   search: 'laptop', 
+   * const result = await listingsApi.getAll({
+   *   search: 'laptop',
    *   priceMax: 1000,
    *   sort: 'price-low',
    *   limit: 20,
@@ -284,7 +289,7 @@ export const listingsApi = {
         .single()
 
       if (error) { throw error }
-      
+
       // Increment views (fire and forget)
       await supabase
         .from('listings')
@@ -313,6 +318,33 @@ export const listingsApi = {
 
       if (error) { throw error }
       return { data: data || [], error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Creates a new listing
+   * @param listing - Listing data to insert
+   * @returns Created listing object
+   */
+  async create(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
+    try {
+      // Clean up the object to remove undefined fields and ensure required fields
+      const { data, error } = await supabase
+        .from('listings')
+        .insert({
+          ...listing,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          is_active: true,
+          views: 0,
+        })
+        .select()
+        .single()
+
+      if (error) { throw error }
+      return { data, error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
     }
