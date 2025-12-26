@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Filters } from '@/components/category/Filters'
 import { Pagination } from '@/components/category/Pagination'
 import { useTranslation } from '@/lib/i18n'
+import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import type { Category, Listing } from '@/lib/types/database'
 
 interface CategoryViewProps {
@@ -25,15 +26,7 @@ export function CategoryView({
     itemsPerPage 
 }: CategoryViewProps) {
     const { t, locale } = useTranslation()
-
-    // Dynamic locale check
-    const categoryName = (() => {
-        if (locale === 'sk') return category.name_sk || category.name
-        if (locale === 'cs') return category.name_cs || category.name
-        if (locale === 'en') return category.name_en || category.name
-        // Safe fallback for unknown category slugs
-        return (t.categories as Record<string, string>)[category.slug] || category.name
-    })()
+    const categoryName = getLocalizedCategoryName(category, locale, t)
 
     return (
         <div className="container mx-auto px-4 py-12 overflow-x-hidden">
