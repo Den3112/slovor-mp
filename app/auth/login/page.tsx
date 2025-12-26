@@ -10,7 +10,8 @@ import { Loader2, ArrowLeft } from 'lucide-react'
 export default function LoginPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const [isRegistering, setIsRegistering] = useState(false)
+    const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
+    const [isRegistering, setIsRegistering] = useState(searchParams?.get('mode') === 'register')
     const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
