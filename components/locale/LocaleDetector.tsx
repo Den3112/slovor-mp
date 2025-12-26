@@ -35,15 +35,18 @@ export function LocaleDetector() {
   const [selectedLocale, setSelectedLocale] = useState<Locale>(locale)
 
   useEffect(() => {
-    // Check if user already dismissed the modal
+    // 1. Check if locale is already stored (user selected before)
+    const storedLocale = localStorage.getItem('slovor-locale') as Locale
+    if (storedLocale && AVAILABLE_LOCALES.includes(storedLocale)) {
+      setLocale(storedLocale)
+      return
+    }
+
+    // 2. Check if user dismissed without selecting (keep default)
     const dismissed = localStorage.getItem(LOCALE_DISMISSED_KEY)
     if (dismissed) return
 
-    // Check if locale is already set
-    const storedLocale = localStorage.getItem('slovor-locale')
-    if (storedLocale) return
-
-    // Detect locale
+    // 3. Detect locale for new users
     detectUserLocale()
   }, [])
 
@@ -51,7 +54,7 @@ export function LocaleDetector() {
     let detected: Locale = 'en'
 
     // 1. Try browser language first
-    const browserLang = navigator.language.split('-')[0].toLowerCase()
+    const browserLang = ((navigator.language || 'en').split('-')[0] || 'en').toLowerCase()
     if (AVAILABLE_LOCALES.includes(browserLang as Locale)) {
       detected = browserLang as Locale
     }
@@ -76,6 +79,7 @@ export function LocaleDetector() {
 
   const handleConfirm = () => {
     setLocale(selectedLocale)
+    localStorage.setItem('slovor-locale', selectedLocale)
     localStorage.setItem(LOCALE_DISMISSED_KEY, 'true')
     setShowModal(false)
   }
@@ -129,7 +133,7 @@ export function LocaleDetector() {
 
         <div className="space-y-4 py-4">
           <div className="text-sm font-medium text-gray-700">{t.selectLanguage}</div>
-          
+
           <div className="grid gap-2">
             {LOCALE_OPTIONS.map((option) => (
               <button

@@ -28,7 +28,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
         if (locale === 'sk') return listing.category.name_sk || listing.category.name
         if (locale === 'cs') return listing.category.name_cs || listing.category.name
         if (locale === 'en') return listing.category.name_en || listing.category.name
-        return t.categories[listing.category.slug] || listing.category.name
+        return t.categories[listing.category.slug as keyof typeof t.categories] || listing.category.name
     })()
 
     return (

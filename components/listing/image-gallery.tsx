@@ -3,8 +3,8 @@
 // Image Gallery Component with Mobile Swipe Support
 // Principle #1: Small component (< 150 lines)
 
-import { useState, useRef } from 'react'
-import type { TouchEvent } from 'react'
+import { useState, useRef, type TouchEvent } from 'react'
+// import type { TouchEvent } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, ImageOff } from 'lucide-react'
 
@@ -45,11 +45,15 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   // Touch handlers for mobile swipe
   const handleTouchStart = (e: TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
+    if (e.touches && e.touches[0]) {
+      touchStartX.current = e.touches[0].clientX
+    }
   }
 
   const handleTouchMove = (e: TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX
+    if (e.touches && e.touches[0]) {
+      touchEndX.current = e.touches[0].clientX
+    }
   }
 
   const handleTouchEnd = () => {
@@ -89,7 +93,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div 
+      <div
         className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-100 group"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -99,9 +103,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
         {loadingImages.has(currentIndex) && (
           <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse z-10" />
         )}
-        
+
         <Image
-          src={validImages[currentIndex]}
+          src={validImages[currentIndex] || '/images/placeholder.jpg'}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
           className={`object-cover transition-opacity duration-300 ${
@@ -109,7 +113,10 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           }`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
           priority={currentIndex === 0}
-          onError={() => handleImageError(images.indexOf(validImages[currentIndex]))}
+          onError={() => {
+            const current = validImages[currentIndex]
+            if (current) handleImageError(images.indexOf(current))
+          }}
           onLoad={() => handleImageLoad(currentIndex)}
           unoptimized
         />

@@ -2,26 +2,21 @@
 
 > **Ukrainian classifieds marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS
 
-**Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)  
+**Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)
 **Dev Preview:** [slovor-mp-git-dev.vercel.app](https://slovor-mp-git-dev.vercel.app)
 
 ---
 
 ## 📚 Documentation
 
-⚠️ **All documentation has been moved to the `docs` branch!**
+<br>
 
 **Quick Links:**
-- [📝 View All Documentation](https://github.com/Den3112/slovor-mp/tree/docs)
-- [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
-- [🔥 Coding Principles (MANDATORY)](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md)
-- [🏛️ Architecture](https://github.com/Den3112/slovor-mp/blob/docs/ARCHITECTURE.md)
-- [🛠️ Development Guide](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md)
-
-```bash
-# Switch to docs branch to read documentation
-git checkout docs
-```
+- [📝 View All Documentation](./INDEX.md)
+- [🎯 Quick Start Guide](./QUICK_START.md)
+- [🔥 Coding Principles (MANDATORY)](./PRINCIPLES.md)
+- [🏛️ Architecture](./ARCHITECTURE.md)
+- [🛠️ Development Guide](./DEVELOPMENT.md)
 
 ---
 
@@ -91,7 +86,7 @@ npm run format       # Format with Prettier
 
 ## 🔥 Before You Code
 
-**MANDATORY:** Read [PRINCIPLES.md](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md) first!
+**MANDATORY:** Read [PRINCIPLES.md](./PRINCIPLES.md) first!
 
 8 coding principles that MUST be followed:
 1. Component Isolation
@@ -134,7 +129,7 @@ npm run format       # Format with Prettier
 
 ## 🤝 Contributing
 
-1. Read [DEVELOPMENT.md](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md)
+1. Read [DEVELOPMENT.md](./DEVELOPMENT.md)
 2. Create feature branch from `dev`
 3. Make changes
 4. Test locally
@@ -146,11 +141,11 @@ npm run format       # Format with Prettier
 
 - **Production:** https://slovor-mp.vercel.app
 - **Dev Preview:** https://slovor-mp-git-dev.vercel.app
-- **Documentation:** https://github.com/Den3112/slovor-mp/tree/docs
+- **Documentation:** ./INDEX.md
 - **Issues:** https://github.com/Den3112/slovor-mp/issues
 
 ---
 
-**Branch:** `dev` (Development)  
-**Last Updated:** December 25, 2025  
+**Branch:** `dev` (Development)
+**Last Updated:** December 25, 2025
 **Maintained by:** [@Den3112](https://github.com/Den3112)

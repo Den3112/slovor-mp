@@ -5,6 +5,7 @@
 // Principle #4: No magic - clear data flow from API to component
 
 import { HomeView } from '@/components/home/HomeView'
+import { FeaturedListings } from '@/components/listing/featured'
 import { categoriesApi } from '@/lib/supabase/queries'
 
 /**
@@ -25,6 +26,8 @@ export default async function HomePage() {
     <HomeView
       categories={categoriesRes.data || []}
       categoriesError={categoriesRes.error}
-    />
+    >
+      <FeaturedListings />
+    </HomeView>
   )
 }
