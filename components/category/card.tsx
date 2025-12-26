@@ -12,7 +12,7 @@ interface CategoryCardProps {
 
 export function CategoryCard({ category }: CategoryCardProps) {
   // Get Lucide icon by name with proper type handling
-  const getIconComponent = (iconName?: string): LucideIcons.LucideIcon => {
+  const getIconComponent = (iconName?: string | null): LucideIcons.LucideIcon => {
     if (!iconName) return LucideIcons.Package
     
     const icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[iconName]
