@@ -50,7 +50,7 @@ export function CategoryView({
                             <Badge variant="secondary" className="bg-blue-50 text-blue-600 border-0 font-bold px-3">
                                 {totalCount} {t.common.listings} {t.common.found}
                             </Badge>
-                            <div className="h-1 flex-1 bg-gray-100 rounded-full hidden md:block w-32"></div>
+                            <div className="h-1 flex-1 bg-gray-100 rounded-full hidden md:block w-32" />
                         </div>
                     </div>
                 </div>
