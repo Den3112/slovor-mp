@@ -1,8 +1,0 @@
-# Vercel Dev Environment
-
-This file triggers initial deployment for dev branch.
-
-Dev environment configuration:
-- Branch: dev
-- Environment: Preview
-- Auto-deploy: Enabled
