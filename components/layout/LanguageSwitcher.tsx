@@ -23,7 +23,7 @@ export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const currentOption = localeOptions.find(opt => opt.code === locale) ?? localeOptions[2]
+  const currentOption: LocaleOption = localeOptions.find(opt => opt.code === locale) ?? localeOptions[2]
 
   // Close dropdown when clicking outside
   useEffect(() => {
