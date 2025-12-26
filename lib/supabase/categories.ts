@@ -78,11 +78,14 @@ export async function getCategoriesWithCounts(): Promise<
     if (error) throw error
 
     // Transform count
-    const categoriesWithCounts = (data || []).map((cat: any) => ({
-      ...cat,
-      listings_count: cat.listings?.[0]?.count || 0,
-      listings: undefined, // Remove temporary field
-    }))
+    const categoriesWithCounts = (data || []).map((cat: unknown) => {
+      const category = cat as Category & { listings?: Array<{ count: number }> }
+      return {
+        ...category,
+        listings_count: category.listings?.[0]?.count || 0,
+        listings: undefined, // Remove temporary field
+      }
+    })
 
     return { data: categoriesWithCounts, error: null }
   } catch (error) {

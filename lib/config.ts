@@ -40,7 +40,7 @@ export const isProd = () => config.isProduction
 export const isPreview = () => config.isPreview
 
 // Debug logger (only works in development)
-export const debugLog = (...args: any[]) => {
+export const debugLog = (...args: unknown[]) => {
   if (config.features.enableDebugLogs) {
     console.log('[DEBUG]', ...args)
   }

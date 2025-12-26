@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
 import { translations, type Locale, type TranslationKeys } from './translations'
 
 interface I18nContextValue {
@@ -16,7 +16,6 @@ const LOCALE_STORAGE_KEY = 'slovor-locale'
 export function I18nProvider({ children }: { children: ReactNode }) {
   // Default to English
   const [locale, setLocaleState] = useState<Locale>('en')
-  const [mounted, setMounted] = useState(false)
 
   // Update HTML lang attribute and meta tags
   const updateHtmlLang = (newLocale: Locale) => {
@@ -59,7 +58,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         if (stored && translations[stored]) {
           setLocaleState(stored)
           updateHtmlLang(stored)
-          setMounted(true)
           return
         }
 
@@ -72,7 +70,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
             if (data.locale && translations[data.locale]) {
               setLocaleState(data.locale)
               updateHtmlLang(data.locale)
-              setMounted(true)
               return
             }
           }
@@ -95,7 +92,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         setLocaleState('en')
         updateHtmlLang('en')
       }
-      setMounted(true)
     }
 
     initLocale()
