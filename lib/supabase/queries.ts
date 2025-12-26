@@ -3,14 +3,9 @@
 // Principle #5: Errors are part of design
 // Principle #1: Keep functions small (< 30 lines)
 
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from './client'
 import type { Category, Listing, ApiResponse } from '../types/database'
 export type { Category, Listing, ApiResponse }
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key'
-
-const supabase = createClient(supabaseUrl, supabaseKey)
 
 // ========================================
 // TYPES
