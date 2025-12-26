@@ -38,6 +38,7 @@ interface ListingFilterOptions {
  * Handles: category, search, price range, condition, location
  */
 function applyListingFilters(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any,
   options?: ListingFilterOptions
 ) {
@@ -79,6 +80,7 @@ function applyListingFilters(
  * Options: newest (default), oldest, price-low, price-high, views
  */
 function applyListingSorting(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any,
   sort?: string
 ) {
@@ -101,6 +103,7 @@ function applyListingSorting(
  * Applies pagination to listings query
  */
 function applyListingPagination(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any,
   options?: ListingFilterOptions
 ) {

@@ -3,7 +3,7 @@
 // Error Boundary Component
 // Principle #5: Errors are part of design
 
-import { Component, ReactNode } from 'react'
+import { Component, type ReactNode } from 'react'
 import { AlertCircle } from 'lucide-react'
 
 interface Props {
@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error }
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: unknown) {
     console.error('Error caught by boundary:', error, errorInfo)
   }
 
