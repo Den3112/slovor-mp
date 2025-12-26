@@ -48,7 +48,7 @@ export function HomeView({
                     </p>
 
                     <div className="relative max-w-2xl mx-auto group animate-in fade-in slide-in-from-bottom-8 duration-1000">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-primary via-violet-500 to-primary rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-primary via-violet-500 to-primary rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
                         <div className="relative flex items-center bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl p-2 shadow-2xl">
                             <Search className="text-muted-foreground ml-4 h-6 w-6 shrink-0" />
                             <input

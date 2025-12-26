@@ -151,7 +151,7 @@ export function Footer() {
             </p>
             <div className="flex gap-6">
               <span>EUR (€)</span>
-              <span className="w-px h-4 bg-zinc-800"></span>
+              <span className="w-px h-4 bg-zinc-800" />
               <span>Slovakia (SK)</span>
             </div>
           </div>
