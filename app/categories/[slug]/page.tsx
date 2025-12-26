@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { ErrorState } from '@/components/ui/error-state'
 import { CategoryView } from '@/components/category/CategoryView'
@@ -5,7 +6,7 @@ import { categoriesApi, listingsApi } from '@/lib/supabase/queries'
 
 /**
  * ISR for category pages
- * 
+ *
  * WHY 120 SECONDS (2 minutes):
  * - Categories change less frequently than listings
  * - Longer cache time = better performance
@@ -15,13 +16,13 @@ export const revalidate = 120
 
 /**
  * Static Params Generation
- * 
+ *
  * WHAT IT DOES:
  * - Pre-renders all category pages at build time
  * - Generates /categories/electronics, /categories/fashion, etc.
  * - Improves SEO (pages indexed faster)
  * - Better Core Web Vitals scores
- * 
+ *
  * HOW IT WORKS:
  * 1. At build time, fetches all categories from DB
  * 2. Creates static HTML for each category
@@ -29,11 +30,11 @@ export const revalidate = 120
  */
 export async function generateStaticParams() {
   const categoriesRes = await categoriesApi.getAll()
-  
+
   if (!categoriesRes.data) {
     return []
   }
-  
+
   return categoriesRes.data.map((category) => ({
     slug: category.slug,
   }))
@@ -91,12 +92,14 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const countRes = await listingsApi.getCount(filterOptions)
 
   return (
-    <CategoryView
-      category={categoryRes.data}
-      listings={listingsRes.data || []}
-      listingsError={listingsRes.error}
-      totalCount={countRes.data || 0}
-      itemsPerPage={ITEMS_PER_PAGE}
-    />
+    <Suspense fallback={<div className="py-20 text-center animate-pulse">Loading category...</div>}>
+      <CategoryView
+        category={categoryRes.data}
+        listings={listingsRes.data || []}
+        listingsError={listingsRes.error}
+        totalCount={countRes.data || 0}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
+    </Suspense>
   )
 }

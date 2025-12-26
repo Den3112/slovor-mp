@@ -22,7 +22,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     if (typeof document !== 'undefined') {
       // Update html lang attribute
       document.documentElement.lang = newLocale
-      
+
       // Update or create og:locale meta tag for SEO
       let metaLang = document.querySelector('meta[property="og:locale"]')
       if (!metaLang) {
@@ -30,7 +30,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         metaLang.setAttribute('property', 'og:locale')
         document.head.appendChild(metaLang)
       }
-      
+
       const localeMap: Record<Locale, string> = {
         sk: 'sk_SK',
         cs: 'cs_CZ',
@@ -67,9 +67,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
           const response = await fetch('/api/detect-locale')
           if (response.ok) {
             const data = await response.json()
-            if (data.locale && translations[data.locale]) {
-              setLocaleState(data.locale)
-              updateHtmlLang(data.locale)
+            if (data.locale && translations[data.locale as Locale]) {
+              setLocaleState(data.locale as Locale)
+              updateHtmlLang(data.locale as Locale)
               return
             }
           }
