@@ -1,8 +1,9 @@
 'use client'
 
-// Listing Card Component
-// Principle #1: Small component
-// Principle #2: Receives data via props
+// ListingCard - Displays listing preview with image, price, location
+// Used in: ListingGrid, CategoryPage, HomePage (featured)
+// Principle #1: Small, reusable component with explicit props
+// Principle #2: Receives all data via props, no direct API calls
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -11,6 +12,7 @@ import type { Listing } from '@/lib/supabase/queries'
 import { MapPin, Eye, Sparkles, ImageOff } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { getLocalizedTitle } from '@/lib/utils/listing-i18n'
+import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 
 interface ListingCardProps {
   listing: Listing
@@ -25,13 +27,8 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
   const imageUrl = listing.images?.[0] || ''
   const hasValidImage = imageUrl && !imageError
   const localizedTitle = getLocalizedTitle(listing, locale)
-  
-  // Get localized category name
-  const categoryName = listing.category
-    ? (locale === 'sk' ? listing.category.name_sk || listing.category.name :
-       locale === 'cs' ? listing.category.name_cs || listing.category.name :
-       locale === 'en' ? listing.category.name_en || listing.category.name :
-       t.categories[listing.category.slug] || listing.category.name)
+  const categoryName = listing.category 
+    ? getLocalizedCategoryName(listing.category, locale, t)
     : ''
   
   return (
