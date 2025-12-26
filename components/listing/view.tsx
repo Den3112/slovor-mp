@@ -3,7 +3,6 @@
 // Listings View Component
 // Client component for displaying listings grid with filters
 
-import { useState } from 'react'
 import { ListingCard } from './card'
 import { ListingFilters } from './filters'
 import type { Listing } from '@/lib/supabase/queries'
@@ -22,7 +21,7 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">All Listings</h1>
           {searchQuery && (
-            <p className="text-gray-600">Searching for: "{searchQuery}"</p>
+            <p className="text-gray-600">Searching for: &quot;{searchQuery}&quot;</p>
           )}
           <p className="text-gray-600 mt-1">
             {listings.length} {listings.length === 1 ? 'listing' : 'listings'} found

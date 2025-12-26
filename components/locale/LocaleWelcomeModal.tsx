@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
@@ -29,20 +29,7 @@ export function LocaleWelcomeModal() {
   const [detectedLocale, setDetectedLocale] = useState<Locale>('en')
   const [selectedLocale, setSelectedLocale] = useState<Locale>(locale)
 
-  useEffect(() => {
-    const hasSeenWelcome = localStorage.getItem(WELCOME_SHOWN_KEY)
-    
-    if (!hasSeenWelcome) {
-      // Detect locale from browser and IP
-      detectUserLocale().then((detected) => {
-        setDetectedLocale(detected)
-        setSelectedLocale(detected)
-        setOpen(true)
-      })
-    }
-  }, [])
-
-  const detectUserLocale = async (): Promise<Locale> => {
+  const detectUserLocale = useCallback(async (): Promise<Locale> => {
     try {
       // Try to detect by IP first
       const response = await fetch('/api/detect-locale')
@@ -59,7 +46,20 @@ export function LocaleWelcomeModal() {
     // Fallback to browser language
     const browserLang = navigator.language.split('-')[0] as Locale
     return isValidLocale(browserLang) ? browserLang : 'en'
-  }
+  }, [])
+
+  useEffect(() => {
+    const hasSeenWelcome = localStorage.getItem(WELCOME_SHOWN_KEY)
+    
+    if (!hasSeenWelcome) {
+      // Detect locale from browser and IP
+      detectUserLocale().then((detected) => {
+        setDetectedLocale(detected)
+        setSelectedLocale(detected)
+        setOpen(true)
+      })
+    }
+  }, [detectUserLocale])
 
   const isValidLocale = (locale: string): locale is Locale => {
     return ['sk', 'cs', 'en'].includes(locale)
