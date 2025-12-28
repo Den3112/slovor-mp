@@ -4,9 +4,12 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Search, Menu, X, Globe, Plus, LogOut } from 'lucide-react'
+import { Search, Menu, X, Globe, Plus, LogOut, User, LayoutDashboard, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
+import { Container } from '@/components/ui/container'
+import { Button } from '@/components/ui/button'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const SUPPORTED_LOCALES = [
   { code: 'sk', name: 'Slovenský' },
@@ -32,195 +35,211 @@ export function Header() {
 
   const navLinks = [
     { href: '/', label: t.common.home },
+    { href: '/listings', label: t.common.allListings },
     { href: '/categories', label: t.common.categories },
   ]
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    const form = e.target as HTMLFormElement
-    const input = form.elements.namedItem('search') as HTMLInputElement
-    const query = input.value.trim()
-
-    if (query) {
-      router.push(`/listings?search=${encodeURIComponent(query)}`)
-    }
-  }
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300 border-b border-transparent",
-        isScrolled ? "bg-background/80 backdrop-blur-md border-border shadow-sm" : "bg-transparent"
+        "fixed top-0 z-50 w-full transition-all duration-500",
+        isScrolled
+          ? "py-3 bg-background/70 backdrop-blur-2xl border-b border-border shadow-[0_4px_30px_rgba(0,0,0,0.03)]"
+          : "py-5 bg-transparent"
       )}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <Container>
+        <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-gradient-to-tr from-primary to-violet-500 w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-105 transition-transform">
-              S
+          <Link href="/" className="relative flex items-center gap-3 group z-50">
+            <div className="relative w-10 h-10 md:w-11 md:h-11">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary via-violet-500 to-primary rounded-xl rotate-6 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-lg shadow-primary/20" />
+              <div className="absolute inset-0 bg-white dark:bg-zinc-900 rounded-xl flex items-center justify-center font-black text-xl md:text-2xl text-foreground">
+                S
+              </div>
             </div>
-            <span className="font-heading font-bold text-xl md:text-2xl text-foreground tracking-tight group-hover:text-primary transition-colors">
-              Slovor
+            <span className="font-heading font-black text-2xl md:text-3xl tracking-tighter text-foreground group-hover:text-primary transition-colors">
+              Slovor<span className="text-primary">.</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <div className="flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-10">
+            <div className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+                  className="text-sm font-bold text-muted-foreground hover:text-foreground transition-all relative group"
                 >
                   {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
 
-            <div className="h-6 w-px bg-border mx-2" />
-
-            <div className="flex items-center gap-4">
-              {/* Language Switcher */}
+            <div className="flex items-center gap-6 pl-6 border-l border-border/50">
+              {/* Language Selector */}
               <div className="relative">
                 <button
                   onClick={() => setShowLangMenu(!showLangMenu)}
-                  className="flex items-center gap-2 px-2 py-1.5 rounded-md text-sm font-medium text-muted-foreground hover:bg-muted/50 transition-colors"
+                  onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
+                  className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors uppercase tracking-widest"
                 >
                   <Globe className="w-4 h-4" />
-                  <span className="uppercase">{locale}</span>
+                  {locale}
+                  <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", showLangMenu && "rotate-180")} />
                 </button>
-
-                {showLangMenu && (
-                  <div className="absolute right-0 mt-2 w-32 bg-popover rounded-xl shadow-glass border border-border overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-                    <div className="p-1">
+                <AnimatePresence>
+                  {showLangMenu && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      className="absolute right-0 mt-3 w-40 bg-card rounded-2xl shadow-premium border border-border p-2 z-50 backdrop-blur-xl"
+                    >
                       {SUPPORTED_LOCALES.map((lang) => (
                         <button
                           key={lang.code}
-                          onClick={() => {
-                            setLocale(lang.code as 'sk' | 'en')
-                            setShowLangMenu(false)
-                          }}
+                          onClick={() => setLocale(lang.code as 'sk' | 'en')}
                           className={cn(
-                            "w-full text-left px-3 py-2 text-sm rounded-lg transition-colors",
+                            "w-full text-left px-4 py-2.5 text-sm font-semibold rounded-xl transition-all",
                             locale === lang.code
-                              ? "bg-primary/10 text-primary font-medium"
-                              : "text-foreground hover:bg-muted"
+                              ? "bg-primary/10 text-primary"
+                              : "hover:bg-muted"
                           )}
                         >
                           {lang.name}
                         </button>
                       ))}
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              {/* User Menu */}
+              {/* User Section */}
               {user ? (
                 <div className="relative">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="flex items-center gap-2 hover:bg-muted/50 p-1.5 rounded-full transition-colors"
+                    onBlur={() => setTimeout(() => setShowUserMenu(false), 200)}
+                    className="flex items-center gap-2 group"
                   >
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold border border-primary/20">
-                      {user.email?.[0]?.toUpperCase()}
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary/20 to-violet-500/20 p-[1px] group-hover:scale-105 transition-transform">
+                      <div className="w-full h-full rounded-full bg-card flex items-center justify-center font-black text-primary border border-primary/10">
+                        {user.email?.[0]?.toUpperCase()}
+                      </div>
                     </div>
                   </button>
-
-                  {showUserMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-popover rounded-xl shadow-glass border border-border overflow-hidden animate-in fade-in zoom-in-95 duration-200 p-1">
-                      <div className="px-3 py-2 text-sm font-medium border-b border-border/50 text-muted-foreground truncate">
-                        {user.email}
-                      </div>
-                      <button
-                        onClick={() => signOut()}
-                        className="w-full text-left px-3 py-2 text-sm text-destructive hover:bg-destructive/10 rounded-lg transition-colors flex items-center gap-2 mt-1"
+                  <AnimatePresence>
+                    {showUserMenu && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="absolute right-0 mt-3 w-56 bg-card rounded-[1.5rem] shadow-premium border border-border overflow-hidden z-50"
                       >
-                        <LogOut className="w-4 h-4" /> Sign Out
-                      </button>
-                    </div>
-                  )}
+                        <div className="px-5 py-4 bg-muted/30">
+                          <p className="text-xs font-black text-primary uppercase tracking-[0.1em] mb-1">Signed in as</p>
+                          <p className="text-sm font-bold text-foreground truncate">{user.email}</p>
+                        </div>
+                        <div className="p-2">
+                          <Link
+                            href="/dashboard"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-foreground hover:bg-muted rounded-xl transition-all"
+                          >
+                            <LayoutDashboard className="w-4 h-4 text-primary" />
+                            Dashboard
+                          </Link>
+                          <Link
+                            href="/profile"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-foreground hover:bg-muted rounded-xl transition-all"
+                          >
+                            <User className="w-4 h-4 text-primary" />
+                            My Profile
+                          </Link>
+                          <div className="h-px bg-border/50 my-1 px-2" />
+                          <button
+                            onClick={() => signOut()}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/5 rounded-xl transition-all"
+                          >
+                            <LogOut className="w-4 h-4" />
+                            Sign Out
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <Link
                   href="/auth/login"
-                  className="text-sm font-bold text-foreground hover:text-primary transition-colors"
+                  className="text-sm font-black text-foreground hover:text-primary transition-colors px-4 py-2"
                 >
                   Sign In
                 </Link>
               )}
 
-              {/* Post Ad Button */}
-              <Link
-                href="/post"
-                className="hidden md:flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 font-medium text-sm"
-              >
-                <Plus className="w-4 h-4" />
-                {t.common.postAd}
-              </Link>
+              {/* POST BUTTON */}
+              <Button asChild size="lg" className="rounded-full h-12 px-6 font-black shadow-lg shadow-primary/20 group">
+                <Link href="/post">
+                  <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-500" />
+                  {t.common.postAd}
+                </Link>
+              </Button>
             </div>
           </nav>
 
           {/* Mobile Actions */}
-          <div className="flex items-center gap-4 md:hidden">
-            {user ? (
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold border border-primary/20 text-xs">
+          <div className="flex lg:hidden items-center gap-4">
+            {user && (
+              <Link href="/dashboard" className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-black text-primary text-xs border border-primary/20">
                 {user.email?.[0]?.toUpperCase()}
-              </div>
-            ) : (
-              <Link href="/auth/login" className="text-sm font-bold">Sign In</Link>
+              </Link>
             )}
             <button
-              className="text-foreground p-2 hover:bg-muted rounded-full transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="relative z-50 p-2 text-foreground hover:bg-muted rounded-full transition-colors"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-16 bg-background/95 backdrop-blur-xl z-40 animate-in slide-in-from-top-4 duration-200">
-            <nav className="flex flex-col p-6 gap-4 h-full border-t border-border/40">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-lg font-medium text-foreground py-3 border-b border-border/40"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-0 top-0 left-0 w-full h-screen bg-background z-[40] flex flex-col p-8 pt-28"
+            >
+              <nav className="flex flex-col gap-6">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-4xl font-black text-foreground tracking-tighter hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
 
-              {/* Mobile Search */}
-              <div className="py-4">
-                <form onSubmit={handleSearch} className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                  <input
-                    name="search"
-                    type="text"
-                    placeholder={t.common.searchPlaceholder}
-                    defaultValue={searchParams.get('search') || ''}
-                    className="w-full pl-10 pr-4 py-3 bg-muted/40 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
-                  />
-                </form>
-              </div>
-
-              <div className="mt-auto pb-8 space-y-4">
-                <div className="flex gap-2 justify-center pb-4">
+              <div className="mt-auto space-y-8 pb-10">
+                <div className="flex gap-4">
                   {SUPPORTED_LOCALES.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => setLocale(lang.code as 'sk' | 'en')}
                       className={cn(
-                        "px-4 py-2 rounded-full text-sm font-medium border",
+                        "flex-1 py-4 text-center font-black rounded-2xl border transition-all",
                         locale === lang.code
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "bg-background text-muted-foreground border-border"
+                          ? "bg-primary text-white border-primary"
+                          : "bg-muted/50 text-muted-foreground border-transparent"
                       )}
                     >
                       {lang.name}
@@ -228,28 +247,27 @@ export function Header() {
                   ))}
                 </div>
 
-                <Link
-                  href="/post"
-                  className="flex w-full items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-4 rounded-xl font-bold hover:opacity-90 transition-opacity"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Plus className="w-5 h-5" />
-                  {t.common.postAd}
-                </Link>
+                <Button asChild className="w-full h-16 rounded-[1.5rem] text-xl font-black" onClick={() => setMobileMenuOpen(false)}>
+                  <Link href="/post">
+                    <Plus className="w-6 h-6 mr-2" />
+                    {t.common.postAd}
+                  </Link>
+                </Button>
 
-                {user && (
-                  <button
-                    onClick={() => { signOut(); setMobileMenuOpen(false); }}
-                    className="flex w-full items-center justify-center gap-2 text-destructive px-6 py-4 font-bold"
+                {!user && (
+                  <Link
+                    href="/auth/login"
+                    className="block w-full text-center py-4 font-black text-foreground text-lg"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    <LogOut className="w-5 h-5" /> Sign Out
-                  </button>
+                    Already have an account? <span className="text-primary italic">Sign In</span>
+                  </Link>
                 )}
               </div>
-            </nav>
-          </div>
-        )}
-      </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
     </header>
   )
 }
