@@ -6,7 +6,9 @@ import { useEffect, useState } from 'react'
 import { categoriesApi } from '@/lib/supabase/queries'
 import type { Category } from '@/lib/types/database'
 import { getUniqueCategories, getCategoryName } from '@/lib/utils/category-helpers'
-import { Facebook, Instagram, Twitter, Mail } from 'lucide-react'
+import { Facebook, Instagram, Twitter, Mail, ArrowUpRight } from 'lucide-react'
+import { Container } from '@/components/ui/container'
+import { motion } from 'framer-motion'
 
 export function Footer() {
   const { t, locale } = useTranslation()
@@ -19,144 +21,127 @@ export function Footer() {
   }, [])
 
   const uniqueCategories = getUniqueCategories(categories, locale, t)
+  const topCategories = uniqueCategories.slice(0, 5)
 
-  const topCategories = uniqueCategories.slice(0, 6).map(cat => ({
-    href: `/categories/${cat.slug}`,
-    label: getCategoryName(cat, locale, t),
-    icon: cat.icon,
-  }))
-
-  const quickLinks = [
-    { href: '/', label: t.common.home },
-    { href: '/listings', label: t.common.allListings },
-    { href: '/post', label: t.common.postAd },
-    { href: '/auth/login', label: t.common.login },
-    { href: '/auth/register', label: t.common.register },
-  ]
-
-  const infoLinks = [
-    { href: '/about', label: t.footer.about },
-    { href: '/contact', label: t.footer.contact },
-    { href: '/terms', label: t.footer.terms },
-    { href: '/privacy', label: t.footer.privacy },
-    { href: '/faq', label: t.footer.faq },
+  const navGroups = [
+    {
+      title: t.footer.popular,
+      links: topCategories.map(cat => ({
+        label: getCategoryName(cat, locale, t),
+        href: `/categories/${cat.slug}`
+      }))
+    },
+    {
+      title: t.footer.quickLinks,
+      links: [
+        { label: t.common.home, href: '/' },
+        { label: t.common.allListings, href: '/listings' },
+        { label: t.common.postAd, href: '/post' },
+        { label: 'Market Trends', href: '/blog' }
+      ]
+    },
+    {
+      title: t.footer.info,
+      links: [
+        { label: t.footer.about, href: '/about' },
+        { label: t.footer.terms, href: '/terms' },
+        { label: t.footer.privacy, href: '/privacy' },
+        { label: t.footer.faq, href: '/faq' }
+      ]
+    }
   ]
 
   return (
-    <footer className="bg-zinc-950 text-zinc-400 mt-auto border-t border-zinc-800">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-primary/20 p-2 rounded-lg group-hover:bg-primary/30 transition-colors">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <span className="text-2xl font-bold text-white font-heading tracking-tight">Slovor</span>
+    <footer className="relative bg-zinc-950 text-zinc-400 pt-24 pb-12 overflow-hidden border-t border-zinc-900">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-violet-500/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+
+      <Container className="relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-24">
+          {/* Brand Info */}
+          <div className="lg:col-span-4 space-y-8">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-violet-500 flex items-center justify-center font-black text-white text-xl">S</div>
+              <span className="text-3xl font-black text-white tracking-tighter">Slovor<span className="text-primary">.</span></span>
             </Link>
-            <p className="text-sm leading-relaxed max-w-xs">
-              {t.footer.description}
+            <p className="text-lg font-medium leading-relaxed max-w-sm text-zinc-500 italic">
+              &ldquo;{t.footer.description}&rdquo;
             </p>
-            <div className="flex gap-3">
-              <a href="#" className="p-2 bg-zinc-900 rounded-full hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2 bg-zinc-900 rounded-full hover:bg-pink-600 hover:text-white transition-all transform hover:-translate-y-1">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2 bg-zinc-900 rounded-full hover:bg-sky-500 hover:text-white transition-all transform hover:-translate-y-1">
-                <Twitter className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Categories */}
-          <div>
-            <h4 className="text-white font-bold mb-6 font-heading">{t.common.categories}</h4>
-            <ul className="space-y-3">
-              {topCategories.map((cat) => (
-                <li key={cat.href}>
-                  <Link
-                    href={cat.href}
-                    className="text-sm hover:text-primary transition-colors flex items-center gap-2 group"
-                  >
-                    <span className="opacity-50 group-hover:opacity-100 transition-opacity">{cat.icon}</span>
-                    <span>{cat.label}</span>
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/listings"
-                  className="text-sm text-primary hover:text-primary/80 transition font-medium inline-flex items-center gap-1 mt-2"
+            <div className="flex gap-4">
+              {[
+                { icon: <Facebook className="w-5 h-5" />, href: "#" },
+                { icon: <Instagram className="w-5 h-5" />, href: "#" },
+                { icon: <Twitter className="w-5 h-5" />, href: "#" },
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  className="w-12 h-12 rounded-2xl bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg border border-zinc-800"
                 >
-                  {t.common.viewAll} →
-                </Link>
-              </li>
-            </ul>
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-white font-bold mb-6 font-heading">{t.footer.quickLinks}</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm hover:text-white transition-colors block"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Info */}
-          <div>
-            <h4 className="text-white font-bold mb-6 font-heading">{t.footer.information}</h4>
-            <ul className="space-y-3 mb-8">
-              {infoLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm hover:text-white transition-colors block"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-primary shrink-0" />
-                <div>
-                  <h5 className="text-white font-medium text-sm mb-1">{t.footer.contact}</h5>
-                  <a href="mailto:info@slovor.sk" className="text-sm hover:text-white transition-colors">info@slovor.sk</a>
-                </div>
+          {/* Navigation Groups */}
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-12">
+            {navGroups.map((group, i) => (
+              <div key={i}>
+                <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">{group.title}</h4>
+                <ul className="space-y-4">
+                  {group.links.map((link, j) => (
+                    <li key={j}>
+                      <Link
+                        href={link.href}
+                        className="text-base font-bold text-zinc-500 hover:text-primary transition-colors flex items-center group gap-1"
+                      >
+                        {link.label}
+                        <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all -translate-y-1" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-zinc-900 bg-zinc-950/50">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-zinc-500">
-            <p>
-              © {new Date().getFullYear()} Slovor Marketplace. {t.footer.copyright}
-            </p>
-            <div className="flex gap-6">
-              <span>EUR (€)</span>
-              <span className="w-px h-4 bg-zinc-800" />
-              <span>Slovakia (SK)</span>
+        {/* Newsletter & Contact */}
+        <div className="p-10 rounded-[3rem] bg-zinc-900/50 border border-zinc-800 mb-24 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="max-w-md">
+            <h3 className="text-2xl font-black text-white mb-2">Subscribe to our market updates</h3>
+            <p className="font-medium text-zinc-500">Get the best deals directly in your inbox.</p>
+          </div>
+          <div className="flex-1 w-full max-w-lg flex items-center gap-2">
+            <div className="relative flex-1 group">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-600 group-focus-within:text-primary transition-colors" />
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white font-bold focus:outline-none focus:border-primary transition-all"
+              />
             </div>
+            <button className="h-14 px-8 bg-primary hover:bg-primary/90 text-white font-black rounded-2xl transition-all active:scale-95 shadow-lg shadow-primary/20">
+              Join
+            </button>
           </div>
         </div>
-      </div>
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-zinc-900 text-xs font-black uppercase tracking-widest text-zinc-600">
+          <p>© {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}.</p>
+          <div className="flex gap-10">
+            <span className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              Slovakia / EUR
+            </span>
+            <Link href="/terms" className="hover:underline">Transparency</Link>
+            <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+          </div>
+        </div>
+      </Container>
     </footer>
   )
 }

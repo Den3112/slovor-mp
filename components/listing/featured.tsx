@@ -7,16 +7,26 @@ interface FeaturedListingsProps {
 }
 
 export async function FeaturedListings({ limit = 8, categoryId }: FeaturedListingsProps) {
-  const result = await listingsApi.getAll({ 
+  const result = await listingsApi.getAll({
     limit,
     categoryId,
     isFeatured: true,
   })
 
-  const listings = result.data || []
+  let listings = result.data || []
+
+  // Fallback: If no featured listings, get the most recent ones
+  if (listings.length === 0) {
+    const fallbackRes = await listingsApi.getAll({ limit, categoryId, sort: 'newest' })
+    listings = fallbackRes.data || []
+  }
 
   if (listings.length === 0) {
-    return null
+    return (
+      <div className="py-20 text-center bg-muted/20 rounded-[2rem] border border-dashed border-border/50">
+        <p className="text-muted-foreground font-medium">No listings available at the moment.</p>
+      </div>
+    )
   }
 
   return (

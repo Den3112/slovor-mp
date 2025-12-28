@@ -43,6 +43,7 @@ export const translations = {
       found: 'nájdených',
       noListings: 'Žiadne inzeráty',
       tryDifferentFilters: 'Skúste upraviť filtre',
+      backToSearch: 'Späť na vyhľadávanie',
     },
     filters: {
       title: 'Filtre',
@@ -100,6 +101,7 @@ export const translations = {
       location: 'Lokalita',
       category: 'Kategória',
       postedOn: 'Zverejnené',
+      itemDescription: 'Popis produktu',
     },
     categories: {
       audio: 'Audio',
@@ -247,6 +249,7 @@ export const translations = {
       found: 'nalezeno',
       noListings: 'Žádné inzeráty',
       tryDifferentFilters: 'Zkuste upravit filtry',
+      backToSearch: 'Zpět na vyhledávání',
     },
     filters: {
       title: 'Filtry',
@@ -304,6 +307,7 @@ export const translations = {
       location: 'Lokalita',
       category: 'Kategorie',
       postedOn: 'Zveřejněno',
+      itemDescription: 'Popis produktu',
     },
     categories: {
       audio: 'Audio',
@@ -451,6 +455,7 @@ export const translations = {
       found: 'found',
       noListings: 'No listings found',
       tryDifferentFilters: 'Try adjusting your filters',
+      backToSearch: 'Back to Search',
     },
     filters: {
       title: 'Filters',
@@ -508,6 +513,7 @@ export const translations = {
       location: 'Location',
       category: 'Category',
       postedOn: 'Posted On',
+      itemDescription: 'Product Description',
     },
     categories: {
       audio: 'Audio',
