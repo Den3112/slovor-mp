@@ -8,7 +8,6 @@ import type { Category } from '@/lib/types/database'
 import { getUniqueCategories, getCategoryName } from '@/lib/utils/category-helpers'
 import { Facebook, Instagram, Twitter, Mail, ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/ui/container'
-import { motion } from 'framer-motion'
 
 export function Footer() {
   const { t, locale } = useTranslation()
@@ -37,7 +36,7 @@ export function Footer() {
         { label: t.common.home, href: '/' },
         { label: t.common.allListings, href: '/listings' },
         { label: t.common.postAd, href: '/post' },
-        { label: 'Market Trends', href: '/blog' }
+        { label: t.common.marketTrends, href: '/blog' }
       ]
     },
     {
@@ -111,20 +110,20 @@ export function Footer() {
         {/* Newsletter & Contact */}
         <div className="p-10 rounded-[3rem] bg-zinc-900/50 border border-zinc-800 mb-24 flex flex-col lg:flex-row items-center justify-between gap-10">
           <div className="max-w-md">
-            <h3 className="text-2xl font-black text-white mb-2">Subscribe to our market updates</h3>
-            <p className="font-medium text-zinc-500">Get the best deals directly in your inbox.</p>
+            <h3 className="text-2xl font-black text-white mb-2">{t.footer.newsletterTitle}</h3>
+            <p className="font-medium text-zinc-500">{t.footer.newsletterSubtitle}</p>
           </div>
           <div className="flex-1 w-full max-w-lg flex items-center gap-2">
             <div className="relative flex-1 group">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-600 group-focus-within:text-primary transition-colors" />
               <input
                 type="email"
-                placeholder="your@email.com"
+                placeholder={t.footer.newsletterPlaceholder}
                 className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white font-bold focus:outline-none focus:border-primary transition-all"
               />
             </div>
             <button className="h-14 px-8 bg-primary hover:bg-primary/90 text-white font-black rounded-2xl transition-all active:scale-95 shadow-lg shadow-primary/20">
-              Join
+              {t.footer.subscribe}
             </button>
           </div>
         </div>
@@ -137,8 +136,8 @@ export function Footer() {
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               Slovakia / EUR
             </span>
-            <Link href="/terms" className="hover:underline">Transparency</Link>
-            <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+            <Link href="/terms" className="hover:underline">{t.footer.transparency}</Link>
+            <Link href="/privacy" className="hover:underline">{t.footer.privacyPolicy}</Link>
           </div>
         </div>
       </Container>

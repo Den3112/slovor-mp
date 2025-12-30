@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
-import { Search, SlidersHorizontal, X, Tag, PackageCheck, TrendingUp, MapPin, Sparkles } from 'lucide-react'
+import { Search, X, Tag, PackageCheck, TrendingUp, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'

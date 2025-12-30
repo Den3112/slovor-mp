@@ -33,7 +33,7 @@ export function Hero() {
                     >
                         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20 mb-8">
                             <Sparkles className="w-3.5 h-3.5" />
-                            Slovakia's Premium Marketplace
+                            {t.home.heroTagline}
                         </span>
                     </motion.div>
 
@@ -43,7 +43,7 @@ export function Hero() {
                         transition={{ duration: 0.5, delay: 0.1 }}
                         className="text-6xl md:text-8xl font-black tracking-tight text-foreground leading-[1.05] mb-8 font-heading"
                     >
-                        Find exactly <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-500">what you need</span>
+                        {t.home.heroTitleMain} <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-500">{t.home.heroTitleHighlight}</span>
                     </motion.h1>
 
                     <motion.p
@@ -95,7 +95,7 @@ export function Hero() {
                         className="mt-10 flex flex-wrap justify-center items-center gap-3"
                     >
                         <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest mr-2">{t.home.popularSearches}:</span>
-                        {popularSearches.map((term, i) => (
+                        {popularSearches.map((term) => (
                             <Link
                                 key={term}
                                 href={`/listings?search=${term}`}
