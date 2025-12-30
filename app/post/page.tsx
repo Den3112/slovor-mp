@@ -1,9 +1,12 @@
 import { CreateListingForm } from '@/components/listing/create-listing-form'
+import { Container } from '@/components/ui/container'
 
 export default function PostAdPage() {
   return (
-    <div className="container mx-auto px-4 py-12 pt-24 md:pt-32 min-h-screen">
-      <CreateListingForm />
-    </div>
+    <main className="min-h-screen pb-24">
+      <Container className="pt-32 md:pt-40">
+        <CreateListingForm />
+      </Container>
+    </main>
   )
 }

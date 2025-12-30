@@ -8,7 +8,7 @@ import { ErrorState } from '@/components/ui/error-state'
 import { MapPin, Eye, Calendar, Sparkles, PackageCheck, Share2, Heart, ShieldCheck, ArrowLeft } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
-import { useTranslationServer } from '@/lib/i18n/server'
+import { getTranslationServer } from '@/lib/i18n/server'
 import Link from 'next/link'
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 
 export default async function ListingDetailPage({ params }: Props) {
   const { id } = await params
-  const { t } = await useTranslationServer()
+  const { t } = await getTranslationServer()
   const result = await listingsApi.getById(id)
 
   if (result.error) {
@@ -127,7 +127,7 @@ export default async function ListingDetailPage({ params }: Props) {
                   <div className="w-1 h-1 rounded-full bg-border" />
                   <div className="flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    Verified Listing
+                    {t.trust.verified}
                   </div>
                 </div>
               </div>
@@ -138,10 +138,10 @@ export default async function ListingDetailPage({ params }: Props) {
                 </Button>
                 <div className="grid grid-cols-2 gap-3">
                   <Button variant="outline" size="lg" className="h-14 rounded-xl font-bold gap-2">
-                    <Heart className="w-5 h-5" /> Save
+                    <Heart className="w-5 h-5" /> {t.listing.saveListing}
                   </Button>
                   <Button variant="outline" size="lg" className="h-14 rounded-xl font-bold gap-2">
-                    <Share2 className="w-5 h-5" /> Share
+                    <Share2 className="w-5 h-5" /> {t.listing.shareListing}
                   </Button>
                 </div>
               </div>
@@ -151,9 +151,9 @@ export default async function ListingDetailPage({ params }: Props) {
                 <div className="flex gap-4">
                   <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
                   <div>
-                    <p className="text-sm font-bold text-foreground">Slovor Safety First</p>
+                    <p className="text-sm font-bold text-foreground">{t.trust.safetyTitle}</p>
                     <p className="text-xs font-medium text-muted-foreground mt-1">
-                      Never pay in advance. Meet the seller in a public place for inspection.
+                      {t.trust.safetyTip2} {t.trust.safetyTip1}
                     </p>
                   </div>
                 </div>

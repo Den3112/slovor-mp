@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Search, Menu, X, Globe, Plus, LogOut, User, LayoutDashboard, ChevronDown } from 'lucide-react'
+import { Menu, X, Globe, Plus, LogOut, User, LayoutDashboard, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
@@ -19,13 +19,12 @@ const SUPPORTED_LOCALES = [
 export function Header() {
   const { locale, setLocale, t } = useTranslation()
   const { user, signOut } = useAuth()
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showLangMenu, setShowLangMenu] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  const router = useRouter()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10)
@@ -66,16 +65,25 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
             <div className="flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-bold text-muted-foreground hover:text-foreground transition-all relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href))
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "text-sm font-bold transition-all relative group py-2",
+                      isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {link.label}
+                    <span className={cn(
+                      "absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300",
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    )} />
+                  </Link>
+                )
+              })}
             </div>
 
             <div className="flex items-center gap-6 pl-6 border-l border-border/50">
@@ -140,7 +148,7 @@ export function Header() {
                         className="absolute right-0 mt-3 w-56 bg-card rounded-[1.5rem] shadow-premium border border-border overflow-hidden z-50"
                       >
                         <div className="px-5 py-4 bg-muted/30">
-                          <p className="text-xs font-black text-primary uppercase tracking-[0.1em] mb-1">Signed in as</p>
+                          <p className="text-xs font-black text-primary uppercase tracking-[0.1em] mb-1">{t.auth.signedInAs}</p>
                           <p className="text-sm font-bold text-foreground truncate">{user.email}</p>
                         </div>
                         <div className="p-2">
@@ -149,14 +157,14 @@ export function Header() {
                             className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-foreground hover:bg-muted rounded-xl transition-all"
                           >
                             <LayoutDashboard className="w-4 h-4 text-primary" />
-                            Dashboard
+                            {t.common.dashboard}
                           </Link>
                           <Link
                             href="/profile"
                             className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-foreground hover:bg-muted rounded-xl transition-all"
                           >
                             <User className="w-4 h-4 text-primary" />
-                            My Profile
+                            {t.common.profile}
                           </Link>
                           <div className="h-px bg-border/50 my-1 px-2" />
                           <button
@@ -164,7 +172,7 @@ export function Header() {
                             className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-destructive hover:bg-destructive/5 rounded-xl transition-all"
                           >
                             <LogOut className="w-4 h-4" />
-                            Sign Out
+                            {t.auth.signOut}
                           </button>
                         </div>
                       </motion.div>
@@ -176,7 +184,7 @@ export function Header() {
                   href="/auth/login"
                   className="text-sm font-black text-foreground hover:text-primary transition-colors px-4 py-2"
                 >
-                  Sign In
+                  {t.auth.signIn}
                 </Link>
               )}
 
@@ -260,7 +268,7 @@ export function Header() {
                     className="block w-full text-center py-4 font-black text-foreground text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Already have an account? <span className="text-primary italic">Sign In</span>
+                    {t.auth.hasAccount} <span className="text-primary italic">{t.auth.signIn}</span>
                   </Link>
                 )}
               </div>
