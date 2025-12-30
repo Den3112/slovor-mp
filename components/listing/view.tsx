@@ -19,7 +19,7 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <div className="bg-card/30 border-b border-border/50 mb-12 py-12 md:py-20 overflow-hidden relative">
+      <div className="bg-card/30 border-b border-border/50 mb-12 pt-24 pb-12 md:pt-40 md:pb-20 overflow-hidden relative">
         {/* Decorative Orbs */}
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-violet-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
@@ -30,12 +30,12 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
               <Search className="w-3.5 h-3.5" />
               Explorer
             </div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground italic font-heading">
-              {searchQuery ? `Search: ${searchQuery}` : t.common.allListings}
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground italic font-heading uppercase">
+              {searchQuery ? `${t.common.search}: ${searchQuery}` : t.common.allListings}
             </h1>
             <p className="text-xl font-medium text-muted-foreground flex items-center gap-3">
               <span className="text-foreground font-black">{listings.length}</span>
-              {listings.length === 1 ? t.common.listings.slice(0, -1) : t.common.listings} found in Slovakia
+              {listings.length === 1 ? t.common.listings.slice(0, -1) : t.common.listings} {t.common.found}
             </p>
           </div>
         </Container>
