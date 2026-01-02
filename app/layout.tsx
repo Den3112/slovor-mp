@@ -35,10 +35,9 @@ export default function RootLayout({
         />
       </head>
       <body
+        suppressHydrationWarning
         className={cn(
-          'min-h-screen bg-background font-sans text-foreground antialiased',
-          inter.variable,
-          outfit.variable
+          'min-h-screen bg-background font-sans text-foreground antialiased'
         )}
       >
         <Providers>
