@@ -1,17 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAuth } from '@/components/providers/auth-provider'
+import { favoritesApi } from '@/lib/api'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { Button } from '@/components/ui/button'
-import { Phone, MessageSquare, Mail, MapPin, Calendar, Tag } from 'lucide-react'
+import {
+  Phone,
+  MessageSquare,
+  Mail,
+  MapPin,
+  Calendar,
+  Tag,
+  Heart,
+  AlertTriangle,
+  Loader2,
+  Share2
+} from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import {
   getLocalizedTitle,
   getLocalizedDescription,
 } from '@/lib/utils/listing-i18n'
 import type { Listing } from '@/lib/supabase/queries'
+import { cn } from '@/lib/utils'
 
 interface ListingDetailViewProps {
   listing: Listing
@@ -19,7 +33,52 @@ interface ListingDetailViewProps {
 
 export function ListingDetailView({ listing }: ListingDetailViewProps) {
   const { t, locale } = useTranslation()
+  const { user } = useAuth()
   const [activeImage, setActiveImage] = useState(0)
+  const [isFavorited, setIsFavorited] = useState(false)
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(false)
+
+  // Load initial favorite status
+  useEffect(() => {
+    if (!user) return
+    favoritesApi.isFavorited(listing.id, user.id).then((res) => {
+      if (res.data !== null) {
+        setIsFavorited(res.data)
+      }
+    })
+  }, [user, listing.id])
+
+  const handleToggleFavorite = async () => {
+    if (!user) {
+      // Could show a login modal or redirect
+      window.location.href = '/auth/login'
+      return
+    }
+
+    setIsFavoriteLoading(true)
+    const { data, error } = await favoritesApi.toggle(listing.id, user.id)
+    if (!error && data) {
+      setIsFavorited(data.isFavorited)
+    }
+    setIsFavoriteLoading(false)
+  }
+
+  const handleReport = () => {
+    // Placeholder for report functionality
+    alert('Listing reported. Our moderators will check it shortly.')
+  }
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: localizedTitle,
+        url: window.location.href
+      })
+    } else {
+      navigator.clipboard.writeText(window.location.href)
+      alert('Link copied to clipboard!')
+    }
+  }
 
   // Get localized content
   const localizedTitle = getLocalizedTitle(listing, locale)
@@ -48,11 +107,11 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
             { label: t.common.allListings, href: '/listings' },
             ...(listing.category
               ? [
-                  {
-                    label: categoryName,
-                    href: `/categories/${listing.category.slug}`,
-                  },
-                ]
+                {
+                  label: categoryName,
+                  href: `/categories/${listing.category.slug}`,
+                },
+              ]
               : []),
             { label: localizedTitle },
           ]}
@@ -106,9 +165,35 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
             {/* Content Details */}
             <div className="rounded-[3rem] border border-gray-50 bg-white p-10 shadow-xl shadow-blue-900/5 md:p-16">
               <div className="mb-10 flex flex-col gap-4">
-                <h1 className="text-4xl font-black leading-tight tracking-tighter text-gray-900 md:text-6xl">
-                  {localizedTitle}
-                </h1>
+                <div className="flex items-start justify-between gap-4">
+                  <h1 className="text-4xl font-black leading-tight tracking-tighter text-gray-900 md:text-6xl">
+                    {localizedTitle}
+                  </h1>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleShare}
+                      className="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-gray-100 bg-white text-gray-400 transition-all hover:border-blue-200 hover:text-blue-600 active:scale-95"
+                    >
+                      <Share2 className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={handleToggleFavorite}
+                      disabled={isFavoriteLoading}
+                      className={cn(
+                        "flex h-12 w-12 items-center justify-center rounded-2xl border-2 transition-all active:scale-95",
+                        isFavorited
+                          ? "border-rose-100 bg-rose-50 text-rose-500"
+                          : "border-gray-100 bg-white text-gray-400 hover:border-rose-200 hover:text-rose-500"
+                      )}
+                    >
+                      {isFavoriteLoading ? (
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                      ) : (
+                        <Heart className={cn("h-5 w-5", isFavorited && "fill-current")} />
+                      )}
+                    </button>
+                  </div>
+                </div>
                 <div className="flex items-center gap-4">
                   <div className="flex items-baseline gap-2">
                     <span className="text-5xl font-black text-blue-600">
@@ -227,6 +312,17 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Report listing button */}
+            <div className="flex justify-center pt-4">
+              <button
+                onClick={handleReport}
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 transition-colors hover:text-rose-500"
+              >
+                <AlertTriangle className="h-3 w-3" />
+                {t.listing.reportListing}
+              </button>
             </div>
           </div>
         </div>
