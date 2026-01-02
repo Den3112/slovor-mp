@@ -1,5 +1,3 @@
-import type { Category } from '@/lib/types/database'
-
 export type ListingCondition = 'new' | 'used'
 
 export interface ListingFormData {
