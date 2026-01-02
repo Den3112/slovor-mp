@@ -3,6 +3,7 @@
 
 import { supabase } from '@/lib/supabase/client'
 import type { Listing, ApiResponse } from '@/lib/types/database'
+import { logError } from '@/lib/utils/logger'
 
 export interface ListingFilterOptions {
   categoryId?: string
@@ -143,6 +144,7 @@ export const listingsApi = {
       }
       return { data: data || [], error: null }
     } catch (error) {
+      logError('listingsApi.getAll', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -168,6 +170,7 @@ export const listingsApi = {
       }
       return { data: count || 0, error: null }
     } catch (error) {
+      logError('listingsApi.getCount', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -196,6 +199,7 @@ export const listingsApi = {
 
       return { data, error: null }
     } catch (error) {
+      logError('listingsApi.getById', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -217,6 +221,7 @@ export const listingsApi = {
       }
       return { data: data || [], error: null }
     } catch (error) {
+      logError('listingsApi.getFeatured', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -243,6 +248,7 @@ export const listingsApi = {
       }
       return { data, error: null }
     } catch (error) {
+      logError('listingsApi.create', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -263,6 +269,7 @@ export const listingsApi = {
       }
       return { data: data || [], error: null }
     } catch (error) {
+      logError('listingsApi.getByUser', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -287,6 +294,7 @@ export const listingsApi = {
       }
       return { data, error: null }
     } catch (error) {
+      logError('listingsApi.update', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -303,6 +311,7 @@ export const listingsApi = {
       }
       return { data: null, error: null }
     } catch (error) {
+      logError('listingsApi.delete', error)
       return { data: null, error: (error as Error).message }
     }
   },

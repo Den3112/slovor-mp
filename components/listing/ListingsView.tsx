@@ -3,6 +3,7 @@
 
 import type { Listing } from '@/lib/supabase/queries'
 import { ListingCard } from './card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface ListingsViewProps {
   listings: Listing[]
@@ -18,18 +19,22 @@ export function ListingsView({
   // Error State
   if (error) {
     return (
-      <div className="py-12 text-center">
-        <p className="text-red-600">{error}</p>
-      </div>
+      <EmptyState
+        icon="⚠️"
+        title="Something went wrong"
+        description={error}
+      />
     )
   }
 
   // Empty State
   if (listings.length === 0) {
     return (
-      <div className="py-12 text-center">
-        <p className="text-gray-600">{emptyMessage}</p>
-      </div>
+      <EmptyState
+        icon="🔍"
+        title={emptyMessage}
+        description="Try adjusting your filters or search query."
+      />
     )
   }
 
