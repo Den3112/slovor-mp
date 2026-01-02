@@ -6,10 +6,12 @@ import { Search, ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export function Hero() {
   const { t } = useTranslation()
+  const router = useRouter()
   const [query, setQuery] = useState('')
 
   const popularSearches = ['iPhone', 'BMW', 'Byt', 'Kočík', 'Gauč', 'PS5']
@@ -79,6 +81,11 @@ export function Hero() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={t.home.searchPlaceholder}
                     className="w-full border-none bg-transparent px-4 py-6 text-xl font-bold placeholder:text-muted-foreground/40 focus:ring-0"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        router.push(`/listings?search=${encodeURIComponent(query)}`)
+                      }
+                    }}
                   />
                 </div>
                 <Button
