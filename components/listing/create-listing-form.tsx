@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useRef, useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
 import { categoriesApi, listingsApi } from '@/lib/supabase/queries'
+import { storageApi } from '@/lib/api'
 import type { Category } from '@/lib/types/database'
 import { Button } from '@/components/ui/button'
 import {
@@ -31,6 +32,11 @@ function CreateListingFormContent() {
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [categories, setCategories] = useState<Category[]>([])
+
+  // Upload State
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   // Data State
   const [formData, setFormData] = useState({
@@ -141,7 +147,46 @@ function CreateListingFormContent() {
     }
   }
 
-  // Handlers for "Mock" Image Upload
+  // Real image upload using Supabase Storage
+  const handleFilesSelected = async (files: FileList | null) => {
+    if (!files || files.length === 0) return
+
+    if (!user?.id) {
+      setError('You need to be logged in to upload images.')
+      return
+    }
+
+    setIsUploading(true)
+    setError(null)
+    setUploadProgress({ current: 0, total: files.length })
+
+    const fileArray = Array.from(files)
+
+    const result = await storageApi.uploadImages(
+      fileArray,
+      user.id,
+      (current, total) => setUploadProgress({ current, total })
+    )
+
+    if (result.error || !result.data) {
+      setError(result.error ?? 'Failed to upload images')
+      setIsUploading(false)
+      setUploadProgress(null)
+      return
+    }
+
+    const newUrls = result.data.map((f) => f.url)
+    updateField('images', [...formData.images, ...newUrls])
+
+    setIsUploading(false)
+    setUploadProgress(null)
+  }
+
+  const handleFileInputClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  // Handlers for optional mock / manual Image input (kept as fallback)
   const addMockImage = () => {
     const mockImages = [
       'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=400&q=80',
@@ -285,31 +330,90 @@ function CreateListingFormContent() {
                 <Upload className="h-8 w-8" />
               </div>
               <h3 className="mb-2 text-lg font-bold">Upload Photos</h3>
-              <p className="mx-auto mb-6 max-w-xs text-sm text-muted-foreground">
-                Drag and drop your photos here, or click the button below to
-                browse.
+              <p className="mx-auto mb-4 max-w-xs text-sm text-muted-foreground">
+                Drag and drop your photos here, or use the upload button to add
+                real images to your listing.
               </p>
 
-              <div className="flex justify-center gap-3">
+              <div className="mb-4 flex flex-col items-center justify-center gap-3 md:flex-row">
+                <Button
+                  type="button"
+                  onClick={handleFileInputClick}
+                  disabled={isUploading}
+                  className="rounded-xl px-6 font-bold shadow-md shadow-primary/20"
+                >
+                  {isUploading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <ImageIcon className="mr-2 h-4 w-4" />
+                      Select Images
+                    </>
+                  )}
+                </Button>
+
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                  multiple
+                  className="hidden"
+                  onChange={(e) => handleFilesSelected(e.target.files)}
+                />
+
                 <Button
                   onClick={addMockImage}
                   type="button"
                   variant="outline"
-                  className="border-primary/50 text-primary hover:bg-primary/5"
+                  className="border-primary/20 text-xs font-semibold text-primary hover:bg-primary/5"
                 >
-                  <ImageIcon className="mr-2 h-4 w-4" />
                   Add Mock Image
                 </Button>
+              </div>
+
+              {uploadProgress && (
+                <div className="mx-auto flex max-w-xs flex-col items-center gap-2 text-xs text-muted-foreground">
+                  <div className="flex w-full items-center justify-between">
+                    <span>
+                      Uploading {uploadProgress.current} / {uploadProgress.total}
+                    </span>
+                  </div>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full bg-primary transition-all duration-300"
+                      style={{
+                        width: `${
+                          (uploadProgress.current / uploadProgress.total) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
+                  <p className="text-[11px] text-muted-foreground/80">
+                    Max 10MB per image. Supported formats: JPEG, PNG, WebP, GIF.
+                  </p>
+                </div>
+              )}
+
+              {!uploadProgress && (
+                <p className="text-[11px] text-muted-foreground/80">
+                  Max 10MB per image. Supported formats: JPEG, PNG, WebP, GIF.
+                </p>
+              )}
+
+              <div className="mt-4 flex items-center justify-center gap-3">
                 <input
                   type="text"
                   placeholder="Or paste Image URL"
-                  className="h-10 w-48 rounded-lg border bg-background px-3 text-sm"
+                  className="h-10 w-56 rounded-lg border bg-background px-3 text-sm"
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === 'Enter' && e.currentTarget.value.trim()) {
                       e.preventDefault()
                       updateField('images', [
                         ...formData.images,
-                        e.currentTarget.value,
+                        e.currentTarget.value.trim(),
                       ])
                       e.currentTarget.value = ''
                     }
