@@ -20,6 +20,7 @@ import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import { getTranslationServer } from '@/lib/i18n/server'
 import Link from 'next/link'
+import { ListingOwnerActions } from '@/components/listing/listing-owner-actions'
 
 interface Props {
   params: Promise<{
@@ -165,6 +166,14 @@ export default async function ListingDetailPage({ params }: Props) {
                 >
                   {t.listing.contactSeller}
                 </Button>
+
+                {/* Owner Actions */}
+                <ListingOwnerActions
+                  listingId={listing.id}
+                  ownerId={listing.user_id}
+                  className="h-14 w-full gap-2 rounded-xl font-bold border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50"
+                />
+
                 <div className="grid grid-cols-2 gap-3">
                   <Button
                     variant="outline"

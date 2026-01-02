@@ -185,10 +185,14 @@ export const listingsApi = {
         .select('*, category:categories(*)')
         .eq('id', id)
         .eq('is_active', true)
-        .single()
+        .maybeSingle()
 
       if (error) {
         throw error
+      }
+
+      if (!data) {
+        return { data: null, error: 'Listing not found' }
       }
 
       // Increment views (fire and forget)
@@ -200,6 +204,32 @@ export const listingsApi = {
       return { data, error: null }
     } catch (error) {
       logError('listingsApi.getById', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Fetches listing for editing (ignoring active status, no view increment)
+   */
+  async getForEdit(id: string): Promise<ApiResponse<Listing>> {
+    try {
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*, category:categories(*)')
+        .eq('id', id)
+        .maybeSingle()
+
+      if (error) {
+        throw error
+      }
+
+      if (!data) {
+        return { data: null, error: 'Listing not found' }
+      }
+
+      return { data, error: null }
+    } catch (error) {
+      logError('listingsApi.getForEdit', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -241,11 +271,16 @@ export const listingsApi = {
           views: 0,
         })
         .select()
-        .single()
+        .maybeSingle()
 
       if (error) {
         throw error
       }
+
+      if (!data) {
+        return { data: null, error: 'Failed to create listing' }
+      }
+
       return { data, error: null }
     } catch (error) {
       logError('listingsApi.create', error)
@@ -282,16 +317,32 @@ export const listingsApi = {
     updates: Partial<Listing>
   ): Promise<ApiResponse<Listing>> {
     try {
+      // Create update object with timestamp
+      const updateData = {
+        ...updates,
+        updated_at: new Date().toISOString(),
+      }
+
+      // Remove any undefined fields to prevent Supabase errors
+      Object.keys(updateData).forEach(
+        (key) => updateData[key as keyof typeof updateData] === undefined && delete updateData[key as keyof typeof updateData]
+      )
+
       const { data, error } = await supabase
         .from('listings')
-        .update({ ...updates, updated_at: new Date().toISOString() })
+        .update(updateData)
         .eq('id', id)
         .select()
-        .single()
+        .maybeSingle()
 
       if (error) {
         throw error
       }
+
+      if (!data) {
+        return { data: null, error: 'Listing not found or update failed' }
+      }
+
       return { data, error: null }
     } catch (error) {
       logError('listingsApi.update', error)

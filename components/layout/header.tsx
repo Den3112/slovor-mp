@@ -73,11 +73,49 @@ export function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
+  const [mounted, setMounted] = useState(false)
+
   useEffect(() => {
+    setMounted(true)
     const handleScroll = () => setIsScrolled(window.scrollY > 10)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  if (!mounted) {
+    return (
+      <header
+        className={cn(
+          'fixed top-0 z-50 w-full transition-all duration-500 py-5 bg-transparent'
+        )}
+      >
+        <Container>
+          <div className="flex h-14 items-center justify-between md:h-16">
+            <div className="flex flex-1 items-center">
+              <Link
+                href="/"
+                className="group relative z-50 flex items-center gap-3"
+              >
+                <div className="relative h-11 w-11">
+                  <div className="absolute inset-0 rotate-6 rounded-2xl bg-gradient-to-tr from-primary via-violet-500 to-primary shadow-lg shadow-primary/20 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110" />
+                  <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-white/10 bg-white text-2xl font-black text-foreground dark:bg-zinc-900">
+                    S
+                  </div>
+                </div>
+                <span className="flex items-baseline font-heading text-2xl font-black tracking-tighter text-foreground transition-colors group-hover:text-primary md:text-3xl">
+                  Slovor
+                  <span className="group-hover:animate-bounce-subtle text-primary">
+                    .
+                  </span>
+                </span>
+              </Link>
+            </div>
+            {/* Minimal loader or skeleton if strictly desired, but empty/logo is fine for hydration matching */}
+          </div>
+        </Container>
+      </header>
+    )
+  }
 
   const navLinks = [
     { href: '/', label: t.common.home },
@@ -211,7 +249,7 @@ export function Header() {
 
             {/* User Section */}
             <div className="flex items-center gap-4 border-l border-border/50 pl-6">
-              {user ? (
+              {mounted && user ? (
                 <div className="relative">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}
