@@ -3,17 +3,17 @@
 
 export function ListingCardSkeleton() {
   return (
-    <div className="animate-pulse border border-border/50 rounded-2xl overflow-hidden bg-card">
-      <div className="bg-muted aspect-[4/3]" />
-      <div className="p-5 space-y-4">
+    <div className="animate-pulse overflow-hidden rounded-2xl border border-border/50 bg-card">
+      <div className="aspect-[4/3] bg-muted" />
+      <div className="space-y-4 p-5">
         <div className="space-y-2">
-          <div className="h-3 bg-muted rounded w-1/4" />
-          <div className="h-5 bg-muted rounded w-3/4" />
+          <div className="h-3 w-1/4 rounded bg-muted" />
+          <div className="h-5 w-3/4 rounded bg-muted" />
         </div>
-        <div className="h-8 bg-muted rounded w-1/2" />
-        <div className="pt-4 border-t border-border/50 flex justify-between">
-          <div className="h-3 bg-muted rounded w-1/3" />
-          <div className="h-3 bg-muted rounded w-1/4" />
+        <div className="h-8 w-1/2 rounded bg-muted" />
+        <div className="flex justify-between border-t border-border/50 pt-4">
+          <div className="h-3 w-1/3 rounded bg-muted" />
+          <div className="h-3 w-1/4 rounded bg-muted" />
         </div>
       </div>
     </div>
@@ -22,12 +22,12 @@ export function ListingCardSkeleton() {
 
 export function CategoryCardSkeleton() {
   return (
-    <div className="animate-pulse border border-border/50 rounded-2xl p-6 bg-card">
+    <div className="animate-pulse rounded-2xl border border-border/50 bg-card p-6">
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-muted rounded-xl" />
+        <div className="h-12 w-12 rounded-xl bg-muted" />
         <div className="flex-1 space-y-2">
-          <div className="h-5 bg-muted rounded w-2/3" />
-          <div className="h-4 bg-muted rounded w-1/3" />
+          <div className="h-5 w-2/3 rounded bg-muted" />
+          <div className="h-4 w-1/3 rounded bg-muted" />
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@ export function CategoryCardSkeleton() {
 
 export function ListingGridSkeleton({ count = 6 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: count }).map((_, i) => (
         <ListingCardSkeleton key={i} />
       ))}
@@ -46,7 +46,7 @@ export function ListingGridSkeleton({ count = 6 }: { count?: number }) {
 
 export function CategoryGridSkeleton({ count = 8 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {Array.from({ length: count }).map((_, i) => (
         <CategoryCardSkeleton key={i} />
       ))}

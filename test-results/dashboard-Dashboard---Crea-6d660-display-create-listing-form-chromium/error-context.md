@@ -1,0 +1,242 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S Slovor ." [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e10]: S
+          - generic [ref=e11]:
+            - text: Slovor
+            - generic [ref=e12]: .
+        - navigation [ref=e13]:
+          - link "Home" [ref=e14] [cursor=pointer]:
+            - /url: /
+          - link "All Listings" [ref=e15] [cursor=pointer]:
+            - /url: /listings
+          - link "Categories" [ref=e16] [cursor=pointer]:
+            - /url: /categories
+        - generic [ref=e17]:
+          - button "EN" [ref=e19] [cursor=pointer]:
+            - img [ref=e22]
+            - generic [ref=e26]: EN
+            - img [ref=e27]
+          - generic [ref=e29]:
+            - link "Sign In" [ref=e30] [cursor=pointer]:
+              - /url: /auth/login
+            - link "Post Ad" [ref=e31] [cursor=pointer]:
+              - /url: /post
+              - img [ref=e32]
+              - text: Post Ad
+    - main [ref=e33]:
+      - main [ref=e34]:
+        - generic [ref=e36]:
+          - generic [ref=e39]:
+            - heading "Create New Listing" [level=1] [ref=e40]
+            - paragraph [ref=e41]: Step 1 of 3
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Category
+              - generic [ref=e46]:
+                - button "💄 Beauty & Health" [ref=e47] [cursor=pointer]:
+                  - generic [ref=e48]: 💄
+                  - text: Beauty & Health
+                - button "📚 Books & Magazines" [ref=e49] [cursor=pointer]:
+                  - generic [ref=e50]: 📚
+                  - text: Books & Magazines
+                - button "🏭 Business & Industrial" [ref=e51] [cursor=pointer]:
+                  - generic [ref=e52]: 🏭
+                  - text: Business & Industrial
+                - button "👕 Clothing" [ref=e53] [cursor=pointer]:
+                  - generic [ref=e54]: 👕
+                  - text: Clothing
+                - button "💻 Electronics" [ref=e55] [cursor=pointer]:
+                  - generic [ref=e56]: 💻
+                  - text: Electronics
+                - button "🍎 Food & Drink" [ref=e57] [cursor=pointer]:
+                  - generic [ref=e58]: 🍎
+                  - text: Food & Drink
+                - button "🪑 Furniture" [ref=e59] [cursor=pointer]:
+                  - generic [ref=e60]: 🪑
+                  - text: Furniture
+                - button "🌱 Garden Equipment" [ref=e61] [cursor=pointer]:
+                  - generic [ref=e62]: 🌱
+                  - text: Garden Equipment
+                - button "🎁 Gifts" [ref=e63] [cursor=pointer]:
+                  - generic [ref=e64]: 🎁
+                  - text: Gifts
+                - button "🎨 Hobbies" [ref=e65] [cursor=pointer]:
+                  - generic [ref=e66]: 🎨
+                  - text: Hobbies
+                - button "🏠 Home & Garden" [ref=e67] [cursor=pointer]:
+                  - generic [ref=e68]: 🏠
+                  - text: Home & Garden
+                - button "💍 Jewelry & Watches" [ref=e69] [cursor=pointer]:
+                  - generic [ref=e70]: 💍
+                  - text: Jewelry & Watches
+                - button "👶 Kids & Baby" [ref=e71] [cursor=pointer]:
+                  - generic [ref=e72]: 👶
+                  - text: Kids & Baby
+                - button "🎬 Movies & Music" [ref=e73] [cursor=pointer]:
+                  - generic [ref=e74]: 🎬
+                  - text: Movies & Music
+                - button "🎸 Musical Instruments" [ref=e75] [cursor=pointer]:
+                  - generic [ref=e76]: 🎸
+                  - text: Musical Instruments
+                - button "📦 Other" [ref=e77] [cursor=pointer]:
+                  - generic [ref=e78]: 📦
+                  - text: Other
+                - button "🐕 Pets" [ref=e79] [cursor=pointer]:
+                  - generic [ref=e80]: 🐕
+                  - text: Pets
+                - button "🏡 Real Estate" [ref=e81] [cursor=pointer]:
+                  - generic [ref=e82]: 🏡
+                  - text: Real Estate
+                - button "🔧 Services" [ref=e83] [cursor=pointer]:
+                  - generic [ref=e84]: 🔧
+                  - text: Services
+                - button "⚽ Sports" [ref=e85] [cursor=pointer]:
+                  - generic [ref=e86]: ⚽
+                  - text: Sports
+                - button "🎫 Tickets & Events" [ref=e87] [cursor=pointer]:
+                  - generic [ref=e88]: 🎫
+                  - text: Tickets & Events
+                - button "🔨 Tools & Machinery" [ref=e89] [cursor=pointer]:
+                  - generic [ref=e90]: 🔨
+                  - text: Tools & Machinery
+                - button "🧸 Toys & Games" [ref=e91] [cursor=pointer]:
+                  - generic [ref=e92]: 🧸
+                  - text: Toys & Games
+                - button "✈️ Travel" [ref=e93] [cursor=pointer]:
+                  - generic [ref=e94]: ✈️
+                  - text: Travel
+                - button "🚗 Vehicles" [ref=e95] [cursor=pointer]:
+                  - generic [ref=e96]: 🚗
+                  - text: Vehicles
+            - generic [ref=e97]:
+              - generic [ref=e98]: Condition
+              - generic [ref=e99]:
+                - button "new" [ref=e100] [cursor=pointer]
+                - button "used" [ref=e101] [cursor=pointer]
+          - generic [ref=e102]:
+            - button "Next Step" [disabled]:
+              - text: Next Step
+              - img
+    - contentinfo [ref=e103]:
+      - generic [ref=e107]:
+        - generic [ref=e108]:
+          - generic [ref=e109]:
+            - link "S Slovor." [ref=e110] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e111]: S
+              - generic [ref=e112]: Slovor.
+            - paragraph [ref=e113]: “Free marketplace for everyone. Buy and sell anything without fees.”
+            - generic [ref=e114]:
+              - link [ref=e115] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e116]
+              - link [ref=e118] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e119]
+              - link [ref=e122] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e123]
+          - generic [ref=e125]:
+            - generic [ref=e126]:
+              - heading "Popular Categories" [level=4] [ref=e127]
+              - list [ref=e128]:
+                - listitem [ref=e129]:
+                  - link "Beauty & Health" [ref=e130] [cursor=pointer]:
+                    - /url: /categories/beauty-health
+                    - generic [ref=e131]: Beauty & Health
+                    - img [ref=e132]
+                - listitem [ref=e135]:
+                  - link "Books & Magazines" [ref=e136] [cursor=pointer]:
+                    - /url: /categories/books-magazines
+                    - generic [ref=e137]: Books & Magazines
+                    - img [ref=e138]
+                - listitem [ref=e141]:
+                  - link "Business & Industrial" [ref=e142] [cursor=pointer]:
+                    - /url: /categories/business-industrial
+                    - generic [ref=e143]: Business & Industrial
+                    - img [ref=e144]
+                - listitem [ref=e147]:
+                  - link "Clothing" [ref=e148] [cursor=pointer]:
+                    - /url: /categories/clothing
+                    - generic [ref=e149]: Clothing
+                    - img [ref=e150]
+                - listitem [ref=e153]:
+                  - link "Electronics" [ref=e154] [cursor=pointer]:
+                    - /url: /categories/electronics
+                    - generic [ref=e155]: Electronics
+                    - img [ref=e156]
+            - generic [ref=e159]:
+              - heading "Quick Links" [level=4] [ref=e160]
+              - list [ref=e161]:
+                - listitem [ref=e162]:
+                  - link "Home" [ref=e163] [cursor=pointer]:
+                    - /url: /
+                    - generic [ref=e164]: Home
+                    - img [ref=e165]
+                - listitem [ref=e168]:
+                  - link "All Listings" [ref=e169] [cursor=pointer]:
+                    - /url: /listings
+                    - generic [ref=e170]: All Listings
+                    - img [ref=e171]
+                - listitem [ref=e174]:
+                  - link "Post Ad" [ref=e175] [cursor=pointer]:
+                    - /url: /post
+                    - generic [ref=e176]: Post Ad
+                    - img [ref=e177]
+                - listitem [ref=e180]:
+                  - link "Market Trends" [ref=e181] [cursor=pointer]:
+                    - /url: /blog
+                    - generic [ref=e182]: Market Trends
+                    - img [ref=e183]
+            - generic [ref=e186]:
+              - heading "Information" [level=4] [ref=e187]
+              - list [ref=e188]:
+                - listitem [ref=e189]:
+                  - link "About Us" [ref=e190] [cursor=pointer]:
+                    - /url: /about
+                    - generic [ref=e191]: About Us
+                    - img [ref=e192]
+                - listitem [ref=e195]:
+                  - link "Terms" [ref=e196] [cursor=pointer]:
+                    - /url: /terms
+                    - generic [ref=e197]: Terms
+                    - img [ref=e198]
+                - listitem [ref=e201]:
+                  - link "Privacy" [ref=e202] [cursor=pointer]:
+                    - /url: /privacy
+                    - generic [ref=e203]: Privacy
+                    - img [ref=e204]
+                - listitem [ref=e207]:
+                  - link "FAQ" [ref=e208] [cursor=pointer]:
+                    - /url: /faq
+                    - generic [ref=e209]: FAQ
+                    - img [ref=e210]
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - heading "Subscribe to our market updates" [level=3] [ref=e215]
+            - paragraph [ref=e216]: Get the best deals directly in your inbox.
+          - generic [ref=e217]:
+            - generic [ref=e218]:
+              - img [ref=e219]
+              - textbox "your@email.com" [ref=e222]
+            - button "Join" [ref=e223] [cursor=pointer]
+        - generic [ref=e224]:
+          - paragraph [ref=e225]: © 2026 Slovor Marketplace. All rights reserved.
+          - generic [ref=e226]:
+            - generic [ref=e227]: Slovakia / EUR
+            - generic [ref=e229]:
+              - link "Transparency" [ref=e230] [cursor=pointer]:
+                - /url: /terms
+              - link "Privacy Policy" [ref=e231] [cursor=pointer]:
+                - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e237] [cursor=pointer]:
+    - img [ref=e238]
+  - alert [ref=e241]
+```

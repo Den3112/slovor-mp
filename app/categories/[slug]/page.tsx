@@ -53,7 +53,10 @@ interface CategoryPageProps {
   }>
 }
 
-export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: CategoryPageProps) {
   const [{ slug }, query] = await Promise.all([params, searchParams])
 
   // Pagination settings
@@ -92,7 +95,13 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const countRes = await listingsApi.getCount(filterOptions)
 
   return (
-    <Suspense fallback={<div className="py-20 text-center animate-pulse">Loading category...</div>}>
+    <Suspense
+      fallback={
+        <div className="animate-pulse py-20 text-center">
+          Loading category...
+        </div>
+      }
+    >
       <CategoryView
         category={categoryRes.data}
         listings={listingsRes.data || []}

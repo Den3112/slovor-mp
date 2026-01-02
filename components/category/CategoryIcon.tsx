@@ -15,7 +15,10 @@ interface CategoryIconProps {
  * @param slug - Category slug (e.g., 'electronics', 'elektronika')
  * @param className - Tailwind classes for icon styling
  */
-export function CategoryIcon({ slug, className = 'w-6 h-6' }: CategoryIconProps) {
+export function CategoryIcon({
+  slug,
+  className = 'w-6 h-6',
+}: CategoryIconProps) {
   const Icon = getCategoryIcon(slug)
   return <Icon className={className} />
 }

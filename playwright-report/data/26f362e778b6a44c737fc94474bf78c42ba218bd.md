@@ -1,0 +1,400 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e7]:
+        - generic [ref=e9]:
+          - img [ref=e10]
+          - text: Slovakia's Premium Marketplace
+        - heading "Find exactly what you need" [level=1] [ref=e16]:
+          - text: Find exactly
+          - text: what you need
+        - paragraph [ref=e17]: Thousands of listings every day. Buy and sell everything - from electronics to real estate.
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - img [ref=e22]
+            - textbox "What are you looking for?" [ref=e25]
+          - link "Search" [ref=e26] [cursor=pointer]:
+            - /url: /listings?search=
+            - text: Search
+            - img [ref=e27]
+        - generic [ref=e30]:
+          - text: Popular searches
+          - link "iPhone" [ref=e31] [cursor=pointer]:
+            - /url: /listings?search=iPhone
+          - link "BMW" [ref=e32] [cursor=pointer]:
+            - /url: /listings?search=BMW
+          - link "Byt" [ref=e33] [cursor=pointer]:
+            - /url: /listings?search=Byt
+          - link "Kočík" [ref=e34] [cursor=pointer]:
+            - /url: /listings?search=Kočík
+          - link "Gauč" [ref=e35] [cursor=pointer]:
+            - /url: /listings?search=Gauč
+          - link "PS5" [ref=e36] [cursor=pointer]:
+            - /url: /listings?search=PS5
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - text: Explore Marketplace
+            - heading "Browse Categories" [level=2] [ref=e41]
+            - paragraph [ref=e42]: Explore our popular categories
+          - link "View All" [ref=e43] [cursor=pointer]:
+            - /url: /categories
+            - text: View All
+            - img [ref=e44]
+        - generic [ref=e47]:
+          - link "Beauty & Health 10 listings" [ref=e49] [cursor=pointer]:
+            - /url: /categories/beauty-health
+            - generic [ref=e50]:
+              - img [ref=e52]
+              - heading "Beauty & Health" [level=3] [ref=e58]
+              - paragraph [ref=e60]: 10 listings
+          - link "Books & Magazines 10 listings" [ref=e62] [cursor=pointer]:
+            - /url: /categories/books-magazines
+            - generic [ref=e63]:
+              - img [ref=e65]
+              - heading "Books & Magazines" [level=3] [ref=e68]
+              - paragraph [ref=e70]: 10 listings
+          - link "Business & Industrial 10 listings" [ref=e72] [cursor=pointer]:
+            - /url: /categories/business-industrial
+            - generic [ref=e73]:
+              - img [ref=e75]
+              - heading "Business & Industrial" [level=3] [ref=e78]
+              - paragraph [ref=e80]: 10 listings
+          - link "Clothing 11 listings" [ref=e82] [cursor=pointer]:
+            - /url: /categories/clothing
+            - generic [ref=e83]:
+              - img [ref=e85]
+              - heading "Clothing" [level=3] [ref=e87]
+              - paragraph [ref=e89]: 11 listings
+          - link "Electronics 10 listings" [ref=e91] [cursor=pointer]:
+            - /url: /categories/electronics
+            - generic [ref=e92]:
+              - img [ref=e94]
+              - heading "Electronics" [level=3] [ref=e96]
+              - paragraph [ref=e98]: 10 listings
+          - link "Food & Drink 10 listings" [ref=e100] [cursor=pointer]:
+            - /url: /categories/food-drink
+            - generic [ref=e101]:
+              - img [ref=e103]
+              - heading "Food & Drink" [level=3] [ref=e108]
+              - paragraph [ref=e110]: 10 listings
+          - link "Furniture 10 listings" [ref=e112] [cursor=pointer]:
+            - /url: /categories/furniture
+            - generic [ref=e113]:
+              - img [ref=e115]
+              - heading "Furniture" [level=3] [ref=e120]
+              - paragraph [ref=e122]: 10 listings
+          - link "Garden Equipment 10 listings" [ref=e124] [cursor=pointer]:
+            - /url: /categories/garden-equipment
+            - generic [ref=e125]:
+              - img [ref=e127]
+              - heading "Garden Equipment" [level=3] [ref=e131]
+              - paragraph [ref=e133]: 10 listings
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - img [ref=e139]
+              - text: Trending Now
+            - heading "Featured Listings" [level=2] [ref=e141]
+            - paragraph [ref=e142]: Hand-picked selection of premium items recently published.
+          - link "Explore All" [ref=e143] [cursor=pointer]:
+            - /url: /listings
+            - text: Explore All
+            - img [ref=e144]
+        - generic [ref=e148]:
+          - link "No image New Clothing 0 ыаыв 213EUR" [ref=e149] [cursor=pointer]:
+            - /url: /listings/7f9ed1ce-a8e4-4917-864c-0b9bad6b7c3b
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - img [ref=e152]
+                - text: No image
+              - generic [ref=e160]:
+                - img [ref=e161]
+                - text: New
+            - generic [ref=e167]:
+              - generic [ref=e168]:
+                - generic [ref=e169]:
+                  - text: Clothing
+                  - generic [ref=e170]:
+                    - img [ref=e171]
+                    - text: "0"
+                - heading "ыаыв" [level=3] [ref=e174]
+              - generic [ref=e176]: 213EUR
+          - link "Tesla Model 3 Long Range New 3 PHOTOS Vehicles 101 Tesla Model 3 Long Range 1 564EUR Kosice" [ref=e177] [cursor=pointer]:
+            - /url: /listings/a398848e-c7bf-497f-8aa4-5dc0f02fc690
+            - generic [ref=e178]:
+              - img "Tesla Model 3 Long Range" [ref=e179]
+              - generic [ref=e181]:
+                - img [ref=e182]
+                - text: New
+              - generic [ref=e188]: 3 PHOTOS
+            - generic [ref=e189]:
+              - generic [ref=e190]:
+                - generic [ref=e191]:
+                  - text: Vehicles
+                  - generic [ref=e192]:
+                    - img [ref=e193]
+                    - text: "101"
+                - heading "Tesla Model 3 Long Range" [level=3] [ref=e196]
+              - generic [ref=e197]:
+                - generic [ref=e198]: 1 564EUR
+                - generic [ref=e199]:
+                  - img [ref=e200]
+                  - text: Kosice
+          - link "Mazda CX-5 AWD 2022 New 3 PHOTOS Vehicles 71 Mazda CX-5 AWD 2022 982EUR Bratislava" [ref=e203] [cursor=pointer]:
+            - /url: /listings/e327a847-d265-4a7b-8ffb-00a12910c1f4
+            - generic [ref=e204]:
+              - img "Mazda CX-5 AWD 2022" [ref=e205]
+              - generic [ref=e207]:
+                - img [ref=e208]
+                - text: New
+              - generic [ref=e214]: 3 PHOTOS
+            - generic [ref=e215]:
+              - generic [ref=e216]:
+                - generic [ref=e217]:
+                  - text: Vehicles
+                  - generic [ref=e218]:
+                    - img [ref=e219]
+                    - text: "71"
+                - heading "Mazda CX-5 AWD 2022" [level=3] [ref=e222]
+              - generic [ref=e223]:
+                - generic [ref=e224]: 982EUR
+                - generic [ref=e225]:
+                  - img [ref=e226]
+                  - text: Bratislava
+          - link "Ford Mustang GT 2019 3 PHOTOS Vehicles 190 Ford Mustang GT 2019 282EUR Nitra" [ref=e229] [cursor=pointer]:
+            - /url: /listings/59dd0442-f512-4b8e-a0ab-6fbea2d356c9
+            - generic [ref=e230]:
+              - img "Ford Mustang GT 2019" [ref=e231]
+              - generic [ref=e232]: 3 PHOTOS
+            - generic [ref=e233]:
+              - generic [ref=e234]:
+                - generic [ref=e235]:
+                  - text: Vehicles
+                  - generic [ref=e236]:
+                    - img [ref=e237]
+                    - text: "190"
+                - heading "Ford Mustang GT 2019" [level=3] [ref=e240]
+              - generic [ref=e241]:
+                - generic [ref=e242]: 282EUR
+                - generic [ref=e243]:
+                  - img [ref=e244]
+                  - text: Nitra
+          - link "Honda Civic Type R 2020 3 PHOTOS Vehicles 163 Honda Civic Type R 2020 1 523EUR Zilina" [ref=e247] [cursor=pointer]:
+            - /url: /listings/9fd637d4-25d4-42a8-ba37-c4af224eaeb1
+            - generic [ref=e248]:
+              - img "Honda Civic Type R 2020" [ref=e249]
+              - generic [ref=e250]: 3 PHOTOS
+            - generic [ref=e251]:
+              - generic [ref=e252]:
+                - generic [ref=e253]:
+                  - text: Vehicles
+                  - generic [ref=e254]:
+                    - img [ref=e255]
+                    - text: "163"
+                - heading "Honda Civic Type R 2020" [level=3] [ref=e258]
+              - generic [ref=e259]:
+                - generic [ref=e260]: 1 523EUR
+                - generic [ref=e261]:
+                  - img [ref=e262]
+                  - text: Zilina
+          - link "Toyota Corolla Hybrid 2021 New 3 PHOTOS Vehicles 123 Toyota Corolla Hybrid 2021 487EUR Bratislava" [ref=e265] [cursor=pointer]:
+            - /url: /listings/7f2b1239-931d-4deb-9edb-6c7e78cf5d72
+            - generic [ref=e266]:
+              - img "Toyota Corolla Hybrid 2021" [ref=e267]
+              - generic [ref=e269]:
+                - img [ref=e270]
+                - text: New
+              - generic [ref=e276]: 3 PHOTOS
+            - generic [ref=e277]:
+              - generic [ref=e278]:
+                - generic [ref=e279]:
+                  - text: Vehicles
+                  - generic [ref=e280]:
+                    - img [ref=e281]
+                    - text: "123"
+                - heading "Toyota Corolla Hybrid 2021" [level=3] [ref=e284]
+              - generic [ref=e285]:
+                - generic [ref=e286]: 487EUR
+                - generic [ref=e287]:
+                  - img [ref=e288]
+                  - text: Bratislava
+          - link "Mercedes-Benz C-Class 2020 New 3 PHOTOS Vehicles 21 Mercedes-Benz C-Class 2020 561EUR Kosice" [ref=e291] [cursor=pointer]:
+            - /url: /listings/30c00565-8c50-4f4c-8765-37d04ddcebc7
+            - generic [ref=e292]:
+              - img "Mercedes-Benz C-Class 2020" [ref=e293]
+              - generic [ref=e295]:
+                - img [ref=e296]
+                - text: New
+              - generic [ref=e302]: 3 PHOTOS
+            - generic [ref=e303]:
+              - generic [ref=e304]:
+                - generic [ref=e305]:
+                  - text: Vehicles
+                  - generic [ref=e306]:
+                    - img [ref=e307]
+                    - text: "21"
+                - heading "Mercedes-Benz C-Class 2020" [level=3] [ref=e310]
+              - generic [ref=e311]:
+                - generic [ref=e312]: 561EUR
+                - generic [ref=e313]:
+                  - img [ref=e314]
+                  - text: Kosice
+          - link "Škoda Octavia RS 2019 New 3 PHOTOS Vehicles 137 Škoda Octavia RS 2019 1 998EUR Bratislava" [ref=e317] [cursor=pointer]:
+            - /url: /listings/b4e967b9-da59-4eea-add1-d416f883a527
+            - generic [ref=e318]:
+              - img "Škoda Octavia RS 2019" [ref=e319]
+              - generic [ref=e321]:
+                - img [ref=e322]
+                - text: New
+              - generic [ref=e328]: 3 PHOTOS
+            - generic [ref=e329]:
+              - generic [ref=e330]:
+                - generic [ref=e331]:
+                  - text: Vehicles
+                  - generic [ref=e332]:
+                    - img [ref=e333]
+                    - text: "137"
+                - heading "Škoda Octavia RS 2019" [level=3] [ref=e336]
+              - generic [ref=e337]:
+                - generic [ref=e338]: 1 998EUR
+                - generic [ref=e339]:
+                  - img [ref=e340]
+                  - text: Bratislava
+      - generic [ref=e345]:
+        - generic [ref=e346]:
+          - text: Our Excellence
+          - heading "Marketplace Reimagined for Slovakia" [level=2] [ref=e347]:
+            - text: Marketplace
+            - text: Reimagined
+            - text: for Slovakia
+          - generic [ref=e348]:
+            - generic [ref=e349]:
+              - img [ref=e351]
+              - text: Smart filtering for precise results
+            - generic [ref=e354]:
+              - img [ref=e356]
+              - text: Zero hidden fees or commissions
+            - generic [ref=e359]:
+              - img [ref=e361]
+              - text: Advanced fraud protection measures
+            - generic [ref=e364]:
+              - img [ref=e366]
+              - text: Direct contact between buyers and sellers
+        - generic [ref=e369]:
+          - generic [ref=e370]:
+            - img [ref=e372]
+            - heading "Secure" [level=3] [ref=e375]
+            - paragraph [ref=e376]: Verified users & protected communications.
+          - generic [ref=e377]:
+            - img [ref=e379]
+            - heading "Fast" [level=3] [ref=e381]
+            - paragraph [ref=e382]: Lightning fast listing creation process.
+          - generic [ref=e383]:
+            - img [ref=e385]
+            - heading "Free" [level=3] [ref=e389]
+            - paragraph [ref=e390]: No commissions. 100% profit stays with you.
+          - generic [ref=e391]:
+            - img [ref=e393]
+            - heading "Local" [level=3] [ref=e397]
+            - paragraph [ref=e398]: Focusing exclusively on the Slovak market.
+      - generic [ref=e402]:
+        - text: Join the Community
+        - heading "Start selling today!" [level=2] [ref=e403]
+        - paragraph [ref=e404]: Simple, fast and free. Post your ad in 2 minutes.
+        - link "Post Ad" [ref=e406] [cursor=pointer]:
+          - /url: /post
+          - img [ref=e407]
+          - text: Post Ad
+  - contentinfo [ref=e410]:
+    - generic [ref=e411]:
+      - generic [ref=e412]:
+        - generic [ref=e413]:
+          - link "S Slovor." [ref=e414] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e415]: S
+            - generic [ref=e416]: Slovor.
+          - paragraph [ref=e417]: “Free marketplace for everyone. Buy and sell anything without fees.”
+          - generic [ref=e418]:
+            - link [ref=e419] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e420]
+            - link [ref=e422] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e423]
+            - link [ref=e427] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e428]
+        - generic [ref=e430]:
+          - generic [ref=e431]:
+            - heading "Popular Categories" [level=4] [ref=e432]
+            - list
+          - generic [ref=e433]:
+            - heading "Quick Links" [level=4] [ref=e434]
+            - list [ref=e435]:
+              - listitem [ref=e436]:
+                - link "Home" [ref=e437] [cursor=pointer]:
+                  - /url: /
+                  - text: Home
+                  - img [ref=e438]
+              - listitem [ref=e441]:
+                - link "All Listings" [ref=e442] [cursor=pointer]:
+                  - /url: /listings
+                  - text: All Listings
+                  - img [ref=e443]
+              - listitem [ref=e446]:
+                - link "Post Ad" [ref=e447] [cursor=pointer]:
+                  - /url: /post
+                  - text: Post Ad
+                  - img [ref=e448]
+              - listitem [ref=e451]:
+                - link "Market Trends" [ref=e452] [cursor=pointer]:
+                  - /url: /blog
+                  - text: Market Trends
+                  - img [ref=e453]
+          - generic [ref=e456]:
+            - heading "Information" [level=4] [ref=e457]
+            - list [ref=e458]:
+              - listitem [ref=e459]:
+                - link "About Us" [ref=e460] [cursor=pointer]:
+                  - /url: /about
+                  - text: About Us
+                  - img [ref=e461]
+              - listitem [ref=e464]:
+                - link "Terms" [ref=e465] [cursor=pointer]:
+                  - /url: /terms
+                  - text: Terms
+                  - img [ref=e466]
+              - listitem [ref=e469]:
+                - link "Privacy" [ref=e470] [cursor=pointer]:
+                  - /url: /privacy
+                  - text: Privacy
+                  - img [ref=e471]
+              - listitem [ref=e474]:
+                - link "FAQ" [ref=e475] [cursor=pointer]:
+                  - /url: /faq
+                  - text: FAQ
+                  - img [ref=e476]
+      - generic [ref=e479]:
+        - generic [ref=e480]:
+          - heading "Subscribe to our market updates" [level=3] [ref=e481]
+          - paragraph [ref=e482]: Get the best deals directly in your inbox.
+        - generic [ref=e483]:
+          - generic [ref=e484]:
+            - img [ref=e485]
+            - textbox "your@email.com" [ref=e488]
+          - button "Join" [ref=e489]
+      - generic [ref=e490]:
+        - paragraph [ref=e491]: © 2026 Slovor Marketplace. All rights reserved.
+        - generic [ref=e492]:
+          - generic [ref=e493]: Slovakia / EUR
+          - generic [ref=e494]:
+            - link "Transparency" [ref=e495] [cursor=pointer]:
+              - /url: /terms
+            - link "Privacy Policy" [ref=e496] [cursor=pointer]:
+              - /url: /privacy
+```

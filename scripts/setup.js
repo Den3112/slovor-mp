@@ -56,7 +56,7 @@ if (fs.existsSync(envPath)) {
 } else {
   log('   ⚠️  .env.local not found', 'yellow')
   log('   📝 Creating from .env.example...', 'yellow')
-  
+
   const examplePath = path.join(process.cwd(), '.env.example')
   if (fs.existsSync(examplePath)) {
     fs.copyFileSync(examplePath, envPath)
@@ -88,7 +88,7 @@ log('\n🔀 Checking Git...', 'yellow')
 if (checkCommand('git')) {
   const gitVersion = exec('git --version')
   log(`   ✅ ${gitVersion.trim()} detected`, 'green')
-  
+
   // Check current branch
   const branch = exec('git branch --show-current')
   if (branch) {
@@ -105,10 +105,12 @@ if (checkCommand('git')) {
 log('\n🗃️  Checking database migrations...', 'yellow')
 const migrationsPath = path.join(process.cwd(), 'database', 'migrations')
 if (fs.existsSync(migrationsPath)) {
-  const migrations = fs.readdirSync(migrationsPath).filter(f => f.endsWith('.sql'))
+  const migrations = fs
+    .readdirSync(migrationsPath)
+    .filter((f) => f.endsWith('.sql'))
   log(`   ✅ Found ${migrations.length} migration(s)`, 'green')
-  migrations.forEach(m => log(`      - ${m}`, 'blue'))
-  
+  migrations.forEach((m) => log(`      - ${m}`, 'blue'))
+
   if (migrations.length > 0) {
     log('\n   💡 To run migrations:', 'blue')
     log('      npm run db:migrate', 'blue')

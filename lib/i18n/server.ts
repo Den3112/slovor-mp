@@ -9,6 +9,6 @@ export async function getTranslationServer() {
 
   return {
     locale,
-    t: translations[locale] as TranslationKeys
+    t: translations[locale] as TranslationKeys,
   }
 }

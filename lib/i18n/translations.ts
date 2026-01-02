@@ -47,6 +47,7 @@ export const translations = {
       noListings: 'Žiadne inzeráty',
       tryDifferentFilters: 'Skúste upraviť filtre',
       backToSearch: 'Späť na vyhľadávanie',
+      edit: 'Upraviť',
     },
     filters: {
       title: 'Filtre',
@@ -75,7 +76,8 @@ export const translations = {
       help: 'Pomoc',
       safety: 'Bezpečnosť',
       faq: 'Často kladené otázky',
-      description: 'Slobodný trh pre všetkých. Kúpte a predajte čokoľvek bez poplatkov.',
+      description:
+        'Slobodný trh pre všetkých. Kúpte a predajte čokoľvek bez poplatkov.',
       information: 'Informácie',
       copyright: 'Všetky práva vyhradené',
       tagline: 'Slobodný trh pre všetkých',
@@ -194,13 +196,15 @@ export const translations = {
       heroTagline: 'Prémiový bazár na Slovensku',
       heroTitleMain: 'Nájdite presne to,',
       heroTitleHighlight: 'čo potrebujete',
-      heroSubtitle: 'Tisíce inzerátov každý deň. Kúp a predaj všetko - od elektroniky až po nehnutenošti.',
+      heroSubtitle:
+        'Tisíce inzerátov každý deň. Kúp a predaj všetko - od elektroniky až po nehnutenošti.',
       searchPlaceholder: 'Čo hľadáte?',
       popularSearches: 'Populárne vyhľadávania',
       categoriesTitle: 'Prechádzaj kategórie',
       featuredListings: 'Významné inzeráty',
       ctaTitle: 'Začni predávať dnes!',
-      ctaSubtitle: 'Jednoduché, rýchle a zadarmo. Pridaj svoj inzerát za 2 minúty.',
+      ctaSubtitle:
+        'Jednoduché, rýchle a zadarmo. Pridaj svoj inzerát za 2 minúty.',
       hero: {
         title: 'Nájdi, čo hľadáš',
         subtitle: 'Tisíce inzerátov každý deň',
@@ -259,9 +263,22 @@ export const translations = {
       title: 'O Slovor Marketplace',
       subtitle: 'Najmodernejšia platforma pre nákup a predaj na Slovensku.',
       mission: 'Naša misia',
-      missionText: 'V Slovor veríme, že nákup a predaj lokálne by mal byť krásny, bezpečný a nenáročný. Vybudovali sme platformu, ktorá spája špičkovú technológiu s intuitívnym používateľským zážitkom.',
+      missionText:
+        'V Slovor veríme, že nákup a predaj lokálne by mal byť krásny, bezpečný a nenáročný. Vybudovali sme platformu, ktorá spája špičkovú technológiu s intuitívnym používateľským zážitkom.',
       whyTitle: 'Prečo Slovor?',
-      whyText: 'Na rozdiel od tradičných inzertných stránok sa Slovor zameriava na zážitok. Od nášho designového systému až po bleskové vyhľadávanie, každý detail je vytvorený tak, aby vám pomohol.',
+      whyText:
+        'Na rozdiel od tradičných inzertných stránok sa Slovor zameriava na zážitok. Od nášho designového systému až po bleskové vyhľadávanie, každý detail je vytvorený tak, aby vám pomohol.',
+    },
+    dashboard: {
+      myListings: 'Moje inzeráty',
+      manageListings: 'Spravujte svoje aktívne a archivované inzeráty.',
+      searchPlaceholder: 'Hľadať v mojich inzerátoch...',
+      noListings: 'Nenašli sa žiadne inzeráty.',
+      confirmDelete: 'Naozaj chcete vymazať tento inzerát?',
+      activate: 'Aktivovať',
+      deactivate: 'Deaktivovať',
+      edit: 'Upraviť',
+      delete: 'Vymazať',
     },
   },
   cs: {
@@ -309,6 +326,7 @@ export const translations = {
       noListings: 'Žádné inzeráty',
       tryDifferentFilters: 'Zkuste upravit filtry',
       backToSearch: 'Zpět na vyhledávání',
+      edit: 'Upravit',
     },
     filters: {
       title: 'Filtry',
@@ -337,7 +355,8 @@ export const translations = {
       help: 'Pomoc',
       safety: 'Bezpečnost',
       faq: 'Často kladené otázky',
-      description: 'Svobodný trh pro všechny. Kupujte a prodávejte cokoli bez poplatků.',
+      description:
+        'Svobodný trh pro všechny. Kupujte a prodávejte cokoli bez poplatků.',
       information: 'Informace',
       copyright: 'Všechna práva vyhrazena',
       tagline: 'Svobodný trh pro všechny',
@@ -456,13 +475,15 @@ export const translations = {
       heroTagline: 'Prémiový bazar na Slovensku',
       heroTitleMain: 'Najděte přesně to,',
       heroTitleHighlight: 'co potřebujete',
-      heroSubtitle: 'Tisíce inzerátů každý den. Kup a prodej všechno - od elektroniky až po nemovitosti.',
+      heroSubtitle:
+        'Tisíce inzerátů každý den. Kup a prodej všechno - od elektroniky až po nemovitosti.',
       searchPlaceholder: 'Co hledáte?',
       popularSearches: 'Populární vyhledávání',
       categoriesTitle: 'Procházej kategorie',
       featuredListings: 'Významné inzeráty',
       ctaTitle: 'Začni prodávat dnes!',
-      ctaSubtitle: 'Jednoduché, rychlé a zdarma. Přidej svůj inzerát za 2 minuty.',
+      ctaSubtitle:
+        'Jednoduché, rychlé a zdarma. Přidej svůj inzerát za 2 minuty.',
       hero: {
         title: 'Najdi, co hledáš',
         subtitle: 'Tisíce inzerátů každý den',
@@ -521,9 +542,22 @@ export const translations = {
       title: 'O Slovor Marketplace',
       subtitle: 'Nejmodernější platforma pro nákup a prodej na Slovensku.',
       mission: 'Naše mise',
-      missionText: 'V Slovor věříme, že nákup a prodej lokálně by měl být krásný, bezpečný a nenáročný. Vybudovali jsme platformu, která spojuje špičkovou technologii s intuitivním uživatelským zážitkem.',
+      missionText:
+        'V Slovor věříme, že nákup a prodej lokálně by měl být krásný, bezpečný a nenáročný. Vybudovali jsme platformu, která spojuje špičkovou technologii s intuitivním uživatelským zážitkem.',
       whyTitle: 'Proč Slovor?',
-      whyText: 'Na rozdíl od tradičních inzertních stránek se Slovor zaměřuje na zážitek. Od našeho designového systému až po bleskové vyhledávání, každý detail je vytvořen tak, aby vám pomohl.',
+      whyText:
+        'Na rozdíl od tradičních inzertních stránek se Slovor zaměřuje na zážitek. Od našeho designového systému až po bleskové vyhledávání, každý detail je vytvořen tak, aby vám pomohl.',
+    },
+    dashboard: {
+      myListings: 'Moje inzeráty',
+      manageListings: 'Spravujte své aktivní a archivované inzeráty.',
+      searchPlaceholder: 'Hledat v mých inzerátech...',
+      noListings: 'Nebyly nalezeny žádné inzeráty.',
+      confirmDelete: 'Opravdu chcete smazat tento inzerát?',
+      activate: 'Aktivovat',
+      deactivate: 'Deaktivovat',
+      edit: 'Upravit',
+      delete: 'Smazat',
     },
   },
   en: {
@@ -571,6 +605,7 @@ export const translations = {
       noListings: 'No listings found',
       tryDifferentFilters: 'Try adjusting your filters',
       backToSearch: 'Back to Search',
+      edit: 'Edit',
     },
     filters: {
       title: 'Filters',
@@ -599,7 +634,8 @@ export const translations = {
       help: 'Help',
       safety: 'Safety',
       faq: 'FAQ',
-      description: 'Free marketplace for everyone. Buy and sell anything without fees.',
+      description:
+        'Free marketplace for everyone. Buy and sell anything without fees.',
       information: 'Information',
       copyright: 'All rights reserved',
       tagline: 'Free marketplace for everyone',
@@ -649,7 +685,7 @@ export const translations = {
       'women-fashion': "Women's Fashion",
       'damske-oblecenie': "Women's Fashion",
       'clothes-kids': "Kids' Clothing",
-      'kids-family': "Kids & Family",
+      'kids-family': 'Kids & Family',
       'home-garden': 'Home & Garden',
       'dom-a-zahrada': 'Home & Garden',
       houses: 'Houses',
@@ -718,7 +754,8 @@ export const translations = {
       heroTagline: "Slovakia's Premium Marketplace",
       heroTitleMain: 'Find exactly',
       heroTitleHighlight: 'what you need',
-      heroSubtitle: 'Thousands of listings every day. Buy and sell everything - from electronics to real estate.',
+      heroSubtitle:
+        'Thousands of listings every day. Buy and sell everything - from electronics to real estate.',
       searchPlaceholder: 'What are you looking for?',
       popularSearches: 'Popular searches',
       categoriesTitle: 'Browse Categories',
@@ -781,14 +818,28 @@ export const translations = {
     },
     about: {
       title: 'About Slovor Marketplace',
-      subtitle: "Slovakia's most modern platform for buying and selling locally.",
+      subtitle:
+        "Slovakia's most modern platform for buying and selling locally.",
       mission: 'Our Mission',
-      missionText: 'At Slovor, we believe that buying and selling locally should be beautiful, safe, and effortless. We have built a platform that combines state-of-the-art technology with an intuitive user experience.',
+      missionText:
+        'At Slovor, we believe that buying and selling locally should be beautiful, safe, and effortless. We have built a platform that combines state-of-the-art technology with an intuitive user experience.',
       whyTitle: 'Why Slovor?',
-      whyText: 'Unlike traditional classifieds sites, Slovor focuses on the experience. From our design system to our lightning-fast search, every detail is crafted to help you.',
+      whyText:
+        'Unlike traditional classifieds sites, Slovor focuses on the experience. From our design system to our lightning-fast search, every detail is crafted to help you.',
+    },
+    dashboard: {
+      myListings: 'My Listings',
+      manageListings: 'Manage your active and archived advertisements.',
+      searchPlaceholder: 'Search your listings...',
+      noListings: 'No listings found matching your search.',
+      confirmDelete: 'Are you sure you want to delete this listing?',
+      activate: 'Activate',
+      deactivate: 'Deactivate',
+      edit: 'Edit',
+      delete: 'Delete',
     },
   },
-} as const;
+} as const
 
-export type Locale = keyof typeof translations;
-export type TranslationKeys = typeof translations.en;
+export type Locale = keyof typeof translations
+export type TranslationKeys = typeof translations.en

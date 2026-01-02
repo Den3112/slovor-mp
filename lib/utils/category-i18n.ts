@@ -8,12 +8,12 @@ import type { Locale, TranslationKeys } from '@/lib/i18n/translations'
 /**
  * Returns localized category name based on current locale
  * Falls back to: locale-specific name → translation key → default name
- * 
+ *
  * @param category - Category object from database
  * @param locale - Current user locale (sk, cs, en)
  * @param t - Translation object
  * @returns Localized category name
- * 
+ *
  * @example
  * const name = getLocalizedCategoryName(category, 'sk', t)
  * // Returns: "Elektronika" (from category.name_sk)

@@ -20,7 +20,7 @@ export interface Category {
   slug: string
   description: string | null
   icon: string | null
-  icon_name: string | null  // Lucide icon name
+  icon_name: string | null // Lucide icon name
   color: string | null
   order_index: number | null
   created_at: string
@@ -41,14 +41,12 @@ export interface Listing {
   category_id: string | null
   user_id: string
   location: string
-  status: 'active' | 'sold' | 'archived'
   featured: boolean
-  views_count: number
   // New fields from migration
-  images: string[]  // Array of image URLs
-  condition: 'new' | 'used'  // Product condition
-  views: number  // View counter
-  is_active: boolean  // Active status
+  images: string[] // Array of image URLs
+  condition: 'new' | 'used' // Product condition
+  views: number // View counter
+  is_active: boolean // Active status
   metadata: Record<string, unknown> | null
   created_at: string
   updated_at: string

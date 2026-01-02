@@ -11,12 +11,12 @@ export default defineConfig({
     include: ['**/*.test.{ts,tsx}'],
     coverage: {
       reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', '.next/']
-    }
+      exclude: ['node_modules/', '.next/'],
+    },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './')
-    }
-  }
+      '@': path.resolve(__dirname, './'),
+    },
+  },
 })
