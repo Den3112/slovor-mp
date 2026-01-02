@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
 import { categoriesApi, listingsApi } from '@/lib/supabase/queries'
 import { storageApi } from '@/lib/api'
+import { updateListingAction } from '@/lib/actions/listings'
 import type { Category } from '@/lib/types/database'
 import { Button } from '@/components/ui/button'
 import {
@@ -31,7 +32,7 @@ import {
 } from '@/lib/utils/draft-storage'
 
 function CreateListingFormContent() {
-  const { user, isLoading: authLoading } = useAuth()
+  const { user, session, isLoading: authLoading } = useAuth()
   const router = useRouter()
 
   const searchParams = useSearchParams()
@@ -61,17 +62,17 @@ function CreateListingFormContent() {
     if (editId) {
       setIsEditing(true)
       setIsLoadingData(true)
-      listingsApi.getById(editId).then((res) => {
+      listingsApi.getForEdit(editId).then((res) => {
         if (res.data) {
           const l = res.data
           setFormData({
-            title: l.title,
-            description: l.description,
-            price: l.price.toString(),
+            title: l.title || '',
+            description: l.description || '',
+            price: l.price?.toString() || '',
             currency: 'EUR',
             category_id: l.category_id || '',
             condition: (l.condition as 'new' | 'used') ?? 'new',
-            location: l.location,
+            location: l.location || '',
             images: l.images || [],
           })
           setIsDirty(false)
@@ -156,7 +157,10 @@ function CreateListingFormContent() {
       return
     }
 
-    setError('Please fix the highlighted fields before continuing')
+    const missingFields = Object.keys(errors)
+      .map((k) => k.charAt(0).toUpperCase() + k.slice(1))
+      .join(', ')
+    setError(`Please fix the highlighted fields: ${missingFields}`)
   }
 
   const prevStep = () => setStep((prev) => prev - 1)
@@ -166,7 +170,10 @@ function CreateListingFormContent() {
     setFieldErrors(errors)
 
     if (hasListingFormErrors(errors)) {
-      setError('Please fill in all required fields')
+      const missingFields = Object.keys(errors)
+        .map((k) => k.charAt(0).toUpperCase() + k.slice(1))
+        .join(', ')
+      setError(`Please check the following fields: ${missingFields}`)
       return
     }
 
@@ -176,10 +183,9 @@ function CreateListingFormContent() {
     try {
       let res
       if (isEditing && editId) {
-        res = await listingsApi.update(editId, {
-          ...formData,
-          price: parseFloat(formData.price),
-        })
+        if (!session?.access_token) throw new Error('Session expired. Please sign in again.')
+        // Use Server Action for updates to bypass RLS issues securely
+        res = await updateListingAction(editId, formData, session.access_token)
       } else {
         res = await listingsApi.create({
           ...formData,
@@ -262,8 +268,20 @@ function CreateListingFormContent() {
     updateField('images', [...formData.images, randomImage])
   }
 
+  // Dynamic max-width based on step
+  const containerWidth = {
+    1: 'max-w-6xl',
+    2: 'max-w-3xl',
+    3: 'max-w-5xl',
+  }[step]
+
   return (
-    <div className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border/50 bg-card p-8 shadow-2xl">
+    <div
+      className={cn(
+        'relative mx-auto overflow-hidden rounded-3xl border border-border/50 bg-card p-8 shadow-2xl transition-[max-width] duration-500 ease-in-out',
+        containerWidth
+      )}
+    >
       {/* Progress Bar */}
       <div className="absolute left-0 top-0 h-1.5 w-full bg-muted">
         <div
@@ -290,19 +308,19 @@ function CreateListingFormContent() {
           <div className="space-y-6 duration-300 animate-in fade-in slide-in-from-right-8">
             <div>
               <label className="mb-2 block text-sm font-bold">Category</label>
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => updateField('category_id', cat.id)}
                     className={cn(
-                      'rounded-xl border-2 p-4 text-left transition-all hover:scale-[1.02]',
+                      'flex flex-col items-center justify-center gap-2 rounded-xl border-2 p-6 text-center transition-all hover:scale-[1.02]',
                       formData.category_id === cat.id
                         ? 'border-primary bg-primary/5 text-primary'
                         : 'border-border/50 bg-muted/20 hover:border-primary/50'
                     )}
                   >
-                    <span className="mb-1 block text-2xl">{cat.icon}</span>
+                    <span className="text-3xl">{cat.icon}</span>
                     <span className="text-sm font-bold">{cat.name}</span>
                   </button>
                 ))}
@@ -470,9 +488,8 @@ function CreateListingFormContent() {
                     <div
                       className="h-full bg-primary transition-all duration-300"
                       style={{
-                        width: `${
-                          (uploadProgress.current / uploadProgress.total) * 100
-                        }%`,
+                        width: `${(uploadProgress.current / uploadProgress.total) * 100
+                          }%`,
                       }}
                     />
                   </div>
@@ -582,6 +599,7 @@ function CreateListingFormContent() {
     </div>
   )
 }
+
 
 export function CreateListingForm() {
   return (
