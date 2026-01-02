@@ -4,85 +4,106 @@ import { motion } from 'framer-motion'
 import { ShieldCheck, Zap, Banknote, Map, CheckCircle2 } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 
 export function Features() {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    const features = [
-        {
-            icon: <ShieldCheck className="w-8 h-8 text-primary" />,
-            title: t.trust.secure,
-            desc: 'Verified users & protected communications.'
-        },
-        {
-            icon: <Zap className="w-8 h-8 text-yellow-500" />,
-            title: t.trust.fast,
-            desc: 'Lightning fast listing creation process.'
-        },
-        {
-            icon: <Banknote className="w-8 h-8 text-emerald-500" />,
-            title: t.trust.free,
-            desc: 'No commissions. 100% profit stays with you.'
-        },
-        {
-            icon: <Map className="w-8 h-8 text-blue-500" />,
-            title: t.trust.local,
-            desc: 'Focusing exclusively on the Slovak market.'
-        }
-    ]
+  const features = [
+    {
+      icon: <ShieldCheck className="h-8 w-8" />,
+      title: t.trust.secure,
+      desc: 'Verified users & protected communications.',
+      color: 'text-primary',
+    },
+    {
+      icon: <Zap className="h-8 w-8" />,
+      title: t.trust.fast,
+      desc: 'Lightning fast listing creation process.',
+      color: 'text-violet-500',
+    },
+    {
+      icon: <Banknote className="h-8 w-8" />,
+      title: t.trust.free,
+      desc: 'No commissions. 100% profit stays with you.',
+      color: 'text-indigo-500',
+    },
+    {
+      icon: <Map className="h-8 w-8" />,
+      title: t.trust.local,
+      desc: 'Focusing exclusively on the Slovak market.',
+      color: 'text-sky-500',
+    },
+  ]
 
-    return (
-        <section className="py-24 overflow-hidden">
-            <Container>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8 leading-[1.1] font-heading">
-                            Marketplace <span className="text-primary italic">Reimagined</span> for Slovakia
-                        </h2>
-                        <div className="space-y-6">
-                            {[
-                                'Smart filtering for precise results',
-                                'Zero hidden fees or commissions',
-                                'Advanced fraud protection measures',
-                                'Direct contact between buyers and sellers'
-                            ].map((item, i) => (
-                                <div key={i} className="flex items-center gap-3">
-                                    <div className="shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                                        <CheckCircle2 className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <span className="text-lg font-semibold text-foreground/80">{item}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {features.map((feature, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                className="p-8 rounded-[2rem] bg-card border border-border/50 hover:border-primary/30 transition-all group"
-                            >
-                                <div className="mb-6 bg-muted/50 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                                    {feature.icon}
-                                </div>
-                                <h3 className="font-black text-xl text-foreground mb-2">{feature.title}</h3>
-                                <p className="text-muted-foreground font-medium leading-relaxed">
-                                    {feature.desc}
-                                </p>
-                            </motion.div>
-                        ))}
-                    </div>
+  return (
+    <section className="overflow-hidden bg-card/5 py-24">
+      <Container>
+        <div className="grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="mb-4 block text-[10px] font-black uppercase tracking-[0.3em] text-primary">
+              Our Excellence
+            </span>
+            <h2 className="mb-10 font-heading text-5xl font-black italic leading-[0.9] tracking-tighter md:text-7xl">
+              Marketplace <br />
+              <span className="text-primary">Reimagined</span> <br />
+              <span className="opacity-40">for Slovakia</span>
+            </h2>
+            <div className="space-y-6">
+              {[
+                'Smart filtering for precise results',
+                'Zero hidden fees or commissions',
+                'Advanced fraud protection measures',
+                'Direct contact between buyers and sellers',
+              ].map((item, i) => (
+                <div key={i} className="group flex items-center gap-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 transition-all group-hover:scale-110 group-hover:bg-primary">
+                    <CheckCircle2 className="h-4 w-4 text-primary group-hover:text-white" />
+                  </div>
+                  <span className="text-xl font-bold text-foreground/80 transition-colors group-hover:text-primary">
+                    {item}
+                  </span>
                 </div>
-            </Container>
-        </section>
-    )
+              ))}
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            {features.map((feature, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="group relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/60 p-10 shadow-sm backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-2xl"
+              >
+                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/5 blur-3xl transition-colors duration-700 group-hover:bg-primary/20" />
+
+                <div
+                  className={cn(
+                    'mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-muted/40 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground',
+                    feature.color
+                  )}
+                >
+                  {feature.icon}
+                </div>
+                <h3 className="mb-3 text-2xl font-black tracking-tight text-foreground">
+                  {feature.title}
+                </h3>
+                <p className="font-medium leading-relaxed text-muted-foreground opacity-70">
+                  {feature.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
 }

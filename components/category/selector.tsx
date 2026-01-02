@@ -48,7 +48,7 @@ export function CategorySelector({
     <div className="w-full">
       <label
         htmlFor="category"
-        className="block text-sm font-medium text-gray-700 mb-2"
+        className="mb-2 block text-sm font-medium text-gray-700"
       >
         Category
       </label>
@@ -56,7 +56,7 @@ export function CategorySelector({
         id="category"
         value={selectedCategoryId}
         onChange={(e) => onSelect(e.target.value)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
       >
         <option value="">Select a category</option>
         {categories.map((category) => (

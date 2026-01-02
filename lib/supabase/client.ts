@@ -25,17 +25,14 @@ import { env } from '@/lib/env'
 const supabaseUrl = env.SUPABASE_URL
 const supabaseAnonKey = env.SUPABASE_ANON_KEY
 
-const createSupabaseClient = () => createClient(
-  supabaseUrl,
-  supabaseAnonKey,
-  {
+const createSupabaseClient = () =>
+  createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,
     },
-  }
-)
+  })
 
 declare global {
   // eslint-disable-next-line no-var
@@ -47,4 +44,3 @@ export const supabase = globalThis.supabase ?? createSupabaseClient()
 if (process.env.NODE_ENV !== 'production') {
   globalThis.supabase = supabase
 }
-

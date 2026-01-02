@@ -4,15 +4,23 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { useCallback, useState } from 'react'
+import {
+  ChevronDown,
+  RotateCcw,
+  Filter,
+  MapPin,
+  DollarSign,
+  ArrowUpDown,
+} from 'lucide-react'
 
 /**
  * Filters Component
- * 
+ *
  * WHY IT EXISTS:
  * - Allows users to filter listings by price, sort order, location
  * - Uses URL params for state (shareable links, back button works)
  * - Client component for interactivity
- * 
+ *
  * HOW IT WORKS:
  * 1. Reads current filters from URL searchParams
  * 2. Updates state in local form
@@ -41,30 +49,17 @@ export function Filters() {
   const applyFilters = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString())
 
-    // Update params
-    if (sort !== 'newest') {
-      params.set('sort', sort)
-    } else {
-      params.delete('sort')
-    }
+    if (sort !== 'newest') params.set('sort', sort)
+    else params.delete('sort')
 
-    if (priceMin) {
-      params.set('priceMin', priceMin)
-    } else {
-      params.delete('priceMin')
-    }
+    if (priceMin) params.set('priceMin', priceMin)
+    else params.delete('priceMin')
 
-    if (priceMax) {
-      params.set('priceMax', priceMax)
-    } else {
-      params.delete('priceMax')
-    }
+    if (priceMax) params.set('priceMax', priceMax)
+    else params.delete('priceMax')
 
-    if (location !== 'all') {
-      params.set('location', location)
-    } else {
-      params.delete('location')
-    }
+    if (location !== 'all') params.set('location', location)
+    else params.delete('location')
 
     // Reset to page 1 when filters change
     params.delete('page')
@@ -82,96 +77,121 @@ export function Filters() {
   }, [pathname, router])
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8 shadow-sm">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">{t.filters.title || 'Filters'}</h2>
+    <div className="shadow-premium group relative mb-12 overflow-hidden rounded-[2rem] border border-border/40 bg-card p-8">
+      <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="mb-8 flex items-center gap-3">
+        <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+          <Filter className="h-6 w-6" />
+        </div>
+        <h2 className="font-heading text-2xl font-black tracking-tight text-foreground">
+          {t.filters.title || 'Filter Listings'}
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {/* Sort */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="space-y-3">
+          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <ArrowUpDown className="h-3 w-3" />
             {t.filters.sort || 'Sort by'}
           </label>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="newest">{t.filters.newest || 'Newest first'}</option>
-            <option value="oldest">{t.filters.oldest || 'Oldest first'}</option>
-            <option value="price-low">{t.filters.priceLow || 'Price: Low to High'}</option>
-            <option value="price-high">{t.filters.priceHigh || 'Price: High to Low'}</option>
-            <option value="views">{t.filters.popular || 'Most Popular'}</option>
-          </select>
+          <div className="relative">
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border bg-muted/30 pl-4 pr-10 text-sm font-bold text-foreground outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+            >
+              <option value="newest">
+                {t.filters.newest || 'Newest first'}
+              </option>
+              <option value="oldest">
+                {t.filters.oldest || 'Oldest first'}
+              </option>
+              <option value="price-low">
+                {t.filters.priceLow || 'Price: Low to High'}
+              </option>
+              <option value="price-high">
+                {t.filters.priceHigh || 'Price: High to Low'}
+              </option>
+              <option value="views">
+                {t.filters.popular || 'Most Popular'}
+              </option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          </div>
         </div>
 
-        {/* Price Min */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t.filters.priceMin || 'Min Price'}
+        {/* Price Range */}
+        <div className="col-span-1 space-y-3 md:col-span-2 lg:col-span-1">
+          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <DollarSign className="h-3 w-3" />
+            Price Range
           </label>
-          <input
-            type="number"
-            value={priceMin}
-            onChange={(e) => setPriceMin(e.target.value)}
-            placeholder="0"
-            min="0"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        {/* Price Max */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t.filters.priceMax || 'Max Price'}
-          </label>
-          <input
-            type="number"
-            value={priceMax}
-            onChange={(e) => setPriceMax(e.target.value)}
-            placeholder="∞"
-            min="0"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              value={priceMin}
+              onChange={(e) => setPriceMin(e.target.value)}
+              placeholder="Min"
+              className="h-12 w-full rounded-xl border border-border bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-4 focus:ring-primary/10"
+            />
+            <div className="h-px w-4 bg-border" />
+            <input
+              type="number"
+              value={priceMax}
+              onChange={(e) => setPriceMax(e.target.value)}
+              placeholder="Max"
+              className="h-12 w-full rounded-xl border border-border bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-4 focus:ring-primary/10"
+            />
+          </div>
         </div>
 
         {/* Location */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="space-y-3 lg:col-span-1">
+          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+            <MapPin className="h-3 w-3" />
             {t.filters.location || 'Location'}
           </label>
-          <select
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="all">{t.filters.allLocations || 'All locations'}</option>
-            <option value="bratislava">Bratislava</option>
-            <option value="košice">Košice</option>
-            <option value="prešov">Prešov</option>
-            <option value="žilina">Žilina</option>
-            <option value="nitra">Nitra</option>
-            <option value="banská bystrica">Banská Bystrica</option>
-            <option value="trnava">Trnava</option>
-            <option value="trenčín">Trenčín</option>
-          </select>
+          <div className="relative">
+            <select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border bg-muted/30 pl-4 pr-10 text-sm font-bold uppercase text-foreground outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+            >
+              <option value="all">
+                {t.filters.allLocations || 'All locations'}
+              </option>
+              <option value="bratislava">Bratislava</option>
+              <option value="košice">Košice</option>
+              <option value="prešov">Prešov</option>
+              <option value="žilina">Žilina</option>
+              <option value="nitra">Nitra</option>
+              <option value="banská bystrica">Banská Bystrica</option>
+              <option value="trnava">Trnava</option>
+              <option value="trenčín">Trenčín</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          </div>
         </div>
-      </div>
 
-      {/* Action Buttons */}
-      <div className="flex gap-3 mt-6">
-        <Button
-          onClick={applyFilters}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-        >
-          {t.filters.apply || 'Apply Filters'}
-        </Button>
-        <Button
-          onClick={resetFilters}
-          variant="outline"
-          className="border-gray-300 hover:bg-gray-50 font-semibold"
-        >
-          {t.filters.reset || 'Reset'}
-        </Button>
+        {/* Actions */}
+        <div className="flex items-end gap-3 lg:col-span-1">
+          <Button
+            onClick={applyFilters}
+            className="h-12 flex-1 rounded-xl bg-primary font-bold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90"
+          >
+            {t.filters.apply || 'Apply'}
+          </Button>
+          <Button
+            onClick={resetFilters}
+            variant="outline"
+            size="icon"
+            className="h-12 w-12 rounded-xl border-border/50 bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            <RotateCcw className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
     </div>
   )

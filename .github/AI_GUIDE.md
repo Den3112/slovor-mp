@@ -39,12 +39,14 @@
 ### 4. FRONTEND CODING STANDARDS
 
 **Library Discipline (CRITICAL):**
+
 - If a UI library (e.g., Shadcn UI, Radix, MUI) is detected or active in the project, YOU MUST USE IT.
 - Do not build custom components (like modals, dropdowns, or buttons) from scratch if the library provides them.
 - Do not pollute the codebase with redundant CSS.
 - **Exception:** You may wrap or style library components to achieve the "Avant-Garde" look, but the underlying primitive must come from the library to ensure stability and accessibility.
 
 **Stack:**
+
 - Modern (React/Vue/Svelte)
 - Tailwind/Custom CSS
 - Semantic HTML5
@@ -53,10 +55,12 @@
 ### 5. RESPONSE FORMAT
 
 **IF NORMAL:**
+
 1. **Rationale:** (1 sentence on why the elements were placed there).
 2. **The Code.**
 
 **IF "ULTRATHINK" IS ACTIVE:**
+
 1. **Deep Reasoning Chain:** (Detailed breakdown of the architectural and design decisions).
 2. **Edge Case Analysis:** (What could go wrong and how we prevented it).
 3. **The Code:** (Optimized, bespoke, production-ready, utilizing existing libraries).
@@ -123,6 +127,7 @@ slovor-mp/
 ```
 
 **✅ What SHOULD be in main/dev:**
+
 - Source code (`.ts`, `.tsx`, `.js`, `.jsx`, `.css`)
 - Config files (`.json`, `.js` configs)
 - `.env.example` and `.gitignore`
@@ -130,6 +135,7 @@ slovor-mp/
 - This AI guide (`.github/AI_GUIDE.md`)
 
 **❌ What should NOT be in main/dev:**
+
 - ❌ `PRINCIPLES.md`
 - ❌ `ARCHITECTURE.md`
 - ❌ `PROJECT_CONTEXT.md`
@@ -212,6 +218,7 @@ git push origin dev
 ## 🚀 Quick Reference
 
 ### Adding Feature
+
 1. Switch to dev
 2. Read principles (docs branch)
 3. Code following 8 principles
@@ -220,6 +227,7 @@ git push origin dev
 6. PR dev → main (squash merge)
 
 ### Reading Docs
+
 ```bash
 git checkout docs
 cat principles/PRINCIPLES.md
@@ -227,6 +235,7 @@ git checkout dev
 ```
 
 ### Cleaning Branches
+
 ```bash
 # Delete any branch except main, dev, docs
 git push origin --delete <branch-name>
@@ -263,13 +272,13 @@ Before every change:
 
 ## 📚 Documentation
 
-| Topic | Location |
-|-------|----------|
-| This Guide | `.github/AI_GUIDE.md` (main/dev) |
-| 8 Principles | `principles/PRINCIPLES.md` (docs) |
+| Topic        | Location                              |
+| ------------ | ------------------------------------- |
+| This Guide   | `.github/AI_GUIDE.md` (main/dev)      |
+| 8 Principles | `principles/PRINCIPLES.md` (docs)     |
 | Architecture | `architecture/ARCHITECTURE.md` (docs) |
-| Git Flow | `guides/DEVELOPMENT.md` (docs) |
-| History | `history/PROJECT_CONTEXT.md` (docs) |
+| Git Flow     | `guides/DEVELOPMENT.md` (docs)        |
+| History      | `history/PROJECT_CONTEXT.md` (docs)   |
 
 ---
 

@@ -26,16 +26,14 @@ export async function middleware(request: NextRequest) {
 
   // Protected routes
   if (request.nextUrl.pathname.startsWith('/post')) {
-     // If we don't have a cookie, we might not be logged in.
-     // However, with client-side only auth it's hard to check on server without proper cookie setup.
-     // For now, we will allow access and handle redirect on client side if no user found in AuthContext,
-     // OR we rely on the fact that supabase js sets cookies if configured.
-
-     // Note: Since we haven't fully set up @supabase/ssr, strict server middleware might block valid client sessions.
-     // So we will Skip strict redirect here and let the Client Component handle it,
-     // unless we are sure.
-
-     // let's leave it open for now and handle in the Page component via AuthContext
+    // If we don't have a cookie, we might not be logged in.
+    // However, with client-side only auth it's hard to check on server without proper cookie setup.
+    // For now, we will allow access and handle redirect on client side if no user found in AuthContext,
+    // OR we rely on the fact that supabase js sets cookies if configured.
+    // Note: Since we haven't fully set up @supabase/ssr, strict server middleware might block valid client sessions.
+    // So we will Skip strict redirect here and let the Client Component handle it,
+    // unless we are sure.
+    // let's leave it open for now and handle in the Page component via AuthContext
   }
 
   return NextResponse.next()
@@ -57,12 +55,12 @@ export async function middleware(request: NextRequest) {
  */
 export const config = {
   matcher: [
-    '/dashboard/:path*',     // User dashboard and subroutes
-    '/post',                 // Create new listing page
-    '/create-listing',       // Old route
-    '/edit-listing/:path*',  // Edit listing pages (future)
-    '/favorites',            // Favorites page (future)
-    '/messages/:path*',      // Messages (future)
-    '/api/private/:path*',   // Private API routes (future)
+    '/dashboard/:path*', // User dashboard and subroutes
+    '/post', // Create new listing page
+    '/create-listing', // Old route
+    '/edit-listing/:path*', // Edit listing pages (future)
+    '/favorites', // Favorites page (future)
+    '/messages/:path*', // Messages (future)
+    '/api/private/:path*', // Private API routes (future)
   ],
 }

@@ -20,27 +20,32 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
   const touchStartX = useRef<number>(0)
   const touchEndX = useRef<number>(0)
 
-  const validImages = images?.filter(img => img && !imageError.has(images.indexOf(img))) || []
+  const validImages =
+    images?.filter((img) => img && !imageError.has(images.indexOf(img))) || []
 
   if (validImages.length === 0) {
     return (
-      <div className="w-full aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex flex-col items-center justify-center gap-3">
-        <ImageOff className="w-16 h-16 text-gray-400" />
-        <span className="text-gray-500 text-lg font-medium">No images available</span>
+      <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200">
+        <ImageOff className="h-16 w-16 text-gray-400" />
+        <span className="text-lg font-medium text-gray-500">
+          No images available
+        </span>
       </div>
     )
   }
 
   const goToPrevious = () => {
-    const newIndex = currentIndex === 0 ? validImages.length - 1 : currentIndex - 1
+    const newIndex =
+      currentIndex === 0 ? validImages.length - 1 : currentIndex - 1
     setCurrentIndex(newIndex)
-    setLoadingImages(prev => new Set([...prev, newIndex]))
+    setLoadingImages((prev) => new Set([...prev, newIndex]))
   }
 
   const goToNext = () => {
-    const newIndex = currentIndex === validImages.length - 1 ? 0 : currentIndex + 1
+    const newIndex =
+      currentIndex === validImages.length - 1 ? 0 : currentIndex + 1
     setCurrentIndex(newIndex)
-    setLoadingImages(prev => new Set([...prev, newIndex]))
+    setLoadingImages((prev) => new Set([...prev, newIndex]))
   }
 
   // Touch handlers for mobile swipe
@@ -70,8 +75,8 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
   }
 
   const handleImageError = (index: number) => {
-    setImageError(prev => new Set([...prev, index]))
-    setLoadingImages(prev => {
+    setImageError((prev) => new Set([...prev, index]))
+    setLoadingImages((prev) => {
       const newSet = new Set(prev)
       newSet.delete(index)
       return newSet
@@ -83,7 +88,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
   }
 
   const handleImageLoad = (index: number) => {
-    setLoadingImages(prev => {
+    setLoadingImages((prev) => {
       const newSet = new Set(prev)
       newSet.delete(index)
       return newSet
@@ -94,14 +99,14 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-100 group"
+        className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         {/* Loading Skeleton */}
         {loadingImages.has(currentIndex) && (
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse z-10" />
+          <div className="absolute inset-0 z-10 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300" />
         )}
 
         <Image
@@ -126,24 +131,24 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity z-20 backdrop-blur-sm"
+              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100 md:opacity-100"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity z-20 backdrop-blur-sm"
+              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100 md:opacity-100"
               aria-label="Next image"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="h-6 w-6" />
             </button>
           </>
         )}
 
         {/* Image Counter */}
         {validImages.length > 1 && (
-          <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium z-20">
+          <div className="absolute bottom-4 right-4 z-20 rounded-full bg-black/70 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}
@@ -151,7 +156,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
       {/* Thumbnails */}
       {validImages.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+        <div className="scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent flex gap-2 overflow-x-auto pb-2">
           {validImages.map((image, index) => {
             const originalIndex = images.indexOf(image)
             return (
@@ -159,17 +164,17 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                 key={index}
                 onClick={() => {
                   setCurrentIndex(index)
-                  setLoadingImages(prev => new Set([...prev, index]))
+                  setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
                   index === currentIndex
-                    ? 'border-blue-600 ring-2 ring-blue-200 shadow-lg'
+                    ? 'border-blue-600 shadow-lg ring-2 ring-blue-200'
                     : 'border-gray-300 hover:border-gray-400'
                 }`}
                 aria-label={`View image ${index + 1}`}
               >
                 {loadingImages.has(index) && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse" />
+                  <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300" />
                 )}
                 <Image
                   src={image}

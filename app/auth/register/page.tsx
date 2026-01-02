@@ -4,15 +4,15 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function RegisterRedirect() {
-    const router = useRouter()
+  const router = useRouter()
 
-    useEffect(() => {
-        router.replace('/auth/login?mode=register')
-    }, [router])
+  useEffect(() => {
+    router.replace('/auth/login?mode=register')
+  }, [router])
 
-    return (
-        <div className="min-h-screen bg-background flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-        </div>
-    )
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" />
+    </div>
+  )
 }

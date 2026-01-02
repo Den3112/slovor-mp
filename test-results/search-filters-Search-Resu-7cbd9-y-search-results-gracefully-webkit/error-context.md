@@ -1,0 +1,191 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - link "S Slovor ." [ref=e7]:
+        - /url: /
+        - generic [ref=e10]: S
+        - generic [ref=e11]:
+          - text: Slovor
+          - generic [ref=e12]: .
+      - navigation [ref=e13]:
+        - link "Home" [ref=e14]:
+          - /url: /
+        - link "All Listings" [ref=e15]:
+          - /url: /listings
+          - text: All Listings
+        - link "Categories" [ref=e17]:
+          - /url: /categories
+      - generic [ref=e18]:
+        - button "EN" [ref=e20] [cursor=pointer]:
+          - img [ref=e23]
+          - generic [ref=e28]: EN
+          - img [ref=e29]
+        - generic [ref=e31]:
+          - link "Sign In" [ref=e32]:
+            - /url: /auth/login
+          - link "Post Ad" [ref=e33]:
+            - /url: /post
+            - img [ref=e34]
+            - text: Post Ad
+  - main [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - img [ref=e43]
+          - text: Explorer
+        - 'heading "Search: nonexistent12345xyz" [level=1] [ref=e46]'
+        - paragraph [ref=e47]:
+          - generic [ref=e48]: "0"
+          - text: listings found
+      - generic [ref=e50]:
+        - complementary [ref=e51]:
+          - generic [ref=e52]:
+            - heading "Filters" [level=2] [ref=e54]:
+              - img [ref=e55]
+              - text: Filters
+            - generic [ref=e57]:
+              - generic [ref=e60]:
+                - img [ref=e61]
+                - textbox "What are you looking for?" [ref=e64]: nonexistent12345xyz
+              - generic [ref=e65]:
+                - generic [ref=e66]:
+                  - generic [ref=e67]:
+                    - img [ref=e68]
+                    - text: Location
+                  - combobox [ref=e71] [cursor=pointer]:
+                    - option "All Locations" [selected]
+                    - option "Bratislava"
+                    - option "Košice"
+                    - option "Prešov"
+                    - option "Žilina"
+                    - option "Banská Bystrica"
+                    - option "Nitra"
+                    - option "Trnava"
+                    - option "Martin"
+                    - option "Poprad"
+                    - option "Trenčín"
+                - generic [ref=e72]:
+                  - generic [ref=e73]:
+                    - img [ref=e74]
+                    - text: Price Range (EUR)
+                  - generic [ref=e77]:
+                    - spinbutton [ref=e78]
+                    - spinbutton [ref=e79]
+                - generic [ref=e80]:
+                  - generic [ref=e81]:
+                    - img [ref=e82]
+                    - text: Condition
+                  - generic [ref=e87]:
+                    - button "All" [ref=e88] [cursor=pointer]
+                    - button "new" [ref=e89] [cursor=pointer]
+                    - button "used" [ref=e90] [cursor=pointer]
+                - generic [ref=e91]:
+                  - generic [ref=e92]:
+                    - img [ref=e93]
+                    - text: Sort By
+                  - combobox [ref=e96] [cursor=pointer]:
+                    - option "Newest First" [selected]
+                    - option "Oldest First"
+                    - 'option "Price: Low to High"'
+                    - 'option "Price: High to Low"'
+                    - option "Most Viewed"
+              - generic [ref=e97]:
+                - button "Apply" [ref=e98] [cursor=pointer]
+                - button [ref=e99] [cursor=pointer]:
+                  - img [ref=e100]
+        - main [ref=e103]:
+          - generic [ref=e104]:
+            - img [ref=e106]
+            - paragraph [ref=e112]: No results found
+            - paragraph [ref=e113]: Try adjusting your filters
+  - contentinfo [ref=e114]:
+    - generic [ref=e118]:
+      - generic [ref=e119]:
+        - generic [ref=e120]:
+          - link "S Slovor." [ref=e121]:
+            - /url: /
+            - generic [ref=e122]: S
+            - generic [ref=e123]: Slovor.
+          - paragraph [ref=e124]: “Free marketplace for everyone. Buy and sell anything without fees.”
+          - generic [ref=e125]:
+            - link [ref=e126]:
+              - /url: "#"
+              - img [ref=e127]
+            - link [ref=e129]:
+              - /url: "#"
+              - img [ref=e130]
+            - link [ref=e133]:
+              - /url: "#"
+              - img [ref=e134]
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - heading "Popular Categories" [level=4] [ref=e138]
+            - list
+          - generic [ref=e139]:
+            - heading "Quick Links" [level=4] [ref=e140]
+            - list [ref=e141]:
+              - listitem [ref=e142]:
+                - link "Home" [ref=e143]:
+                  - /url: /
+                  - generic [ref=e144]: Home
+                  - img [ref=e145]
+              - listitem [ref=e148]:
+                - link "All Listings" [ref=e149]:
+                  - /url: /listings
+                  - generic [ref=e150]: All Listings
+                  - img [ref=e151]
+              - listitem [ref=e154]:
+                - link "Post Ad" [ref=e155]:
+                  - /url: /post
+                  - generic [ref=e156]: Post Ad
+                  - img [ref=e157]
+              - listitem [ref=e160]:
+                - link "Market Trends" [ref=e161]:
+                  - /url: /blog
+                  - generic [ref=e162]: Market Trends
+                  - img [ref=e163]
+          - generic [ref=e166]:
+            - heading "Information" [level=4] [ref=e167]
+            - list [ref=e168]:
+              - listitem [ref=e169]:
+                - link "About Us" [ref=e170]:
+                  - /url: /about
+                  - generic [ref=e171]: About Us
+                  - img [ref=e172]
+              - listitem [ref=e175]:
+                - link "Terms" [ref=e176]:
+                  - /url: /terms
+                  - generic [ref=e177]: Terms
+                  - img [ref=e178]
+              - listitem [ref=e181]:
+                - link "Privacy" [ref=e182]:
+                  - /url: /privacy
+                  - generic [ref=e183]: Privacy
+                  - img [ref=e184]
+              - listitem [ref=e187]:
+                - link "FAQ" [ref=e188]:
+                  - /url: /faq
+                  - generic [ref=e189]: FAQ
+                  - img [ref=e190]
+      - generic [ref=e193]:
+        - generic [ref=e194]:
+          - heading "Subscribe to our market updates" [level=3] [ref=e195]
+          - paragraph [ref=e196]: Get the best deals directly in your inbox.
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - img [ref=e199]
+            - textbox "your@email.com" [ref=e202]
+          - button "Join" [ref=e203] [cursor=pointer]
+      - generic [ref=e204]:
+        - paragraph [ref=e205]: © 2026 Slovor Marketplace. All rights reserved.
+        - generic [ref=e206]:
+          - generic [ref=e207]: Slovakia / EUR
+          - generic [ref=e209]:
+            - link "Transparency" [ref=e210]:
+              - /url: /terms
+            - link "Privacy Policy" [ref=e211]:
+              - /url: /privacy
+```

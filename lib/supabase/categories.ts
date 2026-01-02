@@ -14,7 +14,7 @@ export async function getMainCategories(): Promise<ApiResponse<Category[]>> {
       .order('order_index', { ascending: true })
 
     console.log('[getMainCategories] Response:', { data, error })
-    
+
     if (error) throw error
     return { data: data || [], error: null }
   } catch (error) {
@@ -67,10 +67,12 @@ export async function getCategoriesWithCounts(): Promise<
     console.log('[getCategoriesWithCounts] Starting fetch...')
     const { data, error } = await supabase
       .from('categories')
-      .select(`
+      .select(
+        `
         *,
         listings:listings(count)
-      `)
+      `
+      )
       .order('order_index', { ascending: true })
 
     console.log('[getCategoriesWithCounts] Response:', { data, error })

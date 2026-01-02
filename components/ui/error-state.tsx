@@ -2,12 +2,14 @@ interface ErrorStateProps {
   message?: string
 }
 
-export function ErrorState({ message = 'Something went wrong' }: ErrorStateProps) {
+export function ErrorState({
+  message = 'Something went wrong',
+}: ErrorStateProps) {
   return (
     <div className="flex items-center justify-center p-8">
       <div className="text-center">
-        <p className="text-red-600 font-medium">{message}</p>
-        <p className="text-sm text-gray-500 mt-2">Please try again later</p>
+        <p className="font-medium text-red-600">{message}</p>
+        <p className="mt-2 text-sm text-gray-500">Please try again later</p>
       </div>
     </div>
   )

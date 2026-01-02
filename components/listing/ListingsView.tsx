@@ -18,7 +18,7 @@ export function ListingsView({
   // Error State
   if (error) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <p className="text-red-600">{error}</p>
       </div>
     )
@@ -27,7 +27,7 @@ export function ListingsView({
   // Empty State
   if (listings.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <p className="text-gray-600">{emptyMessage}</p>
       </div>
     )
@@ -35,7 +35,7 @@ export function ListingsView({
 
   // Listings Grid
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {listings.map((listing) => (
         <ListingCard key={listing.id} listing={listing} />
       ))}

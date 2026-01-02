@@ -24,12 +24,18 @@ export function LanguageSwitcher() {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Guaranteed to have a value due to fallback to localeOptions[2]
-  const currentOption = localeOptions.find(opt => opt.code === locale) || localeOptions[2] || { code: 'en', name: 'English', flag: '🇬🇧' } as LocaleOption
+  const currentOption =
+    localeOptions.find((opt) => opt.code === locale) ||
+    localeOptions[2] ||
+    ({ code: 'en', name: 'English', flag: '🇬🇧' } as LocaleOption)
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
@@ -53,44 +59,42 @@ export function LanguageSwitcher() {
       {/* Trigger button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-2 py-1 hover:bg-gray-800 rounded transition text-white"
+        className="flex items-center gap-1.5 rounded px-2 py-1 text-white transition hover:bg-gray-800"
         aria-label="Change language"
       >
-        <span className="text-lg">
-          {currentOption.flag}
-        </span>
+        <span className="text-lg">{currentOption.flag}</span>
         <span className="text-xs font-bold uppercase">
           {currentOption.code}
         </span>
-        <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''
-          }`} />
+        <ChevronDown
+          className={`h-3 w-3 transition-transform ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
       </button>
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg min-w-[180px] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute right-0 top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg duration-200 animate-in fade-in slide-in-from-top-2">
           {localeOptions.map((option) => (
             <button
               key={option.code}
               onClick={() => handleLocaleChange(option.code)}
-              className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition ${locale === option.code
-                ? 'bg-blue-50 text-blue-600'
-                : 'text-gray-700 hover:bg-gray-50'
-                }`}
+              className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition ${
+                locale === option.code
+                  ? 'bg-blue-50 text-blue-600'
+                  : 'text-gray-700 hover:bg-gray-50'
+              }`}
             >
               <div className="flex items-center gap-2">
-                <span className="text-xl">
-                  {option.flag}
-                </span>
+                <span className="text-xl">{option.flag}</span>
                 <span className="text-xs font-bold uppercase">
                   {option.code}
                 </span>
-                <span className="text-sm font-medium">
-                  {option.name}
-                </span>
+                <span className="text-sm font-medium">{option.name}</span>
               </div>
               {locale === option.code && (
-                <Check className="w-4 h-4 text-blue-600" />
+                <Check className="h-4 w-4 text-blue-600" />
               )}
             </button>
           ))}
