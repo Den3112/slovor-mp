@@ -10,7 +10,7 @@ vi.mock('@/components/providers/auth-provider', () => ({
   }),
 }))
 
-// Mock categoriesApi
+// Mock categoriesApi and listingsApi
 vi.mock('@/lib/supabase/queries', () => ({
   categoriesApi: {
     getAll: vi.fn().mockResolvedValue({
@@ -70,4 +70,5 @@ describe('CreateListingForm', () => {
       expect(screen.getByText('used')).toBeInTheDocument()
     })
   })
+
 })

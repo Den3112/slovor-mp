@@ -17,6 +17,18 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import {
+  DEFAULT_LISTING_FORM,
+  type ListingFormData,
+  type ListingFormErrors,
+  validateListingForm,
+  hasListingFormErrors,
+} from '@/lib/utils/listing-form-schema'
+import {
+  saveListingDraft,
+  loadListingDraft,
+  clearListingDraft,
+} from '@/lib/utils/draft-storage'
 
 function CreateListingFormContent() {
   const { user, isLoading: authLoading } = useAuth()
@@ -31,6 +43,8 @@ function CreateListingFormContent() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<ListingFormErrors>({})
+  const [isDirty, setIsDirty] = useState(false)
   const [categories, setCategories] = useState<Category[]>([])
 
   // Upload State
@@ -39,19 +53,11 @@ function CreateListingFormContent() {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   // Data State
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    price: '',
-    currency: 'EUR',
-    category_id: '',
-    condition: 'new' as 'new' | 'used',
-    location: '',
-    images: [] as string[],
-  })
+  const [formData, setFormData] = useState<ListingFormData>(DEFAULT_LISTING_FORM)
 
-  // Init Editing
+  // Init Editing / Draft restore
   useEffect(() => {
+    // Если редактируем существующее объявление — загружаем данные из БД
     if (editId) {
       setIsEditing(true)
       setIsLoadingData(true)
@@ -64,15 +70,25 @@ function CreateListingFormContent() {
             price: l.price.toString(),
             currency: l.currency,
             category_id: l.category_id || '',
-            condition: l.condition as 'new' | 'used',
+            condition: (l.condition as 'new' | 'used') ?? 'new',
             location: l.location,
             images: l.images || [],
           })
+          setIsDirty(false)
+          setFieldErrors({})
         }
         setIsLoadingData(false)
       })
+      return
     }
-  }, [editId])
+
+    // Иначе пробуем восстановить черновик
+    const draft = loadListingDraft(user?.id)
+    if (draft) {
+      setFormData(draft)
+      setIsDirty(true)
+    }
+  }, [editId, user?.id])
 
   // Fetch Categories
   useEffect(() => {
@@ -80,6 +96,24 @@ function CreateListingFormContent() {
       if (res.data) setCategories(res.data)
     })
   }, [])
+
+  // Unsaved changes warning on tab/window close
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const handler = (event: BeforeUnloadEvent) => {
+      if (!isDirty) return
+      event.preventDefault()
+      // Chrome requires returnValue to be set
+      // eslint-disable-next-line no-param-reassign
+      event.returnValue = ''
+    }
+
+    window.addEventListener('beforeunload', handler)
+    return () => {
+      window.removeEventListener('beforeunload', handler)
+    }
+  }, [isDirty])
 
   // Auth Check
   useEffect(() => {
@@ -95,18 +129,43 @@ function CreateListingFormContent() {
       </div>
     )
 
-  const updateField = <K extends keyof typeof formData>(
+  const updateField = <K extends keyof ListingFormData>(
     field: K,
-    value: (typeof formData)[K]
+    value: ListingFormData[K]
   ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev) => {
+      const next = { ...prev, [field]: value }
+      setIsDirty(true)
+      saveListingDraft(user?.id ?? null, next)
+      return next
+    })
   }
 
-  const nextStep = () => setStep((prev) => prev + 1)
+  const goToNextStep = () => {
+    const errors = validateListingForm(formData)
+    setFieldErrors(errors)
+
+    // На шаг 1 достаточно выбранной категории; на шаг 2 валидируем всё
+    if (step === 1 && !errors.category_id) {
+      setStep(2)
+      return
+    }
+
+    if (step === 2 && !hasListingFormErrors(errors)) {
+      setStep(3)
+      return
+    }
+
+    setError('Please fix the highlighted fields before continuing')
+  }
+
   const prevStep = () => setStep((prev) => prev - 1)
 
   const handleSubmit = async () => {
-    if (!formData.title || !formData.price || !formData.category_id) {
+    const errors = validateListingForm(formData)
+    setFieldErrors(errors)
+
+    if (hasListingFormErrors(errors)) {
       setError('Please fill in all required fields')
       return
     }
@@ -133,6 +192,9 @@ function CreateListingFormContent() {
         throw new Error(res.error || 'Failed to save listing')
 
       // Success
+      clearListingDraft(user?.id ?? null)
+      setIsDirty(false)
+
       if (isEditing) {
         router.push('/dashboard/listings')
       } else {
@@ -245,6 +307,11 @@ function CreateListingFormContent() {
                   </button>
                 ))}
               </div>
+              {fieldErrors.category_id && (
+                <p className="mt-2 text-sm text-destructive">
+                  {fieldErrors.category_id}
+                </p>
+              )}
             </div>
 
             <div>
@@ -277,9 +344,15 @@ function CreateListingFormContent() {
               <input
                 value={formData.title}
                 onChange={(e) => updateField('title', e.target.value)}
-                className="h-14 w-full rounded-xl border border-border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+                className={cn(
+                  'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10',
+                  fieldErrors.title ? 'border-destructive' : 'border-border'
+                )}
                 placeholder="What are you selling?"
               />
+              {fieldErrors.title && (
+                <p className="text-sm text-destructive">{fieldErrors.title}</p>
+              )}
             </div>
 
             <div className="flex gap-4">
@@ -289,9 +362,15 @@ function CreateListingFormContent() {
                   type="number"
                   value={formData.price}
                   onChange={(e) => updateField('price', e.target.value)}
-                  className="h-14 w-full rounded-xl border border-border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+                  className={cn(
+                    'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10',
+                    fieldErrors.price ? 'border-destructive' : 'border-border'
+                  )}
                   placeholder="0.00"
                 />
+                {fieldErrors.price && (
+                  <p className="text-sm text-destructive">{fieldErrors.price}</p>
+                )}
               </div>
               <div className="w-1/3 space-y-1">
                 <label className="text-sm font-bold">Currency</label>
@@ -316,9 +395,15 @@ function CreateListingFormContent() {
               <input
                 value={formData.location}
                 onChange={(e) => updateField('location', e.target.value)}
-                className="h-12 w-full rounded-xl border border-border bg-muted/30 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10"
+                className={cn(
+                  'h-12 w-full rounded-xl border bg-muted/30 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10',
+                  fieldErrors.location ? 'border-destructive' : 'border-border'
+                )}
                 placeholder="City, District"
               />
+              {fieldErrors.location && (
+                <p className="text-sm text-destructive">{fieldErrors.location}</p>
+              )}
             </div>
           </div>
         )}
@@ -474,8 +559,7 @@ function CreateListingFormContent() {
         {step < 3 ? (
           <Button
             type="button"
-            onClick={nextStep}
-            disabled={step === 1 && !formData.category_id}
+            onClick={goToNextStep}
             className="rounded-xl px-8 font-bold shadow-lg shadow-primary/20"
           >
             Next Step <ArrowRight className="ml-2 h-4 w-4" />
