@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'hnkhwvhjwygolvwvxnor.supabase.co',
+      },
     ],
     // Disable optimization for faster loading of external images
     unoptimized: false,

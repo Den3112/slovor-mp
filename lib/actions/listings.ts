@@ -1,7 +1,7 @@
 'use server'
 
 import { supabaseAdmin } from '@/lib/supabase/admin'
-import { ListingFormData } from '@/lib/utils/listing-form-schema'
+import type { ListingFormData } from '@/lib/utils/listing-form-schema'
 import { revalidatePath } from 'next/cache'
 
 export async function updateListingAction(
