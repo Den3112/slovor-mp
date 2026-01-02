@@ -19,40 +19,47 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <div className="bg-card/30 border-b border-border/50 mb-12 pt-24 pb-12 md:pt-40 md:pb-20 overflow-hidden relative">
+      <div className="relative mb-12 overflow-hidden border-b border-border/50 bg-card/30 pb-12 pt-24 md:pb-20 md:pt-40">
         {/* Decorative Orbs */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-violet-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute right-0 top-0 h-[400px] w-[400px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[100px]" />
+        <div className="absolute bottom-0 left-0 h-[300px] w-[300px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[100px]" />
 
         <Container>
-          <div className="flex flex-col gap-6 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black tracking-widest uppercase w-fit">
-              <Search className="w-3.5 h-3.5" />
+          <div className="relative z-10 flex flex-col gap-6">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-primary">
+              <Search className="h-3.5 w-3.5" />
               Explorer
             </div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground italic font-heading uppercase">
-              {searchQuery ? `${t.common.search}: ${searchQuery}` : t.common.allListings}
+            <h1 className="font-heading text-5xl font-black uppercase italic tracking-tighter text-foreground md:text-7xl">
+              {searchQuery
+                ? `${t.common.search}: ${searchQuery}`
+                : t.common.allListings}
             </h1>
-            <p className="text-xl font-medium text-muted-foreground flex items-center gap-3">
-              <span className="text-foreground font-black">{listings.length}</span>
-              {listings.length === 1 ? t.common.listings.slice(0, -1) : t.common.listings} {t.common.found}
+            <p className="flex items-center gap-3 text-xl font-medium text-muted-foreground">
+              <span className="font-black text-foreground">
+                {listings.length}
+              </span>
+              {listings.length === 1
+                ? t.common.listings.slice(0, -1)
+                : t.common.listings}{' '}
+              {t.common.found}
             </p>
           </div>
         </Container>
       </div>
 
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Filters Sidebar */}
-          <aside className="lg:col-span-3 space-y-8">
+          <aside className="space-y-8 lg:col-span-3">
             <div className="sticky top-28">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-black tracking-tight flex items-center gap-2 italic">
-                  <SlidersHorizontal className="w-5 h-5 text-primary" />
+              <div className="mb-6 flex items-center justify-between">
+                <h2 className="flex items-center gap-2 text-xl font-black italic tracking-tight">
+                  <SlidersHorizontal className="h-5 w-5 text-primary" />
                   {t.filters.title}
                 </h2>
               </div>
-              <div className="p-6 rounded-[2rem] bg-card border border-border shadow-premium">
+              <div className="shadow-premium rounded-[2rem] border border-border bg-card p-6">
                 <ListingFilters />
               </div>
             </div>
@@ -66,9 +73,11 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="p-12 bg-destructive/5 text-destructive rounded-[2.5rem] border border-destructive/10 text-center"
+                  className="rounded-[2.5rem] border border-destructive/10 bg-destructive/5 p-12 text-center text-destructive"
                 >
-                  <p className="text-xl font-black mb-2 italic">Error Loading Marketplace</p>
+                  <p className="mb-2 text-xl font-black italic">
+                    Error Loading Marketplace
+                  </p>
                   <p className="font-medium opacity-70">{error}</p>
                 </motion.div>
               ) : listings.length === 0 ? (
@@ -76,20 +85,24 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="py-32 flex flex-col items-center justify-center text-center p-8 bg-muted/20 rounded-[3rem] border border-dashed border-border/60"
+                  className="flex flex-col items-center justify-center rounded-[3rem] border border-dashed border-border/60 bg-muted/20 p-8 py-32 text-center"
                 >
-                  <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mb-6">
-                    <PackageSearch className="w-10 h-10 text-muted-foreground" />
+                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
+                    <PackageSearch className="h-10 w-10 text-muted-foreground" />
                   </div>
-                  <p className="text-2xl font-black text-foreground mb-3 font-heading italic">{t.common.noResults}</p>
-                  <p className="text-muted-foreground font-medium max-w-sm">{t.common.tryDifferentFilters}</p>
+                  <p className="mb-3 font-heading text-2xl font-black italic text-foreground">
+                    {t.common.noResults}
+                  </p>
+                  <p className="max-w-sm font-medium text-muted-foreground">
+                    {t.common.tryDifferentFilters}
+                  </p>
                 </motion.div>
               ) : (
                 <motion.div
                   layout
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+                  className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
                 >
                   {listings.map((listing, idx) => (
                     <motion.div

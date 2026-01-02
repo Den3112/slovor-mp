@@ -1,0 +1,149 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S Slovor ." [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e10]: S
+          - generic [ref=e11]:
+            - text: Slovor
+            - generic [ref=e12]: .
+        - navigation [ref=e13]:
+          - link "Home" [ref=e14] [cursor=pointer]:
+            - /url: /
+          - link "All Listings" [ref=e15] [cursor=pointer]:
+            - /url: /listings
+          - link "Categories" [ref=e16] [cursor=pointer]:
+            - /url: /categories
+        - generic [ref=e17]:
+          - button "EN" [ref=e19] [cursor=pointer]:
+            - img [ref=e22]
+            - generic [ref=e26]: EN
+            - img [ref=e27]
+          - generic [ref=e29]:
+            - link "Sign In" [ref=e30] [cursor=pointer]:
+              - /url: /auth/login
+            - link "Post Ad" [ref=e31] [cursor=pointer]:
+              - /url: /post
+              - img [ref=e32]
+              - text: Post Ad
+    - main
+    - contentinfo [ref=e35]:
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - link "S Slovor." [ref=e42] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e43]: S
+              - generic [ref=e44]: Slovor.
+            - paragraph [ref=e45]: “Free marketplace for everyone. Buy and sell anything without fees.”
+            - generic [ref=e46]:
+              - link [ref=e47] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e48]
+              - link [ref=e50] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e51]
+              - link [ref=e55] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e56]
+          - generic [ref=e58]:
+            - generic [ref=e59]:
+              - heading "Popular Categories" [level=4] [ref=e60]
+              - list [ref=e61]:
+                - listitem [ref=e62]:
+                  - link "Beauty & Health" [ref=e63] [cursor=pointer]:
+                    - /url: /categories/beauty-health
+                    - generic [ref=e64]: Beauty & Health
+                    - img [ref=e65]
+                - listitem [ref=e68]:
+                  - link "Books & Magazines" [ref=e69] [cursor=pointer]:
+                    - /url: /categories/books-magazines
+                    - generic [ref=e70]: Books & Magazines
+                    - img [ref=e71]
+                - listitem [ref=e74]:
+                  - link "Business & Industrial" [ref=e75] [cursor=pointer]:
+                    - /url: /categories/business-industrial
+                    - generic [ref=e76]: Business & Industrial
+                    - img [ref=e77]
+                - listitem [ref=e80]:
+                  - link "Clothing" [ref=e81] [cursor=pointer]:
+                    - /url: /categories/clothing
+                    - generic [ref=e82]: Clothing
+                    - img [ref=e83]
+                - listitem [ref=e86]:
+                  - link "Electronics" [ref=e87] [cursor=pointer]:
+                    - /url: /categories/electronics
+                    - generic [ref=e88]: Electronics
+                    - img [ref=e89]
+            - generic [ref=e92]:
+              - heading "Quick Links" [level=4] [ref=e93]
+              - list [ref=e94]:
+                - listitem [ref=e95]:
+                  - link "Home" [ref=e96] [cursor=pointer]:
+                    - /url: /
+                    - generic [ref=e97]: Home
+                    - img [ref=e98]
+                - listitem [ref=e101]:
+                  - link "All Listings" [ref=e102] [cursor=pointer]:
+                    - /url: /listings
+                    - generic [ref=e103]: All Listings
+                    - img [ref=e104]
+                - listitem [ref=e107]:
+                  - link "Post Ad" [ref=e108] [cursor=pointer]:
+                    - /url: /post
+                    - generic [ref=e109]: Post Ad
+                    - img [ref=e110]
+                - listitem [ref=e113]:
+                  - link "Market Trends" [ref=e114] [cursor=pointer]:
+                    - /url: /blog
+                    - generic [ref=e115]: Market Trends
+                    - img [ref=e116]
+            - generic [ref=e119]:
+              - heading "Information" [level=4] [ref=e120]
+              - list [ref=e121]:
+                - listitem [ref=e122]:
+                  - link "About Us" [ref=e123] [cursor=pointer]:
+                    - /url: /about
+                    - generic [ref=e124]: About Us
+                    - img [ref=e125]
+                - listitem [ref=e128]:
+                  - link "Terms" [ref=e129] [cursor=pointer]:
+                    - /url: /terms
+                    - generic [ref=e130]: Terms
+                    - img [ref=e131]
+                - listitem [ref=e134]:
+                  - link "Privacy" [ref=e135] [cursor=pointer]:
+                    - /url: /privacy
+                    - generic [ref=e136]: Privacy
+                    - img [ref=e137]
+                - listitem [ref=e140]:
+                  - link "FAQ" [ref=e141] [cursor=pointer]:
+                    - /url: /faq
+                    - generic [ref=e142]: FAQ
+                    - img [ref=e143]
+        - generic [ref=e146]:
+          - generic [ref=e147]:
+            - heading "Subscribe to our market updates" [level=3] [ref=e148]
+            - paragraph [ref=e149]: Get the best deals directly in your inbox.
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - img [ref=e152]
+              - textbox "your@email.com" [ref=e155]
+            - button "Join" [ref=e156] [cursor=pointer]
+        - generic [ref=e157]:
+          - paragraph [ref=e158]: © 2026 Slovor Marketplace. All rights reserved.
+          - generic [ref=e159]:
+            - generic [ref=e160]: Slovakia / EUR
+            - generic [ref=e162]:
+              - link "Transparency" [ref=e163] [cursor=pointer]:
+                - /url: /terms
+              - link "Privacy Policy" [ref=e164] [cursor=pointer]:
+                - /url: /privacy
+  - button "Open Next.js Dev Tools" [ref=e170] [cursor=pointer]:
+    - img [ref=e171]
+  - alert [ref=e175]
+```

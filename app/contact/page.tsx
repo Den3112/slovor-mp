@@ -7,94 +7,123 @@ export default async function ContactPage() {
   const { t } = await getTranslationServer()
 
   return (
-    <main className="min-h-screen pb-24 relative overflow-hidden">
+    <main className="relative min-h-screen overflow-hidden pb-24">
       {/* Background Orbs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-violet-500/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
+      <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
 
-      <Container className="pt-32 md:pt-40 relative z-10">
-        <div className="max-w-4xl mx-auto text-center mb-20">
-          <h1 className="text-6xl md:text-8xl font-black tracking-tight text-foreground leading-[1.05] mb-8 font-heading">
+      <Container className="relative z-10 pt-32 md:pt-40">
+        <div className="mx-auto mb-20 max-w-4xl text-center">
+          <h1 className="mb-8 font-heading text-6xl font-black leading-[1.05] tracking-tight text-foreground md:text-8xl">
             {t.contact.title}
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-muted-foreground md:text-2xl">
             {t.contact.subtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Contact Info */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="space-y-6 lg:col-span-5">
             {[
               {
-                icon: <Mail className="w-6 h-6 text-primary" />,
+                icon: <Mail className="h-6 w-6 text-primary" />,
                 title: t.contact.email,
-                values: ['info@slovor.sk', 'support@slovor.sk']
+                values: ['info@slovor.sk', 'support@slovor.sk'],
               },
               {
-                icon: <Phone className="w-6 h-6 text-blue-500" />,
+                icon: <Phone className="h-6 w-6 text-blue-500" />,
                 title: t.contact.phone,
                 values: ['+421 2 123 456 78'],
-                extra: 'Mon-Fri: 9:00 - 17:00'
+                extra: 'Mon-Fri: 9:00 - 17:00',
               },
               {
-                icon: <MapPin className="w-6 h-6 text-emerald-500" />,
+                icon: <MapPin className="h-6 w-6 text-emerald-500" />,
                 title: t.contact.office,
-                values: ['Slovor Marketplace s.r.o.', 'Námestie slobody 1', '811 06 Bratislava']
-              }
+                values: [
+                  'Slovor Marketplace s.r.o.',
+                  'Námestie slobody 1',
+                  '811 06 Bratislava',
+                ],
+              },
             ].map((item, i) => (
-              <div key={i} className="p-8 rounded-[2rem] bg-card/40 backdrop-blur-sm border border-border/50 hover:border-primary/30 transition-all group">
-                <div className="mb-6 bg-muted/50 w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
+              <div
+                key={i}
+                className="group rounded-[2rem] border border-border/50 bg-card/40 p-8 backdrop-blur-sm transition-all hover:border-primary/30"
+              >
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/50 transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
                   {item.icon}
                 </div>
-                <h3 className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-4">{item.title}</h3>
+                <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-muted-foreground">
+                  {item.title}
+                </h3>
                 {item.values.map((v, j) => (
-                  <p key={j} className="text-lg font-bold text-foreground leading-relaxed">{v}</p>
+                  <p
+                    key={j}
+                    className="text-lg font-bold leading-relaxed text-foreground"
+                  >
+                    {v}
+                  </p>
                 ))}
-                {item.extra && <p className="text-sm font-medium text-muted-foreground mt-2">{item.extra}</p>}
+                {item.extra && (
+                  <p className="mt-2 text-sm font-medium text-muted-foreground">
+                    {item.extra}
+                  </p>
+                )}
               </div>
             ))}
           </div>
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <div className="p-10 md:p-12 rounded-[2.5rem] bg-card/60 backdrop-blur-md border border-border/50 shadow-premium relative overflow-hidden h-full">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl" />
+            <div className="shadow-premium relative h-full overflow-hidden rounded-[2.5rem] border border-border/50 bg-card/60 p-10 backdrop-blur-md md:p-12">
+              <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
 
-              <h2 className="text-3xl font-black text-white mb-8 italic font-heading tracking-tight">{t.contact.sendMessage}</h2>
+              <h2 className="mb-8 font-heading text-3xl font-black italic tracking-tight text-white">
+                {t.contact.sendMessage}
+              </h2>
 
               <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="space-y-2">
-                    <label className="text-xs font-black text-primary uppercase tracking-[0.2em] ml-1">{t.contact.name}</label>
+                    <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
+                      {t.contact.name}
+                    </label>
                     <input
                       type="text"
-                      className="w-full bg-muted/30 border border-border/50 rounded-2xl py-4 px-6 text-foreground font-bold focus:outline-none focus:border-primary focus:bg-muted/50 transition-all"
+                      className="w-full rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
                       placeholder="John Doe"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black text-primary uppercase tracking-[0.2em] ml-1">Email</label>
+                    <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
+                      Email
+                    </label>
                     <input
                       type="email"
-                      className="w-full bg-muted/30 border border-border/50 rounded-2xl py-4 px-6 text-foreground font-bold focus:outline-none focus:border-primary focus:bg-muted/50 transition-all"
+                      className="w-full rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-black text-primary uppercase tracking-[0.2em] ml-1">{t.contact.message}</label>
+                  <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
+                    {t.contact.message}
+                  </label>
                   <textarea
                     rows={5}
-                    className="w-full bg-muted/30 border border-border/50 rounded-2xl py-4 px-6 text-foreground font-bold focus:outline-none focus:border-primary focus:bg-muted/50 transition-all resize-none"
+                    className="w-full resize-none rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
                     placeholder="How can we help you?"
                   />
                 </div>
 
-                <Button size="lg" className="w-full h-16 rounded-2xl text-lg font-black shadow-xl shadow-primary/20 group">
+                <Button
+                  size="lg"
+                  className="group h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
+                >
                   {t.contact.send}
-                  <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <Send className="ml-2 h-5 w-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </Button>
               </form>
             </div>

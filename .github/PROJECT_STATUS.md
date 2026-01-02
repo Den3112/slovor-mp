@@ -13,6 +13,7 @@
 ## ✅ COMPLETED (Dec 19-20, 2025)
 
 ### 🔧 Infrastructure & Setup
+
 - ✅ Next.js 16 configured and running
 - ✅ TypeScript 5.7.2 + strict mode
 - ✅ Tailwind CSS connected
@@ -24,6 +25,7 @@
 - ✅ `dotenv` package added for scripts
 
 ### 🗄️ Database
+
 - ✅ Supabase project active
 - ✅ Tables created:
   - `categories` (10 Slovak categories)
@@ -35,6 +37,7 @@
 - ✅ Test user created: `test@slovor.sk` / `testpassword123` (UUID: `00000000-0000-0000-0000-000000000001`)
 
 ### 🎨 UI/Frontend
+
 - ✅ Home page (`/`) working
 - ✅ Browse Categories section — 10 categories displayed with counts
 - ✅ Featured Listings section — shows featured items
@@ -45,6 +48,7 @@
 - ✅ All content in Slovak language 🇸🇰
 
 ### 🔌 Backend/API
+
 - ✅ Categories API: `lib/supabase/categories.ts`
 - ✅ Listings API: `lib/supabase/queries.ts`
 - ✅ Server Components (RSC) working
@@ -54,6 +58,7 @@
 ### 📦 Data
 
 **10 Slovak Categories:**
+
 1. 📱 Elektronika (Electronics)
 2. 🚗 Vozidlá (Vehicles)
 3. 🏠 Nehnuteľnosti (Real Estate)
@@ -66,6 +71,7 @@
 10. 🐕 Zvieratá (Animals)
 
 **25 Realistic Test Listings:**
+
 - Electronics: iPhone 13 Pro, Samsung 55" TV, MacBook Air M1, PlayStation 5
 - Vehicles: Škoda Octavia 2018, Yamaha R6 2015, VW Golf 7 GTI
 - Real Estate: 2-izbový byt Petržalka, Rodinný dom Trnava, Prenájom bytu
@@ -78,6 +84,7 @@
 - Animals: Šteniatka Labrador, Akvárium 200L
 
 All listings include:
+
 - Realistic Slovak locations (Bratislava, Košice, Žilina, etc.)
 - Realistic prices in EUR
 - Slovak language descriptions
@@ -240,18 +247,18 @@ slovor-mp/
 
 ## 📊 Progress Metrics
 
-| Component | Progress | Status |
-|-----------|----------|--------|
-| **Infrastructure** | 95% | ✅ Complete |
-| **Database** | 70% | ✅ Core ready |
-| **Backend/API** | 60% | 🟡 Basic ready |
-| **Frontend (UI)** | 35% | 🟡 Home + list |
-| **Auth** | 10% | ❌ Setup only |
-| **CRUD Listings** | 30% | 🟡 Read ready |
-| **Search/Filters** | 20% | 🟡 Basic |
-| **Messages** | 0% | ❌ Not started |
-| **Reviews** | 0% | ❌ Not started |
-| **SEO** | 10% | ❌ Minimal |
+| Component          | Progress | Status         |
+| ------------------ | -------- | -------------- |
+| **Infrastructure** | 95%      | ✅ Complete    |
+| **Database**       | 70%      | ✅ Core ready  |
+| **Backend/API**    | 60%      | 🟡 Basic ready |
+| **Frontend (UI)**  | 35%      | 🟡 Home + list |
+| **Auth**           | 10%      | ❌ Setup only  |
+| **CRUD Listings**  | 30%      | 🟡 Read ready  |
+| **Search/Filters** | 20%      | 🟡 Basic       |
+| **Messages**       | 0%       | ❌ Not started |
+| **Reviews**        | 0%       | ❌ Not started |
+| **SEO**            | 10%      | ❌ Minimal     |
 
 **Overall Progress:** ~45% ✅
 
@@ -260,16 +267,19 @@ slovor-mp/
 ## 🚀 Recommended Next Steps
 
 ### Session 1 (1-2 hours)
+
 1. Create Login/Register pages
 2. Setup Supabase Auth UI
 3. Add Auth context/provider
 
 ### Session 2 (2-3 hours)
+
 4. Build listing detail page (`/listing/[id]`)
 5. Create listing form (`/post`)
 6. Image upload via Supabase Storage
 
 ### Session 3 (3-4 hours)
+
 7. Improve filters + search
 8. User profile page
 9. Edit/Delete own listings
@@ -294,6 +304,7 @@ User ID: 00000000-0000-0000-0000-000000000001
 ```
 
 Use for:
+
 - Testing authentication
 - Creating test listings
 - Testing user features
@@ -328,4 +339,4 @@ Use for:
 
 ---
 
-*This file is auto-updated to help AI assistants understand project state.*
+_This file is auto-updated to help AI assistants understand project state._

@@ -7,12 +7,12 @@ import { useTranslation } from '@/lib/i18n'
 
 /**
  * Pagination Component
- * 
+ *
  * WHY IT EXISTS:
  * - Navigate through large lists of listings
  * - Improves performance (load only 20-50 items at a time)
  * - Better UX than infinite scroll for browsing
- * 
+ *
  * HOW IT WORKS:
  * - Uses URL 'page' param for current page
  * - Shows page numbers with ellipsis for large ranges
@@ -40,7 +40,7 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
 
   const goToPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
-    
+
     if (page === 1) {
       params.delete('page')
     } else {
@@ -48,7 +48,7 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
     }
 
     router.push(`${pathname}?${params.toString()}`)
-    
+
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -91,15 +91,15 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-12 mb-8">
+    <div className="mb-8 mt-12 flex items-center justify-center gap-2">
       {/* Previous Button */}
       <Button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
         variant="outline"
-        className="px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <ChevronLeftIcon className="w-5 h-5" />
+        <ChevronLeftIcon className="h-5 w-5" />
         <span className="sr-only">{t.pagination?.previous || 'Previous'}</span>
       </Button>
 
@@ -127,8 +127,8 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
               variant={isActive ? 'default' : 'outline'}
               className={
                 isActive
-                  ? 'bg-blue-600 text-white hover:bg-blue-700 font-semibold min-w-[40px]'
-                  : 'hover:bg-gray-50 min-w-[40px]'
+                  ? 'min-w-[40px] bg-blue-600 font-semibold text-white hover:bg-blue-700'
+                  : 'min-w-[40px] hover:bg-gray-50'
               }
             >
               {pageNum}
@@ -142,9 +142,9 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
         variant="outline"
-        className="px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <ChevronRightIcon className="w-5 h-5" />
+        <ChevronRightIcon className="h-5 w-5" />
         <span className="sr-only">{t.pagination?.next || 'Next'}</span>
       </Button>
     </div>

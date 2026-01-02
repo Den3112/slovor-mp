@@ -1,6 +1,12 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from 'react'
 import { translations, type Locale, type TranslationKeys } from './translations'
 
 interface I18nContextValue {
@@ -39,7 +45,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       metaLang.setAttribute('content', localeMap[newLocale])
 
       // Update content language meta tag for browser translators
-      let contentLang = document.querySelector('meta[http-equiv="content-language"]')
+      let contentLang = document.querySelector(
+        'meta[http-equiv="content-language"]'
+      )
       if (!contentLang) {
         contentLang = document.createElement('meta')
         contentLang.setAttribute('http-equiv', 'content-language')

@@ -176,7 +176,7 @@ export const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
 
   // Gifts (Darčeky)
   gifts: Gift,
-  'darčeky': Gift,
+  darčeky: Gift,
 
   // Other (Ostatné)
   other: Package,

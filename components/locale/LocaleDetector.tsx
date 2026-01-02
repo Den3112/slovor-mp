@@ -3,7 +3,13 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
 
@@ -54,7 +60,9 @@ export function LocaleDetector() {
     let detected: Locale = 'en'
 
     // 1. Try browser language first
-    const browserLang = ((navigator.language || 'en').split('-')[0] || 'en').toLowerCase()
+    const browserLang = (
+      (navigator.language || 'en').split('-')[0] || 'en'
+    ).toLowerCase()
     if (AVAILABLE_LOCALES.includes(browserLang as Locale)) {
       detected = browserLang as Locale
     }
@@ -96,21 +104,24 @@ export function LocaleDetector() {
     sk: {
       title: 'Vitajte na Slovor Marketplace! 👋',
       subtitle: 'Zistili sme váš jazyk',
-      description: 'Na základe vášho prehliadača a polohy odporúčame tento jazyk. Môžete si vybrať iný.',
+      description:
+        'Na základe vášho prehliadača a polohy odporúčame tento jazyk. Môžete si vybrať iný.',
       confirm: 'Pokračovať',
       selectLanguage: 'Alebo vyberte jazyk:',
     },
     cs: {
       title: 'Vítejte na Slovor Marketplace! 👋',
       subtitle: 'Zjistili jsme váš jazyk',
-      description: 'Na základě vašeho prohlížeče a polohy doporučujeme tento jazyk. Můžete si vybrat jiný.',
+      description:
+        'Na základě vašeho prohlížeče a polohy doporučujeme tento jazyk. Můžete si vybrat jiný.',
       confirm: 'Pokračovat',
       selectLanguage: 'Nebo vyberte jazyk:',
     },
     en: {
       title: 'Welcome to Slovor Marketplace! 👋',
       subtitle: 'We detected your language',
-      description: 'Based on your browser and location, we recommend this language. You can choose another.',
+      description:
+        'Based on your browser and location, we recommend this language. You can choose another.',
       confirm: 'Continue',
       selectLanguage: 'Or select language:',
     },
@@ -122,32 +133,37 @@ export function LocaleDetector() {
     <Dialog open={showModal} onOpenChange={(open) => !open && handleDismiss()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold flex items-center gap-2">
-            <Globe className="w-6 h-6 text-blue-600" />
+          <DialogTitle className="flex items-center gap-2 text-2xl font-bold">
+            <Globe className="h-6 w-6 text-blue-600" />
             {t.title}
           </DialogTitle>
-          <DialogDescription className="text-base pt-2">
+          <DialogDescription className="pt-2 text-base">
             {t.description}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div className="text-sm font-medium text-gray-700">{t.selectLanguage}</div>
+          <div className="text-sm font-medium text-gray-700">
+            {t.selectLanguage}
+          </div>
 
           <div className="grid gap-2">
             {LOCALE_OPTIONS.map((option) => (
               <button
                 key={option.code}
                 onClick={() => setSelectedLocale(option.code)}
-                className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${selectedLocale === option.code
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
+                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${
+                  selectedLocale === option.code
+                    ? 'border-blue-600 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                }`}
               >
                 <span className="text-3xl">{option.flag}</span>
-                <span className="font-semibold text-lg flex-1 text-left">{option.name}</span>
+                <span className="flex-1 text-left text-lg font-semibold">
+                  {option.name}
+                </span>
                 {selectedLocale === option.code && (
-                  <Check className="w-5 h-5 text-blue-600" />
+                  <Check className="h-5 w-5 text-blue-600" />
                 )}
               </button>
             ))}
@@ -155,11 +171,7 @@ export function LocaleDetector() {
         </div>
 
         <div className="flex gap-3">
-          <Button
-            variant="outline"
-            onClick={handleDismiss}
-            className="flex-1"
-          >
+          <Button variant="outline" onClick={handleDismiss} className="flex-1">
             {selectedLocale === locale ? t.confirm : 'Skip'}
           </Button>
           <Button

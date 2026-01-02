@@ -6,18 +6,18 @@ import { ListingsView } from '@/components/listing/view'
 
 /**
  * ISR (Incremental Static Regeneration)
- * 
+ *
  * WHAT IT DOES:
  * - Page is pre-rendered at build time
  * - Cached for 60 seconds
  * - After 60s, next visitor triggers regeneration in background
  * - Fresh content without rebuilding entire site
- * 
+ *
  * WHY 60 SECONDS:
  * - Balances freshness vs performance
  * - Listings don't change every second
  * - Reduces database load
- * 
+ *
  * CHANGE IT:
  * - For more frequent updates: revalidate = 30
  * - For less frequent: revalidate = 300 (5 minutes)
@@ -40,7 +40,7 @@ interface Props {
 export default async function ListingsPage({ searchParams }: Props) {
   // Next.js 15+ requires await for searchParams
   const params = await searchParams
-  
+
   const result = await listingsApi.getAll({
     search: params.search,
     categoryId: params.category,

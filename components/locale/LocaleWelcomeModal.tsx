@@ -1,7 +1,13 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
 import { useTranslation, type Locale } from '@/lib/i18n'
@@ -50,7 +56,7 @@ export function LocaleWelcomeModal() {
 
   useEffect(() => {
     const hasSeenWelcome = localStorage.getItem(WELCOME_SHOWN_KEY)
-    
+
     if (!hasSeenWelcome) {
       // Detect locale from browser and IP
       detectUserLocale().then((detected) => {
@@ -78,14 +84,14 @@ export function LocaleWelcomeModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md bg-white rounded-3xl border-0 shadow-2xl p-8">
+      <DialogContent className="rounded-3xl border-0 bg-white p-8 shadow-2xl sm:max-w-md">
         <DialogHeader>
-          <div className="flex flex-col items-center gap-4 mb-4">
-            <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center">
-              <Globe className="w-8 h-8 text-blue-600" />
+          <div className="mb-4 flex flex-col items-center gap-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
+              <Globe className="h-8 w-8 text-blue-600" />
             </div>
             <div className="text-center">
-              <DialogTitle className="text-3xl font-black text-gray-900 mb-2">
+              <DialogTitle className="mb-2 text-3xl font-black text-gray-900">
                 Welcome to Slovor! {PARTY}
               </DialogTitle>
               <DialogDescription className="text-base text-gray-600">
@@ -95,42 +101,41 @@ export function LocaleWelcomeModal() {
           </div>
         </DialogHeader>
 
-        <div className="space-y-3 my-6">
+        <div className="my-6 space-y-3">
           {localeOptions.map((option) => (
             <button
               key={option.code}
               onClick={() => setSelectedLocale(option.code)}
-              className={`w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all hover:scale-[1.02] ${
+              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${
                 selectedLocale === option.code
                   ? 'border-blue-600 bg-blue-50 shadow-md'
-                  : 'border-gray-200 hover:border-blue-300 bg-white hover:bg-gray-50'
+                  : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-gray-50'
               }`}
             >
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
                 {/* Large flag emoji */}
-                <span className="text-4xl">
-                  {option.flag}
-                </span>
+                <span className="text-4xl">{option.flag}</span>
                 {/* Language names */}
                 <div className="text-left">
-                  <p className="font-bold text-gray-900 text-lg">
+                  <p className="text-lg font-bold text-gray-900">
                     {option.nativeName}
                   </p>
                   <p className="text-sm text-gray-500">{option.name}</p>
                 </div>
               </div>
-              
+
               {/* Right side: Detected badge or checkmark */}
               <div className="flex items-center gap-2">
-                {option.code === detectedLocale && selectedLocale !== option.code && (
-                  <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
-                    Detected
-                  </span>
-                )}
+                {option.code === detectedLocale &&
+                  selectedLocale !== option.code && (
+                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-600">
+                      Detected
+                    </span>
+                  )}
                 {selectedLocale === option.code && (
-                  <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center">
-                    <Check className="w-4 h-4 text-white" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600">
+                    <Check className="h-4 w-4 text-white" />
                   </div>
                 )}
               </div>
@@ -138,23 +143,23 @@ export function LocaleWelcomeModal() {
           ))}
         </div>
 
-        <div className="flex gap-3 mt-6">
+        <div className="mt-6 flex gap-3">
           <Button
             variant="outline"
             onClick={handleSkip}
-            className="flex-1 border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-700 font-semibold py-6 rounded-xl"
+            className="flex-1 rounded-xl border-2 border-gray-300 py-6 font-semibold text-gray-700 hover:border-gray-400 hover:bg-gray-50"
           >
             Skip
           </Button>
           <Button
             onClick={handleConfirm}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+            className="flex-1 rounded-xl bg-blue-600 py-6 font-semibold text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl"
           >
             Continue
           </Button>
         </div>
 
-        <p className="text-xs text-center text-gray-500 mt-4">
+        <p className="mt-4 text-center text-xs text-gray-500">
           You can change the language anytime from the header
         </p>
       </DialogContent>

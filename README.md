@@ -12,6 +12,7 @@
 Our documentation is managed in a dedicated **`docs` branch** to keep the code repository clean.
 
 **Quick Access:**
+
 - [🚀 **Investor Roadmap**](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md) (Current Focus)
 - [📝 Documentation Index](https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md)
 - [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
@@ -47,9 +48,9 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🌳 Branch Structure
 
-- **`main`**   → Production-ready, stable code (deployed).
-- **`dev`**    → Active development branch. Feature branches merge here.
-- **`docs`**   → All project documentation and roadmaps.
+- **`main`** → Production-ready, stable code (deployed).
+- **`dev`** → Active development branch. Feature branches merge here.
+- **`docs`** → All project documentation and roadmaps.
 
 ---
 
@@ -68,6 +69,7 @@ Open [http://localhost:3000](http://localhost:3000)
 **Current Phase:** Beta Development / Investor-Ready Polish
 
 ### ✅ Completed
+
 - Full "Avant-Garde" Design System
 - Supabase Integration & RLS Policies
 - Multi-language Framework (EN/SK)
@@ -75,6 +77,7 @@ Open [http://localhost:3000](http://localhost:3000)
 - Successfull Vercel Deployment
 
 ### 🚧 In Focus (See [Roadmap](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md))
+
 - Premium User Dashboard
 - Advanced Media Management (File Uploads)
 - Smart Search & discovery interactions
@@ -92,4 +95,3 @@ Open [http://localhost:3000](http://localhost:3000)
 
 **Last Updated:** December 26, 2024
 **Maintained by:** [@Den3112](https://github.com/Den3112)
-

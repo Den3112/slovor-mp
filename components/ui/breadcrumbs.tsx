@@ -11,7 +11,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-6">
+    <nav className="mb-6 flex items-center space-x-2 text-sm text-gray-500">
       <Link href="/" className="hover:text-blue-600">
         Home
       </Link>
@@ -23,7 +23,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               {item.label}
             </Link>
           ) : (
-            <span className="text-gray-900 font-medium">{item.label}</span>
+            <span className="font-medium text-gray-900">{item.label}</span>
           )}
         </div>
       ))}

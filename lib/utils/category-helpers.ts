@@ -14,7 +14,7 @@ export function getUniqueCategories(
   return categories.reduce((acc: Category[], current) => {
     const currentName = getCategoryName(current, locale, t).toLowerCase()
 
-    const isDuplicate = acc.find(item => {
+    const isDuplicate = acc.find((item) => {
       const itemName = getCategoryName(item, locale, t).toLowerCase()
       return itemName === currentName
     })
@@ -29,9 +29,15 @@ export function getUniqueCategories(
 /**
  * Helper to get localized category name safely
  */
-export function getCategoryName(category: Category, locale: string, t: TranslationKeys): string {
+export function getCategoryName(
+  category: Category,
+  locale: string,
+  t: TranslationKeys
+): string {
   if (locale === 'sk') return category.name_sk || category.name
   if (locale === 'cs') return category.name_cs || category.name
   if (locale === 'en') return category.name_en || category.name
-  return t.categories[category.slug as keyof typeof t.categories] || category.name
+  return (
+    t.categories[category.slug as keyof typeof t.categories] || category.name
+  )
 }

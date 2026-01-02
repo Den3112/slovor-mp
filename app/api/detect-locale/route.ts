@@ -15,11 +15,12 @@ const COUNTRY_TO_LOCALE: Record<string, string> = {
 export async function GET() {
   try {
     const headersList = await headers()
-    
+
     // Try to get country from Vercel's geo headers
-    const country = headersList.get('x-vercel-ip-country') || 
-                    headersList.get('cf-ipcountry') || // Cloudflare
-                    null
+    const country =
+      headersList.get('x-vercel-ip-country') ||
+      headersList.get('cf-ipcountry') || // Cloudflare
+      null
 
     if (country && COUNTRY_TO_LOCALE[country]) {
       return NextResponse.json({

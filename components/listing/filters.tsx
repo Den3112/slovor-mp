@@ -18,7 +18,7 @@ const LOCATIONS = [
   'Trnava',
   'Martin',
   'Poprad',
-  'Trenčín'
+  'Trenčín',
 ]
 
 export function ListingFilters() {
@@ -30,7 +30,9 @@ export function ListingFilters() {
   const [search, setSearch] = useState(searchParams.get('search') || '')
   const [priceMin, setPriceMin] = useState(searchParams.get('priceMin') || '')
   const [priceMax, setPriceMax] = useState(searchParams.get('priceMax') || '')
-  const [condition, setCondition] = useState(searchParams.get('condition') || '')
+  const [condition, setCondition] = useState(
+    searchParams.get('condition') || ''
+  )
   const [location, setLocation] = useState(searchParams.get('location') || '')
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest')
 
@@ -77,17 +79,17 @@ export function ListingFilters() {
   return (
     <div className="space-y-8">
       {/* Search Input */}
-      <div className="relative group/search">
-        <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-sm group-focus-within/search:bg-primary/10 transition-colors" />
+      <div className="group/search relative">
+        <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-sm transition-colors group-focus-within/search:bg-primary/10" />
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground transition-colors group-focus-within/search:text-primary" />
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within/search:text-primary" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
             placeholder={t.home.searchPlaceholder}
-            className="w-full pl-12 pr-4 py-4 bg-background border border-border/50 rounded-2xl focus:outline-none focus:border-primary transition-all font-bold text-sm"
+            className="w-full rounded-2xl border border-border/50 bg-background py-4 pl-12 pr-4 text-sm font-bold transition-all focus:border-primary focus:outline-none"
           />
         </div>
       </div>
@@ -95,16 +97,16 @@ export function ListingFilters() {
       <div className="space-y-6">
         {/* Location */}
         <div className="space-y-3">
-          <label className="text-xs font-black text-primary uppercase tracking-[0.15em] flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
+          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+            <MapPin className="h-4 w-4" />
             Location
           </label>
           <select
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:outline-none focus:border-primary transition-all font-bold text-sm appearance-none cursor-pointer"
+            className="w-full cursor-pointer appearance-none rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
           >
-            {LOCATIONS.map(loc => (
+            {LOCATIONS.map((loc) => (
               <option key={loc} value={loc === 'All Locations' ? '' : loc}>
                 {loc}
               </option>
@@ -114,8 +116,8 @@ export function ListingFilters() {
 
         {/* Price Range */}
         <div className="space-y-3">
-          <label className="text-xs font-black text-primary uppercase tracking-[0.15em] flex items-center gap-2">
-            <Tag className="w-4 h-4" />
+          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+            <Tag className="h-4 w-4" />
             Price Range (EUR)
           </label>
           <div className="grid grid-cols-2 gap-3">
@@ -124,34 +126,34 @@ export function ListingFilters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder="Min"
-              className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:outline-none focus:border-primary transition-all font-bold text-sm"
+              className="w-full rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
             />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder="Max"
-              className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:outline-none focus:border-primary transition-all font-bold text-sm"
+              className="w-full rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
             />
           </div>
         </div>
 
         {/* Condition */}
         <div className="space-y-3">
-          <label className="text-xs font-black text-primary uppercase tracking-[0.15em] flex items-center gap-2">
-            <PackageCheck className="w-4 h-4" />
+          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+            <PackageCheck className="h-4 w-4" />
             Condition
           </label>
-          <div className="flex p-1.5 bg-muted/30 rounded-2xl border border-border/50">
+          <div className="flex rounded-2xl border border-border/50 bg-muted/30 p-1.5">
             {['', 'new', 'used'].map((c) => (
               <button
                 key={c}
                 onClick={() => setCondition(c)}
                 className={cn(
-                  "flex-1 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all",
+                  'flex-1 rounded-xl py-2.5 text-xs font-black uppercase tracking-wider transition-all',
                   condition === c
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                    : 'text-muted-foreground hover:text-foreground'
                 )}
               >
                 {c || 'All'}
@@ -162,14 +164,14 @@ export function ListingFilters() {
 
         {/* Sort */}
         <div className="space-y-3">
-          <label className="text-xs font-black text-primary uppercase tracking-[0.15em] flex items-center gap-2">
-            <TrendingUp className="w-4 h-4" />
+          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+            <TrendingUp className="h-4 w-4" />
             Sort By
           </label>
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:outline-none focus:border-primary transition-all font-bold text-sm appearance-none cursor-pointer"
+            className="w-full cursor-pointer appearance-none rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
@@ -181,11 +183,11 @@ export function ListingFilters() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3 pt-6 border-t border-border/50">
+      <div className="flex gap-3 border-t border-border/50 pt-6">
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="flex-1 h-14 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-primary/20"
+          className="h-14 flex-1 rounded-2xl text-sm font-black uppercase tracking-widest shadow-lg shadow-primary/20"
         >
           {isPending ? 'Applying...' : 'Apply'}
         </Button>
@@ -193,9 +195,9 @@ export function ListingFilters() {
           variant="outline"
           onClick={resetFilters}
           disabled={isPending}
-          className="w-14 h-14 rounded-2xl border-border/50 hover:bg-destructive/5 hover:text-destructive transition-colors shrink-0"
+          className="h-14 w-14 shrink-0 rounded-2xl border-border/50 transition-colors hover:bg-destructive/5 hover:text-destructive"
         >
-          <X className="w-5 h-5" />
+          <X className="h-5 w-5" />
         </Button>
       </div>
     </div>

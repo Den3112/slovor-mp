@@ -1,0 +1,120 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - link "S Slovor ." [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e10]: S
+        - generic [ref=e11]:
+          - text: Slovor
+          - generic [ref=e12]: .
+      - navigation [ref=e13]:
+        - link "Home" [ref=e14] [cursor=pointer]:
+          - /url: /
+        - link "All Listings" [ref=e15] [cursor=pointer]:
+          - /url: /listings
+        - link "Categories" [ref=e16] [cursor=pointer]:
+          - /url: /categories
+      - generic [ref=e17]:
+        - button "EN" [ref=e19] [cursor=pointer]:
+          - img [ref=e22]
+          - generic [ref=e26]: EN
+          - img [ref=e27]
+        - generic [ref=e29]:
+          - link "Sign In" [ref=e30] [cursor=pointer]:
+            - /url: /auth/login
+          - link "Post Ad" [ref=e31] [cursor=pointer]:
+            - /url: /post
+            - img [ref=e32]
+            - text: Post Ad
+  - main [ref=e33]
+  - contentinfo [ref=e36]:
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - link "S Slovor." [ref=e43] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e44]: S
+            - generic [ref=e45]: Slovor.
+          - paragraph [ref=e46]: “Free marketplace for everyone. Buy and sell anything without fees.”
+          - generic [ref=e47]:
+            - link [ref=e48] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e49]
+            - link [ref=e51] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e52]
+            - link [ref=e55] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - heading "Popular Categories" [level=4] [ref=e60]
+            - list
+          - generic [ref=e61]:
+            - heading "Quick Links" [level=4] [ref=e62]
+            - list [ref=e63]:
+              - listitem [ref=e64]:
+                - link "Home" [ref=e65] [cursor=pointer]:
+                  - /url: /
+                  - generic [ref=e66]: Home
+                  - img [ref=e67]
+              - listitem [ref=e70]:
+                - link "All Listings" [ref=e71] [cursor=pointer]:
+                  - /url: /listings
+                  - generic [ref=e72]: All Listings
+                  - img [ref=e73]
+              - listitem [ref=e76]:
+                - link "Post Ad" [ref=e77] [cursor=pointer]:
+                  - /url: /post
+                  - generic [ref=e78]: Post Ad
+                  - img [ref=e79]
+              - listitem [ref=e82]:
+                - link "Market Trends" [ref=e83] [cursor=pointer]:
+                  - /url: /blog
+                  - generic [ref=e84]: Market Trends
+                  - img [ref=e85]
+          - generic [ref=e88]:
+            - heading "Information" [level=4] [ref=e89]
+            - list [ref=e90]:
+              - listitem [ref=e91]:
+                - link "About Us" [ref=e92] [cursor=pointer]:
+                  - /url: /about
+                  - generic [ref=e93]: About Us
+                  - img [ref=e94]
+              - listitem [ref=e97]:
+                - link "Terms" [ref=e98] [cursor=pointer]:
+                  - /url: /terms
+                  - generic [ref=e99]: Terms
+                  - img [ref=e100]
+              - listitem [ref=e103]:
+                - link "Privacy" [ref=e104] [cursor=pointer]:
+                  - /url: /privacy
+                  - generic [ref=e105]: Privacy
+                  - img [ref=e106]
+              - listitem [ref=e109]:
+                - link "FAQ" [ref=e110] [cursor=pointer]:
+                  - /url: /faq
+                  - generic [ref=e111]: FAQ
+                  - img [ref=e112]
+      - generic [ref=e115]:
+        - generic [ref=e116]:
+          - heading "Subscribe to our market updates" [level=3] [ref=e117]
+          - paragraph [ref=e118]: Get the best deals directly in your inbox.
+        - generic [ref=e119]:
+          - generic [ref=e120]:
+            - img [ref=e121]
+            - textbox "your@email.com" [ref=e124]
+          - button "Join" [ref=e125] [cursor=pointer]
+      - generic [ref=e126]:
+        - paragraph [ref=e127]: © 2026 Slovor Marketplace. All rights reserved.
+        - generic [ref=e128]:
+          - generic [ref=e129]: Slovakia / EUR
+          - generic [ref=e131]:
+            - link "Transparency" [ref=e132] [cursor=pointer]:
+              - /url: /terms
+            - link "Privacy Policy" [ref=e133] [cursor=pointer]:
+              - /url: /privacy
+```
