@@ -2,7 +2,7 @@
 // Centralized API layer for dashboard statistics and analytics
 
 import { supabase } from '@/lib/supabase/client'
-import type { ApiResponse } from '@/lib/types/database'
+import type { ApiResponse, Listing } from '@/lib/types/database'
 
 export interface DashboardStats {
   totalViews: number
@@ -71,7 +71,7 @@ export const dashboardApi = {
   async getRecentActivity(
     userId: string,
     limit = 5
-  ): Promise<ApiResponse<any[]>> {
+  ): Promise<ApiResponse<Listing[]>> {
     try {
       const { data, error } = await supabase
         .from('listings')
