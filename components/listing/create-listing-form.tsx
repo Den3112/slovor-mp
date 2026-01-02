@@ -68,7 +68,7 @@ function CreateListingFormContent() {
             title: l.title,
             description: l.description,
             price: l.price.toString(),
-            currency: l.currency,
+            currency: 'EUR',
             category_id: l.category_id || '',
             condition: (l.condition as 'new' | 'used') ?? 'new',
             location: l.location,
