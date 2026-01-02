@@ -2,6 +2,7 @@
 // Centralized API layer for Supabase Storage operations
 
 import { supabase } from '@/lib/supabase/client'
+import type { ApiResponse } from '@/lib/types/database'
 
 export interface UploadedFile {
   path: string
@@ -89,14 +90,19 @@ export const storageApi = {
       const errors: string[] = []
 
       for (let i = 0; i < files.length; i++) {
-        const result = await this.uploadImage(files[i], userId)
+        const file = files[i]
+        if (!file) {
+          continue
+        }
+
+        const result = await this.uploadImage(file, userId)
         
         if (onProgress) {
           onProgress(i + 1, files.length)
         }
 
         if (result.error) {
-          errors.push(`File ${files[i].name}: ${result.error}`)
+          errors.push(`File ${file.name}: ${result.error}`)
         } else if (result.data) {
           uploadedFiles.push(result.data)
         }
@@ -111,7 +117,8 @@ export const storageApi = {
         console.warn('Some files failed to upload:', errors)
       }
 
-      return { data: uploadedFiles, error: errors.length > 0 ? errors.join(', ') : null }
+      // По контракту ApiResponse<T> либо отдаем данные, либо ошибку, но не оба сразу
+      return { data: uploadedFiles, error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
     }
