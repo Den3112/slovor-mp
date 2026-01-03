@@ -17,10 +17,11 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import type { User as UserProfile } from '@/lib/types/database'
 
 export default function SettingsPage() {
   const { user } = useAuth()
-  const [profile, setProfile] = useState<any>(null)
+  const [profile, setProfile] = useState<Partial<UserProfile> | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
@@ -57,7 +58,7 @@ export default function SettingsPage() {
       phone: profile?.phone,
       location: profile?.location,
       avatar_url: profile?.avatar_url,
-    } as any)
+    })
 
     if (error) {
       setMessage({ type: 'error', text: 'Failed to update profile: ' + error })
@@ -81,7 +82,7 @@ export default function SettingsPage() {
     } else if (data) {
       setProfile({ ...profile, avatar_url: data.url })
       // Automatically save the new avatar URL
-      await profilesApi.update(user.id, { avatar_url: data.url } as any)
+      await profilesApi.update(user.id, { avatar_url: data.url })
       setMessage({ type: 'success', text: 'Avatar updated!' })
     }
     setIsSaving(false)

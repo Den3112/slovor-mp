@@ -28,9 +28,9 @@ export const favoritesApi = {
             }
 
             // Map the nested listing data to a flat array
-            const listings = data
-                ?.map((item: any) => item.listing)
-                .filter((l: any) => l !== null) as Listing[]
+            const listings = (data as unknown as { listing: Listing }[])
+                ?.map((item) => item.listing)
+                .filter((l): l is Listing => l !== null)
 
             return { data: listings || [], error: null }
         } catch (error) {
@@ -106,7 +106,7 @@ export const favoritesApi = {
                 throw error
             }
 
-            return { data: !!data, error: null }
+            return { data: Boolean(data), error: null }
         } catch (error) {
             logError('favoritesApi.isFavorited', error)
             return { data: null, error: (error as Error).message }
