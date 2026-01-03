@@ -23,9 +23,7 @@ export async function updateSession(request: NextRequest) {
             ...options,
           })
           response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
+            request,
           })
           response.cookies.set({
             name,
@@ -40,9 +38,7 @@ export async function updateSession(request: NextRequest) {
             ...options,
           })
           response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
+            request,
           })
           response.cookies.set({
             name,
@@ -60,10 +56,20 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     (request.nextUrl.pathname.startsWith('/post') ||
-     request.nextUrl.pathname.startsWith('/dashboard'))
+      request.nextUrl.pathname.startsWith('/dashboard'))
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
+  }
+
+  // Redirect to dashboard if logged in and trying to access auth
+  if (
+    user &&
+    request.nextUrl.pathname.startsWith('/auth')
+  ) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/dashboard'
     return NextResponse.redirect(url)
   }
 
