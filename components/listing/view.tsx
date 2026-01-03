@@ -2,7 +2,7 @@
 
 import { ListingCard } from './card'
 import { ListingFilters } from './filters'
-import type { Listing } from '@/lib/supabase/queries'
+import type { Listing } from '@/lib/api'
 import { Container } from '@/components/ui/container'
 import { Search, SlidersHorizontal, PackageSearch } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'

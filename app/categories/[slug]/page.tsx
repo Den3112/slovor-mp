@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { ErrorState } from '@/components/ui/error-state'
 import { CategoryView } from '@/components/category/CategoryView'
-import { categoriesApi, listingsApi } from '@/lib/supabase/queries'
+import { categoriesApi, listingsApi } from '@/lib/api'
 
 /**
  * ISR for category pages

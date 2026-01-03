@@ -15,7 +15,7 @@ import Image from 'next/image'
 
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/components/providers/auth-provider'
-import { listingsApi } from '@/lib/supabase/queries'
+import { listingsApi } from '@/lib/api'
 import { toggleListingStatusAction } from '@/lib/actions/listings'
 import { formatDate } from '@/lib/utils'
 import type { Listing } from '@/lib/types/database'

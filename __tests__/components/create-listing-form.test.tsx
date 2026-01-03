@@ -11,7 +11,7 @@ vi.mock('@/components/providers/auth-provider', () => ({
 }))
 
 // Mock categoriesApi and listingsApi
-vi.mock('@/lib/supabase/queries', () => ({
+vi.mock('@/lib/api', () => ({
   categoriesApi: {
     getAll: vi.fn().mockResolvedValue({
       data: [
