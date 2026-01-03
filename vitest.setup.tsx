@@ -1,6 +1,12 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 
+// Set environment variables for tests
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://example.supabase.co'
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key'
+process.env.SUPABASE_SERVICE_ROLE_KEY = 'test-service-key'
+process.env.NEXT_PUBLIC_APP_URL = 'http://localhost:3000'
+
 // Mock next/navigation
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -39,10 +45,21 @@ vi.mock('@/lib/supabase/client', () => ({
     },
     from: vi.fn(() => ({
       select: vi.fn().mockReturnThis(),
+      insert: vi.fn().mockReturnThis(),
+      update: vi.fn().mockReturnThis(),
+      delete: vi.fn().mockReturnThis(),
       eq: vi.fn().mockReturnThis(),
       order: vi.fn().mockReturnThis(),
       limit: vi.fn().mockReturnThis(),
       single: vi.fn().mockResolvedValue({ data: null, error: null }),
+      maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
     })),
+    storage: {
+      from: vi.fn(() => ({
+        upload: vi.fn().mockResolvedValue({ data: { path: 'test' }, error: null }),
+        getPublicUrl: vi.fn().mockReturnValue({ data: { publicUrl: 'test' } }),
+        remove: vi.fn().mockResolvedValue({ error: null }),
+      })),
+    },
   },
 }))

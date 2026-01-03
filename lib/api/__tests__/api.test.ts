@@ -5,26 +5,34 @@ import { categoriesApi } from '@/lib/api/categories'
 
 // Mock Supabase client
 vi.mock('@/lib/supabase/client', () => {
-    const mockReturnThis = () => mockChain
-    const mockChain = {
-        select: vi.fn(mockReturnThis),
-        insert: vi.fn(mockReturnThis),
-        update: vi.fn(mockReturnThis),
-        delete: vi.fn(mockReturnThis),
-        eq: vi.fn(mockReturnThis),
-        order: vi.fn(mockReturnThis),
-        limit: vi.fn(mockReturnThis),
-        single: vi.fn(),
-        range: vi.fn(mockReturnThis),
-        gte: vi.fn(mockReturnThis),
-        lte: vi.fn(mockReturnThis),
-        ilike: vi.fn(mockReturnThis),
-        or: vi.fn(mockReturnThis),
+    const mockChain: any = {
+        select: vi.fn(() => mockChain),
+        insert: vi.fn(() => mockChain),
+        update: vi.fn(() => mockChain),
+        delete: vi.fn(() => mockChain),
+        eq: vi.fn(() => mockChain),
+        order: vi.fn(() => mockChain),
+        limit: vi.fn(() => mockChain),
+        maybeSingle: vi.fn(() => mockChain),
+        single: vi.fn(() => mockChain),
+        range: vi.fn(() => mockChain),
+        gte: vi.fn(() => mockChain),
+        lte: vi.fn(() => mockChain),
+        ilike: vi.fn(() => mockChain),
+        or: vi.fn(() => mockChain),
+        then: vi.fn((cb) => cb({ data: [], error: null })),
     }
 
     return {
         supabase: {
             from: vi.fn(() => mockChain),
+            storage: {
+                from: vi.fn(() => ({
+                    upload: vi.fn().mockResolvedValue({ data: { path: 'test' }, error: null }),
+                    getPublicUrl: vi.fn().mockReturnValue({ data: { publicUrl: 'test' } }),
+                    remove: vi.fn().mockResolvedValue({ error: null }),
+                })),
+            },
         },
     }
 })
@@ -51,7 +59,7 @@ describe('Listings API', () => {
 
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({ data: mockListings, error: null })
+            mockFrom().maybeSingle.mockResolvedValue({ data: mockListings, error: null })
 
             const result = await listingsApi.getAll()
 
@@ -62,7 +70,7 @@ describe('Listings API', () => {
         it('should handle errors gracefully', async () => {
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({
+            mockFrom().maybeSingle.mockResolvedValue({
                 data: null,
                 error: new Error('Database error'),
             })
@@ -92,7 +100,7 @@ describe('Listings API', () => {
 
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({
+            mockFrom().maybeSingle.mockResolvedValue({
                 data: { ...newListing, id: '123' },
                 error: null,
             })
@@ -110,7 +118,7 @@ describe('Listings API', () => {
 
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({
+            mockFrom().maybeSingle.mockResolvedValue({
                 data: { id: '123', ...updates },
                 error: null,
             })
@@ -126,7 +134,7 @@ describe('Listings API', () => {
         it('should delete a listing', async () => {
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({ data: null, error: null })
+            mockFrom().maybeSingle.mockResolvedValue({ data: null, error: null })
 
             const result = await listingsApi.delete('123')
 
@@ -158,7 +166,7 @@ describe('Categories API', () => {
 
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({
+            mockFrom().maybeSingle.mockResolvedValue({
                 data: mockCategories,
                 error: null,
             })
@@ -186,7 +194,7 @@ describe('Categories API', () => {
 
             const { supabase } = await import('@/lib/supabase/client')
             const mockFrom = supabase.from as any
-            mockFrom().single.mockResolvedValue({ data: mockCategory, error: null })
+            mockFrom().maybeSingle.mockResolvedValue({ data: mockCategory, error: null })
 
             const result = await categoriesApi.getBySlug('electronics')
 
