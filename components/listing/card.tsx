@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import type { Listing } from '@/lib/supabase/queries'
+import type { Listing } from '@/lib/api'
 import { MapPin, Eye, Sparkles, ImageOff } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { getLocalizedTitle } from '@/lib/utils/listing-i18n'

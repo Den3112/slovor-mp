@@ -3,7 +3,7 @@
 // Principle #6: Use proper icons from Lucide
 
 import Link from 'next/link'
-import type { Category } from '@/lib/supabase/queries'
+import type { Category } from '@/lib/api'
 import * as LucideIcons from 'lucide-react'
 
 interface CategoryCardProps {

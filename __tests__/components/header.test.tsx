@@ -9,7 +9,6 @@ vi.mock('next/navigation', () => ({
 
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({
-<<<<<<< HEAD
   useTranslation: () => ({
     locale: 'en',
     setLocale: vi.fn(),
@@ -31,24 +30,6 @@ vi.mock('@/lib/i18n', () => ({
       },
     },
   }),
-=======
-    useTranslation: () => ({
-        locale: 'en',
-        setLocale: vi.fn(),
-        t: {
-            common: {
-                home: 'Home',
-                categories: 'Categories',
-                searchPlaceholder: 'What are you looking for?',
-                postAd: 'Post Ad',
-            },
-            auth: {
-                signIn: 'Sign In',
-                signOut: 'Sign Out',
-            }
-        },
-    }),
->>>>>>> 332fa5e (fix: implement server-side auth middleware and enhance search logic)
 }))
 
 // Mock useAuth

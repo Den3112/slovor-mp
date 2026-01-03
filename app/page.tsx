@@ -6,7 +6,7 @@
 
 import { HomeView } from '@/components/home/HomeView'
 import { FeaturedListings } from '@/components/listing/featured'
-import { categoriesApi } from '@/lib/supabase/queries'
+import { categoriesApi } from '@/lib/api'
 
 /**
  * Incremental Static Regeneration (ISR)

@@ -2,7 +2,7 @@
 // Principle #4: Explicit data fetching
 
 import { notFound } from 'next/navigation'
-import { listingsApi } from '@/lib/supabase/queries'
+import { listingsApi } from '@/lib/api'
 import { ImageGallery } from '@/components/listing/image-gallery'
 import { ErrorState } from '@/components/ui/error-state'
 import {

@@ -1,4 +1,4 @@
-import { listingsApi } from '@/lib/supabase/queries'
+import { listingsApi } from '@/lib/api'
 import { ListingCard } from './card'
 
 interface FeaturedListingsProps {

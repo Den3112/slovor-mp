@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
-import { categoriesApi } from '@/lib/supabase/queries'
+import { categoriesApi } from '@/lib/api'
 import type { Category } from '@/lib/types/database'
 import {
   getUniqueCategories,

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { categoriesApi } from '@/lib/supabase/queries'
+import { categoriesApi } from '@/lib/api'
 import type { Category } from '@/lib/types/database'
 import { Container } from '@/components/ui/container'
 import { getTranslationServer } from '@/lib/i18n/server'
