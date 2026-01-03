@@ -47,8 +47,8 @@ export default function DashboardPage() {
         setStats(statsRes.data)
         setRecentActivity(activityRes.data || [])
         setProfile(profileRes.data)
-      } catch (err: any) {
-        setError(err.message)
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
         setIsLoading(false)
       }
@@ -259,7 +259,7 @@ export default function DashboardPage() {
                 <Heart className="h-6 w-6" />
               </div>
               <h4 className="mb-1 font-bold">Saved Items</h4>
-              <p className="text-xs text-muted-foreground">Items you're keeping an eye on.</p>
+              <p className="text-xs text-muted-foreground">Items you&apos;re keeping an eye on.</p>
             </Link>
 
             <Link href="/dashboard/settings" className="group rounded-[2rem] border border-border/40 bg-card p-6 transition-all hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-500/5">
