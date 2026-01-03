@@ -1,7 +1,7 @@
 // Listings View Component
 // Principle #1: Separate View from Logic
 
-import type { Listing } from '@/lib/supabase/queries'
+import type { Listing } from '@/lib/api'
 import { ListingCard } from './card'
 import { EmptyState } from '@/components/ui/empty-state'
 

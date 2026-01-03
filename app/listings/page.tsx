@@ -1,7 +1,7 @@
 // All Listings Page - Server Component
 // Shows all listings with search and filters
 
-import { listingsApi } from '@/lib/supabase/queries'
+import { listingsApi } from '@/lib/api'
 import { ListingsView } from '@/components/listing/view'
 
 /**

@@ -24,7 +24,7 @@ import {
   getLocalizedTitle,
   getLocalizedDescription,
 } from '@/lib/utils/listing-i18n'
-import type { Listing } from '@/lib/supabase/queries'
+import type { Listing } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
 interface ListingDetailViewProps {

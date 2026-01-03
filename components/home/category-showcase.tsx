@@ -7,7 +7,7 @@
 
 import Link from 'next/link'
 import { getCategoryIcon } from '@/lib/constants/category-icons'
-import type { Category } from '@/lib/supabase/queries'
+import type { Category } from '@/lib/api'
 
 interface Props {
   categories: Category[]

@@ -40,8 +40,9 @@ function applyListingFilters(
   }
 
   if (options.search) {
+    const s = options.search.trim()
     query = query.or(
-      `title.ilike.%${options.search}%,description.ilike.%${options.search}%`
+      `title.ilike.%${s}%,description.ilike.%${s}%,title_sk.ilike.%${s}%,title_cs.ilike.%${s}%,title_en.ilike.%${s}%`
     )
   }
 

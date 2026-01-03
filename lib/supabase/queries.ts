@@ -344,4 +344,71 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+  /**
+   * Fetches for editing
+   */
+  async getForEdit(id: string): Promise<ApiResponse<Listing>> {
+    try {
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*, category:categories(*)')
+        .eq('id', id)
+        .maybeSingle()
+
+      if (error) { throw error }
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Fetches for user
+   */
+  async getByUser(userId: string): Promise<ApiResponse<Listing[]>> {
+    try {
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*, category:categories(*)')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+
+      if (error) { throw error }
+      return { data: data || [], error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Updates
+   */
+  async update(id: string, updates: Partial<Listing>): Promise<ApiResponse<Listing>> {
+    try {
+      const { data, error } = await supabase
+        .from('listings')
+        .update({ ...updates, updated_at: new Date().toISOString() })
+        .eq('id', id)
+        .select()
+        .maybeSingle()
+
+      if (error) { throw error }
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Deletes
+   */
+  async delete(id: string): Promise<ApiResponse<null>> {
+    try {
+      const { error } = await supabase.from('listings').delete().eq('id', id)
+      if (error) { throw error }
+      return { data: null, error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }
