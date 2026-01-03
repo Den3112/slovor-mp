@@ -46,7 +46,7 @@ export const profilesApi = {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 updated_at: ___,
                 ...safeUpdates
-            } = updates as any
+            } = updates
 
             const { data, error } = await supabase
                 .from('profiles')
