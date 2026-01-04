@@ -7,12 +7,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
-import { useTranslation } from '@/lib/i18n'
 
 export function SearchFilters() {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const { t } = useTranslation()
 
     // Helper to update URL params
     const updateFilters = (updates: Record<string, string | null>) => {
@@ -33,7 +31,7 @@ export function SearchFilters() {
     }
 
     // Price State
-    const [priceRange, setPriceRange] = useState([0, 5000])
+    const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000])
 
     useEffect(() => {
         const min = Number(searchParams.get('minPrice')) || 0
@@ -42,7 +40,9 @@ export function SearchFilters() {
     }, [searchParams])
 
     const handlePriceChange = (value: number[]) => {
-        setPriceRange(value)
+        if (value.length >= 2) {
+            setPriceRange([value[0] ?? 0, value[1] ?? 5000])
+        }
     }
 
     const applyPriceFilter = () => {
@@ -71,7 +71,7 @@ export function SearchFilters() {
 
             {/* Price Range */}
             <div className="space-y-4">
-                <h3 className="font-bold text-gray-900">{t.filters?.price || 'Price'}</h3>
+                <h3 className="font-bold text-gray-900">Price</h3>
                 <Slider
                     defaultValue={[0, 5000]}
                     value={priceRange}
@@ -108,7 +108,7 @@ export function SearchFilters() {
 
             {/* Condition */}
             <div className="space-y-4">
-                <h3 className="font-bold text-gray-900">{t.filters?.condition || 'Condition'}</h3>
+                <h3 className="font-bold text-gray-900">Condition</h3>
                 <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                         <Checkbox
@@ -116,23 +116,22 @@ export function SearchFilters() {
                             checked={searchParams.get('condition') === 'new'}
                             onCheckedChange={(checked) => updateFilters({ condition: checked ? 'new' : null })}
                         />
-                        <Label htmlFor="new">{t.condition?.new || 'New'}</Label>
+                        <Label htmlFor="new">New</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                         <Checkbox
                             id="used"
                             checked={searchParams.get('condition') === 'used'}
                             onCheckedChange={(checked) => updateFilters({ condition: checked ? 'used' : null })}
-
                         />
-                        <Label htmlFor="used">{t.condition?.used || 'Used'}</Label>
+                        <Label htmlFor="used">Used</Label>
                     </div>
                 </div>
             </div>
 
             {/* Location */}
             <div className="space-y-4">
-                <h3 className="font-bold text-gray-900">{t.filters?.location || 'Location'}</h3>
+                <h3 className="font-bold text-gray-900">Location</h3>
                 <Input
                     placeholder="City or Region"
                     defaultValue={searchParams.get('location') || ''}
@@ -142,3 +141,4 @@ export function SearchFilters() {
         </div>
     )
 }
+
