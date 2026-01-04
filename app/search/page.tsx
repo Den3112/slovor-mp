@@ -13,7 +13,7 @@ async function SearchResults({ searchParams }: { searchParams: { [key: string]: 
     const { q, category, minPrice, maxPrice, condition, location, sort, page } = searchParams
     const itemsPerPage = 12
 
-    const { data: result } = await listingsApi.getAll({
+    const filterOptions = {
         page: Number(page) || 1,
         limit: itemsPerPage,
         search: q,
@@ -23,12 +23,17 @@ async function SearchResults({ searchParams }: { searchParams: { [key: string]: 
         condition: condition as 'new' | 'used',
         location,
         sort
-    })
+    }
 
-    const listings = result?.items || []
-    const total = result?.total || 0
+    const [{ data: listings }, { data: total }] = await Promise.all([
+        listingsApi.getAll(filterOptions),
+        listingsApi.getCount(filterOptions)
+    ])
 
-    if (listings.length === 0) {
+    const items = listings || []
+    const totalCount = total || 0
+
+    if (items.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="bg-gray-50 rounded-full p-6 mb-4">
@@ -43,12 +48,12 @@ async function SearchResults({ searchParams }: { searchParams: { [key: string]: 
     return (
         <div className="space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {listings.map((listing) => (
+                {items.map((listing) => (
                     <ListingCard key={listing.id} listing={listing} />
                 ))}
             </div>
 
-            <Pagination totalItems={total} itemsPerPage={itemsPerPage} />
+            <Pagination totalItems={totalCount} itemsPerPage={itemsPerPage} />
         </div>
     )
 }
