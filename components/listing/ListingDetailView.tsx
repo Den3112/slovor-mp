@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useAuth } from '@/components/providers/auth-provider'
 import { favoritesApi } from '@/lib/api'
 import { ReportDialog } from '@/components/ui/report-dialog'
+import { trackEvent } from '@/lib/utils/analytics'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { Button } from '@/components/ui/button'
 import {
@@ -49,6 +50,14 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       }
     })
   }, [user, listing.id])
+
+  // Track listing view
+  useEffect(() => {
+    trackEvent('listing_view', {
+      listing_id: listing.id,
+      category: listing.category?.slug,
+    })
+  }, [listing.id, listing.category?.slug])
 
   const handleToggleFavorite = async () => {
     if (!user) {

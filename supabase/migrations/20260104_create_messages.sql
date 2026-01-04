@@ -40,72 +40,58 @@ CREATE INDEX IF NOT EXISTS idx_messages_created_at ON public.messages(created_at
 
 -- RLS Policies for Conversations
 -- Users can view their own conversations
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can view own conversations' AND tablename = 'conversations') THEN
-  CREATE POLICY "Users can view own conversations"
-    ON public.conversations
-    FOR SELECT
-    USING (auth.uid() = buyer_id OR auth.uid() = seller_id);
-END IF;
-END $$;
+CREATE POLICY "Users can view own conversations"
+  ON public.conversations
+  FOR SELECT
+  USING (auth.uid() = conversations.buyer_id OR auth.uid() = conversations.seller_id);
 
 -- Users can create conversations
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can create conversations' AND tablename = 'conversations') THEN
-  CREATE POLICY "Users can create conversations"
-    ON public.conversations
-    FOR INSERT
-    WITH CHECK (auth.uid() = buyer_id);
-END IF;
-END $$;
+CREATE POLICY "Users can create conversations"
+  ON public.conversations
+  FOR INSERT
+  WITH CHECK (auth.uid() = conversations.buyer_id);
+
+-- Users can update conversations (for updated_at)
+CREATE POLICY "Users can update own conversations"
+  ON public.conversations
+  FOR UPDATE
+  USING (auth.uid() = conversations.buyer_id OR auth.uid() = conversations.seller_id);
 
 -- RLS Policies for Messages
 -- Users can view messages in their conversations
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can view messages in own conversations' AND tablename = 'messages') THEN
-  CREATE POLICY "Users can view messages in own conversations"
-    ON public.messages
-    FOR SELECT
-    USING (
-      EXISTS (
-        SELECT 1 FROM public.conversations c
-        WHERE c.id = conversation_id
-        AND (c.buyer_id = auth.uid() OR c.seller_id = auth.uid())
-      )
-    );
-END IF;
-END $$;
+CREATE POLICY "Users can view messages in own conversations"
+  ON public.messages
+  FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.conversations c
+      WHERE c.id = messages.conversation_id
+      AND (c.buyer_id = auth.uid() OR c.seller_id = auth.uid())
+    )
+  );
 
 -- Users can send messages in their conversations
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can send messages' AND tablename = 'messages') THEN
-  CREATE POLICY "Users can send messages"
-    ON public.messages
-    FOR INSERT
-    WITH CHECK (
-      auth.uid() = sender_id
-      AND EXISTS (
-        SELECT 1 FROM public.conversations c
-        WHERE c.id = conversation_id
-        AND (c.buyer_id = auth.uid() OR c.seller_id = auth.uid())
-      )
-    );
-END IF;
-END $$;
+CREATE POLICY "Users can send messages"
+  ON public.messages
+  FOR INSERT
+  WITH CHECK (
+    auth.uid() = messages.sender_id
+    AND EXISTS (
+      SELECT 1 FROM public.conversations c
+      WHERE c.id = messages.conversation_id
+      AND (c.buyer_id = auth.uid() OR c.seller_id = auth.uid())
+    )
+  );
 
 -- Users can update messages they received (for marking as read)
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can mark messages as read' AND tablename = 'messages') THEN
-  CREATE POLICY "Users can mark messages as read"
-    ON public.messages
-    FOR UPDATE
-    USING (
-      sender_id != auth.uid()
-      AND EXISTS (
-        SELECT 1 FROM public.conversations c
-        WHERE c.id = conversation_id
-        AND (c.buyer_id = auth.uid() OR c.seller_id = auth.uid())
-      )
-    );
-END IF;
-END $$;
+CREATE POLICY "Users can mark messages as read"
+  ON public.messages
+  FOR UPDATE
+  USING (
+    messages.sender_id != auth.uid()
+    AND EXISTS (
+      SELECT 1 FROM public.conversations c
+      WHERE c.id = messages.conversation_id
+      AND (c.buyer_id = auth.uid() OR c.seller_id = auth.uid())
+    )
+  );
