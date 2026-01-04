@@ -1,7 +1,12 @@
 -- Reports Table
 -- Stores user/listing reports for moderation
 
-CREATE TABLE IF NOT EXISTS public.reports (
+-- Reports Table
+-- Stores user/listing reports for moderation
+
+DROP TABLE IF EXISTS public.reports CASCADE;
+
+CREATE TABLE public.reports (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   reporter_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   reported_listing_id UUID REFERENCES public.listings(id) ON DELETE CASCADE,
@@ -29,23 +34,17 @@ CREATE INDEX IF NOT EXISTS idx_reports_status ON public.reports(status);
 
 -- RLS Policies
 -- Users can create reports
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can create reports' AND tablename = 'reports') THEN
-  CREATE POLICY "Users can create reports"
-    ON public.reports
-    FOR INSERT
-    WITH CHECK (auth.uid() = reporter_id);
-END IF;
-END $$;
+DROP POLICY IF EXISTS "Users can create reports" ON public.reports;
+CREATE POLICY "Users can create reports"
+  ON public.reports
+  FOR INSERT
+  WITH CHECK (auth.uid() = reporter_id);
 
 -- Users can view their own reports
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can view own reports' AND tablename = 'reports') THEN
-  CREATE POLICY "Users can view own reports"
-    ON public.reports
-    FOR SELECT
-    USING (auth.uid() = reporter_id);
-END IF;
-END $$;
+DROP POLICY IF EXISTS "Users can view own reports" ON public.reports;
+CREATE POLICY "Users can view own reports"
+  ON public.reports
+  FOR SELECT
+  USING (auth.uid() = reporter_id);
 
 -- Note: Moderator access should be handled via service role key or separate admin policies

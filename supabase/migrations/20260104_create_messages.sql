@@ -2,7 +2,14 @@
 -- For buyer-seller communication
 
 -- Conversations table
-CREATE TABLE IF NOT EXISTS public.conversations (
+-- Conversations and Messages Tables
+-- For buyer-seller communication
+
+DROP TABLE IF EXISTS public.messages CASCADE;
+DROP TABLE IF EXISTS public.conversations CASCADE;
+
+-- Conversations table
+CREATE TABLE public.conversations (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   listing_id UUID NOT NULL REFERENCES public.listings(id) ON DELETE CASCADE,
   buyer_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
@@ -15,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.conversations (
 );
 
 -- Messages table
-CREATE TABLE IF NOT EXISTS public.messages (
+CREATE TABLE public.messages (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   conversation_id UUID NOT NULL REFERENCES public.conversations(id) ON DELETE CASCADE,
   sender_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
@@ -40,18 +47,21 @@ CREATE INDEX IF NOT EXISTS idx_messages_created_at ON public.messages(created_at
 
 -- RLS Policies for Conversations
 -- Users can view their own conversations
+DROP POLICY IF EXISTS "Users can view own conversations" ON public.conversations;
 CREATE POLICY "Users can view own conversations"
   ON public.conversations
   FOR SELECT
   USING (auth.uid() = conversations.buyer_id OR auth.uid() = conversations.seller_id);
 
 -- Users can create conversations
+DROP POLICY IF EXISTS "Users can create conversations" ON public.conversations;
 CREATE POLICY "Users can create conversations"
   ON public.conversations
   FOR INSERT
   WITH CHECK (auth.uid() = conversations.buyer_id);
 
 -- Users can update conversations (for updated_at)
+DROP POLICY IF EXISTS "Users can update own conversations" ON public.conversations;
 CREATE POLICY "Users can update own conversations"
   ON public.conversations
   FOR UPDATE
@@ -59,6 +69,7 @@ CREATE POLICY "Users can update own conversations"
 
 -- RLS Policies for Messages
 -- Users can view messages in their conversations
+DROP POLICY IF EXISTS "Users can view messages in own conversations" ON public.messages;
 CREATE POLICY "Users can view messages in own conversations"
   ON public.messages
   FOR SELECT
@@ -71,6 +82,7 @@ CREATE POLICY "Users can view messages in own conversations"
   );
 
 -- Users can send messages in their conversations
+DROP POLICY IF EXISTS "Users can send messages" ON public.messages;
 CREATE POLICY "Users can send messages"
   ON public.messages
   FOR INSERT
@@ -84,6 +96,7 @@ CREATE POLICY "Users can send messages"
   );
 
 -- Users can update messages they received (for marking as read)
+DROP POLICY IF EXISTS "Users can mark messages as read" ON public.messages;
 CREATE POLICY "Users can mark messages as read"
   ON public.messages
   FOR UPDATE
