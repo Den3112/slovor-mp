@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '@/components/providers/auth-provider'
 import { favoritesApi } from '@/lib/api'
+import { ReportDialog } from '@/components/ui/report-dialog'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { Button } from '@/components/ui/button'
 import {
@@ -37,6 +38,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
   const [activeImage, setActiveImage] = useState(0)
   const [isFavorited, setIsFavorited] = useState(false)
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false)
+  const [showReportDialog, setShowReportDialog] = useState(false)
 
   // Load initial favorite status
   useEffect(() => {
@@ -64,8 +66,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
   }
 
   const handleReport = () => {
-    // Placeholder for report functionality
-    alert('Listing reported. Our moderators will check it shortly.')
+    setShowReportDialog(true)
   }
 
   const handleShare = () => {
@@ -327,6 +328,13 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
           </div>
         </div>
       </div>
+
+      {/* Report Dialog */}
+      <ReportDialog
+        isOpen={showReportDialog}
+        onClose={() => setShowReportDialog(false)}
+        listingId={listing.id}
+      />
     </div>
   )
 }
