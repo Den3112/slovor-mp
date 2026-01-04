@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'hnkhwvhjwygolvwvxnor.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.dicebear.com',
+      },
     ],
     // Disable optimization for faster loading of external images
     unoptimized: false,

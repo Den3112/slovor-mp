@@ -1041,22 +1041,66 @@ function generateListing(category, index) {
   }
 }
 
-async function ensurePlaceholderUser() {
-  const userId = '00000000-0000-0000-0000-000000000000'
-  const { data: existing } = await supabase
+async function ensureTestSeller() {
+  const userId = '522f621e-3e70-40bc-b312-81ba9a105170'
+  const userEmail = 'test.seller@slovor.sk'
+
+  console.log(`🔧 Ensuring test seller exists (${userId})...`)
+
+  // 1. Check if user exists in public.users (Required for listings FK)
+  const { data: existingPublicUser } = await supabase
     .from('users')
     .select('id')
     .eq('id', userId)
     .single()
 
-  if (!existing) {
-    await supabase.from('users').insert({
+  if (!existingPublicUser) {
+    console.log('   Creating record in public.users...')
+
+    const { error } = await supabase.from('users').insert({
       id: userId,
-      username: 'seed_user',
-      full_name: 'Seed User',
+      username: 'test_seller',
+      full_name: 'Test Seller',
       verified: true,
+      avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller'
     })
+
+    if (error) {
+       // Ignore duplicate key error if it happened in parallel
+       if (error.code !== '23505') {
+         console.warn('   ⚠️ Warning: Could not create public.users record:', error.message)
+       }
+    } else {
+      console.log('   ✅ Created public.users record')
+    }
   }
+
+  // 2. Ensuring profile exists (Required for Seller Page)
+  // This is usually handled by triggers, but good to double check for seed stability
+  const { data: existingProfile } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('id', userId)
+      .single()
+
+  if (!existingProfile) {
+     console.log('   Creating record in public.profiles...')
+     const { error: profileError } = await supabase.from('profiles').insert({
+         id: userId,
+         display_name: 'Test Seller',
+         bio: 'Professional seller with great products and reviews.',
+         location: 'Bratislava, Slovakia',
+         phone: '+421 123 456 789',
+         avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller'
+     })
+     if (profileError && profileError.code !== '23505') {
+         console.warn('   ⚠️ Warning: Could not create profile:', profileError.message)
+     } else {
+         console.log('   ✅ Created profile record')
+     }
+  }
+
+  return userId
 }
 
 async function seedDatabase() {
@@ -1064,7 +1108,7 @@ async function seedDatabase() {
   console.log('')
 
   try {
-    await ensurePlaceholderUser()
+    const userId = await ensureTestSeller()
 
     const { data: categories, error: catError } = await supabase
       .from('categories')
@@ -1091,7 +1135,7 @@ async function seedDatabase() {
         const { error: insertError } = await supabase.from('listings').insert({
           ...listingData,
           category_id: category.id,
-          user_id: '00000000-0000-0000-0000-000000000000',
+          user_id: userId,
         })
 
         if (insertError) {
