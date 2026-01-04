@@ -24,31 +24,19 @@ CREATE INDEX IF NOT EXISTS idx_reviews_listing_id ON public.reviews(listing_id);
 
 -- RLS Policies
 -- Everyone can view reviews
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Anyone can view reviews' AND tablename = 'reviews') THEN
-  CREATE POLICY "Anyone can view reviews"
-    ON public.reviews
-    FOR SELECT
-    USING (true);
-END IF;
-END $$;
+CREATE POLICY "Anyone can view reviews"
+  ON public.reviews
+  FOR SELECT
+  USING (true);
 
 -- Authenticated users can create reviews (but not for themselves)
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can create reviews' AND tablename = 'reviews') THEN
-  CREATE POLICY "Users can create reviews"
-    ON public.reviews
-    FOR INSERT
-    WITH CHECK (auth.uid() = buyer_id AND auth.uid() != seller_id);
-END IF;
-END $$;
+CREATE POLICY "Users can create reviews"
+  ON public.reviews
+  FOR INSERT
+  WITH CHECK (auth.uid() = reviews.buyer_id AND auth.uid() != reviews.seller_id);
 
 -- Users can delete their own reviews
-DO $$ BEGIN
-IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can delete own reviews' AND tablename = 'reviews') THEN
-  CREATE POLICY "Users can delete own reviews"
-    ON public.reviews
-    FOR DELETE
-    USING (auth.uid() = buyer_id);
-END IF;
-END $$;
+CREATE POLICY "Users can delete own reviews"
+  ON public.reviews
+  FOR DELETE
+  USING (auth.uid() = reviews.buyer_id);
