@@ -5,6 +5,7 @@ type EventName =
     | 'listing_view'
     | 'listing_created'
     | 'listing_contact_click'
+    | 'contact_click'
     | 'search_performed'
     | 'filter_applied'
     | 'message_sent'
