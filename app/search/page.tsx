@@ -6,14 +6,16 @@ import { listingsApi } from '@/lib/api'
 import { ListingCard } from '@/components/listing/ListingCard'
 import { Container } from '@/components/ui/container'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Pagination } from '@/components/category/Pagination'
 
 // Fetch data on the server
 async function SearchResults({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
     const { q, category, minPrice, maxPrice, condition, location, sort, page } = searchParams
+    const itemsPerPage = 12
 
     const { data: result } = await listingsApi.getAll({
         page: Number(page) || 1,
-        limit: 12, // Grid size
+        limit: itemsPerPage,
         search: q,
         categorySlug: category,
         priceMin: minPrice ? Number(minPrice) : undefined,
@@ -24,6 +26,7 @@ async function SearchResults({ searchParams }: { searchParams: { [key: string]: 
     })
 
     const listings = result?.items || []
+    const total = result?.total || 0
 
     if (listings.length === 0) {
         return (
@@ -38,10 +41,14 @@ async function SearchResults({ searchParams }: { searchParams: { [key: string]: 
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {listings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-            ))}
+        <div className="space-y-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {listings.map((listing) => (
+                    <ListingCard key={listing.id} listing={listing} />
+                ))}
+            </div>
+
+            <Pagination totalItems={total} itemsPerPage={itemsPerPage} />
         </div>
     )
 }
