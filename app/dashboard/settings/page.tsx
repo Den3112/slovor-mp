@@ -32,9 +32,9 @@ export default function SettingsPage() {
 
     const loadProfile = async () => {
       setIsLoading(true)
-      const { data, error } = await profilesApi.getById(user.id)
+      // Use getOrCreate to handle new users without a profile
+      const { data, error } = await profilesApi.getOrCreate(user.id, user.email ?? undefined)
       if (error) {
-        // If profile doesn't exist yet, it's fine, we'll create it on save or it might be created by trigger
         console.error('Error loading profile:', error)
       } else {
         setProfile(data)

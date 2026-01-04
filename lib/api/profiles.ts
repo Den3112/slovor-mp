@@ -33,7 +33,42 @@ export const profilesApi = {
     },
 
     /**
-     * Updates a user profile
+     * Fetches a profile by user ID, or returns empty profile data (for new users)
+     */
+    async getOrCreate(id: string, email?: string): Promise<ApiResponse<User>> {
+        try {
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', id)
+                .maybeSingle()
+
+            if (error) {
+                throw error
+            }
+
+            // If profile doesn't exist, return a default profile structure
+            if (!data) {
+                const defaultProfile: Partial<User> = {
+                    id,
+                    display_name: email?.split('@')[0] || '',
+                    bio: '',
+                    phone: '',
+                    location: '',
+                    avatar_url: '',
+                }
+                return { data: defaultProfile as User, error: null }
+            }
+
+            return { data, error: null }
+        } catch (error) {
+            logError('profilesApi.getOrCreate', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Updates a user profile (creates if doesn't exist)
      */
     async update(id: string, updates: Partial<User>): Promise<ApiResponse<User>> {
         try {
@@ -48,10 +83,10 @@ export const profilesApi = {
                 ...safeUpdates
             } = updates
 
+            // Use upsert to create profile if it doesn't exist
             const { data, error } = await supabase
                 .from('profiles')
-                .update(safeUpdates)
-                .eq('id', id)
+                .upsert({ id, ...safeUpdates }, { onConflict: 'id' })
                 .select()
                 .maybeSingle()
 
@@ -60,7 +95,7 @@ export const profilesApi = {
             }
 
             if (!data) {
-                return { data: null, error: 'Profile not found or update failed' }
+                return { data: null, error: 'Profile update failed' }
             }
 
             return { data, error: null }

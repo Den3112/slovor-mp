@@ -296,7 +296,7 @@ export function Header() {
                             {t.common.dashboard}
                           </Link>
                           <Link
-                            href="/profile"
+                            href="/dashboard/settings"
                             className="group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
                           >
                             <User className="h-4 w-4 text-primary transition-transform group-hover:scale-110" />
