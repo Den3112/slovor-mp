@@ -280,6 +280,15 @@ export const translations = {
       edit: 'Upraviť',
       delete: 'Vymazať',
     },
+    seller: {
+      activeListings: 'Aktívne inzeráty',
+      rating: 'Hodnotenie',
+      memberSince: 'Člen od',
+      contactSeller: 'Kontaktovať predávajúceho',
+      listings: 'Inzeráty predávajúceho',
+      noListings: 'Žiadne inzeráty',
+      noListingsDescription: 'Tento predávajúci zatiaľ nemá žiadne aktívne inzeráty.',
+    },
   },
   cs: {
     common: {
@@ -559,6 +568,15 @@ export const translations = {
       edit: 'Upravit',
       delete: 'Smazat',
     },
+    seller: {
+      activeListings: 'Aktivní inzeráty',
+      rating: 'Hodnocení',
+      memberSince: 'Člen od',
+      contactSeller: 'Kontaktovat prodávajícího',
+      listings: 'Inzeráty prodávajícího',
+      noListings: 'Žádné inzeráty',
+      noListingsDescription: 'Tento prodávající zatím nemá žádné aktivní inzeráty.',
+    },
   },
   en: {
     common: {
@@ -837,6 +855,15 @@ export const translations = {
       deactivate: 'Deactivate',
       edit: 'Edit',
       delete: 'Delete',
+    },
+    seller: {
+      activeListings: 'Active Listings',
+      rating: 'Rating',
+      memberSince: 'Member since',
+      contactSeller: 'Contact Seller',
+      listings: 'Seller\'s Listings',
+      noListings: 'No listings',
+      noListingsDescription: 'This seller has no active listings yet.',
     },
   },
 } as const

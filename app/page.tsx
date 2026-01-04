@@ -6,7 +6,7 @@
 
 import { HomeView } from '@/components/home/HomeView'
 import { FeaturedListings } from '@/components/listing/featured'
-import { categoriesApi } from '@/lib/api'
+import { createClient } from '@/lib/supabase/server'
 
 /**
  * Incremental Static Regeneration (ISR)
@@ -20,12 +20,13 @@ export const revalidate = 60
  * Passes data to HomeView client component for rendering
  */
 export default async function HomePage() {
-  const categoriesRes = await categoriesApi.getAll()
+  const supabase = await createClient()
+  const { data: categories, error } = await supabase.from('categories').select('*')
 
   return (
     <HomeView
-      categories={categoriesRes.data || []}
-      categoriesError={categoriesRes.error}
+      categories={categories || []}
+      categoriesError={error?.message || null}
     >
       <FeaturedListings />
     </HomeView>
