@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorState } from '@/components/ui/error-state'
 import { EmptyState } from '@/components/ui/empty-state'
 import { ListingCard } from '@/components/listing/card'
+import { SellerRating } from '@/components/profile/SellerRating'
 import { getTranslationServer } from '@/lib/i18n/server'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -191,6 +192,9 @@ export default async function SellerProfilePage({ params }: Props) {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Seller Reviews */}
+                            <SellerRating sellerId={id} />
                         </div>
                     </div>
 
