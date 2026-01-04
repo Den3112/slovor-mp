@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '@/components/providers/auth-provider'
-import { favoritesApi } from '@/lib/api'
+import { useRouter } from 'next/navigation'
+import { favoritesApi, messagesApi, listingsApi } from '@/lib/api'
 import { ReportDialog } from '@/components/ui/report-dialog'
 import { trackEvent } from '@/lib/utils/analytics'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
@@ -36,9 +37,12 @@ interface ListingDetailViewProps {
 export function ListingDetailView({ listing }: ListingDetailViewProps) {
   const { t, locale } = useTranslation()
   const { user } = useAuth()
+  const router = useRouter()
   const [activeImage, setActiveImage] = useState(0)
   const [isFavorited, setIsFavorited] = useState(false)
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false)
+  const [isContactLoading, setIsContactLoading] = useState(false)
+  const [showPhone, setShowPhone] = useState(false)
   const [showReportDialog, setShowReportDialog] = useState(false)
 
   // Load initial favorite status
@@ -58,6 +62,61 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       category: listing.category?.slug,
     })
   }, [listing.id, listing.category?.slug])
+
+  const handleContactClick = async (type: 'phone' | 'chat' | 'message') => {
+    // Track click
+    trackEvent('contact_click', {
+      listing_id: listing.id,
+      contact_type: type,
+    })
+
+    // Increment backend counter
+    listingsApi.incrementContactClicks(listing.id)
+
+    if (type === 'phone') {
+      if (listing.user?.phone) {
+        setShowPhone(!showPhone)
+      } else {
+        // Fallback if no phone
+        setShowPhone(true)
+      }
+      return
+    }
+
+    // For chat/message, require auth
+    if (!user) {
+      // Redirect to login or show auth modal
+      // For now, redirect to login
+      router.push('/auth/login?redirect=' + encodeURIComponent(window.location.pathname))
+      return
+    }
+
+    // Prevent messaging yourself
+    if (user.id === listing.user_id) {
+      // Could show toast here
+      return
+    }
+
+    try {
+      setIsContactLoading(true)
+      const { data: conversation, error } = await messagesApi.getOrCreateConversation(
+        listing.id,
+        user.id, // buyer
+        listing.user_id // seller
+      )
+
+      if (error) throw error
+
+      if (conversation) {
+        router.push(`/messages/${conversation.id}`)
+      }
+    } catch (error) {
+      console.error('Failed to start conversation:', error)
+      // Could show toast error
+    } finally {
+      setIsContactLoading(false)
+    }
+  }
 
   const handleToggleFavorite = async () => {
     if (!user) {
@@ -241,15 +300,25 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               </h3>
 
               <div className="relative space-y-4">
-                <Button className="flex w-full gap-3 rounded-2xl bg-blue-600 py-8 text-lg font-black text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-blue-200">
-                  <Phone className="h-6 w-6" /> {t.listing.callNow}
+                <Button
+                  onClick={() => handleContactClick('phone')}
+                  className="flex w-full gap-3 rounded-2xl bg-blue-600 py-8 text-lg font-black text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-blue-200"
+                >
+                  <Phone className="h-6 w-6" />
+                  {showPhone ? (listing.user?.phone || t.listing.callNow) : t.listing.callNow}
                 </Button>
 
-                <Button className="flex w-full gap-3 rounded-2xl bg-green-500 py-8 text-lg font-black text-white shadow-lg transition-all hover:bg-green-600 hover:shadow-green-100">
+                <Button
+                  onClick={() => handleContactClick('chat')}
+                  disabled={isContactLoading}
+                  className="flex w-full gap-3 rounded-2xl bg-green-500 py-8 text-lg font-black text-white shadow-lg transition-all hover:bg-green-600 hover:shadow-green-100"
+                >
                   <MessageSquare className="h-6 w-6" /> {t.listing.liveChat}
                 </Button>
 
                 <Button
+                  onClick={() => handleContactClick('message')}
+                  disabled={isContactLoading}
                   variant="outline"
                   className="flex w-full gap-3 rounded-2xl border-2 border-gray-100 py-8 text-lg font-black text-gray-500 transition-all hover:text-gray-900"
                 >
