@@ -11,6 +11,8 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "verify": "npm run lint && npm run type-check && npm run build",
+    "precommit": "npm run lint && npm run type-check",
     "clean": "rm -rf .next node_modules",
     "db:info": "node scripts/db-info.js",
     "db:clear": "node scripts/clear-listings.js",
@@ -20,7 +22,8 @@
     "db:full-reset": "npm run db:fix-categories && npm run db:seed",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -61,6 +64,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.4.10",
+    "husky": "9.1.7",
     "jsdom": "27.4.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
