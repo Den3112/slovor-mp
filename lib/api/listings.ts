@@ -367,4 +367,23 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+
+  /**
+   * Increments the contact_clicks counter for a listing
+   */
+  async incrementContactClicks(id: string): Promise<ApiResponse<boolean>> {
+    try {
+      const { error } = await supabase.rpc('increment_contact_clicks', {
+        listing_id: id,
+      })
+
+      if (error) {
+        throw error
+      }
+      return { data: true, error: null }
+    } catch (error) {
+      logError('listingsApi.incrementContactClicks', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }
