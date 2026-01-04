@@ -11,6 +11,7 @@ export interface ListingFilterOptions {
   search?: string
   limit?: number
   offset?: number
+  page?: number
   priceMin?: number
   priceMax?: number
   condition?: 'new' | 'used'
@@ -103,6 +104,14 @@ function applyListingPagination(
   if (options?.offset !== undefined && options?.limit) {
     const from = options.offset
     const to = options.offset + options.limit - 1
+    return query.range(from, to)
+  }
+
+  // Handle page-based pagination (convert to offset)
+  if (options?.page !== undefined && options?.limit) {
+    const offset = (options.page - 1) * options.limit
+    const from = offset
+    const to = offset + options.limit - 1
     return query.range(from, to)
   }
 
