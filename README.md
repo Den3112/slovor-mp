@@ -9,15 +9,20 @@
 
 ## 📚 Project Documentation
 
-Our documentation is located in the **`docs/` directory** to keep the project organized.
+All documentation has been moved to the **`docs` branch** for better organization.
 
 **Quick Access:**
 
-- [🚀 **Investor Roadmap**](docs/project/ROADMAP_INVESTOR.md) (Current Focus)
-- [📝 Documentation Index](docs/INDEX.md)
-- [🎯 Quick Start Guide](docs/guides/QUICK_START.md)
-- [🔥 Coding Principles (MANDATORY)](docs/architecture/PRINCIPLES.md)
-- [🏛️ Architecture](docs/architecture/ARCHITECTURE.md)
+- [📖 **Browse All Documentation**](https://github.com/Den3112/slovor-mp/tree/docs) (Switch to `docs` branch)
+- 🚀 **Investor Roadmap** - See `docs/project/ROADMAP_INVESTOR.md` in `docs` branch
+- 🎯 **Quick Start Guide** - See `docs/guides/QUICK_START.md` in `docs` branch
+- 🔥 **Coding Principles** - See `docs/architecture/PRINCIPLES.md` in `docs` branch
+
+To access documentation locally:
+```bash
+git checkout docs
+```
+
 
 ---
 
@@ -48,9 +53,10 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🌳 Branch Structure
 
-- **`main`** → Production-ready, stable code (deployed).
-- **`dev`** → Active development branch. Feature branches merge here.
-- **`docs`** → All project documentation and roadmaps.
+- **`main`** → Production-ready, stable code (deployed to production).
+- **`dev`** → Active development branch. All feature branches merge here first.
+- **`docs`** → **Documentation only**. Contains all project documentation, guides, and architecture docs.
+
 
 ---
 
@@ -76,7 +82,8 @@ Open [http://localhost:3000](http://localhost:3000)
 - Category & Listing Discovery Flow
 - Successfull Vercel Deployment
 
-### 🚧 In Focus (See [Roadmap](docs/project/ROADMAP.md))
+### 🚧 In Focus (See Roadmap in `docs` branch)
+
 
 - Premium User Dashboard
 - Advanced Media Management (File Uploads)
@@ -86,10 +93,11 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🤝 Contributing
 
-1. Read [Setup Guide](docs/guides/SETUP.md).
+1. Read the Setup Guide in the `docs` branch (`docs/guides/SETUP.md`).
 2. Create a feature branch from `dev`.
 3. Ensure type safety and linting passes.
 4. Create a PR to `dev`.
+
 
 ---
 
