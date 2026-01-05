@@ -42,5 +42,5 @@ export default async function SellerProfilePage({ params }: Props) {
 
     const listings = rawListings || []
 
-    return <SellerProfileView seller={seller} listings={listings as any} />
+    return <SellerProfileView seller={seller} listings={listings} />
 }
