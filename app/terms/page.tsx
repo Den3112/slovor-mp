@@ -23,7 +23,7 @@ export default function TermsPage() {
 
           <div className="shadow-premium prose prose-invert prose-zinc max-w-none rounded-[2.5rem] border border-border/50 bg-card/40 p-8 backdrop-blur-md md:p-12">
             <section className="mb-12">
-              <h2 className="mb-4 text-2xl text-xs font-black uppercase tracking-tight tracking-widest text-white">
+              <h2 className="mb-4 text-xs font-black uppercase tracking-widest text-white">
                 1. Acceptance of Terms
               </h2>
               <p className="text-lg leading-relaxed text-zinc-400">
@@ -34,7 +34,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="mb-4 text-2xl text-xs font-black uppercase tracking-tight tracking-widest text-white">
+              <h2 className="mb-4 text-xs font-black uppercase tracking-widest text-white">
                 2. Use of Platform
               </h2>
               <p className="text-lg leading-relaxed text-zinc-400">
@@ -45,7 +45,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="mb-4 text-2xl text-xs font-black uppercase tracking-tight tracking-widest text-white">
+              <h2 className="mb-4 text-xs font-black uppercase tracking-widest text-white">
                 3. Listings
               </h2>
               <p className="text-lg leading-relaxed text-zinc-400">

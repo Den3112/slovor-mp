@@ -127,7 +127,7 @@ export function ReportDialog({ isOpen, onClose, listingId, userId }: ReportDialo
                             <select
                                 value={reason}
                                 onChange={(e) => setReason(e.target.value as ReportReason)}
-                                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none"
+                                className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
                             >
                                 <option value="">—</option>
                                 {REPORT_REASONS.map((r) => (
@@ -147,7 +147,7 @@ export function ReportDialog({ isOpen, onClose, listingId, userId }: ReportDialo
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 placeholder="..."
-                                className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none"
+                                className="w-full resize-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
                                 rows={3}
                             />
                         </div>

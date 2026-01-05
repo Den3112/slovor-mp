@@ -152,11 +152,10 @@ export function LocaleDetector() {
               <button
                 key={option.code}
                 onClick={() => setSelectedLocale(option.code)}
-                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${
-                  selectedLocale === option.code
-                    ? 'border-blue-600 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                }`}
+                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${selectedLocale === option.code
+                  ? 'border-blue-600 bg-blue-50'
+                  : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
               >
                 <span className="text-3xl">{option.flag}</span>
                 <span className="flex-1 text-left text-lg font-semibold">

@@ -5,6 +5,8 @@
 import { useState, useEffect } from 'react'
 import type { Category } from '@/lib/types/database'
 import { getMainCategories } from '@/lib/supabase/categories'
+import { useTranslation } from '@/lib/i18n'
+import { getCategoryName } from '@/lib/utils/category-helpers'
 
 interface CategorySelectorProps {
   onSelect: (categoryId: string) => void
@@ -18,6 +20,7 @@ export function CategorySelector({
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { t, locale } = useTranslation()
 
   useEffect(() => {
     loadCategories()
@@ -37,11 +40,11 @@ export function CategorySelector({
   }
 
   if (loading) {
-    return <div className="text-gray-500">Loading categories...</div>
+    return <div className="text-gray-500">{t.common.loading}</div>
   }
 
   if (error) {
-    return <div className="text-red-500">Error: {error}</div>
+    return <div className="text-red-500">{t.common.error}: {error}</div>
   }
 
   return (
@@ -50,18 +53,18 @@ export function CategorySelector({
         htmlFor="category"
         className="mb-2 block text-sm font-medium text-gray-700"
       >
-        Category
+        {t.listing.categoryLabel}
       </label>
       <select
         id="category"
         value={selectedCategoryId}
         onChange={(e) => onSelect(e.target.value)}
-        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-xl border border-input bg-muted/30 px-4 py-2 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
       >
-        <option value="">Select a category</option>
+        <option value="">{t.common.selectCategory}</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
-            {category.icon} {category.name}
+            {category.icon} {getCategoryName(category, locale, t)}
           </option>
         ))}
       </select>

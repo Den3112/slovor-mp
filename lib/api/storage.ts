@@ -96,7 +96,7 @@ export const storageApi = {
         }
 
         const result = await this.uploadImage(file, userId)
-        
+
         if (onProgress) {
           onProgress(i + 1, files.length)
         }
@@ -117,7 +117,7 @@ export const storageApi = {
         console.warn('Some files failed to upload:', errors)
       }
 
-      // По контракту ApiResponse<T> либо отдаем данные, либо ошибку, но не оба сразу
+      // By contract ApiResponse<T> either returns data or error, but not both
       return { data: uploadedFiles, error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
