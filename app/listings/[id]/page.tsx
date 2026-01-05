@@ -14,6 +14,10 @@ import {
   Share2,
   Heart,
   ShieldCheck,
+  Flag,
+  Phone,
+  MessageCircle,
+  User as UserIcon,
   ArrowLeft,
 } from 'lucide-react'
 import { Container } from '@/components/ui/container'
@@ -21,6 +25,7 @@ import { Button } from '@/components/ui/button'
 import { getTranslationServer } from '@/lib/i18n/server'
 import Link from 'next/link'
 import { ListingOwnerActions } from '@/components/listing/listing-owner-actions'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 interface Props {
   params: Promise<{
@@ -42,6 +47,7 @@ export default async function ListingDetailPage({ params }: Props) {
   }
 
   const listing = result.data
+  const seller = listing.user
 
   return (
     <div className="min-h-screen pb-20">
@@ -142,7 +148,36 @@ export default async function ListingDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              <div className="space-y-4 border-t border-border/50 pt-6">
+              {/* Seller Info */}
+              {seller && (
+                <div className="flex items-center gap-4 py-4 border-t border-b border-border/50">
+                  <Avatar className="h-12 w-12 border-2 border-primary/20">
+                    <AvatarImage src={seller.avatar_url || undefined} />
+                    <AvatarFallback>
+                      <UserIcon className="h-6 w-6 text-muted-foreground" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-foreground truncate">
+                      {seller.display_name || 'Anonymous Seller'}
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span>{t.seller.memberSince} {new Date(seller.created_at).getFullYear()}</span>
+                      {seller.verified && (
+                        <>
+                          <span className="h-1 w-1 rounded-full bg-border" />
+                          <div className="flex items-center gap-1 text-emerald-600 font-medium">
+                            <ShieldCheck className="h-3 w-3" />
+                            {t.trust.verified}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-4 pt-2">
                 <h3 className="font-heading text-xl font-black italic">
                   {listing.title}
                 </h3>
@@ -159,13 +194,24 @@ export default async function ListingDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              <div className="space-y-3 pt-6">
+              <div className="space-y-3 pt-4">
                 <Button
                   size="lg"
                   className="h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
                 >
                   {t.listing.contactSeller}
                 </Button>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <Button variant="outline" size="lg" className="h-14 gap-2 rounded-xl font-bold">
+                    <Phone className="h-5 w-5" />
+                    {t.listing.call}
+                  </Button>
+                  <Button variant="outline" size="lg" className="h-14 gap-2 rounded-xl font-bold">
+                    <MessageCircle className="h-5 w-5" />
+                    {t.listing.message}
+                  </Button>
+                </div>
 
                 {/* Owner Actions */}
                 <ListingOwnerActions
@@ -176,34 +222,26 @@ export default async function ListingDetailPage({ params }: Props) {
 
                 <div className="grid grid-cols-2 gap-3">
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="lg"
-                    className="h-14 gap-2 rounded-xl font-bold"
+                    className="h-14 gap-2 rounded-xl font-bold text-muted-foreground hover:text-foreground"
                   >
                     <Heart className="h-5 w-5" /> {t.listing.saveListing}
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="lg"
-                    className="h-14 gap-2 rounded-xl font-bold"
+                    className="h-14 gap-2 rounded-xl font-bold text-muted-foreground hover:text-foreground"
                   >
                     <Share2 className="h-5 w-5" /> {t.listing.shareListing}
                   </Button>
                 </div>
-              </div>
 
-              {/* Safety Tip */}
-              <div className="rounded-2xl border border-primary/10 bg-primary/5 p-6">
-                <div className="flex gap-4">
-                  <ShieldCheck className="h-6 w-6 shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-bold text-foreground">
-                      {t.trust.safetyTitle}
-                    </p>
-                    <p className="mt-1 text-xs font-medium text-muted-foreground">
-                      {t.trust.safetyTip2} {t.trust.safetyTip1}
-                    </p>
-                  </div>
+                <div className="flex justify-center pt-2">
+                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive hover:bg-destructive/10 gap-2">
+                    <Flag className="h-4 w-4" />
+                    {t.listing.reportListing}
+                  </Button>
                 </div>
               </div>
             </div>

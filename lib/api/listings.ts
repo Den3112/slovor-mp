@@ -192,7 +192,7 @@ export const listingsApi = {
     try {
       const { data, error } = await supabase
         .from('listings')
-        .select('*, category:categories(*)')
+        .select('*, category:categories(*), user:profiles(*)')
         .eq('id', id)
         .eq('is_active', true)
         .maybeSingle()
