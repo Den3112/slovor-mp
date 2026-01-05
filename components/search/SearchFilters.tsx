@@ -90,6 +90,12 @@ export function SearchFilters() {
                             value={priceRange[0]}
                             onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
                             onBlur={applyPriceFilter}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    applyPriceFilter()
+                                    e.currentTarget.blur()
+                                }
+                            }}
                         />
                     </div>
                     <span className="text-gray-400">-</span>
@@ -101,6 +107,12 @@ export function SearchFilters() {
                             value={priceRange[1]}
                             onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
                             onBlur={applyPriceFilter}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    applyPriceFilter()
+                                    e.currentTarget.blur()
+                                }
+                            }}
                         />
                     </div>
                 </div>
@@ -136,6 +148,12 @@ export function SearchFilters() {
                     placeholder="City or Region"
                     defaultValue={searchParams.get('location') || ''}
                     onBlur={(e) => updateFilters({ location: e.target.value || null })}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            updateFilters({ location: e.currentTarget.value || null })
+                            e.currentTarget.blur()
+                        }
+                    }}
                 />
             </div>
         </div>

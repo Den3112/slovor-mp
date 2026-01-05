@@ -29,8 +29,8 @@ export function SortSelect() {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="newest">Newest first</SelectItem>
-                    <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                    <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
                     <SelectItem value="views">Most Popular</SelectItem>
                 </SelectContent>
             </Select>
