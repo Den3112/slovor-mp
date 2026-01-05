@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+
 import { Filter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
@@ -11,7 +11,6 @@ interface SearchLayoutProps {
 }
 
 export function SearchLayout({ children, sidebar }: SearchLayoutProps) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -24,7 +23,7 @@ export function SearchLayout({ children, sidebar }: SearchLayoutProps) {
                 </aside>
 
                 {/* Mobile Filter Drawer */}
-                <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+                <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="outline" className="lg:hidden w-full gap-2">
                             <Filter className="h-4 w-4" />
