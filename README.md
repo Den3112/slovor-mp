@@ -9,15 +9,20 @@
 
 ## 📚 Project Documentation
 
-Our documentation is located in the **`docs/` directory** to keep the project organized.
+All documentation has been moved to the **`docs` branch** for better organization.
 
 **Quick Access:**
 
-- [🚀 **Investor Roadmap**](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md) (Current Focus)
-- [📝 Documentation Index](https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md)
-- [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
-- [🔥 Coding Principles (MANDATORY)](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md)
-- [🏛️ Architecture](https://github.com/Den3112/slovor-mp/blob/docs/ARCHITECTURE.md)
+- [📖 **Browse All Documentation**](https://github.com/Den3112/slovor-mp/tree/docs) (Switch to `docs` branch)
+- 🚀 **Investor Roadmap** - See `docs/project/ROADMAP_INVESTOR.md` in `docs` branch
+- 🎯 **Quick Start Guide** - See `docs/guides/QUICK_START.md` in `docs` branch
+- 🔥 **Coding Principles** - See `docs/architecture/PRINCIPLES.md` in `docs` branch
+
+To access documentation locally:
+```bash
+git checkout docs
+```
+
 
 ---
 
