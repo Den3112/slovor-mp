@@ -1,4 +1,4 @@
-import { Locale } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n'
 
 /**
  * Translation Service - DeepL API Integration
@@ -18,7 +18,7 @@ const DEEPL_LANG_MAP: Record<string, string> = {
  * Check if translation service is configured
  */
 export function isTranslationEnabled(): boolean {
-    return !!process.env.NEXT_PUBLIC_DEEPL_API_KEY || !!process.env.DEEPL_API_KEY
+    return Boolean(process.env.NEXT_PUBLIC_DEEPL_API_KEY) || Boolean(process.env.DEEPL_API_KEY)
 }
 
 /**
@@ -44,6 +44,9 @@ export async function translateText(
     }
 
     try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000) // 5s timeout
+
         const response = await fetch('https://api-free.deepl.com/v2/translate', {
             method: 'POST',
             headers: {
@@ -55,7 +58,10 @@ export async function translateText(
                 source_lang: sourceLocale ? DEEPL_LANG_MAP[sourceLocale] : undefined,
                 target_lang: DEEPL_LANG_MAP[targetLocale] || targetLocale.toUpperCase(),
             }),
+            signal: controller.signal,
         })
+
+        clearTimeout(timeoutId)
 
         if (!response.ok) {
             const error = await response.text()
@@ -66,7 +72,11 @@ export async function translateText(
         const data = await response.json()
         return data.translations?.[0]?.text || text
     } catch (error) {
-        console.error('[TranslationService] Translation failed:', error)
+        if (error instanceof Error && error.name === 'AbortError') {
+            console.warn('[TranslationService] Translation timed out after 5s')
+        } else {
+            console.error('[TranslationService] Translation failed:', error)
+        }
         return text
     }
 }
