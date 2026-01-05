@@ -9,7 +9,7 @@
 
 ## 📚 Project Documentation
 
-Our documentation is managed in a dedicated **`docs` branch** to keep the code repository clean.
+Our documentation is located in the **`docs/` directory** to keep the project organized.
 
 **Quick Access:**
 
