@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
 import { categoriesApi, listingsApi, storageApi } from '@/lib/api'
 import { updateListingAction } from '@/lib/actions/listings'
+import { generateListingTranslations } from '@/lib/services/translation'
+import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { Button } from '@/components/ui/button'
 import {
@@ -32,6 +34,7 @@ import {
 
 function CreateListingFormContent() {
   const { user, session, isLoading: authLoading } = useAuth()
+  const { t, locale } = useTranslation()
   const router = useRouter()
 
   const searchParams = useSearchParams()
@@ -57,7 +60,7 @@ function CreateListingFormContent() {
 
   // Init Editing / Draft restore
   useEffect(() => {
-    // Если редактируем существующее объявление — загружаем данные из БД
+    // If editing existing listing - load data from DB
     if (editId) {
       setIsEditing(true)
       setIsLoadingData(true)
@@ -82,7 +85,7 @@ function CreateListingFormContent() {
       return
     }
 
-    // Иначе пробуем восстановить черновик
+    // Otherwise try to restore draft
     const draft = loadListingDraft(user?.id)
     if (draft) {
       setFormData(draft)
@@ -145,7 +148,7 @@ function CreateListingFormContent() {
     const errors = validateListingForm(formData)
     setFieldErrors(errors)
 
-    // На шаг 1 достаточно выбранной категории; на шаг 2 валидируем всё
+    // For step 1, selected category is enough; for step 2, validate everything
     if (step === 1 && !errors.category_id) {
       setStep(2)
       return
@@ -179,15 +182,22 @@ function CreateListingFormContent() {
     setIsSubmitting(true)
     setError(null)
 
+    const translations = await generateListingTranslations(
+      formData.title,
+      formData.description,
+      locale
+    )
+
     try {
       let res
       if (isEditing && editId) {
         if (!session?.access_token) throw new Error('Session expired. Please sign in again.')
         // Use Server Action for updates to bypass RLS issues securely
-        res = await updateListingAction(editId, formData, session.access_token)
+        res = await updateListingAction(editId, { ...formData, ...translations }, session.access_token)
       } else {
         res = await listingsApi.create({
           ...formData,
+          ...translations,
           price: parseFloat(formData.price),
           user_id: user?.id ?? '',
         })
@@ -291,9 +301,9 @@ function CreateListingFormContent() {
 
       <div className="mb-8 text-center animate-in fade-in slide-in-from-top-4">
         <h1 className="mb-2 font-heading text-3xl font-black">
-          Create New Listing
+          {t.createListing.title}
         </h1>
-        <p className="text-muted-foreground">Step {step} of 3</p>
+        <p className="text-muted-foreground">{t.createListing.step.replace('{step}', step.toString())}</p>
       </div>
 
       {error && (
@@ -306,7 +316,7 @@ function CreateListingFormContent() {
         {step === 1 && (
           <div className="space-y-6 duration-300 animate-in fade-in slide-in-from-right-8">
             <div>
-              <label className="mb-2 block text-sm font-bold">Category</label>
+              <label className="mb-2 block text-sm font-bold">{t.createListing.category}</label>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 {categories.map((cat) => (
                   <button
@@ -332,7 +342,7 @@ function CreateListingFormContent() {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-bold">Condition</label>
+              <label className="mb-2 block text-sm font-bold">{t.createListing.condition}</label>
               <div className="flex gap-4">
                 {(['new', 'used'] as const).map((c) => (
                   <button
@@ -346,7 +356,7 @@ function CreateListingFormContent() {
                         : 'border-border/50 bg-transparent text-muted-foreground hover:bg-muted'
                     )}
                   >
-                    {c}
+                    {c === 'new' ? t.filters.new : t.filters.used}
                   </button>
                 ))}
               </div>
@@ -357,15 +367,15 @@ function CreateListingFormContent() {
         {step === 2 && (
           <div className="space-y-6 duration-300 animate-in fade-in slide-in-from-right-8">
             <div className="space-y-1">
-              <label className="text-sm font-bold">Title</label>
+              <label className="text-sm font-bold">{t.createListing.itemTitle}</label>
               <input
                 value={formData.title}
                 onChange={(e) => updateField('title', e.target.value)}
                 className={cn(
-                  'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10',
+                  'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary',
                   fieldErrors.title ? 'border-destructive' : 'border-border'
                 )}
-                placeholder="What are you selling?"
+                placeholder={t.createListing.titlePlaceholder}
               />
               {fieldErrors.title && (
                 <p className="text-sm text-destructive">{fieldErrors.title}</p>
@@ -374,13 +384,13 @@ function CreateListingFormContent() {
 
             <div className="flex gap-4">
               <div className="flex-1 space-y-1">
-                <label className="text-sm font-bold">Price</label>
+                <label className="text-sm font-bold">{t.createListing.price}</label>
                 <input
                   type="number"
                   value={formData.price}
                   onChange={(e) => updateField('price', e.target.value)}
                   className={cn(
-                    'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10',
+                    'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary',
                     fieldErrors.price ? 'border-destructive' : 'border-border'
                   )}
                   placeholder="0.00"
@@ -390,7 +400,7 @@ function CreateListingFormContent() {
                 )}
               </div>
               <div className="w-1/3 space-y-1">
-                <label className="text-sm font-bold">Currency</label>
+                <label className="text-sm font-bold">{t.createListing.currency}</label>
                 <div className="flex h-14 items-center rounded-xl border border-border bg-muted/30 px-4 font-bold text-muted-foreground">
                   EUR (€)
                 </div>
@@ -398,25 +408,25 @@ function CreateListingFormContent() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm font-bold">Description</label>
+              <label className="text-sm font-bold">{t.createListing.description}</label>
               <textarea
                 value={formData.description}
                 onChange={(e) => updateField('description', e.target.value)}
-                className="h-32 w-full resize-none rounded-xl border border-border bg-muted/30 p-4 outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
-                placeholder="Tell buyers more about your item..."
+                className="h-32 w-full resize-none rounded-xl border border-border bg-muted/30 p-4 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
+                placeholder={t.createListing.descPlaceholder}
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm font-bold">Location</label>
+              <label className="text-sm font-bold">{t.createListing.location}</label>
               <input
                 value={formData.location}
                 onChange={(e) => updateField('location', e.target.value)}
                 className={cn(
-                  'h-12 w-full rounded-xl border bg-muted/30 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10',
+                  'h-12 w-full rounded-xl border bg-muted/30 px-4 outline-none focus:border-primary focus:ring-2 focus:ring-primary',
                   fieldErrors.location ? 'border-destructive' : 'border-border'
                 )}
-                placeholder="City, District"
+                placeholder={t.createListing.locationPlaceholder}
               />
               {fieldErrors.location && (
                 <p className="text-sm text-destructive">{fieldErrors.location}</p>
@@ -431,10 +441,9 @@ function CreateListingFormContent() {
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Upload className="h-8 w-8" />
               </div>
-              <h3 className="mb-2 text-lg font-bold">Upload Photos</h3>
+              <h3 className="mb-2 text-lg font-bold">{t.createListing.uploadPhotos}</h3>
               <p className="mx-auto mb-4 max-w-xs text-sm text-muted-foreground">
-                Drag and drop your photos here, or use the upload button to add
-                real images to your listing.
+                {t.createListing.dragDrop}
               </p>
 
               <div className="mb-4 flex flex-col items-center justify-center gap-3 md:flex-row">
@@ -447,12 +456,12 @@ function CreateListingFormContent() {
                   {isUploading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Uploading...
+                      {t.createListing.uploading}
                     </>
                   ) : (
                     <>
                       <ImageIcon className="mr-2 h-4 w-4" />
-                      Select Images
+                      {t.createListing.selectImages}
                     </>
                   )}
                 </Button>
@@ -472,7 +481,7 @@ function CreateListingFormContent() {
                   variant="outline"
                   className="border-primary/20 text-xs font-semibold text-primary hover:bg-primary/5"
                 >
-                  Add Mock Image
+                  {t.createListing.addMockImage}
                 </Button>
               </div>
 
@@ -493,21 +502,21 @@ function CreateListingFormContent() {
                     />
                   </div>
                   <p className="text-[11px] text-muted-foreground/80">
-                    Max 10MB per image. Supported formats: JPEG, PNG, WebP, GIF.
+                    {t.createListing.maxSize}
                   </p>
                 </div>
               )}
 
               {!uploadProgress && (
                 <p className="text-[11px] text-muted-foreground/80">
-                  Max 10MB per image. Supported formats: JPEG, PNG, WebP, GIF.
+                  {t.createListing.maxSize}
                 </p>
               )}
 
               <div className="mt-4 flex items-center justify-center gap-3">
                 <input
                   type="text"
-                  placeholder="Or paste Image URL"
+                  placeholder={t.createListing.orPasteUrl}
                   className="h-10 w-56 rounded-lg border bg-background px-3 text-sm"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && e.currentTarget.value.trim()) {
@@ -566,7 +575,7 @@ function CreateListingFormContent() {
             onClick={prevStep}
             className="font-bold text-muted-foreground hover:text-foreground"
           >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back
+            <ArrowLeft className="mr-2 h-4 w-4" /> {t.createListing.back}
           </Button>
         ) : (
           <div /> // Spacer
@@ -578,7 +587,7 @@ function CreateListingFormContent() {
             onClick={goToNextStep}
             className="rounded-xl px-8 font-bold shadow-lg shadow-primary/20"
           >
-            Next Step <ArrowRight className="ml-2 h-4 w-4" />
+            {t.createListing.nextStep} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         ) : (
           <Button
@@ -590,7 +599,7 @@ function CreateListingFormContent() {
             {isSubmitting ? (
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
-              'Publish Listing'
+              t.createListing.publish
             )}
           </Button>
         )}

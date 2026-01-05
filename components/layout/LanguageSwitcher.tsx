@@ -15,7 +15,7 @@ interface LocaleOption {
 const localeOptions: LocaleOption[] = [
   { code: 'sk', name: 'Slovenčina', flag: FLAGS.SK },
   { code: 'cs', name: 'Čeština', flag: FLAGS.CZ },
-  { code: 'en', name: 'English', flag: FLAGS.GB },
+  { code: 'en', name: 'English', flag: '🇬🇧' },
 ]
 
 export function LanguageSwitcher() {
@@ -67,9 +67,8 @@ export function LanguageSwitcher() {
           {currentOption.code}
         </span>
         <ChevronDown
-          className={`h-3 w-3 transition-transform ${
-            isOpen ? 'rotate-180' : ''
-          }`}
+          className={`h-3 w-3 transition-transform ${isOpen ? 'rotate-180' : ''
+            }`}
         />
       </button>
 
@@ -80,11 +79,10 @@ export function LanguageSwitcher() {
             <button
               key={option.code}
               onClick={() => handleLocaleChange(option.code)}
-              className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition ${
-                locale === option.code
+              className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition ${locale === option.code
                   ? 'bg-blue-50 text-blue-600'
                   : 'text-gray-700 hover:bg-gray-50'
-              }`}
+                }`}
             >
               <div className="flex items-center gap-2">
                 <span className="text-xl">{option.flag}</span>

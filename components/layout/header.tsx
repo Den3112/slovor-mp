@@ -59,9 +59,18 @@ const FlagUS = () => (
   </svg>
 )
 
+const FlagCZ = () => (
+  <svg viewBox="0 0 640 480" className="h-full w-full object-cover">
+    <path fill="#ffffff" d="M0 0h640v240H0z" />
+    <path fill="#d7141a" d="M0 240h640v240H0z" />
+    <path fill="#11457e" d="M0 0l360 240L0 480z" />
+  </svg>
+)
+
 const SUPPORTED_LOCALES = [
-  { code: 'sk', name: 'Slovenský', flag: <FlagSK /> },
   { code: 'en', name: 'English', flag: <FlagUS /> },
+  { code: 'sk', name: 'Slovenčina', flag: <FlagSK /> },
+  { code: 'cs', name: 'Čeština', flag: <FlagCZ /> },
 ]
 
 export function Header() {
@@ -223,7 +232,7 @@ export function Header() {
                     {SUPPORTED_LOCALES.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={() => setLocale(lang.code as 'sk' | 'en')}
+                        onClick={() => setLocale(lang.code as 'sk' | 'en' | 'cs')}
                         className={cn(
                           'flex w-full items-center gap-4 rounded-xl px-5 py-4 text-sm font-bold transition-all',
                           locale === lang.code
@@ -389,7 +398,7 @@ export function Header() {
                   {SUPPORTED_LOCALES.map((lang) => (
                     <button
                       key={lang.code}
-                      onClick={() => setLocale(lang.code as 'sk' | 'en')}
+                      onClick={() => setLocale(lang.code as 'sk' | 'en' | 'cs')}
                       className={cn(
                         'flex flex-1 items-center justify-center gap-3 rounded-2xl border py-4 font-black transition-all',
                         locale === lang.code

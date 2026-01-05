@@ -34,8 +34,10 @@ export function getLocalizedCategoryName(
     return category.name_en
   }
 
-  // Fall back to translation key
-  const translationKey = (t.categories as Record<string, string>)[category.slug]
+  // Fall back to translation key (at root level)
+  // Fall back to translation key (under 'categories' namespace)
+  const categories = t.categories as Record<string, string>
+  const translationKey = categories[category.slug]
   if (translationKey) {
     return translationKey
   }

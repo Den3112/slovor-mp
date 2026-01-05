@@ -8,10 +8,12 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { useTranslation } from '@/lib/i18n'
 
 export function SortSelect() {
     const router = useRouter()
     const searchParams = useSearchParams()
+    const { t } = useTranslation()
     const currentSort = searchParams.get('sort') || 'newest'
 
     const handleSortChange = (value: string) => {
@@ -22,16 +24,16 @@ export function SortSelect() {
 
     return (
         <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500 whitespace-nowrap">Sort by:</span>
+            <span className="text-sm text-gray-500 whitespace-nowrap">{t.filters.sort}:</span>
             <Select value={currentSort} onValueChange={handleSortChange}>
-                <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Sort by" />
+                <SelectTrigger className="w-[180px] rounded-xl border-border bg-muted/30 font-medium focus:ring-primary">
+                    <SelectValue placeholder={t.filters.sort} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="newest">Newest first</SelectItem>
-                    <SelectItem value="price-low">Price: Low to High</SelectItem>
-                    <SelectItem value="price-high">Price: High to Low</SelectItem>
-                    <SelectItem value="views">Most Popular</SelectItem>
+                    <SelectItem value="newest">{t.filters.newest}</SelectItem>
+                    <SelectItem value="price-low">{t.filters.priceLow}</SelectItem>
+                    <SelectItem value="price-high">{t.filters.priceHigh}</SelectItem>
+                    <SelectItem value="views">{t.filters.popular}</SelectItem>
                 </SelectContent>
             </Select>
         </div>

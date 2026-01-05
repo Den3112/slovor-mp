@@ -89,7 +89,7 @@ export function ListingFilters() {
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
             placeholder={t.home.searchPlaceholder}
-            className="w-full rounded-2xl border border-border/50 bg-background py-4 pl-12 pr-4 text-sm font-bold transition-all focus:border-primary focus:outline-none"
+            className="w-full rounded-xl border border-input bg-muted/30 py-4 pl-12 pr-4 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
       </div>
@@ -104,7 +104,7 @@ export function ListingFilters() {
           <select
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full cursor-pointer appearance-none rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
+            className="w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
           >
             {LOCATIONS.map((loc) => (
               <option key={loc} value={loc === 'All Locations' ? '' : loc}>
@@ -126,14 +126,14 @@ export function ListingFilters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder="Min"
-              className="w-full rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
+              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder="Max"
-              className="w-full rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
+              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
         </div>
@@ -171,7 +171,7 @@ export function ListingFilters() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="w-full cursor-pointer appearance-none rounded-xl border border-border/50 bg-background px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none"
+            className="w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>

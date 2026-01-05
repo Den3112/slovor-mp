@@ -176,7 +176,7 @@ export function SellerRating({ sellerId, showReviewForm = true }: SellerRatingPr
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
                             placeholder="..."
-                            className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none"
+                            className="w-full resize-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
                             rows={3}
                         />
                     </div>

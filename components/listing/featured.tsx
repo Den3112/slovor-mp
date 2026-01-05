@@ -1,5 +1,5 @@
 import { listingsApi } from '@/lib/api'
-import { ListingCard } from './card'
+import { FeaturedListingsGrid } from './FeaturedListingsGrid'
 
 interface FeaturedListingsProps {
   limit?: number
@@ -28,21 +28,5 @@ export async function FeaturedListings({
     listings = fallbackRes.data || []
   }
 
-  if (listings.length === 0) {
-    return (
-      <div className="rounded-[2rem] border border-dashed border-border/50 bg-muted/20 py-20 text-center">
-        <p className="font-medium text-muted-foreground">
-          No listings available at the moment.
-        </p>
-      </div>
-    )
-  }
-
-  return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {listings.map((listing) => (
-        <ListingCard key={listing.id} listing={listing} />
-      ))}
-    </div>
-  )
+  return <FeaturedListingsGrid listings={listings} />
 }

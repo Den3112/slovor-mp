@@ -34,10 +34,18 @@ export function getCategoryName(
   locale: string,
   t: TranslationKeys
 ): string {
-  if (locale === 'sk') return category.name_sk || category.name
-  if (locale === 'cs') return category.name_cs || category.name
-  if (locale === 'en') return category.name_en || category.name
-  return (
-    t.categories[category.slug as keyof typeof t.categories] || category.name
-  )
+  // Priority 1: Database localized fields
+  if (locale === 'sk' && category.name_sk) return category.name_sk
+  if (locale === 'cs' && category.name_cs) return category.name_cs
+  if (locale === 'en' && category.name_en) return category.name_en
+
+  // Priority 2: Translation keys (at root level of locale object)
+  const slug = category.slug as string
+  const translatedName = (t as Record<string, unknown>)[slug]
+  if (typeof translatedName === 'string') {
+    return translatedName
+  }
+
+  // Priority 3: Default category name
+  return category.name
 }
