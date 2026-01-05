@@ -178,9 +178,10 @@ git push origin dev       # Push changes
 - [ ] Run `npm install`
 - [ ] Setup `.env.local` with Supabase credentials
 - [ ] Read `PRINCIPLES.md` (MANDATORY!)
-- [ ] Read `DEVELOPMENT.md`
+- [ ] Read `DEVELOPER_WORKFLOW.md`
 - [ ] Run `npm run dev` locally
 - [ ] Ready to code! 🚀
+
 
 ---
 

@@ -212,9 +212,10 @@ npm run lint:fix
 ## Next Steps
 
 1. **Read PRINCIPLES.md** - Understand coding standards
-2. **Read DEVELOPMENT.md** - Learn development workflow
+2. **Read DEVELOPER_WORKFLOW.md** - Learn development workflow
 3. **Read ARCHITECTURE.md** - Understand project structure
 4. **Start coding!** - Pick an issue or create a feature
+
 
 ---
 
