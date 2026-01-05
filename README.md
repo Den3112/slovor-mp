@@ -13,11 +13,11 @@ Our documentation is located in the **`docs/` directory** to keep the project or
 
 **Quick Access:**
 
-- [🚀 **Investor Roadmap**](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md) (Current Focus)
-- [📝 Documentation Index](https://github.com/Den3112/slovor-mp/blob/docs/INDEX.md)
-- [🎯 Quick Start Guide](https://github.com/Den3112/slovor-mp/blob/docs/QUICK_START.md)
-- [🔥 Coding Principles (MANDATORY)](https://github.com/Den3112/slovor-mp/blob/docs/PRINCIPLES.md)
-- [🏛️ Architecture](https://github.com/Den3112/slovor-mp/blob/docs/ARCHITECTURE.md)
+- [🚀 **Investor Roadmap**](docs/project/ROADMAP_INVESTOR.md) (Current Focus)
+- [📝 Documentation Index](docs/INDEX.md)
+- [🎯 Quick Start Guide](docs/guides/QUICK_START.md)
+- [🔥 Coding Principles (MANDATORY)](docs/architecture/PRINCIPLES.md)
+- [🏛️ Architecture](docs/architecture/ARCHITECTURE.md)
 
 ---
 
@@ -76,7 +76,7 @@ Open [http://localhost:3000](http://localhost:3000)
 - Category & Listing Discovery Flow
 - Successfull Vercel Deployment
 
-### 🚧 In Focus (See [Roadmap](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md))
+### 🚧 In Focus (See [Roadmap](docs/project/ROADMAP.md))
 
 - Premium User Dashboard
 - Advanced Media Management (File Uploads)
@@ -86,12 +86,12 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🤝 Contributing
 
-1. Read [DEVELOPMENT.md](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md).
+1. Read [Setup Guide](docs/guides/SETUP.md).
 2. Create a feature branch from `dev`.
 3. Ensure type safety and linting passes.
 4. Create a PR to `dev`.
 
 ---
 
-**Last Updated:** December 26, 2024
+**Last Updated:** 2026-01-05
 **Maintained by:** [@Den3112](https://github.com/Den3112)
