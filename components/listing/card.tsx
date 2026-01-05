@@ -9,6 +9,7 @@ import { useTranslation } from '@/lib/i18n'
 import { getLocalizedTitle } from '@/lib/utils/listing-i18n'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import { cn } from '@/lib/utils'
+import { FavoriteButton } from '@/components/listing/favorite-button'
 
 interface ListingCardProps {
   listing: Listing
@@ -79,6 +80,11 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
               {t.common.new}
             </div>
           )}
+        </div>
+
+        {/* Favorite Button */}
+        <div className="absolute right-4 top-4">
+          <FavoriteButton listingId={listing.id} />
         </div>
 
         {listing.images && listing.images.length > 1 && (
