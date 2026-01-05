@@ -372,7 +372,7 @@ function CreateListingFormContent() {
                 value={formData.title}
                 onChange={(e) => updateField('title', e.target.value)}
                 className={cn(
-                  'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary',
+                  'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20',
                   fieldErrors.title ? 'border-destructive' : 'border-border'
                 )}
                 placeholder={t.createListing.titlePlaceholder}
@@ -390,7 +390,7 @@ function CreateListingFormContent() {
                   value={formData.price}
                   onChange={(e) => updateField('price', e.target.value)}
                   className={cn(
-                    'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary',
+                    'h-14 w-full rounded-xl border bg-muted/30 px-4 text-lg font-medium outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20',
                     fieldErrors.price ? 'border-destructive' : 'border-border'
                   )}
                   placeholder="0.00"
@@ -412,7 +412,7 @@ function CreateListingFormContent() {
               <textarea
                 value={formData.description}
                 onChange={(e) => updateField('description', e.target.value)}
-                className="h-32 w-full resize-none rounded-xl border border-border bg-muted/30 p-4 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
+                className="h-32 w-full resize-none rounded-xl border border-border bg-muted/30 p-4 outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
                 placeholder={t.createListing.descPlaceholder}
               />
             </div>
@@ -423,7 +423,7 @@ function CreateListingFormContent() {
                 value={formData.location}
                 onChange={(e) => updateField('location', e.target.value)}
                 className={cn(
-                  'h-12 w-full rounded-xl border bg-muted/30 px-4 outline-none focus:border-primary focus:ring-2 focus:ring-primary',
+                  'h-12 w-full rounded-xl border bg-muted/30 px-4 outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20',
                   fieldErrors.location ? 'border-destructive' : 'border-border'
                 )}
                 placeholder={t.createListing.locationPlaceholder}
@@ -517,7 +517,7 @@ function CreateListingFormContent() {
                 <input
                   type="text"
                   placeholder={t.createListing.orPasteUrl}
-                  className="h-10 w-56 rounded-lg border bg-background px-3 text-sm"
+                  className="h-10 w-56 rounded-xl border bg-background px-3 text-sm"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && e.currentTarget.value.trim()) {
                       e.preventDefault()
@@ -554,7 +554,7 @@ function CreateListingFormContent() {
                           formData.images.filter((_, i) => i !== idx)
                         )
                       }
-                      className="absolute right-2 top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                      className="absolute right-2 top-2 rounded-full bg-destructive p-1 text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
                     >
                       <AlertCircle className="h-4 w-4" />
                     </button>

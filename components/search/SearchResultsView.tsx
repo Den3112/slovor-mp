@@ -21,13 +21,13 @@ export function SearchResultsView({
     if (listings.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="mb-4 rounded-full bg-gray-50 p-6">
+                <div className="mb-4 rounded-full bg-muted p-6">
                     <span className="text-4xl">🔍</span>
                 </div>
                 <h2 className="mb-2 text-xl font-bold">
                     {t.common.noResults || 'No results found'}
                 </h2>
-                <p className="text-gray-500">
+                <p className="text-muted-foreground">
                     {t.common.tryDifferentFilters || 'Try adjusting your filters or search terms.'}
                 </p>
             </div>
@@ -115,7 +115,7 @@ export function SearchResultsView({
       */}
 
             <div className="flex items-center justify-between mb-6">
-                <span className="font-medium text-gray-500">
+                <span className="font-medium text-muted-foreground">
                     {/* "Showing results" */}
                     {t.common.showingResults || 'Showing results'}
                 </span>

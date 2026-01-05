@@ -84,17 +84,17 @@ export function LocaleWelcomeModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="rounded-3xl border-0 bg-white p-8 shadow-2xl sm:max-w-md">
+      <DialogContent className="rounded-3xl border-0 bg-card p-8 shadow-2xl sm:max-w-md">
         <DialogHeader>
           <div className="mb-4 flex flex-col items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
-              <Globe className="h-8 w-8 text-blue-600" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+              <Globe className="h-8 w-8 text-primary" />
             </div>
             <div className="text-center">
-              <DialogTitle className="mb-2 text-3xl font-black text-gray-900">
+              <DialogTitle className="mb-2 text-3xl font-black text-foreground">
                 Welcome to Slovor! {PARTY}
               </DialogTitle>
-              <DialogDescription className="text-base text-gray-600">
+              <DialogDescription className="text-base text-muted-foreground">
                 Choose your preferred language
               </DialogDescription>
             </div>
@@ -107,8 +107,8 @@ export function LocaleWelcomeModal() {
               key={option.code}
               onClick={() => setSelectedLocale(option.code)}
               className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${selectedLocale === option.code
-                ? 'border-blue-600 bg-blue-50 shadow-md'
-                : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-gray-50'
+                ? 'border-primary bg-primary/10 shadow-md'
+                : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
                 }`}
             >
               {/* Left side: Large flag emoji + text */}
@@ -117,10 +117,10 @@ export function LocaleWelcomeModal() {
                 <span className="text-4xl">{option.flag}</span>
                 {/* Language names */}
                 <div className="text-left">
-                  <p className="text-lg font-bold text-gray-900">
+                  <p className="text-lg font-bold text-foreground">
                     {option.nativeName}
                   </p>
-                  <p className="text-sm text-gray-500">{option.name}</p>
+                  <p className="text-sm text-muted-foreground">{option.name}</p>
                 </div>
               </div>
 
@@ -128,13 +128,13 @@ export function LocaleWelcomeModal() {
               <div className="flex items-center gap-2">
                 {option.code === detectedLocale &&
                   selectedLocale !== option.code && (
-                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-600">
+                    <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary">
                       Detected
                     </span>
                   )}
                 {selectedLocale === option.code && (
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600">
-                    <Check className="h-4 w-4 text-white" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary">
+                    <Check className="h-4 w-4 text-primary-foreground" />
                   </div>
                 )}
               </div>
@@ -146,19 +146,19 @@ export function LocaleWelcomeModal() {
           <Button
             variant="outline"
             onClick={handleSkip}
-            className="flex-1 rounded-xl border-2 border-gray-300 py-6 font-semibold text-gray-700 hover:border-gray-400 hover:bg-gray-50"
+            className="flex-1 rounded-xl border-2 border-border py-6 font-semibold text-muted-foreground hover:border-border hover:bg-accent"
           >
             Skip
           </Button>
           <Button
             onClick={handleConfirm}
-            className="flex-1 rounded-xl bg-blue-600 py-6 font-semibold text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl"
+            className="flex-1 rounded-xl bg-primary py-6 font-semibold text-primary-foreground shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl"
           >
             Continue
           </Button>
         </div>
 
-        <p className="mt-4 text-center text-xs text-gray-500">
+        <p className="mt-4 text-center text-xs text-muted-foreground">
           You can change the language anytime from the header
         </p>
       </DialogContent>

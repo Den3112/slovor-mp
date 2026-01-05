@@ -20,16 +20,16 @@ export function CategoryShowcase({ categories }: Props) {
     <section className="py-16">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-bold text-foreground">
             Explore Categories
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-muted-foreground">
             Browse through our popular categories
           </p>
         </div>
         <Link
           href="/categories"
-          className="flex items-center gap-2 font-semibold text-blue-600 hover:text-blue-700"
+          className="flex items-center gap-2 font-semibold text-primary hover:text-primary/80"
         >
           View All →
         </Link>
@@ -43,17 +43,17 @@ export function CategoryShowcase({ categories }: Props) {
             <Link
               key={category.id}
               href={`/categories/${category.slug}`}
-              className="group rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
+              className="group rounded-xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 transition-colors group-hover:bg-blue-200">
-                  <IconComponent className="h-8 w-8 text-blue-600" />
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20">
+                  <IconComponent className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="font-bold text-gray-900 transition-colors group-hover:text-blue-600">
+                <h3 className="font-bold text-foreground transition-colors group-hover:text-primary">
                   {category.name}
                 </h3>
                 {category.listing_count !== undefined && (
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     {category.listing_count} ads
                   </p>
                 )}

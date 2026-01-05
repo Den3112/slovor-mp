@@ -25,9 +25,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   if (validImages.length === 0) {
     return (
-      <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200">
-        <ImageOff className="h-16 w-16 text-gray-400" />
-        <span className="text-lg font-medium text-gray-500">
+      <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br from-muted to-muted/80">
+        <ImageOff className="h-16 w-16 text-muted-foreground" />
+        <span className="text-lg font-medium text-muted-foreground">
           No images available
         </span>
       </div>
@@ -99,23 +99,22 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100"
+        className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         {/* Loading Skeleton */}
         {loadingImages.has(currentIndex) && (
-          <div className="absolute inset-0 z-10 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300" />
+          <div className="absolute inset-0 z-10 animate-pulse bg-gradient-to-br from-muted to-muted/80" />
         )}
 
         <Image
           src={validImages[currentIndex] || '/images/placeholder.jpg'}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
-          className={`object-cover transition-opacity duration-300 ${
-            loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
-          }`}
+          className={`object-cover transition-opacity duration-300 ${loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
+            }`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
           priority={currentIndex === 0}
           onError={() => {
@@ -166,11 +165,10 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
-                  index === currentIndex
-                    ? 'border-blue-600 shadow-lg ring-2 ring-blue-200'
-                    : 'border-gray-300 hover:border-gray-400'
-                }`}
+                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all ${index === currentIndex
+                  ? 'border-primary shadow-lg ring-2 ring-primary/20'
+                  : 'border-border hover:border-border'
+                  }`}
                 aria-label={`View image ${index + 1}`}
               >
                 {loadingImages.has(index) && (

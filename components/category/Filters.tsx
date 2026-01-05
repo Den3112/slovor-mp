@@ -3,9 +3,15 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useCallback, useState } from 'react'
 import {
-  ChevronDown,
   RotateCcw,
   MapPin,
   DollarSign,
@@ -13,18 +19,7 @@ import {
 } from 'lucide-react'
 
 /**
- * Filters Component
- *
- * WHY IT EXISTS:
- * - Allows users to filter listings by price, sort order, location
- * - Uses URL params for state (shareable links, back button works)
- * - Client component for interactivity
- *
- * HOW IT WORKS:
- * 1. Reads current filters from URL searchParams
- * 2. Updates state in local form
- * 3. On apply, pushes new URL with updated params
- * 4. Server Component re-fetches with new filters
+ * Filters Component - Uses Radix Select for proper dark mode support
  */
 
 export function Filters() {
@@ -75,6 +70,26 @@ export function Filters() {
     router.push(pathname)
   }, [pathname, router])
 
+  const sortOptions = [
+    { value: 'newest', label: t.filters.newest },
+    { value: 'oldest', label: t.filters.oldest },
+    { value: 'price-low', label: t.filters.priceLow },
+    { value: 'price-high', label: t.filters.priceHigh },
+    { value: 'views', label: t.filters.popular },
+  ]
+
+  const locationOptions = [
+    { value: 'all', label: t.filters.allLocations },
+    { value: 'bratislava', label: 'Bratislava' },
+    { value: 'košice', label: 'Košice' },
+    { value: 'prešov', label: 'Prešov' },
+    { value: 'žilina', label: 'Žilina' },
+    { value: 'nitra', label: 'Nitra' },
+    { value: 'banská bystrica', label: 'Banská Bystrica' },
+    { value: 'trnava', label: 'Trnava' },
+    { value: 'trenčín', label: 'Trenčín' },
+  ]
+
   return (
     <div className="shadow-premium group relative mb-8 overflow-hidden rounded-[2rem] border border-border/40 bg-card p-6">
       <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
@@ -86,30 +101,18 @@ export function Filters() {
             <ArrowUpDown className="h-3 w-3" />
             {t.filters.sort}
           </label>
-          <div className="relative">
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 pl-4 pr-10 text-sm font-bold text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
-            >
-              <option value="newest">
-                {t.filters.newest}
-              </option>
-              <option value="oldest">
-                {t.filters.oldest}
-              </option>
-              <option value="price-low">
-                {t.filters.priceLow}
-              </option>
-              <option value="price-high">
-                {t.filters.priceHigh}
-              </option>
-              <option value="views">
-                {t.filters.popular}
-              </option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          </div>
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {sortOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Price Range */}
@@ -124,7 +127,7 @@ export function Filters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder={t.filters.priceMin}
-              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-2 focus:ring-primary"
+              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
             />
             <div className="h-px w-4 bg-border" />
             <input
@@ -132,7 +135,7 @@ export function Filters() {
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder={t.filters.priceMax}
-              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-2 focus:ring-primary"
+              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
             />
           </div>
         </div>
@@ -143,26 +146,18 @@ export function Filters() {
             <MapPin className="h-3 w-3" />
             {t.filters.location}
           </label>
-          <div className="relative">
-            <select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 pl-4 pr-10 text-sm font-bold uppercase text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
-            >
-              <option value="all">
-                {t.filters.allLocations}
-              </option>
-              <option value="bratislava">Bratislava</option>
-              <option value="košice">Košice</option>
-              <option value="prešov">Prešov</option>
-              <option value="žilina">Žilina</option>
-              <option value="nitra">Nitra</option>
-              <option value="banská bystrica">Banská Bystrica</option>
-              <option value="trnava">Trnava</option>
-              <option value="trenčín">Trenčín</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          </div>
+          <Select value={location} onValueChange={setLocation}>
+            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold uppercase">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {locationOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Actions */}
