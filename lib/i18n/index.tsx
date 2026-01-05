@@ -38,9 +38,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       }
 
       const localeMap: Record<Locale, string> = {
+        en: 'en_US',
         sk: 'sk_SK',
         cs: 'cs_CZ',
-        en: 'en_US',
       }
       metaLang.setAttribute('content', localeMap[newLocale])
 
@@ -66,6 +66,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         if (stored && translations[stored]) {
           setLocaleState(stored)
           updateHtmlLang(stored)
+          // Ensure cookie matches storage on load
+          document.cookie = `${LOCALE_STORAGE_KEY}=${stored}; path=/; max-age=31536000`
           return
         }
 
@@ -78,6 +80,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
             if (data.locale && translations[data.locale as Locale]) {
               setLocaleState(data.locale as Locale)
               updateHtmlLang(data.locale as Locale)
+              document.cookie = `${LOCALE_STORAGE_KEY}=${data.locale}; path=/; max-age=31536000`
               return
             }
           }
@@ -90,15 +93,18 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         if (translations[browserLang]) {
           setLocaleState(browserLang)
           updateHtmlLang(browserLang)
+          document.cookie = `${LOCALE_STORAGE_KEY}=${browserLang}; path=/; max-age=31536000`
         } else {
           // Final fallback to English
           setLocaleState('en')
           updateHtmlLang('en')
+          document.cookie = `${LOCALE_STORAGE_KEY}=en; path=/; max-age=31536000`
         }
       } catch (error) {
         console.warn('Failed to initialize locale:', error)
         setLocaleState('en')
         updateHtmlLang('en')
+        document.cookie = `${LOCALE_STORAGE_KEY}=en; path=/; max-age=31536000`
       }
     }
 
@@ -109,6 +115,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     setLocaleState(newLocale)
     try {
       localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
+      // Set cookie for server components
+      document.cookie = `${LOCALE_STORAGE_KEY}=${newLocale}; path=/; max-age=31536000`
       updateHtmlLang(newLocale)
     } catch (error) {
       console.warn('Failed to save locale to storage:', error)

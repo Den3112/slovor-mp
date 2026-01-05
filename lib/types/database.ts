@@ -15,6 +15,8 @@ export interface User {
   updated_at: string
 }
 
+export type Profile = User
+
 export interface Category {
   id: string
   name: string

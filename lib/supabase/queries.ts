@@ -1,5 +1,6 @@
 import { supabase } from './client'
 import type { Category, Listing, ApiResponse } from '../types/database'
+import { generateListingTranslations, isTranslationEnabled } from '../services/translation'
 export type { Category, Listing, ApiResponse }
 
 // ========================================
@@ -45,10 +46,10 @@ function applyListingFilters(
 
   if (options.search) {
     const s = options.search.trim()
-    // Для "идеального" поиска мы комбинируем:
-    // 1. Точное совпадение (ilike) - самое приоритетное
-    // 2. Полнотекстовый поиск (fts) - для морфологии
-    // 3. Поиск по частям слов
+    // For "perfect" search we combine:
+    // 1. Exact match (ilike) - highest priority
+    // 2. Full text search (fts) - for morphology
+    // 3. Partial word search
     query = query.or(`title.ilike.%${s}%,description.ilike.%${s}%,title_sk.ilike.%${s}%,title_en.ilike.%${s}%`)
   }
 
@@ -319,17 +320,41 @@ export const listingsApi = {
   },
 
   /**
-   * Creates a new listing
+   * Creates a new listing with automatic translation
    * @param listing - Listing data to insert
-   * @returns Created listing object
+   * @param sourceLang - Source language of the content (default: 'sk')
+   * @returns Created listing object with all translations
    */
-  async create(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
+  async create(
+    listing: Partial<Listing>,
+    sourceLang: 'sk' | 'cs' | 'en' = 'sk'
+  ): Promise<ApiResponse<Listing>> {
     try {
-      // Clean up the object to remove undefined fields and ensure required fields
+      // Auto-translate title and description if translation is enabled
+      let translatedFields = {}
+
+      if (isTranslationEnabled() && listing.title && listing.description) {
+        console.log('[ListingsApi] Auto-translating listing content...')
+        const translations = await generateListingTranslations(
+          listing.title,
+          listing.description,
+          sourceLang
+        )
+        translatedFields = translations
+        console.log('[ListingsApi] Translation complete')
+      } else if (listing.title && listing.description) {
+        // If translation is not enabled, at least set the source language field
+        translatedFields = {
+          [`title_${sourceLang}`]: listing.title,
+          [`description_${sourceLang}`]: listing.description,
+        }
+      }
+
       const { data, error } = await supabase
         .from('listings')
         .insert({
           ...listing,
+          ...translatedFields,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
           is_active: true,

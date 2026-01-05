@@ -7,7 +7,6 @@ import { useCallback, useState } from 'react'
 import {
   ChevronDown,
   RotateCcw,
-  Filter,
   MapPin,
   DollarSign,
   ArrowUpDown,
@@ -77,45 +76,36 @@ export function Filters() {
   }, [pathname, router])
 
   return (
-    <div className="shadow-premium group relative mb-12 overflow-hidden rounded-[2rem] border border-border/40 bg-card p-8">
+    <div className="shadow-premium group relative mb-8 overflow-hidden rounded-[2rem] border border-border/40 bg-card p-6">
       <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-      <div className="mb-8 flex items-center gap-3">
-        <div className="rounded-2xl bg-primary/10 p-3 text-primary">
-          <Filter className="h-6 w-6" />
-        </div>
-        <h2 className="font-heading text-2xl font-black tracking-tight text-foreground">
-          {t.filters.title || 'Filter Listings'}
-        </h2>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {/* Sort */}
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
             <ArrowUpDown className="h-3 w-3" />
-            {t.filters.sort || 'Sort by'}
+            {t.filters.sort}
           </label>
           <div className="relative">
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border bg-muted/30 pl-4 pr-10 text-sm font-bold text-foreground outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 pl-4 pr-10 text-sm font-bold text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
             >
               <option value="newest">
-                {t.filters.newest || 'Newest first'}
+                {t.filters.newest}
               </option>
               <option value="oldest">
-                {t.filters.oldest || 'Oldest first'}
+                {t.filters.oldest}
               </option>
               <option value="price-low">
-                {t.filters.priceLow || 'Price: Low to High'}
+                {t.filters.priceLow}
               </option>
               <option value="price-high">
-                {t.filters.priceHigh || 'Price: High to Low'}
+                {t.filters.priceHigh}
               </option>
               <option value="views">
-                {t.filters.popular || 'Most Popular'}
+                {t.filters.popular}
               </option>
             </select>
             <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -126,23 +116,23 @@ export function Filters() {
         <div className="col-span-1 space-y-3 md:col-span-2 lg:col-span-1">
           <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
             <DollarSign className="h-3 w-3" />
-            Price Range
+            {t.common.price || 'Price'}
           </label>
           <div className="flex items-center gap-2">
             <input
               type="number"
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
-              placeholder="Min"
-              className="h-12 w-full rounded-xl border border-border bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-4 focus:ring-primary/10"
+              placeholder={t.filters.priceMin}
+              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-2 focus:ring-primary"
             />
             <div className="h-px w-4 bg-border" />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
-              placeholder="Max"
-              className="h-12 w-full rounded-xl border border-border bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-4 focus:ring-primary/10"
+              placeholder={t.filters.priceMax}
+              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary focus:ring-2 focus:ring-primary"
             />
           </div>
         </div>
@@ -151,16 +141,16 @@ export function Filters() {
         <div className="space-y-3 lg:col-span-1">
           <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
             <MapPin className="h-3 w-3" />
-            {t.filters.location || 'Location'}
+            {t.filters.location}
           </label>
           <div className="relative">
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border bg-muted/30 pl-4 pr-10 text-sm font-bold uppercase text-foreground outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+              className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 pl-4 pr-10 text-sm font-bold uppercase text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
             >
               <option value="all">
-                {t.filters.allLocations || 'All locations'}
+                {t.filters.allLocations}
               </option>
               <option value="bratislava">Bratislava</option>
               <option value="košice">Košice</option>
@@ -181,7 +171,7 @@ export function Filters() {
             onClick={applyFilters}
             className="h-12 flex-1 rounded-xl bg-primary font-bold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90"
           >
-            {t.filters.apply || 'Apply'}
+            {t.filters.apply}
           </Button>
           <Button
             onClick={resetFilters}

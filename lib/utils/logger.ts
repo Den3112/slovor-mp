@@ -1,7 +1,7 @@
 type LogLevel = 'info' | 'warn' | 'error'
 
 function log(level: LogLevel, context: string, errorOrMessage: unknown) {
-  // В dev режиме логируем подробнее, в prod можно будет подцепить внешний сервис
+  // In dev mode log more details, in prod we can attach external service
   const isServer = typeof window === 'undefined'
   const prefix = `[${level.toUpperCase()}][${context}]${isServer ? '[server]' : '[client]'}:`
 

@@ -22,11 +22,11 @@ export function SearchBar() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for products, services..."
-          className="w-full rounded-full border-2 border-gray-200 px-6 py-4 pr-32 text-lg shadow-lg focus:border-blue-500 focus:outline-none"
+          className="w-full rounded-xl border border-input bg-muted/30 px-6 py-4 pr-32 text-lg shadow-sm transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
         <button
           type="submit"
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-blue-600 px-6 py-2 font-semibold text-white transition-colors hover:bg-blue-700"
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-primary px-6 py-2 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           Search
         </button>

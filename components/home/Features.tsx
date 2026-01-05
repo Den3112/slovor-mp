@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { ShieldCheck, Zap, Banknote, Map, CheckCircle2 } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 
 export function Features() {
   const { t } = useTranslation()
+  useScroll() // Keep for potential future use
 
   const features = [
     {
@@ -49,15 +50,14 @@ export function Features() {
             <span className="mb-4 block text-[10px] font-black uppercase tracking-[0.3em] text-primary">
               Our Excellence
             </span>
-            <h2 className="mb-10 font-heading text-5xl font-black italic leading-[0.9] tracking-tighter md:text-7xl">
-              Marketplace <br />
-              <span className="text-primary">Reimagined</span> <br />
-              <span className="opacity-40">for Slovakia</span>
+            <h2 className="font-heading text-4xl font-black tracking-tight md:text-5xl lg:text-6xl">
+              <span className="block text-white">
+                <span className="text-primary">{t.home.features.reimagined}</span> <br />
+                <span className="opacity-40">{t.home.features.forSlovakia}</span>
+              </span>
             </h2>
             <div className="space-y-6">
               {[
-                'Smart filtering for precise results',
-                'Zero hidden fees or commissions',
                 'Advanced fraud protection measures',
                 'Direct contact between buyers and sellers',
               ].map((item, i) => (

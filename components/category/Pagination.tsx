@@ -127,8 +127,8 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
               variant={isActive ? 'default' : 'outline'}
               className={
                 isActive
-                  ? 'min-w-[40px] bg-blue-600 font-semibold text-white hover:bg-blue-700'
-                  : 'min-w-[40px] hover:bg-gray-50'
+                  ? 'h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 ring-2 ring-primary ring-offset-2 hover:bg-primary/90'
+                  : 'h-10 w-10 rounded-full border-border/50 bg-card text-muted-foreground hover:bg-muted hover:text-foreground'
               }
             >
               {pageNum}

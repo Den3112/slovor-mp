@@ -106,11 +106,10 @@ export function LocaleWelcomeModal() {
             <button
               key={option.code}
               onClick={() => setSelectedLocale(option.code)}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${
-                selectedLocale === option.code
-                  ? 'border-blue-600 bg-blue-50 shadow-md'
-                  : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-gray-50'
-              }`}
+              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${selectedLocale === option.code
+                ? 'border-blue-600 bg-blue-50 shadow-md'
+                : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-gray-50'
+                }`}
             >
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
