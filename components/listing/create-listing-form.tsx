@@ -142,6 +142,16 @@ function CreateListingFormContent() {
       saveListingDraft(user?.id ?? null, next)
       return next
     })
+
+    // Clear error for this field if it exists
+    const errorKey = field as keyof ListingFormErrors
+    if (fieldErrors[errorKey]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev }
+        delete next[errorKey]
+        return next
+      })
+    }
   }
 
   const goToNextStep = () => {
@@ -604,7 +614,7 @@ function CreateListingFormContent() {
           </Button>
         )}
       </div>
-    </div>
+    </div >
   )
 }
 
