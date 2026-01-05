@@ -4,21 +4,28 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { Search, X, Tag, PackageCheck, TrendingUp, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 
 const LOCATIONS = [
-  'All Locations',
-  'Bratislava',
-  'Košice',
-  'Prešov',
-  'Žilina',
-  'Banská Bystrica',
-  'Nitra',
-  'Trnava',
-  'Martin',
-  'Poprad',
-  'Trenčín',
+  { value: '', label: 'allLocations' },
+  { value: 'Bratislava', label: 'Bratislava' },
+  { value: 'Košice', label: 'Košice' },
+  { value: 'Prešov', label: 'Prešov' },
+  { value: 'Žilina', label: 'Žilina' },
+  { value: 'Banská Bystrica', label: 'Banská Bystrica' },
+  { value: 'Nitra', label: 'Nitra' },
+  { value: 'Trnava', label: 'Trnava' },
+  { value: 'Martin', label: 'Martin' },
+  { value: 'Poprad', label: 'Poprad' },
+  { value: 'Trenčín', label: 'Trenčín' },
 ]
 
 export function ListingFilters() {
@@ -76,6 +83,14 @@ export function ListingFilters() {
     })
   }
 
+  const sortOptions = [
+    { value: 'newest', label: t.filters.newest },
+    { value: 'oldest', label: t.filters.oldest },
+    { value: 'price-low', label: t.filters.priceLow },
+    { value: 'price-high', label: t.filters.priceHigh },
+    { value: 'views', label: t.filters.popular },
+  ]
+
   return (
     <div className="space-y-8">
       {/* Search Input */}
@@ -89,7 +104,7 @@ export function ListingFilters() {
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
             placeholder={t.home.searchPlaceholder}
-            className="w-full rounded-xl border border-input bg-muted/30 py-4 pl-12 pr-4 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-xl border border-input bg-muted/30 py-4 pl-12 pr-4 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
           />
         </div>
       </div>
@@ -99,41 +114,42 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
             <MapPin className="h-4 w-4" />
-            Location
+            {t.filters.location}
           </label>
-          <select
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            {LOCATIONS.map((loc) => (
-              <option key={loc} value={loc === 'All Locations' ? '' : loc}>
-                {loc}
-              </option>
-            ))}
-          </select>
+          <Select value={location} onValueChange={setLocation}>
+            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold">
+              <SelectValue placeholder={t.filters.allLocations} />
+            </SelectTrigger>
+            <SelectContent>
+              {LOCATIONS.map((loc) => (
+                <SelectItem key={loc.value} value={loc.value || 'all'}>
+                  {loc.value === '' ? t.filters.allLocations : loc.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Price Range */}
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
             <Tag className="h-4 w-4" />
-            Price Range (EUR)
+            {t.common.price} (EUR)
           </label>
           <div className="grid grid-cols-2 gap-3">
             <input
               type="number"
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
-              placeholder="Min"
-              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder={t.filters.priceMin}
+              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
             />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
-              placeholder="Max"
-              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder={t.filters.priceMax}
+              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
             />
           </div>
         </div>
@@ -142,21 +158,25 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
             <PackageCheck className="h-4 w-4" />
-            Condition
+            {t.filters.condition}
           </label>
           <div className="flex rounded-2xl border border-border/50 bg-muted/30 p-1.5">
-            {['', 'new', 'used'].map((c) => (
+            {[
+              { value: '', label: t.common.all || 'All' },
+              { value: 'new', label: t.filters.new },
+              { value: 'used', label: t.filters.used },
+            ].map((c) => (
               <button
-                key={c}
-                onClick={() => setCondition(c)}
+                key={c.value}
+                onClick={() => setCondition(c.value)}
                 className={cn(
                   'flex-1 rounded-xl py-2.5 text-xs font-black uppercase tracking-wider transition-all',
-                  condition === c
+                  condition === c.value
                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
-                {c || 'All'}
+                {c.label}
               </button>
             ))}
           </div>
@@ -166,19 +186,20 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
             <TrendingUp className="h-4 w-4" />
-            Sort By
+            {t.filters.sort}
           </label>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="w-full cursor-pointer appearance-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-            <option value="views">Most Viewed</option>
-          </select>
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {sortOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -189,7 +210,7 @@ export function ListingFilters() {
           disabled={isPending}
           className="h-14 flex-1 rounded-2xl text-sm font-black uppercase tracking-widest shadow-lg shadow-primary/20"
         >
-          {isPending ? 'Applying...' : 'Apply'}
+          {isPending ? t.common.loading : t.filters.apply}
         </Button>
         <Button
           variant="outline"

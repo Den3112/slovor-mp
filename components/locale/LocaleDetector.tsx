@@ -134,7 +134,7 @@ export function LocaleDetector() {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl font-bold">
-            <Globe className="h-6 w-6 text-blue-600" />
+            <Globe className="h-6 w-6 text-primary" />
             {t.title}
           </DialogTitle>
           <DialogDescription className="pt-2 text-base">
@@ -143,7 +143,7 @@ export function LocaleDetector() {
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div className="text-sm font-medium text-gray-700">
+          <div className="text-sm font-medium text-muted-foreground">
             {t.selectLanguage}
           </div>
 
@@ -153,8 +153,8 @@ export function LocaleDetector() {
                 key={option.code}
                 onClick={() => setSelectedLocale(option.code)}
                 className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${selectedLocale === option.code
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  ? 'border-primary bg-primary/10'
+                  : 'border-border hover:border-border hover:bg-accent'
                   }`}
               >
                 <span className="text-3xl">{option.flag}</span>
@@ -162,7 +162,7 @@ export function LocaleDetector() {
                   {option.name}
                 </span>
                 {selectedLocale === option.code && (
-                  <Check className="h-5 w-5 text-blue-600" />
+                  <Check className="h-5 w-5 text-primary" />
                 )}
               </button>
             ))}
@@ -175,7 +175,7 @@ export function LocaleDetector() {
           </Button>
           <Button
             onClick={handleConfirm}
-            className="flex-1 bg-blue-600 hover:bg-blue-700"
+            className="flex-1 bg-primary hover:bg-primary/90"
           >
             {t.confirm}
           </Button>

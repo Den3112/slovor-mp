@@ -18,14 +18,14 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center justify-center px-4 py-16">
       <div className="mb-4 text-7xl">{icon}</div>
-      <h3 className="mb-2 text-2xl font-bold text-gray-900">{title}</h3>
+      <h3 className="mb-2 text-2xl font-bold text-foreground">{title}</h3>
       {description && (
-        <p className="mb-6 max-w-md text-center text-gray-500">{description}</p>
+        <p className="mb-6 max-w-md text-center text-muted-foreground">{description}</p>
       )}
       {actionLabel && actionHref && (
         <Link
           href={actionHref}
-          className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
+          className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           {actionLabel}
         </Link>

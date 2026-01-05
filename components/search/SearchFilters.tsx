@@ -59,11 +59,11 @@ export function SearchFilters() {
             {/* Active Filters / Clear All */}
             {(searchParams.toString().length > 0) && (
                 <div className="flex justify-between items-center">
-                    <h3 className="font-bold text-sm uppercase text-gray-500">{t.filters.title}</h3>
+                    <h3 className="font-bold text-sm uppercase text-muted-foreground">{t.filters.title}</h3>
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="text-red-500 hover:text-red-600 h-auto p-0"
+                        className="text-destructive hover:text-destructive/80 h-auto p-0"
                         onClick={() => router.push('/search')}
                     >
                         {t.filters.clearAll}
@@ -73,7 +73,7 @@ export function SearchFilters() {
 
             {/* Price Range */}
             <div className="space-y-4">
-                <h3 className="font-bold text-gray-900">{t.common.price}</h3>
+                <h3 className="font-bold text-foreground">{t.common.price}</h3>
                 <Slider
                     defaultValue={[0, 5000]}
                     value={priceRange}
@@ -85,7 +85,7 @@ export function SearchFilters() {
                 />
                 <div className="flex items-center gap-4">
                     <div className="relative flex-1">
-                        <span className="absolute left-3 top-2.5 text-gray-400">€</span>
+                        <span className="absolute left-3 top-2.5 text-muted-foreground">€</span>
                         <Input
                             type="number"
                             className="pl-7"
@@ -100,9 +100,9 @@ export function SearchFilters() {
                             }}
                         />
                     </div>
-                    <span className="text-gray-400">-</span>
+                    <span className="text-muted-foreground">-</span>
                     <div className="relative flex-1">
-                        <span className="absolute left-3 top-2.5 text-gray-400">€</span>
+                        <span className="absolute left-3 top-2.5 text-muted-foreground">€</span>
                         <Input
                             type="number"
                             className="pl-7"
@@ -122,7 +122,7 @@ export function SearchFilters() {
 
             {/* Condition */}
             <div className="space-y-4">
-                <h3 className="font-bold text-gray-900">{t.filters.condition}</h3>
+                <h3 className="font-bold text-foreground">{t.filters.condition}</h3>
                 <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                         <Checkbox
@@ -145,7 +145,7 @@ export function SearchFilters() {
 
             {/* Location */}
             <div className="space-y-4">
-                <h3 className="font-bold text-gray-900">{t.filters.location}</h3>
+                <h3 className="font-bold text-foreground">{t.filters.location}</h3>
                 <Input
                     placeholder={t.filters.cityPlaceholder}
                     defaultValue={searchParams.get('location') || ''}

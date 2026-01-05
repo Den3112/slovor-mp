@@ -136,7 +136,7 @@ export function SellerRating({ sellerId, showReviewForm = true }: SellerRatingPr
             {submitMessage && (
                 <div className={cn(
                     "rounded-xl px-4 py-2 text-sm font-medium",
-                    submitMessage.type === 'success' ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600"
+                    submitMessage.type === 'success' ? "bg-emerald-50 text-emerald-600" : "bg-destructive/10 text-destructive"
                 )}>
                     {submitMessage.text}
                 </div>
@@ -176,7 +176,7 @@ export function SellerRating({ sellerId, showReviewForm = true }: SellerRatingPr
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
                             placeholder="..."
-                            className="w-full resize-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
+                            className="w-full resize-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
                             rows={3}
                         />
                     </div>

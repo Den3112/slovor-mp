@@ -72,7 +72,7 @@ export function Hero() {
           >
             <div className="group relative">
               <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-primary to-violet-600 opacity-20 blur-2xl transition duration-1000 group-focus-within:opacity-40" />
-              <div className="relative flex items-center overflow-hidden rounded-[2.2rem] border border-white/10 bg-card/60 p-2 pr-2 shadow-2xl backdrop-blur-3xl">
+              <div className="relative flex items-center overflow-hidden rounded-[2.2rem] border border-border/30 bg-card/60 p-2 pr-2 shadow-2xl backdrop-blur-3xl">
                 <div className="flex flex-1 items-center pl-6">
                   <Search className="h-6 w-6 shrink-0 text-primary opacity-70" />
                   <input

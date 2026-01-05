@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const FlagSK = () => (
@@ -107,7 +108,7 @@ export function Header() {
               >
                 <div className="relative h-11 w-11">
                   <div className="absolute inset-0 rotate-6 rounded-2xl bg-gradient-to-tr from-primary via-violet-500 to-primary shadow-lg shadow-primary/20 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110" />
-                  <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-white/10 bg-white text-2xl font-black text-foreground dark:bg-zinc-900">
+                  <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-border/20 bg-card text-2xl font-black text-foreground">
                     S
                   </div>
                 </div>
@@ -151,7 +152,7 @@ export function Header() {
             >
               <div className="relative h-11 w-11">
                 <div className="absolute inset-0 rotate-6 rounded-2xl bg-gradient-to-tr from-primary via-violet-500 to-primary shadow-lg shadow-primary/20 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110" />
-                <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-white/10 bg-white text-2xl font-black text-foreground dark:bg-zinc-900">
+                <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-border/20 bg-card text-2xl font-black text-foreground">
                   S
                 </div>
               </div>
@@ -208,7 +209,7 @@ export function Header() {
                 onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
                 className="flex items-center gap-3 rounded-full border border-border/40 bg-muted/20 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-foreground transition-all hover:bg-muted/40"
               >
-                <div className="flex h-4 w-6 items-center justify-center overflow-hidden rounded-sm bg-zinc-800 shadow-sm">
+                <div className="flex h-4 w-6 items-center justify-center overflow-hidden rounded-sm bg-muted shadow-sm">
                   <div className="h-full w-full scale-125 transform saturate-[1.2]">
                     {SUPPORTED_LOCALES.find((l) => l.code === locale)?.flag}
                   </div>
@@ -240,7 +241,7 @@ export function Header() {
                             : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                         )}
                       >
-                        <div className="flex h-5 w-8 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-zinc-800">
+                        <div className="flex h-5 w-8 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-muted">
                           <div className="h-full w-full scale-125 transform saturate-[1.2]">
                             {lang.flag}
                           </div>
@@ -255,6 +256,9 @@ export function Header() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
 
             {/* User Section */}
             <div className="flex items-center gap-4 border-l border-border/50 pl-6">
@@ -406,7 +410,7 @@ export function Header() {
                           : 'border-transparent bg-muted/50 text-muted-foreground'
                       )}
                     >
-                      <div className="flex h-5 w-8 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-zinc-800">
+                      <div className="flex h-5 w-8 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-muted">
                         <div className="h-full w-full scale-125 transform saturate-[1.2]">
                           {lang.flag}
                         </div>
