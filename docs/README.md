@@ -1,30 +1,25 @@
-# Slovor Marketplace
+# 📚 Slovor Marketplace Documentation
 
-A premium, modern marketplace for buying and selling goods in Slovakia.
+Welcome to the Slovor Marketplace documentation!
 
-## 🚀 Overview
+## 🚀 Start Here
 
-Slovor is built with:
-- **Frontend**: Next.js 14 (App Router), React, Tailwind CSS
-- **Backend**: Supabase (PostgreSQL, Auth, Storage)
-- **Styling**: Custom modern UI with "Intentional Minimalism" design philosophy
-- **Internationalization**: Support for EN, SK, CS languages
+👉 **[View Documentation Index](INDEX.md)** - Complete navigation and getting started guide
 
-## 📁 Project Structure
+## Quick Links
 
-- `app/` - Next.js App Router pages and layouts
-- `components/` - Reusable UI components
-- `lib/` - Utilities, API clients, Supabase configuration
-- `scripts/` - Database seeding and maintenance scripts
-- `supabase/` - Database migrations and configuration
+- [Quick Start Guide](guides/QUICK_START.md) - Get up and running in 5 minutes
+- [Architecture Overview](architecture/ARCHITECTURE.md) - System design and tech stack
+- [Coding Principles](architecture/PRINCIPLES.md) - **MANDATORY** reading for contributors
+- [Project Roadmap](project/ROADMAP.md) - Development timeline and goals
 
-## 🛠️ Key Features
+---
 
-- **Multilingual Listings**: Automatic translation support.
-- **Seller Profiles**: Dedicated pages for sellers with stats and verify badges.
-- **Advanced Search**: Filtering by category, price, location.
-- **Responsive Design**: Mobile-first approach.
+**This is the documentation branch - contains only documentation files**
 
-## 🤝 Contributing
+To access the source code:
+```bash
+git checkout dev    # Development branch
+git checkout main   # Production branch
+```
 
-See [SETUP.md](./SETUP.md) for installation instructions.
