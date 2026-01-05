@@ -8,19 +8,19 @@ Welcome to SLOVOR Marketplace documentation. Start here!
 
 **New to the project?** Start here:
 
-1. **[QUICK_START.md](./QUICK_START.md)** (5 minutes)
+1. **[QUICK_START.md](guides/QUICK_START.md)** (5 minutes)
    - Prerequisites
    - Clone and setup
    - Run locally
    - Seed database
 
-2. **[PRINCIPLES.md](./PRINCIPLES.md)** (10 minutes)
+2. **[PRINCIPLES.md](architecture/PRINCIPLES.md)** (10 minutes)
    - 8 core coding principles
    - KISS philosophy
    - Code examples
    - **MANDATORY reading!**
 
-3. **[ROADMAP_INVESTOR.md](./ROADMAP_INVESTOR.md)** (NEW 🚀)
+3. **[ROADMAP_INVESTOR.md](project/ROADMAP_INVESTOR.md)** (NEW 🚀)
    - Strategic goals for "wow-effect"
    - Dashboard & Media plans
    - Search & Polish targets
@@ -31,12 +31,12 @@ Welcome to SLOVOR Marketplace documentation. Start here!
 
 ### For Developers
 
-- **[QUICK_START.md](./QUICK_START.md)**
+- **[QUICK_START.md](guides/QUICK_START.md)**
   - Environment setup
   - Dependencies installation
   - First run
 
-- **[DEVELOPMENT.md](./DEVELOPMENT.md)**
+- **[SETUP.md](guides/SETUP.md)**
   - Branching strategy
   - Commit guidelines
   - Code style
@@ -44,7 +44,7 @@ Welcome to SLOVOR Marketplace documentation. Start here!
   - Debugging
   - Common commands
 
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)**
+- **[ARCHITECTURE.md](architecture/ARCHITECTURE.md)**
   - System overview
   - Technology stack
   - Project structure
@@ -52,7 +52,7 @@ Welcome to SLOVOR Marketplace documentation. Start here!
   - API design
   - Performance strategy
 
-- **[PRINCIPLES.md](./PRINCIPLES.md)** 🔥 **MANDATORY**
+- **[PRINCIPLES.md](architecture/PRINCIPLES.md)** 🔥 **MANDATORY**
   - 8 core principles
   - Code examples
   - Best practices

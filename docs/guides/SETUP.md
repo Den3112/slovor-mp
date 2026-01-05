@@ -64,4 +64,3 @@ The app will be available at `http://localhost:3000`
 | `node scripts/seed-with-real-images.js` | Seed database with sample data |
 | `node scripts/clear-listings.js` | Clear all listings from database |
 | `node scripts/db-info.js` | Show database statistics |
-| `node scripts/fix-categories.js` | Fix category data |

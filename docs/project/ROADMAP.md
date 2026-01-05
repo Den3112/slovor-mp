@@ -8,7 +8,7 @@
 | Stage 2 | ✅ Complete | Trust & Communication (Reviews, Reports, Messages) |
 | Stage 3 | ✅ Complete | Analytics & Quality Signals |
 | Stage 4 | ✅ Complete | Search & Discovery |
-| Stage 5 | ⏳ Next | User Dashboard & Buying Logic |
+| Stage 5 | 🚧 In Progress | User Dashboard & Buying Logic |
 | Stage 6 | 📋 Planned | Advanced Media Management |
 | Stage 7 | 📋 Planned | Monetization & Promotions |
 
@@ -53,23 +53,23 @@
 
 ---
 
-## ⏳ Stage 5: User Dashboard & Buying Logic (NEXT)
+## 🚧 Stage 5: User Dashboard & Buying Logic (IN PROGRESS)
 > **Goal**: Complete user control center for managing listings and favorites
 
 ### 5.1 My Listings Dashboard
-- [ ] `/dashboard` page with listing management
-- [ ] Active / Draft / Sold / Archived tabs
+- [x] `/dashboard` page with listing management
+- [/] Active / Draft / Sold / Archived tabs
 - [ ] View counters per listing
-- [ ] Quick edit (inline price/description)
-- [ ] Delete with confirmation
+- [x] Quick edit (inline price/description)
+- [x] Delete with confirmation
 
 ### 5.2 Favorites System
-- [ ] Heart button on listing cards
-- [ ] `/favorites` page with saved listings
-- [ ] Persist favorites in Supabase (user_favorites table)
+- [x] Heart button on listing cards
+- [x] `/favorites` page with saved listings
+- [x] Persist favorites in Supabase (user_favorites table)
 
 ### 5.3 Profile Settings
-- [ ] `/settings` page
+- [x] `/settings` page
 - [ ] Update display name, avatar, phone
 - [ ] Notification preferences
 
