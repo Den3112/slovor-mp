@@ -74,7 +74,7 @@ export function ListingCard({ listing, featured }: ListingCardProps) {
           )}
 
           {listing.condition === 'new' && (
-            <div className="flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-black shadow-lg backdrop-blur-md">
+            <div className="flex items-center gap-1.5 rounded-full bg-card/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-card-foreground shadow-lg backdrop-blur-md">
               <Sparkles className="h-3 w-3 fill-primary text-primary" />
               {t.common.new}
             </div>

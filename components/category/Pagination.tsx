@@ -110,7 +110,7 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-4 py-2 text-gray-500"
+                className="px-4 py-2 text-muted-foreground"
               >
                 …
               </span>

@@ -24,7 +24,7 @@ export function SortSelect() {
 
     return (
         <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500 whitespace-nowrap">{t.filters.sort}:</span>
+            <span className="text-sm text-muted-foreground whitespace-nowrap">{t.filters.sort}:</span>
             <Select value={currentSort} onValueChange={handleSortChange}>
                 <SelectTrigger className="w-[180px] rounded-xl border-border bg-muted/30 font-medium focus:ring-primary">
                     <SelectValue placeholder={t.filters.sort} />

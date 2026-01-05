@@ -53,7 +53,7 @@ export function CategoryView({
             <div className="flex items-center gap-3">
               <Badge
                 variant="secondary"
-                className="rounded-lg border-0 bg-primary/10 px-3 py-1 text-sm font-black uppercase tracking-wider text-primary"
+                className="rounded-xl border-0 bg-primary/10 px-3 py-1 text-sm font-black uppercase tracking-wider text-primary"
               >
                 {totalCount} {t.common.listings} {t.common.found}
               </Badge>
@@ -70,10 +70,10 @@ export function CategoryView({
         <ErrorState message={listingsError} />
       ) : listings.length === 0 ? (
         <div className="py-16 text-center">
-          <p className="mb-4 text-xl text-gray-600">
+          <p className="mb-4 text-xl text-muted-foreground">
             {t.common.noListings || 'No listings found'}
           </p>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             {t.common.tryDifferentFilters || 'Try adjusting your filters'}
           </p>
         </div>

@@ -25,7 +25,7 @@ export default function RootLayout({
     <html
       lang="sk"
       suppressHydrationWarning
-      className={`${inter.variable} ${outfit.variable} dark`}
+      className={`${inter.variable} ${outfit.variable}`}
     >
       <head>
         <meta charSet="utf-8" />

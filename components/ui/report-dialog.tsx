@@ -114,7 +114,7 @@ export function ReportDialog({ isOpen, onClose, listingId, userId }: ReportDialo
                     <>
                         {/* Error Message */}
                         {submitState === 'error' && (
-                            <div className="mb-4 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-600">
+                            <div className="mb-4 rounded-xl bg-destructive/10 px-4 py-2 text-sm text-destructive">
                                 {errorMessage}
                             </div>
                         )}
@@ -127,7 +127,7 @@ export function ReportDialog({ isOpen, onClose, listingId, userId }: ReportDialo
                             <select
                                 value={reason}
                                 onChange={(e) => setReason(e.target.value as ReportReason)}
-                                className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
+                                className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
                             >
                                 <option value="">—</option>
                                 {REPORT_REASONS.map((r) => (
@@ -147,7 +147,7 @@ export function ReportDialog({ isOpen, onClose, listingId, userId }: ReportDialo
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 placeholder="..."
-                                className="w-full resize-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary"
+                                className="w-full resize-none rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
                                 rows={3}
                             />
                         </div>

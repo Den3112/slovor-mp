@@ -96,6 +96,29 @@
   ::-webkit-scrollbar-thumb {
     @apply rounded-full border-4 border-solid border-transparent bg-muted-foreground/20 bg-clip-padding hover:bg-muted-foreground/40;
   }
+
+  /* Native Select Styling for Dark Mode */
+  select {
+    color-scheme: dark;
+  }
+
+  select option {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+  }
+
+  /* Number input - keep native spinners for better UX */
+  /* Autofill styling for dark mode */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: hsl(var(--foreground));
+    -webkit-box-shadow: 0 0 0px 1000px hsl(var(--card)) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 }
 
 @layer components {

@@ -11,9 +11,9 @@ export function SearchHeader({ query }: SearchHeaderProps) {
     const { t } = useTranslation()
 
     return (
-        <div className="border-b bg-white py-8">
+        <div className="border-b bg-card py-8">
             <Container>
-                <h1 className="mb-2 text-3xl font-black text-gray-900">
+                <h1 className="mb-2 text-3xl font-black text-foreground">
                     {query
                         ? `${t.common.searchResultsFor} "${query}"`
                         : t.common.allListings}

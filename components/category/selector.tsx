@@ -40,18 +40,18 @@ export function CategorySelector({
   }
 
   if (loading) {
-    return <div className="text-gray-500">{t.common.loading}</div>
+    return <div className="text-muted-foreground">{t.common.loading}</div>
   }
 
   if (error) {
-    return <div className="text-red-500">{t.common.error}: {error}</div>
+    return <div className="text-destructive">{t.common.error}: {error}</div>
   }
 
   return (
     <div className="w-full">
       <label
         htmlFor="category"
-        className="mb-2 block text-sm font-medium text-gray-700"
+        className="mb-2 block text-sm font-medium text-muted-foreground"
       >
         {t.listing.categoryLabel}
       </label>
@@ -59,7 +59,7 @@ export function CategorySelector({
         id="category"
         value={selectedCategoryId}
         onChange={(e) => onSelect(e.target.value)}
-        className="w-full rounded-xl border border-input bg-muted/30 px-4 py-2 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+        className="w-full rounded-xl border border-input bg-muted/30 px-4 py-2 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
       >
         <option value="">{t.common.selectCategory}</option>
         {categories.map((category) => (
