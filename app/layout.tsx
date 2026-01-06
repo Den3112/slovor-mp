@@ -25,14 +25,18 @@ export default function RootLayout({
     <html
       lang="sk"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${outfit.variable}`}
     >
       <head>
         <meta charSet="utf-8" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
+          content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
         />
+        <meta name="theme-color" content="#8b5cf6" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=no" />
       </head>
       <body
         suppressHydrationWarning

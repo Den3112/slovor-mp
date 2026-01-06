@@ -24,6 +24,7 @@ import { ListingOwnerActions } from '@/components/listing/listing-owner-actions'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import type { Listing } from '@/lib/types/database'
 import { getListingTitle, getListingDescription } from '@/lib/utils/listing-helpers'
+import { PriceDisplay } from '@/components/ui/price-display'
 
 interface ListingDetailViewProps {
     listing: Listing
@@ -125,27 +126,28 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                 <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">
                                     {t.common.price}
                                 </span>
-                                <div className="flex items-baseline gap-2">
-                                    <h1 className="text-5xl font-black tracking-tighter text-foreground">
-                                        {listing.price.toLocaleString()}
-                                    </h1>
-                                    <span className="text-xl font-bold text-muted-foreground">
-                                        {listing.currency}
-                                    </span>
-                                </div>
+                                <PriceDisplay
+                                    amount={listing.price}
+                                    baseCurrency={listing.currency}
+                                    className="text-5xl font-black tracking-tighter text-foreground block"
+                                    showOriginal
+                                />
                             </div>
 
                             {/* Seller Info */}
                             {seller && (
-                                <div className="flex items-center gap-4 py-4 border-t border-b border-border/50">
-                                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                                <Link
+                                    href={`/seller/${seller.id}`}
+                                    className="flex items-center gap-4 py-4 border-t border-b border-border/50 group/seller transition-colors hover:bg-muted/30 -mx-4 px-4 sm:mx-0 sm:px-0 sm:hover:bg-transparent"
+                                >
+                                    <Avatar className="h-12 w-12 border-2 border-primary/20 transition-transform group-hover/seller:scale-105">
                                         <AvatarImage src={seller.avatar_url || undefined} />
                                         <AvatarFallback>
                                             <UserIcon className="h-6 w-6 text-muted-foreground" />
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-bold text-foreground truncate">
+                                        <p className="font-bold text-foreground truncate group-hover/seller:text-primary transition-colors">
                                             {seller.display_name || 'Anonymous Seller'}
                                         </p>
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -161,7 +163,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                             )}
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             )}
 
                             <div className="space-y-4 pt-2">
