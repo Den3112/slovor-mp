@@ -5,37 +5,43 @@ export default async function DashboardListingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) return null
+  if (!user) {
+    // This should generally be handled by the middleware or layout, but as a safety net:
+    return null
+  }
 
-  // Fetch all user listings
-  const { data: listings } = await supabase
+  // Fetch all user listings with better error handling
+  const { data: listings, error } = await supabase
     .from('listings')
     .select('*, category:categories(*)')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
 
+  if (error) {
+    console.error('Error fetching listings:', error)
+    // We could return an error UI here, but for now let's show empty state to avoid crashing
+  }
+
   const allListings = listings || []
 
   // Status filtering logic
-  // Since we might not have a dedicated 'status' column fully migrated or populated, we rely on is_active for now
-  // Ideally we should have a 'status' enum: active, draft, sold, archived
-
+  // TODO: Migrate to proper status enum when DB schema is ready
   const activeListings = allListings.filter(l => l.is_active === true)
   const draftListings = allListings.filter(l => l.is_active === false)
+  // These are placeholders until we have sold/archived status logic
   const soldListings = [] as typeof allListings
   const archivedListings = [] as typeof allListings
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-24 md:pb-0">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="font-heading text-3xl font-black">My Listings</h1>
           <p className="text-muted-foreground">Manage your items and track sales</p>
         </div>
-
       </div>
 
-      <div className="rounded-2xl border border-border/40 bg-card p-1 shadow-sm">
+      <div>
         <DashboardListingsContent
           active={activeListings}
           drafts={draftListings}
