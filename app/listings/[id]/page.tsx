@@ -11,6 +11,13 @@ interface Props {
 
 export default async function ListingDetailPage({ params }: Props) {
   const { id } = await params
+
+  // Validate UUID to prevent 500 errors
+  const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+  if (!isValidUUID) {
+    notFound()
+  }
+
   const result = await listingsApi.getById(id)
 
   if (result.error) {

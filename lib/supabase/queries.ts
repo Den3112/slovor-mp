@@ -1,6 +1,6 @@
 import { supabase } from './client'
 import type { Category, Listing, ApiResponse } from '../types/database'
-import { generateListingTranslations, isTranslationEnabled } from '../services/translation'
+import { isTranslationEnabled } from '../services/translation'
 export type { Category, Listing, ApiResponse }
 
 // ========================================
@@ -334,14 +334,7 @@ export const listingsApi = {
       let translatedFields = {}
 
       if (isTranslationEnabled() && listing.title && listing.description) {
-        console.log('[ListingsApi] Auto-translating listing content...')
-        const translations = await generateListingTranslations(
-          listing.title,
-          listing.description,
-          sourceLang
-        )
-        translatedFields = translations
-        console.log('[ListingsApi] Translation complete')
+
       } else if (listing.title && listing.description) {
         // If translation is not enabled, at least set the source language field
         translatedFields = {

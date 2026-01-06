@@ -23,63 +23,63 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
     .slice(0, 8)
 
   return (
-    <section className="bg-card/10 py-24">
+    <section className="bg-card/10 py-12 md:py-20 lg:py-24">
       <Container>
-        <div className="mb-20 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="mb-8 flex flex-col justify-between gap-4 md:mb-16 md:flex-row md:items-end md:gap-8 lg:mb-20">
           <div className="max-w-2xl">
-            <span className="mb-4 block text-[10px] font-black uppercase tracking-[0.3em] text-primary">
+            <span className="mb-3 block text-[9px] font-black uppercase tracking-[0.2em] text-primary md:mb-4 md:text-[10px] md:tracking-[0.3em]">
               Explore Marketplace
             </span>
-            <h2 className="mb-6 font-heading text-5xl font-black italic leading-none tracking-tighter md:text-7xl">
+            <h2 className="mb-4 font-heading text-3xl font-black italic leading-none tracking-tighter sm:text-4xl md:mb-6 md:text-5xl lg:text-7xl">
               {t.home.categoriesTitle}
             </h2>
-            <p className="max-w-lg text-xl font-medium text-muted-foreground opacity-70">
+            <p className="max-w-md text-base font-medium text-muted-foreground opacity-70 md:max-w-lg md:text-xl">
               {t.home.categories.subtitle}
             </p>
           </div>
           <Link
             href="/categories"
-            className="group flex items-center gap-3 rounded-full border border-border/50 bg-muted/50 px-8 py-4 text-sm font-black uppercase tracking-widest text-foreground transition-all hover:border-primary/30 hover:text-primary"
+            className="group inline-flex w-fit items-center gap-2 rounded-full border border-border/50 bg-muted/50 px-5 py-3 text-xs font-black uppercase tracking-widest text-foreground transition-all hover:border-primary/30 hover:text-primary md:gap-3 md:px-8 md:py-4 md:text-sm"
           >
             {t.common.viewAll}
-            <ArrowRight className="h-5 w-5 text-primary transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1 md:h-5 md:w-5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 md:gap-6 lg:gap-8">
           {mainCategories.map((category, idx) => (
             <motion.div
               key={category.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              transition={{ duration: 0.6, delay: idx * 0.05 }}
             >
               <Link
                 href={`/categories/${category.slug}`}
-                className="group relative block aspect-square overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/50 shadow-sm backdrop-blur-sm transition-all duration-700 hover:border-primary/30 hover:shadow-2xl"
+                className="group relative block aspect-square overflow-hidden rounded-2xl border border-border/40 bg-card/50 shadow-sm backdrop-blur-sm transition-all duration-500 active:scale-[0.98] sm:rounded-[2rem] md:rounded-[2.5rem] md:hover:border-primary/30 md:hover:shadow-2xl"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-indigo-500/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]" />
+                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-[2rem] md:rounded-[2.5rem]" />
 
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 text-center">
-                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-muted/40 shadow-sm transition-all duration-700 group-hover:rotate-[15deg] group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-xl group-hover:shadow-primary/40">
-                    <CategoryIcon slug={category.slug} className="h-10 w-10" />
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 text-center md:p-8">
+                  <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-xl bg-muted/40 shadow-sm transition-all duration-500 group-hover:rotate-[10deg] group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-lg group-hover:shadow-primary/30 sm:h-16 sm:w-16 sm:rounded-2xl md:mb-6 md:h-20 md:w-20 md:rounded-3xl md:group-hover:rotate-[15deg] md:group-hover:scale-110 md:group-hover:shadow-xl md:group-hover:shadow-primary/40">
+                    <CategoryIcon slug={category.slug} className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10" />
                   </div>
-                  <h3 className="text-lg font-black tracking-tight text-foreground transition-colors group-hover:text-primary md:text-xl">
+                  <h3 className="text-sm font-black tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-base md:text-lg lg:text-xl">
                     {getCategoryName(category, locale, t)}
                   </h3>
                   {category.listing_count !== undefined && (
-                    <div className="mt-3 rounded-full bg-muted/50 px-3 py-1 transition-colors group-hover:bg-primary/5">
-                      <p className="text-[10px] font-black uppercase tracking-[0.1em] text-muted-foreground group-hover:text-primary">
+                    <div className="mt-2 rounded-full bg-muted/50 px-2.5 py-1 transition-colors group-hover:bg-primary/5 md:mt-3 md:px-3">
+                      <p className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-foreground group-hover:text-primary md:text-[10px]">
                         {category.listing_count} {t.common.listings}
                       </p>
                     </div>
                   )}
                 </div>
 
-                {/* Modern Decorative Element */}
-                <div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-primary/5 blur-[40px] transition-colors duration-700 group-hover:bg-primary/10" />
+                {/* Decorative Element - Hidden on mobile */}
+                <div className="absolute -left-8 -top-8 hidden h-24 w-24 rounded-full bg-primary/5 blur-[30px] transition-colors duration-700 group-hover:bg-primary/10 md:block md:h-32 md:w-32 md:blur-[40px]" />
               </Link>
             </motion.div>
           ))}
