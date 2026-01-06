@@ -39,17 +39,28 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
             try {
                 const supabase = createClient()
+                // Use maybeSingle to avoid 406 Not Acceptable if multiple rows (shouldn't happen on ID PK)
                 const { data, error } = await supabase
                     .from('profiles')
                     .select('preferred_currency')
                     .eq('id', user.id)
                     .maybeSingle()
 
-                if (!error && data?.preferred_currency) {
+                if (error) {
+                    // Check for 400 specifically or just ignore
+                    if (error.code === 'PGRST116') {
+                        // No data returned, ignore
+                    } else {
+                        // console.warn('Supabase profile fetch error (ignored):', error)
+                    }
+                    return
+                }
+
+                if (data?.preferred_currency) {
                     setCurrencyState(data.preferred_currency as CurrencyCode)
                 }
             } catch (e) {
-                // Silently ignore errors
+                // Silently ignore all network/parsing errors to prevent console noise
             }
         }
 

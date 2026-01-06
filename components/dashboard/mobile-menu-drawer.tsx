@@ -43,7 +43,7 @@ export function MobileMenuDrawer({
     const pathname = usePathname()
     const router = useRouter()
     const { locale, setLocale } = useTranslation()
-    const [user, setUser] = useState<any>(null)
+    const [user, setUser] = useState<{ id: string; email?: string; user_metadata?: { full_name?: string } } | null>(null)
 
     useEffect(() => {
         const getUser = async () => {
@@ -106,6 +106,9 @@ export function MobileMenuDrawer({
                     <div className="p-4 bg-background rounded-t-[2rem] flex-shrink-0">
                         <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-muted-foreground/30 mb-8" />
                         <Drawer.Title className="sr-only">Mobile Menu</Drawer.Title>
+                        <Drawer.Description className="sr-only">
+                            Navigation menu for accessing different sections of the dashboard.
+                        </Drawer.Description>
                     </div>
 
                     <div className="flex-1 overflow-y-auto p-4 pt-0">
