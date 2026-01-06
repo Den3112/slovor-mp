@@ -11,6 +11,7 @@ export interface User {
   phone: string | null
   location: string | null
   verified: boolean
+  preferred_currency: string | null
   created_at: string
   updated_at: string
 }

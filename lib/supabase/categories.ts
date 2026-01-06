@@ -3,22 +3,20 @@
 
 import { supabase } from './client'
 import type { Category, ApiResponse } from '../types/database'
+import { logError } from '../utils/logger'
 
 // Get all categories (production schema)
 export async function getMainCategories(): Promise<ApiResponse<Category[]>> {
   try {
-    console.log('[getMainCategories] Starting fetch...')
     const { data, error } = await supabase
       .from('categories')
       .select('*')
       .order('order_index', { ascending: true })
 
-    console.log('[getMainCategories] Response:', { data, error })
-
     if (error) throw error
     return { data: data || [], error: null }
   } catch (error) {
-    console.error('[getMainCategories] Error:', error)
+    logError('getMainCategories', error)
     return { data: null, error: (error as Error).message }
   }
 }
@@ -64,7 +62,6 @@ export async function getCategoriesWithCounts(): Promise<
   ApiResponse<Category[]>
 > {
   try {
-    console.log('[getCategoriesWithCounts] Starting fetch...')
     const { data, error } = await supabase
       .from('categories')
       .select(
@@ -74,8 +71,6 @@ export async function getCategoriesWithCounts(): Promise<
       `
       )
       .order('order_index', { ascending: true })
-
-    console.log('[getCategoriesWithCounts] Response:', { data, error })
 
     if (error) throw error
 
@@ -91,7 +86,7 @@ export async function getCategoriesWithCounts(): Promise<
 
     return { data: categoriesWithCounts, error: null }
   } catch (error) {
-    console.error('[getCategoriesWithCounts] Error:', error)
+    logError('getCategoriesWithCounts', error)
     return { data: null, error: (error as Error).message }
   }
 }

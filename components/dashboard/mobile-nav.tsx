@@ -1,49 +1,87 @@
 'use client'
 
+import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { LayoutDashboard, List, Heart, Settings } from 'lucide-react'
-import { motion } from 'framer-motion'
+import {
+  LayoutDashboard,
+  Store,
+  Plus,
+  MessageCircle,
+  Menu
+} from 'lucide-react'
+import { MobileMenuDrawer } from './mobile-menu-drawer'
 
-const navigation = [
-  { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'My Listings', href: '/dashboard/listings', icon: List },
-  { name: 'Favorites', href: '/dashboard/favorites', icon: Heart },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
-]
-
-export function DashboardMobileNav() {
+export function MobileBottomNav() {
   const pathname = usePathname()
+  const [open, setOpen] = React.useState(false)
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
   return (
-    <div className="fixed bottom-6 left-4 right-4 z-40 lg:hidden">
-      <nav className="no-scrollbar flex items-center justify-between overflow-x-auto rounded-[2rem] border border-border/10 bg-background/90 p-2 shadow-2xl backdrop-blur-xl">
-        {navigation.map((item) => {
-          const isActive = pathname === item.href
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={cn(
-                'relative flex min-w-[4rem] flex-1 flex-col items-center justify-center gap-1 rounded-[1.5rem] py-3 transition-all',
-                isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="active-mobile-tab"
-                  className="absolute inset-0 rounded-[1.5rem] bg-muted/30"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              <item.icon className="h-6 w-6" />
-              <span className="text-[10px] font-bold uppercase tracking-wider">
-                {item.name}
-              </span>
-            </Link>
-          )
-        })}
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+      {/* Glassmorphism Background with Gradient Border Top */}
+      <div className="absolute inset-0 bg-background/80 backdrop-blur-xl border-t border-white/10 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]" />
+
+      <nav className="relative h-[88px] pb-[28px] px-2 flex items-center justify-around">
+        {/* 1. Dashboard */}
+        <Link
+          href="/dashboard/overview"
+          className={cn(
+            "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
+            isActive('/dashboard/overview') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          <LayoutDashboard className={cn("h-6 w-6", isActive('/dashboard/overview') && "fill-primary/20")} />
+          <span className="text-[10px] font-bold">Home</span>
+        </Link>
+
+        {/* 2. My Listings */}
+        <Link
+          href="/dashboard/listings"
+          className={cn(
+            "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
+            isActive('/dashboard/listings') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          <Store className={cn("h-6 w-6", isActive('/dashboard/listings') && "fill-primary/20")} />
+          <span className="text-[10px] font-bold">Selling</span>
+        </Link>
+
+        {/* 3. CORE ACTION: POST AD */}
+        <div className="relative -top-6">
+          <Link href="/post">
+            <div className="h-14 w-14 rounded-full bg-primary shadow-lg shadow-primary/40 flex items-center justify-center text-white active:scale-95 transition-transform border-[3px] border-background">
+              <Plus className="h-7 w-7 stroke-[3]" />
+            </div>
+          </Link>
+        </div>
+
+        {/* 4. Inbox */}
+        <Link
+          href="/dashboard/messages"
+          className={cn(
+            "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
+            isActive('/dashboard/messages') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          <MessageCircle className={cn("h-6 w-6", isActive('/dashboard/messages') && "fill-primary/20")} />
+          <span className="text-[10px] font-bold">Inbox</span>
+        </Link>
+
+        {/* 5. Menu Drawer Trigger */}
+        <MobileMenuDrawer open={open} onOpenChange={setOpen}>
+          <button
+            className={cn(
+              "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
+              open ? "text-primary" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <Menu className="h-6 w-6" />
+            <span className="text-[10px] font-bold">Menu</span>
+          </button>
+        </MobileMenuDrawer>
       </nav>
     </div>
   )
