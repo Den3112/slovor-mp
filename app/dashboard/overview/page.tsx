@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Plus, Package, Heart, BarChart3, ArrowRight, MessageCircle } from 'lucide-react'
 import { getTranslationServer } from '@/lib/i18n/server'
 import { listingsApi } from '@/lib/api'
@@ -109,10 +110,12 @@ export default async function DashboardOverviewPage() {
                                             <div className="relative h-full w-full">
                                                 {/* Note: Using simple img for now as remote patterns might not be set up for arbitrary user blobs,
                                                    but cleanly styled. Ideally use next/image with domains configured. */}
-                                                <img
+                                                <Image
                                                     src={listing.images[0]}
                                                     alt={listing.title}
-                                                    className="object-cover w-full h-full transition-transform group-hover:scale-110"
+                                                    fill
+                                                    className="object-cover transition-transform group-hover:scale-110"
+                                                    unoptimized
                                                 />
                                             </div>
                                         ) : (

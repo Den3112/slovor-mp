@@ -39,8 +39,8 @@ export function DashboardListingsContent({ active, drafts, sold, archived }: Con
                 <TabsContent value="active" activeValue={activeTab}>
                     {active.length > 0 ? (
                         <div className="grid gap-4">
-                            {active.map((listing) => (
-                                <DashboardListingCard key={listing.id} listing={listing} />
+                            {active.map((listing, index) => (
+                                <DashboardListingCard key={listing.id} listing={listing} priority={index < 2} />
                             ))}
                         </div>
                     ) : (
@@ -55,8 +55,8 @@ export function DashboardListingsContent({ active, drafts, sold, archived }: Con
                 <TabsContent value="draft" activeValue={activeTab}>
                     {drafts.length > 0 ? (
                         <div className="grid gap-4">
-                            {drafts.map((listing) => (
-                                <DashboardListingCard key={listing.id} listing={listing} />
+                            {drafts.map((listing, index) => (
+                                <DashboardListingCard key={listing.id} listing={listing} priority={index < 2} />
                             ))}
                         </div>
                     ) : (
@@ -71,8 +71,8 @@ export function DashboardListingsContent({ active, drafts, sold, archived }: Con
                 <TabsContent value="sold" activeValue={activeTab}>
                     {sold.length > 0 ? (
                         <div className="grid gap-4">
-                            {sold.map((listing) => (
-                                <DashboardListingCard key={listing.id} listing={listing} />
+                            {sold.map((listing, index) => (
+                                <DashboardListingCard key={listing.id} listing={listing} priority={index < 2} />
                             ))}
                         </div>
                     ) : (
@@ -87,8 +87,8 @@ export function DashboardListingsContent({ active, drafts, sold, archived }: Con
                 <TabsContent value="archived" activeValue={activeTab}>
                     {archived.length > 0 ? (
                         <div className="grid gap-4">
-                            {archived.map((listing) => (
-                                <DashboardListingCard key={listing.id} listing={listing} />
+                            {archived.map((listing, index) => (
+                                <DashboardListingCard key={listing.id} listing={listing} priority={index < 2} />
                             ))}
                         </div>
                     ) : (
