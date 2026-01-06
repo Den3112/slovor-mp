@@ -24,9 +24,10 @@ import type { Listing } from '@/lib/api'
 interface SellerProfileViewProps {
     seller: Profile
     listings: Listing[]
+    variant?: 'public' | 'dashboard'
 }
 
-export function SellerProfileView({ seller, listings }: SellerProfileViewProps) {
+export function SellerProfileView({ seller, listings, variant = 'public' }: SellerProfileViewProps) {
     const { t, locale } = useTranslation()
 
     // Calculate member since date
@@ -35,24 +36,29 @@ export function SellerProfileView({ seller, listings }: SellerProfileViewProps) 
         year: 'numeric',
     })
 
-    return (
-        <div className="min-h-screen pb-20">
-            {/* Breadcrumbs / Back button */}
-            <Container className="py-6 pt-24 md:pt-32">
-                <Link
-                    href="/listings"
-                    className="group inline-flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-primary"
-                >
-                    <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                    {t.common.backToSearch}
-                </Link>
-            </Container>
+    const Wrapper = variant === 'public' ? Container : 'div'
+    const wrapperProps = variant === 'public' ? {} : { className: "w-full" }
 
-            <Container>
-                <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+    return (
+        <div className={variant === 'public' ? "min-h-screen pb-20" : "pb-12"}>
+            {/* Breadcrumbs / Back button - Only for public */}
+            {variant === 'public' && (
+                <Container className="py-6 pt-24 md:pt-32">
+                    <Link
+                        href="/listings"
+                        className="group inline-flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-primary"
+                    >
+                        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                        {t.common.backToSearch}
+                    </Link>
+                </Container>
+            )}
+
+            <Wrapper {...wrapperProps}>
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     {/* Seller Profile Card (Left) */}
                     <div className="lg:col-span-4">
-                        <div className="sticky top-28 space-y-6">
+                        <div className={variant === 'public' ? "sticky top-28 space-y-6" : "space-y-6"}>
                             {/* Main Profile Card */}
                             <div className="shadow-premium overflow-hidden rounded-[2.5rem] border border-border/50 bg-card p-8">
                                 {/* Avatar */}
@@ -137,60 +143,76 @@ export function SellerProfileView({ seller, listings }: SellerProfileViewProps) 
                                 </div>
                             </div>
 
-                            {/* Contact Button */}
-                            <Button
-                                size="lg"
-                                className="h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
-                            >
-                                <MessageCircle className="mr-2 h-5 w-5" />
-                                {t.seller.contactSeller}
-                            </Button>
+                            {/* Actions */}
+                            {variant === 'public' ? (
+                                <Button
+                                    size="lg"
+                                    className="h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
+                                >
+                                    <MessageCircle className="mr-2 h-5 w-5" />
+                                    {t.seller.contactSeller}
+                                </Button>
+                            ) : (
+                                <Link href="/dashboard/settings" className="block">
+                                    <Button
+                                        size="lg"
+                                        variant="outline"
+                                        className="h-14 w-full rounded-2xl text-lg font-bold border-2"
+                                    >
+                                        Edit Profile
+                                    </Button>
+                                </Link>
+                            )}
 
-                            {/* Safety Tip */}
-                            <div className="rounded-2xl border border-primary/10 bg-primary/5 p-6">
-                                <div className="flex gap-4">
-                                    <ShieldCheck className="h-6 w-6 shrink-0 text-primary" />
-                                    <div>
-                                        <p className="text-sm font-bold text-foreground">
-                                            {t.trust.safetyTitle}
-                                        </p>
-                                        <p className="mt-1 text-xs font-medium text-muted-foreground">
-                                            {t.trust.safetyTip1}
-                                        </p>
+                            {/* Safety info only on public */}
+                            {variant === 'public' && (
+                                <div className="rounded-2xl border border-primary/10 bg-primary/5 p-6">
+                                    <div className="flex gap-4">
+                                        <ShieldCheck className="h-6 w-6 shrink-0 text-primary" />
+                                        <div>
+                                            <p className="text-sm font-bold text-foreground">
+                                                {t.trust.safetyTitle}
+                                            </p>
+                                            <p className="mt-1 text-xs font-medium text-muted-foreground">
+                                                {t.trust.safetyTip1}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* Seller Reviews */}
                             <SellerRating sellerId={seller.id} />
                         </div>
                     </div>
 
-                    {/* Seller Listings (Right) */}
-                    <div className="space-y-8 lg:col-span-8">
-                        <div>
-                            <h2 className="mb-2 font-heading text-3xl font-black italic tracking-tight">
-                                {t.seller.listings}
-                            </h2>
-                            <div className="h-1.5 w-20 rounded-full bg-primary" />
-                        </div>
-
-                        {listings.length > 0 ? (
-                            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                                {listings.map((listing) => (
-                                    <ListingCard key={listing.id} listing={listing} />
-                                ))}
+                    {/* Seller Listings (Right) - Only show in public mode */}
+                    {variant === 'public' && (
+                        <div className="space-y-8 lg:col-span-8">
+                            <div>
+                                <h2 className="mb-2 font-heading text-3xl font-black italic tracking-tight">
+                                    {t.seller.listings}
+                                </h2>
+                                <div className="h-1.5 w-20 rounded-full bg-primary" />
                             </div>
-                        ) : (
-                            <EmptyState
-                                icon="📦"
-                                title={t.seller.noListings}
-                                description={t.seller.noListingsDescription}
-                            />
-                        )}
-                    </div>
+
+                            {listings.length > 0 ? (
+                                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                                    {listings.map((listing) => (
+                                        <ListingCard key={listing.id} listing={listing} />
+                                    ))}
+                                </div>
+                            ) : (
+                                <EmptyState
+                                    icon="📦"
+                                    title={t.seller.noListings}
+                                    description={t.seller.noListingsDescription}
+                                />
+                            )}
+                        </div>
+                    )}
                 </div>
-            </Container>
+            </Wrapper>
         </div>
     )
 }

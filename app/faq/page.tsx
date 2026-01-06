@@ -44,10 +44,10 @@ export default async function FAQPage() {
                   <ChevronRight className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="mb-3 text-xl font-black tracking-tight text-white">
+                  <h3 className="mb-3 text-xl font-black tracking-tight text-foreground">
                     {faq.q}
                   </h3>
-                  <p className="text-lg font-medium leading-relaxed text-zinc-400">
+                  <p className="text-lg font-medium leading-relaxed text-muted-foreground">
                     {faq.a}
                   </p>
                 </div>
