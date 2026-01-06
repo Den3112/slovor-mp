@@ -100,7 +100,10 @@ export function MobileMenuDrawer({
             </Drawer.Trigger>
             <Drawer.Portal>
                 <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" />
-                <Drawer.Content className="bg-background flex flex-col rounded-t-[2rem] h-[85vh] mt-24 fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 outline-none">
+                <Drawer.Content
+                    className="bg-background flex flex-col rounded-t-[2rem] h-[85vh] mt-24 fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 outline-none"
+                    aria-describedby={undefined}
+                >
 
                     {/* Handle Indicator */}
                     <div className="p-4 bg-background rounded-t-[2rem] flex-shrink-0">
