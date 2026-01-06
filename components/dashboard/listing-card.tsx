@@ -4,6 +4,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Edit, Trash2, Eye, Clock, Power, AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+} from '@/components/ui/dialog'
 import type { Listing } from '@/lib/types/database'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
@@ -16,7 +23,7 @@ interface DashboardListingCardProps {
     priority?: boolean
 }
 
-// Delete Confirmation Modal
+// Delete Confirmation Modal using Radix Dialog
 function DeleteConfirmModal({
     isOpen,
     onClose,
@@ -30,30 +37,27 @@ function DeleteConfirmModal({
     title: string
     isLoading: boolean
 }) {
-    if (!isOpen) return null
-
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+        <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
+                        <AlertTriangle className="h-6 w-6 text-destructive" />
+                    </div>
+                    <DialogTitle className="text-xl font-bold">Delete Listing?</DialogTitle>
+                    <DialogDescription asChild>
+                        <div className="space-y-3">
+                            <p>
+                                Are you sure you want to delete <strong className="text-foreground">&quot;{title}&quot;</strong>?
+                            </p>
+                            <p className="rounded-xl bg-destructive/5 p-3 text-sm text-destructive">
+                                ⚠️ This action cannot be undone. The listing will be permanently removed.
+                            </p>
+                        </div>
+                    </DialogDescription>
+                </DialogHeader>
 
-            {/* Modal */}
-            <div className="relative z-10 w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-2xl">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
-                    <AlertTriangle className="h-6 w-6 text-destructive" />
-                </div>
-
-                <h3 className="mb-2 text-xl font-bold text-foreground">Delete Listing?</h3>
-
-                <p className="mb-2 text-muted-foreground">
-                    Are you sure you want to delete <strong className="text-foreground">&quot;{title}&quot;</strong>?
-                </p>
-
-                <p className="mb-6 rounded-xl bg-destructive/5 p-3 text-sm text-destructive">
-                    ⚠️ This action cannot be undone. The listing will be permanently removed from the database.
-                </p>
-
-                <div className="flex gap-3">
+                <div className="flex gap-3 mt-4">
                     <Button
                         variant="outline"
                         className="flex-1"
@@ -71,8 +75,8 @@ function DeleteConfirmModal({
                         {isLoading ? 'Deleting...' : 'Delete Forever'}
                     </Button>
                 </div>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     )
 }
 
