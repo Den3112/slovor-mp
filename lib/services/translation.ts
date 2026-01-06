@@ -112,8 +112,6 @@ export async function generateListingTranslations(
         }
     }
 
-    console.log(`[TranslationService] Auto-translating from ${baseLocale}...`)
-
     // Translate title and description to all target languages in parallel
     const [titleTranslations, descTranslations] = await Promise.all([
         Promise.all(
@@ -133,8 +131,6 @@ export async function generateListingTranslations(
             }))
         ),
     ])
-
-    console.log('[TranslationService] Translation complete')
 
     return {
         title_en: titleTranslations.find(t => t.locale === 'en')?.text || '',

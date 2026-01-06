@@ -1,7 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { Plus } from 'lucide-react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import { DashboardListingsContent } from '@/components/dashboard/listings-content'
 
 export default async function DashboardListingsPage() {
@@ -35,12 +32,7 @@ export default async function DashboardListingsPage() {
           <h1 className="font-heading text-3xl font-black">My Listings</h1>
           <p className="text-muted-foreground">Manage your items and track sales</p>
         </div>
-        <Link href="/create-listing">
-          <Button className="w-full rounded-xl font-bold shadow-lg shadow-primary/20 sm:w-auto">
-            <Plus className="mr-2 h-4 w-4" />
-            Create Listing
-          </Button>
-        </Link>
+
       </div>
 
       <div className="rounded-2xl border border-border/40 bg-card p-1 shadow-sm">

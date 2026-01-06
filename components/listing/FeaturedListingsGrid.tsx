@@ -23,8 +23,8 @@ export function FeaturedListingsGrid({ listings }: FeaturedListingsGridProps) {
 
     return (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {listings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+            {listings.map((listing, index) => (
+                <ListingCard key={listing.id} listing={listing} featured={index < 4} />
             ))}
         </div>
     )

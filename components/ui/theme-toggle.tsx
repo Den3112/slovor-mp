@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
     const { theme, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
 
@@ -16,7 +16,10 @@ export function ThemeToggle() {
 
     if (!mounted) {
         return (
-            <button className="flex h-10 w-10 items-center justify-center rounded-full border border-border/40 bg-muted/20">
+            <button
+                style={{ width: '40px', height: '40px', minHeight: '40px', maxHeight: '40px' }}
+                className={cn("flex items-center justify-center rounded-full border border-border/40 bg-muted/20", className)}
+            >
                 <div className="h-4 w-4 animate-pulse rounded-full bg-muted" />
             </button>
         )
@@ -27,9 +30,11 @@ export function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
+            style={{ width: '40px', height: '40px', minHeight: '40px', maxHeight: '40px' }}
             className={cn(
-                'group relative flex h-10 w-10 items-center justify-center rounded-full border border-border/40 transition-all hover:border-primary/50',
-                isDark ? 'bg-muted/20 hover:bg-muted/40' : 'bg-primary/10 hover:bg-primary/20'
+                'group relative flex shrink-0 items-center justify-center rounded-full border border-border/40 transition-all hover:border-primary/50',
+                isDark ? 'bg-muted/20 hover:bg-muted/40' : 'bg-primary/10 hover:bg-primary/20',
+                className
             )}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >

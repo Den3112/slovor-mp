@@ -20,7 +20,7 @@
     --secondary-foreground: 240 5.9% 10%;
 
     --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted-foreground: 240 5% 35%;
 
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
@@ -33,6 +33,29 @@
     --ring: 262.1 83.3% 57.8%;
 
     --radius: 1.25rem;
+
+    /* Responsive Spacing Scale */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Safe Area Insets (for iPhone notch) */
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
+
+    /* Touch Target Size */
+    --touch-target: 44px;
+
+    /* Header Height */
+    --header-height: 64px;
+    --header-height-scrolled: 56px;
+
+    /* Bottom Bar Height */
+    --bottom-bar-height: 72px;
   }
 
   .dark {
@@ -52,7 +75,7 @@
     --secondary-foreground: 0 0% 98%;
 
     --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted-foreground: 240 5% 72%;
 
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
@@ -73,6 +96,16 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    /* Enable smooth scrolling but respect user preferences */
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+
+    /* Only reserve scrollbar space on devices that likely have non-overlay scrollbars */
+    @media (hover: hover) and (pointer: fine) {
+      scrollbar-gutter: stable;
+    }
   }
 
   body {
@@ -81,20 +114,38 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+    /* Add bottom padding for fixed bottom bars */
+    padding-bottom: var(--safe-area-bottom);
   }
 
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+  /* Custom Scrollbar - Desktop Only */
+  @media (hover: hover) and (pointer: fine) {
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      @apply rounded-full border-4 border-solid border-transparent bg-muted-foreground/20 bg-clip-padding hover:bg-muted-foreground/40;
+    }
   }
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  /* Hide scrollbar on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    ::-webkit-scrollbar {
+      display: none;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-full border-4 border-solid border-transparent bg-muted-foreground/20 bg-clip-padding hover:bg-muted-foreground/40;
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
 
   /* Native Select Styling for Dark Mode */
@@ -107,7 +158,21 @@
     color: hsl(var(--card-foreground));
   }
 
-  /* Number input - keep native spinners for better UX */
+  /* Prevent iOS zoom on input focus */
+  @media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="url"],
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+
   /* Autofill styling for dark mode */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
@@ -118,6 +183,27 @@
     -webkit-text-fill-color: hsl(var(--foreground));
     -webkit-box-shadow: 0 0 0px 1000px hsl(var(--card)) inset;
     transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Improve touch targets */
+  button,
+  [role="button"],
+  a {
+    min-height: var(--touch-target);
+    touch-action: manipulation;
+  }
+
+  /* Ensure proper focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Remove focus outline on touch devices for cleaner look */
+  @media (hover: none) and (pointer: coarse) {
+    :focus:not(:focus-visible) {
+      outline: none;
+      box-shadow: none;
+    }
   }
 }
 
@@ -167,6 +253,117 @@
       ),
       radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%);
   }
+
+  /* Safe Area Helpers */
+  .safe-top {
+    padding-top: var(--safe-area-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: var(--safe-area-bottom);
+  }
+
+  .safe-left {
+    padding-left: var(--safe-area-left);
+  }
+
+  .safe-right {
+    padding-right: var(--safe-area-right);
+  }
+
+  .safe-x {
+    padding-left: var(--safe-area-left);
+    padding-right: var(--safe-area-right);
+  }
+
+  .safe-y {
+    padding-top: var(--safe-area-top);
+    padding-bottom: var(--safe-area-bottom);
+  }
+
+  .safe-all {
+    padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
+  }
+
+  /* Fixed Bottom Bar Container */
+  .fixed-bottom-bar {
+    @apply fixed bottom-0 left-0 right-0 z-40;
+    padding-bottom: calc(var(--safe-area-bottom) + 0.5rem);
+    padding-left: var(--safe-area-left);
+    padding-right: var(--safe-area-right);
+  }
+
+  /* Hide on Mobile */
+  .hide-mobile {
+    @apply hidden md:block;
+  }
+
+  /* Hide on Desktop */
+  .hide-desktop {
+    @apply block md:hidden;
+  }
+
+  /* Touch-friendly scrolling */
+  .scroll-touch {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* No scrollbar utility */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Horizontal scroll container */
+  .scroll-x {
+    @apply flex overflow-x-auto no-scrollbar scroll-touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .scroll-x > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* Card hover effect (desktop only) */
+  @media (hover: hover) and (pointer: fine) {
+    .card-hover {
+      @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    }
+  }
+
+  /* Tap effect (mobile only) */
+  @media (hover: none) and (pointer: coarse) {
+    .tap-effect {
+      @apply active:scale-[0.98] active:opacity-90 transition-transform;
+    }
+  }
+
+  /* Vaul Drawer Styling */
+  [vaul-drawer] {
+    @apply fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[2rem] border-t border-border bg-background;
+  }
+
+  [vaul-drawer]::after {
+    @apply absolute left-1/2 top-3 h-1.5 w-12 -translate-x-1/2 rounded-full bg-muted-foreground/20;
+    content: '';
+  }
+
+  [vaul-overlay] {
+    @apply fixed inset-0 z-40 bg-black/40 backdrop-blur-sm;
+  }
+
+  /* Prevent layout shift on mobile when drawer opens */
+  @media (hover: none) and (pointer: coarse) {
+    body[data-scroll-locked] {
+      padding-right: 0 !important;
+    }
+  }
 }
 
 /* Premium Shadows */
@@ -198,4 +395,87 @@
 .animate-float-delayed {
   animation: float 8s ease-in-out infinite;
   animation-delay: 2s;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-delayed {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 0%,
+    hsl(var(--muted-foreground) / 0.1) 50%,
+    hsl(var(--muted)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Slide up animation for modals/drawers */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Scale in animation */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
 }

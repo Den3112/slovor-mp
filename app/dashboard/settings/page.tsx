@@ -4,13 +4,18 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Loader2, Save, User, Phone, MapPin, AlignLeft } from 'lucide-react'
+import { Loader2, Save, User, Phone, MapPin, AlignLeft, Mail, Coins } from 'lucide-react'
 import { useAuth } from '@/components/providers/auth-provider'
+import { useCurrency } from '@/components/providers/currency-provider'
+import { CURRENCIES, type CurrencyCode } from '@/lib/types/currency'
 import Image from 'next/image'
 import { storageApi } from '@/lib/api'
+import { Card } from '@/components/ui/card'
+import { DashboardPageHeader } from '@/components/dashboard/page-header'
 
 export default function SettingsPage() {
   const { user } = useAuth()
+  const { currency, setCurrency } = useCurrency()
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [formData, setFormData] = useState({
@@ -87,107 +92,168 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-2xl space-y-6">
-      <div>
-        <h1 className="font-heading text-3xl font-black">Settings</h1>
-        <p className="text-muted-foreground">Manage your profile and preferences</p>
+    <div className="max-w-4xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <DashboardPageHeader
+        title="Settings"
+        description="Manage your profile details, contact information, and preferences."
+      />
+
+      <div className="grid gap-8">
+        <Card className="p-8 rounded-[2.5rem] border-border/50 bg-card/50 backdrop-blur-sm shadow-xl">
+          <form onSubmit={handleUpdate} className="space-y-8">
+
+            {/* Avatar Section */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 pb-8 border-b border-border/40">
+              <div className="relative group">
+                <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-background bg-muted shadow-2xl transition-transform group-hover:scale-105">
+                  {formData.avatar_url ? (
+                    <Image src={formData.avatar_url} alt="Avatar" fill className="object-cover" unoptimized />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-muted-foreground bg-primary/5">
+                      <User className="h-12 w-12 opacity-20" />
+                    </div>
+                  )}
+                  {isUploading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                      <Loader2 className="h-8 w-8 animate-spin text-white" />
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('avatar-input')?.click()}
+                  className="absolute bottom-0 right-0 p-2.5 rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-110 transition-transform"
+                >
+                  <div className="h-4 w-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.5l-.5 4a2 2 0 0 0 2 2l4-.5a2 2 0 0 0 .5-.5l11.832-11.832z" /></svg>
+                  </div>
+                </button>
+              </div>
+
+              <div className="flex-1 text-center sm:text-left space-y-2">
+                <h3 className="text-xl font-bold">Profile Picture</h3>
+                <p className="text-muted-foreground text-sm max-w-sm mx-auto sm:mx-0">
+                  Upload a high-quality photo to build trust with other users.
+                  <br />Supported formats: JPG, PNG, GIF. Max 5MB.
+                </p>
+                <input
+                  id="avatar-input"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleAvatarUpload}
+                />
+              </div>
+            </div>
+
+            {/* Form Fields - 2 Column Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              {/* Full Name */}
+              <div className="space-y-2">
+                <label className="text-sm font-bold ml-1">Full Name</label>
+                <div className="relative group">
+                  <User className="absolute left-4 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  <Input
+                    className="pl-11 h-12 rounded-xl bg-background/50 border-input/50 focus:bg-background transition-all"
+                    value={formData.full_name}
+                    onChange={e => setFormData({ ...formData, full_name: e.target.value })}
+                    placeholder="John Doe"
+                  />
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="space-y-2">
+                <label className="text-sm font-bold ml-1">Location</label>
+                <div className="relative group">
+                  <MapPin className="absolute left-4 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  <Input
+                    className="pl-11 h-12 rounded-xl bg-background/50 border-input/50 focus:bg-background transition-all"
+                    value={formData.location}
+                    onChange={e => setFormData({ ...formData, location: e.target.value })}
+                    placeholder="Bratislava, Slovakia"
+                  />
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="space-y-2">
+                <label className="text-sm font-bold ml-1">Phone Number</label>
+                <div className="relative group">
+                  <Phone className="absolute left-4 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  <Input
+                    className="pl-11 h-12 rounded-xl bg-background/50 border-input/50 focus:bg-background transition-all"
+                    value={formData.phone}
+                    onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="+421 900 000 000"
+                  />
+                </div>
+              </div>
+
+              {/* Currency */}
+              <div className="space-y-2">
+                <label className="text-sm font-bold ml-1">Preferred Currency</label>
+                <div className="relative group">
+                  <Coins className="absolute left-4 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  <select
+                    className="flex h-12 w-full rounded-xl border border-input/50 bg-background/50 px-3 py-2 pl-11 text-sm ring-offset-background focus:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all appearance-none"
+                    value={currency}
+                    onChange={e => setCurrency(e.target.value as CurrencyCode)}
+                  >
+                    {Object.values(CURRENCIES).map(curr => (
+                      <option key={curr.code} value={curr.code}>
+                        {curr.symbol} {curr.name} ({curr.code})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Email (Full Width) */}
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-bold ml-1 text-muted-foreground">Email Address (Read-only)</label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-3.5 h-4 w-4 text-muted-foreground/50" />
+                  <Input
+                    className="pl-11 h-12 rounded-xl bg-muted/20 border-border/20 text-muted-foreground cursor-not-allowed"
+                    value={user?.email || ''}
+                    readOnly
+                    disabled
+                  />
+                </div>
+              </div>
+
+              {/* Bio (Full Width) */}
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-bold ml-1">Bio / Description</label>
+                <div className="relative group">
+                  <AlignLeft className="absolute left-4 top-3.5 h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  <textarea
+                    className="flex min-h-[120px] w-full rounded-xl border border-input/50 bg-background/50 px-3 py-3 pl-11 text-sm ring-offset-background placeholder:text-muted-foreground focus:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all resize-y"
+                    value={formData.bio}
+                    onChange={e => setFormData({ ...formData, bio: e.target.value })}
+                    placeholder="Tell buyers a bit about yourself, your shop policies, or what you sell..."
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            <div className="pt-6 border-t border-border/40 flex justify-end">
+              <Button
+                type="submit"
+                disabled={isLoading || isUploading}
+                className="h-12 px-8 rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:scale-105 transition-transform"
+              >
+                {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Save className="mr-2 h-5 w-5" />}
+                Save Changes
+              </Button>
+            </div>
+
+          </form>
+        </Card>
       </div>
-
-      <form onSubmit={handleUpdate} className="rounded-2xl border border-border/40 bg-card p-6 shadow-sm space-y-6">
-
-        {/* Avatar Section */}
-        <div className="flex items-center gap-6">
-          <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-border bg-muted">
-            {formData.avatar_url ? (
-              <Image src={formData.avatar_url} alt="Avatar" fill className="object-cover" unoptimized />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-muted-foreground">
-                <User className="h-10 w-10 opacity-20" />
-              </div>
-            )}
-            {isUploading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                <Loader2 className="h-6 w-6 animate-spin text-white" />
-              </div>
-            )}
-          </div>
-          <div>
-            <Button type="button" variant="outline" className="font-bold" onClick={() => document.getElementById('avatar-input')?.click()}>
-              Change Avatar
-            </Button>
-            <input
-              id="avatar-input"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleAvatarUpload}
-            />
-            <p className="mt-2 text-xs text-muted-foreground">JPG, PNG or GIF. Max 5MB.</p>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <div className="grid gap-2">
-            <label className="text-sm font-bold">Full Name</label>
-            <div className="relative">
-              <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                className="pl-10"
-                value={formData.full_name}
-                onChange={e => setFormData({ ...formData, full_name: e.target.value })}
-                placeholder="John Doe"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-bold">Phone Number</label>
-            <div className="relative">
-              <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                className="pl-10"
-                value={formData.phone}
-                onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+421 900 000 000"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-bold">Location</label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                className="pl-10"
-                value={formData.location}
-                onChange={e => setFormData({ ...formData, location: e.target.value })}
-                placeholder="Bratislava, Slovakia"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-bold">Bio</label>
-            <div className="relative">
-              <AlignLeft className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <textarea
-                className="flex min-h-[80px] w-full rounded-xl border border-input bg-background px-3 py-2 pl-10 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                value={formData.bio}
-                onChange={e => setFormData({ ...formData, bio: e.target.value })}
-                placeholder="Tell us a bit about yourself..."
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-4 border-t border-border/40 flex justify-end">
-          <Button type="submit" disabled={isLoading || isUploading} className="font-bold min-w-[120px]">
-            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-            Save Changes
-          </Button>
-        </div>
-
-      </form>
     </div>
   )
 }

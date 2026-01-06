@@ -31,7 +31,7 @@ export function CategoryView({
   const categoryName = getLocalizedCategoryName(category, locale, t)
 
   return (
-    <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pb-12 pt-28 md:pt-32">
+    <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pb-12 pt-32 md:pt-36">
       <Breadcrumbs
         items={[
           { label: t.common.categories, href: '/listings' },
@@ -39,7 +39,7 @@ export function CategoryView({
         ]}
       />
 
-      <div className="fade-in-up mb-12 mt-8">
+      <div className="fade-in-up mb-12 mt-6">
         <div className="flex flex-col gap-6 md:flex-row md:items-center">
           {category.icon && (
             <div className="flex h-24 w-24 items-center justify-center rounded-[1.5rem] border border-border/50 bg-card text-6xl shadow-lg shadow-black/5">
