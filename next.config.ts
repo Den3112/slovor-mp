@@ -12,23 +12,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'loremflickr.com',
       },
-      {
-        protocol: 'https',
-        hostname: 'placeimg.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'hnkhwvhjwygolvwvxnor.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.dicebear.com',
-      },
     ],
+    // Enable SVG support for Dicebear avatars
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+
     // Disable optimization for faster loading of external images
     unoptimized: false,
     // Use smaller device sizes for faster loading

@@ -1,4 +1,4 @@
-import { listingsApi } from '@/lib/api'
+import { serverListingsApi } from '@/lib/api/listings-server'
 import { FeaturedListingsGrid } from './FeaturedListingsGrid'
 
 interface FeaturedListingsProps {
@@ -10,7 +10,8 @@ export async function FeaturedListings({
   limit = 8,
   categoryId,
 }: FeaturedListingsProps) {
-  const result = await listingsApi.getAll({
+  // Use server-side API for Server Components
+  const result = await serverListingsApi.getAll({
     limit,
     categoryId,
     isFeatured: true,
@@ -20,11 +21,7 @@ export async function FeaturedListings({
 
   // Fallback: If no featured listings, get the most recent ones
   if (listings.length === 0) {
-    const fallbackRes = await listingsApi.getAll({
-      limit,
-      categoryId,
-      sort: 'newest',
-    })
+    const fallbackRes = await serverListingsApi.getFeatured(limit)
     listings = fallbackRes.data || []
   }
 
