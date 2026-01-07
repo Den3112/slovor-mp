@@ -37,7 +37,7 @@ export function DashboardFavoriteItem({ listing }: { listing: Listing & { catego
                 </Link>
 
                 <div className="flex items-center gap-4 mt-1">
-                    <span className="font-bold text-primary">
+                    <span className="font-bold text-primary" suppressHydrationWarning>
                         {listing.price?.toLocaleString()} {listing.currency}
                     </span>
                     {listing.location && (

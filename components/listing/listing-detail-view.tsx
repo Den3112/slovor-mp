@@ -109,7 +109,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                     </p>
                                     <div className="flex items-center gap-2 font-bold text-foreground">
                                         <Calendar className="h-5 w-5 text-blue-500" />
-                                        <span>
+                                        <span suppressHydrationWarning>
                                             {new Date(listing.created_at).toLocaleDateString()}
                                         </span>
                                     </div>
@@ -151,7 +151,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                             {seller.display_name || 'Anonymous Seller'}
                                         </p>
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                            <span>{t.seller.memberSince} {new Date(seller.created_at).getFullYear()}</span>
+                                            <span suppressHydrationWarning>{t.seller.memberSince} {new Date(seller.created_at).getFullYear()}</span>
                                             {seller.verified && (
                                                 <>
                                                     <span className="h-1 w-1 rounded-full bg-border" />
