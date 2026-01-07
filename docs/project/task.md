@@ -1,0 +1,45 @@
+# Mobile Friendly Audit & Major Refactoring
+
+- [x] **Audit & Analysis** <!-- id: 0 -->
+    - [x] Analyze project structure for refactoring opportunities <!-- id: 1 -->
+    - [x] Audit critical pages for Mobile Responsiveness (Home, Listings, Profile, Auth) <!-- id: 2 -->
+    - [x] Identify code duplication and technical debt <!-- id: 3 -->
+- [x] **Mobile Optimization** <!-- id: 4 -->
+    - [x] Fix Mobile Navigation (Hamburger/Bottom bar consistency) <!-- id: 5 -->
+    - [x] Optimize Grid/Flex layouts for small screens <!-- id: 6 -->
+    - [x] Ensure touch-friendly targets and readable typography <!-- id: 7 -->
+    - [x] Fix overflow and spacing issues on mobile <!-- id: 8 -->
+- [x] **Categories Page Optimization** <!-- id: 18 -->
+    - [x] Optimize Grid for mobile (2 columns) <!-- id: 19 -->
+    - [x] Enhance UI/UX (Icons, Spacing, Typography) <!-- id: 20 -->
+- [x] **Listings Page Optimization** <!-- id: 21 -->
+    - [x] Apply premium UI styles (Headers, Spacing) <!-- id: 22 -->
+    - [x] Verify Mobile Grid (2-col) & Card polish <!-- id: 23 -->
+- [x] **Global UI Polish** <!-- id: 24 -->
+    - [x] Profile Overview (Mobile Grid, Stats) <!-- id: 25 -->
+    - [x] Profile Subpages (My Listings, Favorites, Settings) <!-- id: 26 -->
+    - [x] Listing Details (Mobile Typography, Gallery) <!-- id: 27 -->
+    - [x] Auth Pages (Responsive Layouts) <!-- id: 28 -->
+- [x] **Code Refactoring** <!-- id: 9 -->
+    - [x] Consolidate reusable UI components <!-- id: 10 -->
+    - [x] Refactor large page components into smaller chunks <!-- id: 11 -->
+    - [x] optimize imports and file organization <!-- id: 12 -->
+    - [x] Remove unused code and legacy files <!-- id: 13 -->
+- [/] **Verification** <!-- id: 14 -->
+    - [x] Manual Mobile Walkthrough <!-- id: 15 -->
+    - [x] Build and Lint check <!-- id: 16 -->
+    - [x] Run Automated Tests <!-- id: 17 -->
+- [x] **Post Listing Rework** <!-- id: 29 -->
+    - [x] Refactor Orchestrator (Full-screen mobile) <!-- id: 30 -->
+    - [x] Step 1: Category Grid <!-- id: 31 -->
+    - [x] Step 2: Details & Glass Inputs <!-- id: 32 -->
+    - [x] Step 3: Media Upload with Drag-n-Drop <!-- id: 33 -->
+    - [x] Verify functionality <!-- id: 34 -->
+- [x] **implement Favorites Functionality** <!-- id: 35 -->
+    - [x] Create/Verify 'favorites' table migration <!-- id: 36 -->
+    - [x] Verify RLS Policies <!-- id: 37 -->
+    - [x] Update FavoriteButton logic <!-- id: 38 -->
+    - [x] Verify '/profile/favorites' page <!-- id: 39 -->
+- [x] **Dashboard Stats Integration** <!-- id: 40 -->
+    - [x] Unified API for counts (Favorites, Listings) <!-- id: 41 -->
+    - [x] Sidebar & Mobile Drawer Badges <!-- id: 42 -->
