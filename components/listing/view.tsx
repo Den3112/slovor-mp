@@ -6,10 +6,12 @@ import { ListingFilters } from './filters'
 import type { Listing } from '@/lib/api'
 import { listingsApi, type ListingFilterOptions } from '@/lib/api/listings'
 import { Container } from '@/components/ui/container'
+import { Button } from '@/components/ui/button'
 
-import { Search, SlidersHorizontal, PackageSearch, Loader2 } from 'lucide-react'
+import { Search, SlidersHorizontal, PackageSearch, Loader2, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/lib/i18n'
+import { Drawer } from 'vaul'
 
 const ITEMS_PER_PAGE = 12
 
@@ -32,6 +34,7 @@ export function ListingsView({
   const [listings, setListings] = useState<Listing[]>(initialListings)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
 
   const hasMore = listings.length < totalCount
 
@@ -67,7 +70,7 @@ export function ListingsView({
 
           // Filter out any potential duplicates by ID to prevent key errors
           const existingIds = new Set(prev.map(l => l.id))
-          const newUnique = result.data!.filter(l => !existingIds.has(l.id))
+          const newUnique = (result.data || []).filter(l => !existingIds.has(l.id))
           return [...prev, ...newUnique]
         })
         setPage(nextPage)
@@ -120,26 +123,27 @@ export function ListingsView({
     }
   }, [hasMore, loadMore]) // dependencies stable
 
+
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <div className="relative mb-12 overflow-hidden border-b border-border/50 bg-card/30 pb-12 pt-24 md:pb-20 md:pt-40">
-        {/* Decorative Orbs */}
-        <div className="absolute right-0 top-0 h-[400px] w-[400px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[100px]" />
-        <div className="absolute bottom-0 left-0 h-[300px] w-[300px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[100px]" />
+    <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-muted/20 pb-20">
+      <div className="relative mb-8 overflow-hidden border-b border-white/5 pb-12 pt-32 md:mb-16 md:pb-24 md:pt-48">
+        {/* Decorative Orbs - Refined */}
+        <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
 
         <Container>
-          <div className="relative z-10 flex flex-col gap-6">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-primary">
+          <div className="relative z-10 flex flex-col gap-4 md:gap-8">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-primary backdrop-blur-md">
               <Search className="h-3.5 w-3.5" />
               Explorer
             </div>
-            <h1 className="font-heading text-5xl font-black uppercase italic tracking-tighter text-foreground md:text-7xl">
+            <h1 className="max-w-4xl font-heading text-5xl font-black italic tracking-tighter text-foreground md:text-8xl">
               {searchQuery
                 ? `${t.common.search}: ${searchQuery}`
                 : t.common.allListings}
             </h1>
-            <p className="flex items-center gap-3 text-xl font-medium text-muted-foreground">
-              <span className="font-black text-foreground">{totalCount}</span>
+            <p className="flex items-center gap-3 text-lg font-medium text-muted-foreground md:text-2xl">
+              <span className="font-heading font-black text-foreground">{totalCount}</span>
               {totalCount === 1
                 ? t.common.listings.slice(0, -1)
                 : t.common.listings}{' '}
@@ -150,9 +154,52 @@ export function ListingsView({
       </div>
 
       <Container>
+        {/* Mobile Filter Trigger */}
+        <div className="mb-6 lg:hidden">
+          <Drawer.Root open={filterOpen} onOpenChange={setFilterOpen}>
+            <Drawer.Trigger asChild>
+              <button className="flex w-full items-center justify-between rounded-2xl border border-border bg-card p-4 font-bold shadow-sm transition-all active:scale-[0.98]">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className="h-5 w-5 text-primary" />
+                  <span>{t.filters.title}</span>
+                </div>
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs text-primary">
+                  +
+                </div>
+              </button>
+            </Drawer.Trigger>
+            <Drawer.Portal>
+              <Drawer.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
+              <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-[2rem] border-t border-border bg-background outline-none">
+                <div className="p-4 bg-background rounded-t-[2rem] flex-shrink-0 border-b border-border/40">
+                  <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-muted-foreground/30 mb-6" />
+                  <div className="flex items-center justify-between px-2">
+                    <Drawer.Title className="text-xl font-black italic tracking-tight">
+                      {t.filters.title}
+                    </Drawer.Title>
+                    <Drawer.Close asChild>
+                      <button className="p-2 -mr-2 text-muted-foreground">
+                        <X className="h-6 w-6" />
+                      </button>
+                    </Drawer.Close>
+                  </div>
+                </div>
+                <div className="flex-1 overflow-y-auto p-6">
+                  <ListingFilters />
+                </div>
+                <div className="p-4 border-t border-border/40 safe-bottom">
+                  <Button className="w-full text-lg font-bold h-14 rounded-2xl" onClick={() => setFilterOpen(false)}>
+                    Show {totalCount} Listings
+                  </Button>
+                </div>
+              </Drawer.Content>
+            </Drawer.Portal>
+          </Drawer.Root>
+        </div>
+
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Filters Sidebar */}
-          <aside className="space-y-8 lg:col-span-3">
+          {/* Filters Sidebar (Desktop) */}
+          <aside className="hidden space-y-8 lg:col-span-3 lg:block">
             <div className="sticky top-28">
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="flex items-center gap-2 text-xl font-black italic tracking-tight">
@@ -203,7 +250,7 @@ export function ListingsView({
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
+                    className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                   >
                     {listings.map((listing, idx) => (
                       <motion.div
@@ -247,6 +294,6 @@ export function ListingsView({
           </main>
         </div>
       </Container>
-    </div>
+    </div >
   )
 }

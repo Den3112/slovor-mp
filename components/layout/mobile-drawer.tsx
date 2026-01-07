@@ -71,52 +71,64 @@ export function MobileDrawer({
                     {/* Drawer Content */}
                     <div className="flex-1 overflow-y-auto px-6 py-6">
                         {/* Navigation Links */}
-                        <nav className="space-y-2">
-                            {navLinks.map((link) => {
-                                const Icon = link.icon
-                                const isActive =
-                                    pathname === link.href ||
-                                    (link.href !== '/' && pathname?.startsWith(link.href))
-                                return (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        onClick={() => onOpenChange(false)}
-                                        className={cn(
-                                            'flex items-center gap-4 rounded-2xl px-5 py-4 text-lg font-bold transition-all',
-                                            isActive
-                                                ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                                                : 'text-foreground hover:bg-muted'
-                                        )}
-                                    >
-                                        <Icon className="h-5 w-5" />
-                                        {link.label}
-                                    </Link>
-                                )
-                            })}
+                        {/* Navigation Grid */}
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="px-2 mb-3 text-xs font-black uppercase tracking-widest text-muted-foreground/70">
+                                    Menu
+                                </h3>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {navLinks.map((link) => {
+                                        const Icon = link.icon
+                                        const isActive =
+                                            pathname === link.href ||
+                                            (link.href !== '/' && pathname?.startsWith(link.href))
+                                        return (
+                                            <Link
+                                                key={link.href}
+                                                href={link.href}
+                                                onClick={() => onOpenChange(false)}
+                                                className={cn(
+                                                    "flex flex-col gap-2 p-4 rounded-2xl border transition-all active:scale-95",
+                                                    isActive
+                                                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25"
+                                                        : "bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground"
+                                                )}
+                                            >
+                                                <Icon className="h-6 w-6" />
+                                                <span className="font-bold text-sm">{link.label}</span>
+                                            </Link>
+                                        )
+                                    })}
+                                </div>
+                            </div>
 
                             {user && (
-                                <>
-                                    <div className="my-4 h-px bg-border/50" />
-                                    <Link
-                                        href="/profile"
-                                        onClick={() => onOpenChange(false)}
-                                        className="flex items-center gap-4 rounded-2xl px-5 py-4 text-lg font-bold text-foreground transition-all hover:bg-muted"
-                                    >
-                                        <LayoutDashboard className="h-5 w-5" />
-                                        {t.common.profile}
-                                    </Link>
-                                    <Link
-                                        href="/profile/favorites"
-                                        onClick={() => onOpenChange(false)}
-                                        className="flex items-center gap-4 rounded-2xl px-5 py-4 text-lg font-bold text-foreground transition-all hover:bg-muted"
-                                    >
-                                        <Heart className="h-5 w-5" />
-                                        Favorites
-                                    </Link>
-                                </>
+                                <div>
+                                    <h3 className="px-2 mb-3 text-xs font-black uppercase tracking-widest text-muted-foreground/70">
+                                        Account
+                                    </h3>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <Link
+                                            href="/profile"
+                                            onClick={() => onOpenChange(false)}
+                                            className="flex flex-col gap-2 p-4 rounded-2xl border bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95"
+                                        >
+                                            <LayoutDashboard className="h-6 w-6" />
+                                            <span className="font-bold text-sm">{t.common.profile}</span>
+                                        </Link>
+                                        <Link
+                                            href="/profile/favorites"
+                                            onClick={() => onOpenChange(false)}
+                                            className="flex flex-col gap-2 p-4 rounded-2xl border bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95"
+                                        >
+                                            <Heart className="h-6 w-6" />
+                                            <span className="font-bold text-sm">Favorites</span>
+                                        </Link>
+                                    </div>
+                                </div>
                             )}
-                        </nav>
+                        </div>
 
                         {/* Language Selector */}
                         <MobileLanguageSelector locale={locale} setLocale={setLocale} />

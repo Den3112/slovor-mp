@@ -1,6 +1,6 @@
 'use client'
 
-import { DashboardFeaturePlaceholder } from '@/components/dashboard/feature-placeholder'
+import { DashboardFeaturePlaceholder } from '@/components/profile/feature-placeholder'
 import { MessageCircle } from 'lucide-react'
 
 export default function InboxPage() {

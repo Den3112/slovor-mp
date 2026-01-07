@@ -2,6 +2,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { SellerProfileView } from '@/components/profile/SellerProfileView'
 import { redirect } from 'next/navigation'
+import { Eye, ExternalLink } from 'lucide-react'
 
 export default async function DashboardProfilePage() {
     const supabase = await createClient()
@@ -18,6 +19,13 @@ export default async function DashboardProfilePage() {
         .eq('id', user.id)
         .single()
 
+    const { data: listings } = await supabase
+        .from('listings')
+        .select('*, category:categories(*)')
+        .eq('user_id', user.id)
+        .eq('is_active', true)
+        .order('created_at', { ascending: false })
+
     if (profileError || !seller) {
         // Fallback or handle error - for now redirect to settings to complete profile
         redirect('/profile/settings')
@@ -25,22 +33,30 @@ export default async function DashboardProfilePage() {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-black tracking-tight">Public Profile</h1>
-                    <p className="text-muted-foreground">This is how you appear to buyers.</p>
+            {/* Premium Header - Floating Glass Bar */}
+            <div className="relative z-10 mb-8 flex items-center justify-between rounded-3xl border border-white/20 bg-background/60 p-4 backdrop-blur-xl shadow-lg dark:border-white/5 dark:bg-white/5">
+                <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <Eye className="h-5 w-5" />
+                    </div>
+                    <div>
+                        <h1 className="text-sm font-black uppercase tracking-widest text-muted-foreground/80">Preview Mode</h1>
+                        <p className="text-xs font-medium text-foreground">See what buyers see</p>
+                    </div>
                 </div>
-                {/* External Link */}
+
                 <a
                     href={`/seller/${user.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:scale-105 hover:shadow-primary/40 active:scale-95"
                 >
-                    View Public Storefront
+                    <span className="relative z-10">Visit Store</span>
+                    <ExternalLink className="relative z-10 h-4 w-4" />
+                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 </a>
             </div>
-            <SellerProfileView seller={seller} listings={[]} variant="dashboard" />
+            <SellerProfileView seller={seller} listings={listings || []} variant="dashboard" />
         </div>
     )
 }
