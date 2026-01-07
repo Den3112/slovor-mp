@@ -13,7 +13,13 @@ import {
 } from 'lucide-react'
 import { MobileMenuDrawer } from './mobile-menu-drawer'
 
-export function MobileBottomNav() {
+import type { DashboardStats } from '@/lib/api/dashboard-stats'
+
+interface MobileBottomNavProps {
+    stats?: DashboardStats
+}
+
+export function MobileBottomNav({ stats }: MobileBottomNavProps) {
     const pathname = usePathname()
     const [open, setOpen] = React.useState(false)
 
@@ -37,15 +43,22 @@ export function MobileBottomNav() {
                     <span className="text-[10px] font-bold">Home</span>
                 </Link>
 
-                {/* 2. My Listings */}
+                {/* 2. My Listings - Show Badge */}
                 <Link
                     href="/profile/my-listings"
                     className={cn(
-                        "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
+                        "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95 relative",
                         isActive('/profile/my-listings') ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     )}
                 >
-                    <Store className={cn("h-6 w-6", isActive('/profile/my-listings') && "fill-primary/20")} />
+                    <div className="relative">
+                        <Store className={cn("h-6 w-6", isActive('/profile/my-listings') && "fill-primary/20")} />
+                        {stats && stats.activeListings > 0 && (
+                            <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white ring-2 ring-background">
+                                {stats.activeListings}
+                            </span>
+                        )}
+                    </div>
                     <span className="text-[10px] font-bold">Selling</span>
                 </Link>
 
@@ -58,7 +71,7 @@ export function MobileBottomNav() {
                     </Link>
                 </div>
 
-                {/* 4. Inbox */}
+                {/* 4. Inbox - Show Badge */}
                 <Link
                     href="/profile/messages"
                     className={cn(
@@ -66,12 +79,19 @@ export function MobileBottomNav() {
                         isActive('/profile/messages') ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     )}
                 >
-                    <MessageCircle className={cn("h-6 w-6", isActive('/profile/messages') && "fill-primary/20")} />
+                    <div className="relative">
+                        <MessageCircle className={cn("h-6 w-6", isActive('/profile/messages') && "fill-primary/20")} />
+                        {stats && stats.messages > 0 && (
+                            <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white ring-2 ring-background">
+                                {stats.messages}
+                            </span>
+                        )}
+                    </div>
                     <span className="text-[10px] font-bold">Inbox</span>
                 </Link>
 
                 {/* 5. Menu Drawer Trigger */}
-                <MobileMenuDrawer open={open} onOpenChange={setOpen}>
+                <MobileMenuDrawer open={open} onOpenChange={setOpen} stats={stats}>
                     <button
                         className={cn(
                             "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",

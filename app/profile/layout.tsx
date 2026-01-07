@@ -16,17 +16,21 @@ export default async function DashboardLayout({
     redirect('/auth/login')
   }
 
+  // Fetch global stats for navigation badges
+  const { getDashboardStats } = await import('@/lib/api/dashboard-stats')
+  const stats = await getDashboardStats(user.id)
+
   return (
     <div className="min-h-screen bg-background pb-32 pt-24 md:pb-20 md:pt-28" vaul-drawer-wrapper="">
       <Container>
         <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
-          <DashboardSidebar />
+          <DashboardSidebar stats={stats} />
           <main className="flex-1 min-w-0">
             {children}
           </main>
         </div>
       </Container>
-      <MobileBottomNav />
+      <MobileBottomNav stats={stats} />
     </div>
   )
 }
