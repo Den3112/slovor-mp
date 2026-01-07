@@ -42,7 +42,7 @@ export function DashboardSidebar() {
       title: 'Overview', // Optional title for first section
       items: [
         {
-          href: '/dashboard/overview',
+          href: '/profile/overview',
           label: 'Dashboard',
           icon: LayoutDashboard,
         },
@@ -52,17 +52,17 @@ export function DashboardSidebar() {
       title: 'Commerce',
       items: [
         {
-          href: '/dashboard/listings',
+          href: '/profile/my-listings',
           label: 'My Listings',
           icon: Store, // Changed to Store for "My Shop" feel
         },
         {
-          href: '/dashboard/orders',
+          href: '/profile/orders',
           label: 'Orders',
           icon: Package,
         },
         {
-          href: '/dashboard/wallet',
+          href: '/profile/wallet',
           label: 'Wallet',
           icon: ShoppingBag, // Temporary, maybe use Wallet icon if available or DollarSign
         },
@@ -72,12 +72,12 @@ export function DashboardSidebar() {
       title: 'Shopping',
       items: [
         {
-          href: '/dashboard/purchases',
+          href: '/profile/purchases',
           label: 'Purchases',
           icon: ShoppingBag,
         },
         {
-          href: '/dashboard/favorites',
+          href: '/profile/favorites',
           label: 'Favorites',
           icon: Heart,
         },
@@ -87,12 +87,12 @@ export function DashboardSidebar() {
       title: 'Communication',
       items: [
         {
-          href: '/dashboard/messages',
+          href: '/profile/messages',
           label: 'Inbox',
           icon: MessageCircle,
         },
         {
-          href: '/dashboard/reviews',
+          href: '/profile/reviews',
           label: 'Reviews',
           icon: Star, // Need to import Star
         },
@@ -102,15 +102,15 @@ export function DashboardSidebar() {
       title: 'Account',
       items: [
         {
-          href: '/dashboard/profile',
+          href: '/profile/profile',
           label: 'Public Profile',
           icon: Eye,
         },
         {
-          href: '/dashboard/settings',
+          href: '/profile/settings',
           label: 'Settings',
           icon: Settings,
-        },
+        }
       ]
     }
   ]
@@ -123,7 +123,7 @@ export function DashboardSidebar() {
   }
 
   const isActiveLink = (href: string) => {
-    if (href === '/dashboard/overview') return pathname === href
+    if (href === '/profile/overview') return pathname === href
     return pathname.startsWith(href)
   }
 

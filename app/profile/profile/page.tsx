@@ -20,7 +20,7 @@ export default async function DashboardProfilePage() {
 
     if (profileError || !seller) {
         // Fallback or handle error - for now redirect to settings to complete profile
-        redirect('/dashboard/settings')
+        redirect('/profile/settings')
     }
 
     return (

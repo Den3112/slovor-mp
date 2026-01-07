@@ -153,7 +153,7 @@ export function SellerProfileView({ seller, listings, variant = 'public' }: Sell
                                     {t.seller.contactSeller}
                                 </Button>
                             ) : (
-                                <Link href="/dashboard/settings" className="block">
+                                <Link href="/profile/settings" className="block">
                                     <Button
                                         size="lg"
                                         variant="outline"

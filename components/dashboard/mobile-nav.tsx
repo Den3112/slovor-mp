@@ -27,25 +27,25 @@ export function MobileBottomNav() {
       <nav className="relative h-[88px] pb-[28px] px-2 flex items-center justify-around">
         {/* 1. Dashboard */}
         <Link
-          href="/dashboard/overview"
+          href="/profile/overview"
           className={cn(
             "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
-            isActive('/dashboard/overview') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+            isActive('/profile/overview') ? "text-primary" : "text-muted-foreground hover:text-foreground"
           )}
         >
-          <LayoutDashboard className={cn("h-6 w-6", isActive('/dashboard/overview') && "fill-primary/20")} />
+          <LayoutDashboard className={cn("h-6 w-6", isActive('/profile/overview') && "fill-primary/20")} />
           <span className="text-[10px] font-bold">Home</span>
         </Link>
 
         {/* 2. My Listings */}
         <Link
-          href="/dashboard/listings"
+          href="/profile/my-listings"
           className={cn(
             "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
-            isActive('/dashboard/listings') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+            isActive('/profile/my-listings') ? "text-primary" : "text-muted-foreground hover:text-foreground"
           )}
         >
-          <Store className={cn("h-6 w-6", isActive('/dashboard/listings') && "fill-primary/20")} />
+          <Store className={cn("h-6 w-6", isActive('/profile/my-listings') && "fill-primary/20")} />
           <span className="text-[10px] font-bold">Selling</span>
         </Link>
 
@@ -60,13 +60,13 @@ export function MobileBottomNav() {
 
         {/* 4. Inbox */}
         <Link
-          href="/dashboard/messages"
+          href="/profile/messages"
           className={cn(
             "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
-            isActive('/dashboard/messages') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+            isActive('/profile/messages') ? "text-primary" : "text-muted-foreground hover:text-foreground"
           )}
         >
-          <MessageCircle className={cn("h-6 w-6", isActive('/dashboard/messages') && "fill-primary/20")} />
+          <MessageCircle className={cn("h-6 w-6", isActive('/profile/messages') && "fill-primary/20")} />
           <span className="text-[10px] font-bold">Inbox</span>
         </Link>
 
