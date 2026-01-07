@@ -126,6 +126,19 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                 <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">
                                     {t.common.price}
                                 </span>
+
+                                {!listing.is_active && (
+                                    <div className="mb-4 rounded-xl bg-amber-500/10 border border-amber-500/20 p-4">
+                                        <h4 className="flex items-center gap-2 font-bold text-amber-600">
+                                            <PackageCheck className="h-5 w-5" />
+                                            Listing Inactive
+                                        </h4>
+                                        <p className="mt-1 text-xs font-medium text-amber-600/80">
+                                            This listing is currently hidden from public search results.
+                                        </p>
+                                    </div>
+                                )}
+
                                 <PriceDisplay
                                     amount={listing.price}
                                     baseCurrency={listing.currency}

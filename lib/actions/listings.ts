@@ -56,7 +56,7 @@ export async function updateListingAction(
         }
 
         revalidatePath(`/listings/${listingId}`)
-        revalidatePath('/dashboard')
+        revalidatePath('/profile')
 
         return { data: updated, error: null }
     } catch (err) {
@@ -106,7 +106,7 @@ export async function toggleListingStatusAction(
             return { error: 'Failed to update status: ' + updateError.message }
         }
 
-        revalidatePath('/dashboard/listings')
+        revalidatePath('/profile/my-listings')
         revalidatePath(`/listings/${listingId}`)
 
         return { data: updated, error: null }

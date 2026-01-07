@@ -99,15 +99,15 @@ export function MobileDrawer({
                                 <>
                                     <div className="my-4 h-px bg-border/50" />
                                     <Link
-                                        href="/dashboard"
+                                        href="/profile"
                                         onClick={() => onOpenChange(false)}
                                         className="flex items-center gap-4 rounded-2xl px-5 py-4 text-lg font-bold text-foreground transition-all hover:bg-muted"
                                     >
                                         <LayoutDashboard className="h-5 w-5" />
-                                        {t.common.dashboard}
+                                        {t.common.profile}
                                     </Link>
                                     <Link
-                                        href="/dashboard/favorites"
+                                        href="/profile/favorites"
                                         onClick={() => onOpenChange(false)}
                                         className="flex items-center gap-4 rounded-2xl px-5 py-4 text-lg font-bold text-foreground transition-all hover:bg-muted"
                                     >
@@ -126,7 +126,7 @@ export function MobileDrawer({
                     <div className="border-t border-border/50 p-6 safe-bottom">
                         {!user && (
                             <Link
-                                href="/auth/login"
+                                href="/login"
                                 className="mt-3 block w-full rounded-2xl border border-border/50 bg-muted/30 py-4 text-center text-base font-bold text-foreground transition-colors active:bg-muted"
                                 onClick={() => onOpenChange(false)}
                             >

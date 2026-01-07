@@ -65,30 +65,30 @@ export function MobileMenuDrawer({
         {
             title: 'Commerce',
             items: [
-                { href: '/dashboard/listings', label: 'My Listings', icon: Store },
-                { href: '/dashboard/orders', label: 'Orders', icon: Package },
-                { href: '/dashboard/wallet', label: 'Wallet', icon: ShoppingBag },
+                { href: '/profile/my-listings', label: 'My Listings', icon: Store },
+                { href: '/profile/orders', label: 'Orders', icon: Package },
+                { href: '/profile/wallet', label: 'Wallet', icon: ShoppingBag },
             ]
         },
         {
             title: 'Shopping',
             items: [
-                { href: '/dashboard/purchases', label: 'History', icon: ShoppingBag },
-                { href: '/dashboard/favorites', label: 'Favorites', icon: Heart },
+                { href: '/profile/purchases', label: 'History', icon: ShoppingBag },
+                { href: '/profile/favorites', label: 'Favorites', icon: Heart },
             ]
         },
         {
             title: 'Communication',
             items: [
-                { href: '/dashboard/messages', label: 'Inbox', icon: MessageCircle },
-                { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
+                { href: '/profile/messages', label: 'Inbox', icon: MessageCircle },
+                { href: '/profile/reviews', label: 'Reviews', icon: Star },
             ]
         },
         {
             title: 'Account',
             items: [
-                { href: '/dashboard/profile', label: 'Public Profile', icon: Eye },
-                { href: '/dashboard/settings', label: 'Settings', icon: Settings },
+                { href: '/profile/profile', label: 'Public Profile', icon: Eye },
+                { href: '/profile/settings', label: 'Settings', icon: Settings },
             ]
         }
     ]

@@ -9,19 +9,23 @@ import { PackageOpen } from 'lucide-react'
 import type { Listing } from '@/lib/api'
 
 interface ContentProps {
+    all: Listing[]
     active: Listing[]
     drafts: Listing[]
     sold: Listing[]
     archived: Listing[]
 }
 
-export function DashboardListingsContent({ active, drafts, sold, archived }: ContentProps) {
-    const [activeTab, setActiveTab] = useState('active')
+export function DashboardListingsContent({ all, active, drafts, sold, archived }: ContentProps) {
+    const [activeTab, setActiveTab] = useState('all')
 
     return (
         <div className="w-full">
             <Tabs className="w-full">
                 <TabsList>
+                    <TabsTrigger value="all" activeValue={activeTab} setActiveValue={setActiveTab}>
+                        All <span className="ml-2 text-xs opacity-60">{all.length}</span>
+                    </TabsTrigger>
                     <TabsTrigger value="active" activeValue={activeTab} setActiveValue={setActiveTab}>
                         Active <span className="ml-2 text-xs opacity-60">{active.length}</span>
                     </TabsTrigger>
@@ -35,6 +39,22 @@ export function DashboardListingsContent({ active, drafts, sold, archived }: Con
                         Archived <span className="ml-2 text-xs opacity-60">{archived.length}</span>
                     </TabsTrigger>
                 </TabsList>
+
+                <TabsContent value="all" activeValue={activeTab}>
+                    {all.length > 0 ? (
+                        <div className="grid gap-4">
+                            {all.map((listing, index) => (
+                                <DashboardListingCard key={listing.id} listing={listing} priority={index < 2} />
+                            ))}
+                        </div>
+                    ) : (
+                        <EmptyState
+                            icon={PackageOpen}
+                            title="No listings"
+                            description="You haven't created any listings yet."
+                        />
+                    )}
+                </TabsContent>
 
                 <TabsContent value="active" activeValue={activeTab}>
                     {active.length > 0 ? (
