@@ -25,9 +25,11 @@ export function PriceDisplay({
 
     // On server and initial render, show simple format to avoid hydration mismatch
     if (!mounted || isLoading) {
+        // Use simple formatting without locale-dependent functions
+        const simplePrice = Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
         return (
             <span className={className} suppressHydrationWarning>
-                {amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {baseCurrency}
+                {simplePrice} {baseCurrency}
             </span>
         )
     }
