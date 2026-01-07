@@ -156,7 +156,7 @@ export function DashboardListingCard({ listing, priority = false }: DashboardLis
                         )}>
                             {listing.is_active ? 'Active' : 'Inactive'}
                         </span>
-                        <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <span className="text-xs text-muted-foreground flex items-center gap-1" suppressHydrationWarning>
                             <Clock className="h-3 w-3" />
                             {new Date(listing.created_at).toLocaleDateString()}
                         </span>
