@@ -53,9 +53,10 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🌳 Branch Structure
 
-- **`main`** → Production-ready, stable code (deployed).
-- **`dev`** → Active development branch. Feature branches merge here.
-- **`docs`** → All project documentation and roadmaps.
+- **`main`** → Production-ready, stable code (deployed to production).
+- **`dev`** → Active development branch. All feature branches merge here first.
+- **`docs`** → **Documentation only**. Contains all project documentation, guides, and architecture docs.
+
 
 ---
 
@@ -81,7 +82,8 @@ Open [http://localhost:3000](http://localhost:3000)
 - Category & Listing Discovery Flow
 - Successfull Vercel Deployment
 
-### 🚧 In Focus (See [Roadmap](https://github.com/Den3112/slovor-mp/blob/docs/ROADMAP_INVESTOR.md))
+### 🚧 In Focus (See Roadmap in `docs` branch)
+
 
 - Premium User Dashboard
 - Advanced Media Management (File Uploads)
@@ -91,12 +93,13 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🤝 Contributing
 
-1. Read [DEVELOPMENT.md](https://github.com/Den3112/slovor-mp/blob/docs/DEVELOPMENT.md).
+1. Read the Setup Guide in the `docs` branch (`docs/guides/SETUP.md`).
 2. Create a feature branch from `dev`.
 3. Ensure type safety and linting passes.
 4. Create a PR to `dev`.
 
+
 ---
 
-**Last Updated:** December 26, 2024
+**Last Updated:** 2026-01-05
 **Maintained by:** [@Den3112](https://github.com/Den3112)
