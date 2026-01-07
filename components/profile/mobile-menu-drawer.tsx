@@ -23,6 +23,8 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useTranslation } from '@/lib/i18n'
 
+import type { DashboardStats } from '@/lib/api/dashboard-stats'
+
 interface NavSection {
     title?: string
     items: {
@@ -32,14 +34,19 @@ interface NavSection {
     }[]
 }
 
+// ... imports ...
+
+// Cleaned up implementation
 export function MobileMenuDrawer({
     children,
     open,
-    onOpenChange
+    onOpenChange,
+    stats
 }: {
     children: React.ReactNode
     open?: boolean
     onOpenChange?: (open: boolean) => void
+    stats?: DashboardStats
 }) {
     const pathname = usePathname()
     const router = useRouter()
@@ -60,6 +67,17 @@ export function MobileMenuDrawer({
         await supabase.auth.signOut()
         router.push('/')
         router.refresh()
+    }
+
+    const getBadgeCount = (href: string) => {
+        if (!stats) return 0
+        switch (href) {
+            case '/profile/my-listings': return stats.activeListings
+            case '/profile/favorites': return stats.favorites
+            case '/profile/orders': return stats.orders
+            case '/profile/messages': return stats.messages
+            default: return 0
+        }
     }
 
     const sections: NavSection[] = [
@@ -144,19 +162,33 @@ export function MobileMenuDrawer({
                                         {section.items.map((item) => {
                                             const Icon = item.icon
                                             const isActive = pathname.startsWith(item.href)
+                                            const count = getBadgeCount(item.href)
+
                                             return (
                                                 <Link
                                                     key={item.href}
                                                     href={item.href}
                                                     onClick={() => onOpenChange?.(false)}
                                                     className={cn(
-                                                        "flex flex-col gap-2 p-4 rounded-2xl border transition-all active:scale-95",
+                                                        "flex flex-col gap-2 p-4 rounded-2xl border transition-all active:scale-95 relative overflow-hidden",
                                                         isActive
                                                             ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25"
                                                             : "bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground"
                                                     )}
                                                 >
-                                                    <Icon className="h-6 w-6" />
+                                                    <div className="flex justify-between items-start">
+                                                        <Icon className="h-6 w-6" />
+                                                        {count > 0 && (
+                                                            <span className={cn(
+                                                                "flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10px] font-black",
+                                                                isActive
+                                                                    ? "bg-white text-primary"
+                                                                    : "bg-primary text-white"
+                                                            )}>
+                                                                {count}
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                     <span className="font-bold text-sm">{item.label}</span>
                                                 </Link>
                                             )

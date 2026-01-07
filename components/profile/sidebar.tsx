@@ -31,10 +31,27 @@ interface NavSection {
     items: NavItem[]
 }
 
-export function DashboardSidebar() {
+import type { DashboardStats } from '@/lib/api/dashboard-stats'
+
+interface DashboardSidebarProps {
+    stats?: DashboardStats
+}
+
+export function DashboardSidebar({ stats }: DashboardSidebarProps) {
     const pathname = usePathname()
     const router = useRouter()
-    // const { user } = useAuth() -> Removed unused, but maybe needed for future? Keeping clean for lint.
+
+    // Map stats to routes
+    const getBadgeCount = (href: string) => {
+        if (!stats) return 0
+        switch (href) {
+            case '/profile/my-listings': return stats.activeListings
+            case '/profile/favorites': return stats.favorites
+            case '/profile/orders': return stats.orders
+            case '/profile/messages': return stats.messages
+            default: return 0
+        }
+    }
 
     /* Premium Marketplace Sidebar Structure */
     const sections: NavSection[] = [
@@ -148,6 +165,7 @@ export function DashboardSidebar() {
                                     {section.items.map((link) => {
                                         const Icon = link.icon
                                         const active = isActiveLink(link.href)
+                                        const count = getBadgeCount(link.href)
 
                                         return (
                                             <Link
@@ -164,9 +182,22 @@ export function DashboardSidebar() {
                                                     <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90" />
                                                 )}
                                                 <Icon className={cn("relative z-10 h-4 w-4 transition-transform duration-300 group-hover:scale-110", active ? "text-primary-foreground" : "text-muted-foreground group-hover:text-foreground")} />
-                                                <span className="relative z-10">{link.label}</span>
-                                                {/* Active Indicator Dot */}
-                                                {active && (
+                                                <span className="relative z-10 flex-1">{link.label}</span>
+
+                                                {/* Counter Badge */}
+                                                {count > 0 && (
+                                                    <span className={cn(
+                                                        "relative z-10 px-2 py-0.5 rounded-full text-[10px] font-black min-w-[20px] text-center",
+                                                        active
+                                                            ? "bg-white/20 text-white"
+                                                            : "bg-primary/10 text-primary group-hover:bg-primary/20"
+                                                    )}>
+                                                        {count}
+                                                    </span>
+                                                )}
+
+                                                {/* Active Indicator Dot (Only if no badge or specific design choice) */}
+                                                {active && !count && (
                                                     <div className="absolute right-4 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
                                                 )}
                                             </Link>

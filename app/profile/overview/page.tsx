@@ -10,6 +10,8 @@ import { getTranslationServer } from '@/lib/i18n/server'
 import { listingsApi } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
+import { getDashboardStats } from '@/lib/api/dashboard-stats'
+
 export default async function DashboardOverviewPage() {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -19,12 +21,16 @@ export default async function DashboardOverviewPage() {
     }
 
     const { t } = await getTranslationServer()
-    const userListings = await listingsApi.getByUser(user.id)
-    const activeListings = userListings.data?.filter(l => l.is_active).length || 0
-    const totalViews = userListings.data?.reduce((acc, curr) => acc + (curr.views || 0), 0) || 0
 
-    // Mock data for favorites until API exists
-    const favoritesCount = 0
+    // Fetch stats using the new API
+    const stats = await getDashboardStats(user.id)
+
+    // Fetch listings for the "Recent Listings" list
+    const userListings = await listingsApi.getByUser(user.id)
+
+    const activeListings = stats.activeListings
+    const totalViews = stats.totalViews
+    const favoritesCount = stats.favorites
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
