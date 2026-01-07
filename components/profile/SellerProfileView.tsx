@@ -14,7 +14,6 @@ import {
     Calendar,
     ShieldCheck,
     Star,
-    Package,
     MessageCircle,
     User,
 } from 'lucide-react'
@@ -59,85 +58,101 @@ export function SellerProfileView({ seller, listings, variant = 'public' }: Sell
                     {/* Seller Profile Card (Left) */}
                     <div className="lg:col-span-4">
                         <div className={variant === 'public' ? "sticky top-28 space-y-6" : "space-y-6"}>
-                            {/* Main Profile Card */}
-                            <div className="shadow-premium overflow-hidden rounded-[2.5rem] border border-border/50 bg-card p-8">
-                                {/* Avatar */}
-                                <div className="flex flex-col items-center text-center">
-                                    <div className="relative mb-6">
-                                        {seller.avatar_url ? (
-                                            <Image
-                                                src={seller.avatar_url}
-                                                alt={seller.display_name ?? seller.username ?? ''}
-                                                width={120}
-                                                height={120}
-                                                unoptimized
-                                                className="rounded-full border-4 border-primary/20 object-cover"
-                                            />
-                                        ) : (
-                                            <div className="flex h-[120px] w-[120px] items-center justify-center rounded-full border-4 border-primary/20 bg-muted">
-                                                <User className="h-16 w-16 text-muted-foreground" />
+                            {/* Main Profile Card - Avant-Garde Redesign */}
+                            <div className="relative overflow-hidden rounded-[3rem] border border-white/20 bg-background/60 backdrop-blur-3xl shadow-2xl dark:border-white/5 dark:bg-black/40">
+                                {/* Decorative Gradient Blurs */}
+                                <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-[100px] pointer-events-none" />
+                                <div className="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-purple-500/20 blur-[100px] pointer-events-none" />
+
+                                <div className="relative p-8 px-6 sm:px-10">
+                                    {/* Avatar with Glow */}
+                                    <div className="flex flex-col items-center text-center">
+                                        <div className="relative mb-8 group">
+                                            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-purple-500 blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
+                                            <div className="relative">
+                                                {seller.avatar_url ? (
+                                                    <Image
+                                                        src={seller.avatar_url}
+                                                        alt={seller.display_name ?? seller.username ?? ''}
+                                                        width={128}
+                                                        height={128}
+                                                        unoptimized
+                                                        className="h-32 w-32 rounded-full border-[6px] border-background object-cover shadow-2xl relative z-10"
+                                                    />
+                                                ) : (
+                                                    <div className="flex h-32 w-32 items-center justify-center rounded-full border-[6px] border-background bg-muted relative z-10">
+                                                        <User className="h-12 w-12 text-muted-foreground/50" />
+                                                    </div>
+                                                )}
+                                                {seller.verified && (
+                                                    <div className="absolute -bottom-1 -right-1 z-20 rounded-full bg-background p-1.5 shadow-lg">
+                                                        <div className="rounded-full bg-blue-500 p-1.5">
+                                                            <ShieldCheck className="h-4 w-4 text-white" />
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
+                                        </div>
+
+                                        {/* Name & Badge */}
+                                        <div className="space-y-1 mb-6">
+                                            <h1 className="font-heading text-3xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+                                                {seller.display_name ?? seller.username}
+                                            </h1>
+                                            {seller.verified && (
+                                                <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1">
+                                                    <ShieldCheck className="h-3 w-3 text-blue-500" />
+                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">
+                                                        {t.trust.verified}
+                                                    </span>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Bio */}
+                                        {seller.bio && (
+                                            <p className="mb-8 text-sm leading-relaxed text-muted-foreground max-w-xs mx-auto font-medium">
+                                                {seller.bio}
+                                            </p>
                                         )}
-                                        {seller.verified && (
-                                            <div className="absolute -bottom-2 -right-2 rounded-full bg-emerald-500 p-2 shadow-lg">
-                                                <ShieldCheck className="h-5 w-5 text-white" />
-                                            </div>
-                                        )}
-                                    </div>
 
-                                    {/* Name */}
-                                    <h1 className="mb-2 font-heading text-2xl font-black">
-                                        {seller.display_name ?? seller.username}
-                                    </h1>
-
-                                    {/* Verified Badge */}
-                                    {seller.verified && (
-                                        <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600">
-                                            <ShieldCheck className="h-3.5 w-3.5" />
-                                            {t.trust.verified}
-                                        </span>
-                                    )}
-
-                                    {/* Bio */}
-                                    {seller.bio && (
-                                        <p className="mb-6 text-sm text-muted-foreground">
-                                            {seller.bio}
-                                        </p>
-                                    )}
-
-                                    {/* Stats */}
-                                    <div className="mb-6 w-full border-t border-border/50 pt-6">
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="rounded-2xl bg-muted/30 p-4 text-center">
-                                                <Package className="mx-auto mb-2 h-6 w-6 text-primary" />
-                                                <p className="text-2xl font-black">{listings.length}</p>
-                                                <p className="text-xs font-medium text-muted-foreground">
+                                        {/* Stats - Minimalist Row */}
+                                        <div className="grid grid-cols-2 gap-8 w-full border-t border-border/40 py-8">
+                                            <div className="text-center group cursor-default">
+                                                <p className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50 transition-all group-hover:scale-110">
+                                                    {listings.length}
+                                                </p>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 mt-1">
                                                     {t.seller.activeListings}
                                                 </p>
                                             </div>
-                                            <div className="rounded-2xl bg-muted/30 p-4 text-center">
-                                                <Star className="mx-auto mb-2 h-6 w-6 text-amber-500" />
-                                                <p className="text-2xl font-black">—</p>
-                                                <p className="text-xs font-medium text-muted-foreground">
+                                            <div className="text-center group cursor-default">
+                                                <div className="flex items-center justify-center gap-1">
+                                                    <span className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50 transition-all group-hover:scale-110">
+                                                        —
+                                                    </span>
+                                                    <Star className="h-4 w-4 text-amber-500 fill-amber-500 mb-1" />
+                                                </div>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 mt-1">
                                                     {t.seller.rating}
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Meta Info */}
-                                    <div className="w-full space-y-3 border-t border-border/50 pt-6 text-left">
-                                        {seller.location && (
-                                            <div className="flex items-center gap-3 text-sm">
-                                                <MapPin className="h-4 w-4 text-primary" />
-                                                <span className="font-medium">{seller.location}</span>
+                                        {/* Meta Info - Clustered */}
+                                        <div className="w-full flex flex-col gap-3 text-sm">
+                                            {seller.location && (
+                                                <div className="flex items-center justify-center gap-2 text-muted-foreground p-2 rounded-xl bg-muted/30">
+                                                    <MapPin className="h-4 w-4 text-primary" />
+                                                    <span className="font-semibold text-foreground">{seller.location}</span>
+                                                </div>
+                                            )}
+                                            <div className="flex items-center justify-center gap-2 text-muted-foreground mt-1">
+                                                <Calendar className="h-3.5 w-3.5" />
+                                                <span className="font-medium text-xs opacity-70" suppressHydrationWarning>
+                                                    Joined {memberSince}
+                                                </span>
                                             </div>
-                                        )}
-                                        <div className="flex items-center gap-3 text-sm">
-                                            <Calendar className="h-4 w-4 text-blue-500" />
-                                            <span className="font-medium" suppressHydrationWarning>
-                                                {t.seller.memberSince} {memberSince}
-                                            </span>
                                         </div>
                                     </div>
                                 </div>

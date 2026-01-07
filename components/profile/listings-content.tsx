@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { DashboardListingCard } from '@/components/dashboard/listing-card'
+import { DashboardListingCard } from '@/components/profile/listing-card' // CHANGED IMPORT
 import { EmptyState } from '@/components/ui/empty-state'
 import { PackageOpen } from 'lucide-react'
 
@@ -22,21 +22,46 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
     return (
         <div className="w-full">
             <Tabs className="w-full">
-                <TabsList>
-                    <TabsTrigger value="all" activeValue={activeTab} setActiveValue={setActiveTab}>
-                        All <span className="ml-2 text-xs opacity-60">{all.length}</span>
+                <TabsList className="w-full justify-start overflow-x-auto rounded-[1.25rem] bg-background/60 p-1.5 backdrop-blur-md border border-white/10 mb-8 h-auto gap-1">
+                    <TabsTrigger
+                        value="all"
+                        activeValue={activeTab}
+                        setActiveValue={setActiveTab}
+                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                    >
+                        All <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{all.length}</span>
                     </TabsTrigger>
-                    <TabsTrigger value="active" activeValue={activeTab} setActiveValue={setActiveTab}>
-                        Active <span className="ml-2 text-xs opacity-60">{active.length}</span>
+                    <TabsTrigger
+                        value="active"
+                        activeValue={activeTab}
+                        setActiveValue={setActiveTab}
+                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                    >
+                        Active <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{active.length}</span>
                     </TabsTrigger>
-                    <TabsTrigger value="draft" activeValue={activeTab} setActiveValue={setActiveTab}>
-                        Drafts <span className="ml-2 text-xs opacity-60">{drafts.length}</span>
+                    <TabsTrigger
+                        value="draft"
+                        activeValue={activeTab}
+                        setActiveValue={setActiveTab}
+                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                    >
+                        Drafts <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{drafts.length}</span>
                     </TabsTrigger>
-                    <TabsTrigger value="sold" activeValue={activeTab} setActiveValue={setActiveTab}>
-                        Sold <span className="ml-2 text-xs opacity-60">{sold.length}</span>
+                    <TabsTrigger
+                        value="sold"
+                        activeValue={activeTab}
+                        setActiveValue={setActiveTab}
+                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                    >
+                        Sold <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{sold.length}</span>
                     </TabsTrigger>
-                    <TabsTrigger value="archived" activeValue={activeTab} setActiveValue={setActiveTab}>
-                        Archived <span className="ml-2 text-xs opacity-60">{archived.length}</span>
+                    <TabsTrigger
+                        value="archived"
+                        activeValue={activeTab}
+                        setActiveValue={setActiveTab}
+                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                    >
+                        Archived <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{archived.length}</span>
                     </TabsTrigger>
                 </TabsList>
 

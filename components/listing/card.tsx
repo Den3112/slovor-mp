@@ -115,7 +115,7 @@ export function ListingCard({ listing, featured, variant = 'default' }: ListingC
   return (
     <Link
       href={`/listings/${listing.id}`}
-      className="group relative block overflow-hidden rounded-2xl border border-border/40 bg-card transition-all duration-500 active:scale-[0.98] md:rounded-3xl md:hover:-translate-y-2 md:hover:border-primary/40 md:hover:shadow-[0_32px_64px_-16px_rgba(139,92,246,0.15)]"
+      className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-card/60 backdrop-blur-sm transition-all duration-500 active:scale-[0.98] md:rounded-3xl hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_20px_40px_-15px_rgba(var(--primary-rgb),0.2)] dark:bg-muted/10 dark:hover:bg-muted/20"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">

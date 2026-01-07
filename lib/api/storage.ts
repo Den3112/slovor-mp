@@ -17,12 +17,12 @@ export interface UploadedFile {
  */
 export const storageApi = {
   /**
-   * Uploads an image to Supabase Storage
    * @param file - File object to upload
    * @param userId - User ID for organizing uploads
+   * @param bucket - Storage bucket name (default: 'listings-images')
    * @returns Public URL or error
    */
-  async uploadImage(file: File, userId: string): Promise<ApiResponse<UploadedFile>> {
+  async uploadImage(file: File, userId: string, bucket: string = 'listings-images'): Promise<ApiResponse<UploadedFile>> {
     try {
       // Validate file type
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
@@ -45,7 +45,7 @@ export const storageApi = {
       // Upload file
       const { data, error: uploadError } = await supabase
         .storage
-        .from('listings-images')
+        .from(bucket)
         .upload(fileName, file, {
           cacheControl: '3600',
           upsert: false,
@@ -58,7 +58,7 @@ export const storageApi = {
       // Get public URL
       const { data: { publicUrl } } = supabase
         .storage
-        .from('listings-images')
+        .from(bucket)
         .getPublicUrl(fileName)
 
       const uploadedFile: UploadedFile = {

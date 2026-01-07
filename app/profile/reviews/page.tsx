@@ -1,6 +1,6 @@
 'use client'
 
-import { DashboardFeaturePlaceholder } from '@/components/dashboard/feature-placeholder'
+import { DashboardFeaturePlaceholder } from '@/components/profile/feature-placeholder'
 import { Star } from 'lucide-react'
 
 export default function ReviewsPage() {

@@ -21,22 +21,25 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
     }
 
     return (
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
             {categories.map((category: Category) => (
                 <Link
                     key={category.id}
                     href={`/categories/${category.slug}`}
-                    className="group relative overflow-hidden rounded-[2rem] border border-border/50 bg-card/40 p-8 text-center backdrop-blur-sm transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
+                    className="group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-primary/50 hover:bg-white/10 hover:shadow-2xl hover:shadow-primary/20 md:rounded-[2rem] md:p-8 dark:bg-black/20 dark:hover:bg-black/40"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                    <div className="relative z-10">
-                        <div className="mb-6 transform text-5xl transition-transform duration-500 group-hover:scale-110">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                    {/* Decorative gloss effect */}
+                    <div className="absolute -left-[100%] top-0 h-full w-full rotate-45 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
+
+                    <div className="relative z-10 flex flex-col items-center gap-3 md:gap-6">
+                        <div className="transform text-3xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 md:text-5xl">
                             {category.icon || '📦'}
                         </div>
-                        <h3 className="text-xl font-black tracking-tight text-foreground transition-colors group-hover:text-primary">
+                        <h3 className="line-clamp-2 text-sm font-black tracking-tight text-foreground transition-colors group-hover:text-primary md:text-xl">
                             {getCategoryName(category, locale, t)}
                         </h3>
-
                     </div>
                 </Link>
             ))}

@@ -25,6 +25,33 @@ vi.mock('@/lib/utils/category-i18n', () => ({
   getLocalizedCategoryName: () => 'Electronics',
 }))
 
+// Mock Supabase
+vi.mock('@/lib/supabase/client', () => ({
+  createClient: () => ({
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: () => ({ data: null, error: null }),
+        }),
+      }),
+    }),
+    auth: {
+      getUser: () => ({ data: { user: null }, error: null }),
+      getSession: () => ({ data: { session: null }, error: null }),
+    },
+  }),
+}))
+
+// Mock Currency Provider
+vi.mock('@/components/providers/currency-provider', () => ({
+  useCurrency: () => ({
+    currency: 'EUR',
+    convertPrice: (price: number) => price,
+    formatPrice: (price: number) => `${price} EUR`,
+    isLoading: false,
+  }),
+}))
+
 const mockListing = {
   id: '1',
   title: 'Test Product',

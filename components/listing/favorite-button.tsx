@@ -95,12 +95,19 @@ export function FavoriteButton({
                     .from('favorites')
                     .insert({ listing_id: listingId, user_id: user.id })
 
-                if (error) throw error
+                if (error) {
+                    // If unique constraint violation (already favorited), just ignore
+                    if (error.code === '23505') {
+                        console.warn('Already favorited')
+                    } else {
+                        throw error
+                    }
+                }
             }
 
             router.refresh()
         } catch (error) {
-            console.error('Error toggling favorite:', error)
+            console.error('Error toggling favorite:', JSON.stringify(error, null, 2))
             setIsFavorited(previousState) // Revert
         } finally {
             setIsLoading(false)
