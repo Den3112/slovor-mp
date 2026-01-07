@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Loader2, Upload, AlertCircle, Image as ImageIcon } from 'lucide-react'
+import { Loader2, Upload, AlertCircle } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import type { ListingFormData } from '@/lib/utils/listing-form-schema'
 
@@ -41,35 +41,32 @@ export function StepImages({
     }
 
     return (
-        <div className="space-y-6 duration-300 animate-in fade-in slide-in-from-right-8">
-            <div className="rounded-2xl border-2 border-dashed border-border p-8 text-center transition-colors hover:bg-muted/30">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Upload className="h-8 w-8" />
-                </div>
-                <h3 className="mb-2 text-lg font-bold">{t.createListing.uploadPhotos}</h3>
-                <p className="mx-auto mb-4 max-w-xs text-sm text-muted-foreground">
-                    {t.createListing.dragDrop}
-                </p>
+        <div className="space-y-8 duration-500 animate-in fade-in slide-in-from-right-8">
+            <div className="space-y-2">
+                <label className="ml-1 text-xs font-black uppercase tracking-widest text-muted-foreground/80">
+                    {t.createListing.uploadPhotos}
+                </label>
 
-                <div className="mb-4 flex flex-col items-center justify-center gap-3 md:flex-row">
-                    <Button
-                        type="button"
-                        onClick={handleFileInputClick}
-                        disabled={isUploading}
-                        className="rounded-xl px-6 font-bold shadow-md shadow-primary/20"
-                    >
+                <div
+                    onClick={handleFileInputClick}
+                    className="cursor-pointer group relative flex flex-col items-center justify-center gap-4 rounded-[2.5rem] border-2 border-dashed border-white/10 bg-white/5 py-12 text-center transition-all hover:border-primary/50 hover:bg-primary/5 hover:scale-[1.01]"
+                >
+                    <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-black/20 shadow-inner group-hover:scale-110 transition-transform duration-300">
                         {isUploading ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                {t.createListing.uploading}
-                            </>
+                            <Loader2 className="h-10 w-10 animate-spin text-primary" />
                         ) : (
-                            <>
-                                <ImageIcon className="mr-2 h-4 w-4" />
-                                {t.createListing.selectImages}
-                            </>
+                            <Upload className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
                         )}
-                    </Button>
+                    </div>
+
+                    <div className="space-y-1">
+                        <h3 className="text-xl font-bold text-foreground">
+                            {isUploading ? t.createListing.uploading : t.createListing.dragDrop}
+                        </h3>
+                        <p className="text-sm font-medium text-muted-foreground/70">
+                            {t.createListing.selectImages}
+                        </p>
+                    </div>
 
                     <input
                         ref={fileInputRef}
@@ -79,89 +76,72 @@ export function StepImages({
                         className="hidden"
                         onChange={(e) => onFilesSelected(e.target.files)}
                     />
-
-                    <Button
-                        onClick={addMockImage}
-                        type="button"
-                        variant="outline"
-                        className="border-primary/20 text-xs font-semibold text-primary hover:bg-primary/5"
-                    >
-                        {t.createListing.addMockImage}
-                    </Button>
                 </div>
+            </div>
 
-                {uploadProgress && (
-                    <div className="mx-auto flex max-w-xs flex-col items-center gap-2 text-xs text-muted-foreground">
-                        <div className="flex w-full items-center justify-between">
-                            <span>
-                                Uploading {uploadProgress.current} / {uploadProgress.total}
-                            </span>
-                        </div>
-                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-                            <div
-                                className="h-full bg-primary transition-all duration-300"
-                                style={{
-                                    width: `${(uploadProgress.current / uploadProgress.total) * 100}%`,
-                                }}
-                            />
-                        </div>
-                        <p className="text-[11px] text-muted-foreground/80">
-                            {t.createListing.maxSize}
-                        </p>
+            {uploadProgress && (
+                <div className="rounded-2xl bg-muted/20 p-4 border border-white/5">
+                    <div className="mb-2 flex w-full items-center justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                        <span>Uploading...</span>
+                        <span>{Math.round((uploadProgress.current / uploadProgress.total) * 100)}%</span>
                     </div>
-                )}
-
-                {!uploadProgress && (
-                    <p className="text-[11px] text-muted-foreground/80">
-                        {t.createListing.maxSize}
-                    </p>
-                )}
-
-                <div className="mt-4 flex items-center justify-center gap-3">
-                    <input
-                        type="text"
-                        placeholder={t.createListing.orPasteUrl}
-                        className="h-10 w-56 rounded-xl border bg-background px-3 text-sm"
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-                                e.preventDefault()
-                                updateField('images', [
-                                    ...formData.images,
-                                    e.currentTarget.value.trim(),
-                                ])
-                                e.currentTarget.value = ''
-                            }
-                        }}
-                    />
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-black/20">
+                        <div
+                            className="h-full bg-primary transition-all duration-300 ease-out"
+                            style={{
+                                width: `${(uploadProgress.current / uploadProgress.total) * 100}%`,
+                            }}
+                        />
+                    </div>
                 </div>
+            )}
+
+            {/* Debug Mock Button - Keep simple */}
+            <div className="flex justify-center">
+                <Button
+                    onClick={addMockImage}
+                    type="button"
+                    variant="ghost"
+                    className="text-xs font-medium text-muted-foreground hover:text-primary"
+                >
+                    + {t.createListing.addMockImage}
+                </Button>
             </div>
 
             {/* Image Preview Grid */}
             {formData.images.length > 0 && (
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 pt-4">
                     {formData.images.map((img, idx) => (
                         <div
                             key={idx}
-                            className="group relative aspect-square overflow-hidden rounded-xl border border-border/50 shadow-md"
+                            className="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-xl transition-transform hover:scale-105"
                         >
                             <Image
                                 src={img}
                                 alt="preview"
                                 fill
-                                className="object-cover"
+                                className="object-cover transition-opacity group-hover:opacity-75"
                                 unoptimized
                             />
-                            <button
-                                onClick={() =>
-                                    updateField(
-                                        'images',
-                                        formData.images.filter((_, i) => i !== idx)
-                                    )
-                                }
-                                className="absolute right-2 top-2 rounded-full bg-destructive p-1 text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                            >
-                                <AlertCircle className="h-4 w-4" />
-                            </button>
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        updateField(
+                                            'images',
+                                            formData.images.filter((_, i) => i !== idx)
+                                        )
+                                    }}
+                                    className="scale-90 rounded-full bg-destructive p-3 text-white shadow-lg transition-transform hover:scale-100 hover:bg-destructive/90"
+                                >
+                                    <AlertCircle className="h-6 w-6" />
+                                </button>
+                            </div>
+                            {idx === 0 && (
+                                <div className="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
+                                    Cover
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

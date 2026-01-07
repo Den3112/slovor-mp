@@ -395,4 +395,30 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+  /**
+   * Fetches listing for the owner (includes inactive/drafts)
+   */
+  async getForOwner(id: string, userId: string): Promise<ApiResponse<Listing>> {
+    try {
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*, category:categories(*), user:profiles(*)')
+        .eq('id', id)
+        .eq('user_id', userId)
+        .maybeSingle()
+
+      if (error) {
+        throw error
+      }
+
+      if (!data) {
+        return { data: null, error: 'Listing not found' }
+      }
+
+      return { data, error: null }
+    } catch (error) {
+      logError('listingsApi.getForOwner', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }

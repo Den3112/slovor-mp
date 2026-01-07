@@ -205,7 +205,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               {/* Mobile Price & Title */}
               <div className="space-y-3 md:hidden">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-primary">
+                  <span className="text-3xl font-black text-primary" suppressHydrationWarning>
                     {listing.price.toLocaleString()}
                   </span>
                   <span className="text-sm font-bold uppercase text-muted-foreground">
@@ -258,7 +258,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                   </div>
                   <div className="mt-4 flex items-center gap-4">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-black text-primary">
+                      <span className="text-4xl font-black text-primary" suppressHydrationWarning>
                         {listing.price.toLocaleString()}
                       </span>
                       <span className="text-lg font-bold uppercase tracking-widest text-muted-foreground">
@@ -318,7 +318,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                       <p className="text-[10px] font-bold uppercase text-muted-foreground">
                         {t.listing.postedOn}
                       </p>
-                      <p className="text-sm font-bold">
+                      <p className="text-sm font-bold" suppressHydrationWarning>
                         {new Date(listing.created_at).toLocaleDateString(locale)}
                       </p>
                     </div>
@@ -415,7 +415,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                       <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                         {t.listing.postedOn}
                       </p>
-                      <p className="font-bold text-foreground">
+                      <p className="font-bold text-foreground" suppressHydrationWarning>
                         {new Date(listing.created_at).toLocaleDateString(locale, {
                           year: 'numeric',
                           month: 'long',

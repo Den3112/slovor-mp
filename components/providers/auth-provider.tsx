@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
   isLoading: true,
-  signOut: async () => {},
+  signOut: async () => { },
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -45,6 +45,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => subscription.unsubscribe()
   }, [router])
+
+  // Heartbeat: Update last_seen every 5 minutes
+  useEffect(() => {
+    if (!session?.user) return
+
+    const updateLastSeen = async () => {
+      try {
+        await supabase
+          .from('profiles')
+          .update({ last_seen: new Date().toISOString() })
+          .eq('id', session.user.id)
+      } catch (error) {
+        console.error('Error updating last_seen:', error)
+      }
+    }
+
+    updateLastSeen() // Initial update
+    const interval = setInterval(updateLastSeen, 5 * 60 * 1000) // 5 minutes
+
+    return () => clearInterval(interval)
+  }, [session])
 
   const signOut = async () => {
     await supabase.auth.signOut()

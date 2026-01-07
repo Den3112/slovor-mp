@@ -4,26 +4,9 @@
 import { listingsApi } from '@/lib/api'
 import { ListingsView } from '@/components/listing/view'
 
-/**
- * ISR (Incremental Static Regeneration)
- *
- * WHAT IT DOES:
- * - Page is pre-rendered at build time
- * - Cached for 60 seconds
- * - After 60s, next visitor triggers regeneration in background
- * - Fresh content without rebuilding entire site
- *
- * WHY 60 SECONDS:
- * - Balances freshness vs performance
- * - Listings don't change every second
- * - Reduces database load
- *
- * CHANGE IT:
- * - For more frequent updates: revalidate = 30
- * - For less frequent: revalidate = 300 (5 minutes)
- * - For on-demand only: revalidate = false (manual revalidation via API)
- */
 export const revalidate = 60
+
+const ITEMS_PER_PAGE = 12
 
 interface Props {
   searchParams: Promise<{
@@ -38,10 +21,9 @@ interface Props {
 }
 
 export default async function ListingsPage({ searchParams }: Props) {
-  // Next.js 15+ requires await for searchParams
   const params = await searchParams
 
-  const result = await listingsApi.getAll({
+  const filterOptions = {
     search: params.search,
     categoryId: params.category,
     priceMin: params.priceMin ? parseInt(params.priceMin) : undefined,
@@ -49,13 +31,21 @@ export default async function ListingsPage({ searchParams }: Props) {
     condition: params.condition as 'new' | 'used' | undefined,
     location: params.location,
     sort: params.sort,
-  })
+  }
+
+  // Fetch first page and total count in parallel
+  const [listingsResult, countResult] = await Promise.all([
+    listingsApi.getAll({ ...filterOptions, limit: ITEMS_PER_PAGE }),
+    listingsApi.getCount(filterOptions),
+  ])
 
   return (
     <ListingsView
-      listings={result.data || []}
-      error={result.error}
+      initialListings={listingsResult.data || []}
+      totalCount={countResult.data || 0}
+      error={listingsResult.error}
       searchQuery={params.search}
+      filters={filterOptions}
     />
   )
 }
