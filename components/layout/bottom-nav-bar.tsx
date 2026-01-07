@@ -29,7 +29,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
     const isActive = (href: string) => pathname === href || (href !== '/' && pathname?.startsWith(href))
 
     // Don't render the public bottom nav on dashboard pages (Dashboard has its own nav)
-    if (pathname?.startsWith('/dashboard')) {
+    if (pathname?.startsWith('/profile')) {
         return null
     }
 
@@ -81,18 +81,18 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
                 {/* Profile / Login */}
                 {user ? (
                     <Link
-                        href="/dashboard"
+                        href="/profile"
                         className={cn(
                             "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",
-                            pathname?.startsWith('/dashboard') ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                            pathname?.startsWith('/profile') ? "text-primary" : "text-muted-foreground hover:text-foreground"
                         )}
                     >
-                        <User className={cn("h-6 w-6", pathname?.startsWith('/dashboard') && "fill-primary/20")} />
+                        <User className={cn("h-6 w-6", pathname?.startsWith('/profile') && "fill-primary/20")} />
                         <span className="text-[10px] font-bold whitespace-nowrap">{t.common.profile}</span>
                     </Link>
                 ) : (
                     <Link
-                        href="/auth/login"
+                        href="/login"
                         className="flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95 text-muted-foreground hover:text-foreground"
                     >
                         <User className="h-6 w-6" />

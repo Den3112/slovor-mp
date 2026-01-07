@@ -38,12 +38,12 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
     const displayDescription = getListingDescription(listing, locale)
 
     return (
-        <div className="min-h-screen pb-20">
+        <div className="min-h-screen pb-20 bg-gradient-to-b from-background via-background/95 to-background">
             {/* Breadcrumbs / Back button */}
-            <Container className="py-6 pt-24 md:pt-32">
+            <Container className="py-6 pt-24 md:pt-32 relative z-10">
                 <Link
                     href="/listings"
-                    className="group inline-flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-primary"
+                    className="group inline-flex items-center gap-2 pl-4 pr-6 py-2 rounded-full bg-background/50 backdrop-blur-md border border-white/10 text-sm font-bold text-muted-foreground transition-all hover:text-primary hover:bg-primary/5 hover:border-primary/20 hover:scale-105 shadow-sm"
                 >
                     <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                     {t.common.backToSearch}
@@ -51,11 +51,12 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
             </Container>
 
             <Container>
-                <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+                <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-12">
                     {/* Main Content Area (Left) */}
-                    <div className="space-y-12 lg:col-span-8">
-                        {/* Image Section */}
-                        <div className="shadow-premium overflow-hidden rounded-[2.5rem] border border-border/50 bg-card">
+                    <div className="space-y-8 md:space-y-12 lg:col-span-8">
+                        {/* Image Section - Enhanced for Mobile */}
+                        <div className="shadow-2xl shadow-black/20 overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-card/50 backdrop-blur-xl relative group">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-10" />
                             <ImageGallery
                                 images={listing.images || []}
                                 title={displayTitle}
@@ -75,12 +76,12 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                             </div>
 
                             {/* Attributes Grid */}
-                            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
-                                <div className="rounded-2xl border border-border/50 bg-muted/30 p-6">
-                                    <p className="mb-2 text-xs font-black uppercase tracking-widest text-muted-foreground">
+                            <div className="grid grid-cols-2 gap-4 md:gap-6 md:grid-cols-3">
+                                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 transition-transform hover:scale-105">
+                                    <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
                                         {t.common.condition}
                                     </p>
-                                    <div className="flex items-center gap-2 font-bold text-foreground">
+                                    <div className="flex items-center gap-2 font-bold text-foreground text-lg">
                                         {listing.condition === 'new' ? (
                                             <>
                                                 <Sparkles className="h-5 w-5 text-emerald-500" />
@@ -94,22 +95,22 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                         )}
                                     </div>
                                 </div>
-                                <div className="rounded-2xl border border-border/50 bg-muted/30 p-6">
-                                    <p className="mb-2 text-xs font-black uppercase tracking-widest text-muted-foreground">
+                                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 transition-transform hover:scale-105">
+                                    <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
                                         {t.common.location}
                                     </p>
-                                    <div className="flex items-center gap-2 font-bold text-foreground">
+                                    <div className="flex items-center gap-2 font-bold text-foreground text-lg">
                                         <MapPin className="h-5 w-5 text-primary" />
                                         <span className="truncate">{listing.location}</span>
                                     </div>
                                 </div>
-                                <div className="rounded-2xl border border-border/50 bg-muted/30 p-6">
-                                    <p className="mb-2 text-xs font-black uppercase tracking-widest text-muted-foreground">
+                                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 transition-transform hover:scale-105 col-span-2 md:col-span-1">
+                                    <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
                                         {t.common.published}
                                     </p>
-                                    <div className="flex items-center gap-2 font-bold text-foreground">
+                                    <div className="flex items-center gap-2 font-bold text-foreground text-lg">
                                         <Calendar className="h-5 w-5 text-blue-500" />
-                                        <span>
+                                        <span suppressHydrationWarning>
                                             {new Date(listing.created_at).toLocaleDateString()}
                                         </span>
                                     </div>
@@ -121,15 +122,28 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                     {/* Sidebar Area (Right) */}
                     <div className="space-y-8 lg:col-span-4">
                         {/* Price & Primary Ops Card */}
-                        <div className="shadow-premium sticky top-28 space-y-8 rounded-[2.5rem] border border-border bg-card p-8">
-                            <div className="space-y-2">
-                                <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">
+                        <div className="shadow-2xl shadow-primary/5 sticky top-28 space-y-8 rounded-[2.5rem] border border-white/10 bg-background/80 backdrop-blur-xl p-6 md:p-8">
+                            <div className="space-y-3 pb-6 border-b border-white/10">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/80">
                                     {t.common.price}
                                 </span>
+
+                                {!listing.is_active && (
+                                    <div className="mb-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 p-4 animate-pulse">
+                                        <h4 className="flex items-center gap-2 font-bold text-amber-600">
+                                            <PackageCheck className="h-5 w-5" />
+                                            Listing Inactive
+                                        </h4>
+                                        <p className="mt-1 text-xs font-medium text-amber-600/80">
+                                            This listing is currently hidden from public search results.
+                                        </p>
+                                    </div>
+                                )}
+
                                 <PriceDisplay
                                     amount={listing.price}
                                     baseCurrency={listing.currency}
-                                    className="text-5xl font-black tracking-tighter text-foreground block"
+                                    className="text-5xl md:text-6xl font-black tracking-tighter text-foreground block"
                                     showOriginal
                                 />
                             </div>
@@ -151,7 +165,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                             {seller.display_name || 'Anonymous Seller'}
                                         </p>
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                            <span>{t.seller.memberSince} {new Date(seller.created_at).getFullYear()}</span>
+                                            <span suppressHydrationWarning>{t.seller.memberSince} {new Date(seller.created_at).getFullYear()}</span>
                                             {seller.verified && (
                                                 <>
                                                     <span className="h-1 w-1 rounded-full bg-border" />

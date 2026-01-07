@@ -49,8 +49,9 @@ describe('Header', () => {
 
   it('renders navigation links', () => {
     render(<Header />)
-    expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('Categories')).toBeInTheDocument()
+    const homeLinks = screen.getAllByText('Home')
+    expect(homeLinks.length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Categories').length).toBeGreaterThan(0)
   })
 
   it('shows Sign In when user is not logged in', () => {

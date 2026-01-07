@@ -52,6 +52,7 @@ export const translations = {
       noListingsAvailable: 'Momentálne nie sú k dispozícii žiadne inzeráty.',
       searchResultsFor: 'Výsledky vyhľadávania pre',
       showingResults: 'Zobrazujem výsledky',
+      allLoaded: 'Všetky inzeráty načítané',
     },
     filters: {
       title: 'Filtre',
@@ -424,6 +425,7 @@ export const translations = {
       noListingsAvailable: 'Momentálně nejsou k dispozici žádné inzeráty.',
       searchResultsFor: 'Výsledky vyhledávání pro',
       showingResults: 'Zobrazuji výsledky',
+      allLoaded: 'Všechny inzeráty načteny',
     },
     filters: {
       title: 'Filtry',
@@ -796,6 +798,7 @@ export const translations = {
       noListingsAvailable: 'No listings available at the moment.',
       searchResultsFor: 'Search results for',
       showingResults: 'Showing results',
+      allLoaded: 'All listings loaded',
     },
     filters: {
       title: 'Filters',

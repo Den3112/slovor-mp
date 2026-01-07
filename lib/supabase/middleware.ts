@@ -56,20 +56,20 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     (request.nextUrl.pathname.startsWith('/post') ||
-      request.nextUrl.pathname.startsWith('/dashboard'))
+      request.nextUrl.pathname.startsWith('/profile'))
   ) {
     const url = request.nextUrl.clone()
-    url.pathname = '/auth/login'
+    url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
-  // Redirect to dashboard if logged in and trying to access auth
+  // Redirect to profile if logged in and trying to access auth
   if (
     user &&
     request.nextUrl.pathname.startsWith('/auth')
   ) {
     const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
+    url.pathname = '/profile'
     return NextResponse.redirect(url)
   }
 

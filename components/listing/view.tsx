@@ -1,45 +1,150 @@
 'use client'
 
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { ListingCard } from './card'
 import { ListingFilters } from './filters'
 import type { Listing } from '@/lib/api'
+import { listingsApi, type ListingFilterOptions } from '@/lib/api/listings'
 import { Container } from '@/components/ui/container'
-import { Search, SlidersHorizontal, PackageSearch } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
+import { Search, SlidersHorizontal, PackageSearch, Loader2, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/lib/i18n'
+import { Drawer } from 'vaul'
+
+const ITEMS_PER_PAGE = 12
 
 interface Props {
-  listings: Listing[]
+  initialListings: Listing[]
+  totalCount: number
   error: string | null
   searchQuery?: string
+  filters?: ListingFilterOptions
 }
 
-export function ListingsView({ listings, error, searchQuery }: Props) {
+export function ListingsView({
+  initialListings,
+  totalCount,
+  error,
+  searchQuery,
+  filters,
+}: Props) {
   const { t } = useTranslation()
+  const [listings, setListings] = useState<Listing[]>(initialListings)
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
+
+  const hasMore = listings.length < totalCount
+
+  /* Infinite Scroll Logic */
+  const observerTarget = useRef(null)
+  const loadingRef = useRef(false)
+  const resetRef = useRef(0)
+
+  const loadMore = useCallback(async () => {
+    // Use ref for immediate blocking to prevent race conditions
+    if (loadingRef.current || !hasMore) return
+
+    loadingRef.current = true
+    setLoading(true)
+    const currentResetId = resetRef.current
+
+    try {
+      const nextPage = page + 1
+      const result = await listingsApi.getAll({
+        ...filters,
+        page: nextPage,
+        limit: ITEMS_PER_PAGE,
+      })
+
+      // Check if filters changed while we were fetching
+      if (currentResetId !== resetRef.current) return
+
+      if (result.data && result.data.length > 0) {
+        setListings((prev) => {
+          // Double check resetId inside setter just in case, though closure var is safe enough usually
+          // But to be super safe:
+          if (currentResetId !== resetRef.current) return prev
+
+          // Filter out any potential duplicates by ID to prevent key errors
+          const existingIds = new Set(prev.map(l => l.id))
+          const newUnique = (result.data || []).filter(l => !existingIds.has(l.id))
+          return [...prev, ...newUnique]
+        })
+        setPage(nextPage)
+      } else {
+        // If data is empty but we thought we had more (hasMore was true),
+        // it means we reached the end.
+        // Logic for hasMore relies on listings.length, which will update on next render.
+        // We can force a check or just let the next render handle it if totalCount is accurate.
+      }
+    } catch (err) {
+      console.error('Failed to load more listings:', err)
+    } finally {
+      // Only reset loading state if we are still in the same context
+      if (currentResetId === resetRef.current) {
+        loadingRef.current = false
+        setLoading(false)
+      }
+    }
+  }, [hasMore, page, filters]) // removed 'loading' dependency to avoid effect cycling
+
+  // Reset state when initialListings changes (e.g. filters applied)
+  useEffect(() => {
+    resetRef.current += 1 // Invalidate any in-flight requests
+    setListings(initialListings)
+    setPage(1)
+    setLoading(false)
+    loadingRef.current = false
+  }, [initialListings])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting && hasMore && !loadingRef.current) {
+          loadMore()
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    )
+
+    const currentTarget = observerTarget.current
+
+    if (currentTarget) {
+      observer.observe(currentTarget)
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget)
+      }
+    }
+  }, [hasMore, loadMore]) // dependencies stable
+
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <div className="relative mb-12 overflow-hidden border-b border-border/50 bg-card/30 pb-12 pt-24 md:pb-20 md:pt-40">
-        {/* Decorative Orbs */}
-        <div className="absolute right-0 top-0 h-[400px] w-[400px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[100px]" />
-        <div className="absolute bottom-0 left-0 h-[300px] w-[300px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[100px]" />
+    <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-muted/20 pb-20">
+      <div className="relative mb-8 overflow-hidden border-b border-white/5 pb-12 pt-32 md:mb-16 md:pb-24 md:pt-48">
+        {/* Decorative Orbs - Refined */}
+        <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
 
         <Container>
-          <div className="relative z-10 flex flex-col gap-6">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-primary">
+          <div className="relative z-10 flex flex-col gap-4 md:gap-8">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-primary backdrop-blur-md">
               <Search className="h-3.5 w-3.5" />
               Explorer
             </div>
-            <h1 className="font-heading text-5xl font-black uppercase italic tracking-tighter text-foreground md:text-7xl">
+            <h1 className="max-w-4xl font-heading text-5xl font-black italic tracking-tighter text-foreground md:text-8xl">
               {searchQuery
                 ? `${t.common.search}: ${searchQuery}`
                 : t.common.allListings}
             </h1>
-            <p className="flex items-center gap-3 text-xl font-medium text-muted-foreground">
-              <span className="font-black text-foreground">
-                {listings.length}
-              </span>
-              {listings.length === 1
+            <p className="flex items-center gap-3 text-lg font-medium text-muted-foreground md:text-2xl">
+              <span className="font-heading font-black text-foreground">{totalCount}</span>
+              {totalCount === 1
                 ? t.common.listings.slice(0, -1)
                 : t.common.listings}{' '}
               {t.common.found}
@@ -49,9 +154,52 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
       </div>
 
       <Container>
+        {/* Mobile Filter Trigger */}
+        <div className="mb-6 lg:hidden">
+          <Drawer.Root open={filterOpen} onOpenChange={setFilterOpen}>
+            <Drawer.Trigger asChild>
+              <button className="flex w-full items-center justify-between rounded-2xl border border-border bg-card p-4 font-bold shadow-sm transition-all active:scale-[0.98]">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className="h-5 w-5 text-primary" />
+                  <span>{t.filters.title}</span>
+                </div>
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs text-primary">
+                  +
+                </div>
+              </button>
+            </Drawer.Trigger>
+            <Drawer.Portal>
+              <Drawer.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
+              <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-[2rem] border-t border-border bg-background outline-none">
+                <div className="p-4 bg-background rounded-t-[2rem] flex-shrink-0 border-b border-border/40">
+                  <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-muted-foreground/30 mb-6" />
+                  <div className="flex items-center justify-between px-2">
+                    <Drawer.Title className="text-xl font-black italic tracking-tight">
+                      {t.filters.title}
+                    </Drawer.Title>
+                    <Drawer.Close asChild>
+                      <button className="p-2 -mr-2 text-muted-foreground">
+                        <X className="h-6 w-6" />
+                      </button>
+                    </Drawer.Close>
+                  </div>
+                </div>
+                <div className="flex-1 overflow-y-auto p-6">
+                  <ListingFilters />
+                </div>
+                <div className="p-4 border-t border-border/40 safe-bottom">
+                  <Button className="w-full text-lg font-bold h-14 rounded-2xl" onClick={() => setFilterOpen(false)}>
+                    Show {totalCount} Listings
+                  </Button>
+                </div>
+              </Drawer.Content>
+            </Drawer.Portal>
+          </Drawer.Root>
+        </div>
+
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Filters Sidebar */}
-          <aside className="space-y-8 lg:col-span-3">
+          {/* Filters Sidebar (Desktop) */}
+          <aside className="hidden space-y-8 lg:col-span-3 lg:block">
             <div className="sticky top-28">
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="flex items-center gap-2 text-xl font-black italic tracking-tight">
@@ -98,29 +246,54 @@ export function ListingsView({ listings, error, searchQuery }: Props) {
                   </p>
                 </motion.div>
               ) : (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
-                >
-                  {listings.map((listing, idx) => (
-                    <motion.div
-                      key={listing.id}
-                      layout
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
+                <div className="space-y-8">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  >
+                    {listings.map((listing, idx) => (
+                      <motion.div
+                        key={listing.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          // Animate based on position in current page/batch roughly
+                          // Cap delay to prevent long waits for deep items
+                          delay: Math.min(idx % ITEMS_PER_PAGE, 10) * 0.05
+                        }}
+                      >
+                        <ListingCard listing={listing} />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Infinite Scroll Loader & Sentinel */}
+                  <div ref={observerTarget} className="flex justify-center py-8">
+                    {loading && (
+                      <div className="flex items-center gap-2 rounded-full bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        {t.common.loading || 'Loading more...'}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* All loaded indicator */}
+                  {!hasMore && listings.length > ITEMS_PER_PAGE && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-center text-sm text-muted-foreground"
                     >
-                      <ListingCard listing={listing} />
-                    </motion.div>
-                  ))}
-                </motion.div>
+                      {t.common.allLoaded || 'All listings loaded'} ✓
+                    </motion.p>
+                  )}
+                </div>
               )}
             </AnimatePresence>
           </main>
         </div>
       </Container>
-    </div>
+    </div >
   )
 }
