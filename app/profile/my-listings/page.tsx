@@ -43,6 +43,7 @@ export default async function DashboardListingsPage() {
 
       <div>
         <DashboardListingsContent
+          all={allListings}
           active={activeListings}
           drafts={draftListings}
           sold={soldListings}

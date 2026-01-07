@@ -205,7 +205,7 @@ function CreateListingFormContent() {
       setIsDirty(false)
 
       if (isEditing) {
-        router.push('/dashboard/listings')
+        router.push('/profile/my-listings')
       } else {
         router.push(`/listings/${res.data.id}`)
       }

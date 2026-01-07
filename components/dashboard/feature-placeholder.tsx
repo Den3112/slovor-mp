@@ -17,7 +17,7 @@ export function DashboardFeaturePlaceholder({
     description,
     icon: Icon,
     actionLabel = "Back to Dashboard",
-    actionLink = "/dashboard/overview"
+    actionLink = "/profile/overview"
 }: DashboardFeaturePlaceholderProps) {
     return (
         <div className="flex flex-col items-center justify-center min-h-[60vh] animate-in fade-in zoom-in duration-500">

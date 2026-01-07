@@ -97,14 +97,14 @@ export default async function DashboardOverviewPage() {
                 <Card className="p-8 rounded-[2.5rem] border-border/50 bg-card/50 backdrop-blur-sm">
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="font-heading text-xl font-bold">Recent Listings</h2>
-                        <Link href="/dashboard/listings" className="text-primary font-bold text-sm hover:underline flex items-center gap-1">
+                        <Link href="/profile/my-listings" className="text-primary font-bold text-sm hover:underline flex items-center gap-1">
                             View All <ArrowRight className="h-4 w-4" />
                         </Link>
                     </div>
                     {userListings.data && userListings.data.length > 0 ? (
                         <div className="space-y-4">
                             {userListings.data.slice(0, 3).map(listing => (
-                                <div key={listing.id} className="flex items-center gap-4 p-4 rounded-2xl bg-background border border-border/50 hover:border-primary/50 transition-colors group">
+                                <Link href={`/listings/${listing.id}`} key={listing.id} className="relative z-10 w-full flex items-center gap-4 p-4 rounded-2xl bg-background border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer hover:shadow-sm">
                                     <div className="h-12 w-12 rounded-xl bg-muted overflow-hidden flex-shrink-0 relative">
                                         {listing.images?.[0] ? (
                                             <div className="relative h-full w-full">
@@ -134,7 +134,7 @@ export default async function DashboardOverviewPage() {
                                     )}>
                                         {listing.is_active ? 'Active' : 'Inactive'}
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     ) : (

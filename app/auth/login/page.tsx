@@ -42,7 +42,7 @@ export default function LoginPage() {
           password,
         })
         if (error) throw error
-        router.push('/dashboard')
+        router.push('/profile')
         router.refresh()
       }
     } catch (err) {

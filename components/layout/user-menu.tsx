@@ -66,7 +66,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                         </div>
                         <div className="p-2 space-y-0.5">
                             <Link
-                                href="/dashboard/overview"
+                                href="/profile/overview"
                                 className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
                                 onClick={() => setShowUserMenu(false)}
                             >
@@ -75,7 +75,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                             </Link>
 
                             <Link
-                                href="/dashboard/listings"
+                                href="/profile/my-listings"
                                 className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
                                 onClick={() => setShowUserMenu(false)}
                             >
@@ -84,7 +84,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                             </Link>
 
                             <Link
-                                href="/dashboard/favorites"
+                                href="/profile/favorites"
                                 className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
                                 onClick={() => setShowUserMenu(false)}
                             >
@@ -95,7 +95,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                             <div className="mx-2 my-1 h-px bg-border/50" />
 
                             <Link
-                                href="/dashboard/profile"
+                                href="/profile/profile"
                                 className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
                                 onClick={() => setShowUserMenu(false)}
                             >
@@ -104,7 +104,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                             </Link>
 
                             <Link
-                                href="/dashboard/settings"
+                                href="/profile/settings"
                                 className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
                                 onClick={() => setShowUserMenu(false)}
                             >
