@@ -208,11 +208,11 @@ export function Footer() {
         <div className="border-t border-white/[0.03] pt-6 md:pt-10">
           {/* Mobile: Vertical stack */}
           <div className="flex flex-col items-center gap-4 text-center md:hidden">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.05] bg-white/[0.03] px-3 py-1.5 text-[10px] font-black uppercase tracking-wider">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.05] bg-white/[0.03] px-3 py-1.5 text-[10px] font-black uppercase tracking-wider" suppressHydrationWarning>
               <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               {geoLocation?.country || 'Slovakia'} / {CURRENCIES[currency]?.code || 'EUR'}
             </span>
-            <p className="text-[10px] font-black uppercase tracking-[0.1em] text-zinc-600">
+            <p className="text-[10px] font-black uppercase tracking-[0.1em] text-zinc-600" suppressHydrationWarning>
               © {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}.
             </p>
             <div className="flex items-center gap-4">
@@ -233,11 +233,11 @@ export function Footer() {
 
           {/* Desktop: Horizontal layout */}
           <div className="hidden items-center justify-between md:flex">
-            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-zinc-600">
+            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-zinc-600" suppressHydrationWarning>
               © {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}.
             </p>
             <div className="flex items-center gap-6">
-              <span className="flex h-7 items-center gap-2 rounded-full border border-white/[0.05] bg-white/[0.03] px-3 text-[10px] font-black uppercase tracking-wider">
+              <span className="flex h-7 items-center gap-2 rounded-full border border-white/[0.05] bg-white/[0.03] px-3 text-[10px] font-black uppercase tracking-wider" suppressHydrationWarning>
                 <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
                 {geoLocation?.country || 'Slovakia'} / {CURRENCIES[currency]?.code || 'EUR'}
               </span>
