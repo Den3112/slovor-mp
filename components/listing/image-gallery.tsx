@@ -99,7 +99,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted"
+        className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted shadow-2xl border border-white/10"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -165,7 +165,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all ${index === currentIndex
+                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 transition-all ${index === currentIndex
                   ? 'border-primary shadow-lg ring-2 ring-primary/20'
                   : 'border-border hover:border-border'
                   }`}

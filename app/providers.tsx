@@ -4,6 +4,7 @@ import { I18nProvider } from '@/lib/i18n'
 import { AuthProvider } from '@/components/providers/auth-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { CurrencyProvider } from '@/components/providers/currency-provider'
+import { Toaster } from '@/components/ui/sonner'
 import { useEffect } from 'react'
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -27,6 +28,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             {/* Welcome modal disabled mostly for dev annoyance reduction, uncomment in prod */}
             {/* <LocaleWelcomeModal /> */}
             {children}
+            <Toaster />
           </I18nProvider>
         </CurrencyProvider>
       </AuthProvider>

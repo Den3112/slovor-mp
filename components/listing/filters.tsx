@@ -104,7 +104,7 @@ export function ListingFilters() {
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
             placeholder={t.home.searchPlaceholder}
-            className="w-full rounded-xl border border-input bg-muted/30 py-4 pl-12 pr-4 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+            className="w-full rounded-xl border border-input bg-muted/30 py-4 pl-12 pr-4 text-base font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
           />
         </div>
       </div>
@@ -142,14 +142,14 @@ export function ListingFilters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder={t.filters.priceMin}
-              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-base font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
             />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder={t.filters.priceMax}
-              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-sm font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-base font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
             />
           </div>
         </div>

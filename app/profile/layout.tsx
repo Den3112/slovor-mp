@@ -1,6 +1,6 @@
 import { Container } from '@/components/ui/container'
-import { DashboardSidebar } from '@/components/dashboard/sidebar'
-import { MobileBottomNav } from '@/components/dashboard/mobile-nav'
+import { DashboardSidebar } from '@/components/profile/sidebar'
+import { MobileBottomNav } from '@/components/profile/mobile-nav'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
@@ -17,7 +17,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background pb-32 pt-24 md:pb-20 md:pt-28">
+    <div className="min-h-screen bg-background pb-32 pt-24 md:pb-20 md:pt-28" vaul-drawer-wrapper="">
       <Container>
         <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
           <DashboardSidebar />
