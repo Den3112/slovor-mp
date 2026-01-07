@@ -20,11 +20,11 @@ describe('Auth Middleware', () => {
                 },
             })
 
-        const request = new NextRequest(new URL('http://localhost:3000/dashboard'))
+        const request = new NextRequest(new URL('http://localhost:3000/profile'))
         const response = await updateSession(request)
 
         expect(response.status).toBe(307)
-        expect(response.headers.get('location')).toContain('/auth/login')
+        expect(response.headers.get('location')).toContain('/login')
     })
 
     it('should not redirect if user exists', async () => {
@@ -35,7 +35,7 @@ describe('Auth Middleware', () => {
                 },
             })
 
-        const request = new NextRequest(new URL('http://localhost:3000/dashboard'))
+        const request = new NextRequest(new URL('http://localhost:3000/profile'))
         const response = await updateSession(request)
 
         expect(response.status).toBe(200)

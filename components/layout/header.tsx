@@ -9,7 +9,6 @@ import { Menu, Plus, Home, Grid3X3, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
-import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { motion } from 'framer-motion'
 
@@ -161,25 +160,22 @@ export function Header() {
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
-                    href="/auth/login"
-                    className="rounded-full border border-primary/20 bg-primary/10 px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] text-primary transition-all hover:bg-primary hover:text-primary-foreground active:scale-95 xl:px-7"
+                    href="/login"
+                    className="flex h-10 items-center justify-center whitespace-nowrap rounded-full border border-primary/20 bg-primary/10 px-5 text-[10px] font-black uppercase tracking-[0.15em] text-primary transition-all duration-300 hover:scale-105 hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/20 active:scale-95 xl:px-7"
                   >
                     {t.auth.signIn}
                   </Link>
                 )}
 
                 {/* POST BUTTON */}
-                <Button
-                  asChild
-                  size="lg"
-                  className="group h-10 rounded-full px-5 font-black shadow-lg shadow-primary/20 transition-all duration-300 hover:shadow-primary/40 xl:h-11 xl:px-6"
+                <Link
+                  href="/post"
+                  className="group flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-5 text-[10px] font-black uppercase tracking-[0.15em] text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl hover:shadow-primary/30 active:scale-95 xl:px-7"
                 >
-                  <Link href="/post">
-                    <Plus className="mr-1.5 h-4 w-4 transition-transform duration-500 group-hover:rotate-90" />
-                    <span className="hidden xl:inline">{t.common.postAd}</span>
-                    <span className="xl:hidden">Post</span>
-                  </Link>
-                </Button>
+                  <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
+                  <span className="hidden xl:inline">{t.common.postAd}</span>
+                  <span className="xl:hidden">Post</span>
+                </Link>
               </div>
             </div>
 
@@ -189,7 +185,7 @@ export function Header() {
 
               {user && (
                 <Link
-                  href="/dashboard/settings"
+                  href="/profile/settings"
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-sm font-black text-primary transition-transform active:scale-95"
                 >
                   {user.email?.[0]?.toUpperCase()}
@@ -200,7 +196,7 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(true)}
                 className={cn(
                   'relative z-50 flex h-11 w-11 items-center justify-center rounded-xl border border-border/40 bg-muted/30 text-foreground transition-colors hover:bg-muted',
-                  pathname?.startsWith('/dashboard') && 'hidden'
+                  pathname?.startsWith('/profile') && 'hidden'
                 )}
                 aria-label="Open menu"
               >
