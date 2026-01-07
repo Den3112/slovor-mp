@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useCurrency } from '@/components/providers/currency-provider'
 
 interface PriceDisplayProps {
@@ -15,7 +16,21 @@ export function PriceDisplay({
     className = '',
     showOriginal = false
 }: PriceDisplayProps) {
-    const { formatPrice, currency } = useCurrency()
+    const { formatPrice, currency, isLoading } = useCurrency()
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    // On server and initial render, show simple format to avoid hydration mismatch
+    if (!mounted || isLoading) {
+        return (
+            <span className={className} suppressHydrationWarning>
+                {amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {baseCurrency}
+            </span>
+        )
+    }
 
     const formattedPrice = formatPrice(amount, baseCurrency)
     const isConverted = currency !== baseCurrency
