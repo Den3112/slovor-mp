@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
+import { createClient } from '@/lib/supabase/client'
 import { categoriesApi, listingsApi, storageApi } from '@/lib/api'
 import { updateListingAction } from '@/lib/actions/listings'
 import { generateListingTranslations } from '@/lib/services/translation'
@@ -31,6 +32,7 @@ function CreateListingFormContent() {
   const { t, locale } = useTranslation()
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
+  const supabase = createClient()
 
   const searchParams = useSearchParams()
   const editId = searchParams.get('edit')

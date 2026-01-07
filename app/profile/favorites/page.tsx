@@ -47,7 +47,7 @@ export default async function DashboardFavoritesPage() {
           <EmptyState
             icon={Heart}
             title="No favorites yet"
-            description="Heart items you like to save them here."
+            description="You haven&apos;t saved any listings yet. Browse the marketplace and click the heart icon to save items you love."
           />
         </div>
       )}
