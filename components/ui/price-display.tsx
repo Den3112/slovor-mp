@@ -21,10 +21,10 @@ export function PriceDisplay({
     const isConverted = currency !== baseCurrency
 
     return (
-        <span className={className}>
+        <span className={className} suppressHydrationWarning>
             {formattedPrice}
             {showOriginal && isConverted && (
-                <span className="ml-1 text-xs text-muted-foreground">
+                <span className="ml-1 text-xs text-muted-foreground" suppressHydrationWarning>
                     (~{amount.toLocaleString()} {baseCurrency})
                 </span>
             )}
