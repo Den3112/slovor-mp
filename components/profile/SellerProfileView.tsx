@@ -135,7 +135,7 @@ export function SellerProfileView({ seller, listings, variant = 'public' }: Sell
                                         )}
                                         <div className="flex items-center gap-3 text-sm">
                                             <Calendar className="h-4 w-4 text-blue-500" />
-                                            <span className="font-medium">
+                                            <span className="font-medium" suppressHydrationWarning>
                                                 {t.seller.memberSince} {memberSince}
                                             </span>
                                         </div>

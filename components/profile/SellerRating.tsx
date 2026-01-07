@@ -245,7 +245,7 @@ export function SellerRating({ sellerId, showReviewForm = true }: SellerRatingPr
                                 {review.comment && (
                                     <p className="mt-1 text-sm text-muted-foreground">{review.comment}</p>
                                 )}
-                                <p className="mt-1 text-xs text-muted-foreground/60">
+                                <p className="mt-1 text-xs text-muted-foreground/60" suppressHydrationWarning>
                                     {new Date(review.created_at).toLocaleDateString()}
                                 </p>
                             </div>
