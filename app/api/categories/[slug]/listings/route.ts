@@ -4,9 +4,10 @@ import { createErrorResponse, createSuccessResponse, corsHeaders } from '../../.
 
 export async function GET(
     _: NextRequest,
-    { params }: { params: { slug: string } }
+    props: { params: Promise<{ slug: string }> }
 ) {
     try {
+        const params = await props.params
         const { slug } = params
 
         const supabase = createClient(

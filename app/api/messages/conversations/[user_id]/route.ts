@@ -3,12 +3,13 @@ import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, cor
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { user_id: string } }
+    props: { params: Promise<{ user_id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) return createErrorResponse('Unauthorized', 401)
 
     try {
+        const params = await props.params
         const { user_id: otherUserId } = params
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return createErrorResponse('Unauthorized', 401)
@@ -30,12 +31,13 @@ export async function GET(
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { user_id: string } }
+    props: { params: Promise<{ user_id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) return createErrorResponse('Unauthorized', 401)
 
     try {
+        const params = await props.params
         const { user_id: receiverId } = params
         const body = await req.json()
         const { content, listing_id } = body
