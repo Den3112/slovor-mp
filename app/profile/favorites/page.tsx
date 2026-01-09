@@ -32,7 +32,7 @@ export default async function DashboardFavoritesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-transparent to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="relative z-10">
           <h1 className="font-heading text-4xl md:text-5xl font-black tracking-tight text-foreground mb-2">Favorites</h1>
-          <p className="text-muted-foreground font-medium text-base md:text-lg max-w-lg leading-relaxed">Collection of items you're keeping an eye on.</p>
+          <p className="text-muted-foreground font-medium text-base md:text-lg max-w-lg leading-relaxed">Collection of items you&apos;re keeping an eye on.</p>
         </div>
       </div>
 
