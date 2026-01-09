@@ -2,23 +2,10 @@
 // Centralized API layer for seller reviews management
 
 import { supabase } from '@/lib/supabase/client'
-import type { ApiResponse } from '@/lib/types/database'
+import type { ApiResponse, Review } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
 
-export interface Review {
-    id: string
-    seller_id: string
-    buyer_id: string
-    listing_id: string | null
-    rating: number
-    comment: string | null
-    created_at: string
-    buyer?: {
-        id: string
-        display_name: string | null
-        avatar_url: string | null
-    }
-}
+export type { Review } from '@/lib/types/database'
 
 export interface SellerRating {
     averageRating: number
@@ -88,6 +75,10 @@ export const reviewsApi = {
         `)
                 .eq('seller_id', sellerId)
                 .order('created_at', { ascending: false })
+
+                .order('created_at', { ascending: false })
+
+            console.log('API: getForSeller', { sellerId, data, error })
 
             if (error) {
                 throw error
@@ -165,6 +156,40 @@ export const reviewsApi = {
             return { data: true, error: null }
         } catch (error) {
             logError('reviewsApi.delete', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Gets reviews written by a specific buyer
+     */
+    async getByBuyer(buyerId: string): Promise<ApiResponse<Review[]>> {
+        try {
+            const { data, error } = await supabase
+                .from('reviews')
+                .select(`
+                  *,
+                  seller:profiles!reviews_seller_id_fkey (
+                    id,
+                    display_name,
+                    avatar_url
+                  ),
+                  listing:listings (
+                    id,
+                    title,
+                    images
+                  )
+                `)
+                .eq('buyer_id', buyerId)
+                .order('created_at', { ascending: false })
+
+            if (error) {
+                throw error
+            }
+
+            return { data: (data as unknown) as Review[], error: null }
+        } catch (error) {
+            logError('reviewsApi.getByBuyer', error)
             return { data: null, error: (error as Error).message }
         }
     },

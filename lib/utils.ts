@@ -12,3 +12,12 @@ export function formatDate(dateStr: string) {
     day: 'numeric',
   })
 }
+
+export function formatPrice(amount: number, currency = 'EUR') {
+  return new Intl.NumberFormat('sk-SK', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount)
+}

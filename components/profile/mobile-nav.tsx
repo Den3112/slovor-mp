@@ -91,7 +91,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
                 </Link>
 
                 {/* 5. Menu Drawer Trigger */}
-                <MobileMenuDrawer open={open} onOpenChange={setOpen} stats={stats}>
+                <MobileMenuDrawer open={open} setOpenAction={setOpen} stats={stats}>
                     <button
                         className={cn(
                             "flex flex-col items-center justify-center w-16 h-full gap-1 transition-colors active:scale-95",

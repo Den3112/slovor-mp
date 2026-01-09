@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import { categoriesApi, listingsApi, storageApi } from '@/lib/api'
 import { updateListingAction } from '@/lib/actions/listings'
 import { generateListingTranslations } from '@/lib/services/translation'
+import { validateListingContent } from '@/lib/moderation'
 import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { Button } from '@/components/ui/button'
@@ -180,6 +181,14 @@ function CreateListingFormContent() {
 
     setIsSubmitting(true)
     setError(null)
+
+    // Content moderation check
+    const contentCheck = validateListingContent(formData.title, formData.description)
+    if (!contentCheck.isValid) {
+      setError(contentCheck.error || 'Obsah obsahuje nevhodné výrazy.')
+      setIsSubmitting(false)
+      return
+    }
 
     const translations = await generateListingTranslations(
       formData.title,

@@ -4,6 +4,7 @@
 import { supabase } from '@/lib/supabase/client'
 import type { Listing, ApiResponse } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
+import { validateListingContent } from '@/lib/moderation'
 
 export interface ListingFilterOptions {
   categoryId?: string
@@ -271,6 +272,15 @@ export const listingsApi = {
    */
   async create(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
     try {
+      // Server-side content moderation check
+      const contentCheck = validateListingContent(
+        listing.title || '',
+        listing.description || ''
+      )
+      if (!contentCheck.isValid) {
+        return { data: null, error: contentCheck.error || 'Content validation failed' }
+      }
+
       const { data, error } = await supabase
         .from('listings')
         .insert({
