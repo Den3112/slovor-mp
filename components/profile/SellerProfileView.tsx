@@ -16,9 +16,15 @@ import {
     Star,
     MessageCircle,
     User,
+    Loader2,
 } from 'lucide-react'
 import type { Profile } from '@/lib/types/database'
 import type { Listing } from '@/lib/api'
+import { useAuth } from '@/components/providers/auth-provider'
+import { useRouter } from 'next/navigation'
+import { messagesApi } from '@/lib/api/messages'
+import { toast } from 'sonner'
+import { useState } from 'react'
 
 interface SellerProfileViewProps {
     seller: Profile
@@ -28,6 +34,9 @@ interface SellerProfileViewProps {
 
 export function SellerProfileView({ seller, listings, variant = 'public' }: SellerProfileViewProps) {
     const { t, locale } = useTranslation()
+    const { user } = useAuth()
+    const router = useRouter()
+    const [isContacting, setIsContacting] = useState(false)
 
     // Calculate member since date
     const memberSince = new Date(seller.created_at).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'cs' ? 'cs-CZ' : 'en-US', {
@@ -37,6 +46,59 @@ export function SellerProfileView({ seller, listings, variant = 'public' }: Sell
 
     const Wrapper = variant === 'public' ? Container : 'div'
     const wrapperProps = variant === 'public' ? {} : { className: "w-full" }
+
+    const handleContact = async () => {
+        if (!user) {
+            router.push(`/auth/login?redirect=/seller/${seller.id}`)
+            return
+        }
+
+        if (user.id === seller.id) {
+            toast.error("You cannot message yourself")
+            return
+        }
+
+        // For seller profile, we need a listing context for the conversation if possible.
+        // However, the current API `getOrCreateConversation` requires a listing ID.
+        // If we initiate from profile, we might not have a specific listing.
+        // But checking `messages.ts` (step 807), `listing_id` IS required in DB schema probably.
+        // Let's check `d:/slovor-mp/lib/api/messages.ts` again.
+        // Schema: listing_id is required.
+        // Hmmm. If we contact from seller profile, usually we want to ask about a specific item or just general?
+        // If general, we might need a "General" conversation or just pick the first active listing?
+        // Or maybe redirect to their first listing?
+        // For now, I will try to use the first active listing if available, or error out saying "Select a listing to contact".
+
+        if (listings.length === 0) {
+            toast.error("This seller has no active listings to inquire about.")
+            return
+        }
+
+        // Use the most recent listing as context
+        const contextListing = listings[0]
+
+        if (!contextListing) return
+
+        setIsContacting(true)
+        try {
+            const { data, error } = await messagesApi.getOrCreateConversation(
+                contextListing.id,
+                user.id,
+                seller.id
+            )
+
+            if (error) throw new Error(error)
+
+            if (data) {
+                router.push(`/messages/${data.id}`)
+            }
+        } catch (error) {
+            console.error('Failed to start conversation:', error)
+            toast.error("Failed to start conversation")
+        } finally {
+            setIsContacting(false)
+        }
+    }
 
     return (
         <div className={variant === 'public' ? "min-h-screen pb-20" : "pb-12"}>
@@ -163,8 +225,14 @@ export function SellerProfileView({ seller, listings, variant = 'public' }: Sell
                                 <Button
                                     size="lg"
                                     className="h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
+                                    onClick={handleContact}
+                                    disabled={isContacting}
                                 >
-                                    <MessageCircle className="mr-2 h-5 w-5" />
+                                    {isContacting ? (
+                                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                    ) : (
+                                        <MessageCircle className="mr-2 h-5 w-5" />
+                                    )}
                                     {t.seller.contactSeller}
                                 </Button>
                             ) : (

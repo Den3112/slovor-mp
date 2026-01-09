@@ -40,12 +40,12 @@ interface NavSection {
 export function MobileMenuDrawer({
     children,
     open,
-    onOpenChange,
+    setOpenAction,
     stats
 }: {
     children: React.ReactNode
     open?: boolean
-    onOpenChange?: (open: boolean) => void
+    setOpenAction?: (open: boolean) => void
     stats?: DashboardStats
 }) {
     const pathname = usePathname()
@@ -76,6 +76,8 @@ export function MobileMenuDrawer({
             case '/profile/favorites': return stats.favorites
             case '/profile/orders': return stats.orders
             case '/profile/messages': return stats.messages
+            case '/profile/reviews': return stats.reviews
+            case '/profile/saved-searches': return stats.savedSearches
             default: return 0
         }
     }
@@ -94,6 +96,7 @@ export function MobileMenuDrawer({
             items: [
                 { href: '/profile/purchases', label: 'History', icon: ShoppingBag },
                 { href: '/profile/favorites', label: 'Favorites', icon: Heart },
+                { href: '/profile/saved-searches', label: 'Saved Searches', icon: Star },
             ]
         },
         {
@@ -113,7 +116,7 @@ export function MobileMenuDrawer({
     ]
 
     return (
-        <Drawer.Root open={open} onOpenChange={onOpenChange}>
+        <Drawer.Root open={open} onOpenChange={setOpenAction}>
             <Drawer.Trigger asChild>
                 {children}
             </Drawer.Trigger>
@@ -168,7 +171,7 @@ export function MobileMenuDrawer({
                                                 <Link
                                                     key={item.href}
                                                     href={item.href}
-                                                    onClick={() => onOpenChange?.(false)}
+                                                    onClick={() => setOpenAction?.(false)}
                                                     className={cn(
                                                         "flex flex-col gap-2 p-4 rounded-2xl border transition-all active:scale-95 relative overflow-hidden",
                                                         isActive
@@ -208,7 +211,7 @@ export function MobileMenuDrawer({
                                             key={lang.code}
                                             onClick={() => {
                                                 setLocale(lang.code as 'sk' | 'en' | 'cs')
-                                                onOpenChange?.(false)
+                                                setOpenAction?.(false)
                                             }}
                                             className={cn(
                                                 'flex flex-col items-center gap-2 rounded-2xl border py-4 font-bold transition-all active:scale-95',
