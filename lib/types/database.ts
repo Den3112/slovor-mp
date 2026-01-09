@@ -80,11 +80,15 @@ export interface Message {
 export interface Review {
   id: string
   listing_id: string | null
-  reviewer_id: string
-  reviewee_id: string
+  buyer_id: string
+  seller_id: string
   rating: number
   comment: string | null
   created_at: string
+  // Joined fields
+  buyer?: User
+  seller?: User
+  listing?: Listing
 }
 
 export interface SavedListing {

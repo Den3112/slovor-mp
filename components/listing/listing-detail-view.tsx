@@ -15,6 +15,7 @@ import {
     MessageCircle,
     User as UserIcon,
     ArrowLeft,
+    Loader2,
 } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
@@ -25,6 +26,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import type { Listing } from '@/lib/types/database'
 import { getListingTitle, getListingDescription } from '@/lib/utils/listing-helpers'
 import { PriceDisplay } from '@/components/ui/price-display'
+import { useRecentlyViewed } from '@/lib/hooks/use-recently-viewed'
+import { RecentlyViewed } from '@/components/listing/recently-viewed'
+import { useEffect, useState } from 'react'
+import { useAuth } from '@/components/providers/auth-provider'
+import { useRouter } from 'next/navigation'
+import { messagesApi } from '@/lib/api/messages'
+import { toast } from 'sonner' // Assuming sonner is available or I'll assume standard window.alert/console if it fails build
+// I'll assume I can find toast. If not, I'll fix.
 
 interface ListingDetailViewProps {
     listing: Listing
@@ -32,10 +41,65 @@ interface ListingDetailViewProps {
 
 export function ListingDetailView({ listing }: ListingDetailViewProps) {
     const { t, locale } = useTranslation()
+    const { user } = useAuth()
+    const router = useRouter()
     const seller = listing.user
+
+    const [isContacting, setIsContacting] = useState(false)
+    const [showPhone, setShowPhone] = useState(false)
 
     const displayTitle = getListingTitle(listing, locale)
     const displayDescription = getListingDescription(listing, locale)
+
+    // Track view
+    const { addItem } = useRecentlyViewed()
+
+    // Add to history on mount
+    useEffect(() => {
+        addItem(listing)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [listing.id]) // Only when ID changes
+
+    const handleContact = async () => {
+        if (!user) {
+            router.push(`/auth/login?redirect=/listings/${listing.id}`)
+            return
+        }
+
+        if (user.id === listing.user_id) {
+            toast.error("You cannot message yourself")
+            return
+        }
+
+        setIsContacting(true)
+        try {
+            const { data, error } = await messagesApi.getOrCreateConversation(
+                listing.id,
+                user.id,
+                listing.user_id
+            )
+
+            if (error) throw new Error(error)
+
+            if (data) {
+                router.push(`/messages/${data.id}`)
+            }
+        } catch (error) {
+            console.error('Failed to start conversation:', error)
+            toast.error("Failed to start conversation")
+        } finally {
+            setIsContacting(false)
+        }
+    }
+
+    const handleCall = () => {
+        if (!seller?.phone) {
+            toast.error("Seller has not provided a phone number")
+            return
+        }
+        setShowPhone(true)
+        window.location.href = `tel:${seller.phone}`
+    }
 
     return (
         <div className="min-h-screen pb-20 bg-gradient-to-b from-background via-background/95 to-background">
@@ -201,16 +265,34 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                                 <Button
                                     size="lg"
                                     className="h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
+                                    onClick={handleContact}
+                                    disabled={isContacting}
                                 >
+                                    {isContacting ? (
+                                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                    ) : (
+                                        <MessageCircle className="mr-2 h-5 w-5" />
+                                    )}
                                     {t.listing.contactSeller}
                                 </Button>
 
                                 <div className="grid grid-cols-2 gap-3">
-                                    <Button variant="outline" size="lg" className="h-14 gap-2 rounded-xl font-bold">
+                                    <Button
+                                        variant="outline"
+                                        size="lg"
+                                        className="h-14 gap-2 rounded-xl font-bold"
+                                        onClick={handleCall}
+                                    >
                                         <Phone className="h-5 w-5" />
-                                        {t.listing.call}
+                                        {showPhone ? seller?.phone || t.listing.call : t.listing.call}
                                     </Button>
-                                    <Button variant="outline" size="lg" className="h-14 gap-2 rounded-xl font-bold">
+                                    <Button
+                                        variant="outline"
+                                        size="lg"
+                                        className="h-14 gap-2 rounded-xl font-bold"
+                                        onClick={handleContact}
+                                        disabled={isContacting}
+                                    >
                                         <MessageCircle className="h-5 w-5" />
                                         {t.listing.message}
                                     </Button>
@@ -249,6 +331,11 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Recently Viewed Section */}
+                <div className="mt-16">
+                    <RecentlyViewed />
                 </div>
             </Container>
         </div>

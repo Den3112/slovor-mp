@@ -17,6 +17,7 @@ import { LanguageSelector } from './language-selector'
 import { UserMenu } from './user-menu'
 import { BottomNavBar } from './bottom-nav-bar'
 import { MobileDrawer } from './mobile-drawer'
+import { CategoriesDropdown } from './categories-dropdown'
 
 // Logo component - reused in header and drawer
 function Logo({ className }: { className?: string }) {
@@ -122,6 +123,7 @@ export function Header() {
     { href: '/', label: t.common.home, icon: Home },
     { href: '/listings', label: t.common.allListings, icon: Search },
     { href: '/categories', label: t.common.categories, icon: Grid3X3 },
+    { href: '/blog', label: 'Blog', icon: Grid3X3 },
   ]
 
   if (!mounted) {
@@ -151,6 +153,9 @@ export function Header() {
 
             {/* Desktop Right Actions */}
             <div className="hidden flex-1 items-center justify-end gap-4 text-foreground lg:flex xl:gap-6">
+              {/* Categories Dropdown */}
+              <CategoriesDropdown />
+
               <LanguageSelector />
               <ThemeToggle className="self-center" />
 

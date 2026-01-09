@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import type { ListingFormData, ListingFormErrors } from '@/lib/utils/listing-form-schema'
+import { LocationCombobox } from '@/components/ui/location-combobox'
 
 interface StepDetailsProps {
     formData: ListingFormData
@@ -86,15 +87,11 @@ export function StepDetails({ formData, fieldErrors, updateField }: StepDetailsP
                 <label className="ml-1 text-xs font-black uppercase tracking-widest text-muted-foreground/80">
                     {t.createListing.location}
                 </label>
-                <input
+                <LocationCombobox
                     value={formData.location}
-                    onChange={(e) => updateField('location', e.target.value)}
-                    className={cn(
-                        'h-14 w-full rounded-2xl border bg-white/5 px-6 font-medium outline-none transition-all placeholder:text-muted-foreground/30',
-                        'focus:border-primary focus:bg-white/10 focus:ring-4 focus:ring-primary/10',
-                        fieldErrors.location ? 'border-destructive/50 bg-destructive/5' : 'border-white/10 hover:border-white/20'
-                    )}
-                    placeholder="City, District"
+                    onChange={(value) => updateField('location', value)}
+                    error={fieldErrors.location}
+                    placeholder="Search for a city in Slovakia..."
                 />
                 {fieldErrors.location && (
                     <p className="ml-1 text-sm font-medium text-destructive">{fieldErrors.location}</p>
@@ -103,3 +100,4 @@ export function StepDetails({ formData, fieldErrors, updateField }: StepDetailsP
         </div>
     )
 }
+

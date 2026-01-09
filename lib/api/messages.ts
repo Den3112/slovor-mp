@@ -134,6 +134,51 @@ export const messagesApi = {
         }
     },
 
+    // Alias for consistency
+    getConversations(userId: string) {
+        return this.getConversationsForUser(userId)
+    },
+
+    /**
+     * Gets a single conversation by ID
+     */
+    async getConversation(conversationId: string): Promise<ApiResponse<Conversation>> {
+        try {
+            const { data, error } = await supabase
+                .from('conversations')
+                .select(`
+          *,
+          listing:listings (
+            id,
+            title,
+            images,
+            price
+          ),
+          buyer:profiles!conversations_buyer_id_fkey (
+            id,
+            display_name,
+            avatar_url
+          ),
+          seller:profiles!conversations_seller_id_fkey (
+            id,
+            display_name,
+            avatar_url
+          )
+        `)
+                .eq('id', conversationId)
+                .single()
+
+            if (error) {
+                throw error
+            }
+
+            return { data: data as Conversation, error: null }
+        } catch (error) {
+            logError('messagesApi.getConversation', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
     /**
      * Gets messages for a conversation
      */

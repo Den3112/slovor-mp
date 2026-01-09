@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { X, LogOut, LayoutDashboard, Heart } from 'lucide-react'
+import { X, LogOut, LayoutDashboard, Heart, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import { Drawer } from 'vaul'
@@ -124,6 +124,14 @@ export function MobileDrawer({
                                         >
                                             <Heart className="h-6 w-6" />
                                             <span className="font-bold text-sm">Favorites</span>
+                                        </Link>
+                                        <Link
+                                            href="/profile/saved-searches"
+                                            onClick={() => onOpenChange(false)}
+                                            className="flex flex-col gap-2 p-4 rounded-2xl border bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95 col-span-2"
+                                        >
+                                            <Star className="h-6 w-6" />
+                                            <span className="font-bold text-sm">Saved Searches</span>
                                         </Link>
                                     </div>
                                 </div>
