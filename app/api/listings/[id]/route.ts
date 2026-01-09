@@ -4,7 +4,7 @@ import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, cor
 
 export async function GET(
     _: NextRequest,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,6 +12,7 @@ export async function GET(
     )
 
     try {
+        const params = await props.params
         const { id } = params
         const { data, error } = await supabase
             .from('listings')
@@ -39,7 +40,7 @@ export async function GET(
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) {
@@ -47,6 +48,7 @@ export async function PUT(
     }
 
     try {
+        const params = await props.params
         const { id } = params
         const body = await req.json()
         const { data: { user } } = await supabase.auth.getUser()
@@ -82,7 +84,7 @@ export async function PUT(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) {
@@ -90,6 +92,7 @@ export async function DELETE(
     }
 
     try {
+        const params = await props.params
         const { id } = params
         const { data: { user } } = await supabase.auth.getUser()
 
