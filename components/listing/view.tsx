@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { ListingCard } from './card'
 import { ListingFilters } from './filters'
+import { SaveSearchButton } from './save-search-button'
 import type { Listing } from '@/lib/api'
 import { listingsApi, type ListingFilterOptions } from '@/lib/api/listings'
 import { Container } from '@/components/ui/container'
@@ -142,13 +143,17 @@ export function ListingsView({
                 ? `${t.common.search}: ${searchQuery}`
                 : t.common.allListings}
             </h1>
-            <p className="flex items-center gap-3 text-lg font-medium text-muted-foreground md:text-2xl">
-              <span className="font-heading font-black text-foreground">{totalCount}</span>
-              {totalCount === 1
-                ? t.common.listings.slice(0, -1)
-                : t.common.listings}{' '}
-              {t.common.found}
-            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="flex items-center gap-3 text-lg font-medium text-muted-foreground md:text-2xl">
+                <span className="font-heading font-black text-foreground">{totalCount}</span>
+                {totalCount === 1
+                  ? t.common.listings.slice(0, -1)
+                  : t.common.listings}{' '}
+                {t.common.found}
+              </p>
+              <div className="w-px h-6 bg-border mx-2 hidden md:block" />
+              <SaveSearchButton filters={filters || {}} searchQuery={searchQuery} />
+            </div>
           </div>
         </Container>
       </div>

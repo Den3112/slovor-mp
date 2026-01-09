@@ -92,6 +92,15 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                                 Favorites
                             </Link>
 
+                            <Link
+                                href="/profile/saved-searches"
+                                className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-primary/5 hover:text-primary"
+                                onClick={() => setShowUserMenu(false)}
+                            >
+                                <LayoutDashboard className="h-4 w-4 text-muted-foreground transition-transform group-hover:scale-110 group-hover:text-primary" />
+                                Saved Searches
+                            </Link>
+
                             <div className="mx-2 my-1 h-px bg-border/50" />
 
                             <Link

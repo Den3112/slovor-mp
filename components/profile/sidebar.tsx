@@ -49,6 +49,8 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
             case '/profile/favorites': return stats.favorites
             case '/profile/orders': return stats.orders
             case '/profile/messages': return stats.messages
+            case '/profile/saved-searches': return stats.savedSearches
+            case '/profile/reviews': return stats.reviews
             default: return 0
         }
     }
@@ -97,6 +99,11 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
                     href: '/profile/favorites',
                     label: 'Favorites',
                     icon: Heart,
+                },
+                {
+                    href: '/profile/saved-searches',
+                    label: 'Saved Searches',
+                    icon: Star,
                 },
             ]
         },

@@ -1,3 +1,5 @@
+import { isValidSlovakLocation } from '@/lib/constants/slovak-cities'
+
 export type ListingCondition = 'new' | 'used'
 
 export interface ListingFormData {
@@ -51,6 +53,8 @@ export function validateListingForm(values: ListingFormData): ListingFormErrors 
 
   if (!values.location.trim()) {
     errors.location = 'Location is required'
+  } else if (!isValidSlovakLocation(values.location)) {
+    errors.location = 'Please select a valid city in Slovakia'
   }
 
   return errors
