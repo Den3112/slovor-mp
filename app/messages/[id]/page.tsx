@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useAuth } from '@/components/providers/auth-provider'
 import { messagesApi, type Message, type Conversation } from '@/lib/api'
+import { createClient } from '@/lib/supabase/client'
 import { useTranslation } from '@/lib/i18n'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
@@ -29,6 +30,38 @@ export default function MessageThreadPage() {
     useEffect(() => {
         if (!user || !conversationId) return
         loadMessages()
+
+        // Subscribe to realtime messages
+        const supabase = createClient()
+        const channel = supabase
+            .channel(`messages:${conversationId}`)
+            .on(
+                'postgres_changes',
+                {
+                    event: 'INSERT',
+                    schema: 'public',
+                    table: 'messages',
+                    filter: `conversation_id=eq.${conversationId}`,
+                },
+                (payload: { new: Message }) => {
+                    const newMsg = payload.new
+                    // Only add if not from current user (we already added it locally)
+                    if (newMsg.sender_id !== user.id) {
+                        setMessages(prev => {
+                            // Check if message already exists
+                            if (prev.some(m => m.id === newMsg.id)) return prev
+                            return [...prev, newMsg]
+                        })
+                        // Mark as read
+                        messagesApi.markAsRead(conversationId, user.id)
+                    }
+                }
+            )
+            .subscribe()
+
+        return () => {
+            channel.unsubscribe()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, conversationId])
 

@@ -3,6 +3,7 @@
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import type { ListingFormData } from '@/lib/utils/listing-form-schema'
 import { revalidatePath } from 'next/cache'
+import { validateListingContent } from '@/lib/moderation'
 
 export async function updateListingAction(
     listingId: string,
@@ -32,7 +33,13 @@ export async function updateListingAction(
             return { error: 'Unauthorized: You do not own this listing' }
         }
 
-        // 3. Update Listing (Bypassing RLS via Admin Client)
+        // 3. Content moderation check
+        const contentCheck = validateListingContent(updates.title, updates.description)
+        if (!contentCheck.isValid) {
+            return { error: contentCheck.error || 'Content validation failed' }
+        }
+
+        // 4. Update Listing (Bypassing RLS via Admin Client)
         const { data: updated, error: updateError } = await supabaseAdmin
             .from('listings')
             .update({
