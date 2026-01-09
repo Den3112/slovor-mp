@@ -4,7 +4,7 @@ import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, cor
 
 export async function GET(
     _: NextRequest,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,6 +12,7 @@ export async function GET(
     )
 
     try {
+        const params = await props.params
         const { id } = params // User ID (target)
 
         const { data, error } = await supabase
@@ -41,12 +42,13 @@ export async function GET(
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) return createErrorResponse('Unauthorized', 401)
 
     try {
+        const params = await props.params
         const { id: targetUserId } = params
         const body = await req.json()
         const { rating, comment, listing_id } = body

@@ -3,12 +3,13 @@ import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, cor
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { listing_id: string } }
+    props: { params: Promise<{ listing_id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) return createErrorResponse('Unauthorized', 401)
 
     try {
+        const params = await props.params
         const { listing_id } = params
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return createErrorResponse('Unauthorized', 401)
@@ -31,12 +32,13 @@ export async function POST(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { listing_id: string } }
+    props: { params: Promise<{ listing_id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) return createErrorResponse('Unauthorized', 401)
 
     try {
+        const params = await props.params
         const { listing_id } = params
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return createErrorResponse('Unauthorized', 401)

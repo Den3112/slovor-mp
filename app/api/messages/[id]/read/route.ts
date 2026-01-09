@@ -3,12 +3,13 @@ import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, cor
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     const supabase = getAuthenticatedClient(req)
     if (!supabase) return createErrorResponse('Unauthorized', 401)
 
     try {
+        const params = await props.params
         const { id } = params
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return createErrorResponse('Unauthorized', 401)
