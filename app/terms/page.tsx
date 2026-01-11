@@ -1,7 +1,10 @@
 import { Container } from '@/components/ui/container'
 import { FileText, Clock } from 'lucide-react'
+import { Breadcrumbs } from '@/components/ui/breadcrumbs'
+import { getTranslationServer } from '@/lib/i18n/server'
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const { t } = await getTranslationServer()
   return (
     <main className="relative min-h-screen overflow-hidden pb-24">
       <Container className="pt-32 md:pt-40">
@@ -10,7 +13,12 @@ export default function TermsPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10">
               <FileText className="h-6 w-6 text-primary" />
             </div>
-            <div>
+            <div className="flex-1">
+              <Breadcrumbs
+                items={[
+                  { label: t.footer.terms || 'Terms of Service' },
+                ]}
+              />
               <h1 className="font-heading text-4xl font-black italic tracking-tight text-foreground md:text-5xl">
                 Terms of Service
               </h1>

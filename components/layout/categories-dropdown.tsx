@@ -65,7 +65,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                 aria-haspopup="true"
             >
                 <Grid3X3 className="h-4 w-4" />
-                <span>{t.common.categories}</span>
+                <span className="hidden xl:inline">{t.common.categories}</span>
                 <ChevronDown
                     className={cn('h-3.5 w-3.5 transition-transform duration-200', isOpen && 'rotate-180')}
                 />

@@ -116,6 +116,6 @@ export async function DELETE(
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }
