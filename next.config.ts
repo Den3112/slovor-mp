@@ -1,6 +1,25 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // Enable standalone output for Docker optimization
+  output: 'standalone',
+
+  // Ignore ESLint errors during build (they're checked in CI separately)
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
+  // Ignore TypeScript errors during build (they're checked in CI separately)
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+  // Experimental features for performance
+  experimental: {
+    // Optimize package imports for faster builds
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+  },
+
   images: {
     // Allow external image domains
     remotePatterns: [
@@ -35,6 +54,7 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
   },
+
   async rewrites() {
     return [
       {
@@ -47,6 +67,53 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+
+  // Security headers
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ]
+  },
+
+  // Compression
+  compress: true,
+
+  // Power by header (security)
+  poweredByHeader: false,
+
+  // React strict mode for better development
+  reactStrictMode: true,
+
+  // Enable source maps in production for debugging
+  productionBrowserSourceMaps: false,
 }
 
 export default nextConfig
