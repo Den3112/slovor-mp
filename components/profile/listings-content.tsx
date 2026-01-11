@@ -21,51 +21,41 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
 
     return (
         <div className="w-full">
-            <Tabs className="w-full">
-                <TabsList className="w-full justify-start overflow-x-auto rounded-[1.25rem] bg-background/60 p-1.5 backdrop-blur-md border border-white/10 mb-8 h-auto gap-1">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="w-full justify-between md:justify-start overflow-x-auto rounded-[1.25rem] bg-background/60 p-1 md:p-1.5 backdrop-blur-md border border-white/10 mb-8 h-auto gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <TabsTrigger
                         value="all"
-                        activeValue={activeTab}
-                        setActiveValue={setActiveTab}
-                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
                     >
-                        All <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{all.length}</span>
+                        All <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{all.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="active"
-                        activeValue={activeTab}
-                        setActiveValue={setActiveTab}
-                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
                     >
-                        Active <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{active.length}</span>
+                        Active <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{active.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="draft"
-                        activeValue={activeTab}
-                        setActiveValue={setActiveTab}
-                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
                     >
-                        Drafts <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{drafts.length}</span>
+                        Drafts <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{drafts.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="sold"
-                        activeValue={activeTab}
-                        setActiveValue={setActiveTab}
-                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
                     >
-                        Sold <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{sold.length}</span>
+                        Sold <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{sold.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="archived"
-                        activeValue={activeTab}
-                        setActiveValue={setActiveTab}
-                        className="rounded-xl px-4 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
                     >
-                        Archived <span className="ml-2 rounded-md bg-background/20 px-1.5 py-0.5 text-[10px] opacity-80">{archived.length}</span>
+                        Archived <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{archived.length}</span>
                     </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="all" activeValue={activeTab}>
+                <TabsContent value="all">
                     {all.length > 0 ? (
                         <div className="grid gap-4">
                             {all.map((listing, index) => (
@@ -81,7 +71,7 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
                     )}
                 </TabsContent>
 
-                <TabsContent value="active" activeValue={activeTab}>
+                <TabsContent value="active">
                     {active.length > 0 ? (
                         <div className="grid gap-4">
                             {active.map((listing, index) => (
@@ -97,7 +87,7 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
                     )}
                 </TabsContent>
 
-                <TabsContent value="draft" activeValue={activeTab}>
+                <TabsContent value="draft">
                     {drafts.length > 0 ? (
                         <div className="grid gap-4">
                             {drafts.map((listing, index) => (
@@ -113,7 +103,7 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
                     )}
                 </TabsContent>
 
-                <TabsContent value="sold" activeValue={activeTab}>
+                <TabsContent value="sold">
                     {sold.length > 0 ? (
                         <div className="grid gap-4">
                             {sold.map((listing, index) => (
@@ -129,7 +119,7 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
                     )}
                 </TabsContent>
 
-                <TabsContent value="archived" activeValue={activeTab}>
+                <TabsContent value="archived">
                     {archived.length > 0 ? (
                         <div className="grid gap-4">
                             {archived.map((listing, index) => (

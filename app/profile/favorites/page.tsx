@@ -1,7 +1,7 @@
+import { DashboardFavoriteItem } from '@/components/profile/favorite-item'
 import { createClient } from '@/lib/supabase/server'
 import { EmptyState } from '@/components/ui/empty-state'
 import { Heart } from 'lucide-react'
-import { DashboardFavoriteItem } from '@/components/profile/favorite-item'
 
 export default async function DashboardFavoritesPage() {
   const supabase = await createClient()

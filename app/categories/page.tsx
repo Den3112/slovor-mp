@@ -22,7 +22,7 @@ export default async function CategoriesPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background/80 to-muted/20 pb-20 md:pb-32">
-      <Container className="pt-24 md:pt-40">
+      <Container className="pt-24 md:pt-32">
         <div className="mx-auto mb-10 max-w-4xl text-center md:mb-20">
           <h1 className="mb-4 font-heading text-4xl font-black leading-[1.05] tracking-tight text-foreground md:mb-8 md:text-8xl">
             {t.home.categories.title}

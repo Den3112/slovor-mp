@@ -55,7 +55,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
                 ))}
 
                 {/* CORE ACTION: POST AD (+) */}
-                <div className="relative -top-6">
+                <div className="relative -top-6 min-w-[4.5rem] flex justify-center">
                     <Link href="/post">
                         <div className="h-14 w-14 rounded-full bg-primary shadow-lg shadow-primary/40 flex items-center justify-center text-white active:scale-95 transition-transform border-[3px] border-background">
                             <Plus className="h-7 w-7 stroke-[3]" />

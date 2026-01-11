@@ -3,6 +3,7 @@
 
 import { supabase } from '@/lib/supabase/client'
 import type { Category, ApiResponse } from '@/lib/types/database'
+export type { Category }
 
 export const categoriesApi = {
   /**

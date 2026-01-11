@@ -24,8 +24,9 @@ export async function GET(
 
         return createSuccessResponse(data)
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'Internal Server Error'
+        return createErrorResponse(message, 500)
     }
 }
 

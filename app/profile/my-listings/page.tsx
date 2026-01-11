@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { DashboardListingsContent } from '@/components/profile/listings-content'
 
+
 export default async function DashboardListingsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
