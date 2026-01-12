@@ -2,16 +2,39 @@
 
 This document describes how to run Slovor Marketplace using Docker.
 
-## Quick Start
+## Quick Start 🚀
+
+### One Command Setup (After Git Clone)
+
+The project works **out of the box** without any configuration!
+
+```bash
+# Clone and run immediately
+git clone https://github.com/Den3112/slovor-mp.git
+cd slovor-mp
+docker-compose up -d --build
+```
+
+### With Setup Script (Recommended)
+
+```bash
+# Unix/Mac
+./scripts/setup.sh
+docker-compose up -d --build
+
+# Windows PowerShell
+.\scripts\setup.ps1
+docker-compose up -d --build
+```
 
 ### Production
 
 ```bash
 # Build and run
-docker-compose --env-file .env.local up --build
+docker-compose up --build
 
 # Run in background
-docker-compose --env-file .env.local up -d --build
+docker-compose up -d --build
 
 # Stop
 docker-compose down

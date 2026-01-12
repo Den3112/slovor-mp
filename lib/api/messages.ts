@@ -134,7 +134,7 @@ export const messagesApi = {
                 throw error
             }
 
-            const conversations = (data || []).map((c: any) => ({
+            const conversations = (data || []).map((c) => ({
                 ...c,
                 last_message: c.messages?.[0] || null
             }))

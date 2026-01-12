@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
 import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, corsHeaders } from '../../../utils'
 
 export async function GET(
@@ -24,8 +25,8 @@ export async function GET(
 
         return createSuccessResponse(data)
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (error) {
+        return createErrorResponse((error as Error).message || 'Internal Server Error', 500)
     }
 }
 
@@ -66,11 +67,11 @@ export async function POST(
             data
         })
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (error) {
+        return createErrorResponse((error as Error).message || 'Internal Server Error', 500)
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }

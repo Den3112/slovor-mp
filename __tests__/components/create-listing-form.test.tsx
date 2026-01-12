@@ -10,6 +10,59 @@ vi.mock('@/components/providers/auth-provider', () => ({
   }),
 }))
 
+// Mock useTranslation
+vi.mock('@/lib/i18n', () => ({
+  useTranslation: () => ({
+    t: {
+      createListing: {
+        title: 'Create New Listing',
+        step: 'Step {step} of 3',
+        preview: 'Preview',
+        previewDescription: 'Preview description',
+        edit: 'Edit',
+        back: 'Back',
+        nextStep: 'Next',
+        publish: 'Publish',
+        backToEdit: 'Back to Edit'
+      },
+      common: {
+        home: 'Home'
+      },
+      filters: {
+        new: 'new',
+        used: 'used'
+      },
+      categories: {
+        electronics: 'Electronics',
+        fashion: 'Fashion'
+      }
+    },
+    locale: 'en',
+    setLocale: vi.fn(),
+  }),
+}))
+
+// Mock next/navigation
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  }),
+  useSearchParams: () => ({
+    get: vi.fn(),
+  }),
+  useParams: () => ({}),
+}))
+
+// Mock Supabase client
+vi.mock('@/lib/supabase/client', () => ({
+  createClient: () => ({
+    auth: {
+      getSession: vi.fn().mockResolvedValue({ data: { session: null } }),
+    },
+  }),
+}))
+
 // Mock categoriesApi and listingsApi
 vi.mock('@/lib/api', () => ({
   categoriesApi: {
@@ -35,7 +88,8 @@ describe('CreateListingForm', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Create New Listing')).toBeInTheDocument()
-      expect(screen.getByText('Step 1 of 3')).toBeInTheDocument()
+      const steps = screen.getAllByText('Step 1 of 3')
+      expect(steps.length).toBeGreaterThan(0)
     })
   })
 

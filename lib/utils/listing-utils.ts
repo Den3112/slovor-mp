@@ -23,6 +23,7 @@ export function getLocalizedDescription(listing: Listing, locale: string): strin
 /**
  * Get localized category name
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getLocalizedCategoryName(category: Category, locale: string, t: Record<string, any>): string {
     if (!category) return ''
     if (locale === 'sk') return category.name_sk || category.name

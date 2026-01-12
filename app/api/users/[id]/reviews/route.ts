@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
-import { NextRequest, NextResponse } from 'next/server'
+import { env } from '@/lib/env'
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
 import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, corsHeaders } from '../../../utils'
 
 export async function GET(
@@ -7,8 +9,8 @@ export async function GET(
     props: { params: Promise<{ id: string }> }
 ) {
     const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        env.SUPABASE_URL,
+        env.SUPABASE_ANON_KEY
     )
 
     try {
@@ -87,6 +89,6 @@ export async function POST(
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }
