@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
-import { NextRequest, NextResponse } from 'next/server'
+import { env } from '@/lib/env'
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
 import { createErrorResponse, createSuccessResponse, corsHeaders } from '../../../utils'
 
 export async function GET(
@@ -7,8 +9,8 @@ export async function GET(
     props: { params: Promise<{ id: string }> }
 ) {
     const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        env.SUPABASE_URL,
+        env.SUPABASE_ANON_KEY
     )
 
     try {
@@ -24,11 +26,12 @@ export async function GET(
 
         return createSuccessResponse(data)
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'Internal Server Error'
+        return createErrorResponse(message, 500)
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }

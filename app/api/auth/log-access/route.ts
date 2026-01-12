@@ -1,10 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { env } from '@/lib/env'
 import { createServerClient } from '@supabase/ssr'
 import { getGeoByIp } from '@/lib/geo'
 
 export async function POST(request: NextRequest) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const supabaseUrl = env.SUPABASE_URL
+    const supabaseAnonKey = env.SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseAnonKey) {
         return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })

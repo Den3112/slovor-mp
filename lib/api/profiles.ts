@@ -105,3 +105,4 @@ export const profilesApi = {
         }
     }
 }
+export const usersApi = profilesApi
