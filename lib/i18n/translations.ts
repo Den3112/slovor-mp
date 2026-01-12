@@ -245,7 +245,7 @@ export const translations = {
     createListing: {
       title: 'Vytvoriť nový inzerát',
       step: 'Krok {step} z 3',
-      category: 'Kategória',
+      category: 'Kategoria',
       condition: 'Stav',
       itemTitle: 'Názov',
       titlePlaceholder: 'Čo predávate?',
@@ -267,6 +267,10 @@ export const translations = {
       checkFields: 'Prosím skontrolujte nasledujúce polia',
       maxSize: 'Max 10MB na obrázok. Podporované formáty: JPEG, PNG, WebP, GIF.',
       orPasteUrl: 'Alebo vložte URL obrázka',
+      edit: 'Upraviť',
+      preview: 'Náhľad',
+      previewDescription: 'Takto bude váš inzerát vyzerať',
+      backToEdit: 'Späť na úpravy',
     },
     trust: {
       secure: 'Bezpečné',
@@ -321,6 +325,7 @@ export const translations = {
       deactivate: 'Deaktivovať',
       edit: 'Upraviť',
       delete: 'Vymazať',
+      favorites: 'Obľúbené',
     },
     seller: {
       activeListings: 'Aktívne inzeráty',
@@ -640,6 +645,10 @@ export const translations = {
       checkFields: 'Prosím zkontrolujte následující pole',
       maxSize: 'Max 10MB na obrázek. Podporované formáty: JPEG, PNG, WebP, GIF.',
       orPasteUrl: 'Nebo vložte URL obrázku',
+      edit: 'Upravit',
+      preview: 'Náhled',
+      previewDescription: 'Takto bude váš inzerát vypadat',
+      backToEdit: 'Zpět na úpravy',
     },
     trust: {
       secure: 'Bezpečné',
@@ -694,6 +703,7 @@ export const translations = {
       deactivate: 'Deaktivovat',
       edit: 'Upravit',
       delete: 'Smazat',
+      favorites: 'Oblíbené',
     },
     seller: {
       activeListings: 'Aktivní inzeráty',
@@ -1012,6 +1022,10 @@ export const translations = {
       checkFields: 'Please check the following fields',
       maxSize: 'Max 10MB per image. Supported formats: JPEG, PNG, WebP, GIF.',
       orPasteUrl: 'Or paste an image URL',
+      edit: 'Edit',
+      preview: 'Preview',
+      previewDescription: 'This is how your listing will appear',
+      backToEdit: 'Back to Edit',
     },
     trust: {
       secure: 'Secure',
@@ -1067,6 +1081,7 @@ export const translations = {
       deactivate: 'Deactivate',
       edit: 'Edit',
       delete: 'Delete',
+      favorites: 'Favorites',
     },
     seller: {
       activeListings: 'Active Listings',

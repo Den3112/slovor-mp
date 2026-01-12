@@ -1,0 +1,85 @@
+# ===========================================
+# Docker Compose for Slovor Marketplace
+# Production-ready configuration
+# Works "out of the box" after git clone
+# ===========================================
+
+services:
+  web:
+    container_name: slovor-mp-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Build-time arguments with fallback defaults from .env.example
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-https://hnkhwvhjwygolvwvonor.supabase.co}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME:-dfxvqhdck}
+    image: slovor-mp-web:latest
+    restart: unless-stopped
+
+    # Port mapping
+    ports:
+      - "3000:3000"
+
+    # Environment configuration (runtime variables)
+    # Uses .env.local if exists, otherwise falls back to .env.example
+    env_file:
+      - path: .env.local
+        required: false
+      - path: .env.example
+        required: false
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+
+  # ===========================================
+  # Development configuration
+  # ===========================================
+  dev:
+    container_name: slovor-mp-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    profiles:
+      - dev

@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
-import { NextRequest, NextResponse } from 'next/server'
+import { env } from '@/lib/env'
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
 import { createErrorResponse, createSuccessResponse, corsHeaders } from '../../utils'
 
 export async function POST(req: NextRequest) {
@@ -12,8 +14,8 @@ export async function POST(req: NextRequest) {
         }
 
         const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+            env.SUPABASE_URL,
+            env.SUPABASE_ANON_KEY
         )
 
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -32,11 +34,11 @@ export async function POST(req: NextRequest) {
             user: data.user
         })
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (error) {
+        return createErrorResponse((error as Error).message || 'Internal Server Error', 500)
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }

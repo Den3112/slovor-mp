@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
-import { NextRequest, NextResponse } from 'next/server'
+import { env } from '@/lib/env'
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
 import { createErrorResponse, createSuccessResponse, corsHeaders } from '../../../utils'
 
 export async function GET(
@@ -11,8 +13,8 @@ export async function GET(
         const { slug } = params
 
         const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+            env.SUPABASE_URL,
+            env.SUPABASE_ANON_KEY
         )
 
         // First get category ID
@@ -40,11 +42,11 @@ export async function GET(
 
         return createSuccessResponse(data)
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (error) {
+        return createErrorResponse((error as Error).message || 'Internal Server Error', 500)
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }

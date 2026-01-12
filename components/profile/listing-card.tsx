@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Edit, Trash2, Eye, Clock, Power, AlertTriangle } from 'lucide-react'
+import { Edit, Trash2, Clock, Power, AlertTriangle, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
     Dialog,
@@ -188,13 +188,15 @@ export function DashboardListingCard({ listing, priority = false }: DashboardLis
                 </Link>
 
                 {/* Actions - Modern Pill Group */}
-                <div className="flex w-full md:w-auto items-center gap-2 mt-2 md:mt-0 p-1 bg-black/20 md:bg-transparent rounded-2xl md:pl-4 md:border-l border-white/5">
+                <div className="flex w-full md:w-auto items-center gap-2 mt-2 md:mt-0 p-1 bg-black/5 md:bg-transparent rounded-2xl md:pl-4 md:border-l border-white/5">
                     <Link href={`/post?edit=${listing.id}`} title="Edit" className="flex-1 md:flex-none">
                         <Button size="icon" variant="ghost" className="w-full md:w-12 h-12 rounded-xl hover:bg-primary/20 hover:text-primary transition-all text-muted-foreground">
                             <Edit className="h-5 w-5" />
                             <span className="sr-only">Edit</span>
                         </Button>
                     </Link>
+
+
 
                     {/* Toggle Active/Inactive */}
                     <Button

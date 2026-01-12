@@ -31,7 +31,7 @@ export function CategoryView({
   const categoryName = getLocalizedCategoryName(category, locale, t)
 
   return (
-    <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pb-12 pt-32 md:pt-36">
+    <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pb-12 pt-24 md:pt-32">
       <Breadcrumbs
         items={[
           { label: t.common.categories, href: '/listings' },

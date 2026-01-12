@@ -8,6 +8,7 @@ import type { Listing } from '@/lib/api'
 import { listingsApi, type ListingFilterOptions } from '@/lib/api/listings'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
+import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 
 import { Search, SlidersHorizontal, PackageSearch, Loader2, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -127,7 +128,7 @@ export function ListingsView({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-muted/20 pb-20">
-      <div className="relative mb-8 overflow-hidden border-b border-white/5 pb-12 pt-32 md:mb-16 md:pb-24 md:pt-48">
+      <div className="relative mb-8 overflow-hidden border-b border-white/5 pb-10 pt-24 md:mb-12 md:pb-16 md:pt-32">
         {/* Decorative Orbs - Refined */}
         <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
         <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
@@ -138,6 +139,17 @@ export function ListingsView({
               <Search className="h-3.5 w-3.5" />
               Explorer
             </div>
+
+            <Breadcrumbs
+              items={[
+                {
+                  label: searchQuery
+                    ? `${t.common.search}: ${searchQuery}`
+                    : t.common.allListings,
+                },
+              ]}
+            />
+
             <h1 className="max-w-4xl font-heading text-5xl font-black italic tracking-tighter text-foreground md:text-8xl">
               {searchQuery
                 ? `${t.common.search}: ${searchQuery}`
