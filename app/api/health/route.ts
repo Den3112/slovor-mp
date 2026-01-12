@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
  * Health check endpoint for Docker/Kubernetes
  * Returns 200 OK if the application is healthy
  */
-export async function GET() {
+export function GET() {
     const healthCheck = {
         status: 'healthy',
         timestamp: new Date().toISOString(),

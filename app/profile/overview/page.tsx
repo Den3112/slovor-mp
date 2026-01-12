@@ -215,7 +215,7 @@ export default async function DashboardOverviewPage() {
                         {stats.recentConversations && stats.recentConversations.length > 0 ? (
                             <div className="flex-1 flex flex-col gap-3">
                                 <div className="space-y-3">
-                                    {stats.recentConversations.map((conv: any) => {
+                                    {stats.recentConversations.map((conv) => {
                                         const otherUser = conv.buyer_id === user.id ? conv.seller : conv.buyer
                                         const isUnread = conv.last_message && !conv.last_message.is_read && conv.last_message.sender_id !== user.id
 

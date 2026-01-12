@@ -1,6 +1,7 @@
 # ===========================================
 # Docker Compose for Slovor Marketplace
 # Production-ready configuration
+# Works "out of the box" after git clone
 # ===========================================
 
 services:
@@ -9,11 +10,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # Pass build-time arguments from .env.local
+      # Build-time arguments with fallback defaults from .env.example
       args:
-        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
-        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-https://hnkhwvhjwygolvwvonor.supabase.co}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME:-dfxvqhdck}
     image: slovor-mp-web:latest
     restart: unless-stopped
 
@@ -22,8 +23,12 @@ services:
       - "3000:3000"
 
     # Environment configuration (runtime variables)
+    # Uses .env.local if exists, otherwise falls back to .env.example
     env_file:
-      - .env.local
+      - path: .env.local
+        required: false
+      - path: .env.example
+        required: false
     environment:
       - NODE_ENV=production
       - PORT=3000

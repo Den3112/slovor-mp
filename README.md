@@ -28,6 +28,26 @@ git checkout docs
 
 ## 🚀 Quick Start (Developers)
 
+### Option 1: Docker (Recommended) 🐳
+
+```bash
+# Clone and run (works out of the box!)
+git clone https://github.com/Den3112/slovor-mp.git
+cd slovor-mp
+
+# Run setup script (optional - creates .env.local)
+./scripts/setup.sh      # Unix/Mac
+# or
+.\scripts\setup.ps1     # Windows PowerShell
+
+# Start the app
+docker-compose up -d --build
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+### Option 2: Local Development
+
 ```bash
 # Clone repository
 git clone https://github.com/Den3112/slovor-mp.git
@@ -45,6 +65,12 @@ cp .env.example .env.local
 
 # Run development server
 npm run dev
+
+# Run verification (Lint, Types, Build)
+npm run verify
+
+# Run Tests
+npm test
 ```
 
 Open [http://localhost:3000](http://localhost:3000)

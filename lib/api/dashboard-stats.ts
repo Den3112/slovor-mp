@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import type { Conversation } from '@/lib/api/messages'
 
 export interface DashboardStats {
     activeListings: number
@@ -8,7 +9,7 @@ export interface DashboardStats {
     messages: number // unread count
     savedSearches: number
     reviews: number
-    recentConversations?: any[]
+    recentConversations?: Conversation[]
 }
 
 export async function getDashboardStats(userId: string): Promise<DashboardStats> {
@@ -78,7 +79,7 @@ export async function getDashboardStats(userId: string): Promise<DashboardStats>
 
     // Process Conversations & Unread Count from the same query if possible,
     // but the 'count' query was optimized. Let's process the detailed fetch.
-    const recentConversations = (conversationsRes.data || []).map((c: any) => ({
+    const recentConversations = (conversationsRes.data || []).map((c) => ({
         ...c,
         last_message: c.messages?.[0] || null // Since we order by created_at in messages? Wait, we need to order messages too.
     }))
@@ -116,7 +117,7 @@ export async function getDashboardStats(userId: string): Promise<DashboardStats>
     recentConversations.forEach(c => {
         if (c.messages && Array.isArray(c.messages)) {
             // Sort updates to get the latest
-            c.messages.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+            c.messages.sort((a: { created_at: string }, b: { created_at: string }) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
             c.last_message = c.messages[0]
         }
     })

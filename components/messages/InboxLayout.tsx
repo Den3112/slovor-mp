@@ -40,21 +40,20 @@ export function InboxLayout({ children }: InboxLayoutProps) {
     const [searchQuery, setSearchQuery] = useState('')
     const [isCleaning, setIsCleaning] = useState(false)
 
-    async function loadConversations() {
-        if (!user) return
-        try {
-            const { data } = await messagesApi.getConversations(user.id)
-            if (data) {
-                setConversations(data)
-            }
-        } catch (error) {
-            console.error('Failed to load conversations:', error)
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
     useEffect(() => {
+        async function loadConversations() {
+            if (!user) return
+            try {
+                const { data } = await messagesApi.getConversations(user.id)
+                if (data) {
+                    setConversations(data)
+                }
+            } catch (error) {
+                console.error('Failed to load conversations:', error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
         loadConversations()
     }, [user])
 
