@@ -65,6 +65,6 @@ export default async function AboutPage() {
           </div>
         </div>
       </Container>
-    </main>
+    </main >
   )
 }

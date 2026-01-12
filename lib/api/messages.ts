@@ -118,6 +118,13 @@ export const messagesApi = {
             id,
             display_name,
             avatar_url
+          ),
+          messages (
+            id,
+            content,
+            created_at,
+            sender_id,
+            is_read
           )
         `)
                 .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
@@ -127,7 +134,12 @@ export const messagesApi = {
                 throw error
             }
 
-            return { data: (data || []) as Conversation[], error: null }
+            const conversations = (data || []).map((c) => ({
+                ...c,
+                last_message: c.messages?.[0] || null
+            }))
+
+            return { data: conversations, error: null }
         } catch (error) {
             logError('messagesApi.getConversationsForUser', error)
             return { data: null, error: (error as Error).message }
@@ -309,4 +321,35 @@ export const messagesApi = {
             return { data: null, error: (error as Error).message }
         }
     },
+
+    /**
+     * DANGEROUS: Deletes all messages and conversations for a user
+     */
+    async cleanupAllData(userId: string): Promise<ApiResponse<boolean>> {
+        try {
+            // Delete conversations where user is buyer or seller
+            // Cascade should delete messages, but doing explicit to be safe if no cascade
+
+            // 1. Get IDs
+            const { data: conversations } = await supabase
+                .from('conversations')
+                .select('id')
+                .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
+
+            if (!conversations?.length) return { data: true, error: null }
+
+            const ids = conversations.map(c => c.id)
+
+            // 2. Delete Messages
+            await supabase.from('messages').delete().in('conversation_id', ids)
+
+            // 3. Delete Conversations
+            await supabase.from('conversations').delete().in('id', ids)
+
+            return { data: true, error: null }
+        } catch (error) {
+            logError('messagesApi.cleanupAllData', error)
+            return { data: null, error: (error as Error).message }
+        }
+    }
 }

@@ -14,7 +14,7 @@ export function RecentlyViewed() {
     if (items.length === 0) return null
 
     return (
-        <section className="py-12 bg-muted/30 border-t border-border/50">
+        <section className="py-8 bg-muted/30 border-t border-border/50">
             <Container>
                 <div className="flex items-center gap-2 mb-6 text-muted-foreground">
                     <History className="h-5 w-5" />

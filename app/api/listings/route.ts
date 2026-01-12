@@ -1,12 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
-import { NextRequest, NextResponse } from 'next/server'
+import { env } from '@/lib/env'
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
 import { createErrorResponse, createSuccessResponse, getAuthenticatedClient, corsHeaders } from '../utils'
 
 export async function GET(req: NextRequest) {
     try {
         const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+            env.SUPABASE_URL,
+            env.SUPABASE_ANON_KEY
         )
 
         const searchParams = req.nextUrl.searchParams
@@ -21,7 +23,7 @@ export async function GET(req: NextRequest) {
             .eq('status', 'active')
 
         if (searchParams.get('search')) {
-            const searchTerm = searchParams.get('search')!
+            const searchTerm = searchParams.get('search') || ''
             query.ilike('title', `%${searchTerm}%`)
         }
 
@@ -29,19 +31,19 @@ export async function GET(req: NextRequest) {
             // Assuming category is slug, need lookup or passed ID. Using ID for simplicity as standard query param
             // If slug needed, would require join or separate lookup.
             // Let's assume ID for now based on standard filter patterns, or we could handle slug if we added a join
-            query.eq('category_id', searchParams.get('category')!)
+            query.eq('category_id', searchParams.get('category') || '')
         }
 
         if (searchParams.get('min_price')) {
-            query.gte('price', searchParams.get('min_price')!)
+            query.gte('price', searchParams.get('min_price') || '0')
         }
 
         if (searchParams.get('max_price')) {
-            query.lte('price', searchParams.get('max_price')!)
+            query.lte('price', searchParams.get('max_price') || '0')
         }
 
         if (searchParams.get('location')) {
-            query.ilike('location', `%${searchParams.get('location')!}%`)
+            query.ilike('location', `%${searchParams.get('location') || ''}%`)
         }
 
         // Sort
@@ -65,8 +67,8 @@ export async function GET(req: NextRequest) {
             limit
         })
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (error) {
+        return createErrorResponse((error as Error).message || 'Internal Server Error', 500)
     }
 }
 
@@ -103,11 +105,11 @@ export async function POST(req: NextRequest) {
             listing: data
         }, 201)
 
-    } catch (error: any) {
-        return createErrorResponse(error.message || 'Internal Server Error', 500)
+    } catch (error) {
+        return createErrorResponse((error as Error).message || 'Internal Server Error', 500)
     }
 }
 
-export async function OPTIONS() {
+export function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders })
 }

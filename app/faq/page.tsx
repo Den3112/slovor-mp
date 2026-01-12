@@ -56,6 +56,6 @@ export default async function FAQPage() {
           ))}
         </div>
       </Container>
-    </main>
+    </main >
   )
 }

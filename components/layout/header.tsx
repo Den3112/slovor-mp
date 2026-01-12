@@ -59,7 +59,7 @@ function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
               key={link.href}
               href={link.href}
               className={cn(
-                'relative flex h-10 items-center justify-center rounded-full px-6 text-center text-[10px] font-black uppercase leading-none tracking-[0.15em] transition-all xl:px-8',
+                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] font-black uppercase leading-none tracking-[0.15em] transition-all xl:px-8',
                 isActive
                   ? 'text-primary-foreground shadow-lg'
                   : 'text-muted-foreground hover:text-foreground'
@@ -152,7 +152,7 @@ export function Header() {
             <DesktopNav navLinks={navLinks} pathname={pathname} />
 
             {/* Desktop Right Actions */}
-            <div className="hidden flex-1 items-center justify-end gap-4 text-foreground lg:flex xl:gap-6">
+            <div className="hidden flex-1 items-center justify-end gap-3 text-foreground lg:flex xl:gap-6">
               {/* Categories Dropdown */}
               <CategoriesDropdown />
 
@@ -160,7 +160,7 @@ export function Header() {
               <ThemeToggle className="self-center" />
 
               {/* User Section */}
-              <div className="flex items-center gap-3 border-l border-border/50 pl-4 xl:gap-4 xl:pl-6">
+              <div className="flex items-center gap-2 border-l border-border/50 pl-3 xl:gap-4 xl:pl-6">
                 {user ? (
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
@@ -223,7 +223,11 @@ export function Header() {
       />
 
       {/* Mobile Bottom Navigation Bar */}
-      <BottomNavBar navLinks={navLinks} pathname={pathname} user={user} />
+      <BottomNavBar
+        navLinks={navLinks.filter(link => link.href !== '/blog')}
+        pathname={pathname}
+        user={user}
+      />
     </>
   )
 }
