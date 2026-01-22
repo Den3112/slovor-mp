@@ -1,3 +1,7 @@
+---
+description: Pre-deploy verification workflow (Lint, Type-check, Build)
+---
+
 # Pre-Deploy Verification Workflow
 
 ## Commands
