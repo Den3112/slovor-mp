@@ -25,9 +25,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   if (validImages.length === 0) {
     return (
-      <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br from-muted to-muted/80">
-        <ImageOff className="h-16 w-16 text-muted-foreground" />
-        <span className="text-lg font-medium text-muted-foreground">
+      <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-4 border-2 border-primary/10 bg-zinc-950/50">
+        <ImageOff className="h-16 w-16 text-zinc-700" />
+        <span className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">
           No images available
         </span>
       </div>
@@ -99,7 +99,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted shadow-2xl border border-white/10"
+        className="group relative aspect-[4/3] w-full overflow-hidden border-2 border-primary/10 bg-zinc-950 shadow-xl"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -130,14 +130,14 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100 md:opacity-100"
+              className="absolute left-6 top-1/2 z-20 -translate-y-1/2 border-2 border-white/10 bg-black/60 p-4 text-white opacity-0 backdrop-blur-md transition-all hover:bg-primary hover:border-primary group-hover:opacity-100 md:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100 md:opacity-100"
+              className="absolute right-6 top-1/2 z-20 -translate-y-1/2 border-2 border-white/10 bg-black/60 p-4 text-white opacity-0 backdrop-blur-md transition-all hover:bg-primary hover:border-primary group-hover:opacity-100 md:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />
@@ -147,7 +147,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
         {/* Image Counter */}
         {validImages.length > 1 && (
-          <div className="absolute bottom-4 right-4 z-20 rounded-full bg-black/70 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm">
+          <div className="absolute bottom-6 right-6 z-20 border-2 border-white/10 bg-black/80 px-4 py-2 font-sans text-xs font-bold tracking-widest text-white backdrop-blur-md">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}
@@ -165,9 +165,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border-2 transition-all ${index === currentIndex
-                  ? 'border-primary shadow-lg ring-2 ring-primary/20'
-                  : 'border-border hover:border-border'
+                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden border-2 transition-all ${index === currentIndex
+                  ? 'border-primary shadow-xl ring-2 ring-primary/20 scale-105'
+                  : 'border-white/5 opacity-50 hover:opacity-100 hover:border-white/20'
                   }`}
                 aria-label={`View image ${index + 1}`}
               >

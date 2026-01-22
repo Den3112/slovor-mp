@@ -67,14 +67,45 @@ export interface Listing {
   user?: User
 }
 
+export interface Conversation {
+  id: string
+  listing_id: string
+  buyer_id: string
+  seller_id: string
+  created_at: string
+  updated_at: string
+  listing?: {
+    id: string
+    title: string
+    images: string[]
+    price: number
+  }
+  buyer?: {
+    id: string
+    display_name: string | null
+    avatar_url: string | null
+  }
+  seller?: {
+    id: string
+    display_name: string | null
+    avatar_url: string | null
+  }
+  messages?: Message[]
+  last_message?: Message | null
+}
+
 export interface Message {
   id: string
-  listing_id: string | null
+  conversation_id: string
   sender_id: string
-  recipient_id: string
   content: string
-  read: boolean
+  is_read: boolean
   created_at: string
+  sender?: {
+    id: string
+    display_name: string | null
+    avatar_url: string | null
+  }
 }
 
 export interface Review {

@@ -22,36 +22,36 @@ export function DashboardListingsContent({ all, active, drafts, sold, archived }
     return (
         <div className="w-full">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="w-full justify-between md:justify-start overflow-x-auto rounded-[1.25rem] bg-background/60 p-1 md:p-1.5 backdrop-blur-md border border-white/10 mb-8 h-auto gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <TabsList className="w-full justify-between md:justify-start overflow-x-auto rounded-none bg-zinc-950 p-1 md:p-2 border-2 border-primary/10 mb-10 h-auto gap-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <TabsTrigger
                         value="all"
-                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-none flex-1 md:flex-none px-1 md:px-6 py-3 font-sans text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/20"
                     >
-                        All <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{all.length}</span>
+                        All <span className="ml-2 border border-white/20 px-1.5 py-0.5 text-[9px] opacity-80">{all.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="active"
-                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-none flex-1 md:flex-none px-1 md:px-6 py-3 font-sans text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/20"
                     >
-                        Active <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{active.length}</span>
+                        Active <span className="ml-2 border border-white/20 px-1.5 py-0.5 text-[9px] opacity-80">{active.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="draft"
-                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-none flex-1 md:flex-none px-1 md:px-6 py-3 font-sans text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/20"
                     >
-                        Drafts <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{drafts.length}</span>
+                        Drafts <span className="ml-2 border border-white/20 px-1.5 py-0.5 text-[9px] opacity-80">{drafts.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="sold"
-                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-none flex-1 md:flex-none px-1 md:px-6 py-3 font-sans text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/20"
                     >
-                        Sold <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{sold.length}</span>
+                        Sold <span className="ml-2 border border-white/20 px-1.5 py-0.5 text-[9px] opacity-80">{sold.length}</span>
                     </TabsTrigger>
                     <TabsTrigger
                         value="archived"
-                        className="rounded-xl flex-1 md:flex-none px-1 md:px-4 py-2 md:py-2.5 text-[10px] mobile:text-xs md:text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/25"
+                        className="rounded-none flex-1 md:flex-none px-1 md:px-6 py-3 font-sans text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 data-[state=active]:shadow-lg data-[state=active]:shadow-primary/20"
                     >
-                        Archived <span className="ml-1 md:ml-2 rounded-md bg-background/20 px-1 md:px-1.5 py-0.5 text-[9px] md:text-[10px] opacity-80">{archived.length}</span>
+                        Archived <span className="ml-2 border border-white/20 px-1.5 py-0.5 text-[9px] opacity-80">{archived.length}</span>
                     </TabsTrigger>
                 </TabsList>
 

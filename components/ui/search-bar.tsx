@@ -15,18 +15,19 @@ export function SearchBar() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-2xl">
-      <div className="relative">
+    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-2xl px-4 md:px-0">
+      <div className="relative group">
+        <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search for products, services..."
-          className="w-full rounded-xl border border-input bg-muted/30 px-6 py-4 pr-32 text-lg shadow-sm transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+          placeholder="Search for listings, services..."
+          className="w-full border-2 border-primary/10 bg-zinc-950/80 px-8 py-5 pr-40 font-sans text-sm font-bold text-white transition-all placeholder:text-zinc-700 outline-none focus:border-primary focus:bg-zinc-950 shadow-[10px_10px_0px_0px_rgba(0,0,0,0.3)]"
         />
         <button
           type="submit"
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-primary px-6 py-2 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          className="absolute right-3 top-1/2 -translate-y-1/2 bg-primary px-8 py-3 font-sans text-[10px] font-black uppercase tracking-[0.2em] text-white transition-all hover:bg-primary/90 hover:-translate-y-[calc(50%+2px)] active:-translate-y-1/2"
         >
           Search
         </button>

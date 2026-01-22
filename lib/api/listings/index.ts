@@ -25,9 +25,13 @@ export interface ListingFilterOptions {
 }
 
 function buildListingsQuery(options?: ListingFilterOptions) {
+    const selectStr = options?.categorySlug
+        ? '*, category:categories!inner(*)'
+        : '*, category:categories(*)'
+
     let query = supabase
         .from('listings')
-        .select('*, category:categories(*)')
+        .select(selectStr)
         .eq('is_active', true)
 
     query = applyListingFilters(query, options)
@@ -52,9 +56,13 @@ export const listingsApi = {
 
     async getCount(options?: Omit<ListingFilterOptions, 'limit' | 'offset' | 'sort'>): Promise<ApiResponse<number>> {
         try {
+            const selectStr = options?.categorySlug
+                ? 'id, category:categories!inner(slug)'
+                : 'id'
+
             let query = supabase
                 .from('listings')
-                .select('id', { count: 'exact', head: true })
+                .select(selectStr, { count: 'exact', head: true })
                 .eq('is_active', true)
 
             query = applyListingFilters(query, options)

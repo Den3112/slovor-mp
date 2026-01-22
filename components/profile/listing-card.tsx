@@ -39,28 +39,28 @@ function DeleteConfirmModal({
 }) {
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md bg-zinc-950 border-2 border-primary/20 rounded-none p-10 shadow-2xl">
                 <DialogHeader>
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
-                        <AlertTriangle className="h-6 w-6 text-destructive" />
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center border-2 border-destructive bg-destructive/10">
+                        <AlertTriangle className="h-8 w-8 text-destructive" />
                     </div>
-                    <DialogTitle className="text-xl font-bold">Delete Listing?</DialogTitle>
+                    <DialogTitle className="font-heading text-3xl font-bold italic tracking-tight text-white">Delete Listing?</DialogTitle>
                     <DialogDescription asChild>
-                        <div className="space-y-3">
-                            <p>
-                                Are you sure you want to delete <strong className="text-foreground">&quot;{title}&quot;</strong>?
+                        <div className="space-y-6 mt-6">
+                            <p className="font-sans text-sm font-medium leading-relaxed text-zinc-500">
+                                Are you sure you want to delete <strong className="text-white">&quot;{title}&quot;</strong>?
                             </p>
-                            <p className="rounded-xl bg-destructive/5 p-3 text-sm text-destructive">
-                                ⚠️ This action cannot be undone. The listing will be permanently removed.
-                            </p>
+                            <div className="border border-destructive/20 bg-destructive/5 p-4 font-sans text-xs font-bold uppercase tracking-widest text-destructive">
+                                ⚠️ This action cannot be undone.
+                            </div>
                         </div>
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-4 mt-8 pt-8 border-t-2 border-primary/10">
                     <Button
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 h-14 rounded-none border-2 border-primary/10 font-sans text-xs font-bold uppercase tracking-widest transition-all"
                         onClick={onClose}
                         disabled={isLoading}
                     >
@@ -68,7 +68,7 @@ function DeleteConfirmModal({
                     </Button>
                     <Button
                         variant="destructive"
-                        className="flex-1"
+                        className="flex-1 h-14 rounded-none font-sans text-xs font-bold uppercase tracking-widest transition-all"
                         onClick={onConfirm}
                         disabled={isLoading}
                     >
@@ -124,9 +124,9 @@ export function DashboardListingCard({ listing, priority = false }: DashboardLis
 
     return (
         <>
-            <div className="group relative flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-md p-3 md:p-4 transition-all duration-300 hover:bg-white/10 hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/20 hover:-translate-y-0.5">
+            <div className="group relative flex flex-col md:flex-row items-start md:items-center gap-6 border-2 border-primary/10 bg-zinc-950 p-4 transition-all duration-300 hover:border-primary/40 hover:bg-zinc-900 hover:-translate-y-1">
                 {/* Clickable Image Thumbnail */}
-                <Link href={`/listings/${listing.id}`} className="relative h-48 w-full md:w-32 md:h-32 flex-shrink-0 overflow-hidden rounded-3xl md:rounded-2xl bg-muted shadow-inner group/image">
+                <Link href={`/listings/${listing.id}`} className="relative h-48 w-full md:w-40 md:h-40 flex-shrink-0 overflow-hidden border-2 border-primary/10 bg-muted group/image">
                     {listing.images?.[0] ? (
                         <>
                             <Image
@@ -137,76 +137,76 @@ export function DashboardListingCard({ listing, priority = false }: DashboardLis
                                 unoptimized
                                 priority={priority}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 md:opacity-0 transition-opacity" />
+                            <div className="absolute inset-0 bg-black/10 group-hover/image:bg-black/0 transition-colors" />
                         </>
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center text-muted-foreground bg-primary/5">
+                        <div className="flex h-full w-full items-center justify-center text-zinc-800 bg-primary/5">
                             <Eye className="h-10 w-10 opacity-20" />
                         </div>
                     )}
                 </Link>
 
-                {/* Clickable Info */}
-                <Link href={`/listings/${listing.id}`} className="flex-1 min-w-0 py-1 space-y-2 w-full px-1 md:px-0">
-                    <div className="flex items-center gap-3">
+                {/* Info */}
+                <div className="flex-1 min-w-0 py-1 space-y-4 w-full">
+                    <div className="flex items-center gap-6">
                         <span className={cn(
-                            "rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest border shadow-sm",
+                            "border-2 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-widest",
                             listing.is_active
                                 ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
                                 : "bg-amber-500/10 text-amber-500 border-amber-500/20"
                         )}>
                             {listing.is_active ? 'Active' : 'Inactive'}
                         </span>
-                        <span className="text-[10px] font-bold text-muted-foreground flex items-center gap-1.5 opacity-60 uppercase tracking-wider">
-                            <Clock className="h-3 w-3" />
+                        <span className="font-sans text-[10px] font-bold text-zinc-500 flex items-center gap-2 uppercase tracking-[0.2em] opacity-80">
+                            <Clock className="h-3.5 w-3.5" />
                             {new Date(listing.created_at).toLocaleDateString()}
                         </span>
                     </div>
 
                     <div>
-                        <h3 className="truncate font-heading text-xl md:text-2xl font-black text-foreground group-hover:text-primary transition-colors duration-300 mb-1 leading-tight">
-                            {listing.title || 'Untitled Listing'}
-                        </h3>
+                        <Link href={`/listings/${listing.id}`}>
+                            <h3 className="truncate font-heading text-2xl font-bold italic text-white group-hover:text-primary transition-colors duration-300 mb-2">
+                                {listing.title || 'Untitled Listing'}
+                            </h3>
+                        </Link>
                         {listing.category?.name && (
-                            <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">
+                            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-primary/80">
                                 {listing.category.name}
                             </p>
                         )}
                     </div>
 
-                    <div className="flex items-center gap-4 md:gap-6 pt-1">
+                    <div className="flex items-center gap-8 pt-2">
                         <PriceDisplay
                             amount={listing.price}
                             baseCurrency={listing.currency}
-                            className="text-xl md:text-2xl font-black text-foreground tracking-tighter"
+                            className="text-2xl font-black text-white tracking-tight"
                         />
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground/70 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5">
-                            <Eye className="h-3 w-3" />
+                        <div className="flex items-center gap-2 border-2 border-primary/10 bg-zinc-950 px-3 py-1.5 font-sans text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+                            <Eye className="h-3.5 w-3.5" />
                             <span>{listing.views || 0}</span>
                         </div>
                     </div>
-                </Link>
+                </div>
 
-                {/* Actions - Modern Pill Group */}
-                <div className="flex w-full md:w-auto items-center gap-2 mt-2 md:mt-0 p-1 bg-black/5 md:bg-transparent rounded-2xl md:pl-4 md:border-l border-white/5">
+                {/* Actions */}
+                <div className="flex w-full md:w-auto items-center gap-3 mt-4 md:mt-0 p-2 md:p-0 bg-zinc-900 md:bg-transparent md:pl-6 md:border-l-2 border-primary/10">
                     <Link href={`/post?edit=${listing.id}`} title="Edit" className="flex-1 md:flex-none">
-                        <Button size="icon" variant="ghost" className="w-full md:w-12 h-12 rounded-xl hover:bg-primary/20 hover:text-primary transition-all text-muted-foreground">
+                        <Button size="icon" variant="outline" className="w-full md:w-14 h-14 rounded-none border-2 border-primary/10 bg-transparent transition-all hover:bg-primary/20 hover:border-primary hover:text-primary text-zinc-500">
                             <Edit className="h-5 w-5" />
                             <span className="sr-only">Edit</span>
                         </Button>
                     </Link>
 
-
-
                     {/* Toggle Active/Inactive */}
                     <Button
                         size="icon"
-                        variant="ghost"
+                        variant="outline"
                         className={cn(
-                            "flex-1 md:flex-none w-full md:w-12 h-12 rounded-xl transition-all",
+                            "flex-1 md:flex-none w-full md:w-14 h-14 rounded-none border-2 transition-all",
                             listing.is_active
-                                ? "hover:bg-amber-500/20 hover:text-amber-500 text-muted-foreground"
-                                : "hover:bg-emerald-500/20 hover:text-emerald-500 text-muted-foreground"
+                                ? "border-amber-500/20 bg-transparent hover:bg-amber-500/20 hover:border-amber-500 hover:text-amber-500 text-zinc-500 font-bold"
+                                : "border-emerald-500/20 bg-transparent hover:bg-emerald-500/20 hover:border-emerald-500 hover:text-emerald-500 text-zinc-500 font-bold"
                         )}
                         onClick={handleToggleActive}
                         disabled={isToggling}
@@ -219,8 +219,8 @@ export function DashboardListingCard({ listing, priority = false }: DashboardLis
                     {/* Delete */}
                     <Button
                         size="icon"
-                        variant="ghost"
-                        className="flex-1 md:flex-none w-full md:w-12 h-12 rounded-xl text-muted-foreground hover:bg-destructive/20 hover:text-destructive transition-all"
+                        variant="outline"
+                        className="flex-1 md:flex-none w-full md:w-14 h-14 rounded-none border-2 border-primary/10 bg-transparent transition-all hover:bg-destructive/20 hover:border-destructive hover:text-destructive text-zinc-500"
                         onClick={() => setShowDeleteModal(true)}
                         disabled={isDeleting}
                         title="Delete"

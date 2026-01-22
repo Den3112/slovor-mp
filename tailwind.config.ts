@@ -25,8 +25,10 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
-        heading: ['var(--font-outfit)', 'sans-serif'],
+        sans: ['var(--font-jost)', 'var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-bodoni)', 'var(--font-outfit)', 'serif'],
+        jost: ['var(--font-jost)', 'sans-serif'],
+        bodoni: ['var(--font-bodoni)', 'serif'],
       },
       colors: {
         border: 'hsl(var(--border))',

@@ -4,7 +4,7 @@
 # ===========================================
 
 # Base image with Node.js Alpine for minimal size
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # Set environment variables for npm
 ENV NPM_CONFIG_LOGLEVEL=warn

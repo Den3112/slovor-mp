@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { MapPin, Eye, Sparkles, ImageOff } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { formatPrice } from '@/lib/utils'
-import type { Listing } from '@/lib/types/database'
+import type { Listing, Category } from '@/lib/types/database'
+import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 
 interface ListingPreviewProps {
   formData: {
@@ -20,6 +21,7 @@ interface ListingPreviewProps {
   categories: Array<{
     id: string
     name: string
+    slug: string
     name_sk?: string | null
     name_cs?: string | null
     name_en?: string | null
@@ -30,17 +32,10 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
   const { locale, t } = useTranslation()
 
   // Get category name based on locale
-  const getCategoryName = (categoryId: string) => {
+  const getCategoryNameLocalized = (categoryId: string) => {
     const category = categories.find(c => c.id === categoryId)
     if (!category) return ''
-
-    const localeMap: Record<string, string> = {
-      sk: 'name_sk',
-      cs: 'name_cs',
-      en: 'name_en',
-    }
-    const field = localeMap[locale] || 'name'
-    return category[field as keyof typeof category] || category.name
+    return getLocalizedCategoryName(category as unknown as Category, locale, t)
   }
 
   const listing: Listing = {
@@ -63,7 +58,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
     expires_at: null,
     category: {
       id: formData.category_id,
-      name: getCategoryName(formData.category_id),
+      name: getCategoryNameLocalized(formData.category_id),
       slug: '',
       description: null,
       icon: null,
@@ -79,7 +74,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
   const categoryName = listing.category?.name || ''
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-card/60 backdrop-blur-sm overflow-hidden md:rounded-3xl">
+    <div className="border-2 border-primary/10 bg-zinc-950 overflow-hidden shadow-xl">
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         {hasValidImage ? (
@@ -105,54 +100,54 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         {/* Badges */}
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5 md:left-4 md:top-4 md:gap-2">
           {listing.condition === 'new' && (
-            <div className="flex items-center gap-1 rounded-full bg-card/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-wide text-card-foreground shadow-lg backdrop-blur-md md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
-              <Sparkles className="h-2.5 w-2.5 fill-primary text-primary md:h-3 md:w-3" />
+            <div className="flex items-center gap-2 border-2 border-primary/20 bg-black/80 px-4 py-2 font-sans text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
+              <Sparkles className="h-3.5 w-3.5 fill-primary text-primary" />
               {t.common.new}
             </div>
           )}
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="glass absolute bottom-3 left-3 rounded-full border border-white/20 px-2.5 py-1 text-[9px] font-black text-foreground/80 md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="absolute bottom-4 left-4 border-2 border-white/10 bg-black/80 px-4 py-2 font-sans text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
             {listing.images.length} PHOTOS
           </div>
         )}
       </div>
 
       {/* Content */}
-      <div className="space-y-2.5 p-4 md:space-y-4 md:p-6">
+      <div className="space-y-4 p-6">
         <div>
-          <div className="mb-1.5 flex items-center justify-between md:mb-2">
+          <div className="mb-2 flex items-center justify-between">
             {listing.category && (
-              <span className="text-[9px] font-black uppercase tracking-[0.15em] text-primary md:text-[10px] md:tracking-[0.2em]">
+              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
                 {categoryName}
               </span>
             )}
-            <div className="flex items-center gap-1 text-[9px] font-bold text-muted-foreground opacity-60 md:text-[10px]">
-              <Eye className="h-3 w-3" />
+            <div className="flex items-center gap-1.5 font-sans text-[10px] font-bold text-zinc-500 opacity-60">
+              <Eye className="h-3.5 w-3.5" />
               <span>0</span>
             </div>
           </div>
-          <h3 className="line-clamp-2 font-heading text-base font-bold leading-tight text-foreground transition-colors duration-300 md:text-xl">
+          <h3 className="line-clamp-2 font-heading text-xl font-bold leading-tight text-white transition-colors duration-300">
             {localizedTitle || 'Название объявления'}
           </h3>
         </div>
 
         {formData.description && (
-          <p className="line-clamp-2 text-xs text-muted-foreground">
+          <p className="line-clamp-2 font-sans text-sm font-medium text-zinc-400">
             {formData.description}
           </p>
         )}
 
-        <div className="flex items-end justify-between pt-1 md:pt-2">
-          <div className="font-heading text-xl font-black tracking-tighter text-foreground md:text-3xl">
+        <div className="flex items-end justify-between pt-2">
+          <div className="font-heading text-3xl font-bold tracking-tighter text-white">
             {formatPrice(parseFloat(formData.price) || 0, formData.currency)}
           </div>
 
           {formData.location && (
-            <div className="mb-0.5 flex items-center gap-1 text-[9px] font-black uppercase tracking-wide text-muted-foreground opacity-80 md:mb-1 md:text-[10px] md:tracking-widest">
-              <MapPin className="h-3 w-3 text-primary" />
-              <span className="max-w-[80px] truncate md:max-w-[100px]">{formData.location}</span>
+            <div className="mb-1 flex items-center gap-2 font-sans text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+              <MapPin className="h-3.5 w-3.5 text-primary" />
+              <span className="max-w-[100px] truncate">{formData.location}</span>
             </div>
           )}
         </div>

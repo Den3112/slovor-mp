@@ -95,7 +95,7 @@ export const reportsApi = {
                 query = query.limit(params.limit)
             }
 
-            if (params?.offset) {
+            if (params?.offset !== undefined) {
                 query = query.range(params.offset, params.offset + (params.limit || 20) - 1)
             }
 

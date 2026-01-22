@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { CreateListingForm } from '@/components/listing/create-listing-form'
+import { CreateListingForm } from '@/components/listing/form/create-listing-form'
 
 // Mock useAuth
 vi.mock('@/components/providers/auth-provider', () => ({

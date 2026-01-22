@@ -1,8 +1,10 @@
 // Flag SVG components for language selector
 // Extracted to keep header component minimal
 
-export const FlagSK = () => (
-    <svg viewBox="0 0 640 480" className="h-full w-full object-cover">
+import { cn } from '@/lib/utils'
+
+export const FlagSK = ({ className }: { className?: string }) => (
+    <svg viewBox="0 0 640 480" className={cn("h-full w-full object-cover", className)}>
         <path fill="#ffffff" d="M0 0h640v480H0z" />
         <path fill="#ffffff" d="M0 160h640v320H0z" />
         <path fill="#0b4ea2" d="M0 160h640v160H0z" />
@@ -25,8 +27,8 @@ export const FlagSK = () => (
     </svg>
 )
 
-export const FlagUS = () => (
-    <svg viewBox="0 0 640 480" className="h-full w-full object-cover">
+export const FlagUS = ({ className }: { className?: string }) => (
+    <svg viewBox="0 0 640 480" className={cn("h-full w-full object-cover", className)}>
         <path fill="#bd3d44" d="M0 0h640v480H0" />
         <path
             stroke="#fff"
@@ -40,8 +42,8 @@ export const FlagUS = () => (
     </svg>
 )
 
-export const FlagCZ = () => (
-    <svg viewBox="0 0 640 480" className="h-full w-full object-cover">
+export const FlagCZ = ({ className }: { className?: string }) => (
+    <svg viewBox="0 0 640 480" className={cn("h-full w-full object-cover", className)}>
         <path fill="#ffffff" d="M0 0h640v240H0z" />
         <path fill="#d7141a" d="M0 240h640v240H0z" />
         <path fill="#11457e" d="M0 0l360 240L0 480z" />

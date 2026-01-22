@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import type { Category } from '@/lib/types/database'
 import { getMainCategories } from '@/lib/supabase/categories'
 import { useTranslation } from '@/lib/i18n'
-import { getCategoryName } from '@/lib/utils/category-helpers'
+import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 
 interface CategorySelectorProps {
   onSelect: (categoryId: string) => void
@@ -64,7 +64,7 @@ export function CategorySelector({
         <option value="">{t.common.selectCategory}</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
-            {category.icon} {getCategoryName(category, locale, t)}
+            {getLocalizedCategoryName(category, locale, t)}
           </option>
         ))}
       </select>

@@ -2,7 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - 2026-01-12
+## [Unreleased] - 2026-01-22
+
+### Architecture & Infrastructure Upgrade
+- **Node.js**: Upgraded to 22.13.1 LTS.
+- **Framework**: Upgraded to Next.js 15.1.5 (App Router).
+- **Library**: Upgraded to React 19.0.0.
+- **Docker**: Optimized `Dockerfile` and `Dockerfile.dev` for Node 22 and faster builds.
+- **Environment**: Added `.nvmrc` and updated project configurations (`tsconfig.json`, `package.json`).
+
+### Refactoring & Code Quality
+- **Component Architecture**:
+  - Massive reorganization of `components/listing` into modular subfolders (`details`, `card`, `filters`, `form`, `view`).
+  - Consolidated shared components and types.
+  - Eliminated legacy/duplicated layout components.
+- **File Naming**: Standardized all project files to `kebab-case` according to the new convention.
+- **Localization**: Consolidated category helpers into a unified `lib/utils/category-i18n.ts` and `getCategoryIcon`.
+- **API Consolidation**: Refactored API client modules to be more consistent and grouped by resource.
+
+### Testing
+- **Vitest**: Migrated from legacy Jest-based setup to Vitest for faster testing.
+- **Coverage**: Significantly increased unit test coverage for components:
+  - Auth components (`AuthForm`, `AuthSocial`).
+  - Listing components (`Filters`, `ImageGallery`, `PriceDisplay`).
+  - Listing creation steps (`Category`, `Details`, `Images`).
+- **E2E**: Added Playwright E2E tests for core user journeys (Auth, Listing Lifecycle, Search).
+
+### Fixed
+- **SSR Hydration**: Fixed hydration errors in listing detail and profile pages.
+- **Category Icons**: Resolved missing icons for several subcategories.
+- **TypeScript**: Fixed strict type errors across the entire codebase.
+
+## [1.0.0-beta] - 2026-01-12
 
 ### Fixed
 - **Tests**: Resolved 4 failing tests in `create-listing-form.test.tsx`:

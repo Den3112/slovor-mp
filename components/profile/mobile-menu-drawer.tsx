@@ -14,7 +14,7 @@ import {
     Store,
     Star,
 } from 'lucide-react'
-import { FlagSK, FlagUS, FlagCZ } from '@/components/ui/flags'
+import { FlagSK, FlagUS, FlagCZ } from '@/components/icons/flags'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'

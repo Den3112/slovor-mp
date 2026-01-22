@@ -113,9 +113,9 @@ describe('Input Component - Design Tokens', () => {
     it('uses semantic input and muted tokens', () => {
         render(<Input data-testid="input" placeholder="Test" />)
         const input = screen.getByTestId('input')
-        expect(input.className).toContain('border-input')
-        expect(input.className).toContain('bg-muted')
-        expect(input.className).toContain('focus-visible:ring-primary')
+        expect(input.className).toContain('border-primary/10')
+        expect(input.className).toContain('bg-zinc-950')
+        expect(input.className).toContain('focus-visible:border-primary')
     })
 })
 

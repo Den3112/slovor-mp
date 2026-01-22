@@ -32,9 +32,9 @@ function Logo({ className }: { className?: string }) {
           S
         </div>
       </div>
-      <span className="flex items-baseline font-heading text-xl font-black tracking-tighter text-foreground transition-colors group-hover:text-primary md:text-3xl">
+      <span className="flex items-baseline font-heading text-xl font-bold tracking-tighter text-foreground transition-colors group-hover:text-primary md:text-3xl">
         Slovor
-        <span className="group-hover:animate-bounce-subtle text-primary">.</span>
+        <span className="text-primary">.</span>
       </span>
     </Link>
   )
@@ -49,7 +49,7 @@ interface DesktopNavProps {
 function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
   return (
     <div className="pointer-events-none hidden flex-1 items-center justify-center lg:flex">
-      <nav className="group pointer-events-auto flex items-center gap-1 rounded-full border border-border/40 bg-muted/20 p-1.5 shadow-inner backdrop-blur-3xl transition-all hover:bg-muted/30">
+      <nav className="group pointer-events-auto flex items-center gap-2 border-2 border-primary/10 bg-background/50 p-2 shadow-sm backdrop-blur-3xl transition-all hover:bg-background/80">
         {navLinks.map((link) => {
           const isActive =
             pathname === link.href ||
@@ -59,20 +59,20 @@ function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
               key={link.href}
               href={link.href}
               className={cn(
-                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] font-black uppercase leading-none tracking-[0.15em] transition-all xl:px-8',
+                'relative flex h-10 items-center justify-center px-5 text-center font-sans text-[11px] font-bold uppercase leading-none tracking-[0.2em] transition-all xl:px-8',
                 isActive
-                  ? 'text-primary-foreground shadow-lg'
+                  ? 'text-primary-foreground'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId="active-nav"
-                  className="absolute inset-0 -z-10 rounded-full bg-primary shadow-[0_8px_20px_rgba(139,92,246,0.35)]"
+                  className="absolute inset-0 -z-10 bg-primary shadow-xl"
                   transition={{
                     type: 'spring',
-                    bounce: 0.15,
-                    duration: 0.6,
+                    bounce: 0,
+                    duration: 0.4,
                   }}
                 />
               )}
@@ -166,7 +166,7 @@ export function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className="flex h-10 items-center justify-center whitespace-nowrap rounded-full border border-primary/20 bg-primary/10 px-5 text-[10px] font-black uppercase tracking-[0.15em] text-primary transition-all duration-300 hover:scale-105 hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/20 active:scale-95 xl:px-7"
+                    className="flex h-10 items-center justify-center whitespace-nowrap border-2 border-primary/20 bg-background px-5 font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-primary transition-all duration-300 hover:border-primary hover:bg-primary/5 active:scale-95 xl:px-7"
                   >
                     {t.auth.signIn}
                   </Link>
@@ -175,9 +175,9 @@ export function Header() {
                 {/* POST BUTTON */}
                 <Link
                   href="/post"
-                  className="group flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-5 text-[10px] font-black uppercase tracking-[0.15em] text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl hover:shadow-primary/30 active:scale-95 xl:px-7"
+                  className="group flex h-10 items-center justify-center gap-2 whitespace-nowrap bg-primary px-6 font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-95 xl:px-8"
                 >
-                  <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
+                  <Plus className="h-4 w-4 transition-transform duration-500 group-hover:rotate-90" />
                   <span className="hidden xl:inline">{t.common.postAd}</span>
                   <span className="xl:hidden">Post</span>
                 </Link>

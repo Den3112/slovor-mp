@@ -1,4 +1,4 @@
-import type { Listing, Category } from '@/lib/types/database'
+import type { Listing } from '@/lib/types/database'
 
 /**
  * Get localized title for listing based on locale
@@ -20,14 +20,4 @@ export function getLocalizedDescription(listing: Listing, locale: string): strin
     return listing.description
 }
 
-/**
- * Get localized category name
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getLocalizedCategoryName(category: Category, locale: string, t: Record<string, any>): string {
-    if (!category) return ''
-    if (locale === 'sk') return category.name_sk || category.name
-    if (locale === 'cs') return category.name_cs || category.name
-    if (locale === 'en') return category.name_en || category.name
-    return t.categories[category.slug as keyof typeof t.categories] || category.name
-}
+

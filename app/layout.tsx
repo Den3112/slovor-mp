@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Outfit } from 'next/font/google'
+import { Inter, Jost, Bodoni_Moda } from 'next/font/google'
 import { Suspense } from 'react'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
@@ -8,7 +8,8 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
+const jost = Jost({ subsets: ['latin'], variable: '--font-jost' })
+const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
 
 export const metadata: Metadata = {
   title: 'Slovor Marketplace - Slovakia Classifieds',
@@ -26,7 +27,7 @@ export default function RootLayout({
       lang="sk"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${outfit.variable}`}
+      className={cn(inter.variable, jost.variable, bodoni.variable)}
     >
       <head>
         <meta charSet="utf-8" />

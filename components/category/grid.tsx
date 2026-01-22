@@ -3,11 +3,8 @@
 import Link from 'next/link'
 import type { Category } from '@/lib/types/database'
 import { useTranslation } from '@/lib/i18n'
-import { CategoryIcon } from './CategoryIcon'
-import {
-  getUniqueCategories,
-  getCategoryName,
-} from '@/lib/utils/category-helpers'
+import { CategoryIcon } from './category-icon'
+import { getLocalizedCategoryName, getUniqueCategories } from '@/lib/utils/category-i18n'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -42,14 +39,12 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                 <ArrowUpRight className="h-5 w-5 text-primary" />
               </div>
 
-              {category.icon_name && (
-                <div className="mb-6 rounded-3xl bg-muted/50 p-6 transition-all duration-500 group-hover/card:rotate-6 group-hover/card:scale-110 group-hover/card:bg-primary group-hover/card:text-primary-foreground">
-                  <CategoryIcon slug={category.slug} className="h-12 w-12" />
-                </div>
-              )}
+              <div className="mb-6 rounded-3xl bg-muted/50 p-6 transition-all duration-500 group-hover/card:rotate-6 group-hover/card:scale-110 group-hover/card:bg-primary group-hover/card:text-primary-foreground">
+                <CategoryIcon slug={category.slug} className="h-12 w-12" />
+              </div>
 
               <h3 className="text-center text-xl font-black tracking-tight text-foreground transition-colors group-hover/card:text-primary">
-                {getCategoryName(category, locale, t)}
+                {getLocalizedCategoryName(category, locale, t)}
               </h3>
 
               {category.listing_count !== undefined && (
@@ -62,13 +57,13 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
             {/* Subcategories Premium Mini-List */}
             {category.subcategories && category.subcategories.length > 0 && (
               <div className="flex flex-wrap gap-2 px-4">
-                {category.subcategories.slice(0, 4).map((sub) => (
+                {category.subcategories.slice(0, 4).map((sub: Category) => (
                   <Link
                     key={sub.id}
                     href={`/categories/${sub.slug}`}
                     className="rounded-xl border border-border/50 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground transition-all hover:bg-primary/5 hover:text-primary"
                   >
-                    {getCategoryName(sub, locale, t)}
+                    {getLocalizedCategoryName(sub, locale, t)}
                   </Link>
                 ))}
                 {category.subcategories.length > 4 && (

@@ -4,7 +4,7 @@
 // Principle #2: Server Component with explicit data fetching
 // Principle #4: No magic - clear data flow from API to component
 
-import { HomeView } from '@/components/home/HomeView'
+import { HomeView } from '@/components/home/home-view'
 import { FeaturedListings } from '@/components/listing/featured'
 import { createClient } from '@/lib/supabase/server'
 

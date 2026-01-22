@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { ErrorState } from '@/components/ui/error-state'
-import { CategoryView } from '@/components/category/CategoryView'
+import { CategoryView } from '@/components/category/category-view'
 import { categoriesApi, listingsApi } from '@/lib/api'
 
 /**
