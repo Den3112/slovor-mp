@@ -14,14 +14,14 @@ jobs:
 
       - name: Create .env context
         env:
-          SP_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SP_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SP_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          CL_NAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
-          CL_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-          CL_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-          CL_URL: ${{ secrets.CLOUDINARY_URL }}
-          APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+          SP_URL: "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}"
+          SP_KEY: "${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}"
+          SP_ROLE: "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
+          CL_NAME: "${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}"
+          CL_KEY: "${{ secrets.CLOUDINARY_API_KEY }}"
+          CL_SECRET: "${{ secrets.CLOUDINARY_API_SECRET }}"
+          CL_URL: "${{ secrets.CLOUDINARY_URL }}"
+          APP_URL: "${{ secrets.NEXT_PUBLIC_APP_URL }}"
         run: |
           echo "NEXT_PUBLIC_SUPABASE_URL=${SP_URL:-https://mock-project.supabase.co}" >> .env.local
           echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${SP_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNjEyMzQ1Njc4LCJleHAiOjE5Mjc5MjE2Nzh9.rjPb5D5d3z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5}" >> .env.local
