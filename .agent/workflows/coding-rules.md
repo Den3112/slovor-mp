@@ -128,7 +128,7 @@ All reports, plans, and responses must be **user-friendly**, **informative**, an
 
 After completing the task, you **MUST** provide a clear, **visually rich** report in **Russian** with the following sections (EXACTLY AS WRITTEN):
 
-1.  **🚀 Что сделано**: List of implemented changes (use checkboxes where appropriate).
+1.  **🚀 Что сделано**: List of implemented changes. Use bullet points with clear icons. **MANDATORY: NEVER use strikethrough text for completed tasks, as it is difficult to read.**
 2.  **⚠️ Какие есть проблемы**: Any bugs, lint errors, or architectural issues.
 3.  **💡 Какие есть рекомендации**: Suggestions for further improvements.
 4.  **📅 Что планируется делать дальше**: Next steps.
