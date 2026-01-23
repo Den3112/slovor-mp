@@ -112,7 +112,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
         setMessages((prev) => [...prev, sentMsg])
         setNewMessage('')
       }
-    } catch (error) {
+    } catch {
       toast.error('Failed to send message')
     } finally {
       setIsSending(false)
@@ -234,9 +234,9 @@ export function ChatView({ conversationId }: ChatViewProps) {
                       ? 'bg-primary text-primary-foreground rounded-[1.5rem] rounded-tr-sm'
                       : 'bg-background/80 text-foreground rounded-[1.5rem] rounded-tl-sm border border-white/10 backdrop-blur-md',
                     isSequential &&
-                      (isMe
-                        ? 'mt-1 rounded-tr-[1.5rem]'
-                        : 'mt-1 rounded-tl-[1.5rem]')
+                    (isMe
+                      ? 'mt-1 rounded-tr-[1.5rem]'
+                      : 'mt-1 rounded-tl-[1.5rem]')
                   )}
                 >
                   {msg.content}
