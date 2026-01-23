@@ -29,6 +29,10 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 - **PR Mandatory**: All significant changes must be submitted via a Pull Request (PR) from `dev` to `main`.
 - **Atomic Commits**: Commit frequently with descriptive messages following Conventional Commits (`feat:`, `fix:`, `chore:`, etc.).
 
+## 5. Debugging & Tools
+
+- **Temporary Debug Files**: You are **authorized** to create temporary debugging files (e.g., `temp-debug.js`, `repro.test.ts`) to analyze complex issues. You **MUST** ensure these files are completely deleted after the analysis is finished.
+
 ---
 
 ### bot-checklist
