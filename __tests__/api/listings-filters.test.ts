@@ -429,7 +429,10 @@ describe('Listings API - Count', () => {
   it('should get count with filters', async () => {
     mockCountData = { count: 25, error: null }
 
-    const result = await listingsApi.getCount({ categoryId: 'cat1', priceMin: 100 })
+    const result = await listingsApi.getCount({
+      categoryId: 'cat1',
+      priceMin: 100,
+    })
 
     expect(result.error).toBeNull()
     expect(result.data).toBe(25)

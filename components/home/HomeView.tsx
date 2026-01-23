@@ -32,31 +32,31 @@ export function HomeView({
         <HomeCategories categories={categories} />
       ) : (
         <Container className="py-20">
-          <div className="rounded-[2rem] border border-destructive/10 bg-destructive/5 p-12 text-center font-bold text-destructive">
+          <div className="border-destructive/10 bg-destructive/5 text-destructive rounded-[2rem] border p-12 text-center font-bold">
             {categoriesError}
           </div>
         </Container>
       )}
 
       {/* Featured Listings Section */}
-      <section className="border-y border-border/40 bg-muted/20 py-24">
+      <section className="border-border/40 bg-muted/20 border-y py-24">
         <Container>
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="max-w-xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-orange-600">
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-3 py-1 text-[10px] font-black tracking-widest text-orange-600 uppercase">
                 <Flame className="h-3.5 w-3.5 fill-orange-600/20" />
                 Trending Now
               </span>
-              <h2 className="mb-4 font-heading text-4xl font-black italic tracking-tight md:text-5xl">
+              <h2 className="font-heading mb-4 text-4xl font-black tracking-tight italic md:text-5xl">
                 {t.home.featuredListings}
               </h2>
-              <p className="text-lg font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-lg font-medium">
                 Hand-picked selection of premium items recently published.
               </p>
             </div>
             <Link
               href="/listings"
-              className="group inline-flex items-center gap-2 text-lg font-bold text-primary transition-colors hover:text-primary/80"
+              className="group text-primary hover:text-primary/80 inline-flex items-center gap-2 text-lg font-bold transition-colors"
             >
               Explore All{' '}
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

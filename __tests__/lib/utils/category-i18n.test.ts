@@ -1,61 +1,74 @@
 import { describe, it, expect } from 'vitest'
-import { getLocalizedCategoryName, getUniqueCategories } from '@/lib/utils/category-i18n'
+import {
+  getLocalizedCategoryName,
+  getUniqueCategories,
+} from '@/lib/utils/category-i18n'
 
 describe('category-i18n utility', () => {
-    const mockT = {
-        categories: {
-            electronics: 'Electronic Devices',
-        }
-    }
+  const mockT = {
+    categories: {
+      electronics: 'Electronic Devices',
+    },
+  }
 
-    const mockCategory = {
-        name: 'Electronics',
-        slug: 'electronics',
-        name_sk: 'Elektronika',
-        name_cs: 'Elektronika CS',
-        name_en: 'Electronics EN',
-    } as any
+  const mockCategory = {
+    name: 'Electronics',
+    slug: 'electronics',
+    name_sk: 'Elektronika',
+    name_cs: 'Elektronika CS',
+    name_en: 'Electronics EN',
+  } as any
 
-    describe('getLocalizedCategoryName', () => {
-        it('returns SK name if locale is sk', () => {
-            expect(getLocalizedCategoryName(mockCategory, 'sk', mockT as any)).toBe('Elektronika')
-        })
-
-        it('returns CS name if locale is cs', () => {
-            expect(getLocalizedCategoryName(mockCategory, 'cs', mockT as any)).toBe('Elektronika CS')
-        })
-
-        it('returns EN name if locale is en', () => {
-            expect(getLocalizedCategoryName(mockCategory, 'en', mockT as any)).toBe('Electronics EN')
-        })
-
-        it('falls back to translation key if locale name is missing', () => {
-            const cat = { slug: 'electronics' } as any
-            expect(getLocalizedCategoryName(cat, 'en', mockT as any)).toBe('Electronic Devices')
-        })
-
-        it('falls back to default name if all else fails', () => {
-            const cat = { name: 'Fallback Name', slug: 'unknown' } as any
-            expect(getLocalizedCategoryName(cat, 'en', mockT as any)).toBe('Fallback Name')
-        })
-
-        it('capitalizes slug as final fallback', () => {
-            const cat = { slug: 'unknown' } as any
-            expect(getLocalizedCategoryName(cat, 'en', mockT as any)).toBe('Unknown')
-        })
+  describe('getLocalizedCategoryName', () => {
+    it('returns SK name if locale is sk', () => {
+      expect(getLocalizedCategoryName(mockCategory, 'sk', mockT as any)).toBe(
+        'Elektronika'
+      )
     })
 
-    describe('getUniqueCategories', () => {
-        it('removes duplicates based on localized name', () => {
-            const categories = [
-                { id: '1', slug: 'a', name_en: 'Same Name' },
-                { id: '2', slug: 'b', name_en: 'Same Name' },
-                { id: '3', slug: 'c', name_en: 'Different Name' },
-            ] as any
-            const result = getUniqueCategories(categories, 'en', mockT as any)
-            expect(result).toHaveLength(2)
-            expect(result[0]?.id).toBe('1')
-            expect(result[1]?.id).toBe('3')
-        })
+    it('returns CS name if locale is cs', () => {
+      expect(getLocalizedCategoryName(mockCategory, 'cs', mockT as any)).toBe(
+        'Elektronika CS'
+      )
     })
+
+    it('returns EN name if locale is en', () => {
+      expect(getLocalizedCategoryName(mockCategory, 'en', mockT as any)).toBe(
+        'Electronics EN'
+      )
+    })
+
+    it('falls back to translation key if locale name is missing', () => {
+      const cat = { slug: 'electronics' } as any
+      expect(getLocalizedCategoryName(cat, 'en', mockT as any)).toBe(
+        'Electronic Devices'
+      )
+    })
+
+    it('falls back to default name if all else fails', () => {
+      const cat = { name: 'Fallback Name', slug: 'unknown' } as any
+      expect(getLocalizedCategoryName(cat, 'en', mockT as any)).toBe(
+        'Fallback Name'
+      )
+    })
+
+    it('capitalizes slug as final fallback', () => {
+      const cat = { slug: 'unknown' } as any
+      expect(getLocalizedCategoryName(cat, 'en', mockT as any)).toBe('Unknown')
+    })
+  })
+
+  describe('getUniqueCategories', () => {
+    it('removes duplicates based on localized name', () => {
+      const categories = [
+        { id: '1', slug: 'a', name_en: 'Same Name' },
+        { id: '2', slug: 'b', name_en: 'Same Name' },
+        { id: '3', slug: 'c', name_en: 'Different Name' },
+      ] as any
+      const result = getUniqueCategories(categories, 'en', mockT as any)
+      expect(result).toHaveLength(2)
+      expect(result[0]?.id).toBe('1')
+      expect(result[1]?.id).toBe('3')
+    })
+  })
 })

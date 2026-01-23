@@ -21,10 +21,10 @@ All documentation has been moved to the **`docs` branch** for better organizatio
 - 🔥 **Coding Principles** - See `docs/architecture/PRINCIPLES.md` in `docs` branch
 
 To access documentation locally:
+
 ```bash
 git checkout docs
 ```
-
 
 ---
 
@@ -85,7 +85,6 @@ Open [http://localhost:3000](http://localhost:3000)
 - **`dev`** → Active development branch. All feature branches merge here first.
 - **`docs`** → **Documentation only**. Contains all project documentation, guides, and architecture docs.
 
-
 ---
 
 ## 🛠️ Tech Stack
@@ -112,7 +111,6 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### 🚧 In Focus (See Roadmap in `docs` branch)
 
-
 - Premium User Dashboard
 - Advanced Media Management (File Uploads)
 - Smart Search & discovery interactions
@@ -125,7 +123,6 @@ Open [http://localhost:3000](http://localhost:3000)
 2. Create a feature branch from `dev`.
 3. Ensure type safety and linting passes.
 4. Create a PR to `dev`.
-
 
 ---
 

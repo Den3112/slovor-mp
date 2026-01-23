@@ -84,17 +84,17 @@ export function LocaleWelcomeModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="rounded-3xl border-0 bg-card p-8 shadow-2xl sm:max-w-md">
+      <DialogContent className="bg-card rounded-3xl border-0 p-8 shadow-2xl sm:max-w-md">
         <DialogHeader>
           <div className="mb-4 flex flex-col items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-              <Globe className="h-8 w-8 text-primary" />
+            <div className="bg-primary/10 flex h-16 w-16 items-center justify-center rounded-full">
+              <Globe className="text-primary h-8 w-8" />
             </div>
             <div className="text-center">
-              <DialogTitle className="mb-2 text-3xl font-black text-foreground">
+              <DialogTitle className="text-foreground mb-2 text-3xl font-black">
                 Welcome to Slovor! {PARTY}
               </DialogTitle>
-              <DialogDescription className="text-base text-muted-foreground">
+              <DialogDescription className="text-muted-foreground text-base">
                 Choose your preferred language
               </DialogDescription>
             </div>
@@ -106,10 +106,11 @@ export function LocaleWelcomeModal() {
             <button
               key={option.code}
               onClick={() => setSelectedLocale(option.code)}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${selectedLocale === option.code
-                ? 'border-primary bg-primary/10 shadow-md'
-                : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
-                }`}
+              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${
+                selectedLocale === option.code
+                  ? 'border-primary bg-primary/10 shadow-md'
+                  : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
+              }`}
             >
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
@@ -117,10 +118,10 @@ export function LocaleWelcomeModal() {
                 <span className="text-4xl">{option.flag}</span>
                 {/* Language names */}
                 <div className="text-left">
-                  <p className="text-lg font-bold text-foreground">
+                  <p className="text-foreground text-lg font-bold">
                     {option.nativeName}
                   </p>
-                  <p className="text-sm text-muted-foreground">{option.name}</p>
+                  <p className="text-muted-foreground text-sm">{option.name}</p>
                 </div>
               </div>
 
@@ -128,13 +129,13 @@ export function LocaleWelcomeModal() {
               <div className="flex items-center gap-2">
                 {option.code === detectedLocale &&
                   selectedLocale !== option.code && (
-                    <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary">
+                    <span className="bg-primary/20 text-primary rounded-full px-3 py-1 text-xs font-semibold">
                       Detected
                     </span>
                   )}
                 {selectedLocale === option.code && (
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary">
-                    <Check className="h-4 w-4 text-primary-foreground" />
+                  <div className="bg-primary flex h-7 w-7 items-center justify-center rounded-full">
+                    <Check className="text-primary-foreground h-4 w-4" />
                   </div>
                 )}
               </div>
@@ -146,19 +147,19 @@ export function LocaleWelcomeModal() {
           <Button
             variant="outline"
             onClick={handleSkip}
-            className="flex-1 rounded-xl border-2 border-border py-6 font-semibold text-muted-foreground hover:border-border hover:bg-accent"
+            className="border-border text-muted-foreground hover:border-border hover:bg-accent flex-1 rounded-xl border-2 py-6 font-semibold"
           >
             Skip
           </Button>
           <Button
             onClick={handleConfirm}
-            className="flex-1 rounded-xl bg-primary py-6 font-semibold text-primary-foreground shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1 rounded-xl py-6 font-semibold shadow-lg transition-all hover:shadow-xl"
           >
             Continue
           </Button>
         </div>
 
-        <p className="mt-4 text-center text-xs text-muted-foreground">
+        <p className="text-muted-foreground mt-4 text-center text-xs">
           You can change the language anytime from the header
         </p>
       </DialogContent>

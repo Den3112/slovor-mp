@@ -59,7 +59,7 @@ export function LanguageSwitcher() {
       {/* Trigger button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 rounded px-2 py-1 text-foreground transition hover:bg-accent"
+        className="text-foreground hover:bg-accent flex items-center gap-1.5 rounded px-2 py-1 transition"
         aria-label="Change language"
       >
         <span className="text-lg">{currentOption.flag}</span>
@@ -67,22 +67,24 @@ export function LanguageSwitcher() {
           {currentOption.code}
         </span>
         <ChevronDown
-          className={`h-3 w-3 transition-transform ${isOpen ? 'rotate-180' : ''
-            }`}
+          className={`h-3 w-3 transition-transform ${
+            isOpen ? 'rotate-180' : ''
+          }`}
         />
       </button>
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-xl border border-border bg-card shadow-lg duration-200 animate-in fade-in slide-in-from-top-2">
+        <div className="border-border bg-card animate-in fade-in slide-in-from-top-2 absolute top-full right-0 z-50 mt-1 min-w-[180px] overflow-hidden rounded-xl border shadow-lg duration-200">
           {localeOptions.map((option) => (
             <button
               key={option.code}
               onClick={() => handleLocaleChange(option.code)}
-              className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition ${locale === option.code
-                ? 'bg-primary/10 text-primary'
-                : 'text-foreground hover:bg-accent'
-                }`}
+              className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition ${
+                locale === option.code
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-foreground hover:bg-accent'
+              }`}
             >
               <div className="flex items-center gap-2">
                 <span className="text-xl">{option.flag}</span>
@@ -92,7 +94,7 @@ export function LanguageSwitcher() {
                 <span className="text-sm font-medium">{option.name}</span>
               </div>
               {locale === option.code && (
-                <Check className="h-4 w-4 text-primary" />
+                <Check className="text-primary h-4 w-4" />
               )}
             </button>
           ))}

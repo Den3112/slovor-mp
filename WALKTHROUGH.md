@@ -15,14 +15,18 @@ This document summarizes the major technical overhaul performed on the Slovor Ma
 ## 🏗️ Structural Changes
 
 ### 1. Component Modularization
+
 We moved away from a flat component structure to a feature-based subfolder strategy:
+
 - `components/listing/details/`: All logic for the single listing page.
 - `components/listing/card/`: Reusable listing card variants.
 - `components/listing/filters/`: Search and category filters.
 - `components/listing/form/`: Step-based listing creation flow.
 
 ### 2. Localization Consolidation
+
 Refactored localization logic to reduce duplication:
+
 - Unified category name retrieval via `getLocalizedCategoryName`.
 - Standardized icon management via `getCategoryIcon`.
 - Consolidated translation keys in `messages/`.
@@ -32,6 +36,7 @@ Refactored localization logic to reduce duplication:
 ## 🛠️ Infrastructure Updates
 
 ### Docker & Node
+
 - **Node 22 LTS**: Selected for performance gains and long-term support.
 - **Dockerfile Optimizations**:
   - Implementation of multi-stage builds.
@@ -39,6 +44,7 @@ Refactored localization logic to reduce duplication:
   - Added `.nvmrc` for consistent local development.
 
 ### Next.js 15 & React 19
+
 - Adopted Next.js 15 App Router features.
 - Fixed hydration issues related to React 19's stricter rendering.
 - Updated `next.config.ts` with modern configuration.
@@ -50,6 +56,7 @@ Refactored localization logic to reduce duplication:
 We transitioned from Jest to **Vitest** for faster execution and better integration with Vite/Next.js tooling.
 
 **New Tests Added:**
+
 - **Auth Flow**: Validated login, registration, and social auth components.
 - **Listing Flow**: Unit tests for price formatting, image galleries, and category selection.
 - **E2E**: Initial Playwright suite for core "Listing to Search" user journey.
@@ -57,10 +64,12 @@ We transitioned from Jest to **Vitest** for faster execution and better integrat
 ---
 
 ## 📦 Deployment Ready
+
 - `npm run build` passes with zero errors.
 - `npm run type-check` is clean.
 - `npm run lint` is clean.
 
 **Next Steps**:
+
 - Merge `dev` into `main`.
 - Deploy to Vercel production.

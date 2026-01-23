@@ -67,7 +67,11 @@ export function getUniqueCategories(
   t: TranslationKeys
 ): Category[] {
   return categories.reduce((acc: Category[], current) => {
-    const currentName = getLocalizedCategoryName(current, locale, t).toLowerCase()
+    const currentName = getLocalizedCategoryName(
+      current,
+      locale,
+      t
+    ).toLowerCase()
 
     const isDuplicate = acc.find((item) => {
       const itemName = getLocalizedCategoryName(item, locale, t).toLowerCase()

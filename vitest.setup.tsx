@@ -60,7 +60,9 @@ vi.mock('@/lib/supabase/client', () => ({
     rpc: vi.fn().mockResolvedValue({ data: null, error: null }),
     storage: {
       from: vi.fn(() => ({
-        upload: vi.fn().mockResolvedValue({ data: { path: 'test' }, error: null }),
+        upload: vi
+          .fn()
+          .mockResolvedValue({ data: { path: 'test' }, error: null }),
         getPublicUrl: vi.fn().mockReturnValue({ data: { publicUrl: 'test' } }),
         remove: vi.fn().mockResolvedValue({ error: null }),
       })),
