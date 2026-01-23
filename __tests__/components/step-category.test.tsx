@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { StepCategory } from '@/components/listing/form/steps/step-category'
+import { StepCategory } from '@/components/listing/form-steps/step-category'
 
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({

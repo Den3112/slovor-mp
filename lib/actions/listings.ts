@@ -34,7 +34,7 @@ export async function updateListingAction(
         }
 
         // 3. Content moderation check
-        const contentCheck = validateListingContent(updates.title, updates.description)
+        const contentCheck = validateListingContent(updates.title, updates.description, updates.location)
         if (!contentCheck.isValid) {
             return { error: contentCheck.error || 'Content validation failed' }
         }

@@ -157,14 +157,14 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
 
             {/* Desktop: Full sidebar */}
             <aside className="hidden md:block w-72 flex-shrink-0">
-                <div className="border-2 border-primary/10 bg-zinc-950 p-6 shadow-2xl sticky top-28 overflow-hidden group/sidebar">
+                <div className="rounded-[2.5rem] bg-background/60 backdrop-blur-xl p-6 shadow-2xl border border-white/20 dark:border-white/5 sticky top-28 overflow-hidden group/sidebar">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                     <div className="space-y-8 relative z-10">
                         {sections.map((section, idx) => (
                             <div key={idx}>
                                 {section.title && (
-                                    <h3 className="px-4 mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+                                    <h3 className="px-4 mb-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
                                         {section.title}
                                     </h3>
                                 )}
@@ -179,30 +179,33 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
                                                 key={link.href}
                                                 href={link.href}
                                                 className={cn(
-                                                    'flex items-center gap-4 border-2 px-4 py-4 font-sans text-xs font-bold uppercase tracking-widest transition-all duration-300 group relative',
+                                                    'flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300 group relative overflow-hidden',
                                                     active
-                                                        ? 'border-primary bg-primary text-white shadow-lg shadow-primary/20'
-                                                        : 'border-transparent text-zinc-500 hover:text-white hover:bg-white/5 hover:border-white/10'
+                                                        ? 'text-primary-foreground shadow-lg shadow-primary/20'
+                                                        : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                                                 )}
                                             >
-                                                <Icon className={cn("relative z-10 h-4 w-4 transition-transform duration-300 group-hover:scale-110", active ? "text-white" : "text-zinc-500 group-hover:text-white")} />
+                                                {active && (
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90" />
+                                                )}
+                                                <Icon className={cn("relative z-10 h-4 w-4 transition-transform duration-300 group-hover:scale-110", active ? "text-primary-foreground" : "text-muted-foreground group-hover:text-foreground")} />
                                                 <span className="relative z-10 flex-1">{link.label}</span>
 
                                                 {/* Counter Badge */}
                                                 {count > 0 && (
                                                     <span className={cn(
-                                                        "relative z-10 px-2.5 py-1 border font-sans text-[10px] font-bold min-w-[24px] text-center",
+                                                        "relative z-10 px-2 py-0.5 rounded-full text-[10px] font-black min-w-[20px] text-center",
                                                         active
-                                                            ? "border-white/30 bg-white/20 text-white"
-                                                            : "border-primary/30 bg-primary/10 text-primary group-hover:bg-primary/20"
+                                                            ? "bg-white/20 text-white"
+                                                            : "bg-primary/10 text-primary group-hover:bg-primary/20"
                                                     )}>
                                                         {count}
                                                     </span>
                                                 )}
 
-                                                {/* Active Indicator Bar */}
-                                                {active && (
-                                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-white" />
+                                                {/* Active Indicator Dot (Only if no badge or specific design choice) */}
+                                                {active && !count && (
+                                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
                                                 )}
                                             </Link>
                                         )
@@ -212,11 +215,11 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
                         ))}
                     </div>
 
-                    <div className="my-8 border-t-2 border-primary/10" />
+                    <div className="my-6 border-t border-border/20" />
 
                     <button
                         onClick={handleSignOut}
-                        className="relative z-10 flex w-full items-center gap-4 border-2 border-transparent px-4 py-4 font-sans text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-destructive hover:bg-destructive/5 hover:border-destructive/20 transition-all group"
+                        className="relative z-10 flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold text-muted-foreground hover:text-destructive hover:bg-destructive/5 transition-all group"
                     >
                         <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                         Sign Out

@@ -20,4 +20,3 @@ export function getLocalizedDescription(listing: Listing, locale: string): strin
     return listing.description
 }
 
-

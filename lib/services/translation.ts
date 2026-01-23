@@ -103,12 +103,12 @@ export async function generateListingTranslations(
     if (!isTranslationEnabled()) {
         console.warn('[TranslationService] Translation not enabled, using source text only')
         return {
-            title_en: baseLocale === 'en' ? title : '',
-            title_sk: baseLocale === 'sk' ? title : '',
-            title_cs: baseLocale === 'cs' ? title : '',
-            description_en: baseLocale === 'en' ? description : '',
-            description_sk: baseLocale === 'sk' ? description : '',
-            description_cs: baseLocale === 'cs' ? description : '',
+            title_en: title,
+            title_sk: title,
+            title_cs: title,
+            description_en: description,
+            description_sk: description,
+            description_cs: description,
         }
     }
 

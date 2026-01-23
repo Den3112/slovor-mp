@@ -1,14 +1,18 @@
+'use client'
+
+import { Phone, MessageCircle, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { MessageCircle, Phone, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
-import type { User } from '@/lib/types/database'
+import type { Listing } from '@/lib/types/database'
+import { cn } from '@/lib/utils'
 
 interface ListingActionButtonsProps {
-    seller: User | undefined
+    seller: NonNullable<Listing['user']>
     isContacting: boolean
     showPhone: boolean
     onContact: () => void
     onCall: () => void
+    className?: string
 }
 
 export function ListingActionButtons({
@@ -16,47 +20,61 @@ export function ListingActionButtons({
     isContacting,
     showPhone,
     onContact,
-    onCall
+    onCall,
+    className
 }: ListingActionButtonsProps) {
     const { t } = useTranslation()
 
     return (
-        <div className="space-y-3 pt-4">
+        <div className={cn("space-y-4", className)}>
+            {/* Primary Action: Chat/Message */}
             <Button
                 size="lg"
-                className="h-20 w-full rounded-none font-sans text-[10px] font-black uppercase tracking-[0.3em] shadow-[10px_10px_0px_0px_rgba(175,27,27,0.2)] transition-all hover:-translate-y-2 hover:shadow-[20px_20px_0px_0px_rgba(175,27,27,0.4)] active:translate-y-0"
+                className="h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] bg-primary text-primary-foreground"
                 onClick={onContact}
                 disabled={isContacting}
             >
                 {isContacting ? (
-                    <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                    <Loader2 className="mr-2 h-6 w-6 animate-spin" />
                 ) : (
-                    <MessageCircle className="mr-3 h-5 w-5" />
+                    <MessageCircle className="mr-2 h-6 w-6" />
                 )}
                 {t.listing.contactSeller}
             </Button>
 
-            <div className="grid grid-cols-2 gap-3">
+            {/* Secondary Action: Call/Phone */}
+            {!showPhone ? (
                 <Button
                     variant="outline"
                     size="lg"
-                    className="h-16 gap-3 rounded-none border-2 border-primary/20 font-sans text-xs font-bold uppercase tracking-widest text-white hover:bg-primary/5 hover:border-primary"
+                    className="h-16 w-full gap-3 rounded-2xl font-black border-white/10 bg-white/5 hover:bg-white/10 transition-all hover:border-primary/30"
                     onClick={onCall}
                 >
-                    <Phone className="h-4 w-4" />
-                    {showPhone ? seller?.phone || t.listing.call : t.listing.call}
+                    <Phone className="h-5 w-5 text-primary" />
+                    {t.listing.callNow}
                 </Button>
-                <Button
-                    variant="outline"
-                    size="lg"
-                    className="h-16 gap-3 rounded-none border-2 border-primary/20 font-sans text-xs font-bold uppercase tracking-widest text-white hover:bg-primary/5 hover:border-primary"
-                    onClick={onContact}
-                    disabled={isContacting}
-                >
-                    <MessageCircle className="h-4 w-4" />
-                    {t.listing.message}
-                </Button>
-            </div>
+            ) : (
+                <div className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <a
+                        href={`tel:${seller.phone}`}
+                        className="flex h-16 w-full items-center justify-center gap-3 rounded-2xl border-2 border-emerald-500/20 bg-emerald-500/10 text-xl font-black text-emerald-600 shadow-lg shadow-emerald-500/10 transition-all hover:bg-emerald-500/20 md:text-2xl"
+                    >
+                        <Phone className="h-6 w-6 animate-pulse" />
+                        {seller.phone}
+                    </a>
+                    <Button
+                        variant="ghost"
+                        className="w-full text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-emerald-500/5"
+                        onClick={() => window.open(`https://wa.me/${seller.phone?.replace(/\D/g, '')}`, '_blank')}
+                    >
+                        <MessageCircle className="mr-2 h-4 w-4" />
+                        {t.listing.whatsapp}
+                    </Button>
+                    <p className="mt-2 text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                        {t.listing.callRecommendation}
+                    </p>
+                </div>
+            )}
         </div>
     )
 }

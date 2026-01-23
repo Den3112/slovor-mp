@@ -1,7 +1,4 @@
-/**
- * Content Moderation Filter
- * Filters profanity and inappropriate content in Slovak, English, Russian, Ukrainian
- */
+import { isValidSlovakLocation } from '@/lib/constants/slovak-cities'
 
 // Banned words dictionary (obfuscated patterns to avoid false positives)
 // These are common profanity roots that will match variations
@@ -57,6 +54,8 @@ const BANNED_PATTERNS: RegExp[] = [
     /\bdeb+i+l+/gi,
     /\bsrať+/gi,
     /\bprd+e+l+/gi,
+    // Exact junk patterns from analysis
+    /\bFu\.\.ng\b/gi,
 ]
 
 // Spam patterns
@@ -71,6 +70,8 @@ const SPAM_PATTERNS: RegExp[] = [
     /\b(buy now|click here|free money|make money fast|casino|lottery|bitcoin doubler)\b/gi,
     // Telegram/WhatsApp spam
     /\b(telegram|whatsapp|viber)\s*:?\s*\+?[\d\s-]{8,}/gi,
+    // Junk repeated patterns (e.g. "sssssss", "saaaaaaaaa")
+    /\b(s|a){5,}\b/gi,
 ]
 
 export interface ContentFilterResult {
@@ -128,19 +129,27 @@ export function filterContent(text: string): ContentFilterResult {
  * Checks if listing content is acceptable for publishing
  * @param title - Listing title
  * @param description - Listing description
+ * @param location - Listing location
  * @returns Object with validation result and error message if any
  */
 export function validateListingContent(
     title: string,
-    description: string
+    description: string,
+    location?: string
 ): { isValid: boolean; error: string | null; details: ContentFilterResult } {
     const titleResult = filterContent(title)
     const descriptionResult = filterContent(description)
 
+    // Check location if provided
+    let locationValid = true
+    if (location && !isValidSlovakLocation(location)) {
+        locationValid = false
+    }
+
     const combinedResult: ContentFilterResult = {
-        isClean: titleResult.isClean && descriptionResult.isClean,
+        isClean: titleResult.isClean && descriptionResult.isClean && locationValid,
         hasProfanity: titleResult.hasProfanity || descriptionResult.hasProfanity,
-        hasSpam: titleResult.hasSpam || descriptionResult.hasSpam,
+        hasSpam: titleResult.hasSpam || descriptionResult.hasSpam || !locationValid,
         flaggedWords: [...titleResult.flaggedWords, ...descriptionResult.flaggedWords],
         flaggedPatterns: [...titleResult.flaggedPatterns, ...descriptionResult.flaggedPatterns],
     }
@@ -153,7 +162,11 @@ export function validateListingContent(
         }
 
         if (combinedResult.hasSpam) {
-            error += 'Text obsahuje spam alebo podozrivý obsah. '
+            if (!locationValid) {
+                error += 'Neplatná lokalita. Prosím, vyberte mesto na Slovensku. '
+            } else {
+                error += 'Text obsahuje spam alebo podozrivý obsah. '
+            }
         }
 
         return {

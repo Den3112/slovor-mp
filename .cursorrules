@@ -1,0 +1,16 @@
+# AI Project Rules & Standards
+
+IMPORTANT: Before starting ANY task, you MUST read the following workflow files to align with project standards. DO NOT wait for the user to remind you.
+
+0.  **Read Bot Charter**: `.agent/workflows/bot-charter.md` (Global AI Constitution)
+1.  **Read Coding Rules**: `.agent/workflows/coding-rules.md` (Mandatory coding principles & report format)
+2.  **Read Git Workflow**: `.agent/workflows/git-workflow.md` (STRICT PR Protocol & Branching)
+3.  **Read Language Policy**: `.agent/workflows/language-policy.md` (Russian for chat, English for code)
+
+## Mandatory Final Report
+At the end of every task, you MUST provide a report in Russian with these sections:
+- Что сделано
+- Какие есть проблемы
+- Какие есть рекомендации
+- Что планируется делать дальше
+- Общая информация о проекте, какую именно часть сейчас реализовали от общего объема

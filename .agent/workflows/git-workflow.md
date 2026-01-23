@@ -10,116 +10,69 @@ description: Git workflow - MANDATORY for all code changes
 
 ```
 main      <- Production code (deployed to Vercel)
-  └── dev <- Development branch (all work happens here)
-       └── feature/* <- Feature branches (optional for large features)
+  └── dev <- Integration branch (all bot work is merged here via PR)
+       └── feature/* <- Feature branches (MANDATORY: all work starts here)
 ```
 
-## Workflow Steps
+## 🛡️ Mandatory Git Protocol for Bots
 
-### 1. Before Starting Work
-```bash
-# Make sure you're on dev branch and it's up to date
-git checkout dev
-git pull origin dev
-```
+Bots MUST follow this sequence for every change.
 
-### 2. Making Changes
-// turbo
-```bash
-# Work on dev branch for small changes
-# For large features, create a feature branch:
-git checkout -b feature/feature-name
-```
+### Phase 1: Preparation
+1. **Sync**: `git checkout dev && git pull origin dev`.
+2. **Branch**: **MANDATORY** - Always create a feature branch: `git checkout -b feature/task-name`.
+   - *Direct commits to `dev` or `main` are prohibited.*
 
-### 3. Committing Changes
-// turbo
-```bash
-# Stage all changes
-git add .
+### Phase 2: Implementation & Verification
+1. **Work**: Make the code changes.
+2. **Local Cleanup**: Fix all lint errors.
+3. **Automated Verification**: **MANDATORY** - run `./scripts/docker.sh verify`.
+   - If it fails — FIX it.
+   - Do NOT proceed if verification is red.
 
-# Commit with descriptive message
-git commit -m "feat: add feature description"
-```
+### Phase 3: Committing & Pushing
+1. **Atomic Commits**: Stage related changes.
+2. **Commit Message**: Use Conventional Commits (`feat:`, `fix:`, `chore:`).
+3. **Push**: `git push origin feature/task-name`.
 
-**Commit Message Format:**
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation
-- `refactor:` - Code refactoring
-- `style:` - Formatting, styling
-- `chore:` - Maintenance tasks
+### Phase 4: Integration (to dev)
+1. **MANDATORY PR to dev**: Create a Pull Request from your feature branch to **`dev`**.
+   - **Command**: `gh pr create --base dev --head feature/task-name --title "feat: description" --body "Summary..."`.
+2. **Auto-Report**: Inform the USER that the work is ready in a PR to `dev`.
 
-### 4. Pushing to Remote
-// turbo
-```bash
-git push origin dev
-```
-
-### 5. Creating Pull Request (MANDATORY for main)
-
-**NEVER push directly to main!**
-
-```bash
-# After pushing to dev, create PR via GitHub:
-# dev -> main
-
-# Or via CLI:
-gh pr create --base main --head dev --title "Merge dev to main"
-```
-
-### 6. Merging to Main
-
-1. Review the PR on GitHub
-2. Ensure all checks pass (build, tests)
-3. Merge via GitHub UI (Squash and merge recommended)
+### Phase 5: Merging to MAIN (Strictly Controlled)
+1. **PR to main**: Only create a PR from `dev` to `main` when the USER explicitly requests it (e.g., "Deploy to main").
+2. **NEVER** create a PR to `main` without USER approval.
 
 ---
 
-## Rollback Procedure
+## AI Instructions (Specific to Git)
 
-If something goes wrong after merge to main:
-
-```bash
-# Find the commit to revert to
-git log --oneline
-
-# Revert to specific commit
-git revert <commit-hash>
-
-# Or reset to previous commit (destructive)
-git reset --hard <commit-hash>
-git push --force origin main
-```
+Every bot MUST:
+1. **Never push to `main` or `dev` directly**.
+2. **Always work on `feature/*` branches**.
+3. **Always PR to `dev` first** and wait for user acknowledgment or integration.
+4. **Verify BEFORE push**. Pushing broken code to any branch is prohibited.
+5. **Autoreport**: Provide the PR link to `dev` in your final report.
 
 ---
 
-## Deployment
+## Quick Reference Commands (for Bots)
 
-- **Vercel** automatically deploys from `main` branch
-- Each push to `main` triggers a new production deployment
-- Preview deployments are created for PRs
-
----
-
-## Quick Reference
-
-| Action | Command |
-|--------|---------|
-| Switch to dev | `git checkout dev` |
-| Pull latest | `git pull origin dev` |
-| Stage changes | `git add .` |
-| Commit | `git commit -m "type: message"` |
-| Push | `git push origin dev` |
-| Create PR | `gh pr create --base main --head dev` |
+| Task | Command |
+|------|---------|
+| Full Verify | `./scripts/docker.sh verify` |
+| PR to DEV | `gh pr create --base dev --head [branch] --title "..."` |
+| PR to MAIN | `gh pr create --base main --head dev --title "Merge dev to main"` |
+| Check CI | `gh run list --limit 1` |
 
 ---
 
-## AI Instructions
+## Quick Reference Commands (for Bots)
 
-When making changes:
-1. Always work on `dev` branch
-2. Commit frequently with descriptive messages
-3. Push to `dev` first
-4. Create PR to merge `dev` -> `main`
-5. Never push directly to `main`
-6. Document significant changes in commit messages
+| Task | Command |
+|------|---------|
+| Full Verify | `./scripts/docker.sh verify` |
+| Push to dev | `git push origin dev` |
+| PR to MAIN | `gh pr create --base main --head dev --title "Merge dev to main" --body "..."` |
+| Check CI | `gh run list --limit 1` |

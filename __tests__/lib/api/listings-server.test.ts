@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { serverListingsApi } from '@/lib/api/listings/server'
+import { serverListingsApi } from '@/lib/api/listings-server'
 
 const { mockFrom } = vi.hoisted(() => {
     const chain: any = {

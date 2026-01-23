@@ -1,6 +1,6 @@
 
 import { createClient } from '@/lib/supabase/server'
-import { SellerProfileView } from '@/components/profile/seller-profile-view'
+import { SellerProfileView } from '@/components/profile/SellerProfileView'
 import { redirect } from 'next/navigation'
 import { Eye, ExternalLink } from 'lucide-react'
 

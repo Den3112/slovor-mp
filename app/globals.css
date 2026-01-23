@@ -1,108 +1,86 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    /* slate-50 #F8FAFC */
+    --foreground: 222 47% 11%;
+    /* slate-900 #0F172A */
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 239 84% 67%;
+    /* indigo-500 #6366F1 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96%;
+    /* slate-100 */
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    /* slate-500 */
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;
+    /* slate-200 */
+    --input: 214 32% 91%;
+    --ring: 239 84% 67%;
+
+    --radius: 1.5rem;
+    /* 24px - Avant-Garde Soft UI */
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    /* Very deep slate */
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    /* slate-900 */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 239 84% 67%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 33% 17%;
+    /* slate-800 */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    /* slate-400 */
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 239 84% 67%;
+  }
+}
 
 @layer base {
   * {
     @apply border-border selection:bg-primary/20 selection:text-primary;
   }
-
-  a,
-  button,
-  [role="button"] {
-    cursor: pointer;
-  }
-
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 217 91% 60%;
-    /* #3B82F6 - Vibrant Blue */
-    --primary-foreground: 210 20% 98%;
-
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 5% 35%;
-
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 217 91% 60%;
-
-    --radius: 0.5rem;
-    /* Blockier style as per UI-UX Pro Max */
-
-    /* Responsive Spacing Scale */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-
-    /* Safe Area Insets (for iPhone notch) */
-    --safe-area-top: env(safe-area-inset-top, 0px);
-    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
-    --safe-area-left: env(safe-area-inset-left, 0px);
-    --safe-area-right: env(safe-area-inset-right, 0px);
-
-    /* Touch Target Size */
-    --touch-target: 44px;
-
-    /* Header Height */
-    --header-height: 64px;
-    --header-height-scrolled: 56px;
-
-    /* Bottom Bar Height */
-    --bottom-bar-height: 72px;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    /* Zinc 950 */
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 20% 98%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 72%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 217 91% 60%;
-  }
-}
-
-@layer base {
 
   html {
     scroll-behavior: smooth;
@@ -117,6 +95,11 @@
     @media (hover: hover) and (pointer: fine) {
       scrollbar-gutter: stable;
     }
+  }
+
+  /* Enforce cursor-pointer on interactive elements per design protocol */
+  button, [role="button"], a, input[type="submit"], input[type="reset"] {
+    cursor: pointer;
   }
 
   body {
@@ -221,13 +204,11 @@
 
 @layer components {
   .glass {
-    @apply border border-white/10 bg-background/70 backdrop-blur-2xl;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    @apply border border-white/20 bg-background/80 shadow-xl backdrop-blur-2xl;
   }
 
   .dark .glass {
-    @apply border-white/[0.05] bg-zinc-950/70;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    @apply border-white/5 bg-slate-950/80 shadow-2xl;
   }
 
   .mesh-gradient {
@@ -362,21 +343,30 @@
     @apply fixed inset-0 z-40 bg-black/40 backdrop-blur-sm;
   }
 
-  /* Prevent layout shift on mobile when drawer opens */
-  @media (hover: none) and (pointer: coarse) {
-    body[data-scroll-locked] {
-      padding-right: 0 !important;
-    }
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-2xl border border-white/30 shadow-soft-shadow;
+  }
+
+  .dark .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-2xl border-slate-700/30 shadow-2xl;
+  }
+
+  .glow {
+    @apply absolute -z-10 rounded-full blur-[100px] opacity-30 animate-pulse;
+  }
+
+  .premium-gradient {
+    @apply bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400;
   }
 }
 
 /* Premium Shadows */
 .shadow-premium {
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 50px -12px rgba(99, 102, 241, 0.15);
 }
 
 .dark .shadow-premium {
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 /* Animations */

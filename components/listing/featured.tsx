@@ -1,5 +1,5 @@
-import { serverListingsApi } from '@/lib/api/listings/server'
-import { FeaturedListingsGrid } from './card'
+import { serverListingsApi } from '@/lib/api/listings-server'
+import { FeaturedListingsGrid } from './FeaturedListingsGrid'
 
 interface FeaturedListingsProps {
   limit?: number
