@@ -8,7 +8,7 @@ vi.mock('@/lib/i18n', () => ({
     t: {
       listing: {
         contactSeller: 'Contact Seller',
-        call: 'Call',
+        callNow: 'Call Now',
         message: 'Message',
       },
       common: {
@@ -49,7 +49,7 @@ describe('ListingActionButtons', () => {
 
     expect(screen.getByText('Contact Seller')).toBeInTheDocument()
     // It's in multiple places (main and grid)
-    const callButtons = screen.getAllByText('Call')
+    const callButtons = screen.getAllByText('Call Now')
     expect(callButtons.length).toBeGreaterThan(0)
   })
 
@@ -106,8 +106,8 @@ describe('ListingActionButtons', () => {
       />
     )
 
-    // Find by text 'Call'
-    const callButton = screen.getByText('Call').closest('button')
+    // Find by text 'Call Now'
+    const callButton = screen.getByText('Call Now').closest('button')
     if (callButton) fireEvent.click(callButton)
     expect(mockHandlers.onCall).toHaveBeenCalled()
   })
