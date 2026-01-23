@@ -10,7 +10,7 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 
 - **Ask Before Acting**: If a requirement is silent or ambiguous — **ASK the USER**. Never assume.
 - **Confirmation on Global Changes**: Before any high-impact operation (e.g. massive refactoring, repository rename, deleting large directories), you **MUST** obtain explicit confirmation.
-- **Autonomous Alignment**: You are responsible for reading all `.agent/workflows/*.md` files before starting a task. Do not wait for a reminder.
+- **Persistent Alignment**: You **MUST** re-read all `.agent/workflows/*.md` files at the start of **EVERY** new session, immediately after any reconnection/restart of Antigravity, and periodically during long tasks. Do not rely on memory from previous sessions.
 
 ## 2. Technical Quality (Zero User Burden)
 
