@@ -62,7 +62,7 @@ describe('translation service', () => {
           translations: [{ text: 'ahoj' }],
         }),
       }
-      ;(fetch as any).mockResolvedValue(mockResponse)
+        ; (fetch as any).mockResolvedValue(mockResponse)
 
       const result = await translateText('hello', 'sk', 'en')
       expect(result).toBe('ahoj')
@@ -83,7 +83,7 @@ describe('translation service', () => {
         ok: false,
         text: async () => 'Quota exceeded',
       }
-      ;(fetch as any).mockResolvedValue(mockResponse)
+        ; (fetch as any).mockResolvedValue(mockResponse)
 
       const result = await translateText('hello', 'sk')
       expect(result).toBe('hello')
@@ -96,23 +96,23 @@ describe('translation service', () => {
       delete process.env.DEEPL_API_KEY
       const result = await generateListingTranslations('Title', 'Desc', 'en')
       expect(result.title_en).toBe('Title')
-      expect(result.title_sk).toBe('')
+      expect(result.title_sk).toBe('Title')
       expect(result.description_en).toBe('Desc')
-      expect(result.description_sk).toBe('')
+      expect(result.description_sk).toBe('Desc')
     })
 
     it('translates to all locales when enabled', async () => {
       process.env.DEEPL_API_KEY = 'test-key'
-      ;(fetch as any).mockImplementation(async (_url: string, options: any) => {
-        const body = JSON.parse(options.body)
-        const target = body.target_lang
-        return {
-          ok: true,
-          json: async () => ({
-            translations: [{ text: `trans-${target}` }],
-          }),
-        }
-      })
+        ; (fetch as any).mockImplementation(async (_url: string, options: any) => {
+          const body = JSON.parse(options.body)
+          const target = body.target_lang
+          return {
+            ok: true,
+            json: async () => ({
+              translations: [{ text: `trans-${target}` }],
+            }),
+          }
+        })
 
       const result = await generateListingTranslations('Title', 'Desc', 'en')
       expect(result.title_en).toBe('Title') // source

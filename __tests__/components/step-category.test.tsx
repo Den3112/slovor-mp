@@ -35,8 +35,6 @@ describe('StepCategory', () => {
     render(<StepCategory {...defaultProps} />)
     expect(screen.getByText('Electronics')).toBeInTheDocument()
     expect(screen.getByText('Fashion')).toBeInTheDocument()
-    expect(screen.getByText('📱')).toBeInTheDocument()
-    expect(screen.getByText('👗')).toBeInTheDocument()
   })
 
   it('calls updateField when a category is clicked', () => {

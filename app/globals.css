@@ -198,6 +198,7 @@
 
   /* Prevent iOS zoom on input focus */
   @media screen and (max-width: 768px) {
+
     input[type='text'],
     input[type='email'],
     input[type='tel'],
@@ -258,11 +259,9 @@
   background-image:
     radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.15) 0px, transparent 50%),
     radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%),
-    radial-gradient(
-      at 100% 100%,
+    radial-gradient(at 100% 100%,
       hsla(262, 83%, 57%, 0.15) 0px,
-      transparent 50%
-    ),
+      transparent 50%),
     radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%);
 }
 
@@ -275,11 +274,9 @@
   background-image:
     radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.1) 0px, transparent 50%),
     radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%),
-    radial-gradient(
-      at 100% 100%,
+    radial-gradient(at 100% 100%,
       hsla(262, 83%, 57%, 0.1) 0px,
-      transparent 50%
-    ),
+      transparent 50%),
     radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%);
 }
 
@@ -311,8 +308,7 @@
 }
 
 @utility safe-all {
-  padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom)
-    var(--safe-area-left);
+  padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
 }
 
 @utility fixed-bottom-bar {
@@ -348,7 +344,7 @@
   @apply no-scrollbar scroll-touch flex overflow-x-auto;
   scroll-snap-type: x mandatory;
 
-  & > * {
+  &>* {
     scroll-snap-align: start;
     flex-shrink: 0;
   }
@@ -379,12 +375,12 @@
 }
 
 @utility premium-gradient {
-  @apply bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400;
+  @apply bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400;
 }
 
 /* Vaul Drawer Styling */
 [vaul-drawer] {
-  @apply border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[2rem] border-t;
+  @apply border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-4xl border-t;
 }
 
 [vaul-drawer]::after {
@@ -431,6 +427,7 @@
 
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
+
   .animate-float,
   .animate-float-delayed {
     animation: none;
@@ -457,12 +454,10 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    hsl(var(--muted)) 0%,
-    hsl(var(--muted-foreground) / 0.1) 50%,
-    hsl(var(--muted)) 100%
-  );
+  background: linear-gradient(90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
