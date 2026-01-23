@@ -25,10 +25,8 @@ services:
     # Environment configuration (runtime variables)
     # Uses .env.local if exists, otherwise falls back to .env.example
     env_file:
-      - path: .env.local
-        required: false
-      - path: .env.example
-        required: false
+      - .env.local
+      - .env.example
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -62,9 +60,6 @@ services:
     security_opt:
       - no-new-privileges:true
 
-  # ===========================================
-  # Development configuration
-  # ===========================================
   # ===========================================
   # Development configuration
   # ===========================================
