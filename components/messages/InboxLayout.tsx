@@ -65,7 +65,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
       setConversations([])
       toast.success('All messages cleared')
       router.push('/profile/messages')
-    } catch (error) {
+    } catch {
       toast.error('Failed to clear messages')
     } finally {
       setIsCleaning(false)
@@ -175,7 +175,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
                         'rounded-2xl p-0.5 transition-transform duration-300 group-hover:scale-105',
                         isActive
                           ? 'bg-white/20'
-                          : 'from-primary/20 to-primary/0 bg-gradient-to-br'
+                          : 'from-primary/20 to-primary/0 bg-linear-to-br'
                       )}
                     >
                       {otherUser?.avatar_url ? (
@@ -272,7 +272,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
           children
         ) : (
           <div className="hidden h-full flex-col items-center justify-center p-8 text-center md:flex">
-            <div className="from-primary/10 mb-8 flex h-32 w-32 animate-pulse items-center justify-center rounded-full bg-gradient-to-tr to-transparent">
+            <div className="from-primary/10 mb-8 flex h-32 w-32 animate-pulse items-center justify-center rounded-full bg-linear-to-tr to-transparent">
               <MessageSquarePlus className="text-primary/40 h-16 w-16" />
             </div>
             <h3 className="font-heading mb-4 text-3xl font-black tracking-tight italic">

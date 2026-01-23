@@ -32,7 +32,7 @@ export async function GET(
     // Using try-catch instead of .catch() because RPC returns a builder
     try {
       await supabase.rpc('increment_listing_views', { listing_id: id })
-    } catch (e) {
+    } catch {
       // Ignore errors on view increment
     }
 

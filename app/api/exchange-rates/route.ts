@@ -65,7 +65,7 @@ export async function GET() {
       updatedAt: new Date().toISOString(),
       cached: false,
     })
-  } catch (error) {
+  } catch {
     console.warn('Exchange rate API failed, using fallback rates.')
 
     // Return fallback rates
