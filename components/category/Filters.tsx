@@ -11,12 +11,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useCallback, useState } from 'react'
-import {
-  RotateCcw,
-  MapPin,
-  DollarSign,
-  ArrowUpDown,
-} from 'lucide-react'
+import { RotateCcw, MapPin, DollarSign, ArrowUpDown } from 'lucide-react'
 
 /**
  * Filters Component - Uses Radix Select for proper dark mode support
@@ -91,18 +86,18 @@ export function Filters() {
   ]
 
   return (
-    <div className="shadow-premium group relative mb-8 overflow-hidden rounded-[2rem] border border-border/40 bg-card p-6">
-      <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+    <div className="shadow-premium group border-border/40 bg-card relative mb-8 overflow-hidden rounded-[2rem] border p-6">
+      <div className="bg-primary/5 pointer-events-none absolute top-0 right-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl" />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {/* Sort */}
         <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <label className="text-muted-foreground flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
             <ArrowUpDown className="h-3 w-3" />
             {t.filters.sort}
           </label>
           <Select value={sort} onValueChange={setSort}>
-            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold">
+            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -117,7 +112,7 @@ export function Filters() {
 
         {/* Price Range */}
         <div className="col-span-1 space-y-3 md:col-span-2 lg:col-span-1">
-          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <label className="text-muted-foreground flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
             <DollarSign className="h-3 w-3" />
             {t.common.price || 'Price'}
           </label>
@@ -127,27 +122,27 @@ export function Filters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder={t.filters.priceMin}
-              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-xl border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
             />
-            <div className="h-px w-4 bg-border" />
+            <div className="bg-border h-px w-4" />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder={t.filters.priceMax}
-              className="h-12 w-full rounded-xl border border-input bg-muted/30 px-4 text-sm font-bold text-foreground outline-none transition-all placeholder:font-medium focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
+              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-xl border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
             />
           </div>
         </div>
 
         {/* Location */}
         <div className="space-y-3 lg:col-span-1">
-          <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <label className="text-muted-foreground flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
             <MapPin className="h-3 w-3" />
             {t.filters.location}
           </label>
           <Select value={location} onValueChange={setLocation}>
-            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold uppercase">
+            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold uppercase">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -164,7 +159,7 @@ export function Filters() {
         <div className="flex items-end gap-3 lg:col-span-1">
           <Button
             onClick={applyFilters}
-            className="h-12 flex-1 rounded-xl bg-primary font-bold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90"
+            className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-xl font-bold shadow-lg"
           >
             {t.filters.apply}
           </Button>
@@ -172,7 +167,7 @@ export function Filters() {
             onClick={resetFilters}
             variant="outline"
             size="icon"
-            className="h-12 w-12 rounded-xl border-border/50 bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="border-border/50 text-muted-foreground hover:bg-muted hover:text-foreground h-12 w-12 rounded-xl bg-transparent"
           >
             <RotateCcw className="h-5 w-5" />
           </Button>

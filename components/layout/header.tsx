@@ -24,17 +24,22 @@ function Logo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
-      className={cn('group relative z-50 flex items-center gap-2 md:gap-3', className)}
+      className={cn(
+        'group relative z-50 flex items-center gap-2 md:gap-3',
+        className
+      )}
     >
       <div className="relative h-9 w-9 md:h-11 md:w-11">
-        <div className="absolute inset-0 rotate-6 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400 shadow-lg shadow-indigo-500/30 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 md:rounded-2xl" />
-        <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/20 bg-white/10 backdrop-blur-md text-lg font-black text-white md:rounded-2xl md:text-2xl">
+        <div className="absolute inset-0 rotate-6 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400 shadow-lg shadow-indigo-500/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 md:rounded-2xl" />
+        <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/20 bg-white/10 text-lg font-black text-white backdrop-blur-md md:rounded-2xl md:text-2xl">
           S
         </div>
       </div>
-      <span className="flex items-baseline font-heading text-xl font-black tracking-tighter text-foreground transition-colors group-hover:text-primary md:text-3xl">
+      <span className="font-heading text-foreground group-hover:text-primary flex items-baseline text-xl font-black tracking-tighter transition-colors md:text-3xl">
         Slovor
-        <span className="group-hover:animate-bounce-subtle text-primary">.</span>
+        <span className="group-hover:animate-bounce-subtle text-primary">
+          .
+        </span>
       </span>
     </Link>
   )
@@ -49,7 +54,7 @@ interface DesktopNavProps {
 function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
   return (
     <div className="pointer-events-none hidden flex-1 items-center justify-center lg:flex">
-      <nav className="group pointer-events-auto flex items-center gap-1 rounded-full border border-border/40 bg-muted/20 p-1.5 shadow-inner backdrop-blur-3xl transition-all hover:bg-muted/30">
+      <nav className="group border-border/40 bg-muted/20 hover:bg-muted/30 pointer-events-auto flex items-center gap-1 rounded-full border p-1.5 shadow-inner backdrop-blur-3xl transition-all">
         {navLinks.map((link) => {
           const isActive =
             pathname === link.href ||
@@ -59,7 +64,7 @@ function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
               key={link.href}
               href={link.href}
               className={cn(
-                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] font-black uppercase leading-none tracking-[0.15em] transition-all xl:px-8',
+                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] leading-none font-black tracking-[0.15em] uppercase transition-all xl:px-8',
                 isActive
                   ? 'text-primary-foreground shadow-lg'
                   : 'text-muted-foreground hover:text-foreground'
@@ -68,7 +73,7 @@ function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
               {isActive && (
                 <motion.div
                   layoutId="active-nav"
-                  className="absolute inset-0 -z-10 rounded-full bg-primary shadow-[0_8px_20px_rgba(139,92,246,0.35)]"
+                  className="bg-primary absolute inset-0 -z-10 rounded-full shadow-[0_8px_20px_rgba(139,92,246,0.35)]"
                   transition={{
                     type: 'spring',
                     bounce: 0.15,
@@ -88,7 +93,12 @@ function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
 // Loading skeleton for SSR
 function HeaderSkeleton() {
   return (
-    <header className={cn('fixed top-0 z-50 w-full py-5 transition-all duration-500', 'safe-top bg-transparent')}>
+    <header
+      className={cn(
+        'fixed top-0 z-50 w-full py-5 transition-all duration-500',
+        'safe-top bg-transparent'
+      )}
+    >
       <Container>
         <div className="flex h-14 items-center justify-between md:h-16">
           <div className="flex flex-1 items-center">
@@ -137,7 +147,7 @@ export function Header() {
           'fixed top-0 z-50 w-full transition-all duration-500',
           'safe-top',
           isScrolled
-            ? 'shadow-premium border-b border-border bg-background/80 py-2 backdrop-blur-2xl md:py-3'
+            ? 'shadow-premium border-border bg-background/80 border-b py-2 backdrop-blur-2xl md:py-3'
             : 'bg-transparent py-3 md:py-5'
         )}
       >
@@ -152,7 +162,7 @@ export function Header() {
             <DesktopNav navLinks={navLinks} pathname={pathname} />
 
             {/* Desktop Right Actions */}
-            <div className="hidden flex-1 items-center justify-end gap-3 text-foreground lg:flex xl:gap-6">
+            <div className="text-foreground hidden flex-1 items-center justify-end gap-3 lg:flex xl:gap-6">
               {/* Categories Dropdown */}
               <CategoriesDropdown />
 
@@ -160,13 +170,13 @@ export function Header() {
               <ThemeToggle className="self-center" />
 
               {/* User Section */}
-              <div className="flex items-center gap-2 border-l border-border/50 pl-3 xl:gap-4 xl:pl-6">
+              <div className="border-border/50 flex items-center gap-2 border-l pl-3 xl:gap-4 xl:pl-6">
                 {user ? (
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
                     href="/login"
-                    className="flex h-10 items-center justify-center whitespace-nowrap rounded-full border border-primary/20 bg-primary/10 px-5 text-[10px] font-black uppercase tracking-[0.15em] text-primary transition-all duration-300 hover:scale-105 hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/20 active:scale-95 xl:px-7"
+                    className="border-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-primary/20 flex h-10 items-center justify-center rounded-full border px-5 text-[10px] font-black tracking-[0.15em] whitespace-nowrap uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 xl:px-7"
                   >
                     {t.auth.signIn}
                   </Link>
@@ -175,7 +185,7 @@ export function Header() {
                 {/* POST BUTTON */}
                 <Link
                   href="/post"
-                  className="group flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-primary px-5 text-[10px] font-black uppercase tracking-[0.15em] text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl hover:shadow-primary/30 active:scale-95 xl:px-7"
+                  className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 flex h-10 items-center justify-center gap-1.5 rounded-full px-5 text-[10px] font-black tracking-[0.15em] whitespace-nowrap uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl active:scale-95 xl:px-7"
                 >
                   <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   <span className="hidden lg:inline">{t.common.postAd}</span>
@@ -191,7 +201,7 @@ export function Header() {
               {user && (
                 <Link
                   href="/profile/settings"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-sm font-black text-primary transition-transform active:scale-95"
+                  className="border-primary/20 bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black transition-transform active:scale-95"
                 >
                   {user.email?.[0]?.toUpperCase()}
                 </Link>
@@ -200,7 +210,7 @@ export function Header() {
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className={cn(
-                  'relative z-50 flex h-11 w-11 items-center justify-center rounded-xl border border-border/40 bg-muted/30 text-foreground transition-colors hover:bg-muted',
+                  'border-border/40 bg-muted/30 text-foreground hover:bg-muted relative z-50 flex h-11 w-11 items-center justify-center rounded-xl border transition-colors',
                   pathname?.startsWith('/profile') && 'hidden'
                 )}
                 aria-label="Open menu"
@@ -224,7 +234,7 @@ export function Header() {
 
       {/* Mobile Bottom Navigation Bar */}
       <BottomNavBar
-        navLinks={navLinks.filter(link => link.href !== '/blog')}
+        navLinks={navLinks.filter((link) => link.href !== '/blog')}
         pathname={pathname}
         user={user}
       />

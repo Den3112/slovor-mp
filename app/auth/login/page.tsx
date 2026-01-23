@@ -57,7 +57,7 @@ export default function LoginPage() {
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/auth/callback`,
-          }
+          },
         })
         if (error) throw error
         alert('Check your email for the confirmation link!')
@@ -75,7 +75,8 @@ export default function LoginPage() {
         router.refresh()
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
+      const errorMessage =
+        err instanceof Error ? err.message : 'An unexpected error occurred'
 
       // Log Failure
       fetch('/api/auth/log-access', {
@@ -84,8 +85,8 @@ export default function LoginPage() {
           status: 'failure',
           failure_reason: errorMessage,
           email: email, // Log the email that was attempted
-          event_type: 'login'
-        })
+          event_type: 'login',
+        }),
       }).catch(console.error)
 
       setError(errorMessage)
@@ -95,42 +96,44 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-background p-4 md:p-8">
+    <div className="bg-background relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden p-4 md:p-8">
       <Suspense
         fallback={
-          <div className="text-center font-bold text-primary">Loading...</div>
+          <div className="text-primary text-center font-bold">Loading...</div>
         }
       >
         {/* Background Effects */}
-        <div className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-hidden">
-          <div className="absolute right-[10%] top-[20%] h-[400px] w-[400px] md:h-[600px] md:w-[600px] animate-pulse rounded-full bg-indigo-500/10 blur-[100px] md:blur-[150px]" />
-          <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] md:h-[600px] md:w-[600px] rounded-full bg-violet-600/10 blur-[100px] md:blur-[150px]" />
+        <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
+          <div className="absolute top-[20%] right-[10%] h-[400px] w-[400px] animate-pulse rounded-full bg-indigo-500/10 blur-[100px] md:h-[600px] md:w-[600px] md:blur-[150px]" />
+          <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[100px] md:h-[600px] md:w-[600px] md:blur-[150px]" />
         </div>
 
-        <div className="relative z-10 w-full max-w-md glass-card rounded-[2.5rem] p-6 md:p-10 duration-500 animate-in fade-in zoom-in-95">
+        <div className="glass-card animate-in fade-in zoom-in-95 relative z-10 w-full max-w-md rounded-[2.5rem] p-6 duration-500 md:p-10">
           <Link
             href="/"
-            className="mb-8 inline-flex items-center rounded-full bg-indigo-500/5 border border-indigo-500/10 px-5 py-2.5 text-sm font-bold text-indigo-600 transition-all hover:bg-indigo-500/10 hover:scale-105 active:scale-95 dark:text-indigo-400"
+            className="mb-8 inline-flex items-center rounded-full border border-indigo-500/10 bg-indigo-500/5 px-5 py-2.5 text-sm font-bold text-indigo-600 transition-all hover:scale-105 hover:bg-indigo-500/10 active:scale-95 dark:text-indigo-400"
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
           </Link>
 
           <div className="mb-10 text-center">
-            <div className="mb-6 inline-flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 text-primary shadow-inner border border-white/20">
-              <span className="text-3xl md:text-4xl animate-bounce-subtle">✨</span>
+            <div className="text-primary mb-6 inline-flex h-16 w-16 items-center justify-center rounded-3xl border border-white/20 bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 shadow-inner md:h-20 md:w-20">
+              <span className="animate-bounce-subtle text-3xl md:text-4xl">
+                ✨
+              </span>
             </div>
-            <h1 className="mb-3 font-heading text-3xl md:text-4xl font-black tracking-tight text-foreground italic">
+            <h1 className="font-heading text-foreground mb-3 text-3xl font-black tracking-tight italic md:text-4xl">
               {isRegistering ? 'Join Slovor' : 'Welcome Back'}
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground font-medium">
+            <p className="text-muted-foreground text-sm font-medium md:text-base">
               {isRegistering
-                ? 'Join Slovakia\'s premium marketplace'
+                ? "Join Slovakia's premium marketplace"
                 : 'Sign in to your premium account'}
             </p>
           </div>
 
           {error && (
-            <div className="shake mb-6 rounded-2xl border border-destructive/20 bg-destructive/10 p-4 text-sm font-bold text-destructive animate-in">
+            <div className="shake border-destructive/20 bg-destructive/10 text-destructive animate-in mb-6 rounded-2xl border p-4 text-sm font-bold">
               {error}
             </div>
           )}

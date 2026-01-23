@@ -8,10 +8,10 @@
 
 Исходя из функционала сайта, текущая база данных, вероятно, включает следующие основные сущности:
 
-*   **Users**: `id`, `email`, `password_hash`, `name`, `created_at`.
-*   **Listings**: `id`, `title`, `description`, `price`, `currency`, `location`, `category_id`, `user_id`, `status` (active/inactive), `created_at`, `updated_at`.
-*   **Categories**: `id`, `name`, `slug`, `icon`.
-*   **Images**: `id`, `listing_id`, `url`, `is_primary`.
+- **Users**: `id`, `email`, `password_hash`, `name`, `created_at`.
+- **Listings**: `id`, `title`, `description`, `price`, `currency`, `location`, `category_id`, `user_id`, `status` (active/inactive), `created_at`, `updated_at`.
+- **Categories**: `id`, `name`, `slug`, `icon`.
+- **Images**: `id`, `listing_id`, `url`, `is_primary`.
 
 ## 3. Предложения по оптимизации и модернизации
 
@@ -20,38 +20,40 @@
 ### 3.1. Расширение сущности "User" (Профили и Верификация)
 
 Для повышения доверия и функциональности профилей:
-*   **Добавить поля**: `phone_number`, `avatar_url`, `bio`, `is_verified` (boolean), `verification_level` (enum: none, basic, pro), `rating` (decimal), `review_count` (integer).
-*   **Таблица User_Verifications**: Для хранения данных о процессе верификации (тип документа, статус, дата).
+
+- **Добавить поля**: `phone_number`, `avatar_url`, `bio`, `is_verified` (boolean), `verification_level` (enum: none, basic, pro), `rating` (decimal), `review_count` (integer).
+- **Таблица User_Verifications**: Для хранения данных о процессе верификации (тип документа, статус, дата).
 
 ### 3.2. Улучшение сущности "Listing" (Фильтрация и Продвижение)
 
 Для поддержки расширенного поиска и платных услуг:
-*   **Добавить поля**: `condition` (enum: new, used), `is_featured` (boolean), `featured_until` (datetime), `views_count` (integer), `negotiable` (boolean).
-*   **Таблица Listing_Attributes**: Для хранения специфических характеристик товаров (например, пробег для авто, площадь для недвижимости) в формате ключ-значение или через JSONB (если используется PostgreSQL).
-*   **Таблица Listing_Stats**: Для детальной аналитики (просмотры по дням, количество добавлений в избранное).
+
+- **Добавить поля**: `condition` (enum: new, used), `is_featured` (boolean), `featured_until` (datetime), `views_count` (integer), `negotiable` (boolean).
+- **Таблица Listing_Attributes**: Для хранения специфических характеристик товаров (например, пробег для авто, площадь для недвижимости) в формате ключ-значение или через JSONB (если используется PostgreSQL).
+- **Таблица Listing_Stats**: Для детальной аналитики (просмотры по дням, количество добавлений в избранное).
 
 ### 3.3. Новые сущности для премиум-функций
 
-*   **Favorites**: `user_id`, `listing_id`, `created_at`. Связь многие-ко-многим между пользователями и объявлениями.
-*   **Messages (Чат)**: `id`, `sender_id`, `receiver_id`, `listing_id`, `content`, `is_read`, `created_at`.
-*   **Reviews**: `id`, `reviewer_id`, `target_user_id`, `listing_id`, `rating`, `comment`, `created_at`.
-*   **Payments & Subscriptions**: `id`, `user_id`, `listing_id`, `amount`, `service_type` (featured, bump, top), `status`, `transaction_id`, `created_at`.
+- **Favorites**: `user_id`, `listing_id`, `created_at`. Связь многие-ко-многим между пользователями и объявлениями.
+- **Messages (Чат)**: `id`, `sender_id`, `receiver_id`, `listing_id`, `content`, `is_read`, `created_at`.
+- **Reviews**: `id`, `reviewer_id`, `target_user_id`, `listing_id`, `rating`, `comment`, `created_at`.
+- **Payments & Subscriptions**: `id`, `user_id`, `listing_id`, `amount`, `service_type` (featured, bump, top), `status`, `transaction_id`, `created_at`.
 
 ### 3.4. Оптимизация производительности (Индексы и Связи)
 
-*   **Индексы**:
-    *   `Listings`: Индексы на `category_id`, `user_id`, `status`, `created_at`.
-    *   `Listings`: Составной индекс на `status` + `is_featured` + `created_at` для быстрой выборки премиум-объявлений.
-    *   `Listings`: Полнотекстовый поиск по `title` и `description`.
-    *   `Favorites`: Уникальный индекс на пару `user_id` + `listing_id`.
-    *   `Messages`: Индекс на `sender_id` + `receiver_id` для быстрой загрузки диалогов.
-*   **Связи**: Использование каскадного удаления (`ON DELETE CASCADE`) для связанных изображений и атрибутов при удалении объявления.
+- **Индексы**:
+  - `Listings`: Индексы на `category_id`, `user_id`, `status`, `created_at`.
+  - `Listings`: Составной индекс на `status` + `is_featured` + `created_at` для быстрой выборки премиум-объявлений.
+  - `Listings`: Полнотекстовый поиск по `title` и `description`.
+  - `Favorites`: Уникальный индекс на пару `user_id` + `listing_id`.
+  - `Messages`: Индекс на `sender_id` + `receiver_id` для быстрой загрузки диалогов.
+- **Связи**: Использование каскадного удаления (`ON DELETE CASCADE`) для связанных изображений и атрибутов при удалении объявления.
 
 ## 4. Рекомендации по выбору технологий
 
-*   **СУБД**: Рекомендуется использовать **PostgreSQL** из-за отличной поддержки JSONB (для гибких атрибутов), полнотекстового поиска и высокой надежности.
-*   **ORM**: Использование **Drizzle ORM** или **Prisma** для типобезопасной работы с БД и легкой миграции схем.
-*   **Кэширование**: Внедрение **Redis** для кэширования популярных объявлений, счетчиков просмотров в реальном времени и сессий пользователей.
+- **СУБД**: Рекомендуется использовать **PostgreSQL** из-за отличной поддержки JSONB (для гибких атрибутов), полнотекстового поиска и высокой надежности.
+- **ORM**: Использование **Drizzle ORM** или **Prisma** для типобезопасной работы с БД и легкой миграции схем.
+- **Кэширование**: Внедрение **Redis** для кэширования популярных объявлений, счетчиков просмотров в реальном времени и сессий пользователей.
 
 ## 5. Заключение
 

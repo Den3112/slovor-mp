@@ -4,75 +4,92 @@ import { StepImages } from '@/components/listing/form-steps/step-images'
 
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({
-    useTranslation: () => ({
-        t: {
-            createListing: {
-                uploadPhotos: 'Upload Photos',
-                dragDrop: 'Drag and drop',
-                selectImages: 'Select images',
-                uploading: 'Uploading...',
-                addMockImage: 'Add Mock Image',
-            },
-        },
-    }),
+  useTranslation: () => ({
+    t: {
+      createListing: {
+        uploadPhotos: 'Upload Photos',
+        dragDrop: 'Drag and drop',
+        selectImages: 'Select images',
+        uploading: 'Uploading...',
+        addMockImage: 'Add Mock Image',
+      },
+    },
+  }),
 }))
 
 describe('StepImages', () => {
-    const defaultProps = {
-        formData: { images: [] } as any,
-        updateField: vi.fn(),
-        isUploading: false,
-        uploadProgress: null,
-        onFilesSelected: vi.fn(),
-    }
+  const defaultProps = {
+    formData: { images: [] } as any,
+    updateField: vi.fn(),
+    isUploading: false,
+    uploadProgress: null,
+    onFilesSelected: vi.fn(),
+  }
 
-    it('renders upload area', () => {
-        render(<StepImages {...defaultProps} />)
-        expect(screen.getByText(/Drag and drop/i)).toBeInTheDocument()
-        expect(screen.getByText(/Select images/i)).toBeInTheDocument()
-    })
+  it('renders upload area', () => {
+    render(<StepImages {...defaultProps} />)
+    expect(screen.getByText(/Drag and drop/i)).toBeInTheDocument()
+    expect(screen.getByText(/Select images/i)).toBeInTheDocument()
+  })
 
-    it('shows loading state when isUploading is true', () => {
-        render(<StepImages {...defaultProps} isUploading={true} />)
-        expect(screen.getByText(/Uploading.../i)).toBeInTheDocument()
-    })
+  it('shows loading state when isUploading is true', () => {
+    render(<StepImages {...defaultProps} isUploading={true} />)
+    expect(screen.getByText(/Uploading.../i)).toBeInTheDocument()
+  })
 
-    it('shows progress bar when uploadProgress is provided', () => {
-        render(<StepImages {...defaultProps} uploadProgress={{ current: 5, total: 10 }} />)
-        expect(screen.getByText('50%')).toBeInTheDocument()
-    })
+  it('shows progress bar when uploadProgress is provided', () => {
+    render(
+      <StepImages
+        {...defaultProps}
+        uploadProgress={{ current: 5, total: 10 }}
+      />
+    )
+    expect(screen.getByText('50%')).toBeInTheDocument()
+  })
 
-    it('calls onFilesSelected when file input changes', () => {
-        const onFilesSelected = vi.fn()
-        const { container } = render(<StepImages {...defaultProps} onFilesSelected={onFilesSelected} />)
+  it('calls onFilesSelected when file input changes', () => {
+    const onFilesSelected = vi.fn()
+    const { container } = render(
+      <StepImages {...defaultProps} onFilesSelected={onFilesSelected} />
+    )
 
-        const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement
-        const file = new File(['hello'], 'hello.png', { type: 'image/png' })
+    const fileInput = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
+    const file = new File(['hello'], 'hello.png', { type: 'image/png' })
 
-        fireEvent.change(fileInput, { target: { files: [file] } })
-        expect(onFilesSelected).toHaveBeenCalled()
-    })
+    fireEvent.change(fileInput, { target: { files: [file] } })
+    expect(onFilesSelected).toHaveBeenCalled()
+  })
 
-    it('renders previews and allows removal', () => {
-        const updateField = vi.fn()
-        const images = ['https://example.com/1.jpg', 'https://example.com/2.jpg']
-        render(<StepImages {...defaultProps} formData={{ images } as any} updateField={updateField} />)
+  it('renders previews and allows removal', () => {
+    const updateField = vi.fn()
+    const images = ['https://example.com/1.jpg', 'https://example.com/2.jpg']
+    render(
+      <StepImages
+        {...defaultProps}
+        formData={{ images } as any}
+        updateField={updateField}
+      />
+    )
 
-        const previews = screen.getAllByAltText('preview')
-        expect(previews).toHaveLength(2)
+    const previews = screen.getAllByAltText('preview')
+    expect(previews).toHaveLength(2)
 
-        const removeButtons = screen.getAllByRole('button').filter((btn: HTMLElement) => btn.className.includes('bg-destructive'))
-        fireEvent.click(removeButtons[0]!)
+    const removeButtons = screen
+      .getAllByRole('button')
+      .filter((btn: HTMLElement) => btn.className.includes('bg-destructive'))
+    fireEvent.click(removeButtons[0]!)
 
-        expect(updateField).toHaveBeenCalledWith('images', [images[1]])
-    })
+    expect(updateField).toHaveBeenCalledWith('images', [images[1]])
+  })
 
-    it('calls addMockImage click', () => {
-        const updateField = vi.fn()
-        render(<StepImages {...defaultProps} updateField={updateField} />)
+  it('calls addMockImage click', () => {
+    const updateField = vi.fn()
+    render(<StepImages {...defaultProps} updateField={updateField} />)
 
-        const mockButton = screen.getByText(/\+ Add Mock Image/i)
-        fireEvent.click(mockButton)
-        expect(updateField).toHaveBeenCalledWith('images', expect.any(Array))
-    })
+    const mockButton = screen.getByText(/\+ Add Mock Image/i)
+    fireEvent.click(mockButton)
+    expect(updateField).toHaveBeenCalledWith('images', expect.any(Array))
+  })
 })

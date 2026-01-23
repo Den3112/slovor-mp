@@ -61,21 +61,25 @@ export function Pagination({
   }
 
   return (
-    <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4 shadow-sm">
-      <div className="text-sm text-muted-foreground">
+    <div className="border-border bg-card flex items-center justify-between rounded-xl border p-4 shadow-sm">
+      <div className="text-muted-foreground text-sm">
         Showing{' '}
-        <span className="font-semibold text-foreground">{(currentPage - 1) * 50 + 1}</span> to{' '}
-        <span className="font-semibold text-foreground">
+        <span className="text-foreground font-semibold">
+          {(currentPage - 1) * 50 + 1}
+        </span>{' '}
+        to{' '}
+        <span className="text-foreground font-semibold">
           {Math.min(currentPage * 50, totalItems)}
         </span>{' '}
-        of <span className="font-semibold text-foreground">{totalItems}</span> results
+        of <span className="text-foreground font-semibold">{totalItems}</span>{' '}
+        results
       </div>
 
       <div className="flex items-center gap-2">
         <button
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="rounded-xl border border-border p-2 transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+          className="border-border hover:bg-accent rounded-xl border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -85,15 +89,16 @@ export function Pagination({
             <button
               key={index}
               onClick={() => goToPage(page)}
-              className={`rounded-xl px-4 py-2 font-medium transition-colors ${currentPage === page
-                ? 'bg-primary text-primary-foreground'
-                : 'border border-border bg-card hover:bg-accent'
-                }`}
+              className={`rounded-xl px-4 py-2 font-medium transition-colors ${
+                currentPage === page
+                  ? 'bg-primary text-primary-foreground'
+                  : 'border-border bg-card hover:bg-accent border'
+              }`}
             >
               {page}
             </button>
           ) : (
-            <span key={index} className="px-2 text-muted-foreground">
+            <span key={index} className="text-muted-foreground px-2">
               {page}
             </span>
           )
@@ -102,7 +107,7 @@ export function Pagination({
         <button
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="rounded-xl border border-border p-2 transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+          className="border-border hover:bg-accent rounded-xl border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronRight className="h-5 w-5" />
         </button>

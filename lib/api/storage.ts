@@ -22,12 +22,24 @@ export const storageApi = {
    * @param bucket - Storage bucket name (default: 'listings-images')
    * @returns Public URL or error
    */
-  async uploadImage(file: File, userId: string, bucket: string = 'listings-images'): Promise<ApiResponse<UploadedFile>> {
+  async uploadImage(
+    file: File,
+    userId: string,
+    bucket: string = 'listings-images'
+  ): Promise<ApiResponse<UploadedFile>> {
     try {
       // Validate file type
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
+      const allowedTypes = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+      ]
       if (!allowedTypes.includes(file.type)) {
-        throw new Error('Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.')
+        throw new Error(
+          'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.'
+        )
       }
 
       // Validate file size (max 10MB)
@@ -43,8 +55,7 @@ export const storageApi = {
       const fileName = `${userId}/${timestamp}-${randomStr}.${extension}`
 
       // Upload file
-      const { data, error: uploadError } = await supabase
-        .storage
+      const { data, error: uploadError } = await supabase.storage
         .from(bucket)
         .upload(fileName, file, {
           cacheControl: '3600',
@@ -56,10 +67,9 @@ export const storageApi = {
       }
 
       // Get public URL
-      const { data: { publicUrl } } = supabase
-        .storage
-        .from(bucket)
-        .getPublicUrl(fileName)
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from(bucket).getPublicUrl(fileName)
 
       const uploadedFile: UploadedFile = {
         path: data.path,
@@ -130,8 +140,7 @@ export const storageApi = {
    */
   async deleteImage(path: string): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase
-        .storage
+      const { error } = await supabase.storage
         .from('listings-images')
         .remove([path])
 
@@ -151,8 +160,7 @@ export const storageApi = {
    */
   async deleteImages(paths: string[]): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase
-        .storage
+      const { error } = await supabase.storage
         .from('listings-images')
         .remove(paths)
 

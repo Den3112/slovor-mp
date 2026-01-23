@@ -1,6 +1,41 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --radius-2xl: var(--radius);
+  --radius-xl: calc(var(--radius) - 4px);
+  --radius-lg: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 12px);
+  --radius-sm: calc(var(--radius) - 16px);
+
+  --shadow-premium: 0 20px 50px -12px rgba(99, 102, 241, 0.15);
+  --shadow-soft-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
 
 @layer base {
   :root {
@@ -79,7 +114,12 @@
 
 @layer base {
   * {
-    @apply border-border selection:bg-primary/20 selection:text-primary;
+    @apply border-border;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary));
   }
 
   html {
@@ -98,7 +138,11 @@
   }
 
   /* Enforce cursor-pointer on interactive elements per design protocol */
-  button, [role="button"], a, input[type="submit"], input[type="reset"] {
+  button,
+  [role='button'],
+  a,
+  input[type='submit'],
+  input[type='reset'] {
     cursor: pointer;
   }
 
@@ -126,7 +170,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      @apply rounded-full border-4 border-solid border-transparent bg-muted-foreground/20 bg-clip-padding hover:bg-muted-foreground/40;
+      @apply bg-muted-foreground/20 hover:bg-muted-foreground/40 rounded-full border-4 border-solid border-transparent bg-clip-padding;
     }
   }
 
@@ -155,13 +199,13 @@
   /* Prevent iOS zoom on input focus */
   @media screen and (max-width: 768px) {
 
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
-    input[type="password"],
-    input[type="search"],
-    input[type="url"],
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    input[type='number'],
+    input[type='password'],
+    input[type='search'],
+    input[type='url'],
     select,
     textarea {
       font-size: 16px !important;
@@ -182,7 +226,7 @@
 
   /* Improve touch targets */
   button,
-  [role="button"],
+  [role='button'],
   a {
     min-height: var(--touch-target);
     touch-action: manipulation;
@@ -190,7 +234,11 @@
 
   /* Ensure proper focus styles for accessibility */
   :focus-visible {
-    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    --tw-ring-offset-width: 2px;
+    --tw-ring-offset-color: hsl(var(--background));
+    @apply ring-primary ring-2;
   }
 
   /* Remove focus outline on touch devices for cleaner look */
@@ -202,162 +250,146 @@
   }
 }
 
-@layer components {
-  .glass {
-    @apply border border-white/20 bg-background/80 shadow-xl backdrop-blur-2xl;
-  }
+@utility glass {
+  @apply bg-background/80 border border-white/20 shadow-xl backdrop-blur-2xl;
+}
 
-  .dark .glass {
-    @apply border-white/5 bg-slate-950/80 shadow-2xl;
-  }
+@utility mesh-gradient {
+  background-color: hsla(0, 0%, 100%, 1);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%,
+      hsla(262, 83%, 57%, 0.15) 0px,
+      transparent 50%),
+    radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%);
+}
 
-  .mesh-gradient {
-    background-color: hsla(0, 0%, 100%, 1);
-    background-image:
-      radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 0%,
-        hsla(271, 91%, 65%, 0.15) 0px,
-        transparent 50%),
-      radial-gradient(at 100% 100%,
-        hsla(262, 83%, 57%, 0.15) 0px,
-        transparent 50%),
-      radial-gradient(at 0% 100%,
-        hsla(271, 91%, 65%, 0.15) 0px,
-        transparent 50%);
-  }
+.dark .glass {
+  @apply border-white/5 bg-slate-950/80 shadow-2xl;
+}
 
-  .dark .mesh-gradient {
-    background-color: hsla(240, 10%, 4%, 1);
-    background-image:
-      radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%,
-        hsla(271, 91%, 65%, 0.1) 0px,
-        transparent 50%),
-      radial-gradient(at 100% 100%,
-        hsla(262, 83%, 57%, 0.1) 0px,
-        transparent 50%),
-      radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%);
-  }
+.dark .mesh-gradient {
+  background-color: hsla(240, 10%, 4%, 1);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%,
+      hsla(262, 83%, 57%, 0.1) 0px,
+      transparent 50%),
+    radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%);
+}
 
-  /* Safe Area Helpers */
-  .safe-top {
-    padding-top: var(--safe-area-top);
-  }
+/* Safe Area Helpers */
+@utility safe-top {
+  padding-top: var(--safe-area-top);
+}
 
-  .safe-bottom {
-    padding-bottom: var(--safe-area-bottom);
-  }
+@utility safe-bottom {
+  padding-bottom: var(--safe-area-bottom);
+}
 
-  .safe-left {
-    padding-left: var(--safe-area-left);
-  }
+@utility safe-left {
+  padding-left: var(--safe-area-left);
+}
 
-  .safe-right {
-    padding-right: var(--safe-area-right);
-  }
+@utility safe-right {
+  padding-right: var(--safe-area-right);
+}
 
-  .safe-x {
-    padding-left: var(--safe-area-left);
-    padding-right: var(--safe-area-right);
-  }
+@utility safe-x {
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
+}
 
-  .safe-y {
-    padding-top: var(--safe-area-top);
-    padding-bottom: var(--safe-area-bottom);
-  }
+@utility safe-y {
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+}
 
-  .safe-all {
-    padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
-  }
+@utility safe-all {
+  padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
+}
 
-  /* Fixed Bottom Bar Container */
-  .fixed-bottom-bar {
-    @apply fixed bottom-0 left-0 right-0 z-40;
-    padding-bottom: calc(var(--safe-area-bottom) + 0.5rem);
-    padding-left: var(--safe-area-left);
-    padding-right: var(--safe-area-right);
-  }
+@utility fixed-bottom-bar {
+  @apply fixed right-0 bottom-0 left-0 z-40;
+  padding-bottom: calc(var(--safe-area-bottom) + 0.5rem);
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
+}
 
-  /* Hide on Mobile */
-  .hide-mobile {
-    @apply hidden md:block;
-  }
+@utility hide-mobile {
+  @apply hidden md:block;
+}
 
-  /* Hide on Desktop */
-  .hide-desktop {
-    @apply block md:hidden;
-  }
+@utility hide-desktop {
+  @apply block md:hidden;
+}
 
-  /* Touch-friendly scrolling */
-  .scroll-touch {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
+@utility scroll-touch {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
 
-  /* No scrollbar utility */
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  .no-scrollbar::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
+}
 
-  /* Horizontal scroll container */
-  .scroll-x {
-    @apply flex overflow-x-auto no-scrollbar scroll-touch;
-    scroll-snap-type: x mandatory;
-  }
+@utility scroll-x {
+  @apply no-scrollbar scroll-touch flex overflow-x-auto;
+  scroll-snap-type: x mandatory;
 
-  .scroll-x>* {
+  &>* {
     scroll-snap-align: start;
     flex-shrink: 0;
   }
+}
 
-  /* Card hover effect (desktop only) */
+@utility card-hover {
   @media (hover: hover) and (pointer: fine) {
-    .card-hover {
-      @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
-    }
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
   }
+}
 
-  /* Tap effect (mobile only) */
+@utility tap-effect {
   @media (hover: none) and (pointer: coarse) {
-    .tap-effect {
-      @apply active:scale-[0.98] active:opacity-90 transition-transform;
-    }
+    @apply transition-transform active:scale-[0.98] active:opacity-90;
   }
+}
 
-  /* Vaul Drawer Styling */
-  [vaul-drawer] {
-    @apply fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[2rem] border-t border-border bg-background;
-  }
+@utility glass-card {
+  @apply shadow-soft-shadow border border-white/30 bg-white/70 backdrop-blur-2xl;
+}
 
-  [vaul-drawer]::after {
-    @apply absolute left-1/2 top-3 h-1.5 w-12 -translate-x-1/2 rounded-full bg-muted-foreground/20;
-    content: '';
-  }
+.dark .glass-card {
+  @apply border-slate-700/30 bg-slate-900/40 shadow-2xl backdrop-blur-2xl;
+}
 
-  [vaul-overlay] {
-    @apply fixed inset-0 z-40 bg-black/40 backdrop-blur-sm;
-  }
+@utility glow {
+  @apply absolute -z-10 animate-pulse rounded-full opacity-30 blur-[100px];
+}
 
-  .glass-card {
-    @apply bg-white/70 backdrop-blur-2xl border border-white/30 shadow-soft-shadow;
-  }
+@utility premium-gradient {
+  @apply bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400;
+}
 
-  .dark .glass-card {
-    @apply bg-slate-900/40 backdrop-blur-2xl border-slate-700/30 shadow-2xl;
-  }
+/* Vaul Drawer Styling */
+[vaul-drawer] {
+  @apply border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-4xl border-t;
+}
 
-  .glow {
-    @apply absolute -z-10 rounded-full blur-[100px] opacity-30 animate-pulse;
-  }
+[vaul-drawer]::after {
+  @apply bg-muted-foreground/20 absolute top-3 left-1/2 h-1.5 w-12 -translate-x-1/2 rounded-full;
+  content: '';
+}
 
-  .premium-gradient {
-    @apply bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400;
-  }
+[vaul-overlay] {
+  @apply fixed inset-0 z-40 bg-black/40 backdrop-blur-sm;
 }
 
 /* Premium Shadows */

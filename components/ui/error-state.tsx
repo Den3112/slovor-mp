@@ -8,8 +8,10 @@ export function ErrorState({
   return (
     <div className="flex items-center justify-center p-8">
       <div className="text-center">
-        <p className="font-medium text-destructive">{message}</p>
-        <p className="mt-2 text-sm text-muted-foreground">{message || 'Please try again later'}</p>
+        <p className="text-destructive font-medium">{message}</p>
+        <p className="text-muted-foreground mt-2 text-sm">
+          {message || 'Please try again later'}
+        </p>
       </div>
     </div>
   )

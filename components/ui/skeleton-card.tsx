@@ -2,9 +2,9 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function SkeletonCard() {
   return (
-    <div className="rounded-2xl border border-white/10 bg-card/60 backdrop-blur-sm overflow-hidden md:rounded-3xl">
+    <div className="bg-card/60 overflow-hidden rounded-2xl border border-white/10 backdrop-blur-sm md:rounded-3xl">
       {/* Image skeleton */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <div className="bg-muted relative aspect-[4/3] overflow-hidden">
         <Skeleton className="h-full w-full" />
       </div>
 
@@ -32,17 +32,17 @@ export function SkeletonCard() {
 
 export function SkeletonCardCompact() {
   return (
-    <div className="flex gap-4 overflow-hidden rounded-2xl border border-border/40 bg-card p-3">
+    <div className="border-border/40 bg-card flex gap-4 overflow-hidden rounded-2xl border p-3">
       {/* Image skeleton */}
-      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-muted sm:h-28 sm:w-28">
+      <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
         <Skeleton className="h-full w-full" />
       </div>
 
       {/* Content skeleton */}
       <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
         <div>
-          <Skeleton className="h-3 w-16 mb-1" />
-          <Skeleton className="h-4 w-full mb-1" />
+          <Skeleton className="mb-1 h-3 w-16" />
+          <Skeleton className="mb-1 h-4 w-full" />
           <Skeleton className="h-4 w-2/3" />
         </div>
 
