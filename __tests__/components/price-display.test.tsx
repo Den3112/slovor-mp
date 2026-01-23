@@ -7,38 +7,38 @@ let mockCurrency = 'EUR'
 let mockIsLoading = false
 
 vi.mock('@/components/providers/currency-provider', () => ({
-    useCurrency: () => ({
-        currency: mockCurrency,
-        formatPrice: mockFormatPrice,
-        isLoading: mockIsLoading,
-    }),
+  useCurrency: () => ({
+    currency: mockCurrency,
+    formatPrice: mockFormatPrice,
+    isLoading: mockIsLoading,
+  }),
 }))
 
 describe('PriceDisplay', () => {
-    beforeEach(() => {
-        mockCurrency = 'EUR'
-        mockIsLoading = false
-        mockFormatPrice.mockClear()
-        mockFormatPrice.mockImplementation((amount: number) => `${amount} EUR`)
-    })
+  beforeEach(() => {
+    mockCurrency = 'EUR'
+    mockIsLoading = false
+    mockFormatPrice.mockClear()
+    mockFormatPrice.mockImplementation((amount: number) => `${amount} EUR`)
+  })
 
-    it('renders amount with currency', () => {
-        render(<PriceDisplay amount={100} />)
-        expect(screen.getByText(/100/)).toBeInTheDocument()
-    })
+  it('renders amount with currency', () => {
+    render(<PriceDisplay amount={100} />)
+    expect(screen.getByText(/100/)).toBeInTheDocument()
+  })
 
-    it('shows simple format before mounting or when loading', () => {
-        mockIsLoading = true
-        render(<PriceDisplay amount={1234} />)
-        expect(screen.getByText('1 234 EUR')).toBeInTheDocument()
-    })
+  it('shows simple format before mounting or when loading', () => {
+    mockIsLoading = true
+    render(<PriceDisplay amount={1234} />)
+    expect(screen.getByText('1 234 EUR')).toBeInTheDocument()
+  })
 
-    it('shows original price when showOriginal is true and converted', () => {
-        mockCurrency = 'USD'
-        mockFormatPrice.mockImplementation((amount: number) => `$${amount}`)
+  it('shows original price when showOriginal is true and converted', () => {
+    mockCurrency = 'USD'
+    mockFormatPrice.mockImplementation((amount: number) => `$${amount}`)
 
-        render(<PriceDisplay amount={100} baseCurrency="EUR" showOriginal={true} />)
-        expect(screen.getByText('$100')).toBeInTheDocument()
-        expect(screen.getByText('(~100 EUR)')).toBeInTheDocument()
-    })
+    render(<PriceDisplay amount={100} baseCurrency="EUR" showOriginal={true} />)
+    expect(screen.getByText('$100')).toBeInTheDocument()
+    expect(screen.getByText('(~100 EUR)')).toBeInTheDocument()
+  })
 })

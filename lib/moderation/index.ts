@@ -1,6 +1,6 @@
 export {
-    filterContent,
-    validateListingContent,
-    sanitizeContent,
-    type ContentFilterResult,
+  filterContent,
+  validateListingContent,
+  sanitizeContent,
+  type ContentFilterResult,
 } from './content-filter'

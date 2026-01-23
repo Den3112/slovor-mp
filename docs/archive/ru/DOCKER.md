@@ -48,12 +48,12 @@ docker-compose --profile dev up dev
 
 ## Files Overview
 
-| File | Purpose |
-|------|---------|
-| `Dockerfile` | Multi-stage production build |
-| `Dockerfile.dev` | Development with hot-reload |
-| `docker-compose.yml` | Container orchestration |
-| `.dockerignore` | Build context optimization |
+| File                 | Purpose                      |
+| -------------------- | ---------------------------- |
+| `Dockerfile`         | Multi-stage production build |
+| `Dockerfile.dev`     | Development with hot-reload  |
+| `docker-compose.yml` | Container orchestration      |
+| `.dockerignore`      | Build context optimization   |
 
 ## Configuration
 
@@ -76,6 +76,7 @@ curl http://localhost:3000/api/health
 ```
 
 Response:
+
 ```json
 {
   "status": "healthy",
@@ -114,10 +115,12 @@ docker exec -it slovor-mp-web sh
 ## Troubleshooting
 
 ### Container shows "unhealthy"
+
 - Check logs: `docker-compose logs web`
 - Verify `.env.local` has all required variables
 
 ### Build fails
+
 - Ensure Docker daemon is running
 - Check disk space
 - Try `docker system prune` to clean up

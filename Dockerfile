@@ -24,8 +24,8 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies with clean install for reproducibility
-RUN npm ci --prefer-offline --no-audit --no-fund
+# Install dependencies with legacy-peer-deps for better compatibility
+RUN npm install --legacy-peer-deps --prefer-offline --no-audit --no-fund
 
 # ===========================================
 # Builder stage

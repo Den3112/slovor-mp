@@ -9,15 +9,15 @@ export default async function ContactPage() {
   return (
     <main className="relative min-h-screen overflow-hidden pb-24">
       {/* Background Orbs */}
-      <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
+      <div className="bg-primary/5 absolute top-0 right-0 h-[500px] w-[500px] translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
       <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
 
       <Container className="relative z-10 pt-32 md:pt-40">
         <div className="mx-auto mb-20 max-w-4xl text-center">
-          <h1 className="mb-8 font-heading text-6xl font-black leading-[1.05] tracking-tight text-foreground md:text-8xl">
+          <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-black tracking-tight md:text-8xl">
             {t.contact.title}
           </h1>
-          <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-muted-foreground md:text-2xl">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
             {t.contact.subtitle}
           </p>
         </div>
@@ -27,7 +27,7 @@ export default async function ContactPage() {
           <div className="space-y-6 lg:col-span-5">
             {[
               {
-                icon: <Mail className="h-6 w-6 text-primary" />,
+                icon: <Mail className="text-primary h-6 w-6" />,
                 title: t.contact.email,
                 values: ['info@slovor.sk', 'support@slovor.sk'],
               },
@@ -49,24 +49,24 @@ export default async function ContactPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="group rounded-[2rem] border border-border/50 bg-card/40 p-8 backdrop-blur-sm transition-all hover:border-primary/30"
+                className="group border-border/50 bg-card/40 hover:border-primary/30 rounded-[2rem] border p-8 backdrop-blur-sm transition-all"
               >
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/50 transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="bg-muted/50 group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110">
                   {item.icon}
                 </div>
-                <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-muted-foreground">
+                <h3 className="text-muted-foreground mb-4 text-xs font-black tracking-widest uppercase">
                   {item.title}
                 </h3>
                 {item.values.map((v, j) => (
                   <p
                     key={j}
-                    className="text-lg font-bold leading-relaxed text-foreground"
+                    className="text-foreground text-lg leading-relaxed font-bold"
                   >
                     {v}
                   </p>
                 ))}
                 {item.extra && (
-                  <p className="mt-2 text-sm font-medium text-muted-foreground">
+                  <p className="text-muted-foreground mt-2 text-sm font-medium">
                     {item.extra}
                   </p>
                 )}
@@ -76,54 +76,54 @@ export default async function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <div className="shadow-premium relative h-full overflow-hidden rounded-[2.5rem] border border-border/50 bg-card/60 p-10 backdrop-blur-md md:p-12">
-              <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
+            <div className="shadow-premium border-border/50 bg-card/60 relative h-full overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-md md:p-12">
+              <div className="bg-primary/5 absolute top-0 right-0 h-32 w-32 rounded-full blur-3xl" />
 
-              <h2 className="mb-8 font-heading text-3xl font-black italic tracking-tight text-white">
+              <h2 className="font-heading mb-8 text-3xl font-black tracking-tight text-white italic">
                 {t.contact.sendMessage}
               </h2>
 
               <form className="space-y-6">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="space-y-2">
-                    <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
+                    <label className="text-primary ml-1 text-xs font-black tracking-[0.2em] uppercase">
                       {t.contact.name}
                     </label>
                     <input
                       type="text"
-                      className="w-full rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
+                      className="border-border/50 bg-muted/30 text-foreground focus:border-primary focus:bg-muted/50 w-full rounded-2xl border px-6 py-4 font-bold transition-all focus:outline-none"
                       placeholder="John Doe"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
+                    <label className="text-primary ml-1 text-xs font-black tracking-[0.2em] uppercase">
                       Email
                     </label>
                     <input
                       type="email"
-                      className="w-full rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
+                      className="border-border/50 bg-muted/30 text-foreground focus:border-primary focus:bg-muted/50 w-full rounded-2xl border px-6 py-4 font-bold transition-all focus:outline-none"
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
+                  <label className="text-primary ml-1 text-xs font-black tracking-[0.2em] uppercase">
                     {t.contact.message}
                   </label>
                   <textarea
                     rows={5}
-                    className="w-full resize-none rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
+                    className="border-border/50 bg-muted/30 text-foreground focus:border-primary focus:bg-muted/50 w-full resize-none rounded-2xl border px-6 py-4 font-bold transition-all focus:outline-none"
                     placeholder="How can we help you?"
                   />
                 </div>
 
                 <Button
                   size="lg"
-                  className="group h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
+                  className="group shadow-primary/20 h-16 w-full rounded-2xl text-lg font-black shadow-xl"
                 >
                   {t.contact.send}
-                  <Send className="ml-2 h-5 w-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </Button>
               </form>
             </div>

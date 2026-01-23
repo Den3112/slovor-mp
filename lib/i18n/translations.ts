@@ -270,7 +270,8 @@ export const translations = {
       publish: 'Zverejniť inzerát',
       fixErrors: 'Prosím opravte zvýraznené polia',
       checkFields: 'Prosím skontrolujte nasledujúce polia',
-      maxSize: 'Max 10MB na obrázok. Podporované formáty: JPEG, PNG, WebP, GIF.',
+      maxSize:
+        'Max 10MB na obrázok. Podporované formáty: JPEG, PNG, WebP, GIF.',
       orPasteUrl: 'Alebo vložte URL obrázka',
       edit: 'Upraviť',
       preview: 'Náhľad',
@@ -339,7 +340,8 @@ export const translations = {
       contactSeller: 'Kontaktovať predávajúceho',
       listings: 'Inzeráty predávajúceho',
       noListings: 'Žiadne inzeráty',
-      noListingsDescription: 'Tento predávajúci zatiaľ nemá žiadne aktívne inzeráty.',
+      noListingsDescription:
+        'Tento predávajúci zatiaľ nemá žiadne aktívne inzeráty.',
     },
     reviews: {
       title: 'Hodnotenia',
@@ -653,7 +655,8 @@ export const translations = {
       publish: 'Zveřejnit inzerát',
       fixErrors: 'Prosím opravte zvýrazněná pole',
       checkFields: 'Prosím zkontrolujte následující pole',
-      maxSize: 'Max 10MB na obrázek. Podporované formáty: JPEG, PNG, WebP, GIF.',
+      maxSize:
+        'Max 10MB na obrázek. Podporované formáty: JPEG, PNG, WebP, GIF.',
       orPasteUrl: 'Nebo vložte URL obrázku',
       edit: 'Upravit',
       preview: 'Náhled',
@@ -722,7 +725,8 @@ export const translations = {
       contactSeller: 'Kontaktovat prodávajícího',
       listings: 'Inzeráty prodávajícího',
       noListings: 'Žádné inzeráty',
-      noListingsDescription: 'Tento prodávající zatím nemá žádné aktivní inzeráty.',
+      noListingsDescription:
+        'Tento prodávající zatím nemá žádné aktivní inzeráty.',
     },
     reviews: {
       title: 'Hodnocení',
@@ -1103,7 +1107,7 @@ export const translations = {
       rating: 'Rating',
       memberSince: 'Member since',
       contactSeller: 'Contact Seller',
-      listings: 'Seller\'s Listings',
+      listings: "Seller's Listings",
       noListings: 'No listings',
       noListingsDescription: 'This seller has no active listings yet.',
     },

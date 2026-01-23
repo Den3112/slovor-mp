@@ -21,7 +21,9 @@ export const revalidate = 60
  */
 export default async function HomePage() {
   const supabase = await createClient()
-  const { data: categories, error } = await supabase.from('categories').select('*')
+  const { data: categories, error } = await supabase
+    .from('categories')
+    .select('*')
 
   return (
     <HomeView

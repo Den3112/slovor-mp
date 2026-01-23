@@ -95,16 +95,16 @@ export function ListingFilters() {
     <div className="space-y-8">
       {/* Search Input */}
       <div className="group/search relative">
-        <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-sm transition-colors group-focus-within/search:bg-primary/10" />
+        <div className="bg-primary/5 group-focus-within/search:bg-primary/10 absolute inset-0 rounded-2xl blur-sm transition-colors" />
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within/search:text-primary" />
+          <Search className="text-muted-foreground group-focus-within/search:text-primary absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transition-colors" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
             placeholder={t.home.searchPlaceholder}
-            className="w-full rounded-xl border border-input bg-muted/30 py-4 pl-12 pr-4 text-base font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+            className="border-input bg-muted/30 placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border py-4 pr-4 pl-12 text-base font-bold transition-all focus:ring-1 focus:outline-none"
           />
         </div>
       </div>
@@ -112,12 +112,12 @@ export function ListingFilters() {
       <div className="space-y-6">
         {/* Location */}
         <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
             <MapPin className="h-4 w-4" />
             {t.filters.location}
           </label>
           <Select value={location} onValueChange={setLocation}>
-            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold">
+            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
               <SelectValue placeholder={t.filters.allLocations} />
             </SelectTrigger>
             <SelectContent>
@@ -132,7 +132,7 @@ export function ListingFilters() {
 
         {/* Price Range */}
         <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
             <Tag className="h-4 w-4" />
             {t.common.price} (EUR)
           </label>
@@ -142,25 +142,25 @@ export function ListingFilters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder={t.filters.priceMin}
-              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-base font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+              className="border-input bg-muted/30 placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-3 text-base font-bold transition-all focus:ring-1 focus:outline-none"
             />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder={t.filters.priceMax}
-              className="w-full rounded-xl border border-input bg-muted/30 px-4 py-3 text-base font-bold transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+              className="border-input bg-muted/30 placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-3 text-base font-bold transition-all focus:ring-1 focus:outline-none"
             />
           </div>
         </div>
 
         {/* Condition */}
         <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
             <PackageCheck className="h-4 w-4" />
             {t.filters.condition}
           </label>
-          <div className="flex rounded-2xl border border-border/50 bg-muted/30 p-1.5">
+          <div className="border-border/50 bg-muted/30 flex rounded-2xl border p-1.5">
             {[
               { value: '', label: t.common.all || 'All' },
               { value: 'new', label: t.filters.new },
@@ -170,9 +170,9 @@ export function ListingFilters() {
                 key={c.value}
                 onClick={() => setCondition(c.value)}
                 className={cn(
-                  'flex-1 rounded-xl py-2.5 text-xs font-black uppercase tracking-wider transition-all',
+                  'flex-1 rounded-xl py-2.5 text-xs font-black tracking-wider uppercase transition-all',
                   condition === c.value
-                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                    ? 'bg-primary text-primary-foreground shadow-primary/20 shadow-lg'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -184,12 +184,12 @@ export function ListingFilters() {
 
         {/* Sort */}
         <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-primary">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
             <TrendingUp className="h-4 w-4" />
             {t.filters.sort}
           </label>
           <Select value={sort} onValueChange={setSort}>
-            <SelectTrigger className="h-12 w-full rounded-xl border-input bg-muted/30 font-bold">
+            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -204,11 +204,11 @@ export function ListingFilters() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3 border-t border-border/50 pt-6">
+      <div className="border-border/50 flex gap-3 border-t pt-6">
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="h-14 flex-1 rounded-2xl text-sm font-black uppercase tracking-widest shadow-lg shadow-primary/20"
+          className="shadow-primary/20 h-14 flex-1 rounded-2xl text-sm font-black tracking-widest uppercase shadow-lg"
         >
           {isPending ? t.common.loading : t.filters.apply}
         </Button>
@@ -216,7 +216,7 @@ export function ListingFilters() {
           variant="outline"
           onClick={resetFilters}
           disabled={isPending}
-          className="h-14 w-14 shrink-0 rounded-2xl border-border/50 transition-colors hover:bg-destructive/5 hover:text-destructive"
+          className="border-border/50 hover:bg-destructive/5 hover:text-destructive h-14 w-14 shrink-0 rounded-2xl transition-colors"
         >
           <X className="h-5 w-5" />
         </Button>

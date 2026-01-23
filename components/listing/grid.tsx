@@ -25,7 +25,7 @@ export function ListingGrid({ listings, featured }: ListingGridProps) {
       {listings.map((listing) => (
         <div
           key={listing.id}
-          className="duration-500 animate-in fade-in zoom-in-95"
+          className="animate-in fade-in zoom-in-95 duration-500"
         >
           <ListingCard listing={listing} featured={featured} />
         </div>

@@ -35,20 +35,23 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
         />
         <meta name="theme-color" content="#6366f1" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <meta name="format-detection" content="telephone=no" />
       </head>
       <body
         suppressHydrationWarning
         className={cn(
-          'min-h-screen bg-background font-sans text-foreground antialiased'
+          'bg-background text-foreground min-h-screen font-sans antialiased'
         )}
       >
         <Providers>
           <div className="relative flex min-h-screen flex-col">
             <Suspense
               fallback={
-                <div className="h-16 border-b border-white/5 bg-background/80 backdrop-blur-md" />
+                <div className="bg-background/80 h-16 border-b border-white/5 backdrop-blur-md" />
               }
             >
               <Header />

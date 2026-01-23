@@ -91,7 +91,7 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
   }
 
   return (
-    <div className="mb-8 mt-12 flex items-center justify-center gap-2">
+    <div className="mt-12 mb-8 flex items-center justify-center gap-2">
       {/* Previous Button */}
       <Button
         onClick={() => goToPage(currentPage - 1)}
@@ -110,7 +110,7 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-4 py-2 text-muted-foreground"
+                className="text-muted-foreground px-4 py-2"
               >
                 …
               </span>
@@ -127,8 +127,8 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
               variant={isActive ? 'default' : 'outline'}
               className={
                 isActive
-                  ? 'h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 ring-2 ring-primary ring-offset-2 hover:bg-primary/90'
-                  : 'h-10 w-10 rounded-full border-border/50 bg-card text-muted-foreground hover:bg-muted hover:text-foreground'
+                  ? 'bg-primary text-primary-foreground shadow-primary/25 ring-primary hover:bg-primary/90 h-10 w-10 rounded-full shadow-lg ring-2 ring-offset-2'
+                  : 'border-border/50 bg-card text-muted-foreground hover:bg-muted hover:text-foreground h-10 w-10 rounded-full'
               }
             >
               {pageNum}
