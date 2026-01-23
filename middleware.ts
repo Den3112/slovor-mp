@@ -2,6 +2,11 @@ import { type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
+  // Return early for OPTIONS requests to avoid issues with preflight
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 200 })
+  }
+
   return await updateSession(request)
 }
 
