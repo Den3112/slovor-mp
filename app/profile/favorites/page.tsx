@@ -27,7 +27,7 @@ export default async function DashboardFavoritesPage() {
     .order('created_at', { ascending: false })
 
   const favoriteListings =
-    (favorites?.map((f) => f.listing).filter(Boolean) as any[]) || [] // eslint-disable-line @typescript-eslint/no-explicit-any
+    (favorites?.map((f) => f.listing).filter(Boolean) as any[]) || []
 
   return (
     <div className="space-y-6">

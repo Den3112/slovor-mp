@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const FlagSK = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 640 480" className={className}>

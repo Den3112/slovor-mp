@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { listingsApi } from '@/lib/api/listings'
 import { categoriesApi } from '@/lib/api/categories'

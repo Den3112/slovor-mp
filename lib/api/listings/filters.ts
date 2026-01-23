@@ -4,7 +4,6 @@ import type { ListingFilterOptions } from '../listings'
  * Applies filters to listings query
  */
 export function applyListingFilters(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any,
   options?: ListingFilterOptions
 ) {
@@ -52,7 +51,6 @@ export function applyListingFilters(
  * Applies sorting to listings query
  */
 export function applyListingSorting(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any,
   sort?: string
 ) {
@@ -75,7 +73,6 @@ export function applyListingSorting(
  * Applies pagination to listings query
  */
 export function applyListingPagination(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any,
   options?: { offset?: number; limit?: number; page?: number }
 ) {
