@@ -4,10 +4,7 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
   output: 'standalone',
 
-  // Ignore ESLint errors during build (they're checked in CI separately)
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+
 
   // Ignore TypeScript errors during build (they're checked in CI separately)
   typescript: {

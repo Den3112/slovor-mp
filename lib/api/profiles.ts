@@ -80,11 +80,8 @@ export const profilesApi = {
     try {
       // Remove sensitive or read-only fields
       const {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         id: _,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         created_at: __,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         updated_at: ___,
         ...safeUpdates
       } = updates
