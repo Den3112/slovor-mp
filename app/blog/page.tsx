@@ -106,15 +106,15 @@ export default function BlogPage() {
         <div className="min-h-screen pb-20 pt-24 md:pt-32">
             <Container>
                 {/* Header */}
-                <div className="mb-16 text-center">
-                    <div className="mx-auto mb-6 inline-flex items-center gap-3 border-2 border-primary/20 bg-primary/10 px-6 py-2">
+                <div className="mb-12 text-center">
+                    <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2">
                         <Sparkles className="h-4 w-4 text-primary" />
-                        <span className="font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Slovor Blog</span>
+                        <span className="text-sm font-medium text-primary">Slovor Blog</span>
                     </div>
-                    <h1 className="mb-6 font-heading text-6xl font-black italic tracking-tighter text-white lg:text-8xl">
+                    <h1 className="mb-4 text-4xl font-black tracking-tight lg:text-5xl">
                         Market Trends & News
                     </h1>
-                    <p className="mx-auto max-w-2xl font-sans text-lg font-medium tracking-wide text-zinc-500 leading-relaxed">
+                    <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
                         Expert insights, selling tips, and community stories to help you succeed on Slovor
                     </p>
                 </div>
@@ -122,39 +122,39 @@ export default function BlogPage() {
                 {/* Featured Post */}
                 <Link
                     href={`/blog/${featuredPost.slug}`}
-                    className="group mb-16 block border-2 border-primary/10 bg-zinc-950 transition-all hover:border-primary hover:shadow-[20px_20px_0px_0px_rgba(0,0,0,0.5)]"
+                    className="group mb-12 block overflow-hidden rounded-3xl border border-border/50 bg-card transition-all hover:border-primary/30 hover:shadow-xl"
                 >
                     <div className="grid gap-0 md:grid-cols-2">
-                        <div className="relative aspect-[4/3] md:aspect-auto border-r-2 border-primary/10 overflow-hidden">
+                        <div className="relative aspect-[4/3] md:aspect-auto">
                             <Image
                                 src={featuredPost.image}
                                 alt={featuredPost.title}
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
-                            <div className="absolute left-0 top-0">
-                                <span className="border-b-2 border-r-2 border-primary/20 bg-primary px-4 py-2 font-sans text-[10px] font-bold uppercase tracking-widest text-white">
+                            <div className="absolute left-4 top-4">
+                                <span className="rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
                                     Featured
                                 </span>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-center p-8 md:p-16">
-                            <span className={`mb-6 inline-flex w-fit border-2 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-widest ${categoryColors[featuredPost.category]}`}>
+                        <div className="flex flex-col justify-center p-8 md:p-12">
+                            <span className={`mb-4 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-medium ${categoryColors[featuredPost.category]}`}>
                                 {featuredPost.category}
                             </span>
-                            <h2 className="mb-6 font-heading text-4xl font-bold italic transition-colors group-hover:text-primary leading-tight text-white">
+                            <h2 className="mb-4 text-2xl font-bold transition-colors group-hover:text-primary md:text-3xl">
                                 {featuredPost.title}
                             </h2>
-                            <p className="mb-8 font-sans text-lg font-medium text-zinc-500 leading-relaxed">
+                            <p className="mb-6 text-muted-foreground">
                                 {featuredPost.excerpt}
                             </p>
-                            <div className="flex items-center gap-8 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600">
-                                <span className="flex items-center gap-2">
-                                    <User className="h-4 w-4 text-primary" />
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                    <User className="h-4 w-4" />
                                     {featuredPost.author}
                                 </span>
-                                <span className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4 text-primary" />
+                                <span className="flex items-center gap-1">
+                                    <Clock className="h-4 w-4" />
                                     {featuredPost.readTime}
                                 </span>
                             </div>
@@ -163,35 +163,35 @@ export default function BlogPage() {
                 </Link>
 
                 {/* Post Grid */}
-                <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {otherPosts.map((post) => (
                         <Link
                             key={post.id}
                             href={`/blog/${post.slug}`}
-                            className="group flex flex-col border-2 border-primary/10 bg-zinc-950 transition-all hover:border-primary hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,0.3)]"
+                            className="group overflow-hidden rounded-2xl border border-border/50 bg-card transition-all hover:border-primary/30 hover:shadow-lg"
                         >
-                            <div className="relative aspect-[16/10] overflow-hidden border-b-2 border-primary/10">
+                            <div className="relative aspect-[16/10] overflow-hidden">
                                 <Image
                                     src={post.image}
                                     alt={post.title}
                                     fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
                             </div>
-                            <div className="flex flex-1 flex-col p-8">
-                                <span className={`mb-4 inline-flex w-fit border-2 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-widest ${categoryColors[post.category]}`}>
+                            <div className="p-6">
+                                <span className={`mb-3 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${categoryColors[post.category]}`}>
                                     {post.category}
                                 </span>
-                                <h3 className="mb-4 font-heading text-2xl font-bold italic transition-colors group-hover:text-primary leading-tight text-white">
+                                <h3 className="mb-3 text-lg font-bold transition-colors group-hover:text-primary">
                                     {post.title}
                                 </h3>
-                                <p className="mb-8 line-clamp-3 font-sans text-sm font-medium text-zinc-500 leading-relaxed">
+                                <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
                                     {post.excerpt}
                                 </p>
-                                <div className="mt-auto flex items-center justify-between font-sans text-[10px] font-bold uppercase tracking-widest text-zinc-600">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
                                     <span>{new Date(post.date).toLocaleDateString()}</span>
-                                    <span className="flex items-center gap-2">
-                                        <Clock className="h-3 w-3 text-primary" />
+                                    <span className="flex items-center gap-1">
+                                        <Clock className="h-3 w-3" />
                                         {post.readTime}
                                     </span>
                                 </div>
@@ -201,26 +201,23 @@ export default function BlogPage() {
                 </div>
 
                 {/* Newsletter CTA */}
-                <div className="mt-24 border-2 border-primary/20 bg-zinc-950 p-12 md:p-20 relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="relative z-10 text-center">
-                        <h2 className="mb-6 font-heading text-5xl font-black italic tracking-tight text-white md:text-6xl">
-                            Stay Updated
-                        </h2>
-                        <p className="mx-auto mb-10 max-w-md font-sans font-medium tracking-wide text-zinc-500 leading-relaxed">
-                            Get the latest tips, trends, and news delivered to your inbox
-                        </p>
-                        <div className="mx-auto flex max-w-lg flex-col gap-4 sm:flex-row">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="flex-1 border-2 border-primary/20 bg-zinc-900 px-6 py-4 font-sans text-sm font-bold text-white outline-none focus:border-primary transition-all placeholder:text-zinc-700"
-                            />
-                            <button className="inline-flex items-center justify-center gap-3 bg-primary px-10 py-4 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-primary/90 hover:-translate-y-1 shadow-xl shadow-primary/20 active:translate-y-0">
-                                Subscribe
-                                <ArrowRight className="h-4 w-4" />
-                            </button>
-                        </div>
+                <div className="mt-16 rounded-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 text-center md:p-12">
+                    <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+                        Stay Updated
+                    </h2>
+                    <p className="mx-auto mb-6 max-w-md text-muted-foreground">
+                        Get the latest tips, trends, and news delivered to your inbox
+                    </p>
+                    <div className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="flex-1 rounded-xl border border-border bg-background px-4 py-3 focus:border-primary focus:outline-none"
+                        />
+                        <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-primary-foreground transition-colors hover:bg-primary/90">
+                            Subscribe
+                            <ArrowRight className="h-4 w-4" />
+                        </button>
                     </div>
                 </div>
             </Container>

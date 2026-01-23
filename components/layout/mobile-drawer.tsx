@@ -123,7 +123,7 @@ export function MobileDrawer({
                                             className="flex flex-col gap-2 p-4 rounded-2xl border bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95"
                                         >
                                             <Heart className="h-6 w-6" />
-                                            <span className="font-bold text-sm">Favorites</span>
+                                            <span className="font-bold text-sm">{t.dashboard.favorites}</span>
                                         </Link>
                                         <Link
                                             href="/profile/saved-searches"
@@ -131,7 +131,7 @@ export function MobileDrawer({
                                             className="flex flex-col gap-2 p-4 rounded-2xl border bg-muted/30 border-transparent hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-95 col-span-2"
                                         >
                                             <Star className="h-6 w-6" />
-                                            <span className="font-bold text-sm">Saved Searches</span>
+                                            <span className="font-bold text-sm">{t.common.savedSearches}</span>
                                         </Link>
                                     </div>
                                 </div>

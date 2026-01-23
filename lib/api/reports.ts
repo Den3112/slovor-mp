@@ -91,7 +91,7 @@ export const reportsApi = {
                 query = query.eq('status', params.status)
             }
 
-            if (params?.limit) {
+            if (params?.limit !== undefined) {
                 query = query.limit(params.limit)
             }
 

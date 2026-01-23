@@ -65,6 +65,9 @@ services:
   # ===========================================
   # Development configuration
   # ===========================================
+  # ===========================================
+  # Development configuration
+  # ===========================================
   dev:
     container_name: slovor-mp-dev
     build:
@@ -77,9 +80,28 @@ services:
     environment:
       - NODE_ENV=development
       - WATCHPACK_POLLING=true
+      - NEXT_TELEMETRY_DISABLED=1
     volumes:
-      - .:/app
+      - .:/app:delegated
       - /app/node_modules
       - /app/.next
     profiles:
       - dev
+
+  # ===========================================
+  # Verification (Lint, Type-check, Build)
+  # ===========================================
+  verify:
+    container_name: slovor-mp-verify
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm run verify
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app:delegated
+      - /app/node_modules
+      - /app/.next
+    profiles:
+      - verify

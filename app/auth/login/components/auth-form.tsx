@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Loader2, Eye, EyeOff } from 'lucide-react'
 
@@ -8,7 +10,7 @@ interface AuthFormProps {
     isRegistering: boolean
     showPassword: boolean
     setShowPassword: (show: boolean) => void
-    setIsRegistering: (reg: boolean) => void
+    setIsRegistering: (register: boolean) => void
 }
 
 export function AuthForm({
@@ -24,7 +26,7 @@ export function AuthForm({
         <>
             <form onSubmit={onSubmit} className="space-y-6">
                 <div className="space-y-3">
-                    <label className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+                    <label className="ml-1 text-xs font-black uppercase tracking-[0.15em] text-indigo-500/80">
                         Email Address
                     </label>
                     <input
@@ -32,13 +34,13 @@ export function AuthForm({
                         type="email"
                         placeholder="name@example.com"
                         required
-                        className="h-16 w-full rounded-none border-2 border-primary/10 bg-white/[0.03] px-6 font-sans text-sm text-white outline-none transition-all placeholder:text-zinc-700 focus:border-primary focus:bg-white/[0.05]"
+                        className="h-14 w-full rounded-2xl border border-border/40 bg-background/50 px-6 text-base text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-indigo-500/50 focus:bg-background focus:ring-4 focus:ring-indigo-500/10 shadow-inner"
                     />
                 </div>
 
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <label className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+                        <label className="ml-1 text-xs font-black uppercase tracking-[0.15em] text-indigo-500/80">
                             Password
                         </label>
                     </div>
@@ -49,12 +51,12 @@ export function AuthForm({
                             placeholder="••••••••"
                             required
                             minLength={6}
-                            className="h-16 w-full rounded-none border-2 border-primary/10 bg-white/[0.03] px-6 pr-12 font-sans text-sm text-white outline-none transition-all placeholder:text-zinc-700 focus:border-primary focus:bg-white/[0.05]"
+                            className="h-14 w-full rounded-2xl border border-border/40 bg-background/50 px-6 pr-12 text-base text-foreground outline-none transition-all placeholder:text-muted-foreground/40 focus:border-indigo-500/50 focus:bg-background focus:ring-4 focus:ring-indigo-500/10 shadow-inner"
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-6 top-1/2 -translate-y-1/2 p-2 text-zinc-600 transition-colors hover:text-white"
+                            className="absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-indigo-500 transition-colors p-2"
                         >
                             {showPassword ? (
                                 <EyeOff className="h-5 w-5" />
@@ -67,11 +69,11 @@ export function AuthForm({
 
                 <Button
                     type="submit"
-                    className="h-16 w-full rounded-none font-sans text-xs font-bold uppercase tracking-[0.2em] shadow-xl shadow-primary/10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20"
+                    className="mt-4 h-15 w-full rounded-2xl text-lg font-black shadow-xl shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:shadow-indigo-500/40 active:scale-95"
                     disabled={loading || googleLoading}
                 >
                     {loading ? (
-                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <Loader2 className="h-6 w-6 animate-spin" />
                     ) : isRegistering ? (
                         'Create Account'
                     ) : (
@@ -80,15 +82,15 @@ export function AuthForm({
                 </Button>
             </form>
 
-            <div className="mt-10 text-center">
-                <span className="font-sans text-xs font-medium text-zinc-500">
+            <div className="mt-8 text-center text-sm">
+                <span className="text-muted-foreground">
                     {isRegistering
                         ? 'Already have an account?'
                         : "Don't have an account?"}
                 </span>{' '}
                 <button
                     onClick={() => setIsRegistering(!isRegistering)}
-                    className="font-sans text-xs font-bold uppercase tracking-widest text-primary hover:text-white transition-colors"
+                    className="font-bold text-primary hover:underline decoration-2 underline-offset-4"
                 >
                     {isRegistering ? 'Sign In' : 'Sign Up'}
                 </button>

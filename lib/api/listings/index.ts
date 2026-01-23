@@ -25,13 +25,9 @@ export interface ListingFilterOptions {
 }
 
 function buildListingsQuery(options?: ListingFilterOptions) {
-    const selectStr = options?.categorySlug
-        ? '*, category:categories!inner(*)'
-        : '*, category:categories(*)'
-
     let query = supabase
         .from('listings')
-        .select(selectStr)
+        .select('*, category:categories(*)')
         .eq('is_active', true)
 
     query = applyListingFilters(query, options)
@@ -56,13 +52,9 @@ export const listingsApi = {
 
     async getCount(options?: Omit<ListingFilterOptions, 'limit' | 'offset' | 'sort'>): Promise<ApiResponse<number>> {
         try {
-            const selectStr = options?.categorySlug
-                ? 'id, category:categories!inner(slug)'
-                : 'id'
-
             let query = supabase
                 .from('listings')
-                .select(selectStr, { count: 'exact', head: true })
+                .select('id', { count: 'exact', head: true })
                 .eq('is_active', true)
 
             query = applyListingFilters(query, options)
@@ -132,7 +124,11 @@ export const listingsApi = {
 
     async create(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
         try {
-            const contentCheck = validateListingContent(listing.title || '', listing.description || '')
+            const contentCheck = validateListingContent(
+                listing.title || '',
+                listing.description || '',
+                listing.location
+            )
             if (!contentCheck.isValid) return { data: null, error: contentCheck.error || 'Content validation failed' }
 
             const { data, error } = await supabase
@@ -158,6 +154,17 @@ export const listingsApi = {
 
     async update(id: string, updates: Partial<Listing>): Promise<ApiResponse<Listing>> {
         try {
+            if (updates.title || updates.description || updates.location) {
+                // To properly validate, we might need current state, but for now validate new values
+                // If title is not updated, it's fine to leave empty or fetch current
+                const contentCheck = validateListingContent(
+                    updates.title || '',
+                    updates.description || '',
+                    updates.location
+                )
+                if (!contentCheck.isValid) return { data: null, error: contentCheck.error || 'Content validation failed' }
+            }
+
             const updateData = { ...updates, updated_at: new Date().toISOString() }
             Object.keys(updateData).forEach(key => updateData[key as keyof typeof updateData] === undefined && delete updateData[key as keyof typeof updateData])
 

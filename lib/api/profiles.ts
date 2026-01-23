@@ -1,15 +1,9 @@
-import { supabase } from '@/lib/supabase/client'
-import type { User, ApiResponse, Listing } from '@/lib/types/database'
-import { logError } from '@/lib/utils/logger'
+// Profiles API
+// Centralized API layer for user profiles management
 
-export interface ProfileStats {
-    totalViews: number
-    activeListings: number
-    inactiveListings: number
-    favoritesCount: number
-    avgViewsPerListing: number
-    totalListings: number
-}
+import { supabase } from '@/lib/supabase/client'
+import type { User, ApiResponse } from '@/lib/types/database'
+import { logError } from '@/lib/utils/logger'
 
 export const profilesApi = {
     /**
@@ -114,7 +108,7 @@ export const profilesApi = {
     /**
      * Fetches comprehensive profile statistics for a user
      */
-    async getStats(userId: string): Promise<ApiResponse<ProfileStats>> {
+    async getStats(userId: string): Promise<ApiResponse<any>> {
         try {
             // Get all user's listings
             const { data: listings, error: listingsError } = await supabase
@@ -144,7 +138,7 @@ export const profilesApi = {
                 throw favoritesError
             }
 
-            const stats: ProfileStats = {
+            const stats = {
                 totalViews,
                 activeListings,
                 inactiveListings,
@@ -166,7 +160,7 @@ export const profilesApi = {
     async getRecentActivity(
         userId: string,
         limit = 5
-    ): Promise<ApiResponse<Listing[]>> {
+    ): Promise<ApiResponse<any[]>> {
         try {
             const { data, error } = await supabase
                 .from('listings')
@@ -186,6 +180,4 @@ export const profilesApi = {
         }
     },
 }
-
 export const usersApi = profilesApi
-export const profileApi = profilesApi

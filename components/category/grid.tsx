@@ -3,8 +3,11 @@
 import Link from 'next/link'
 import type { Category } from '@/lib/types/database'
 import { useTranslation } from '@/lib/i18n'
-import { CategoryIcon } from './category-icon'
-import { getLocalizedCategoryName, getUniqueCategories } from '@/lib/utils/category-i18n'
+import { CategoryIcon } from './CategoryIcon'
+import {
+  getUniqueCategories,
+  getLocalizedCategoryName,
+} from '@/lib/utils/category-i18n'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -39,9 +42,11 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                 <ArrowUpRight className="h-5 w-5 text-primary" />
               </div>
 
-              <div className="mb-6 rounded-3xl bg-muted/50 p-6 transition-all duration-500 group-hover/card:rotate-6 group-hover/card:scale-110 group-hover/card:bg-primary group-hover/card:text-primary-foreground">
-                <CategoryIcon slug={category.slug} className="h-12 w-12" />
-              </div>
+              {category.icon_name && (
+                <div className="mb-6 rounded-3xl bg-muted/50 p-6 transition-all duration-500 group-hover/card:rotate-6 group-hover/card:scale-110 group-hover/card:bg-primary group-hover/card:text-primary-foreground">
+                  <CategoryIcon slug={category.slug} className="h-12 w-12" />
+                </div>
+              )}
 
               <h3 className="text-center text-xl font-black tracking-tight text-foreground transition-colors group-hover/card:text-primary">
                 {getLocalizedCategoryName(category, locale, t)}
@@ -57,7 +62,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
             {/* Subcategories Premium Mini-List */}
             {category.subcategories && category.subcategories.length > 0 && (
               <div className="flex flex-wrap gap-2 px-4">
-                {category.subcategories.slice(0, 4).map((sub: Category) => (
+                {category.subcategories.slice(0, 4).map((sub) => (
                   <Link
                     key={sub.id}
                     href={`/categories/${sub.slug}`}

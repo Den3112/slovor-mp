@@ -7,24 +7,24 @@ export default async function ContactPage() {
   const { t } = await getTranslationServer()
 
   return (
-    <main className="relative min-h-screen pb-24 bg-black">
-      {/* Architectural Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+    <main className="relative min-h-screen overflow-hidden pb-24">
+      {/* Background Orbs */}
+      <div className="absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
+      <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
 
-      <Container className="relative z-10 pt-32 md:pt-48">
-        <div className="mx-auto mb-24 max-w-4xl text-center">
-          <h1 className="mb-10 font-heading text-6xl font-black italic leading-[0.9] tracking-tighter text-white md:text-9xl">
+      <Container className="relative z-10 pt-32 md:pt-40">
+        <div className="mx-auto mb-20 max-w-4xl text-center">
+          <h1 className="mb-8 font-heading text-6xl font-black leading-[1.05] tracking-tight text-foreground md:text-8xl">
             {t.contact.title}
           </h1>
-          <p className="mx-auto max-w-2xl font-sans text-xl font-medium tracking-wide text-zinc-500 leading-relaxed md:text-2xl">
+          <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-muted-foreground md:text-2xl">
             {t.contact.subtitle}
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Contact Info */}
-          <div className="space-y-8 lg:col-span-5">
+          <div className="space-y-6 lg:col-span-5">
             {[
               {
                 icon: <Mail className="h-6 w-6 text-primary" />,
@@ -32,13 +32,13 @@ export default async function ContactPage() {
                 values: ['info@slovor.sk', 'support@slovor.sk'],
               },
               {
-                icon: <Phone className="h-6 w-6 text-primary" />,
+                icon: <Phone className="h-6 w-6 text-blue-500" />,
                 title: t.contact.phone,
                 values: ['+421 2 123 456 78'],
                 extra: 'Mon-Fri: 9:00 - 17:00',
               },
               {
-                icon: <MapPin className="h-6 w-6 text-primary" />,
+                icon: <MapPin className="h-6 w-6 text-emerald-500" />,
                 title: t.contact.office,
                 values: [
                   'Slovor Marketplace s.r.o.',
@@ -49,24 +49,24 @@ export default async function ContactPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="group border-2 border-primary/10 bg-zinc-950 p-10 transition-all hover:border-primary hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,0.3)]"
+                className="group rounded-[2rem] border border-border/50 bg-card/40 p-8 backdrop-blur-sm transition-all hover:border-primary/30"
               >
-                <div className="mb-8 flex h-16 w-16 items-center justify-center border-2 border-primary/20 bg-primary/5 transition-all duration-500 group-hover:bg-primary group-hover:text-white">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/50 transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
                   {item.icon}
                 </div>
-                <h3 className="mb-6 font-sans text-xs font-black uppercase tracking-[0.3em] text-zinc-500">
+                <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-muted-foreground">
                   {item.title}
                 </h3>
                 {item.values.map((v, j) => (
                   <p
                     key={j}
-                    className="font-sans text-lg font-bold leading-relaxed text-white tracking-wide"
+                    className="text-lg font-bold leading-relaxed text-foreground"
                   >
                     {v}
                   </p>
                 ))}
                 {item.extra && (
-                  <p className="mt-4 font-sans text-[10px] font-bold uppercase tracking-widest text-primary/60">
+                  <p className="mt-2 text-sm font-medium text-muted-foreground">
                     {item.extra}
                   </p>
                 )}
@@ -76,52 +76,54 @@ export default async function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <div className="relative h-full border-2 border-primary/20 bg-zinc-950 p-10 md:p-20 shadow-[20px_20px_0px_0px_rgba(0,0,0,0.5)]">
-              <h2 className="mb-12 font-heading text-5xl font-black italic tracking-tight text-white">
+            <div className="shadow-premium relative h-full overflow-hidden rounded-[2.5rem] border border-border/50 bg-card/60 p-10 backdrop-blur-md md:p-12">
+              <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
+
+              <h2 className="mb-8 font-heading text-3xl font-black italic tracking-tight text-white">
                 {t.contact.sendMessage}
               </h2>
 
-              <form className="space-y-10">
-                <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-                  <div className="space-y-4">
-                    <label className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-primary">
+              <form className="space-y-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
                       {t.contact.name}
                     </label>
                     <input
                       type="text"
-                      className="w-full border-b-2 border-primary/10 bg-transparent py-4 font-sans text-lg font-bold text-white transition-all focus:border-primary focus:outline-none placeholder:text-zinc-800"
+                      className="w-full rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
                       placeholder="John Doe"
                     />
                   </div>
-                  <div className="space-y-4">
-                    <label className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-primary">
+                  <div className="space-y-2">
+                    <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
                       Email
                     </label>
                     <input
                       type="email"
-                      className="w-full border-b-2 border-primary/10 bg-transparent py-4 font-sans text-lg font-bold text-white transition-all focus:border-primary focus:outline-none placeholder:text-zinc-800"
+                      className="w-full rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <label className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-primary">
+                <div className="space-y-2">
+                  <label className="ml-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
                     {t.contact.message}
                   </label>
                   <textarea
                     rows={5}
-                    className="w-full resize-none border-2 border-primary/10 bg-zinc-900/30 p-8 font-sans text-lg font-bold text-white transition-all focus:border-primary focus:outline-none placeholder:text-zinc-800"
+                    className="w-full resize-none rounded-2xl border border-border/50 bg-muted/30 px-6 py-4 font-bold text-foreground transition-all focus:border-primary focus:bg-muted/50 focus:outline-none"
                     placeholder="How can we help you?"
                   />
                 </div>
 
                 <Button
                   size="lg"
-                  className="group h-20 w-full rounded-none font-sans text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-primary/20"
+                  className="group h-16 w-full rounded-2xl text-lg font-black shadow-xl shadow-primary/20"
                 >
                   {t.contact.send}
-                  <Send className="ml-4 h-5 w-5 transition-transform group-hover:-translate-y-2 group-hover:translate-x-2" />
+                  <Send className="ml-2 h-5 w-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </Button>
               </form>
             </div>

@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 
@@ -9,18 +11,18 @@ interface AuthSocialProps {
 
 export function AuthSocial({ onGoogleLogin, googleLoading, loading }: AuthSocialProps) {
     return (
-        <div className="mb-10 space-y-4">
+        <div className="mb-8 space-y-4">
             <Button
                 type="button"
                 variant="outline"
-                className="group h-16 w-full rounded-none border-2 border-primary/20 bg-white/[0.03] font-sans text-xs font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-white/5 hover:border-primary active:scale-95"
+                className="group h-14 w-full rounded-2xl border-border/40 bg-background/50 text-base font-bold transition-all hover:bg-muted/50 hover:border-indigo-500/30 hover:scale-[1.02] active:scale-95"
                 onClick={onGoogleLogin}
                 disabled={googleLoading || loading}
             >
                 {googleLoading ? (
-                    <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 ) : (
-                    <svg className="mr-3 h-5 w-5 opacity-80 transition-opacity group-hover:opacity-100" viewBox="0 0 24 24">
+                    <svg className="mr-2 h-5 w-5 opacity-80 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24">
                         <path
                             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                             fill="#4285F4"
@@ -42,12 +44,12 @@ export function AuthSocial({ onGoogleLogin, googleLoading, loading }: AuthSocial
                 Continue with Google
             </Button>
 
-            <div className="relative py-4">
+            <div className="relative py-1 md:py-2">
                 <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t-2 border-primary/10" />
+                    <span className="w-full border-t border-white/10" />
                 </div>
-                <div className="relative flex justify-center font-sans text-[10px] font-bold uppercase tracking-[0.3em]">
-                    <span className="bg-background px-4 text-zinc-600">Or continue with email</span>
+                <div className="relative flex justify-center text-[10px] uppercase tracking-widest">
+                    <span className="bg-background/80 backdrop-blur px-2 text-muted-foreground">Or continue with email</span>
                 </div>
             </div>
         </div>

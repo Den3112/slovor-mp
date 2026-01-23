@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Jost, Bodoni_Moda } from 'next/font/google'
+import { DM_Sans, Outfit } from 'next/font/google'
 import { Suspense } from 'react'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
@@ -7,9 +7,8 @@ import { Providers } from './providers'
 import './globals.css'
 import { cn } from '@/lib/utils'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const jost = Jost({ subsets: ['latin'], variable: '--font-jost' })
-const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
 
 export const metadata: Metadata = {
   title: 'Slovor Marketplace - Slovakia Classifieds',
@@ -27,7 +26,7 @@ export default function RootLayout({
       lang="sk"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={cn(inter.variable, jost.variable, bodoni.variable)}
+      className={`${dmSans.variable} ${outfit.variable}`}
     >
       <head>
         <meta charSet="utf-8" />
@@ -35,7 +34,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
         />
-        <meta name="theme-color" content="#8b5cf6" />
+        <meta name="theme-color" content="#6366f1" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="format-detection" content="telephone=no" />
       </head>
@@ -54,7 +53,7 @@ export default function RootLayout({
             >
               <Header />
             </Suspense>
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 pb-24 md:pb-0">{children}</main>
             <Footer />
           </div>
         </Providers>

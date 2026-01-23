@@ -25,10 +25,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-jost)', 'var(--font-inter)', 'sans-serif'],
-        heading: ['var(--font-bodoni)', 'var(--font-outfit)', 'serif'],
-        jost: ['var(--font-jost)', 'sans-serif'],
-        bodoni: ['var(--font-bodoni)', 'serif'],
+        sans: ['var(--font-dm-sans)', 'sans-serif'],
+        heading: ['var(--font-outfit)', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -66,9 +64,11 @@ const config = {
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        '2xl': 'var(--radius)',
+        xl: 'calc(var(--radius) - 4px)',
+        lg: 'calc(var(--radius) - 8px)',
+        md: 'calc(var(--radius) - 12px)',
+        sm: 'calc(var(--radius) - 16px)',
       },
       keyframes: {
         'accordion-down': {
@@ -92,6 +92,7 @@ const config = {
       boxShadow: {
         highlight: 'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
         glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+        'soft-shadow': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
       },
     },
   },

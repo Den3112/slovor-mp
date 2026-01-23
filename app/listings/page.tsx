@@ -23,11 +23,9 @@ interface Props {
 export default async function ListingsPage({ searchParams }: Props) {
   const params = await searchParams
 
-  const isUuid = (val: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val)
-
   const filterOptions = {
     search: params.search,
-    ...(params.category ? (isUuid(params.category) ? { categoryId: params.category } : { categorySlug: params.category }) : {}),
+    categoryId: params.category,
     priceMin: params.priceMin ? parseInt(params.priceMin) : undefined,
     priceMax: params.priceMax ? parseInt(params.priceMax) : undefined,
     condition: params.condition as 'new' | 'used' | undefined,

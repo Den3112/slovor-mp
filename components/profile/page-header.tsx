@@ -14,13 +14,13 @@ export function DashboardPageHeader({
     className
 }: DashboardPageHeaderProps) {
     return (
-        <div className={cn("flex flex-col md:flex-row md:items-start justify-between gap-6 mb-12", className)}>
-            <div className="space-y-3">
-                <h1 className="font-heading text-5xl font-bold italic tracking-tight text-white">
+        <div className={cn("flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8", className)}>
+            <div className="space-y-1">
+                <h1 className="font-heading text-3xl font-black tracking-tight text-foreground">
                     {title}
                 </h1>
                 {description && (
-                    <p className="font-sans text-sm font-medium tracking-wide text-zinc-500 max-w-2xl leading-relaxed">
+                    <p className="text-muted-foreground font-medium text-base">
                         {description}
                     </p>
                 )}

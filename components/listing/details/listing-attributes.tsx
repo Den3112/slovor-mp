@@ -9,16 +9,17 @@ interface ListingDetailsGridProps {
     categoryName?: string
 }
 
+
 export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
     const { t, locale } = useTranslation()
 
     return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-            <div className="border-2 border-primary/10 bg-zinc-950/80 p-6 transition-all hover:bg-primary/5 hover:border-primary/40 group">
-                <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60 group-hover:text-primary transition-colors">
+        <div className="grid grid-cols-2 gap-4 md:gap-6 md:grid-cols-3">
+            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 transition-transform hover:scale-105">
+                <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
                     {t.common.condition}
                 </p>
-                <div className="flex items-center gap-3 font-sans text-lg font-bold text-white uppercase tracking-widest">
+                <div className="flex items-center gap-2 font-bold text-foreground text-lg">
                     {listing.condition === 'new' ? (
                         <>
                             <Sparkles className="h-5 w-5 text-emerald-500" />
@@ -32,23 +33,21 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
                     )}
                 </div>
             </div>
-
-            <div className="border-2 border-primary/10 bg-zinc-950/80 p-6 transition-all hover:bg-primary/5 hover:border-primary/40 group">
-                <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60 group-hover:text-primary transition-colors">
+            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 transition-transform hover:scale-105">
+                <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
                     {t.common.location}
                 </p>
-                <div className="flex items-center gap-3 font-sans text-lg font-bold text-white uppercase tracking-widest">
+                <div className="flex items-center gap-2 font-bold text-foreground text-lg">
                     <MapPin className="h-5 w-5 text-primary" />
                     <span className="truncate">{listing.location}</span>
                 </div>
             </div>
-
-            <div className="border-2 border-primary/10 bg-zinc-950/80 p-6 transition-all hover:bg-primary/5 hover:border-primary/40 group">
-                <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60 group-hover:text-primary transition-colors">
+            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 transition-transform hover:scale-105 col-span-2 md:col-span-1">
+                <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
                     {t.common.published}
                 </p>
-                <div className="flex items-center gap-3 font-sans text-lg font-bold text-white uppercase tracking-widest">
-                    <Calendar className="h-5 w-5 text-primary" />
+                <div className="flex items-center gap-2 font-bold text-foreground text-lg">
+                    <Calendar className="h-5 w-5 text-blue-500" />
                     <span suppressHydrationWarning>
                         {new Date(listing.created_at).toLocaleDateString(locale)}
                     </span>

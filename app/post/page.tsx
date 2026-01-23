@@ -1,4 +1,4 @@
-import { CreateListingForm } from '@/components/listing/form/create-listing-form'
+import { CreateListingForm } from '@/components/listing/create-listing-form'
 
 
 export default function PostAdPage() {

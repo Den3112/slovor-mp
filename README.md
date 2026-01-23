@@ -1,5 +1,7 @@
 # 🛒 Slovor Marketplace
 
+> **🤖 FOR AI AGENTS:** Before starting ANY work, you **MUST** read the mandatory project workflows in `.agent/workflows/`. Specifically, `bot-charter.md` (Global Instructions) and `coding-rules.md` (Code Standards & Reports) define your operating protocol. DO NOT skip this.
+
 > **Premium Slovakian Classifieds Marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS. Featuring "Avant-Garde" UI/UX.
 
 **Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)
