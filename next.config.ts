@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   output: 'standalone',
 
   // Ignore ESLint errors during build (they're checked in CI separately)
-  // @ts-ignore - Property 'eslint' does not exist in type 'NextConfig' in this version/type-def
   eslint: {
     ignoreDuringBuilds: true,
   },
