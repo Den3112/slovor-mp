@@ -26,8 +26,9 @@ test.describe('Search and Filter Flow', () => {
   })
 
   test('Price filter updates URL', async ({ page }) => {
-    const minPriceInput = page.locator('input[type="number"]').first()
-    const maxPriceInput = page.locator('input[type="number"]').nth(1)
+    const minPriceInput = page.locator('input[placeholder*="Min"]').first()
+    const maxPriceInput = page.locator('input[placeholder*="Max"]').first()
+    const applyButton = page.getByRole('button', { name: /Apply|Применить/i })
 
     if (
       (await minPriceInput.isVisible()) &&
@@ -36,7 +37,8 @@ test.describe('Search and Filter Flow', () => {
       await minPriceInput.fill('100')
       await maxPriceInput.fill('500')
 
-      await maxPriceInput.press('Enter')
+      // Use the button instead of assuming Enter works on these inputs
+      await applyButton.click()
 
       await expect(page).toHaveURL(/.*priceMin=100.*priceMax=500/)
     }
