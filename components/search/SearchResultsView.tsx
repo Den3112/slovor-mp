@@ -1,7 +1,7 @@
 'use client'
 
 import { ListingCard } from '@/components/listing/card'
-import { Pagination } from '@/components/category/pagination'
+import { Pagination } from '@/components/category/Pagination'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/api'
 
@@ -141,7 +141,7 @@ export function SearchResultsView({
 
 // I need SortSelect.
 // I'll assume SortSelect is a client component since it handles interaction.
-import { SortSelect } from '@/components/search/sort-select'
+import { SortSelect } from '@/components/search/SortSelect'
 
 function SortSelectWrapper() {
   return <SortSelect />

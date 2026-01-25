@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import type { Category } from '@/lib/types/database'
 import { useTranslation } from '@/lib/i18n'
-import { CategoryIcon } from './category-icon'
+import { CategoryIcon } from './CategoryIcon'
 import {
   getUniqueCategories,
   getLocalizedCategoryName,

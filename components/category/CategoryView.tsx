@@ -3,12 +3,12 @@
 import { ListingGrid } from '@/components/listing/grid'
 import { ErrorState } from '@/components/ui/error-state'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
-import { Filters } from '@/components/category/filters'
-import { Pagination } from '@/components/category/pagination'
+import { Filters } from '@/components/category/Filters'
+import { Pagination } from '@/components/category/Pagination'
 import { useTranslation } from '@/lib/i18n'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import type { Category, Listing } from '@/lib/types/database'
-import { CategoryIcon } from '@/components/category/category-icon'
+import { CategoryIcon } from '@/components/category/CategoryIcon'
 
 interface CategoryViewProps {
   category: Category

@@ -8,7 +8,7 @@ import type {
   ListingFormErrors,
 } from '@/lib/utils/listing-form-schema'
 
-import { CategoryIcon } from '@/components/category/category-icon'
+import { CategoryIcon } from '@/components/category/CategoryIcon'
 
 interface StepCategoryProps {
   categories: Category[]

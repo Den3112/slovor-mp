@@ -1,9 +1,9 @@
 'use client'
 
-import { Hero } from './hero'
-import { HomeCategories } from './home-categories'
-import { Features } from './features'
-import { HomeCTA } from './home-cta'
+import { Hero } from './Hero'
+import { HomeCategories } from './HomeCategories'
+import { Features } from './Features'
+import { HomeCTA } from './HomeCTA'
 import { Flame, ArrowRight } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
