@@ -41,7 +41,7 @@ export function CategoryView({
 
       <div className="fade-in-up mt-8 mb-16">
         <div className="flex flex-col gap-8 md:flex-row md:items-center">
-          <div className="border-border/40 bg-card shadow-soft-shadow flex h-24 w-24 items-center justify-center rounded-[2rem] border md:h-32 md:w-32">
+          <div className="border-border/40 bg-card shadow-soft-shadow flex h-24 w-24 items-center justify-center rounded-4xl border md:h-32 md:w-32">
             <CategoryIcon
               slug={category.slug}
               className="text-primary animate-float h-12 w-12 transition-all duration-700 md:h-16 md:w-16"

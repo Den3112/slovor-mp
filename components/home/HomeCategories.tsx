@@ -57,13 +57,13 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
             >
               <Link
                 href={`/categories/${category.slug}`}
-                className="group border-border/40 bg-card/50 md:hover:border-primary/30 relative block aspect-square overflow-hidden rounded-2xl border shadow-sm backdrop-blur-sm transition-all duration-500 active:scale-[0.98] sm:rounded-[2rem] md:rounded-[2.5rem] md:hover:shadow-2xl"
+                className="group border-border/40 bg-card/50 md:hover:border-primary/30 relative block aspect-square overflow-hidden rounded-2xl border shadow-sm backdrop-blur-sm transition-all duration-500 active:scale-[0.98] sm:rounded-4xl md:rounded-[2.5rem] md:hover:shadow-2xl"
               >
-                <div className="from-primary/10 absolute inset-0 bg-gradient-to-br via-transparent to-indigo-500/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-[2rem] md:rounded-[2.5rem]" />
+                <div className="from-primary/10 absolute inset-0 bg-linear-to-br via-transparent to-indigo-500/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-4xl md:rounded-[2.5rem]" />
 
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 text-center md:p-8">
-                  <div className="bg-muted/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/30 md:group-hover:shadow-primary/40 mb-3 flex h-14 w-14 items-center justify-center rounded-xl shadow-sm transition-all duration-500 group-hover:scale-105 group-hover:rotate-[10deg] group-hover:shadow-lg sm:h-16 sm:w-16 sm:rounded-2xl md:mb-6 md:h-20 md:w-20 md:rounded-3xl md:group-hover:scale-110 md:group-hover:rotate-[15deg] md:group-hover:shadow-xl">
+                  <div className="bg-muted/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/30 md:group-hover:shadow-primary/40 mb-3 flex h-14 w-14 items-center justify-center rounded-xl shadow-sm transition-all duration-500 group-hover:scale-105 group-hover:rotate-10 group-hover:shadow-lg sm:h-16 sm:w-16 sm:rounded-2xl md:mb-6 md:h-20 md:w-20 md:rounded-3xl md:group-hover:scale-110 md:group-hover:rotate-15 md:group-hover:shadow-xl">
                     <CategoryIcon
                       slug={category.slug}
                       className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10"
@@ -74,7 +74,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
                   </h3>
                   {category.listing_count !== undefined && (
                     <div className="bg-muted/50 group-hover:bg-primary/5 mt-2 rounded-full px-2.5 py-1 transition-colors md:mt-3 md:px-3">
-                      <p className="text-muted-foreground group-hover:text-primary text-[9px] font-black tracking-[0.1em] uppercase md:text-[10px]">
+                      <p className="text-muted-foreground group-hover:text-primary text-[9px] font-black tracking-widest uppercase md:text-[10px]">
                         {category.listing_count} {t.common.listings}
                       </p>
                     </div>
@@ -82,7 +82,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
                 </div>
 
                 {/* Decorative Element - Hidden on mobile */}
-                <div className="bg-primary/5 group-hover:bg-primary/10 absolute -top-8 -left-8 hidden h-24 w-24 rounded-full blur-[30px] transition-colors duration-700 md:block md:h-32 md:w-32 md:blur-[40px]" />
+                <div className="bg-primary/5 group-hover:bg-primary/10 absolute -top-8 -left-8 hidden h-24 w-24 rounded-full blur-[30px] transition-colors duration-700 md:block md:h-32 md:w-32 md:blur-2xl" />
               </Link>
             </motion.div>
           ))}
