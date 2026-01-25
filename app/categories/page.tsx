@@ -5,7 +5,7 @@ import { getTranslationServer } from '@/lib/i18n/server'
 
 export const revalidate = 300 // 5 minutes
 
-import { CategoriesGrid } from '@/components/category/CategoriesGrid'
+import { CategoriesGrid } from '@/components/category/categories-grid'
 import { createClient } from '@/lib/supabase/server'
 
 async function CategoriesGridWrapper() {

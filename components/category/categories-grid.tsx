@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
-import { CategoryIcon } from '@/components/category/CategoryIcon'
+import { CategoryIcon } from '@/components/category/category-icon'
 
 interface CategoriesGridProps {
   categories: Category[]

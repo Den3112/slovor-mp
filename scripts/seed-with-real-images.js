@@ -1043,7 +1043,6 @@ function generateListing(category, index) {
 
 async function ensureTestSeller() {
   const userId = '522f621e-3e70-40bc-b312-81ba9a105170'
-  const userEmail = 'test.seller@slovor.sk'
 
   console.log(`🔧 Ensuring test seller exists (${userId})...`)
 

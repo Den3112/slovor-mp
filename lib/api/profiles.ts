@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabase/client'
 import type { User, ApiResponse, Listing } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
+import { profileUpdateSchema } from '@/lib/validations/profile'
+import { safeValidateData } from '@/lib/validations/utils'
 
 export interface ProfileStats {
   totalViews: number
@@ -78,13 +80,17 @@ export const profilesApi = {
    */
   async update(id: string, updates: Partial<User>): Promise<ApiResponse<User>> {
     try {
-      // Remove sensitive or read-only fields
+      // 1. Structural Validation (Zod)
+      const validation = safeValidateData(profileUpdateSchema, updates)
+      if (validation.error) return { data: null, error: validation.error }
+
+      // Remove read-only fields that might have leaked in
       const {
         id: _,
         created_at: __,
         updated_at: ___,
         ...safeUpdates
-      } = updates
+      } = validation.data as any
 
       // Use upsert to create profile if it doesn't exist
       const { data, error } = await supabase
@@ -125,10 +131,10 @@ export const profilesApi = {
 
       // Calculate statistics
       const totalListings = listings?.length || 0
-      const activeListings = listings?.filter((l) => l.is_active).length || 0
-      const inactiveListings = listings?.filter((l) => !l.is_active).length || 0
+      const activeListings = listings?.filter((l: any) => l.is_active).length || 0
+      const inactiveListings = listings?.filter((l: any) => !l.is_active).length || 0
       const totalViews =
-        listings?.reduce((sum, l) => sum + (l.views || 0), 0) || 0
+        listings?.reduce((sum: number, l: any) => sum + (l.views || 0), 0) || 0
       const avgViewsPerListing =
         totalListings > 0 ? Math.round(totalViews / totalListings) : 0
 

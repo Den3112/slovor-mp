@@ -1,7 +1,7 @@
 'use client'
 
 import { ListingCard } from '@/components/listing/card'
-import { Pagination } from '@/components/category/Pagination'
+import { Pagination } from '@/components/category/pagination'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/api'
 
@@ -109,7 +109,7 @@ export function SearchResultsView({
           Actually, I can just make a small inline Client Component for the header in `app/search/page.tsx`?
           No, Next.js doesn't like defining components inside other files usually if they need `use client`.
 
-          Let's create `components/search/SearchHeader.tsx` as an un-planned but necessary extra step to fulfill the "Global Dynamic Localization" goal.
+          Let's create `components/search/search-header.tsx` as an un-planned but necessary extra step to fulfill the "Global Dynamic Localization" goal.
           I'll add it to the implementation plan implicitly or just do it. I'll do it.
 
           So first, `SearchResultsView.tsx`.
@@ -121,7 +121,7 @@ export function SearchResultsView({
           {t.common.showingResults || 'Showing results'}
         </span>
         {/* SortSelect is already a component, likely client? Let's check imports in page.tsx.
-            It was imported from '@/components/search/SortSelect'.
+            It was imported from '@/components/search/sort-select'.
             I'll assume it's good or I'll check it later.
             I need to include it here.
         */}
@@ -141,7 +141,7 @@ export function SearchResultsView({
 
 // I need SortSelect.
 // I'll assume SortSelect is a client component since it handles interaction.
-import { SortSelect } from '@/components/search/SortSelect'
+import { SortSelect } from '@/components/search/sort-select'
 
 function SortSelectWrapper() {
   return <SortSelect />

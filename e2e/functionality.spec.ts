@@ -221,8 +221,8 @@ test.describe('UI Elements', () => {
       // Theme should have toggled (classes changed)
       expect(
         htmlBefore !== htmlAfter ||
-          htmlAfter?.includes('dark') ||
-          htmlAfter?.includes('light')
+        htmlAfter?.includes('dark') ||
+        htmlAfter?.includes('light')
       ).toBeTruthy()
     }
   })
@@ -596,7 +596,6 @@ test.describe('Skeleton Loading States', () => {
 
   test('SkeletonCard structure is correct', async ({ page }) => {
     // Verify skeleton components exist in the codebase
-    const skeletonCardPath = 'components/ui/skeleton-card.tsx'
     await page.goto('/')
 
     // Just verify page loads - actual component testing would be done in unit tests

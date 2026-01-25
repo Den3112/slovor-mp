@@ -9,6 +9,8 @@ import {
   applyListingSorting,
   applyListingPagination,
 } from './filters'
+import { listingCreateSchema, listingUpdateSchema } from '@/lib/validations/listing'
+import { safeValidateData } from '@/lib/validations/utils'
 
 export interface ListingFilterOptions {
   categoryId?: string
@@ -139,6 +141,11 @@ export const listingsApi = {
 
   async create(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
     try {
+      // 1. Structural Validation (Zod)
+      const validation = safeValidateData(listingCreateSchema, listing)
+      if (validation.error) return { data: null, error: validation.error }
+
+      // 2. Content Moderation
       const contentCheck = validateListingContent(
         listing.title || '',
         listing.description || '',
@@ -153,7 +160,7 @@ export const listingsApi = {
       const { data, error } = await supabase
         .from('listings')
         .insert({
-          ...listing,
+          ...validation.data,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
           is_active: true,
@@ -176,9 +183,12 @@ export const listingsApi = {
     updates: Partial<Listing>
   ): Promise<ApiResponse<Listing>> {
     try {
+      // 1. Structural Validation (Zod)
+      const validation = safeValidateData(listingUpdateSchema, updates)
+      if (validation.error) return { data: null, error: validation.error }
+
       if (updates.title || updates.description || updates.location) {
-        // To properly validate, we might need current state, but for now validate new values
-        // If title is not updated, it's fine to leave empty or fetch current
+        // 2. Content Moderation
         const contentCheck = validateListingContent(
           updates.title || '',
           updates.description || '',
@@ -191,7 +201,7 @@ export const listingsApi = {
           }
       }
 
-      const updateData = { ...updates, updated_at: new Date().toISOString() }
+      const updateData = { ...validation.data, updated_at: new Date().toISOString() }
       Object.keys(updateData).forEach(
         (key) =>
           updateData[key as keyof typeof updateData] === undefined &&
