@@ -1062,14 +1062,17 @@ async function ensureTestSeller() {
       username: 'test_seller',
       full_name: 'Test Seller',
       verified: true,
-      avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller'
+      avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller',
     })
 
     if (error) {
-       // Ignore duplicate key error if it happened in parallel
-       if (error.code !== '23505') {
-         console.warn('   ⚠️ Warning: Could not create public.users record:', error.message)
-       }
+      // Ignore duplicate key error if it happened in parallel
+      if (error.code !== '23505') {
+        console.warn(
+          '   ⚠️ Warning: Could not create public.users record:',
+          error.message
+        )
+      }
     } else {
       console.log('   ✅ Created public.users record')
     }
@@ -1078,26 +1081,29 @@ async function ensureTestSeller() {
   // 2. Ensuring profile exists (Required for Seller Page)
   // This is usually handled by triggers, but good to double check for seed stability
   const { data: existingProfile } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('id', userId)
-      .single()
+    .from('profiles')
+    .select('id')
+    .eq('id', userId)
+    .single()
 
   if (!existingProfile) {
-     console.log('   Creating record in public.profiles...')
-     const { error: profileError } = await supabase.from('profiles').insert({
-         id: userId,
-         display_name: 'Test Seller',
-         bio: 'Professional seller with great products and reviews.',
-         location: 'Bratislava, Slovakia',
-         phone: '+421 123 456 789',
-         avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller'
-     })
-     if (profileError && profileError.code !== '23505') {
-         console.warn('   ⚠️ Warning: Could not create profile:', profileError.message)
-     } else {
-         console.log('   ✅ Created profile record')
-     }
+    console.log('   Creating record in public.profiles...')
+    const { error: profileError } = await supabase.from('profiles').insert({
+      id: userId,
+      display_name: 'Test Seller',
+      bio: 'Professional seller with great products and reviews.',
+      location: 'Bratislava, Slovakia',
+      phone: '+421 123 456 789',
+      avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller',
+    })
+    if (profileError && profileError.code !== '23505') {
+      console.warn(
+        '   ⚠️ Warning: Could not create profile:',
+        profileError.message
+      )
+    } else {
+      console.log('   ✅ Created profile record')
+    }
   }
 
   return userId

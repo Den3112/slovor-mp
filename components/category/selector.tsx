@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import type { Category } from '@/lib/types/database'
 import { getMainCategories } from '@/lib/supabase/categories'
 import { useTranslation } from '@/lib/i18n'
-import { getCategoryName } from '@/lib/utils/category-helpers'
+import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 
 interface CategorySelectorProps {
   onSelect: (categoryId: string) => void
@@ -44,14 +44,18 @@ export function CategorySelector({
   }
 
   if (error) {
-    return <div className="text-destructive">{t.common.error}: {error}</div>
+    return (
+      <div className="text-destructive">
+        {t.common.error}: {error}
+      </div>
+    )
   }
 
   return (
     <div className="w-full">
       <label
         htmlFor="category"
-        className="mb-2 block text-sm font-medium text-muted-foreground"
+        className="text-muted-foreground mb-2 block text-sm font-medium"
       >
         {t.listing.categoryLabel}
       </label>
@@ -59,12 +63,12 @@ export function CategorySelector({
         id="category"
         value={selectedCategoryId}
         onChange={(e) => onSelect(e.target.value)}
-        className="w-full rounded-xl border border-input bg-muted/30 px-4 py-2 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+        className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-2 transition-all focus:ring-1 focus:outline-none"
       >
         <option value="">{t.common.selectCategory}</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
-            {category.icon} {getCategoryName(category, locale, t)}
+            {getLocalizedCategoryName(category, locale, t)}
           </option>
         ))}
       </select>

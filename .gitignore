@@ -46,3 +46,4 @@ supabase/.temp/
 # IDE/Editor
 .continue
 .vscode
+build_log.txt

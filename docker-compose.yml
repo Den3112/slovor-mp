@@ -20,22 +20,20 @@ services:
 
     # Port mapping
     ports:
-      - "3000:3000"
+      - '3000:3000'
 
     # Environment configuration (runtime variables)
     # Uses .env.local if exists, otherwise falls back to .env.example
     env_file:
-      - path: .env.local
-        required: false
-      - path: .env.example
-        required: false
+      - .env.local
+      - .env.example
     environment:
       - NODE_ENV=production
       - PORT=3000
 
     # Health check
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -53,10 +51,10 @@ services:
 
     # Logging configuration
     logging:
-      driver: "json-file"
+      driver: 'json-file'
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
 
     # Security options
     security_opt:
@@ -71,15 +69,34 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
     env_file:
       - .env.local
     environment:
       - NODE_ENV=development
       - WATCHPACK_POLLING=true
+      - NEXT_TELEMETRY_DISABLED=1
     volumes:
-      - .:/app
+      - .:/app:delegated
       - /app/node_modules
       - /app/.next
     profiles:
       - dev
+
+  # ===========================================
+  # Verification (Lint, Type-check, Build)
+  # ===========================================
+  verify:
+    container_name: slovor-mp-verify
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm run verify
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app:delegated
+      - /app/node_modules
+      - /app/.next
+    profiles:
+      - verify

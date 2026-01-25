@@ -15,23 +15,21 @@ export default async function PrivacyPage() {
             </div>
             <div className="flex-1">
               <Breadcrumbs
-                items={[
-                  { label: t.footer.privacy || 'Privacy Policy' },
-                ]}
+                items={[{ label: t.footer.privacy || 'Privacy Policy' }]}
               />
-              <h1 className="font-heading text-4xl font-black italic tracking-tight text-foreground md:text-5xl">
+              <h1 className="font-heading text-foreground text-4xl font-black tracking-tight italic md:text-5xl">
                 Privacy Policy
               </h1>
-              <div className="mt-1 flex items-center gap-2 text-sm font-bold text-muted-foreground">
+              <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm font-bold">
                 <Clock className="h-4 w-4" />
                 Updated: December 26, 2025
               </div>
             </div>
           </div>
 
-          <div className="shadow-premium prose prose-invert prose-zinc max-w-none rounded-[2.5rem] border border-border/50 bg-card/40 p-8 backdrop-blur-md md:p-12">
+          <div className="shadow-premium prose prose-invert prose-zinc border-border/50 bg-card/40 max-w-none rounded-[2.5rem] border p-8 backdrop-blur-md md:p-12">
             <section className="mb-12">
-              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+              <div className="bg-primary/10 text-primary mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-black tracking-[0.2em] uppercase">
                 1. Information Collection
               </div>
               <p className="text-lg leading-relaxed text-zinc-400">
@@ -42,7 +40,7 @@ export default async function PrivacyPage() {
             </section>
 
             <section>
-              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+              <div className="bg-primary/10 text-primary mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-black tracking-[0.2em] uppercase">
                 2. Data Usage
               </div>
               <p className="text-lg leading-relaxed text-zinc-400">

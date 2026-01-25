@@ -34,7 +34,6 @@ export function getLocalizedCategoryName(
     return category.name_en
   }
 
-  // Fall back to translation key (at root level)
   // Fall back to translation key (under 'categories' namespace)
   const categories = t.categories as Record<string, string>
   const translationKey = categories[category.slug]
@@ -42,6 +41,46 @@ export function getLocalizedCategoryName(
     return translationKey
   }
 
-  // Final fallback to default name
-  return category.name
+  // Priority 2: Fall back to root translation key (v0 compatibility)
+  const rootKey = (t as unknown as Record<string, string>)[category.slug]
+  if (rootKey && typeof rootKey === 'string') {
+    return rootKey
+  }
+
+  // Final fallback to default name or capitalized slug
+  if (category.name) return category.name
+
+  return category.slug.charAt(0).toUpperCase() + category.slug.slice(1)
+}
+
+// Alias for backward compatibility
+export { getLocalizedCategoryName as getCategoryName }
+
+/**
+ * Deduplicates categories based on their localized name.
+ * Useful when multiple categories (like 'Electronics') exist across valid locales
+ * but map to the same conceptual category for the user.
+ */
+export function getUniqueCategories(
+  categories: Category[],
+  locale: Locale,
+  t: TranslationKeys
+): Category[] {
+  return categories.reduce((acc: Category[], current) => {
+    const currentName = getLocalizedCategoryName(
+      current,
+      locale,
+      t
+    ).toLowerCase()
+
+    const isDuplicate = acc.find((item) => {
+      const itemName = getLocalizedCategoryName(item, locale, t).toLowerCase()
+      return itemName === currentName
+    })
+
+    if (!isDuplicate) {
+      acc.push(current)
+    }
+    return acc
+  }, [])
 }

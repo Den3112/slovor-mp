@@ -134,7 +134,7 @@ export function LocaleDetector() {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl font-bold">
-            <Globe className="h-6 w-6 text-primary" />
+            <Globe className="text-primary h-6 w-6" />
             {t.title}
           </DialogTitle>
           <DialogDescription className="pt-2 text-base">
@@ -143,7 +143,7 @@ export function LocaleDetector() {
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div className="text-sm font-medium text-muted-foreground">
+          <div className="text-muted-foreground text-sm font-medium">
             {t.selectLanguage}
           </div>
 
@@ -152,17 +152,18 @@ export function LocaleDetector() {
               <button
                 key={option.code}
                 onClick={() => setSelectedLocale(option.code)}
-                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${selectedLocale === option.code
-                  ? 'border-primary bg-primary/10'
-                  : 'border-border hover:border-border hover:bg-accent'
-                  }`}
+                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${
+                  selectedLocale === option.code
+                    ? 'border-primary bg-primary/10'
+                    : 'border-border hover:border-border hover:bg-accent'
+                }`}
               >
                 <span className="text-3xl">{option.flag}</span>
                 <span className="flex-1 text-left text-lg font-semibold">
                   {option.name}
                 </span>
                 {selectedLocale === option.code && (
-                  <Check className="h-5 w-5 text-primary" />
+                  <Check className="text-primary h-5 w-5" />
                 )}
               </button>
             ))}
@@ -175,7 +176,7 @@ export function LocaleDetector() {
           </Button>
           <Button
             onClick={handleConfirm}
-            className="flex-1 bg-primary hover:bg-primary/90"
+            className="bg-primary hover:bg-primary/90 flex-1"
           >
             {t.confirm}
           </Button>

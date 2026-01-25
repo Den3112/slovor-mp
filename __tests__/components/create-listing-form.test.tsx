@@ -23,19 +23,19 @@ vi.mock('@/lib/i18n', () => ({
         back: 'Back',
         nextStep: 'Next',
         publish: 'Publish',
-        backToEdit: 'Back to Edit'
+        backToEdit: 'Back to Edit',
       },
       common: {
-        home: 'Home'
+        home: 'Home',
       },
       filters: {
         new: 'new',
-        used: 'used'
+        used: 'used',
       },
       categories: {
         electronics: 'Electronics',
-        fashion: 'Fashion'
-      }
+        fashion: 'Fashion',
+      },
     },
     locale: 'en',
     setLocale: vi.fn(),
@@ -124,5 +124,4 @@ describe('CreateListingForm', () => {
       expect(screen.getByText('used')).toBeInTheDocument()
     })
   })
-
 })

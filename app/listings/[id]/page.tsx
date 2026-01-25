@@ -15,7 +15,8 @@ export default async function ListingDetailPage({ params }: Props) {
   const supabase = await createClient()
 
   // Validate UUID to prevent 500 errors
-  const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+  const isValidUUID =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
   if (!isValidUUID) {
     notFound()
   }
@@ -25,7 +26,9 @@ export default async function ListingDetailPage({ params }: Props) {
 
   // If not found, check if it's the owner's inactive listing
   if (!result.data) {
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
     if (user) {
       const ownerResult = await listingsApi.getForOwner(id, user.id)

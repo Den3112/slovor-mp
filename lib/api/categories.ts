@@ -3,16 +3,19 @@
 
 import { supabase } from '@/lib/supabase/client'
 import type { Category, ApiResponse } from '@/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 export type { Category }
 
 export const categoriesApi = {
   /**
    * Fetches all categories with listing counts
+   * @param client - Optional Supabase client (provide server client for server components)
    * @returns Array of categories ordered by name
    */
-  async getAll(): Promise<ApiResponse<Category[]>> {
+  async getAll(client?: SupabaseClient): Promise<ApiResponse<Category[]>> {
+    const supabaseClient = client || supabase
     try {
-      const { data: categories, error: catError } = await supabase
+      const { data: categories, error: catError } = await supabaseClient
         .from('categories')
         .select('*')
         .order('name')
@@ -24,7 +27,7 @@ export const categoriesApi = {
       // Get listing counts for each category
       const categoriesWithCount = await Promise.all(
         (categories || []).map(async (category) => {
-          const { count } = await supabase
+          const { count } = await supabaseClient
             .from('listings')
             .select('id', { count: 'exact', head: true })
             .eq('category_id', category.id)
@@ -46,11 +49,16 @@ export const categoriesApi = {
   /**
    * Fetches single category by slug with listing count
    * @param slug - Category slug (e.g., 'electronics')
+   * @param client - Optional Supabase client
    * @returns Category object or null if not found
    */
-  async getBySlug(slug: string): Promise<ApiResponse<Category>> {
+  async getBySlug(
+    slug: string,
+    client?: SupabaseClient
+  ): Promise<ApiResponse<Category>> {
+    const supabaseClient = client || supabase
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('categories')
         .select('*')
         .eq('slug', slug)
@@ -61,7 +69,7 @@ export const categoriesApi = {
       }
 
       // Get listing count for this category
-      const { count } = await supabase
+      const { count } = await supabaseClient
         .from('listings')
         .select('id', { count: 'exact', head: true })
         .eq('category_id', data.id)
