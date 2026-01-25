@@ -79,7 +79,7 @@ export function StepCategory({
         <label className="text-muted-foreground/80 block text-sm font-black tracking-widest uppercase md:text-xs">
           {t.createListing.condition}
         </label>
-        <div className="bg-muted/30 flex gap-4 rounded-[2rem] border border-white/5 p-1">
+        <div className="bg-muted/30 flex gap-4 rounded-4xl border border-white/5 p-1">
           {(['new', 'used'] as const).map((c) => (
             <button
               key={c}
