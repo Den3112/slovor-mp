@@ -27,7 +27,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
       <Container>
         <div className="mb-8 flex flex-col justify-between gap-4 md:mb-16 md:flex-row md:items-end md:gap-8 lg:mb-20">
           <div className="max-w-2xl">
-            <span className="text-primary mb-3 block text-[9px] font-black tracking-[0.2em] uppercase md:mb-4 md:text-[10px] md:tracking-[0.3em]">
+            <span className="text-primary mb-3 block text-3xs font-black tracking-widest uppercase md:mb-4 md:text-2xs">
               {t.common.exploreMarketplace}
             </span>
             <h2 className="font-heading mb-4 text-3xl leading-none font-black tracking-tighter italic sm:text-4xl md:mb-6 md:text-5xl lg:text-7xl">
@@ -57,10 +57,10 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
             >
               <Link
                 href={`/categories/${category.slug}`}
-                className="group border-border/40 bg-card/50 md:hover:border-primary/30 relative block aspect-square overflow-hidden rounded-2xl border shadow-sm backdrop-blur-sm transition-all duration-500 active:scale-[0.98] sm:rounded-4xl md:rounded-[2.5rem] md:hover:shadow-2xl"
+                className="group border-border/40 bg-card/50 md:hover:border-primary/30 relative block aspect-square overflow-hidden rounded-2xl border shadow-sm backdrop-blur-sm transition-all duration-500 active:scale-[0.98] sm:rounded-4xl md:rounded-5xl md:hover:shadow-2xl"
               >
                 <div className="from-primary/10 absolute inset-0 bg-linear-to-br via-transparent to-indigo-500/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-4xl md:rounded-[2.5rem]" />
+                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-4xl md:rounded-5xl" />
 
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 text-center md:p-8">
                   <div className="bg-muted/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/30 md:group-hover:shadow-primary/40 mb-3 flex h-14 w-14 items-center justify-center rounded-xl shadow-sm transition-all duration-500 group-hover:scale-105 group-hover:rotate-10 group-hover:shadow-lg sm:h-16 sm:w-16 sm:rounded-2xl md:mb-6 md:h-20 md:w-20 md:rounded-3xl md:group-hover:scale-110 md:group-hover:rotate-15 md:group-hover:shadow-xl">
@@ -74,7 +74,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
                   </h3>
                   {category.listing_count !== undefined && (
                     <div className="bg-muted/50 group-hover:bg-primary/5 mt-2 rounded-full px-2.5 py-1 transition-colors md:mt-3 md:px-3">
-                      <p className="text-muted-foreground group-hover:text-primary text-[9px] font-black tracking-widest uppercase md:text-[10px]">
+                      <p className="text-muted-foreground group-hover:text-primary text-3xs font-black tracking-widest uppercase md:text-2xs">
                         {category.listing_count} {t.common.listings}
                       </p>
                     </div>

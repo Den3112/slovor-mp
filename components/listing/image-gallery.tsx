@@ -25,7 +25,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   if (validImages.length === 0) {
     return (
-      <div className="from-muted to-muted/80 flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br">
+      <div className="from-muted to-muted/80 flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-linear-to-br">
         <ImageOff className="text-muted-foreground h-16 w-16" />
         <span className="text-muted-foreground text-lg font-medium">
           No images available
@@ -106,7 +106,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
       >
         {/* Loading Skeleton */}
         {loadingImages.has(currentIndex) && (
-          <div className="from-muted to-muted/80 absolute inset-0 z-10 animate-pulse bg-gradient-to-br" />
+          <div className="from-muted to-muted/80 absolute inset-0 z-10 animate-pulse bg-linear-to-br" />
         )}
 
         <Image
@@ -174,7 +174,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                 aria-label={`View image ${index + 1}`}
               >
                 {loadingImages.has(index) && (
-                  <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300" />
+                  <div className="absolute inset-0 animate-pulse bg-linear-to-br from-gray-200 to-gray-300" />
                 )}
                 <Image
                   src={image}

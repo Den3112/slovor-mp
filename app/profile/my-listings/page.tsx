@@ -37,8 +37,8 @@ export default async function DashboardListingsPage() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
       {/* Premium Header */}
-      <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-6 overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-start md:justify-between md:p-10">
-        <div className="from-primary/10 pointer-events-none absolute inset-0 bg-gradient-to-r via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-6 overflow-hidden rounded-4xl border border-white/10 bg-linear-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-start md:justify-between md:p-10">
+        <div className="from-primary/10 pointer-events-none absolute inset-0 bg-linear-to-r via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative z-10 max-w-2xl">
           <h1 className="font-heading text-foreground mb-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
             My Listings

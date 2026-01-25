@@ -134,7 +134,7 @@ export function ListingsView({
   }, [hasMore, loadMore]) // dependencies stable
 
   return (
-    <div className="from-background via-background/95 to-muted/20 min-h-screen bg-gradient-to-b pb-20">
+    <div className="from-background via-background/95 to-muted/20 min-h-screen bg-linear-to-b pb-20">
       <div className="relative mb-8 overflow-hidden border-b border-white/5 pt-24 pb-10 md:mb-12 md:pt-32 md:pb-16">
         {/* Decorative Orbs - Refined */}
         <div className="bg-primary/5 absolute top-0 right-0 h-[500px] w-[500px] translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
@@ -239,7 +239,7 @@ export function ListingsView({
                   {t.filters.title}
                 </h2>
               </div>
-              <div className="shadow-premium border-border bg-card rounded-[2rem] border p-6">
+              <div className="shadow-premium border-border bg-card rounded-4xl border p-6">
                 <ListingFilters />
               </div>
             </div>

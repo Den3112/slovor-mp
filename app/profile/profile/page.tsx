@@ -58,7 +58,7 @@ export default async function DashboardProfilePage() {
         >
           <span className="relative z-10">Visit Store</span>
           <ExternalLink className="relative z-10 h-4 w-4" />
-          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+          <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
         </a>
       </div>
       <SellerProfileView

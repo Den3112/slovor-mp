@@ -130,7 +130,7 @@ export function DashboardListingCard({
 
   return (
     <>
-      <div className="group hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col items-start gap-4 rounded-[2rem] border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-2xl md:flex-row md:items-center md:gap-6 md:p-4">
+      <div className="group hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col items-start gap-4 rounded-4xl border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-2xl md:flex-row md:items-center md:gap-6 md:p-4">
         {/* Clickable Image Thumbnail */}
         <Link
           href={`/listings/${listing.id}`}
@@ -146,7 +146,7 @@ export function DashboardListingCard({
                 unoptimized
                 priority={priority}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 transition-opacity md:opacity-0" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 transition-opacity md:opacity-0" />
             </>
           ) : (
             <div className="text-muted-foreground bg-primary/5 flex h-full w-full items-center justify-center">

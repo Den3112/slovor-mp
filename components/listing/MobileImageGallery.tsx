@@ -77,7 +77,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
                       <ImageOff className="text-muted-foreground/40 h-12 w-12" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 </div>
               ))}
             </div>

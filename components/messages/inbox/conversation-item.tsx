@@ -36,7 +36,7 @@ export function ConversationItem({
             'rounded-2xl p-0.5 transition-transform duration-300 group-hover:scale-105',
             isActive
               ? 'bg-white/20'
-              : 'from-primary/20 to-primary/0 bg-gradient-to-br'
+              : 'from-primary/20 to-primary/0 bg-linear-to-br'
           )}
         >
           {otherUser?.avatar_url ? (

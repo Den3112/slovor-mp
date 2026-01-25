@@ -30,7 +30,7 @@ function Logo({ className }: { className?: string }) {
       )}
     >
       <div className="relative h-9 w-9 md:h-11 md:w-11">
-        <div className="absolute inset-0 rotate-6 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400 shadow-lg shadow-indigo-500/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 md:rounded-2xl" />
+        <div className="absolute inset-0 rotate-6 rounded-xl bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400 shadow-lg shadow-indigo-500/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 md:rounded-2xl" />
         <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/20 bg-white/10 text-lg font-black text-white backdrop-blur-md md:rounded-2xl md:text-2xl">
           S
         </div>
@@ -64,7 +64,7 @@ function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
               key={link.href}
               href={link.href}
               className={cn(
-                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] leading-none font-black tracking-[0.15em] uppercase transition-all xl:px-8',
+                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] leading-none font-black tracking-widest uppercase transition-all xl:px-8',
                 isActive
                   ? 'text-primary-foreground shadow-lg'
                   : 'text-muted-foreground hover:text-foreground'
@@ -176,7 +176,7 @@ export function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className="border-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-primary/20 flex h-10 items-center justify-center rounded-full border px-5 text-[10px] font-black tracking-[0.15em] whitespace-nowrap uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 xl:px-7"
+                    className="border-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-primary/20 flex h-10 items-center justify-center rounded-full border px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 xl:px-7"
                   >
                     {t.auth.signIn}
                   </Link>
@@ -185,7 +185,7 @@ export function Header() {
                 {/* POST BUTTON */}
                 <Link
                   href="/post"
-                  className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 flex h-10 items-center justify-center gap-1.5 rounded-full px-5 text-[10px] font-black tracking-[0.15em] whitespace-nowrap uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl active:scale-95 xl:px-7"
+                  className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 flex h-10 items-center justify-center gap-1.5 rounded-full px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl active:scale-95 xl:px-7"
                 >
                   <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   <span className="hidden lg:inline">{t.common.postAd}</span>

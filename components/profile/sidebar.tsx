@@ -165,7 +165,7 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
       {/* Desktop: Full sidebar */}
       <aside className="hidden w-72 flex-shrink-0 md:block">
         <div className="bg-background/60 group/sidebar sticky top-28 overflow-hidden rounded-[2.5rem] border border-white/20 p-6 shadow-2xl backdrop-blur-xl dark:border-white/5">
-          <div className="from-primary/5 pointer-events-none absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover/sidebar:opacity-100" />
+          <div className="from-primary/5 pointer-events-none absolute inset-0 bg-linear-to-br via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover/sidebar:opacity-100" />
 
           <div className="relative z-10 space-y-8">
             {sections.map((section, idx) => (
@@ -193,7 +193,7 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
                         )}
                       >
                         {active && (
-                          <div className="from-primary to-primary/90 absolute inset-0 bg-gradient-to-r" />
+                          <div className="from-primary to-primary/90 absolute inset-0 bg-linear-to-r" />
                         )}
                         <Icon
                           className={cn(

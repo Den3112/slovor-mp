@@ -49,7 +49,7 @@ export default async function ContactPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="group border-border/50 bg-card/40 hover:border-primary/30 rounded-[2rem] border p-8 backdrop-blur-sm transition-all"
+                className="group border-border/50 bg-card/40 hover:border-primary/30 rounded-4xl border p-8 backdrop-blur-sm transition-all"
               >
                 <div className="bg-muted/50 group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110">
                   {item.icon}

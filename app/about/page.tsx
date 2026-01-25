@@ -53,7 +53,7 @@ export default async function AboutPage() {
             </div>
           </div>
 
-          <div className="border-primary/20 from-primary/10 rounded-[3rem] border bg-gradient-to-tr via-transparent to-violet-500/5 p-12 text-center">
+          <div className="border-primary/20 from-primary/10 rounded-[3rem] border bg-linear-to-tr via-transparent to-violet-500/5 p-12 text-center">
             <h3 className="font-heading mb-4 text-2xl font-black text-white italic">
               Built for Slovakia
             </h3>

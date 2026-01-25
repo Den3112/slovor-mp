@@ -52,7 +52,7 @@ export function MobileDrawer({
               className="flex items-center gap-2"
             >
               <div className="relative h-8 w-8">
-                <div className="from-primary to-primary absolute inset-0 rotate-6 rounded-xl bg-gradient-to-tr via-violet-500" />
+                <div className="from-primary to-primary absolute inset-0 rotate-6 rounded-xl bg-linear-to-tr via-violet-500" />
                 <div className="bg-card absolute inset-0 flex items-center justify-center rounded-xl text-lg font-black">
                   S
                 </div>

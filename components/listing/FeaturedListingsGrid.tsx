@@ -13,7 +13,7 @@ export function FeaturedListingsGrid({ listings }: FeaturedListingsGridProps) {
 
   if (listings.length === 0) {
     return (
-      <div className="border-border/50 bg-muted/20 rounded-[2rem] border border-dashed py-20 text-center">
+      <div className="border-border/50 bg-muted/20 rounded-4xl border border-dashed py-20 text-center">
         <p className="text-muted-foreground font-medium">
           {t.common.noListingsAvailable || 'No listings available'}
         </p>
