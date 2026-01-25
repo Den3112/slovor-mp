@@ -117,7 +117,7 @@ export default function LoginPage() {
           </Link>
 
           <div className="mb-10 text-center">
-            <div className="text-primary mb-6 inline-flex h-16 w-16 items-center justify-center rounded-3xl border border-white/20 bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 shadow-inner md:h-20 md:w-20">
+            <div className="text-primary mb-6 inline-flex h-16 w-16 items-center justify-center rounded-3xl border border-white/20 bg-linear-to-br from-indigo-500/20 to-indigo-500/5 shadow-inner md:h-20 md:w-20">
               <span className="animate-bounce-subtle text-3xl md:text-4xl">
                 ✨
               </span>

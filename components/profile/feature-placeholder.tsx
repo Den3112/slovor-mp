@@ -23,7 +23,7 @@ export function DashboardFeaturePlaceholder({
     <div className="animate-in fade-in zoom-in flex min-h-[60vh] flex-col items-center justify-center duration-500">
       <div className="relative mb-8">
         <div className="bg-primary/20 absolute inset-0 rounded-full blur-3xl" />
-        <div className="bg-card border-border/50 shadow-primary/10 relative rounded-[2rem] border p-6 shadow-2xl">
+        <div className="bg-card border-border/50 shadow-primary/10 relative rounded-4xl border p-6 shadow-2xl">
           <Icon className="text-primary h-16 w-16" />
           <div className="bg-background border-border absolute -right-2 -bottom-2 rounded-full border p-1.5">
             <Construction className="h-5 w-5 text-amber-500" />

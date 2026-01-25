@@ -33,7 +33,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
         aria-expanded={showUserMenu}
         className="group flex items-center gap-2"
       >
-        <div className="from-primary shadow-primary/10 h-9 w-9 rounded-full bg-gradient-to-tr via-violet-500 to-indigo-500 p-[1.5px] shadow-lg transition-transform group-hover:scale-105">
+        <div className="from-primary shadow-primary/10 h-9 w-9 rounded-full bg-linear-to-tr via-violet-500 to-indigo-500 p-[1.5px] shadow-lg transition-transform group-hover:scale-105">
           <div className="border-primary/10 bg-card text-primary relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border font-black">
             {user.user_metadata?.avatar_url ? (
               <Image

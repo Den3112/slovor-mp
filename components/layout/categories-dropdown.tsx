@@ -59,7 +59,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'flex h-10 items-center gap-2 rounded-full px-4 text-[10px] font-black tracking-[0.15em] uppercase transition-all',
+          'flex h-10 items-center gap-2 rounded-full px-4 text-[10px] font-black tracking-widest uppercase transition-all',
           isOpen
             ? 'bg-primary text-primary-foreground shadow-primary/20 shadow-lg'
             : 'text-muted-foreground hover:bg-muted hover:text-foreground'

@@ -57,7 +57,7 @@ function CreateListingFormContent() {
   const showPreview = viewMode === 'preview'
 
   return (
-    <div className="bg-background md:from-background md:via-background/95 md:to-background flex min-h-[100dvh] flex-col items-center justify-center p-0 md:bg-gradient-to-b md:py-20">
+    <div className="bg-background md:from-background md:via-background/95 md:to-background flex min-h-[100dvh] flex-col items-center justify-center p-0 md:bg-linear-to-b md:py-20">
       {/* Mobile Top Bar */}
       <div className="border-border/10 bg-background/80 sticky top-0 z-50 flex w-full items-center justify-between border-b px-4 py-3 backdrop-blur-xl md:hidden">
         <Button
@@ -103,7 +103,7 @@ function CreateListingFormContent() {
         {/* Desktop Progress Bar */}
         <div className="absolute top-0 left-0 hidden h-1.5 w-full bg-white/5 md:block">
           <div
-            className="from-primary/50 to-primary box-shadow-glow h-full bg-gradient-to-r transition-all duration-700 ease-out"
+            className="from-primary/50 to-primary box-shadow-glow h-full bg-linear-to-r transition-all duration-700 ease-out"
             style={{ width: `${showPreview ? 100 : (step / 3) * 100}%` }}
           />
         </div>

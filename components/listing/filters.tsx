@@ -112,7 +112,7 @@ export function ListingFilters() {
       <div className="space-y-6">
         {/* Location */}
         <div className="space-y-3">
-          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <MapPin className="h-4 w-4" />
             {t.filters.location}
           </label>
@@ -132,7 +132,7 @@ export function ListingFilters() {
 
         {/* Price Range */}
         <div className="space-y-3">
-          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <Tag className="h-4 w-4" />
             {t.common.price} (EUR)
           </label>
@@ -156,7 +156,7 @@ export function ListingFilters() {
 
         {/* Condition */}
         <div className="space-y-3">
-          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <PackageCheck className="h-4 w-4" />
             {t.filters.condition}
           </label>
@@ -184,7 +184,7 @@ export function ListingFilters() {
 
         {/* Sort */}
         <div className="space-y-3">
-          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-[0.15em] uppercase">
+          <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <TrendingUp className="h-4 w-4" />
             {t.filters.sort}
           </label>

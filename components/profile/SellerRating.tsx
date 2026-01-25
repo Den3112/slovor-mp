@@ -97,7 +97,7 @@ export function SellerRating({
   }
 
   return (
-    <div className="border-border/50 bg-card space-y-6 rounded-[2rem] border p-6">
+    <div className="border-border/50 bg-card space-y-6 rounded-4xl border p-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">{t.reviews.title}</h3>

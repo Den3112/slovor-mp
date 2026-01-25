@@ -40,7 +40,7 @@ export function StepCategory({
               key={cat.id}
               onClick={() => updateField('category_id', cat.id)}
               className={cn(
-                'group relative flex flex-col items-center justify-center gap-4 rounded-[2.5rem] border p-6 text-center transition-all duration-300',
+                'group relative flex flex-col items-center justify-center gap-4 rounded-5xl border p-6 text-center transition-all duration-300',
                 formData.category_id === cat.id
                   ? 'bg-primary border-primary text-primary-foreground shadow-primary/30 ring-primary/20 scale-105 shadow-xl ring-4'
                   : 'border-border/50 bg-muted/20 hover:bg-primary/5 hover:border-primary/50 hover:shadow-lg'
@@ -86,7 +86,7 @@ export function StepCategory({
               type="button"
               onClick={() => updateField('condition', c)}
               className={cn(
-                'flex-1 rounded-[1.8rem] py-4 text-sm font-black tracking-wider uppercase transition-all duration-300',
+                'flex-1 rounded-3xl py-4 text-sm font-black tracking-wider uppercase transition-all duration-300',
                 formData.condition === c
                   ? 'bg-primary text-primary-foreground shadow-primary/20 scale-[1.02] shadow-lg'
                   : 'text-muted-foreground hover:text-foreground hover:bg-white/5'

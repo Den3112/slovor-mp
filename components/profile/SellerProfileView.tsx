@@ -141,7 +141,7 @@ export function SellerProfileView({
                   {/* Avatar with Glow */}
                   <div className="flex flex-col items-center text-center">
                     <div className="group relative mb-8">
-                      <div className="from-primary absolute inset-0 rounded-full bg-gradient-to-tr to-purple-500 opacity-40 blur-2xl transition-opacity duration-700 group-hover:opacity-60" />
+                      <div className="from-primary absolute inset-0 rounded-full bg-linear-to-tr to-purple-500 opacity-40 blur-2xl transition-opacity duration-700 group-hover:opacity-60" />
                       <div className="relative">
                         {seller.avatar_url ? (
                           <Image
@@ -169,7 +169,7 @@ export function SellerProfileView({
 
                     {/* Name & Badge */}
                     <div className="mb-6 space-y-1">
-                      <h1 className="font-heading from-foreground to-foreground/70 bg-gradient-to-r bg-clip-text text-3xl font-black tracking-tight text-transparent">
+                      <h1 className="font-heading from-foreground to-foreground/70 bg-linear-to-r bg-clip-text text-3xl font-black tracking-tight text-transparent">
                         {seller.display_name ?? seller.username}
                       </h1>
                       {seller.verified && (
@@ -192,7 +192,7 @@ export function SellerProfileView({
                     {/* Stats - Minimalist Row */}
                     <div className="border-border/40 grid w-full grid-cols-2 gap-8 border-t py-8">
                       <div className="group cursor-default text-center">
-                        <p className="from-foreground to-foreground/50 bg-gradient-to-b bg-clip-text text-3xl font-black text-transparent transition-all group-hover:scale-110">
+                        <p className="from-foreground to-foreground/50 bg-linear-to-b bg-clip-text text-3xl font-black text-transparent transition-all group-hover:scale-110">
                           {listings.length}
                         </p>
                         <p className="text-muted-foreground/70 mt-1 text-[10px] font-bold tracking-widest uppercase">
@@ -201,7 +201,7 @@ export function SellerProfileView({
                       </div>
                       <div className="group cursor-default text-center">
                         <div className="flex items-center justify-center gap-1">
-                          <span className="from-foreground to-foreground/50 bg-gradient-to-b bg-clip-text text-3xl font-black text-transparent transition-all group-hover:scale-110">
+                          <span className="from-foreground to-foreground/50 bg-linear-to-b bg-clip-text text-3xl font-black text-transparent transition-all group-hover:scale-110">
                             —
                           </span>
                           <Star className="mb-1 h-4 w-4 fill-amber-500 text-amber-500" />

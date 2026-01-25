@@ -61,7 +61,7 @@ export function ListingCard({
                 onLoad={() => setIsLoading(false)}
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
             </>
           ) : (
             <div className="bg-muted/50 text-muted-foreground/40 flex h-full w-full items-center justify-center">
@@ -121,7 +121,7 @@ export function ListingCard({
   return (
     <Link
       href={`/listings/${listing.id}`}
-      className="group border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow relative block overflow-hidden rounded-[2rem] border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98] dark:bg-white/5 dark:hover:bg-white/10"
+      className="group border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow relative block overflow-hidden rounded-4xl border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98] dark:bg-white/5 dark:hover:bg-white/10"
     >
       {/* Image */}
       <div className="bg-muted relative aspect-[4/3] overflow-hidden">
@@ -144,13 +144,13 @@ export function ListingCard({
               unoptimized
               priority={featured}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-40" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-40" />
             <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] md:rounded-3xl" />
           </>
         ) : (
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-8 w-8 stroke-[1.5] md:mb-3 md:h-12 md:w-12" />
-            <span className="text-[9px] font-black tracking-[0.15em] uppercase md:text-[10px] md:tracking-[0.2em]">
+            <span className="text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
               {t.common.noImage}
             </span>
           </div>
@@ -189,7 +189,7 @@ export function ListingCard({
         <div>
           <div className="mb-1.5 flex items-center justify-between md:mb-2">
             {listing.category && (
-              <span className="text-primary text-[9px] font-black tracking-[0.15em] uppercase md:text-[10px] md:tracking-[0.2em]">
+              <span className="text-primary text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
                 {categoryName}
               </span>
             )}

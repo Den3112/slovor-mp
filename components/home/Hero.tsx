@@ -44,7 +44,7 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <span className="glass text-primary shadow-primary/5 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[9px] font-black tracking-[0.15em] uppercase shadow-lg md:mb-10 md:px-5 md:text-[10px] md:tracking-[0.2em]">
+            <span className="glass text-primary shadow-primary/5 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[9px] font-black tracking-widest uppercase shadow-lg md:mb-10 md:px-5 md:text-[10px] md:tracking-[0.2em]">
               <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
               {t.home.heroTagline}
             </span>
@@ -57,7 +57,7 @@ export function Hero() {
             className="font-heading text-foreground mb-6 text-[2.5rem] leading-[1] font-black tracking-[-0.03em] sm:text-5xl md:mb-10 md:text-6xl lg:text-[7rem] lg:leading-[0.95] lg:tracking-[-0.04em]"
           >
             {t.home.heroTitleMain} <br className="hidden sm:block" />
-            <span className="animate-gradient-x from-primary bg-gradient-to-r via-violet-500 to-indigo-500 bg-clip-text text-transparent">
+            <span className="animate-gradient-x from-primary bg-linear-to-r via-violet-500 to-indigo-500 bg-clip-text text-transparent">
               {t.home.heroTitleHighlight}
             </span>
           </motion.h1>
@@ -84,9 +84,9 @@ export function Hero() {
           >
             <div className="group relative">
               {/* Glow effect - hidden on mobile */}
-              <div className="from-primary absolute -inset-1 hidden rounded-[2rem] bg-gradient-to-r to-violet-600 opacity-20 blur-2xl transition duration-1000 group-focus-within:opacity-40 md:block md:rounded-[2.5rem]" />
+              <div className="from-primary absolute -inset-1 hidden rounded-4xl bg-linear-to-r to-violet-600 opacity-20 blur-2xl transition duration-1000 group-focus-within:opacity-40 md:block md:rounded-[2.5rem]" />
 
-              <div className="border-border/30 bg-card/60 sm:focus-within:border-primary/50 sm:focus-within:ring-primary/10 relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-3 shadow-xl backdrop-blur-3xl transition-all duration-300 sm:flex-row sm:items-center sm:rounded-[2rem] sm:p-2 sm:pr-2 sm:focus-within:ring-4 md:rounded-[2.2rem] md:shadow-2xl">
+              <div className="border-border/30 bg-card/60 sm:focus-within:border-primary/50 sm:focus-within:ring-primary/10 relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-3 shadow-xl backdrop-blur-3xl transition-all duration-300 sm:flex-row sm:items-center sm:rounded-4xl sm:p-2 sm:pr-2 sm:focus-within:ring-4 md:rounded-[2.2rem] md:shadow-2xl">
                 <div className="focus-within:bg-primary/5 flex flex-1 items-center rounded-xl px-4 py-1 transition-colors sm:pl-4 sm:focus-within:bg-transparent md:pl-6">
                   <label htmlFor="hero-search" className="sr-only">
                     Search
@@ -130,7 +130,7 @@ export function Hero() {
             transition={{ duration: 1, delay: 0.6 }}
             className="mt-8 flex flex-wrap items-center justify-center gap-2 px-2 md:mt-14 md:gap-3"
           >
-            <span className="text-muted-foreground mb-2 w-full text-center text-[9px] font-black tracking-[0.15em] uppercase opacity-60 sm:mr-4 sm:mb-0 sm:w-auto md:text-[10px] md:tracking-[0.2em]">
+            <span className="text-muted-foreground mb-2 w-full text-center text-[9px] font-black tracking-widest uppercase opacity-60 sm:mr-4 sm:mb-0 sm:w-auto md:text-[10px] md:tracking-[0.2em]">
               {t.home.popularSearches}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">

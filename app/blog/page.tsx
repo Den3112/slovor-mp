@@ -216,7 +216,7 @@ export default function BlogPage() {
         </div>
 
         {/* Newsletter CTA */}
-        <div className="from-primary/10 via-primary/5 mt-16 rounded-3xl bg-gradient-to-br to-transparent p-8 text-center md:p-12">
+        <div className="from-primary/10 via-primary/5 mt-16 rounded-3xl bg-linear-to-br to-transparent p-8 text-center md:p-12">
           <h2 className="mb-4 text-2xl font-bold md:text-3xl">Stay Updated</h2>
           <p className="text-muted-foreground mx-auto mb-6 max-w-md">
             Get the latest tips, trends, and news delivered to your inbox

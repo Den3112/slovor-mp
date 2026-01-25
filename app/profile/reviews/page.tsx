@@ -58,7 +58,7 @@ export default function ReviewsPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="border-border/50 bg-card rounded-[2rem] border p-6">
+        <div className="border-border/50 bg-card rounded-4xl border p-6">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10">
               <Star className="h-6 w-6 text-amber-500" />
@@ -75,7 +75,7 @@ export default function ReviewsPage() {
           </div>
         </div>
 
-        <div className="border-border/50 bg-card rounded-[2rem] border p-6">
+        <div className="border-border/50 bg-card rounded-4xl border p-6">
           <div className="flex items-center gap-4">
             <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-2xl">
               <User className="text-primary h-6 w-6" />
@@ -98,7 +98,7 @@ export default function ReviewsPage() {
           {reviews.map((review) => (
             <div
               key={review.id}
-              className="group border-border/50 bg-card hover:border-primary/20 hover:shadow-primary/5 relative overflow-hidden rounded-[2rem] border p-6 transition-all hover:shadow-lg"
+              className="group border-border/50 bg-card hover:border-primary/20 hover:shadow-primary/5 relative overflow-hidden rounded-4xl border p-6 transition-all hover:shadow-lg"
             >
               <div className="flex gap-4">
                 <div className="bg-muted flex h-12 w-12 shrink-0 items-center justify-center rounded-full">

@@ -88,7 +88,7 @@ export function Footer() {
               href="/"
               className="group inline-flex items-center gap-3 md:gap-4"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-500 to-indigo-400 text-xl font-black text-white shadow-lg shadow-indigo-500/20 transition-transform duration-500 group-hover:rotate-6 md:h-12 md:w-12 md:rounded-2xl md:text-2xl">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400 text-xl font-black text-white shadow-lg shadow-indigo-500/20 transition-transform duration-500 group-hover:rotate-6 md:h-12 md:w-12 md:rounded-2xl md:text-2xl">
                 S
               </div>
               <span className="text-foreground text-2xl font-black tracking-tighter md:text-4xl">
@@ -209,7 +209,7 @@ export function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition-colors duration-700 hover:bg-white/[0.04] md:mb-24 md:gap-10 md:rounded-[2rem] md:p-10 lg:mb-32 lg:flex-row lg:p-12">
+        <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition-colors duration-700 hover:bg-white/[0.04] md:mb-24 md:gap-10 md:rounded-4xl md:p-10 lg:mb-32 lg:flex-row lg:p-12">
           <div className="w-full text-center lg:max-w-md lg:text-left">
             <h3 className="mb-2 text-lg font-black tracking-tight text-white md:mb-3 md:text-2xl lg:text-3xl">
               {t.footer.newsletterTitle}
@@ -247,7 +247,7 @@ export function Footer() {
                 : '...'}
             </span>
             <p
-              className="text-[10px] font-black tracking-[0.1em] text-zinc-600 uppercase"
+              className="text-[10px] font-black tracking-widest text-zinc-600 uppercase"
               suppressHydrationWarning
             >
               © {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}
@@ -272,7 +272,7 @@ export function Footer() {
           {/* Desktop: Horizontal layout */}
           <div className="hidden items-center justify-between md:flex">
             <p
-              className="text-[10px] font-black tracking-[0.15em] text-zinc-600 uppercase"
+              className="text-[10px] font-black tracking-widest text-zinc-600 uppercase"
               suppressHydrationWarning
             >
               © {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}

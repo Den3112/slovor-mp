@@ -14,7 +14,7 @@ export function DashboardFavoriteItem({
   listing: Listing & { category?: { name: string } | null }
 }) {
   return (
-    <div className="group hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col items-start gap-4 rounded-[2rem] border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-2xl sm:flex-row sm:items-center md:p-4">
+    <div className="group hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col items-start gap-4 rounded-4xl border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-2xl sm:flex-row sm:items-center md:p-4">
       {/* Image Thumbnail */}
       <Link
         href={`/listings/${listing.id}`}

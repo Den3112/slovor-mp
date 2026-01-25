@@ -37,7 +37,7 @@ export default async function FAQPage() {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="group border-border/50 bg-card/40 hover:border-primary/30 cursor-default rounded-[2rem] border p-8 backdrop-blur-sm transition-all"
+              className="group border-border/50 bg-card/40 hover:border-primary/30 cursor-default rounded-4xl border p-8 backdrop-blur-sm transition-all"
             >
               <div className="flex items-start gap-4">
                 <div className="bg-primary/10 group-hover:bg-primary mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors duration-300 group-hover:text-white">

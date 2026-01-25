@@ -90,7 +90,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
   }
 
   return (
-    <div className="from-background via-background/95 to-background min-h-screen bg-gradient-to-b pb-10">
+    <div className="from-background via-background/95 to-background min-h-screen bg-linear-to-b pb-10">
       <Container className="relative z-10 py-6 pt-24 md:pt-32">
         <div className="mt-0 md:mt-8">
           <Breadcrumbs
@@ -117,8 +117,8 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       <Container>
         <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-12">
           <div className="space-y-8 md:space-y-12 lg:col-span-8">
-            <div className="bg-card/50 group relative overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl shadow-black/20 backdrop-blur-xl md:rounded-[2.5rem]">
-              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/20 to-transparent" />
+            <div className="bg-card/50 group relative overflow-hidden rounded-4xl border border-white/10 shadow-2xl shadow-black/20 backdrop-blur-xl md:rounded-[2.5rem]">
+              <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/20 to-transparent" />
               <ImageGallery
                 images={listing.images || []}
                 title={displayTitle}

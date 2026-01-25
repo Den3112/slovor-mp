@@ -126,8 +126,8 @@ export default function SettingsPage() {
     <PageTransition>
       <div className="animate-in fade-in slide-in-from-bottom-4 max-w-4xl space-y-8 duration-700">
         {/* Premium Header */}
-        <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-4 overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-center md:justify-between md:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-4 overflow-hidden rounded-4xl border border-white/10 bg-linear-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-center md:justify-between md:p-10">
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-blue-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="relative z-10">
             <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
               Settings

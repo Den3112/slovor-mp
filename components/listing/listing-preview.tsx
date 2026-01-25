@@ -91,12 +91,12 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60" />
           </>
         ) : (
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-8 w-8 stroke-[1.5] md:mb-3 md:h-12 md:w-12" />
-            <span className="text-[9px] font-black tracking-[0.15em] uppercase md:text-[10px] md:tracking-[0.2em]">
+            <span className="text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
               {t.common.noImage}
             </span>
           </div>
@@ -124,7 +124,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         <div>
           <div className="mb-1.5 flex items-center justify-between md:mb-2">
             {listing.category && (
-              <span className="text-primary text-[9px] font-black tracking-[0.15em] uppercase md:text-[10px] md:tracking-[0.2em]">
+              <span className="text-primary text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
                 {categoryName}
               </span>
             )}

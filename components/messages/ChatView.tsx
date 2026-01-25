@@ -268,7 +268,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
 
       {/* Input Area */}
       <div className="bg-background/40 z-20 border-t border-white/5 p-4 backdrop-blur-2xl md:p-6">
-        <div className="bg-background/60 focus-within:shadow-primary/10 focus-within:border-primary/20 mx-auto flex max-w-4xl items-end gap-3 rounded-[2rem] border border-white/10 p-2 pl-3 shadow-lg transition-all duration-300">
+        <div className="bg-background/60 focus-within:shadow-primary/10 focus-within:border-primary/20 mx-auto flex max-w-4xl items-end gap-3 rounded-4xl border border-white/10 p-2 pl-3 shadow-lg transition-all duration-300">
           <Button
             variant="ghost"
             size="icon"

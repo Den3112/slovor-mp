@@ -60,7 +60,7 @@ export function HomeCTA() {
               <Button
                 asChild
                 size="lg"
-                className="group bg-card text-foreground hover:bg-card/90 h-20 rounded-[2rem] px-14 text-xl font-black shadow-2xl transition-all hover:scale-105 hover:shadow-[0_20px_40px_rgba(255,255,255,0.2)]"
+                className="group bg-card text-foreground hover:bg-card/90 h-20 rounded-4xl px-14 text-xl font-black shadow-2xl transition-all hover:scale-105 hover:shadow-[0_20px_40px_rgba(255,255,255,0.2)]"
               >
                 <Link href="/post">
                   <Plus className="mr-3 h-6 w-6 transition-transform duration-700 group-hover:rotate-90" />

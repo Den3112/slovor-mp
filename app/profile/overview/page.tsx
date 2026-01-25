@@ -60,7 +60,7 @@ export default async function DashboardOverviewPage() {
         {/* Active Listings */}
         <Link href="/profile/my-listings" className="block">
           <Card className="hover:shadow-primary/10 group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:shadow-2xl md:rounded-[2.5rem] md:p-6">
-            <div className="from-primary/10 absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
+            <div className="from-primary/10 absolute inset-0 bg-linear-to-br via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
 
             <div className="relative z-10 flex flex-col items-center text-center sm:items-start sm:text-left">
               <div className="bg-primary/10 text-primary mb-3 rounded-xl p-3 shadow-inner md:mb-4 md:rounded-2xl md:p-4">
@@ -79,7 +79,7 @@ export default async function DashboardOverviewPage() {
         {/* Total Views */}
         <Link href="/profile/my-listings" className="block">
           <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:shadow-2xl hover:shadow-emerald-500/10 md:rounded-[2.5rem] md:p-6">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
+            <div className="absolute inset-0 bg-linear-to-br from-emerald-500/10 via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
 
             <div className="relative z-10 flex flex-col items-center text-center sm:items-start sm:text-left">
               <div className="mb-3 rounded-xl bg-emerald-500/10 p-3 text-emerald-600 shadow-inner md:mb-4 md:rounded-2xl md:p-4">
@@ -101,7 +101,7 @@ export default async function DashboardOverviewPage() {
           className="col-span-2 block md:col-span-1"
         >
           <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:shadow-2xl hover:shadow-rose-500/10 md:rounded-[2.5rem] md:p-6">
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
+            <div className="absolute inset-0 bg-linear-to-br from-rose-500/10 via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
 
             <div className="relative z-10 flex flex-col items-center text-center sm:items-start sm:text-left">
               <div className="mb-3 rounded-xl bg-rose-500/10 p-3 text-rose-600 shadow-inner md:mb-4 md:rounded-2xl md:p-4">
@@ -122,7 +122,7 @@ export default async function DashboardOverviewPage() {
       <div className="grid grid-cols-1 gap-4 md:gap-8 xl:grid-cols-2">
         {/* Recent Listings */}
         <Card className="relative ml-0 flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur-xl md:rounded-[2.5rem] md:p-8">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-50" />
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 via-transparent to-transparent opacity-50" />
 
           <div className="relative z-10 mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div>
@@ -225,7 +225,7 @@ export default async function DashboardOverviewPage() {
         </Card>
 
         {/* Messages Card - Dynamic List */}
-        <Card className="via-background/60 to-background/60 group relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 p-5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl md:min-h-auto md:rounded-[2.5rem] md:p-8">
+        <Card className="via-background/60 to-background/60 group relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-white/5 p-5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl md:min-h-auto md:rounded-[2.5rem] md:p-8">
           <div className="pointer-events-none absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-soft-light" />
 
           <div className="relative z-10 mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">

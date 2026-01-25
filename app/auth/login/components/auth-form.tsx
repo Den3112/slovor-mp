@@ -26,7 +26,7 @@ export function AuthForm({
     <>
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-3">
-          <label className="ml-1 text-xs font-black tracking-[0.15em] text-indigo-500/80 uppercase">
+          <label className="ml-1 text-xs font-black tracking-widest text-indigo-500/80 uppercase">
             Email Address
           </label>
           <input
@@ -40,7 +40,7 @@ export function AuthForm({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="ml-1 text-xs font-black tracking-[0.15em] text-indigo-500/80 uppercase">
+            <label className="ml-1 text-xs font-black tracking-widest text-indigo-500/80 uppercase">
               Password
             </label>
           </div>
