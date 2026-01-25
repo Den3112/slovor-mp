@@ -4,11 +4,11 @@ import { DashboardFeaturePlaceholder } from '@/components/profile/feature-placeh
 import { ShoppingBag } from 'lucide-react'
 
 export default function PurchasesPage() {
-    return (
-        <DashboardFeaturePlaceholder
-            title="My Purchases"
-            description="Keep track of everything you've bought, view receipts, and easily reorder your favorite items."
-            icon={ShoppingBag}
-        />
-    )
+  return (
+    <DashboardFeaturePlaceholder
+      title="My Purchases"
+      description="Keep track of everything you've bought, view receipts, and easily reorder your favorite items."
+      icon={ShoppingBag}
+    />
+  )
 }

@@ -3,20 +3,21 @@
 import { Suspense, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Loader2, AlertCircle, ArrowRight, ArrowLeft, Eye, Edit3 } from 'lucide-react'
+import {
+  Loader2,
+  AlertCircle,
+  ArrowRight,
+  ArrowLeft,
+  Eye,
+  Edit3,
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { StepCategory, StepDetails, StepImages } from './form-steps'
 import { useCreateListing } from './use-create-listing'
 import { ListingPreview } from './listing-preview'
 
 function CreateListingFormContent() {
-  const {
-    state,
-    actions,
-    flags,
-    t,
-    router
-  } = useCreateListing()
+  const { state, actions, flags, t, router } = useCreateListing()
 
   const {
     step,
@@ -26,7 +27,7 @@ function CreateListingFormContent() {
     isUploading,
     uploadProgress,
     formData,
-    isSubmitting
+    isSubmitting,
   } = state
 
   const {
@@ -34,7 +35,7 @@ function CreateListingFormContent() {
     goToNextStep,
     prevStep,
     handleSubmit,
-    handleFilesSelected
+    handleFilesSelected,
   } = actions
 
   const [viewMode, setViewMode] = useState<'edit' | 'preview'>('edit')
@@ -42,7 +43,7 @@ function CreateListingFormContent() {
   if (flags.showLoader) {
     return (
       <div className="flex justify-center p-20">
-        <Loader2 className="h-10 w-10 animate-spin text-primary" />
+        <Loader2 className="text-primary h-10 w-10 animate-spin" />
       </div>
     )
   }
@@ -56,25 +57,35 @@ function CreateListingFormContent() {
   const showPreview = viewMode === 'preview'
 
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background md:py-20 p-0 md:bg-gradient-to-b md:from-background md:via-background/95 md:to-background">
+    <div className="bg-background md:from-background md:via-background/95 md:to-background flex min-h-[100dvh] flex-col items-center justify-center p-0 md:bg-gradient-to-b md:py-20">
       {/* Mobile Top Bar */}
-      <div className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-border/10 bg-background/80 px-4 py-3 backdrop-blur-xl md:hidden">
+      <div className="border-border/10 bg-background/80 sticky top-0 z-50 flex w-full items-center justify-between border-b px-4 py-3 backdrop-blur-xl md:hidden">
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => step > 1 && !showPreview ? prevStep() : router.push('/')}
+          onClick={() =>
+            step > 1 && !showPreview ? prevStep() : router.push('/')
+          }
           className="rounded-full"
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div className="flex flex-col items-center">
-          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            {showPreview ? t.createListing.preview : t.createListing.step.replace('{step}', step.toString())}
+          <span className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
+            {showPreview
+              ? t.createListing.preview
+              : t.createListing.step.replace('{step}', step.toString())}
           </span>
           {!showPreview && (
-            <div className="flex gap-1 mt-1">
-              {[1, 2, 3].map(i => (
-                <div key={i} className={cn("h-1 w-8 rounded-full transition-colors", step >= i ? "bg-primary" : "bg-muted")} />
+            <div className="mt-1 flex gap-1">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    'h-1 w-8 rounded-full transition-colors',
+                    step >= i ? 'bg-primary' : 'bg-muted'
+                  )}
+                />
               ))}
             </div>
           )}
@@ -84,32 +95,37 @@ function CreateListingFormContent() {
 
       <div
         className={cn(
-          'relative w-full overflow-hidden bg-background md:rounded-[2.5rem] md:border md:border-white/10 md:bg-black/20 md:p-10 md:shadow-2xl md:backdrop-blur-2xl transition-[max-width,height] duration-500 ease-in-out',
+          'bg-background relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-[2.5rem] md:border md:border-white/10 md:bg-black/20 md:p-10 md:shadow-2xl md:backdrop-blur-2xl',
           containerWidth,
           'min-h-[calc(100dvh-60px)] md:min-h-0'
         )}
       >
         {/* Desktop Progress Bar */}
-        <div className="absolute left-0 top-0 hidden h-1.5 w-full bg-white/5 md:block">
+        <div className="absolute top-0 left-0 hidden h-1.5 w-full bg-white/5 md:block">
           <div
-            className="h-full bg-gradient-to-r from-primary/50 to-primary transition-all duration-700 ease-out box-shadow-glow"
+            className="from-primary/50 to-primary box-shadow-glow h-full bg-gradient-to-r transition-all duration-700 ease-out"
             style={{ width: `${showPreview ? 100 : (step / 3) * 100}%` }}
           />
         </div>
 
         {/* Header - Desktop Only */}
-        <div className="mb-6 text-center hidden md:block">
-          <h1 className="mb-2 font-heading text-3xl font-black tracking-tight text-white drop-shadow-sm">
+        <div className="mb-6 hidden text-center md:block">
+          <h1 className="font-heading mb-2 text-3xl font-black tracking-tight text-white drop-shadow-sm">
             {showPreview ? t.createListing.preview : t.createListing.title}
           </h1>
           <p className="text-muted-foreground">
-            {showPreview ? t.createListing.previewDescription : t.createListing.step.replace('{step}', step.toString())}
+            {showPreview
+              ? t.createListing.previewDescription
+              : t.createListing.step.replace('{step}', step.toString())}
           </p>
         </div>
 
         {/* View Mode Tabs - Desktop */}
-        <div className="hidden md:flex justify-center mb-6">
-          <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as 'edit' | 'preview')}>
+        <div className="mb-6 hidden justify-center md:flex">
+          <Tabs
+            value={viewMode}
+            onValueChange={(v) => setViewMode(v as 'edit' | 'preview')}
+          >
             <TabsList className="bg-muted/50">
               <TabsTrigger value="edit" className="flex items-center gap-2">
                 <Edit3 className="h-4 w-4" />
@@ -124,12 +140,12 @@ function CreateListingFormContent() {
         </div>
 
         {error && (
-          <div className="mx-4 md:mx-0 mb-6 flex items-center gap-2 rounded-2xl border border-destructive/20 bg-destructive/10 p-4 font-medium text-destructive animate-in slide-in-from-top-2">
+          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-2xl border p-4 font-medium md:mx-0">
             <AlertCircle className="h-5 w-5" /> {error}
           </div>
         )}
 
-        <div className="px-4 py-6 md:p-0 md:min-h-[400px]">
+        <div className="px-4 py-6 md:min-h-[400px] md:p-0">
           {showPreview ? (
             <ListingPreview formData={formData} categories={categories} />
           ) : (
@@ -165,7 +181,7 @@ function CreateListingFormContent() {
         </div>
 
         {/* Actions */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between border-t border-border/10 bg-background/90 p-4 backdrop-blur-xl md:relative md:mt-10 md:justify-between md:border-t md:border-white/10 md:bg-transparent md:p-0 md:pt-8">
+        <div className="border-border/10 bg-background/90 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-between border-t p-4 backdrop-blur-xl md:relative md:mt-10 md:justify-between md:border-t md:border-white/10 md:bg-transparent md:p-0 md:pt-8">
           {!showPreview ? (
             <>
               {step > 1 ? (
@@ -173,18 +189,23 @@ function CreateListingFormContent() {
                   type="button"
                   variant="ghost"
                   onClick={prevStep}
-                  className="hidden md:flex font-bold text-muted-foreground hover:text-white hover:bg-white/10 rounded-xl"
+                  className="text-muted-foreground hidden rounded-xl font-bold hover:bg-white/10 hover:text-white md:flex"
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t.createListing.back}
                 </Button>
-              ) : <div className="hidden md:block" />}
+              ) : (
+                <div className="hidden md:block" />
+              )}
 
               {/* Mobile Back (if step > 1) */}
               <Button
                 type="button"
                 variant="ghost"
                 onClick={prevStep}
-                className={cn("md:hidden font-bold text-muted-foreground rounded-xl", step === 1 && "invisible")}
+                className={cn(
+                  'text-muted-foreground rounded-xl font-bold md:hidden',
+                  step === 1 && 'invisible'
+                )}
               >
                 {t.createListing.back}
               </Button>
@@ -193,16 +214,17 @@ function CreateListingFormContent() {
                 <Button
                   type="button"
                   onClick={goToNextStep}
-                  className="rounded-2xl px-8 py-6 md:py-4 font-bold shadow-lg shadow-primary/20 transition-transform active:scale-95"
+                  className="shadow-primary/20 rounded-2xl px-8 py-6 font-bold shadow-lg transition-transform active:scale-95 md:py-4"
                 >
-                  {t.createListing.nextStep} <ArrowRight className="ml-2 h-4 w-4" />
+                  {t.createListing.nextStep}{' '}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
                 <Button
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="min-w-[140px] rounded-2xl bg-primary px-8 py-6 md:py-4 font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-transform active:scale-95"
+                  className="bg-primary shadow-primary/20 hover:bg-primary/90 min-w-[140px] rounded-2xl px-8 py-6 font-bold shadow-lg transition-transform active:scale-95 md:py-4"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -213,7 +235,7 @@ function CreateListingFormContent() {
               )}
             </>
           ) : (
-            <div className="flex gap-3 w-full">
+            <div className="flex w-full gap-3">
               <Button
                 type="button"
                 variant="outline"
@@ -227,7 +249,7 @@ function CreateListingFormContent() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="flex-1 rounded-2xl bg-primary px-8 py-4 font-bold shadow-lg shadow-primary/20"
+                className="bg-primary shadow-primary/20 flex-1 rounded-2xl px-8 py-4 font-bold shadow-lg"
               >
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -248,7 +270,7 @@ export function CreateListingForm() {
     <Suspense
       fallback={
         <div className="flex justify-center p-20">
-          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+          <Loader2 className="text-primary h-10 w-10 animate-spin" />
         </div>
       }
     >

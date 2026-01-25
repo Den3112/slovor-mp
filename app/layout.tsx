@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
-import { Inter, Outfit } from 'next/font/google'
+import { DM_Sans, Outfit } from 'next/font/google'
 import { Suspense } from 'react'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { Providers } from './providers'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { cn } from '@/lib/utils'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
 
 export const metadata: Metadata = {
@@ -26,7 +28,7 @@ export default function RootLayout({
       lang="sk"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${outfit.variable}`}
+      className={`${dmSans.variable} ${outfit.variable}`}
     >
       <head>
         <meta charSet="utf-8" />
@@ -34,28 +36,33 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
         />
-        <meta name="theme-color" content="#8b5cf6" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="theme-color" content="#6366f1" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <meta name="format-detection" content="telephone=no" />
       </head>
       <body
         suppressHydrationWarning
         className={cn(
-          'min-h-screen bg-background font-sans text-foreground antialiased'
+          'bg-background text-foreground min-h-screen font-sans antialiased'
         )}
       >
         <Providers>
           <div className="relative flex min-h-screen flex-col">
             <Suspense
               fallback={
-                <div className="h-16 border-b border-white/5 bg-background/80 backdrop-blur-md" />
+                <div className="bg-background/80 h-16 border-b border-white/5 backdrop-blur-md" />
               }
             >
               <Header />
             </Suspense>
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 pb-24 md:pb-0">{children}</main>
             <Footer />
           </div>
+          <Analytics />
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

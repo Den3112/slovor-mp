@@ -28,28 +28,28 @@ export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link
       href={`/categories/${category.slug}`}
-      className="group block rounded-xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
+      className="group border-border bg-card block rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
     >
       <div className="flex items-center gap-4">
         {/* Icon */}
-        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
-          <IconComponent className="h-6 w-6 text-primary" />
+        <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-colors">
+          <IconComponent className="text-primary h-6 w-6" />
         </div>
 
         {/* Content */}
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-foreground transition-colors group-hover:text-primary">
+          <h3 className="text-foreground group-hover:text-primary text-lg font-bold transition-colors">
             {category.name}
           </h3>
           {category.listing_count !== undefined && (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               {category.listing_count} listings
             </p>
           )}
         </div>
 
         {/* Arrow */}
-        <LucideIcons.ChevronRight className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+        <LucideIcons.ChevronRight className="text-muted-foreground group-hover:text-primary h-5 w-5 transition-colors" />
       </div>
     </Link>
   )

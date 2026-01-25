@@ -31,7 +31,9 @@ export const DEFAULT_LISTING_FORM: ListingFormData = {
   images: [],
 }
 
-export function validateListingForm(values: ListingFormData): ListingFormErrors {
+export function validateListingForm(
+  values: ListingFormData
+): ListingFormErrors {
   const errors: ListingFormErrors = {}
 
   if (!values.title.trim()) {
@@ -61,5 +63,7 @@ export function validateListingForm(values: ListingFormData): ListingFormErrors 
 }
 
 export function hasListingFormErrors(errors: ListingFormErrors): boolean {
-  return Boolean(errors.title || errors.price || errors.category_id || errors.location)
+  return Boolean(
+    errors.title || errors.price || errors.category_id || errors.location
+  )
 }

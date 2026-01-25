@@ -8,14 +8,17 @@ const DRAFT_KEY_PREFIX = 'listing-draft:'
 /**
  * Saves a listing draft for a specific user
  */
-export const saveListingDraft = (userId: string | null, data: ListingFormData) => {
+export const saveListingDraft = (
+  userId: string | null,
+  data: ListingFormData
+) => {
   if (typeof window === 'undefined' || !userId) return
 
   try {
     const key = `${DRAFT_KEY_PREFIX}${userId}`
     const payload = {
       data,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     }
     localStorage.setItem(key, JSON.stringify(payload))
   } catch (error) {
@@ -26,7 +29,9 @@ export const saveListingDraft = (userId: string | null, data: ListingFormData) =
 /**
  * Loads a listing draft for a specific user
  */
-export const loadListingDraft = (userId: string | null | undefined): ListingFormData | null => {
+export const loadListingDraft = (
+  userId: string | null | undefined
+): ListingFormData | null => {
   if (typeof window === 'undefined' || !userId) return null
 
   try {

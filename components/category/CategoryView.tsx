@@ -3,12 +3,12 @@
 import { ListingGrid } from '@/components/listing/grid'
 import { ErrorState } from '@/components/ui/error-state'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
-import { Badge } from '@/components/ui/badge'
 import { Filters } from '@/components/category/Filters'
 import { Pagination } from '@/components/category/Pagination'
 import { useTranslation } from '@/lib/i18n'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import type { Category, Listing } from '@/lib/types/database'
+import { CategoryIcon } from '@/components/category/CategoryIcon'
 
 interface CategoryViewProps {
   category: Category
@@ -31,7 +31,7 @@ export function CategoryView({
   const categoryName = getLocalizedCategoryName(category, locale, t)
 
   return (
-    <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pb-12 pt-24 md:pt-32">
+    <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pt-24 pb-12 md:pt-32">
       <Breadcrumbs
         items={[
           { label: t.common.categories, href: '/listings' },
@@ -39,24 +39,23 @@ export function CategoryView({
         ]}
       />
 
-      <div className="fade-in-up mb-12 mt-6">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center">
-          {category.icon && (
-            <div className="flex h-24 w-24 items-center justify-center rounded-[1.5rem] border border-border/50 bg-card text-6xl shadow-lg shadow-black/5">
-              {category.icon}
-            </div>
-          )}
-          <div>
-            <h1 className="mb-4 font-heading text-4xl font-black tracking-tighter text-foreground md:text-6xl">
+      <div className="fade-in-up mt-8 mb-16">
+        <div className="flex flex-col gap-8 md:flex-row md:items-center">
+          <div className="border-border/40 bg-card shadow-soft-shadow flex h-24 w-24 items-center justify-center rounded-[2rem] border md:h-32 md:w-32">
+            <CategoryIcon
+              slug={category.slug}
+              className="text-primary animate-float h-12 w-12 transition-all duration-700 md:h-16 md:w-16"
+            />
+          </div>
+          <div className="space-y-3">
+            <h1 className="font-heading text-foreground text-4xl font-black tracking-tighter italic md:text-7xl">
               {categoryName}
             </h1>
             <div className="flex items-center gap-3">
-              <Badge
-                variant="secondary"
-                className="rounded-xl border-0 bg-primary/10 px-3 py-1 text-sm font-black uppercase tracking-wider text-primary"
-              >
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 px-4 py-1.5 text-xs font-black tracking-widest text-indigo-600 uppercase dark:text-indigo-400">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />
                 {totalCount} {t.common.listings} {t.common.found}
-              </Badge>
+              </div>
             </div>
           </div>
         </div>
@@ -70,7 +69,7 @@ export function CategoryView({
         <ErrorState message={listingsError} />
       ) : listings.length === 0 ? (
         <div className="py-16 text-center">
-          <p className="mb-4 text-xl text-muted-foreground">
+          <p className="text-muted-foreground mb-4 text-xl">
             {t.common.noListings || 'No listings found'}
           </p>
           <p className="text-muted-foreground">

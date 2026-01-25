@@ -36,6 +36,7 @@ vi.mock('@/lib/supabase/client', () => ({
       getSession: vi
         .fn()
         .mockResolvedValue({ data: { session: null }, error: null }),
+      getUser: vi.fn().mockResolvedValue({ data: { user: null }, error: null }),
       signInWithPassword: vi.fn(),
       signUp: vi.fn(),
       signOut: vi.fn(),
@@ -46,17 +47,22 @@ vi.mock('@/lib/supabase/client', () => ({
     from: vi.fn(() => ({
       select: vi.fn().mockReturnThis(),
       insert: vi.fn().mockReturnThis(),
+      upsert: vi.fn().mockReturnThis(),
       update: vi.fn().mockReturnThis(),
       delete: vi.fn().mockReturnThis(),
       eq: vi.fn().mockReturnThis(),
       order: vi.fn().mockReturnThis(),
       limit: vi.fn().mockReturnThis(),
+      range: vi.fn().mockReturnThis(),
       single: vi.fn().mockResolvedValue({ data: null, error: null }),
       maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
     })),
+    rpc: vi.fn().mockResolvedValue({ data: null, error: null }),
     storage: {
       from: vi.fn(() => ({
-        upload: vi.fn().mockResolvedValue({ data: { path: 'test' }, error: null }),
+        upload: vi
+          .fn()
+          .mockResolvedValue({ data: { path: 'test' }, error: null }),
         getPublicUrl: vi.fn().mockReturnValue({ data: { publicUrl: 'test' } }),
         remove: vi.fn().mockResolvedValue({ error: null }),
       })),

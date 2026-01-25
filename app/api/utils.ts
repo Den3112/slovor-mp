@@ -3,51 +3,55 @@ import { env } from '@/lib/env'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers':
+    'authorization, x-client-info, apikey, content-type',
 }
 
-export function createErrorResponse(message: string, status: number, details?: unknown) {
-    return NextResponse.json({ message, details }, { status, headers: corsHeaders })
+export function createErrorResponse(
+  message: string,
+  status: number,
+  details?: unknown
+) {
+  return NextResponse.json(
+    { message, details },
+    { status, headers: corsHeaders }
+  )
 }
 
 export function createSuccessResponse<T>(data: T, status: number = 200) {
-    return NextResponse.json(data, { status, headers: corsHeaders })
+  return NextResponse.json(data, { status, headers: corsHeaders })
 }
 
 export function getAuthenticatedClient(req: NextRequest) {
-    const authHeader = req.headers.get('Authorization')
-    if (!authHeader) {
-        return null
-    }
+  const authHeader = req.headers.get('Authorization')
+  if (!authHeader) {
+    return null
+  }
 
-    const token = authHeader.replace('Bearer ', '').trim()
-    if (!token) {
-        return null
-    }
+  const token = authHeader.replace('Bearer ', '').trim()
+  if (!token) {
+    return null
+  }
 
-    const supabaseUrl = env.SUPABASE_URL
-    const supabaseAnonKey = env.SUPABASE_ANON_KEY
+  const supabaseUrl = env.SUPABASE_URL
+  const supabaseAnonKey = env.SUPABASE_ANON_KEY
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-        console.error('Missing Supabase environment variables')
-        return null
-    }
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Missing Supabase environment variables')
+    return null
+  }
 
-    return createClient(
-        supabaseUrl,
-        supabaseAnonKey,
-        {
-            global: {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        }
-    )
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    global: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  })
 }
 
 // Helper to handle OPTIONS requests for CORS
 export function OPTIONS() {
-    return NextResponse.json({}, { headers: corsHeaders })
+  return NextResponse.json({}, { headers: corsHeaders })
 }

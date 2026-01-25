@@ -4,8 +4,9 @@ import { useState, Suspense } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Loader2, ArrowLeft, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
+import { AuthSocial } from './components/auth-social'
+import { AuthForm } from './components/auth-form'
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false)
@@ -56,7 +57,7 @@ export default function LoginPage() {
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/auth/callback`,
-          }
+          },
         })
         if (error) throw error
         alert('Check your email for the confirmation link!')
@@ -74,7 +75,8 @@ export default function LoginPage() {
         router.refresh()
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
+      const errorMessage =
+        err instanceof Error ? err.message : 'An unexpected error occurred'
 
       // Log Failure
       fetch('/api/auth/log-access', {
@@ -83,8 +85,8 @@ export default function LoginPage() {
           status: 'failure',
           failure_reason: errorMessage,
           email: email, // Log the email that was attempted
-          event_type: 'login'
-        })
+          event_type: 'login',
+        }),
       }).catch(console.error)
 
       setError(errorMessage)
@@ -94,160 +96,63 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-background p-4 md:p-8">
+    <div className="bg-background relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden p-4 md:p-8">
       <Suspense
         fallback={
-          <div className="text-center font-bold text-primary">Loading...</div>
+          <div className="text-primary text-center font-bold">Loading...</div>
         }
       >
         {/* Background Effects */}
-        <div className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-hidden">
-          <div className="absolute right-[10%] top-[20%] h-[200px] w-[200px] md:h-[300px] md:w-[300px] animate-pulse rounded-full bg-primary/20 blur-[80px] md:blur-[100px]" />
-          <div className="absolute bottom-[20%] left-[10%] h-[200px] w-[200px] md:h-[300px] md:w-[300px] rounded-full bg-violet-600/20 blur-[80px] md:blur-[100px]" />
+        <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
+          <div className="absolute top-[20%] right-[10%] h-[400px] w-[400px] animate-pulse rounded-full bg-indigo-500/10 blur-[100px] md:h-[600px] md:w-[600px] md:blur-[150px]" />
+          <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[100px] md:h-[600px] md:w-[600px] md:blur-[150px]" />
         </div>
 
-        <div className="relative z-10 w-full max-w-md rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-black/20 p-6 md:p-8 shadow-2xl backdrop-blur-xl duration-500 animate-in fade-in zoom-in-95">
+        <div className="glass-card animate-in fade-in zoom-in-95 relative z-10 w-full max-w-md rounded-[2.5rem] p-6 duration-500 md:p-10">
           <Link
             href="/"
-            className="mb-6 md:mb-8 inline-flex items-center rounded-full bg-white/5 px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground active:scale-95"
+            className="mb-8 inline-flex items-center rounded-full border border-indigo-500/10 bg-indigo-500/5 px-5 py-2.5 text-sm font-bold text-indigo-600 transition-all hover:scale-105 hover:bg-indigo-500/10 active:scale-95 dark:text-indigo-400"
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
           </Link>
 
-          <div className="mb-6 md:mb-8 text-center">
-            <div className="mb-4 inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-inner border border-white/5">
-              <span className="text-2xl md:text-3xl">⚡</span>
+          <div className="mb-10 text-center">
+            <div className="text-primary mb-6 inline-flex h-16 w-16 items-center justify-center rounded-3xl border border-white/20 bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 shadow-inner md:h-20 md:w-20">
+              <span className="animate-bounce-subtle text-3xl md:text-4xl">
+                ✨
+              </span>
             </div>
-            <h1 className="mb-2 font-heading text-2xl md:text-3xl font-black tracking-tight text-white">
-              {isRegistering ? 'Create Account' : 'Welcome Back'}
+            <h1 className="font-heading text-foreground mb-3 text-3xl font-black tracking-tight italic md:text-4xl">
+              {isRegistering ? 'Join Slovor' : 'Welcome Back'}
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground/80">
+            <p className="text-muted-foreground text-sm font-medium md:text-base">
               {isRegistering
-                ? 'Join the #1 marketplace in Slovakia'
-                : 'Sign in to manage your listings'}
+                ? "Join Slovakia's premium marketplace"
+                : 'Sign in to your premium account'}
             </p>
           </div>
 
           {error && (
-            <div className="shake mb-6 rounded-2xl border border-destructive/20 bg-destructive/10 p-4 text-sm font-medium text-destructive animate-in">
+            <div className="shake border-destructive/20 bg-destructive/10 text-destructive animate-in mb-6 rounded-2xl border p-4 text-sm font-bold">
               {error}
             </div>
           )}
 
-          <div className="mb-6 md:mb-8 space-y-3 md:space-y-4">
-            <Button
-              type="button"
-              variant="outline"
-              className="group h-12 md:h-14 w-full rounded-2xl border-white/10 bg-white/5 text-base font-semibold text-white transition-all hover:bg-white/10 hover:border-white/20 hover:scale-[1.02] active:scale-95"
-              onClick={handleGoogleLogin}
-              disabled={googleLoading || loading}
-            >
-              {googleLoading ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              ) : (
-                <svg className="mr-2 h-5 w-5 opacity-80 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24">
-                  <path
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                    fill="#4285F4"
-                  />
-                  <path
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    fill="#34A853"
-                  />
-                  <path
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                    fill="#FBBC05"
-                  />
-                  <path
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                    fill="#EA4335"
-                  />
-                </svg>
-              )}
-              Continue with Google
-            </Button>
+          <AuthSocial
+            onGoogleLogin={handleGoogleLogin}
+            googleLoading={googleLoading}
+            loading={loading}
+          />
 
-            <div className="relative py-1 md:py-2">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-white/10" />
-              </div>
-              <div className="relative flex justify-center text-[10px] uppercase tracking-widest">
-                <span className="bg-background/80 backdrop-blur px-2 text-muted-foreground">Or continue with</span>
-              </div>
-            </div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label className="ml-1 text-xs font-bold uppercase tracking-wider text-muted-foreground/80">
-                Email
-              </label>
-              <input
-                name="email"
-                type="email"
-                placeholder="name@example.com"
-                required
-                className="h-12 md:h-14 w-full rounded-2xl border border-white/10 bg-white/5 px-6 text-base text-white outline-none transition-all placeholder:text-white/20 focus:border-primary/50 focus:bg-white/10 focus:ring-4 focus:ring-primary/10"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="ml-1 text-xs font-bold uppercase tracking-wider text-muted-foreground/80">
-                  Password
-                </label>
-              </div>
-              <div className="relative">
-                <input
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
-                  required
-                  minLength={6}
-                  className="h-12 md:h-14 w-full rounded-2xl border border-white/10 bg-white/5 px-6 pr-12 text-base text-white outline-none transition-all placeholder:text-white/20 focus:border-primary/50 focus:bg-white/10 focus:ring-4 focus:ring-primary/10"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors p-2"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <Button
-              type="submit"
-              className="mt-6 h-12 md:h-14 w-full rounded-2xl text-lg font-bold shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02] hover:shadow-primary/40 active:scale-95"
-              disabled={loading || googleLoading}
-            >
-              {loading ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : isRegistering ? (
-                'Create Account'
-              ) : (
-                'Sign In'
-              )}
-            </Button>
-          </form>
-
-          <div className="mt-8 text-center text-sm">
-            <span className="text-muted-foreground">
-              {isRegistering
-                ? 'Already have an account?'
-                : "Don't have an account?"}
-            </span>{' '}
-            <button
-              onClick={() => setIsRegistering(!isRegistering)}
-              className="font-bold text-primary hover:underline decoration-2 underline-offset-4"
-            >
-              {isRegistering ? 'Sign In' : 'Sign Up'}
-            </button>
-          </div>
+          <AuthForm
+            onSubmit={handleSubmit}
+            loading={loading}
+            googleLoading={googleLoading}
+            isRegistering={isRegistering}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
+            setIsRegistering={setIsRegistering}
+          />
         </div>
       </Suspense>
     </div>

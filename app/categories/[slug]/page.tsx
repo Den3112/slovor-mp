@@ -28,8 +28,11 @@ export const revalidate = 120
  * 2. Creates static HTML for each category
  * 3. Combined with ISR, updates every 120 seconds
  */
+import { createClient, createStaticClient } from '@/lib/supabase/server'
+
 export async function generateStaticParams() {
-  const categoriesRes = await categoriesApi.getAll()
+  const supabase = createStaticClient()
+  const categoriesRes = await categoriesApi.getAll(supabase)
 
   if (!categoriesRes.data) {
     return []
@@ -57,7 +60,9 @@ export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
-  const [{ slug }, query] = await Promise.all([params, searchParams])
+  const { slug } = await params
+  const query = await searchParams
+  const supabase = await createClient()
 
   // Pagination settings
   const ITEMS_PER_PAGE = 20
@@ -65,7 +70,7 @@ export default async function CategoryPage({
   const offset = (currentPage - 1) * ITEMS_PER_PAGE
 
   // First get the category by slug
-  const categoryRes = await categoriesApi.getBySlug(slug)
+  const categoryRes = await categoriesApi.getBySlug(slug, supabase)
 
   if (categoryRes.error) {
     return <ErrorState message={categoryRes.error} />
@@ -85,14 +90,17 @@ export default async function CategoryPage({
   }
 
   // Get listings with pagination
-  const listingsRes = await listingsApi.getAll({
-    ...filterOptions,
-    limit: ITEMS_PER_PAGE,
-    offset,
-  })
+  const listingsRes = await listingsApi.getAll(
+    {
+      ...filterOptions,
+      limit: ITEMS_PER_PAGE,
+      offset,
+    },
+    supabase
+  )
 
   // Get total count for pagination
-  const countRes = await listingsApi.getCount(filterOptions)
+  const countRes = await listingsApi.getCount(filterOptions, supabase)
 
   return (
     <Suspense

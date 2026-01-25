@@ -19,11 +19,7 @@ export function ListingsView({
   // Error State
   if (error) {
     return (
-      <EmptyState
-        icon="⚠️"
-        title="Something went wrong"
-        description={error}
-      />
+      <EmptyState icon="⚠️" title="Something went wrong" description={error} />
     )
   }
 

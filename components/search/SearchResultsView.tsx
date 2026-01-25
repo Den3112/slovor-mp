@@ -6,38 +6,39 @@ import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/api'
 
 interface SearchResultsViewProps {
-    listings: Listing[]
-    totalCount: number
-    itemsPerPage: number
+  listings: Listing[]
+  totalCount: number
+  itemsPerPage: number
 }
 
 export function SearchResultsView({
-    listings,
-    totalCount,
-    itemsPerPage,
+  listings,
+  totalCount,
+  itemsPerPage,
 }: SearchResultsViewProps) {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    if (listings.length === 0) {
-        return (
-            <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="mb-4 rounded-full bg-muted p-6">
-                    <span className="text-4xl">🔍</span>
-                </div>
-                <h2 className="mb-2 text-xl font-bold">
-                    {t.common.noResults || 'No results found'}
-                </h2>
-                <p className="text-muted-foreground">
-                    {t.common.tryDifferentFilters || 'Try adjusting your filters or search terms.'}
-                </p>
-            </div>
-        )
-    }
-
+  if (listings.length === 0) {
     return (
-        <div className="space-y-8">
-            {/* Dynamic Header for Search Results */}
-            {/* Note: In the original page.tsx, the header was outside the results block.
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="bg-muted mb-4 rounded-full p-6">
+          <span className="text-4xl">🔍</span>
+        </div>
+        <h2 className="mb-2 text-xl font-bold">
+          {t.common.noResults || 'No results found'}
+        </h2>
+        <p className="text-muted-foreground">
+          {t.common.tryDifferentFilters ||
+            'Try adjusting your filters or search terms.'}
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-8">
+      {/* Dynamic Header for Search Results */}
+      {/* Note: In the original page.tsx, the header was outside the results block.
           We might want to keep the header in page.tsx if it's structural,
           OR move it here if it needs to be dynamic.
           The original page had "Search results for..." in the header section.
@@ -114,28 +115,28 @@ export function SearchResultsView({
           So first, `SearchResultsView.tsx`.
       */}
 
-            <div className="flex items-center justify-between mb-6">
-                <span className="font-medium text-muted-foreground">
-                    {/* "Showing results" */}
-                    {t.common.showingResults || 'Showing results'}
-                </span>
-                {/* SortSelect is already a component, likely client? Let's check imports in page.tsx.
+      <div className="mb-6 flex items-center justify-between">
+        <span className="text-muted-foreground font-medium">
+          {/* "Showing results" */}
+          {t.common.showingResults || 'Showing results'}
+        </span>
+        {/* SortSelect is already a component, likely client? Let's check imports in page.tsx.
             It was imported from '@/components/search/SortSelect'.
             I'll assume it's good or I'll check it later.
             I need to include it here.
         */}
-                <SortSelectWrapper />
-            </div>
+        <SortSelectWrapper />
+      </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {listings.map((listing) => (
-                    <ListingCard key={listing.id} listing={listing} />
-                ))}
-            </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {listings.map((listing) => (
+          <ListingCard key={listing.id} listing={listing} />
+        ))}
+      </div>
 
-            <Pagination totalItems={totalCount} itemsPerPage={itemsPerPage} />
-        </div>
-    )
+      <Pagination totalItems={totalCount} itemsPerPage={itemsPerPage} />
+    </div>
+  )
 }
 
 // I need SortSelect.
@@ -143,5 +144,5 @@ export function SearchResultsView({
 import { SortSelect } from '@/components/search/SortSelect'
 
 function SortSelectWrapper() {
-    return <SortSelect />
+  return <SortSelect />
 }

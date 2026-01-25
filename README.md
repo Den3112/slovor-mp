@@ -1,5 +1,7 @@
 # 🛒 Slovor Marketplace
 
+> **🤖 FOR AI AGENTS:** Before starting ANY work, you **MUST** read the mandatory project workflows in `.agent/workflows/`. Specifically, `bot-charter.md` (Global Instructions) and `coding-rules.md` (Code Standards & Reports) define your operating protocol. DO NOT skip this.
+
 > **Premium Slovakian Classifieds Marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS. Featuring "Avant-Garde" UI/UX.
 
 **Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)
@@ -19,10 +21,10 @@ All documentation has been moved to the **`docs` branch** for better organizatio
 - 🔥 **Coding Principles** - See `docs/architecture/PRINCIPLES.md` in `docs` branch
 
 To access documentation locally:
+
 ```bash
 git checkout docs
 ```
-
 
 ---
 
@@ -83,7 +85,6 @@ Open [http://localhost:3000](http://localhost:3000)
 - **`dev`** → Active development branch. All feature branches merge here first.
 - **`docs`** → **Documentation only**. Contains all project documentation, guides, and architecture docs.
 
-
 ---
 
 ## 🛠️ Tech Stack
@@ -110,7 +111,6 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### 🚧 In Focus (See Roadmap in `docs` branch)
 
-
 - Premium User Dashboard
 - Advanced Media Management (File Uploads)
 - Smart Search & discovery interactions
@@ -124,8 +124,7 @@ Open [http://localhost:3000](http://localhost:3000)
 3. Ensure type safety and linting passes.
 4. Create a PR to `dev`.
 
-
 ---
 
-**Last Updated:** 2026-01-05
+**Last Updated:** 2026-01-22
 **Maintained by:** [@Den3112](https://github.com/Den3112)

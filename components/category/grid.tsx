@@ -6,8 +6,8 @@ import { useTranslation } from '@/lib/i18n'
 import { CategoryIcon } from './CategoryIcon'
 import {
   getUniqueCategories,
-  getCategoryName,
-} from '@/lib/utils/category-helpers'
+  getLocalizedCategoryName,
+} from '@/lib/utils/category-i18n'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -33,27 +33,27 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           <div className="group flex h-full flex-col gap-4">
             <Link
               href={`/categories/${category.slug}`}
-              className="hover:shadow-premium group/card relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[2.5rem] border border-border/50 bg-card p-10 shadow-sm transition-all duration-500 hover:border-primary/50"
+              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[2.5rem] border p-10 shadow-sm transition-all duration-500"
             >
               {/* Decorative Pattern */}
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/5 blur-2xl transition-transform duration-700 group-hover/card:scale-150" />
+              <div className="bg-primary/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl transition-transform duration-700 group-hover/card:scale-150" />
 
-              <div className="absolute right-6 top-6 opacity-0 transition-opacity group-hover/card:opacity-100">
-                <ArrowUpRight className="h-5 w-5 text-primary" />
+              <div className="absolute top-6 right-6 opacity-0 transition-opacity group-hover/card:opacity-100">
+                <ArrowUpRight className="text-primary h-5 w-5" />
               </div>
 
               {category.icon_name && (
-                <div className="mb-6 rounded-3xl bg-muted/50 p-6 transition-all duration-500 group-hover/card:rotate-6 group-hover/card:scale-110 group-hover/card:bg-primary group-hover/card:text-primary-foreground">
+                <div className="bg-muted/50 group-hover/card:bg-primary group-hover/card:text-primary-foreground mb-6 rounded-3xl p-6 transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotate-6">
                   <CategoryIcon slug={category.slug} className="h-12 w-12" />
                 </div>
               )}
 
-              <h3 className="text-center text-xl font-black tracking-tight text-foreground transition-colors group-hover/card:text-primary">
-                {getCategoryName(category, locale, t)}
+              <h3 className="text-foreground group-hover/card:text-primary text-center text-xl font-black tracking-tight transition-colors">
+                {getLocalizedCategoryName(category, locale, t)}
               </h3>
 
               {category.listing_count !== undefined && (
-                <span className="mt-3 rounded-full bg-muted/50 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground transition-all group-hover/card:bg-primary/10 group-hover/card:text-primary">
+                <span className="bg-muted/50 text-muted-foreground group-hover/card:bg-primary/10 group-hover/card:text-primary mt-3 rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all">
                   {category.listing_count} {t.common.listings}
                 </span>
               )}
@@ -66,15 +66,15 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                   <Link
                     key={sub.id}
                     href={`/categories/${sub.slug}`}
-                    className="rounded-xl border border-border/50 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground transition-all hover:bg-primary/5 hover:text-primary"
+                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl border px-3 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all"
                   >
-                    {getCategoryName(sub, locale, t)}
+                    {getLocalizedCategoryName(sub, locale, t)}
                   </Link>
                 ))}
                 {category.subcategories.length > 4 && (
                   <Link
                     href={`/categories/${category.slug}`}
-                    className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary hover:underline"
+                    className="text-primary px-2 py-1.5 text-[10px] font-bold tracking-widest uppercase hover:underline"
                   >
                     +{category.subcategories.length - 4} More
                   </Link>

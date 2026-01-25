@@ -120,4 +120,30 @@ describe('ListingCard', () => {
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/listings/1')
   })
+
+  it('renders the compact variant correctly', () => {
+    render(<ListingCard listing={mockListing} variant="compact" />)
+    // Check for specific compact layout elements or classes if needed
+    // For now, check if the main info is still there
+    expect(screen.getByText('Test Product')).toBeInTheDocument()
+    expect(screen.getByText('Bratislava')).toBeInTheDocument()
+  })
+
+  it('shows featured badge when listing is featured', () => {
+    // Note: The component uses the 'featured' prop OR listing.featured
+    render(<ListingCard listing={mockListing} featured={true} />)
+    expect(screen.getByText('Featured')).toBeInTheDocument()
+  })
+
+  it('shows views count when provided', () => {
+    const listingWithViews = { ...mockListing, views: 123 }
+    render(<ListingCard listing={listingWithViews} />)
+    expect(screen.getByText('123')).toBeInTheDocument()
+  })
+
+  it('shows placeholder when no image is provided', () => {
+    const listingNoImage = { ...mockListing, images: [] }
+    render(<ListingCard listing={listingNoImage} />)
+    expect(screen.getByText('No image')).toBeInTheDocument()
+  })
 })

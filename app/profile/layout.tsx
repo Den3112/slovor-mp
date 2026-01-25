@@ -10,7 +10,9 @@ export default async function DashboardLayout({
   children: React.ReactNode
 }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
   if (!user) {
     redirect('/auth/login')
@@ -21,13 +23,14 @@ export default async function DashboardLayout({
   const stats = await getDashboardStats(user.id)
 
   return (
-    <div className="min-h-screen bg-background pb-32 pt-24 md:pb-20 md:pt-28" vaul-drawer-wrapper="">
+    <div
+      className="bg-background min-h-screen pt-24 pb-32 md:pt-28 md:pb-20"
+      vaul-drawer-wrapper=""
+    >
       <Container>
-        <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-8">
           <DashboardSidebar stats={stats} />
-          <main className="flex-1 min-w-0">
-            {children}
-          </main>
+          <main className="min-w-0 flex-1">{children}</main>
         </div>
       </Container>
       <MobileBottomNav stats={stats} />

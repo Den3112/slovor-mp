@@ -41,6 +41,11 @@ vi.mock('@/components/providers/auth-provider', () => ({
   }),
 }))
 
+// Mock Categories API to prevent act() warning
+vi.mock('@/lib/supabase/categories', () => ({
+  getMainCategories: vi.fn(() => Promise.resolve({ data: [], error: null })),
+}))
+
 describe('Header', () => {
   it('renders the logo', () => {
     render(<Header />)

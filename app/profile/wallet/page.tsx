@@ -4,11 +4,11 @@ import { DashboardFeaturePlaceholder } from '@/components/profile/feature-placeh
 import { Wallet } from 'lucide-react'
 
 export default function WalletPage() {
-    return (
-        <DashboardFeaturePlaceholder
-            title="Slovor Wallet"
-            description="Securely manage your earnings, request payouts, and view detailed transaction history."
-            icon={Wallet}
-        />
-    )
+  return (
+    <DashboardFeaturePlaceholder
+      title="Slovor Wallet"
+      description="Securely manage your earnings, request payouts, and view detailed transaction history."
+      icon={Wallet}
+    />
+  )
 }

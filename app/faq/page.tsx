@@ -14,21 +14,21 @@ export default async function FAQPage() {
   return (
     <main className="relative min-h-screen overflow-hidden pb-24">
       {/* Background Decor */}
-      <div className="absolute left-1/2 top-0 -z-10 h-full w-full -translate-x-1/2 opacity-30">
-        <div className="absolute left-[-10%] top-[-10%] h-[40%] w-[40%] rounded-full bg-primary/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full bg-violet-500/10 blur-[120px]" />
+      <div className="absolute top-0 left-1/2 -z-10 h-full w-full -translate-x-1/2 opacity-30">
+        <div className="bg-primary/20 absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full blur-[120px]" />
+        <div className="absolute right-[-10%] bottom-[-10%] h-[40%] w-[40%] rounded-full bg-violet-500/10 blur-[120px]" />
       </div>
 
       <Container className="pt-32 md:pt-40">
         <div className="mx-auto mb-20 max-w-4xl text-center">
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-primary">
+          <div className="bg-primary/10 text-primary mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-black tracking-widest uppercase">
             <HelpCircle className="h-3.5 w-3.5" />
             Help Center
           </div>
-          <h1 className="mb-8 font-heading text-6xl font-black leading-[1.05] tracking-tight text-foreground md:text-8xl">
+          <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-black tracking-tight md:text-8xl">
             {t.faq.title}
           </h1>
-          <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-muted-foreground md:text-2xl">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
             {t.faq.subtitle}
           </p>
         </div>
@@ -37,17 +37,17 @@ export default async function FAQPage() {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="group cursor-default rounded-[2rem] border border-border/50 bg-card/40 p-8 backdrop-blur-sm transition-all hover:border-primary/30"
+              className="group border-border/50 bg-card/40 hover:border-primary/30 cursor-default rounded-[2rem] border p-8 backdrop-blur-sm transition-all"
             >
               <div className="flex items-start gap-4">
-                <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                <div className="bg-primary/10 group-hover:bg-primary mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors duration-300 group-hover:text-white">
                   <ChevronRight className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="mb-3 text-xl font-black tracking-tight text-foreground">
+                  <h3 className="text-foreground mb-3 text-xl font-black tracking-tight">
                     {faq.q}
                   </h3>
-                  <p className="text-lg font-medium leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-lg leading-relaxed font-medium">
                     {faq.a}
                   </p>
                 </div>
@@ -56,6 +56,6 @@ export default async function FAQPage() {
           ))}
         </div>
       </Container>
-    </main >
+    </main>
   )
 }

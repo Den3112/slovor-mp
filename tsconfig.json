@@ -33,7 +33,7 @@
     "esModuleInterop": true,
     // Emit
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     // Next.js
     "plugins": [
