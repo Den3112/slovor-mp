@@ -51,7 +51,7 @@ export function ReportDialog({
 
     const { error } = await reportsApi.create({
       reporter_id: user.id,
-      reported_listing_id: listingId,
+      listing_id: listingId,
       reported_user_id: userId,
       reason,
       description: description.trim() || undefined,

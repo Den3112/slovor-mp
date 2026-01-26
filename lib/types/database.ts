@@ -150,7 +150,8 @@ export interface BlogPost {
 
 export interface ListingReport {
   id: string
-  listing_id: string
+  listing_id: string | null
+  reported_user_id: string | null
   reporter_id: string
   reason: string
   description: string | null
