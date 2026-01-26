@@ -8,8 +8,10 @@ import { Star, User, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
+import { useTranslation } from '@/lib/i18n'
+
 export default function ReviewsPage() {
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [ratingData, setRatingData] = useState<SellerRating | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -46,14 +48,18 @@ export default function ReviewsPage() {
   const reviews = ratingData?.reviews || []
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="font-heading text-3xl font-black tracking-tight">
-          Reviews
-        </h1>
-        <p className="text-muted-foreground">
-          Manage your reputation and view feedback from buyers.
-        </p>
+    <div className="space-y-6">
+      {/* Premium Header */}
+      <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-4 overflow-hidden rounded-5xl border border-white/10 bg-linear-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-center md:justify-between md:p-10">
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-amber-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="relative z-10">
+          <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
+            {t.reviews.title}
+          </h1>
+          <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
+            {t.reviews.manageReputation}
+          </p>
+        </div>
       </div>
 
       {/* Stats Cards */}
@@ -64,7 +70,9 @@ export default function ReviewsPage() {
               <Star className="h-6 w-6 text-amber-500" />
             </div>
             <div>
-              <p className="text-muted-foreground text-sm font-bold">Rating</p>
+              <p className="text-muted-foreground text-sm font-bold">
+                {t.reviews.rating}
+              </p>
               <p className="font-heading text-2xl font-black">
                 {ratingData?.averageRating || 0}
                 <span className="text-muted-foreground text-sm font-medium">
@@ -82,7 +90,7 @@ export default function ReviewsPage() {
             </div>
             <div>
               <p className="text-muted-foreground text-sm font-bold">
-                Total Reviews
+                {t.reviews.totalReviews}
               </p>
               <p className="font-heading text-2xl font-black">
                 {ratingData?.totalReviews || 0}
@@ -118,7 +126,7 @@ export default function ReviewsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-foreground font-bold">
-                        {review.buyer?.display_name || 'Anonymous User'}
+                        {review.buyer?.display_name || t.reviews.anonymous}
                       </p>
                       <div className="text-muted-foreground flex items-center gap-2 text-xs">
                         <span>
@@ -164,9 +172,9 @@ export default function ReviewsPage() {
       ) : (
         <EmptyState
           icon={Star}
-          title="No reviews yet"
-          description="You haven't received any reviews yet. Sell items to build your reputation!"
-          actionLabel="Back to listings"
+          title={t.reviews.noReviews}
+          description={t.reviews.noReviewsDesc}
+          actionLabel={t.reviews.backToListings}
           actionHref="/listings"
         />
       )}

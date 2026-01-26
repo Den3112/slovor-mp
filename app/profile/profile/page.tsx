@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { SellerProfileView } from '@/components/profile/SellerProfileView'
 import { redirect } from 'next/navigation'
 import { Eye, ExternalLink } from 'lucide-react'
+import { getTranslationServer } from '@/lib/i18n/server'
 
 export default async function DashboardProfilePage() {
   const supabase = await createClient()
@@ -32,6 +33,8 @@ export default async function DashboardProfilePage() {
     redirect('/profile/settings')
   }
 
+  const { t } = await getTranslationServer()
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 duration-700">
       {/* Premium Header - Floating Glass Bar */}
@@ -42,10 +45,10 @@ export default async function DashboardProfilePage() {
           </div>
           <div>
             <h1 className="text-muted-foreground/80 text-sm font-black tracking-widest uppercase">
-              Preview Mode
+              {t.profile_preview.title}
             </h1>
             <p className="text-foreground text-xs font-medium">
-              See what buyers see
+              {t.profile_preview.description}
             </p>
           </div>
         </div>
@@ -56,7 +59,7 @@ export default async function DashboardProfilePage() {
           rel="noopener noreferrer"
           className="group bg-primary text-primary-foreground shadow-primary/25 hover:shadow-primary/40 relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-bold shadow-lg transition-all hover:scale-105 active:scale-95"
         >
-          <span className="relative z-10">Visit Store</span>
+          <span className="relative z-10">{t.profile_preview.viewStore}</span>
           <ExternalLink className="relative z-10 h-4 w-4" />
           <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
         </a>

@@ -41,7 +41,7 @@ export default function SavedSearchesPage() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this saved search?')) return
+    if (!confirm(t.profile.deleteSearchConfirm)) return
 
     const { error } = await savedSearchesApi.delete(id)
     if (!error) {
@@ -82,10 +82,9 @@ export default function SavedSearchesPage() {
     return (
       <Container className="py-20 pt-32">
         <div className="mx-auto max-w-md text-center">
-          <Search className="text-muted-foreground/30 mx-auto mb-4 h-16 w-16" />
-          <h1 className="mb-2 text-2xl font-bold">Saved Searches</h1>
+          <h1 className="mb-2 text-2xl font-bold">{t.dashboard.savedSearches}</h1>
           <p className="text-muted-foreground mb-6">
-            Sign in to view your saved searches
+            {t.auth.signInToViewSearches}
           </p>
           <Link
             href="/auth/login"
@@ -101,11 +100,16 @@ export default function SavedSearchesPage() {
   return (
     <div className="min-h-screen pt-24 pb-20 md:pt-32">
       <Container>
-        <div className="mb-8">
-          <h1 className="text-3xl font-black">Saved Searches</h1>
-          <p className="text-muted-foreground">
-            Get notified when new listings match your criteria
-          </p>
+        <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-4 overflow-hidden rounded-5xl border border-white/10 bg-linear-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-center md:justify-between md:p-10">
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-blue-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="relative z-10">
+            <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
+              {t.dashboard.savedSearches}
+            </h1>
+            <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
+              {t.profile.savedSearchesDescription}
+            </p>
+          </div>
         </div>
 
         {isLoading ? (
@@ -121,11 +125,13 @@ export default function SavedSearchesPage() {
             ))}
           </div>
         ) : searches.length === 0 ? (
-          <EmptyState
-            icon="🔍"
-            title="No saved searches"
-            description="Save a search to get notified when new listings match your criteria"
-          />
+          <div className="rounded-5xl border border-white/10 bg-white/5 p-8 shadow-inner backdrop-blur-md md:p-12">
+            <EmptyState
+              icon={Search}
+              title={t.profile.noSavedSearches}
+              description={t.profile.noSavedSearchesDesc}
+            />
+          </div>
         ) : (
           <div className="space-y-4">
             {searches.map((search) => (
@@ -166,10 +172,10 @@ export default function SavedSearchesPage() {
                     <div className="text-muted-foreground mt-3 flex items-center gap-4 text-sm">
                       <span className="inline-flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {search.frequency} notifications
+                        {search.frequency} {t.profile.notifications}
                       </span>
                       <span>
-                        Created{' '}
+                        {t.profile.created}{' '}
                         {new Date(search.created_at).toLocaleDateString()}
                       </span>
                     </div>
