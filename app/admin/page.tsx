@@ -1,13 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { AdminDashboard } from './components/admin-dashboard'
-
-// List of admin email addresses
-const ADMIN_EMAILS = [
-  'admin@slovor.sk',
-  'moderator@slovor.sk',
-  // Add more admin emails as needed
-]
+import { config } from '@/lib/config'
 
 export default async function AdminPage() {
   const supabase = await createClient()
@@ -17,7 +11,7 @@ export default async function AdminPage() {
   } = await supabase.auth.getUser()
 
   // Check if user is authenticated and is an admin
-  if (!user || !ADMIN_EMAILS.includes(user.email || '')) {
+  if (!user || !config.app.adminEmails.includes(user.email || '')) {
     redirect('/')
   }
 

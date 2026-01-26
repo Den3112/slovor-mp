@@ -11,7 +11,9 @@ import {
   Heart,
   Store,
   Eye,
+  ShieldAlert,
 } from 'lucide-react'
+import { config } from '@/lib/config'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -65,6 +67,17 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </p>
             </div>
             <div className="space-y-0.5 p-2">
+              {config.app.adminEmails.includes(user.email || '') && (
+                <Link
+                  href="/admin"
+                  className="group hover:bg-amber-500/10 hover:text-amber-600 flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-amber-500 transition-all"
+                  onClick={() => setShowUserMenu(false)}
+                >
+                  <ShieldAlert className="h-4 w-4 transition-transform group-hover:scale-110" />
+                  {t.common.adminPanel}
+                </Link>
+              )}
+
               <Link
                 href="/profile/overview"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
@@ -80,7 +93,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Store className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                My Listings
+                {t.profile.myListings}
               </Link>
 
               <Link
@@ -89,7 +102,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Heart className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                Favorites
+                {t.profile.favorites}
               </Link>
 
               <Link
@@ -98,7 +111,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                Saved Searches
+                {t.profile.savedSearches}
               </Link>
 
               <div className="bg-border/50 mx-2 my-1 h-px" />
@@ -109,7 +122,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Eye className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                Public Profile
+                {t.profile.publicProfile}
               </Link>
 
               <Link
@@ -118,7 +131,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Settings className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                Settings
+                {t.profile.settings}
               </Link>
 
               <div className="bg-border/50 mx-2 my-1 h-px" />

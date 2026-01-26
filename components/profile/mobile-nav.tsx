@@ -119,7 +119,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
             )}
           >
             <Menu className="h-6 w-6" />
-            <span className="text-[10px] font-bold">{t.common.filter}</span>
+            <span className="text-[10px] font-bold">{t.common.dashboard}</span>
           </button>
         </MobileMenuDrawer>
       </nav>

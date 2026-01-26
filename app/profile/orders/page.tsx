@@ -1,3 +1,5 @@
+'use client'
+
 import { DashboardFeaturePlaceholder } from '@/components/profile/feature-placeholder'
 import { Package } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
