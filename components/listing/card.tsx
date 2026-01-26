@@ -121,7 +121,12 @@ export function ListingCard({
   return (
     <Link
       href={`/listings/${listing.id}`}
-      className="group border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow relative block overflow-hidden rounded-4xl border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98] dark:bg-white/5 dark:hover:bg-white/10"
+      className={cn(
+        'group relative block overflow-hidden rounded-4xl border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98]',
+        listing.is_highlighted
+          ? 'border-primary/20 bg-primary/5 shadow-primary/5 hover:border-primary/40 hover:shadow-primary/10'
+          : 'border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow dark:bg-white/5 dark:hover:bg-white/10'
+      )}
     >
       {/* Image */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
