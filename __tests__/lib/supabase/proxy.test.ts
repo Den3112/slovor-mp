@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { updateSession } from '@/lib/supabase/middleware'
+import { updateSession } from '@/lib/supabase/proxy'
 import { NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
@@ -54,7 +54,7 @@ describe('middleware utility', () => {
   })
 
   it('redirects to /login if user is not authenticated on protected route', async () => {
-    ;(createServerClient as any).mockReturnValue({
+    ; (createServerClient as any).mockReturnValue({
       auth: {
         getUser: vi
           .fn()
@@ -70,7 +70,7 @@ describe('middleware utility', () => {
   })
 
   it('redirects to /profile if user is authenticated on auth route', async () => {
-    ;(createServerClient as any).mockReturnValue({
+    ; (createServerClient as any).mockReturnValue({
       auth: {
         getUser: vi
           .fn()
@@ -86,7 +86,7 @@ describe('middleware utility', () => {
   })
 
   it('allows access to public route if not authenticated', async () => {
-    ;(createServerClient as any).mockReturnValue({
+    ; (createServerClient as any).mockReturnValue({
       auth: {
         getUser: vi
           .fn()
@@ -103,18 +103,18 @@ describe('middleware utility', () => {
 
   it('handles cookie setting and removal inside createServerClient options', async () => {
     let cookieMethods: any
-    ;(createServerClient as any).mockImplementation(
-      (_url: string, _key: string, options: any) => {
-        cookieMethods = options.cookies
-        return {
-          auth: {
-            getUser: vi
-              .fn()
-              .mockResolvedValue({ data: { user: null }, error: null }),
-          },
+      ; (createServerClient as any).mockImplementation(
+        (_url: string, _key: string, options: any) => {
+          cookieMethods = options.cookies
+          return {
+            auth: {
+              getUser: vi
+                .fn()
+                .mockResolvedValue({ data: { user: null }, error: null }),
+            },
+          }
         }
-      }
-    )
+      )
 
     const req = mockRequest('/')
     await updateSession(req)
