@@ -124,7 +124,7 @@ export function ListingCard({
       className="group border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow relative block overflow-hidden rounded-4xl border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98] dark:bg-white/5 dark:hover:bg-white/10"
     >
       {/* Image */}
-      <div className="bg-muted relative aspect-[4/3] overflow-hidden">
+      <div className="bg-muted relative aspect-4/3 overflow-hidden">
         {hasValidImage ? (
           <>
             <Image
@@ -158,7 +158,7 @@ export function ListingCard({
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
-          {featured && (
+          {(featured || listing.is_promoted) && (
             <div className="bg-primary/90 shadow-primary/30 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide text-white uppercase shadow-lg backdrop-blur-md md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               {t.common.featured}
             </div>
@@ -193,10 +193,10 @@ export function ListingCard({
                 {categoryName}
               </span>
             )}
-            {listing.views !== undefined && (
+            {listing.views_count !== undefined && (
               <div className="text-muted-foreground flex items-center gap-1 text-[9px] font-bold opacity-60 md:text-[10px]">
                 <Eye className="h-3 w-3" />
-                <span>{listing.views}</span>
+                <span>{listing.views_count}</span>
               </div>
             )}
           </div>

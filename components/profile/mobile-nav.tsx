@@ -49,10 +49,10 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
 
         {/* 2. My Listings - Show Badge */}
         <Link
-          href="/profile/my-listings"
+          href="/profile/listings"
           className={cn(
             'relative flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95',
-            isActive('/profile/my-listings')
+            isActive('/profile/listings')
               ? 'text-primary'
               : 'text-muted-foreground hover:text-foreground'
           )}
@@ -61,7 +61,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
             <Store
               className={cn(
                 'h-6 w-6',
-                isActive('/profile/my-listings') && 'fill-primary/20'
+                isActive('/profile/listings') && 'fill-primary/20'
               )}
             />
             {stats && stats.activeListings > 0 && (

@@ -1,9 +1,9 @@
 // Database types for Slovor Marketplace
-// Simple, explicit type definitions (Principle #4: Clarity over magic)
+// Aligned with Master Plan Schema and lib/types/index.ts
 
 export interface User {
   id: string
-  username: string
+  username: string | null
   display_name: string | null
   full_name: string | null
   avatar_url: string | null
@@ -11,9 +11,12 @@ export interface User {
   phone: string | null
   location: string | null
   verified: boolean
+  is_verified: boolean // Added for consistency
+  verification_level: 'none' | 'email' | 'phone' | 'documents'
   preferred_currency: string | null
   created_at: string
   updated_at: string
+  role: 'user' | 'admin' | 'moderator'
 }
 
 export type Profile = User
@@ -36,6 +39,8 @@ export interface Category {
   listing_count?: number
 }
 
+export type ListingStatus = 'active' | 'pending' | 'rejected' | 'sold' | 'expired' | 'draft';
+
 export interface Listing {
   id: string
   title: string
@@ -45,16 +50,28 @@ export interface Listing {
   category_id: string | null
   user_id: string
   location: string
-  featured: boolean
-  // New fields from migration
+
+  // Promotion fields (Renamed from featured)
+  is_promoted: boolean
+  promoted_until: string | null
+  is_featured?: boolean // Legacy support (optional)
+
   images: string[] // Array of image URLs
   condition: 'new' | 'used' // Product condition
-  views: number // View counter
-  is_active: boolean // Active status
+
+  views_count: number // Renamed from views
+  views?: number // Legacy support
+
+  status: ListingStatus
+  is_active: boolean // Legacy support, derived from status === 'active'
+
   metadata: Record<string, unknown> | null
+  attributes: Record<string, any> // Added for dynamic attributes
+
   created_at: string
   updated_at: string
   expires_at: string | null
+
   // Localization fields
   title_sk?: string | null
   title_cs?: string | null
@@ -62,6 +79,7 @@ export interface Listing {
   description_sk?: string | null
   description_cs?: string | null
   description_en?: string | null
+
   // Relations
   category?: Category
   user?: User
@@ -80,14 +98,18 @@ export interface Message {
 export interface Review {
   id: string
   listing_id: string | null
-  buyer_id: string
-  seller_id: string
+  author_id: string // Renamed from buyer_id
+  recipient_id: string // Renamed from seller_id
+  buyer_id?: string // Legacy support
+  seller_id?: string // Legacy support
+
   rating: number
   comment: string | null
   created_at: string
+
   // Joined fields
-  buyer?: User
-  seller?: User
+  author?: User
+  recipient?: User
   listing?: Listing
 }
 
