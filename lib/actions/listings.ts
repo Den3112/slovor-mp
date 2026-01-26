@@ -123,7 +123,7 @@ export async function toggleListingStatusAction(
       return { error: 'Failed to update status: ' + updateError.message }
     }
 
-    revalidatePath('/profile/my-listings')
+    revalidatePath('/profile/listings')
     revalidatePath(`/listings/${listingId}`)
 
     return { data: updated, error: null }

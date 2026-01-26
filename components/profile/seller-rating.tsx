@@ -65,8 +65,8 @@ export function SellerRating({
     setSubmitMessage(null)
 
     const { error } = await reviewsApi.create({
-      seller_id: sellerId,
-      buyer_id: user.id,
+      recipient_id: sellerId,
+      author_id: user.id,
       rating: newRating,
       comment: comment.trim() || undefined,
     })
@@ -230,9 +230,9 @@ export function SellerRating({
           {ratingData.reviews.slice(0, 5).map((review) => (
             <div key={review.id} className="flex gap-3">
               <div className="bg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
-                {review.buyer?.avatar_url ? (
+                {review.author?.avatar_url ? (
                   <Image
-                    src={review.buyer.avatar_url}
+                    src={review.author.avatar_url}
                     alt=""
                     width={40}
                     height={40}
@@ -245,7 +245,7 @@ export function SellerRating({
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-medium">
-                    {review.buyer?.display_name || 'User'}
+                    {review.author?.display_name || 'User'}
                   </span>
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((star) => (

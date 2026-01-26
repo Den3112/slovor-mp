@@ -409,6 +409,7 @@ export const translations = {
       deleteSearchConfirm: 'Odstrániť toto uložené hľadanie?',
       notifications: 'notifikácie',
       created: 'Vytvorené',
+      verification: 'Verifikácia',
     },
     seller: {
       activeListings: 'Aktívne inzeráty',
@@ -902,6 +903,7 @@ export const translations = {
       deleteSearchConfirm: 'Smazat toto uložené hledání?',
       notifications: 'notifikace',
       created: 'Vytvořeno',
+      verification: 'Ověření',
     },
     seller: {
       activeListings: 'Aktivní inzeráty',
@@ -1395,6 +1397,7 @@ export const translations = {
       deleteSearchConfirm: 'Delete this saved search?',
       notifications: 'notifications',
       created: 'Created',
+      verification: 'Verification',
     },
     seller: {
       activeListings: 'Active Listings',

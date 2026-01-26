@@ -69,7 +69,7 @@ export default async function DashboardOverviewPage() {
       {/* Premium Stats Grid */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6">
         {/* Active Listings */}
-        <Link href="/profile/my-listings" className="block">
+        <Link href="/profile/listings" className="block">
           <Card className="hover:shadow-primary/10 group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:shadow-2xl md:rounded-5xl md:p-6">
             <div className="from-primary/10 absolute inset-0 bg-linear-to-br via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
 
@@ -93,7 +93,7 @@ export default async function DashboardOverviewPage() {
         </Link>
 
         {/* Total Views */}
-        <Link href="/profile/my-listings" className="block">
+        <Link href="/profile/listings" className="block">
           <Card className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl backdrop-blur-xl transition-all duration-500 hover:bg-white/10 hover:shadow-2xl hover:shadow-emerald-500/10 md:rounded-5xl md:p-6">
             <div className="absolute inset-0 bg-linear-to-br from-emerald-500/10 via-transparent to-transparent opacity-50 transition-opacity group-hover:opacity-100" />
 
@@ -184,7 +184,7 @@ export default async function DashboardOverviewPage() {
               </p>
             </div>
             <Link
-              href="/profile/my-listings"
+              href="/profile/listings"
               className="group/btn text-muted-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-colors"
             >
               {t.common.viewAll}
@@ -250,7 +250,7 @@ export default async function DashboardOverviewPage() {
                 </div>
                 <div className="mt-auto flex justify-center pt-4">
                   <Link
-                    href="/profile/my-listings"
+                    href="/profile/listings"
                     className="group/btn text-muted-foreground hover:text-primary hover:bg-primary/5 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-colors"
                   >
                     {t.common.viewAll}

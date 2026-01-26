@@ -15,6 +15,7 @@ import {
   ShoppingBag,
   Store,
   Star,
+  ShieldCheck,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -48,7 +49,7 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
   const getBadgeCount = (href: string) => {
     if (!stats) return 0
     switch (href) {
-      case '/profile/my-listings':
+      case '/profile/listings':
         return stats.activeListings
       case '/profile/favorites':
         return stats.favorites
@@ -81,7 +82,7 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
       title: t.profile.commerce,
       items: [
         {
-          href: '/profile/my-listings',
+          href: '/profile/listings',
           label: t.profile.myListings,
           icon: Store,
         },
@@ -139,6 +140,11 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
           href: '/profile/profile',
           label: t.profile.publicProfile,
           icon: Eye,
+        },
+        {
+          href: '/profile/verification',
+          label: t.profile.verification,
+          icon: ShieldCheck,
         },
         {
           href: '/profile/settings',

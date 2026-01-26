@@ -79,7 +79,7 @@ export function MobileMenuDrawer({
   const getBadgeCount = (href: string) => {
     if (!stats) return 0
     switch (href) {
-      case '/profile/my-listings':
+      case '/profile/listings':
         return stats.activeListings
       case '/profile/favorites':
         return stats.favorites
@@ -101,7 +101,7 @@ export function MobileMenuDrawer({
       title: t.profile.commerce,
       items: [
         {
-          href: '/profile/my-listings',
+          href: '/profile/listings',
           label: t.profile.myListings,
           icon: Store,
         },

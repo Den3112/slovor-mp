@@ -10,8 +10,8 @@ describe('reviewsApi', () => {
   describe('create', () => {
     it('creates review successfully', async () => {
       const input = {
-        seller_id: 's1',
-        buyer_id: 'b1',
+        recipient_id: 's1',
+        author_id: 'b1',
         rating: 5,
         comment: 'Great',
       }
@@ -32,8 +32,8 @@ describe('reviewsApi', () => {
 
     it('prevents self-review', async () => {
       const response = await reviewsApi.create({
-        seller_id: 'u1',
-        buyer_id: 'u1',
+        recipient_id: 'u1',
+        author_id: 'u1',
         rating: 5,
       })
       expect(response.error).toContain('cannot review yourself')
@@ -41,8 +41,8 @@ describe('reviewsApi', () => {
 
     it('validates rating range', async () => {
       const response = await reviewsApi.create({
-        seller_id: 's1',
-        buyer_id: 'b1',
+        recipient_id: 's1',
+        author_id: 'b1',
         rating: 6,
       })
       expect(response.error).toContain('between 1 and 5')
@@ -144,8 +144,8 @@ describe('reviewsApi', () => {
     })
   })
 
-  describe('getByBuyer', () => {
-    it('fetches buyer reviews', async () => {
+  describe('getByAuthor', () => {
+    it('fetches author reviews', async () => {
       const mockData = [{ id: '1' }]
       const orderMock = vi
         .fn()
@@ -155,7 +155,7 @@ describe('reviewsApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await reviewsApi.getByBuyer('b1')
+      const response = await reviewsApi.getByAuthor('b1')
       expect(response.data).toHaveLength(1)
     })
   })

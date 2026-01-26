@@ -18,15 +18,15 @@ export const reviewsApi = {
    * Creates a new review for a seller
    */
   async create(review: {
-    seller_id: string
-    buyer_id: string
+    recipient_id: string
+    author_id: string
     listing_id?: string
     rating: number
     comment?: string
   }): Promise<ApiResponse<Review>> {
     try {
       // Prevent self-reviews
-      if (review.seller_id === review.buyer_id) {
+      if (review.recipient_id === review.author_id) {
         return { data: null, error: 'You cannot review yourself' }
       }
 
@@ -38,8 +38,8 @@ export const reviewsApi = {
       const { data, error } = await supabase
         .from('reviews')
         .insert({
-          seller_id: review.seller_id,
-          buyer_id: review.buyer_id,
+          recipient_id: review.recipient_id,
+          author_id: review.author_id,
           listing_id: review.listing_id || null,
           rating: review.rating,
           comment: review.comment || null,
@@ -68,14 +68,14 @@ export const reviewsApi = {
         .select(
           `
           *,
-          buyer:profiles!reviews_buyer_id_fkey (
+          author:profiles!reviews_buyer_id_fkey (
             id,
             display_name,
             avatar_url
           )
         `
         )
-        .eq('seller_id', sellerId)
+        .eq('recipient_id', sellerId)
         .order('created_at', { ascending: false })
 
       console.log('API: getForSeller', { sellerId, data, error })
@@ -111,16 +111,16 @@ export const reviewsApi = {
    * Checks if a user has already reviewed a seller for a specific listing
    */
   async hasReviewed(
-    sellerId: string,
-    buyerId: string,
+    recipientId: string,
+    authorId: string,
     listingId?: string
   ): Promise<ApiResponse<boolean>> {
     try {
       let query = supabase
         .from('reviews')
         .select('id')
-        .eq('seller_id', sellerId)
-        .eq('buyer_id', buyerId)
+        .eq('recipient_id', recipientId)
+        .eq('author_id', authorId)
 
       if (listingId) {
         query = query.eq('listing_id', listingId)
@@ -144,14 +144,14 @@ export const reviewsApi = {
    */
   async delete(
     reviewId: string,
-    buyerId: string
+    authorId: string
   ): Promise<ApiResponse<boolean>> {
     try {
       const { error } = await supabase
         .from('reviews')
         .delete()
         .eq('id', reviewId)
-        .eq('buyer_id', buyerId)
+        .eq('author_id', authorId)
 
       if (error) {
         throw error
@@ -167,14 +167,14 @@ export const reviewsApi = {
   /**
    * Gets reviews written by a specific buyer
    */
-  async getByBuyer(buyerId: string): Promise<ApiResponse<Review[]>> {
+  async getByAuthor(authorId: string): Promise<ApiResponse<Review[]>> {
     try {
       const { data, error } = await supabase
         .from('reviews')
         .select(
           `
                   *,
-                  seller:profiles!reviews_seller_id_fkey (
+                  recipient:profiles!reviews_seller_id_fkey (
                     id,
                     display_name,
                     avatar_url
@@ -186,7 +186,7 @@ export const reviewsApi = {
                   )
                 `
         )
-        .eq('buyer_id', buyerId)
+        .eq('author_id', authorId)
         .order('created_at', { ascending: false })
 
       if (error) {
@@ -195,7 +195,7 @@ export const reviewsApi = {
 
       return { data: data as unknown as Review[], error: null }
     } catch (error) {
-      logError('reviewsApi.getByBuyer', error)
+      logError('reviewsApi.getByAuthor', error)
       return { data: null, error: (error as Error).message }
     }
   },

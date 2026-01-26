@@ -52,10 +52,13 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
     category_id: formData.category_id,
     user_id: '',
     location: formData.location,
-    featured: false,
+    is_promoted: false,
+    promoted_until: null,
     images: formData.images,
     condition: formData.condition,
-    views: 0,
+    views_count: 0,
+    status: 'active',
+    attributes: {},
     is_active: true,
     metadata: null,
     created_at: new Date().toISOString(),
@@ -81,7 +84,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
   return (
     <div className="bg-card/60 overflow-hidden rounded-2xl border border-white/10 backdrop-blur-sm md:rounded-3xl">
       {/* Image */}
-      <div className="bg-muted relative aspect-[4/3] overflow-hidden">
+      <div className="bg-muted relative aspect-4/3 overflow-hidden">
         {hasValidImage ? (
           <>
             <Image

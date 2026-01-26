@@ -60,7 +60,8 @@ const mockListing = {
   currency: 'EUR',
   location: 'Bratislava',
   condition: 'new' as const,
-  is_featured: false,
+  is_promoted: false,
+  promoted_until: null,
   is_active: true,
   featured: false,
   views: 0,
@@ -72,6 +73,7 @@ const mockListing = {
   category_id: 'cat-1',
   user_id: 'user-1',
   metadata: null,
+  attributes: {},
   expires_at: null,
   category: {
     id: 'cat-1',

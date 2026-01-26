@@ -88,7 +88,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </Link>
 
               <Link
-                href="/profile/my-listings"
+                href="/profile/listings"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >

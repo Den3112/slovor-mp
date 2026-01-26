@@ -110,10 +110,10 @@ export default function ReviewsPage() {
             >
               <div className="flex gap-4">
                 <div className="bg-muted flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
-                  {review.buyer?.avatar_url ? (
+                  {review.author?.avatar_url ? (
                     <Image
-                      src={review.buyer.avatar_url}
-                      alt={review.buyer.display_name || ''}
+                      src={review.author.avatar_url}
+                      alt={review.author.display_name || ''}
                       width={48}
                       height={48}
                       className="h-full w-full rounded-full object-cover"
@@ -126,7 +126,7 @@ export default function ReviewsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-foreground font-bold">
-                        {review.buyer?.display_name || t.reviews.anonymous}
+                        {review.author?.display_name || t.reviews.anonymous}
                       </p>
                       <div className="text-muted-foreground flex items-center gap-2 text-xs">
                         <span>
