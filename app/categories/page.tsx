@@ -5,10 +5,10 @@ import { getTranslationServer } from '@/lib/i18n/server'
 
 export const revalidate = 300 // 5 minutes
 
-import { CategoriesGrid } from '@/components/category/CategoriesGrid'
+import { CategoryGrid } from '@/components/category/grid'
 import { createClient } from '@/lib/supabase/server'
 
-async function CategoriesGridWrapper() {
+async function CategoryGridWrapper() {
   const supabase = await createClient()
   const { data: categories, error } = await categoriesApi.getAll(supabase)
 
@@ -16,7 +16,7 @@ async function CategoriesGridWrapper() {
     return null
   }
 
-  return <CategoriesGrid categories={categories} />
+  return <CategoryGrid categories={categories} />
 }
 
 export default async function CategoriesPage() {
@@ -50,7 +50,7 @@ export default async function CategoriesPage() {
             </div>
           }
         >
-          <CategoriesGridWrapper />
+          <CategoryGridWrapper />
         </Suspense>
       </Container>
     </main>
