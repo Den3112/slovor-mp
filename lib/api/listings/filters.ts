@@ -41,7 +41,7 @@ export function applyListingFilters(
   }
 
   if (options.isFeatured !== undefined) {
-    query = query.eq('featured', options.isFeatured)
+    query = query.eq('is_promoted', options.isFeatured)
   }
 
   return query
@@ -62,7 +62,7 @@ export function applyListingSorting(
     case 'price-high':
       return query.order('price', { ascending: false })
     case 'views':
-      return query.order('views', { ascending: false })
+      return query.order('views_count', { ascending: false })
     case 'newest':
     default:
       return query.order('created_at', { ascending: false })

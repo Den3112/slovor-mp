@@ -101,7 +101,7 @@ export function DashboardListingCard({
 
     const { error } = await supabase
       .from('listings')
-      .update({ is_active: !listing.is_active })
+      .update({ status: listing.status === 'active' ? 'draft' : 'active' })
       .eq('id', listing.id)
 
     if (!error) {
@@ -134,7 +134,7 @@ export function DashboardListingCard({
         {/* Clickable Image Thumbnail */}
         <Link
           href={`/listings/${listing.id}`}
-          className="bg-muted group/image relative h-48 w-full flex-shrink-0 overflow-hidden rounded-3xl shadow-inner md:h-32 md:w-32 md:rounded-2xl"
+          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-3xl shadow-inner md:h-32 md:w-32 md:rounded-2xl"
         >
           {listing.images?.[0] ? (
             <>
@@ -164,12 +164,12 @@ export function DashboardListingCard({
             <span
               className={cn(
                 'rounded-full border px-3 py-1 text-[10px] font-black tracking-widest uppercase shadow-sm',
-                listing.is_active
+                listing.status === 'active'
                   ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
                   : 'border-amber-500/20 bg-amber-500/10 text-amber-500'
               )}
             >
-              {listing.is_active ? 'Active' : 'Inactive'}
+              {listing.status === 'active' ? 'Active' : listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
             </span>
             <span className="text-muted-foreground flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase opacity-60">
               <Clock className="h-3 w-3" />
@@ -196,7 +196,7 @@ export function DashboardListingCard({
             />
             <div className="text-muted-foreground/70 flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] font-bold">
               <Eye className="h-3 w-3" />
-              <span>{listing.views || 0}</span>
+              <span>{listing.views_count || 0}</span>
             </div>
           </div>
         </Link>
@@ -224,17 +224,17 @@ export function DashboardListingCard({
             variant="ghost"
             className={cn(
               'h-12 w-full flex-1 rounded-xl transition-all md:w-12 md:flex-none',
-              listing.is_active
+              listing.status === 'active'
                 ? 'text-muted-foreground hover:bg-amber-500/20 hover:text-amber-500'
                 : 'text-muted-foreground hover:bg-emerald-500/20 hover:text-emerald-500'
             )}
             onClick={handleToggleActive}
             disabled={isToggling}
-            title={listing.is_active ? 'Deactivate' : 'Activate'}
+            title={listing.status === 'active' ? 'Deactivate' : 'Activate'}
           >
             <Power className="h-5 w-5" />
             <span className="sr-only">
-              {listing.is_active ? 'Deactivate' : 'Activate'}
+              {listing.status === 'active' ? 'Deactivate' : 'Activate'}
             </span>
           </Button>
 

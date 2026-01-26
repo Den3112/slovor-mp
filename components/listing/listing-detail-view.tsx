@@ -98,15 +98,15 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               { label: t.common.allListings, href: '/listings' },
               ...(listing.category
                 ? [
-                    {
-                      label: getLocalizedCategoryName(
-                        listing.category,
-                        locale,
-                        t
-                      ),
-                      href: `/categories/${listing.category.slug}`,
-                    },
-                  ]
+                  {
+                    label: getLocalizedCategoryName(
+                      listing.category,
+                      locale,
+                      t
+                    ),
+                    href: `/categories/${listing.category.slug}`,
+                  },
+                ]
                 : []),
               { label: displayTitle },
             ]}
@@ -117,7 +117,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       <Container>
         <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-12">
           <div className="space-y-8 md:space-y-12 lg:col-span-8">
-            <div className="bg-card/50 group relative overflow-hidden rounded-4xl border border-white/10 shadow-2xl shadow-black/20 backdrop-blur-xl md:rounded-[2.5rem]">
+            <div className="bg-card/50 group relative overflow-hidden rounded-4xl border border-white/10 shadow-2xl shadow-black/20 backdrop-blur-xl md:rounded-5xl">
               <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/20 to-transparent" />
               <ImageGallery
                 images={listing.images || []}
@@ -141,13 +141,13 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
           </div>
 
           <div className="space-y-8 lg:col-span-4">
-            <div className="shadow-primary/5 bg-background/80 sticky top-28 space-y-8 rounded-[2.5rem] border border-white/10 p-6 shadow-2xl backdrop-blur-xl md:p-8">
+            <div className="shadow-primary/5 bg-background/80 sticky top-28 space-y-8 rounded-5xl border border-white/10 p-6 shadow-2xl backdrop-blur-xl md:p-8">
               <div className="space-y-3 border-b border-white/10 pb-6">
                 <span className="text-primary/80 text-[10px] font-black tracking-[0.2em] uppercase">
                   {t.common.price}
                 </span>
 
-                {!listing.is_active && (
+                {listing.status !== 'active' && (
                   <div className="mb-4 animate-pulse rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4">
                     <h4 className="flex items-center gap-2 font-bold text-amber-600">
                       <ShieldCheck className="h-5 w-5" />
@@ -177,7 +177,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                 <div className="text-muted-foreground flex items-center gap-4 text-xs font-bold">
                   <div className="flex items-center gap-1.5">
                     <Eye className="h-4 w-4" />
-                    {listing.views} {t.common.views}
+                    {listing.views_count} {t.common.views}
                   </div>
                   <div className="bg-border h-1 w-1 rounded-full" />
                   <div className="flex items-center gap-1.5">

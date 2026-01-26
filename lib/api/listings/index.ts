@@ -33,7 +33,7 @@ function buildListingsQuery(
   let query = supabaseClient
     .from('listings')
     .select('*, category:categories(*)')
-    .eq('is_active', true)
+    .eq('status', 'active')
 
   query = applyListingFilters(query, options)
   query = applyListingSorting(query, options?.sort)
@@ -57,6 +57,19 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+  async getAdminAll(): Promise<ApiResponse<Listing[]>> {
+    try {
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*, category:categories(*), user:profiles(*)')
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      return { data: data || [], error: null }
+    } catch (error) {
+      logError('listingsApi.getAdminAll', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 
   async getCount(
     options?: Omit<ListingFilterOptions, 'limit' | 'offset' | 'sort'>,
@@ -67,7 +80,7 @@ export const listingsApi = {
       let query = supabaseClient
         .from('listings')
         .select('id', { count: 'exact', head: true })
-        .eq('is_active', true)
+        .eq('status', 'active')
 
       query = applyListingFilters(query, options)
       const { count, error } = await query
@@ -84,8 +97,8 @@ export const listingsApi = {
       const { data, error } = await supabase
         .from('listings')
         .select('*, category:categories(*)')
-        .eq('is_active', true)
-        .eq('featured', true)
+        .eq('status', 'active')
+        .eq('is_promoted', true)
         .order('created_at', { ascending: false })
         .limit(limit)
 
@@ -103,7 +116,7 @@ export const listingsApi = {
         .from('listings')
         .select('*, category:categories(*), user:profiles(*)')
         .eq('id', id)
-        .eq('is_active', true)
+        .eq('status', 'active')
         .maybeSingle()
 
       if (error) throw error
@@ -111,7 +124,7 @@ export const listingsApi = {
 
       await supabase
         .from('listings')
-        .update({ views: (data.views || 0) + 1 })
+        .update({ views_count: (data.views_count || 0) + 1 })
         .eq('id', id)
       return { data, error: null }
     } catch (error) {
@@ -156,8 +169,8 @@ export const listingsApi = {
           ...listing,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
-          is_active: true,
-          views: 0,
+          status: 'active',
+          views_count: 0,
         })
         .select()
         .maybeSingle()

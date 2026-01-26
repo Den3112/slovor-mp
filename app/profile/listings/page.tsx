@@ -29,12 +29,10 @@ export default async function DashboardListingsPage() {
   const allListings = listings || []
 
   // Status filtering logic
-  // TODO: Migrate to proper status enum when DB schema is ready
-  const activeListings = allListings.filter((l) => l.is_active === true)
-  const draftListings = allListings.filter((l) => l.is_active === false)
-  // These are placeholders until we have sold/archived status logic
-  const soldListings = [] as typeof allListings
-  const archivedListings = [] as typeof allListings
+  const activeListings = allListings.filter((l) => l.status === 'active')
+  const draftListings = allListings.filter((l) => l.status === 'draft' || l.status === 'pending')
+  const soldListings = allListings.filter((l) => l.status === 'sold')
+  const archivedListings = allListings.filter((l) => l.status === 'expired' || l.status === 'rejected')
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
