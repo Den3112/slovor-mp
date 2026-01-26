@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
-import { SearchLayout } from '@/components/search/SearchLayout'
-import { SearchFilters } from '@/components/search/SearchFilters'
+import { SearchLayout } from '@/components/search/search-layout'
+import { SearchFilters } from '@/components/search/search-filters'
 import { listingsApi } from '@/lib/api'
 import { Container } from '@/components/ui/container'
 import { Skeleton } from '@/components/ui/skeleton'
-import { SearchResultsView } from '@/components/search/SearchResultsView'
-import { SearchHeader } from '@/components/search/SearchHeader'
+import { SearchResultsView } from '@/components/search/search-results-view'
+import { SearchHeader } from '@/components/search/search-header'
 
 // Fetch data on the server
 async function SearchResults({
