@@ -23,11 +23,13 @@ import { Card } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
+import { useTranslation } from '@/lib/i18n'
 import { PageTransition } from '@/components/ui/page-transition'
 
 export default function SettingsPage() {
   const { user } = useAuth()
   const router = useRouter()
+  const { t } = useTranslation()
   const { currency, setCurrency } = useCurrency()
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -86,12 +88,12 @@ export default function SettingsPage() {
 
     if (error) {
       console.error('Profile update error:', error)
-      toast.error('Failed to update profile', {
+      toast.error(t.profile.updateError, {
         description: error.message,
       })
     } else {
-      toast.success('Profile updated successfully', {
-        description: 'Your changes have been saved to your public profile.',
+      toast.success(t.profile.updateSuccess, {
+        description: t.profile.updateSuccessDesc,
       })
       router.refresh()
     }
@@ -103,7 +105,7 @@ export default function SettingsPage() {
     if (!file || !user) return
 
     setIsUploading(true)
-    const toastId = toast.loading('Uploading avatar...')
+    const toastId = toast.loading(t.profile.uploading)
 
     // Upload logic reusing storageApi
     // Use 'avatars' bucket
@@ -111,9 +113,9 @@ export default function SettingsPage() {
 
     if (res.data) {
       setFormData((prev) => ({ ...prev, avatar_url: res.data.url }))
-      toast.success('Avatar uploaded successfully', { id: toastId })
+      toast.success(t.profile.avatarSuccess, { id: toastId })
     } else if (res.error) {
-      toast.error('Upload failed', {
+      toast.error(t.profile.avatarError, {
         description: res.error,
         id: toastId,
       })
@@ -130,16 +132,16 @@ export default function SettingsPage() {
           <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-blue-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="relative z-10">
             <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
-              Settings
+              {t.profile.settings}
             </h1>
             <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
-              Manage your profile details, contact information, and preferences.
+              {t.profile.settingsDescription}
             </p>
           </div>
         </div>
 
         <div className="grid gap-8">
-          <Card className="border-border/50 bg-card/50 rounded-[2.5rem] p-8 shadow-xl backdrop-blur-sm">
+          <Card className="border-border/50 bg-card/50 rounded-5xl p-8 shadow-xl backdrop-blur-sm">
             {!isDataLoaded ? (
               // Skeleton Loading State
               <div className="animate-shimmer space-y-8">
@@ -209,12 +211,9 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="flex-1 space-y-2 text-center sm:text-left">
-                    <h3 className="text-xl font-bold">Profile Picture</h3>
+                    <h3 className="text-xl font-bold">{t.profile.profilePicture}</h3>
                     <p className="text-muted-foreground mx-auto max-w-sm text-sm sm:mx-0">
-                      Upload a high-quality photo to build trust with other
-                      users.
-                      <br />
-                      Supported formats: JPG, PNG, GIF. Max 5MB.
+                      {t.profile.uploadDescription}
                     </p>
                     <input
                       id="avatar-input"
@@ -230,7 +229,7 @@ export default function SettingsPage() {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {/* Full Name */}
                   <div className="space-y-2">
-                    <label className="ml-1 text-sm font-bold">Full Name</label>
+                    <label className="ml-1 text-sm font-bold">{t.profile.fullName}</label>
                     <div className="group relative">
                       <User className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
                       <Input
@@ -249,7 +248,7 @@ export default function SettingsPage() {
 
                   {/* Location */}
                   <div className="space-y-2">
-                    <label className="ml-1 text-sm font-bold">Location</label>
+                    <label className="ml-1 text-sm font-bold">{t.profile.location}</label>
                     <div className="group relative">
                       <MapPin className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
                       <Input
@@ -266,7 +265,7 @@ export default function SettingsPage() {
                   {/* Phone */}
                   <div className="space-y-2">
                     <label className="ml-1 text-sm font-bold">
-                      Phone Number
+                      {t.profile.phoneNumber}
                     </label>
                     <div className="group relative">
                       <Phone className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
@@ -284,7 +283,7 @@ export default function SettingsPage() {
                   {/* Currency */}
                   <div className="space-y-2">
                     <label className="ml-1 text-sm font-bold">
-                      Preferred Currency
+                      {t.profile.preferredCurrency}
                     </label>
                     <div className="group relative">
                       <Coins className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
@@ -307,7 +306,7 @@ export default function SettingsPage() {
                   {/* Email (Full Width) */}
                   <div className="space-y-2 md:col-span-2">
                     <label className="text-muted-foreground ml-1 text-sm font-bold">
-                      Email Address (Read-only)
+                      {t.profile.emailReadonly}
                     </label>
                     <div className="relative">
                       <Mail className="text-muted-foreground/50 absolute top-3.5 left-4 h-4 w-4" />
@@ -323,7 +322,7 @@ export default function SettingsPage() {
                   {/* Bio (Full Width) */}
                   <div className="space-y-2 md:col-span-2">
                     <label className="ml-1 text-sm font-bold">
-                      Bio / Description
+                      {t.profile.bio}
                     </label>
                     <div className="group relative">
                       <AlignLeft className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
@@ -333,7 +332,7 @@ export default function SettingsPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, bio: e.target.value })
                         }
-                        placeholder="Tell buyers a bit about yourself, your shop policies, or what you sell..."
+                        placeholder={t.profile.bioPlaceholder}
                       />
                     </div>
                   </div>
@@ -350,7 +349,7 @@ export default function SettingsPage() {
                     ) : (
                       <Save className="mr-2 h-5 w-5" />
                     )}
-                    Save Changes
+                    {t.profile.saveChanges}
                   </Button>
                 </div>
               </form>

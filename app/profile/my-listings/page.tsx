@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { getTranslationServer } from '@/lib/i18n/server'
 import { DashboardListingsContent } from '@/components/profile/listings-content'
 
 export default async function DashboardListingsPage() {
@@ -24,6 +25,7 @@ export default async function DashboardListingsPage() {
     // We could return an error UI here, but for now let's show empty state to avoid crashing
   }
 
+  const { t } = await getTranslationServer()
   const allListings = listings || []
 
   // Status filtering logic
@@ -41,11 +43,10 @@ export default async function DashboardListingsPage() {
         <div className="from-primary/10 pointer-events-none absolute inset-0 bg-linear-to-r via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative z-10 max-w-2xl">
           <h1 className="font-heading text-foreground mb-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            My Listings
+            {t.dashboard.myListings}
           </h1>
           <p className="text-muted-foreground text-sm leading-relaxed font-medium sm:text-base md:text-lg">
-            Manage your inventory and track performance across all your active
-            and draft items.
+            {t.dashboard.inventoryDescription}
           </p>
         </div>
         <div className="relative z-10 shrink-0">

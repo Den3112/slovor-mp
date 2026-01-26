@@ -37,9 +37,12 @@ interface DashboardSidebarProps {
   stats?: DashboardStats
 }
 
+import { useTranslation } from '@/lib/i18n'
+
 export function DashboardSidebar({ stats }: DashboardSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
+  const { t } = useTranslation()
 
   // Map stats to routes
   const getBadgeCount = (href: string) => {
@@ -65,81 +68,81 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
   /* Premium Marketplace Sidebar Structure */
   const sections: NavSection[] = [
     {
-      title: 'Overview', // Optional title for first section
+      title: t.profile.overview,
       items: [
         {
           href: '/profile/overview',
-          label: 'Dashboard',
+          label: t.common.dashboard,
           icon: LayoutDashboard,
         },
       ],
     },
     {
-      title: 'Commerce',
+      title: t.profile.commerce,
       items: [
         {
           href: '/profile/my-listings',
-          label: 'My Listings',
-          icon: Store, // Changed to Store for "My Shop" feel
+          label: t.profile.myListings,
+          icon: Store,
         },
         {
           href: '/profile/orders',
-          label: 'Orders',
+          label: t.profile.orders,
           icon: Package,
         },
         {
           href: '/profile/wallet',
-          label: 'Wallet',
-          icon: ShoppingBag, // Temporary, maybe use Wallet icon if available or DollarSign
+          label: t.profile.wallet,
+          icon: ShoppingBag,
         },
       ],
     },
     {
-      title: 'Shopping',
+      title: t.profile.shopping,
       items: [
         {
           href: '/profile/purchases',
-          label: 'Purchases',
+          label: t.profile.purchases,
           icon: ShoppingBag,
         },
         {
           href: '/profile/favorites',
-          label: 'Favorites',
+          label: t.profile.favorites,
           icon: Heart,
         },
         {
           href: '/profile/saved-searches',
-          label: 'Saved Searches',
+          label: t.profile.savedSearches,
           icon: Star,
         },
       ],
     },
     {
-      title: 'Communication',
+      title: t.profile.communication,
       items: [
         {
           href: '/profile/messages',
-          label: 'Inbox',
+          label: t.profile.inbox,
           icon: MessageCircle,
         },
         {
           href: '/profile/reviews',
-          label: 'Reviews',
-          icon: Star, // Need to import Star
+          label: t.profile.reviews,
+          icon: Star,
         },
       ],
     },
     {
-      title: 'Account',
+      title: t.profile.account,
       items: [
         {
           href: '/profile/profile',
-          label: 'Public Profile',
+          label: t.profile.publicProfile,
           icon: Eye,
         },
         {
           href: '/profile/settings',
-          label: 'Settings',
+          label: t.profile.settings,
           icon: Settings,
         },
       ],
@@ -163,8 +166,8 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
       {/* Mobile Nav is now handled by MobileBottomNav component */}
 
       {/* Desktop: Full sidebar */}
-      <aside className="hidden w-72 flex-shrink-0 md:block">
-        <div className="bg-background/60 group/sidebar sticky top-28 overflow-hidden rounded-[2.5rem] border border-white/20 p-6 shadow-2xl backdrop-blur-xl dark:border-white/5">
+      <aside className="hidden w-72 shrink-0 md:block">
+        <div className="bg-background/60 group/sidebar sticky top-28 overflow-hidden rounded-5xl border border-white/20 p-6 shadow-2xl backdrop-blur-xl dark:border-white/5">
           <div className="from-primary/5 pointer-events-none absolute inset-0 bg-linear-to-br via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover/sidebar:opacity-100" />
 
           <div className="relative z-10 space-y-8">
@@ -240,7 +243,7 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
             className="text-muted-foreground hover:text-destructive hover:bg-destructive/5 group relative z-10 flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all"
           >
             <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            Sign Out
+            {t.auth.signOut}
           </button>
         </div>
       </aside>

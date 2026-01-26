@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { DashboardListingCard } from '@/components/profile/listing-card' // CHANGED IMPORT
 import { EmptyState } from '@/components/ui/empty-state'
 import { PackageOpen } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 
 import type { Listing } from '@/lib/api'
 
@@ -24,6 +25,7 @@ export function DashboardListingsContent({
   archived,
 }: ContentProps) {
   const [activeTab, setActiveTab] = useState('all')
+  const { t } = useTranslation()
 
   return (
     <div className="w-full">
@@ -33,7 +35,7 @@ export function DashboardListingsContent({
             value="all"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            All{' '}
+            {t.dashboard.all}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {all.length}
             </span>
@@ -42,7 +44,7 @@ export function DashboardListingsContent({
             value="active"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            Active{' '}
+            {t.dashboard.active}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {active.length}
             </span>
@@ -51,7 +53,7 @@ export function DashboardListingsContent({
             value="draft"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            Drafts{' '}
+            {t.dashboard.drafts}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {drafts.length}
             </span>
@@ -60,7 +62,7 @@ export function DashboardListingsContent({
             value="sold"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            Sold{' '}
+            {t.dashboard.sold}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {sold.length}
             </span>
@@ -69,7 +71,7 @@ export function DashboardListingsContent({
             value="archived"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            Archived{' '}
+            {t.dashboard.archived}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {archived.length}
             </span>
@@ -90,8 +92,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title="No listings"
-              description="You haven't created any listings yet."
+              title={t.dashboard.noListings}
+              description={t.dashboard.noListingsDescription}
             />
           )}
         </TabsContent>
@@ -110,8 +112,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title="No active listings"
-              description="You don't have any active listings yet."
+              title={t.dashboard.noActiveListings}
+              description={t.dashboard.noActiveListingsDescription}
             />
           )}
         </TabsContent>
@@ -130,8 +132,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title="No drafts"
-              description="Start creating a listing to see it here."
+              title={t.dashboard.noDrafts}
+              description={t.dashboard.noDraftsDescription}
             />
           )}
         </TabsContent>
@@ -150,8 +152,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title="No sold items"
-              description="Items you mark as sold will appear here."
+              title={t.dashboard.noSoldItems}
+              description={t.dashboard.noSoldItemsDescription}
             />
           )}
         </TabsContent>
@@ -170,8 +172,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title="No archived items"
-              description="Deleted listings appear here."
+              title={t.dashboard.noArchivedItems}
+              description={t.dashboard.noArchivedItemsDescription}
             />
           )}
         </TabsContent>

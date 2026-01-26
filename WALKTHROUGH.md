@@ -9,6 +9,8 @@ This document summarizes the major technical overhaul performed on the Slovor Ma
 3.  **Standardized File Naming**: Migrated all project files to `kebab-case`.
 4.  **Testing Infrastructure**: Migrated to Vitest and expanded test coverage (+30% coverage).
 5.  **Environment Optimization**: Streamlined Docker developer experience and production builds.
+6.  **Full Profile Localization**: Completely localized the entire Profile / Dashboard section for Slovak, Czech, and English languages.
+7.  **Premium UI Enhancements**: Implemented premium glassmorphism designs across all dashboard pages.
 
 ---
 

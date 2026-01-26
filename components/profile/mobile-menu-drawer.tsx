@@ -50,7 +50,7 @@ export function MobileMenuDrawer({
 }) {
   const pathname = usePathname()
   const router = useRouter()
-  const { locale, setLocale } = useTranslation()
+  const { locale, setLocale, t } = useTranslation()
   const [user, setUser] = useState<{
     id: string
     email?: string
@@ -95,37 +95,45 @@ export function MobileMenuDrawer({
 
   const sections: NavSection[] = [
     {
-      title: 'Commerce',
+      title: t.profile.commerce,
       items: [
-        { href: '/profile/my-listings', label: 'My Listings', icon: Store },
-        { href: '/profile/orders', label: 'Orders', icon: Package },
-        { href: '/profile/wallet', label: 'Wallet', icon: ShoppingBag },
+        {
+          href: '/profile/my-listings',
+          label: t.profile.myListings,
+          icon: Store,
+        },
+        { href: '/profile/orders', label: t.profile.orders, icon: Package },
+        { href: '/profile/wallet', label: t.profile.wallet, icon: ShoppingBag },
       ],
     },
     {
-      title: 'Shopping',
+      title: t.profile.shopping,
       items: [
-        { href: '/profile/purchases', label: 'History', icon: ShoppingBag },
-        { href: '/profile/favorites', label: 'Favorites', icon: Heart },
+        {
+          href: '/profile/purchases',
+          label: t.profile.purchases,
+          icon: ShoppingBag,
+        },
+        { href: '/profile/favorites', label: t.profile.favorites, icon: Heart },
         {
           href: '/profile/saved-searches',
-          label: 'Saved Searches',
+          label: t.profile.savedSearches,
           icon: Star,
         },
       ],
     },
     {
-      title: 'Communication',
+      title: t.profile.communication,
       items: [
-        { href: '/profile/messages', label: 'Inbox', icon: MessageCircle },
-        { href: '/profile/reviews', label: 'Reviews', icon: Star },
+        { href: '/profile/messages', label: t.profile.inbox, icon: MessageCircle },
+        { href: '/profile/reviews', label: t.profile.reviews, icon: Star },
       ],
     },
     {
-      title: 'Account',
+      title: t.profile.account,
       items: [
-        { href: '/profile/profile', label: 'Public Profile', icon: Eye },
-        { href: '/profile/settings', label: 'Settings', icon: Settings },
+        { href: '/profile/profile', label: t.profile.publicProfile, icon: Eye },
+        { href: '/profile/settings', label: t.profile.settings, icon: Settings },
       ],
     },
   ]
@@ -136,12 +144,12 @@ export function MobileMenuDrawer({
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
         <Drawer.Content
-          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-[2rem] border-t border-white/10 outline-none"
+          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-4xl border-t border-white/10 outline-none"
           aria-describedby={undefined}
         >
           {/* Handle Indicator */}
-          <div className="bg-background flex-shrink-0 rounded-t-[2rem] p-4">
-            <div className="bg-muted-foreground/30 mx-auto mb-8 h-1.5 w-12 flex-shrink-0 rounded-full" />
+          <div className="bg-background shrink-0 rounded-t-4xl p-4">
+            <div className="bg-muted-foreground/30 mx-auto mb-8 h-1.5 w-12 shrink-0 rounded-full" />
             <Drawer.Title className="sr-only">Mobile Menu</Drawer.Title>
             <Drawer.Description className="sr-only">
               Navigation menu for accessing different sections of the dashboard.
@@ -157,7 +165,7 @@ export function MobileMenuDrawer({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-lg font-bold">
-                    {user.user_metadata?.full_name || 'User'}
+                    {user.user_metadata?.full_name || t.profile.user}
                   </p>
                   <p className="text-muted-foreground truncate font-mono text-xs">
                     {user.email}
@@ -219,7 +227,7 @@ export function MobileMenuDrawer({
               {/* Language Selector */}
               <div className="mb-6">
                 <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-black tracking-widest uppercase">
-                  Language
+                  {t.profile.language}
                 </h3>
                 <div className="grid grid-cols-3 gap-3">
                   {SUPPORTED_LOCALES.map((lang) => (
@@ -254,7 +262,7 @@ export function MobileMenuDrawer({
                   onClick={handleSignOut}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
+                  {t.auth.signOut}
                 </Button>
               </div>
             </div>

@@ -63,10 +63,10 @@ export function InboxLayout({ children }: InboxLayoutProps) {
     try {
       await messagesApi.cleanupAllData(user.id)
       setConversations([])
-      toast.success('All messages cleared')
+      toast.success(t.messages.clearSuccess)
       router.push('/profile/messages')
     } catch {
-      toast.error('Failed to clear messages')
+      toast.error(t.messages.clearError)
     } finally {
       setIsCleaning(false)
     }
@@ -84,7 +84,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
   })
 
   return (
-    <div className="bg-background/40 relative flex h-[calc(100vh-8rem)] overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl backdrop-blur-2xl">
+    <div className="bg-background/40 relative flex h-[calc(100vh-8rem)] overflow-hidden rounded-5xl border border-white/10 shadow-2xl backdrop-blur-2xl">
       {/* List Sidebar */}
       <div
         className={cn(
@@ -105,17 +105,16 @@ export function InboxLayout({ children }: InboxLayoutProps) {
                   variant="ghost"
                   size="icon"
                   className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 rounded-full transition-colors"
-                  title="Clear all chats"
+                  title={t.messages.clearAllChats}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Delete all messages?</AlertDialogTitle>
+                  <AlertDialogTitle>{t.messages.confirmDeleteAll}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your entire conversation history.
+                    {t.messages.confirmDeleteAllDesc}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -127,7 +126,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
                     {isCleaning ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
                     ) : (
-                      'Delete All'
+                      t.messages.deleteAll
                     )}
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -255,7 +254,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
           ) : (
             <div className="text-muted-foreground/50 flex h-full flex-col items-center justify-center space-y-4 p-8 text-center">
               <MessageSquarePlus className="h-12 w-12 opacity-20" />
-              <p className="font-medium">No messages yet</p>
+              <p className="font-medium">{t.messages.noMessages}</p>
             </div>
           )}
         </div>
@@ -276,11 +275,10 @@ export function InboxLayout({ children }: InboxLayoutProps) {
               <MessageSquarePlus className="text-primary/40 h-16 w-16" />
             </div>
             <h3 className="font-heading mb-4 text-3xl font-black tracking-tight italic">
-              Your Inbox
+              {t.messages.title}
             </h3>
             <p className="text-muted-foreground mx-auto max-w-md text-lg leading-relaxed">
-              Select a conversation from the list to view chat history,
-              negotiate deals, or ask questions.
+              {t.messages.negotiateDeals}
             </p>
           </div>
         )}

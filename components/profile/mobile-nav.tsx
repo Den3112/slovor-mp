@@ -8,6 +8,7 @@ import { LayoutDashboard, Store, Plus, MessageCircle, Menu } from 'lucide-react'
 import { MobileMenuDrawer } from './mobile-menu-drawer'
 
 import type { DashboardStats } from '@/lib/api/dashboard-stats'
+import { useTranslation } from '@/lib/i18n'
 
 interface MobileBottomNavProps {
   stats?: DashboardStats
@@ -16,6 +17,7 @@ interface MobileBottomNavProps {
 export function MobileBottomNav({ stats }: MobileBottomNavProps) {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
+  const { t } = useTranslation()
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + '/')
@@ -42,7 +44,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               isActive('/profile/overview') && 'fill-primary/20'
             )}
           />
-          <span className="text-[10px] font-bold">Home</span>
+          <span className="text-[10px] font-bold">{t.common.home}</span>
         </Link>
 
         {/* 2. My Listings - Show Badge */}
@@ -68,14 +70,14 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               </span>
             )}
           </div>
-          <span className="text-[10px] font-bold">Selling</span>
+          <span className="text-[10px] font-bold">{t.profile.myListings}</span>
         </Link>
 
         {/* 3. CORE ACTION: POST AD */}
         <div className="relative -top-6">
           <Link href="/post">
             <div className="bg-primary shadow-primary/40 border-background flex h-14 w-14 items-center justify-center rounded-full border-[3px] text-white shadow-lg transition-transform active:scale-95">
-              <Plus className="h-7 w-7 stroke-[3]" />
+              <Plus className="h-7 w-7 stroke-3" />
             </div>
           </Link>
         </div>
@@ -103,7 +105,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               </span>
             )}
           </div>
-          <span className="text-[10px] font-bold">Inbox</span>
+          <span className="text-[10px] font-bold">{t.profile.inbox}</span>
         </Link>
 
         {/* 5. Menu Drawer Trigger */}
@@ -117,7 +119,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
             )}
           >
             <Menu className="h-6 w-6" />
-            <span className="text-[10px] font-bold">Menu</span>
+            <span className="text-[10px] font-bold">{t.common.filter}</span>
           </button>
         </MobileMenuDrawer>
       </nav>
