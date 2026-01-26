@@ -61,6 +61,7 @@ const mockListing = {
   location: 'Bratislava',
   condition: 'new' as const,
   is_promoted: false,
+  is_highlighted: false,
   promoted_until: null,
   is_active: true,
   featured: false,

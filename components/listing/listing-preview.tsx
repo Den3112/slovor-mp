@@ -53,6 +53,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
     user_id: '',
     location: formData.location,
     is_promoted: false,
+    is_highlighted: false,
     promoted_until: null,
     images: formData.images,
     condition: formData.condition,

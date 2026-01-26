@@ -51,8 +51,9 @@ export interface Listing {
   user_id: string
   location: string
 
-  // Promotion fields (Renamed from featured)
+  // Promotion fields
   is_promoted: boolean
+  is_highlighted: boolean // Added highlight feature
   promoted_until: string | null
   is_featured?: boolean // Legacy support (optional)
 
@@ -119,6 +120,42 @@ export interface SavedListing {
   listing_id: string
   created_at: string
   listing?: Listing
+}
+
+export interface Transaction {
+  id: string
+  user_id: string
+  amount: number
+  currency: string
+  type: 'promotion_top' | 'promotion_highlight' | 'subscription' | 'refill'
+  status: 'pending' | 'completed' | 'failed' | 'refunded'
+  metadata: Record<string, any>
+  created_at: string
+}
+
+export interface BlogPost {
+  id: string
+  slug: string
+  title: string
+  excerpt: string | null
+  content: string
+  cover_image: string | null
+  author_id: string
+  is_published: boolean
+  published_at: string | null
+  created_at: string
+  updated_at: string
+  author?: User
+}
+
+export interface ListingReport {
+  id: string
+  listing_id: string
+  reporter_id: string
+  reason: string
+  description: string | null
+  status: 'pending' | 'resolved' | 'dismissed'
+  created_at: string
 }
 
 // API Response types (Principle #5: Errors are part of design)
