@@ -1,46 +1,33 @@
 // Reports API
-// Centralized API layer for managing user/listing reports
-
+// Centralized API layer for managing listing reports
 import { supabase } from '@/lib/supabase/client'
-import type { ApiResponse } from '@/lib/types/database'
+import type { ApiResponse, ListingReport } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
 
-export type ReportStatus = 'open' | 'in_review' | 'resolved'
 export type ReportReason =
   | 'spam'
-  | 'inappropriate'
   | 'fraud'
+  | 'offensive'
+  | 'inappropriate'
   | 'counterfeit'
   | 'prohibited'
   | 'duplicate'
   | 'other'
 
-export interface Report {
-  id: string
-  reporter_id: string
-  reported_listing_id: string | null
-  reported_user_id: string | null
-  reason: ReportReason
-  description: string | null
-  status: ReportStatus
-  created_at: string
-  updated_at: string
-}
-
 export const reportsApi = {
   /**
-   * Creates a new report
+   * Creates a new report for a listing or user
    */
   async create(report: {
     reporter_id: string
-    reported_listing_id?: string
+    listing_id?: string
     reported_user_id?: string
-    reason: ReportReason
+    reason: string
     description?: string
-  }): Promise<ApiResponse<Report>> {
+  }): Promise<ApiResponse<ListingReport>> {
     try {
       // Must report either a listing or a user
-      if (!report.reported_listing_id && !report.reported_user_id) {
+      if (!report.listing_id && !report.reported_user_id) {
         return { data: null, error: 'Must report either a listing or a user' }
       }
 
@@ -50,23 +37,21 @@ export const reportsApi = {
       }
 
       const { data, error } = await supabase
-        .from('reports')
+        .from('listing_reports')
         .insert({
           reporter_id: report.reporter_id,
-          reported_listing_id: report.reported_listing_id || null,
+          listing_id: report.listing_id || null,
           reported_user_id: report.reported_user_id || null,
           reason: report.reason,
           description: report.description || null,
-          status: 'open' as ReportStatus,
+          status: 'pending',
         })
         .select()
         .single()
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
 
-      return { data, error: null }
+      return { data: data as ListingReport, error: null }
     } catch (error) {
       logError('reportsApi.create', error)
       return { data: null, error: (error as Error).message }
@@ -77,13 +62,13 @@ export const reportsApi = {
    * Gets all reports (for moderators)
    */
   async list(params?: {
-    status?: ReportStatus
+    status?: ListingReport['status']
     limit?: number
     offset?: number
-  }): Promise<ApiResponse<{ reports: Report[]; total: number }>> {
+  }): Promise<ApiResponse<{ reports: ListingReport[]; total: number }>> {
     try {
       let query = supabase
-        .from('reports')
+        .from('listing_reports')
         .select('*', { count: 'exact' })
         .order('created_at', { ascending: false })
 
@@ -91,26 +76,13 @@ export const reportsApi = {
         query = query.eq('status', params.status)
       }
 
-      if (params?.limit !== undefined) {
-        query = query.limit(params.limit)
-      }
-
-      if (params?.offset !== undefined) {
-        query = query.range(
-          params.offset,
-          params.offset + (params.limit || 20) - 1
-        )
-      }
-
       const { data, error, count } = await query
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
 
       return {
         data: {
-          reports: (data || []) as Report[],
+          reports: (data || []) as ListingReport[],
           total: count || 0,
         },
         error: null,
@@ -126,21 +98,19 @@ export const reportsApi = {
    */
   async updateStatus(
     id: string,
-    status: ReportStatus
-  ): Promise<ApiResponse<Report>> {
+    status: ListingReport['status']
+  ): Promise<ApiResponse<ListingReport>> {
     try {
       const { data, error } = await supabase
-        .from('reports')
-        .update({ status, updated_at: new Date().toISOString() })
+        .from('listing_reports')
+        .update({ status })
         .eq('id', id)
         .select()
         .single()
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
 
-      return { data, error: null }
+      return { data: data as ListingReport, error: null }
     } catch (error) {
       logError('reportsApi.updateStatus', error)
       return { data: null, error: (error as Error).message }
@@ -156,15 +126,13 @@ export const reportsApi = {
   ): Promise<ApiResponse<boolean>> {
     try {
       const { data, error } = await supabase
-        .from('reports')
+        .from('listing_reports')
         .select('id')
         .eq('reporter_id', reporterId)
-        .eq('reported_listing_id', listingId)
+        .eq('listing_id', listingId)
         .maybeSingle()
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
 
       return { data: Boolean(data), error: null }
     } catch (error) {

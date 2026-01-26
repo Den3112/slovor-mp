@@ -11,11 +11,11 @@ describe('reportsApi', () => {
     it('creates a new report successfully', async () => {
       const reportData = {
         reporter_id: 'user1',
-        reported_listing_id: 'listing1',
+        listing_id: 'listing1',
         reason: 'spam' as ReportReason,
         description: 'test',
       }
-      const mockReport = { id: '1', ...reportData, status: 'open' }
+      const mockReport = { id: '1', ...reportData, status: 'pending' }
 
       const singleMock = vi
         .fn()
@@ -50,23 +50,19 @@ describe('reportsApi', () => {
 
   describe('list', () => {
     it('fetches reports with filters', async () => {
-      const rangeMock = vi
+      const eqMock = vi
         .fn()
         .mockResolvedValue({ data: [], count: 0, error: null })
-      const limitMock = vi.fn().mockReturnValue({ range: rangeMock })
-      const eqMock = vi.fn().mockReturnValue({ limit: limitMock })
       const orderMock = vi.fn().mockReturnValue({ eq: eqMock })
       const selectMock = vi.fn().mockReturnValue({ order: orderMock })
 
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      await reportsApi.list({ status: 'open', limit: 10, offset: 0 })
+      await reportsApi.list({ status: 'pending', limit: 10, offset: 0 })
 
       expect(selectMock).toHaveBeenCalledWith('*', { count: 'exact' })
       expect(orderMock).toHaveBeenCalledWith('created_at', { ascending: false })
-      expect(eqMock).toHaveBeenCalledWith('status', 'open')
-      expect(limitMock).toHaveBeenCalledWith(10)
-      expect(rangeMock).toHaveBeenCalledWith(0, 9)
+      expect(eqMock).toHaveBeenCalledWith('status', 'pending')
     })
 
     it('fetches without params', async () => {

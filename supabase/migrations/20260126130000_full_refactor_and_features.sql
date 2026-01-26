@@ -72,6 +72,7 @@ CREATE POLICY "Admins can manage static pages" ON static_pages
 CREATE TABLE IF NOT EXISTS listing_reports (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     listing_id UUID REFERENCES listings(id) ON DELETE SET NULL,
+    reported_user_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
     reporter_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
     reason VARCHAR(100) NOT NULL, -- 'spam', 'fraud', 'offensive'
     description TEXT,
