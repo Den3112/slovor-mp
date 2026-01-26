@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { X, LogOut, LayoutDashboard, Heart, Star } from 'lucide-react'
+import { X, LogOut, LayoutDashboard, Heart, Star, ShieldAlert } from 'lucide-react'
+import { config } from '@/lib/config'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import { Drawer } from 'vaul'
@@ -37,7 +38,7 @@ export function MobileDrawer({
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" />
-        <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-[2rem] border-t">
+        <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-4xl border-t">
           {/* Drawer Handle */}
           <div className="bg-muted-foreground/20 mx-auto mt-4 h-1.5 w-12 rounded-full" />
 
@@ -129,6 +130,7 @@ export function MobileDrawer({
                         {t.dashboard.favorites}
                       </span>
                     </Link>
+
                     <Link
                       href="/profile/saved-searches"
                       onClick={() => onOpenChange(false)}
@@ -139,6 +141,19 @@ export function MobileDrawer({
                         {t.common.savedSearches}
                       </span>
                     </Link>
+
+                    {user && config.app.adminEmails.includes(user.email || '') && (
+                      <Link
+                        href="/admin"
+                        onClick={() => onOpenChange(false)}
+                        className="border-amber-500/10 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 col-span-2 flex flex-col gap-2 rounded-2xl border p-4 transition-all active:scale-95"
+                      >
+                        <ShieldAlert className="h-6 w-6" />
+                        <span className="text-sm font-bold">
+                          {t.common.adminPanel}
+                        </span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               )}
@@ -176,6 +191,6 @@ export function MobileDrawer({
           </div>
         </Drawer.Content>
       </Drawer.Portal>
-    </Drawer.Root>
+    </Drawer.Root >
   )
 }

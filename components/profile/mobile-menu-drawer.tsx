@@ -13,7 +13,9 @@ import {
   ShoppingBag,
   Store,
   Star,
+  ShieldAlert,
 } from 'lucide-react'
+import { config } from '@/lib/config'
 import { FlagSK, FlagUS, FlagCZ } from '@/components/ui/flags'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -31,6 +33,7 @@ interface NavSection {
     href: string
     label: string
     icon: React.ElementType
+    isAdmin?: boolean
   }[]
 }
 
@@ -134,6 +137,12 @@ export function MobileMenuDrawer({
       items: [
         { href: '/profile/profile', label: t.profile.publicProfile, icon: Eye },
         { href: '/profile/settings', label: t.profile.settings, icon: Settings },
+        {
+          href: '/admin',
+          label: t.common.adminPanel,
+          icon: ShieldAlert,
+          isAdmin: true,
+        },
       ],
     },
   ]
@@ -183,6 +192,13 @@ export function MobileMenuDrawer({
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
                     {section.items.map((item) => {
+                      // Filter out admin items if user is not admin
+                      if (
+                        item.isAdmin &&
+                        !config.app.adminEmails.includes(user?.email || '')
+                      ) {
+                        return null
+                      }
                       const Icon = item.icon
                       const isActive = pathname.startsWith(item.href)
                       const count = getBadgeCount(item.href)
