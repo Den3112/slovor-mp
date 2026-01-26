@@ -25,14 +25,14 @@ export const serverListingsApi = {
       let query = supabase
         .from('listings')
         .select('*, category:categories(*)')
-        .eq('is_active', true)
+        .eq('status', 'active')
 
       if (options?.categoryId) {
         query = query.eq('category_id', options.categoryId)
       }
 
       if (options?.isFeatured !== undefined) {
-        query = query.eq('featured', options.isFeatured)
+        query = query.eq('is_promoted', options.isFeatured)
       }
 
       // Apply sorting
@@ -47,7 +47,7 @@ export const serverListingsApi = {
           query = query.order('price', { ascending: false })
           break
         case 'views':
-          query = query.order('views', { ascending: false })
+          query = query.order('views_count', { ascending: false })
           break
         case 'newest':
         default:
@@ -81,8 +81,8 @@ export const serverListingsApi = {
       const { data, error } = await supabase
         .from('listings')
         .select('*, category:categories(*)')
-        .eq('is_active', true)
-        .order('views', { ascending: false })
+        .eq('status', 'active')
+        .order('views_count', { ascending: false })
         .limit(limit)
 
       if (error) {

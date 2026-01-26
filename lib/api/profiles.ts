@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase/client'
 import type { User, ApiResponse, Listing } from '@/lib/types/database'
+export type { User }
 import { logError } from '@/lib/utils/logger'
 
 export interface ProfileStats {
@@ -180,6 +181,19 @@ export const profilesApi = {
       return { data: (data as Listing[]) || [], error: null }
     } catch (error) {
       logError('profilesApi.getRecentActivity', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+  async getAdminAll(): Promise<ApiResponse<User[]>> {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      return { data: data || [], error: null }
+    } catch (error) {
+      logError('profilesApi.getAdminAll', error)
       return { data: null, error: (error as Error).message }
     }
   },

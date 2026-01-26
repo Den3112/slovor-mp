@@ -5,7 +5,7 @@ import { useScrollPosition } from '@/lib/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Menu, Plus, Home, Grid3X3, Search, MessageCircle } from 'lucide-react'
+import { Menu, Plus, Home, Grid3X3, Search, MessageCircle, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
@@ -236,8 +236,10 @@ export function Header() {
       <BottomNavBar
         navLinks={[
           { href: '/', label: t.common.home, icon: Home },
-          { href: '/listings', label: t.common.categories, icon: Grid3X3 },
-          { href: '/profile/messages', label: t.profile.inbox, icon: MessageCircle },
+          { href: '/listings', label: t.common.explore, icon: Search },
+          { href: '/listings/create', label: t.common.postAd, icon: Plus },
+          { href: '/profile/messages', label: t.common.messages, icon: MessageCircle },
+          { href: '/profile/overview', label: t.common.profile, icon: User },
         ]}
         pathname={pathname}
         user={user}

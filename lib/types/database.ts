@@ -37,6 +37,7 @@ export interface Category {
   name_en?: string
   subcategories?: Category[]
   listing_count?: number
+  listings_count?: number // Aligned with getCategoriesWithCounts API
 }
 
 export type ListingStatus = 'active' | 'pending' | 'rejected' | 'sold' | 'expired' | 'draft';

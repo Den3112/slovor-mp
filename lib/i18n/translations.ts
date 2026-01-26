@@ -57,6 +57,8 @@ export const translations = {
       searchResultsFor: 'Výsledky vyhľadávania pre',
       showingResults: 'Zobrazujem výsledky',
       allLoaded: 'Všetky inzeráty načítané',
+      explore: 'Prieskum',
+      messages: 'Správy',
     },
     filters: {
       title: 'Filtre',
@@ -134,6 +136,7 @@ export const translations = {
       whatsapp: 'Otvoriť vo WhatsApp',
     },
     categories: {
+      title: 'Kategórie trhoviska',
       audio: 'Audio',
       cars: 'Autá',
       auta: 'Autá',
@@ -496,6 +499,21 @@ export const translations = {
         other: 'Iné',
       },
     },
+    verification: {
+      title: 'Overenie identity',
+      subtitle: 'Budujte dôveru v komunite overením svojich údajov.',
+      emailTitle: 'E-mailová adresa',
+      phoneTitle: 'Telefónne číslo',
+      idTitle: 'Doklad totožnosti',
+      verified: 'Overené',
+      notVerified: 'Neoverené',
+      pending: 'Čaká na spracovanie',
+      start: 'Spustiť overenie',
+      emailDesc: 'Váš e-mail je základným prvkom bezpečnosti.',
+      phoneDesc: 'Získajte odznak overeného čísla pre lepší predaj.',
+      idDesc: 'Najvyššia úroveň dôvery. Vyžaduje nahratie dokladu.',
+      submitDocuments: 'Nahrať doklady',
+    },
   },
   cs: {
     common: {
@@ -552,6 +570,8 @@ export const translations = {
       searchResultsFor: 'Výsledky vyhledávání pro',
       showingResults: 'Zobrazuji výsledky',
       allLoaded: 'Všechny inzeráty načteny',
+      explore: 'Průzkum',
+      messages: 'Zprávy',
     },
     filters: {
       title: 'Filtry',
@@ -629,6 +649,7 @@ export const translations = {
       whatsapp: 'Otvírat ve WhatsApp',
     },
     categories: {
+      title: 'Kategorie tržiště',
       audio: 'Audio',
       cars: 'Auta',
       auta: 'Auta',
@@ -990,6 +1011,21 @@ export const translations = {
         other: 'Jiné',
       },
     },
+    verification: {
+      title: 'Ověření identity',
+      subtitle: 'Budujte důvěru v komunitě ověřením svých údajů.',
+      emailTitle: 'E-mailová adresa',
+      phoneTitle: 'Telefonní číslo',
+      idTitle: 'Doklad totožnosti',
+      verified: 'Ověřeno',
+      notVerified: 'Neověřeno',
+      pending: 'Čeká na zpracování',
+      start: 'Spustit ověření',
+      emailDesc: 'Váš e-mail je základním prvkem bezpečnosti.',
+      phoneDesc: 'Získejte odznak ověřeného čísla pro lepší prodej.',
+      idDesc: 'Nejvyšší úroveň důvěry. Vyžaduje nahrání dokladu.',
+      submitDocuments: 'Nahrát doklady',
+    },
   },
   en: {
     common: {
@@ -1046,6 +1082,8 @@ export const translations = {
       searchResultsFor: 'Search results for',
       showingResults: 'Showing results',
       allLoaded: 'All listings loaded',
+      explore: 'Explore',
+      messages: 'Messages',
     },
     filters: {
       title: 'Filters',
@@ -1123,6 +1161,7 @@ export const translations = {
       whatsapp: 'Open in WhatsApp',
     },
     categories: {
+      title: 'Marketplace Categories',
       audio: 'Audio',
       cars: 'Cars',
       auta: 'Cars',
@@ -1484,6 +1523,21 @@ export const translations = {
         duplicate: 'Duplicate Listing',
         other: 'Other',
       },
+    },
+    verification: {
+      title: 'Identity Verification',
+      subtitle: 'Build trust in the community by verifying your details.',
+      emailTitle: 'Email Address',
+      phoneTitle: 'Phone Number',
+      idTitle: 'Identity Document',
+      verified: 'Verified',
+      notVerified: 'Not Verified',
+      pending: 'Pending Review',
+      start: 'Start Verification',
+      emailDesc: 'Your email is a core security element.',
+      phoneDesc: 'Get a verified badge for better sales performance.',
+      idDesc: 'Highest trust level. Requires document upload.',
+      submitDocuments: 'Upload Documents',
     },
   },
 } as const
