@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
+import { updateSession } from '@/lib/supabase/proxy'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // Return early for OPTIONS requests to avoid issues with preflight
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 200 })
