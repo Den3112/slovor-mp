@@ -71,6 +71,14 @@ We transitioned from Jest to **Vitest** for faster execution and better integrat
 - `npm run type-check` is clean.
 - `npm run lint` is clean.
 
+### 📸 Visual Verification (Jan 26, 2026)
+
+**Profile Dashboard (Glassmorphism & Localization):**
+![Profile Overview](file:///home/creator/.gemini/antigravity/brain/f358318b-bd97-4677-b353-2ab7b15d5e53/profile_overview_page_1769432874161.png)
+
+**Home Page & Branding:**
+![Home Page](file:///home/creator/.gemini/antigravity/brain/f358318b-bd97-4677-b353-2ab7b15d5e53/home_page_1769432908761.png)
+
 **Next Steps**:
 
 - Merge `dev` into `main`.

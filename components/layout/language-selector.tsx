@@ -5,7 +5,7 @@ import {
   FlagUS,
   FlagCZ,
   SUPPORTED_LOCALES,
-} from '@/components/icons/flags'
+} from '@/components/ui/flags'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
