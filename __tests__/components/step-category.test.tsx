@@ -5,15 +5,14 @@ import { StepCategory } from '@/components/listing/form-steps/step-category'
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    t: {
-      createListing: {
-        category: 'Category',
-        condition: 'Condition',
-      },
-      filters: {
-        new: 'New',
-        used: 'Used',
-      },
+    t: (key: string) => {
+      const translations: any = {
+        'createListing.category': 'Category',
+        'createListing.condition': 'Condition',
+        'filters.new': 'New',
+        'filters.used': 'Used',
+      }
+      return translations[key] || key
     },
   }),
 }))

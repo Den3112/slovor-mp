@@ -93,6 +93,16 @@ export const reportsApi = {
 
   async create(report: Partial<ListingReport>): Promise<ApiResponse<ListingReport>> {
     const supabase = createClient()
+
+    // Validate request
+    if (!report.listing_id && !report.reported_user_id) {
+      return { data: null, error: 'Must report either a listing or a user' }
+    }
+
+    if (report.reporter_id && report.reported_user_id && report.reporter_id === report.reported_user_id) {
+      return { data: null, error: 'You cannot report yourself' }
+    }
+
     try {
       const { data, error } = await supabase
         .from('listing_reports')

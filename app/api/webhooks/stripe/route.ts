@@ -64,6 +64,24 @@ export async function POST(req: Request) {
                     .eq('id', listingId)
 
                 if (listingError) console.error('Error promoting listing:', listingError)
+
+                // 3. Create Notification
+                const { data: txData } = await supabase
+                    .from('transactions')
+                    .select('user_id')
+                    .eq('id', transactionId)
+                    .single()
+
+                if (txData?.user_id) {
+                    await supabase.from('notifications').insert({
+                        user_id: txData.user_id,
+                        type: 'payment',
+                        title: '⚡ Promotion Active',
+                        content: `Your listing is now promoted until ${promotedUntil.toLocaleDateString()}.`,
+                        link: `/listings/${listingId}`,
+                        metadata: { listing_id: listingId, transaction_id: transactionId }
+                    })
+                }
             }
         }
     }

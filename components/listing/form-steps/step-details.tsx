@@ -7,6 +7,7 @@ import type {
   ListingFormErrors,
 } from '@/lib/utils/listing-form-schema'
 import { LocationCombobox } from '@/components/ui/location-combobox'
+import { FormField } from '@/components/ui/form-field'
 
 interface StepDetailsProps {
   formData: ListingFormData
@@ -24,39 +25,37 @@ export function StepDetails({
 }: StepDetailsProps) {
   const { t } = useTranslation()
 
+  const inputClasses = (hasError: boolean) =>
+    cn(
+      'placeholder:text-muted-foreground/30 w-full rounded-2xl border bg-white/5 transition-all outline-none',
+      'focus:border-primary focus:ring-primary/10 focus:bg-white/10 focus:ring-4',
+      hasError
+        ? 'border-destructive/50 bg-destructive/5'
+        : 'border-white/10 hover:border-white/20'
+    )
+
   return (
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
-      <div className="space-y-2">
-        <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t('createListing.itemTitle')}
-        </label>
-        <div className="group relative">
-          <input
-            value={formData.title}
-            onChange={(e) => updateField('title', e.target.value)}
-            className={cn(
-              'placeholder:text-muted-foreground/30 h-16 w-full rounded-2xl border bg-white/5 px-6 text-xl font-bold transition-all outline-none',
-              'focus:border-primary focus:ring-primary/10 focus:bg-white/10 focus:ring-4',
-              fieldErrors.title
-                ? 'border-destructive/50 bg-destructive/5'
-                : 'border-white/10 hover:border-white/20'
-            )}
-            placeholder="e.g. iPhone 13 Pro Max - 256GB"
-          />
-        </div>
-        {fieldErrors.title && (
-          <p className="text-destructive ml-1 text-sm font-medium">
-            {fieldErrors.title}
-          </p>
-        )}
-      </div>
+      <FormField
+        label={t('createListing.itemTitle')}
+        error={fieldErrors.title}
+        description="Write a clear, descriptive title for your item"
+      >
+        <input
+          value={formData.title}
+          onChange={(e) => updateField('title', e.target.value)}
+          className={cn(inputClasses(!!fieldErrors.title), 'h-16 px-6 text-xl font-bold')}
+          placeholder="e.g. iPhone 13 Pro Max - 256GB"
+        />
+      </FormField>
 
-      <div className="flex gap-4 md:gap-6">
-        <div className="flex-1 space-y-2">
-          <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-            {t('createListing.price')}
-          </label>
-          <div className="group relative">
+      <div className="flex flex-col gap-6 md:flex-row">
+        <FormField
+          label={t('createListing.price')}
+          error={fieldErrors.price}
+          className="flex-1"
+        >
+          <div className="relative">
             <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-black">
               €
             </span>
@@ -65,24 +64,16 @@ export function StepDetails({
               value={formData.price}
               onChange={(e) => updateField('price', e.target.value)}
               className={cn(
-                'placeholder:text-muted-foreground/30 h-16 w-full rounded-2xl border bg-white/5 pr-6 pl-12 text-2xl font-black tracking-tight transition-all outline-none',
-                'focus:border-primary focus:ring-primary/10 focus:bg-white/10 focus:ring-4',
-                fieldErrors.price
-                  ? 'border-destructive/50 bg-destructive/5'
-                  : 'border-white/10 hover:border-white/20'
+                inputClasses(!!fieldErrors.price),
+                'h-16 pr-6 pl-12 text-2xl font-black tracking-tight'
               )}
               placeholder="0.00"
             />
           </div>
-          {fieldErrors.price && (
-            <p className="text-destructive ml-1 text-sm font-medium">
-              {fieldErrors.price}
-            </p>
-          )}
-        </div>
-        {/* Visual Currency Badge (Static for now as mostly EUR) */}
-        <div className="pointer-events-none w-24 space-y-2 opacity-50 grayscale md:w-32">
-          <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
+        </FormField>
+
+        <div className="pointer-events-none w-full space-y-2.5 opacity-50 grayscale md:w-32">
+          <label className="text-muted-foreground/80 ml-1 text-[10px] font-black tracking-[0.2em] uppercase">
             {t('createListing.currency')}
           </label>
           <div className="text-muted-foreground flex h-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-black">
@@ -91,34 +82,30 @@ export function StepDetails({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t('createListing.description')}
-        </label>
+      <FormField
+        label={t('createListing.description')}
+        error={fieldErrors.description}
+      >
         <textarea
           value={formData.description}
           onChange={(e) => updateField('description', e.target.value)}
-          className="placeholder:text-muted-foreground/30 focus:border-primary focus:ring-primary/10 h-48 w-full resize-none rounded-2xl border border-white/10 bg-white/5 p-6 text-lg leading-relaxed transition-all outline-none hover:border-white/20 focus:bg-white/10 focus:ring-4"
+          className={cn(
+            inputClasses(!!fieldErrors.description),
+            'h-48 resize-none p-6 text-lg leading-relaxed'
+          )}
           placeholder="Describe your item in detail..."
         />
-      </div>
+      </FormField>
 
-      <div className="space-y-2">
-        <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t('createListing.location')}
-        </label>
+      <FormField label={t('createListing.location')} error={fieldErrors.location}>
         <LocationCombobox
           value={formData.location}
           onChange={(value) => updateField('location', value)}
           error={fieldErrors.location}
           placeholder="Search for a city in Slovakia..."
         />
-        {fieldErrors.location && (
-          <p className="text-destructive ml-1 text-sm font-medium">
-            {fieldErrors.location}
-          </p>
-        )}
-      </div>
+      </FormField>
     </div>
   )
 }
+

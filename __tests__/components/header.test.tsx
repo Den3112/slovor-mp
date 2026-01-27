@@ -10,24 +10,22 @@ vi.mock('next/navigation', () => ({
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    locale: 'en',
-    setLocale: vi.fn(),
-    t: {
-      common: {
-        home: 'Home',
-        allListings: 'All Listings',
-        categories: 'Categories',
-        searchPlaceholder: 'What are you looking for?',
-        postAd: 'Post Ad',
-        dashboard: 'Dashboard',
-        profile: 'Profile',
-      },
-      auth: {
-        signIn: 'Sign In',
-        signOut: 'Sign Out',
-        signedInAs: 'Signed in as',
-        hasAccount: "Don't have an account?",
-      },
+    i18n: { language: 'en' },
+    t: (key: string) => {
+      const translations: any = {
+        'home': 'Home',
+        'allListings': 'All Listings',
+        'categories': 'Categories',
+        'searchPlaceholder': 'What are you looking for?',
+        'postAd': 'Post Ad',
+        'dashboard': 'Dashboard',
+        'profile': 'Profile',
+        'signIn': 'Sign In',
+        'signOut': 'Sign Out',
+        'signedInAs': 'Signed in as',
+        'hasAccount': "Don't have an account?",
+      }
+      return translations[key] || key
     },
   }),
 }))
@@ -44,6 +42,39 @@ vi.mock('@/components/providers/auth-provider', () => ({
 // Mock Categories API to prevent act() warning
 vi.mock('@/lib/supabase/categories', () => ({
   getMainCategories: vi.fn(() => Promise.resolve({ data: [], error: null })),
+}))
+
+vi.mock('@/components/ui/theme-toggle', () => ({
+  ThemeToggle: () => <div data-testid="theme-toggle">ThemeToggle</div>,
+}))
+
+vi.mock('@/components/layout/language-selector', () => ({
+  LanguageSelector: () => <div data-testid="language-selector">LanguageSelector</div>,
+}))
+
+vi.mock('@/components/layout/categories-dropdown', () => ({
+  CategoriesDropdown: () => <div data-testid="categories-dropdown">CategoriesDropdown</div>,
+}))
+
+vi.mock('@/components/notifications/notification-dropdown', () => ({
+  NotificationDropdown: () => <div data-testid="notification-dropdown">NotificationDropdown</div>,
+}))
+
+vi.mock('@/components/layout/user-menu', () => ({
+  UserMenu: () => <div data-testid="user-menu">UserMenu</div>,
+}))
+
+vi.mock('@/components/layout/mobile-drawer', () => ({
+  MobileDrawer: () => <div data-testid="mobile-drawer">MobileDrawer</div>,
+}))
+
+vi.mock('@/components/layout/bottom-nav-bar', () => ({
+  BottomNavBar: () => <div data-testid="bottom-nav-bar">BottomNavBar</div>,
+}))
+
+// Mock Unread messages
+vi.mock('@/lib/hooks/use-unread-messages', () => ({
+  useUnreadMessages: () => 0,
 }))
 
 describe('Header', () => {

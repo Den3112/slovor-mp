@@ -40,10 +40,18 @@
 - [x] Динамические бейджи (Unread messages/notifications).
 - [x] SEO и интернационализация чата.
 
-## 🟣 7. Final Polish (Next Focus)
-- [ ] Финальное тестирование сценариев (E2E).
-- [ ] Оптимизация производительности (Lighthouse).
-- [ ] Подготовка к деплою на Main.
+## 🟢 7. Final Polish (Done)
+- [x] Сквозное E2E тестирование основного флоу (Playwright).
+- [x] Тестирование Real-time (Chat, Presence, Notifications).
+- [x] Оптимизация производительности (Проверка Core Web Vitals).
+- [x] Исправление мобильного UX (Input, Scroll).
+
+## 🟢 8. Production Ready (In Progress)
+- [x] Финальный аудит безопасности (RLS policies) - **Done**.
+- [x] Автоматизация уведомлений (Postgres Triggers) - **Done**.
+- [x] Интеграция уведомлений в Webhooks - **Done**.
+- [ ] Финальная проверка всех метаданных.
+- [ ] Окончательный мердж в `main` и деплой.
 
 ---
 

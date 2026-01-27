@@ -5,16 +5,23 @@ import { ListingCard } from '@/components/listing/card'
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    locale: 'en',
     t: (key: string) => {
       const translations: any = {
+        'new': 'New',
+        'used': 'Used',
+        'featured': 'Featured',
+        'noImage': 'No image',
+        'electronics': 'Electronics', // In case it comes from somewhere else
         'common.new': 'New',
         'common.used': 'Used',
         'common.featured': 'Featured',
         'common.noImage': 'No image',
-        'categories.electronics': 'Electronics',
       }
+
       return translations[key] || key
+    },
+    i18n: {
+      language: 'en',
     },
   }),
 }))
@@ -138,7 +145,7 @@ describe('ListingCard', () => {
   })
 
   it('shows views count when provided', () => {
-    const listingWithViews = { ...mockListing, views: 123 }
+    const listingWithViews = { ...mockListing, views_count: 123 }
     render(<ListingCard listing={listingWithViews} />)
     expect(screen.getByText('123')).toBeInTheDocument()
   })

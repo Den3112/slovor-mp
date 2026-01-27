@@ -5,10 +5,13 @@ import {
 } from '@/lib/utils/category-i18n'
 
 describe('category-i18n utility', () => {
-  const mockT = {
-    categories: {
-      electronics: 'Electronic Devices',
-    },
+  // Mock t function: returns a translation if found in internal map, or empty string (to test fallbacks)
+  const mockT = (key: string, options?: any) => {
+    // Simulate t('cat.electronics') -> 'Electronic Devices'
+    const db: Record<string, string> = {
+      'cat.electronics': 'Electronic Devices',
+    }
+    return db[key] || options?.defaultValue || ''
   }
 
   const mockCategory = {

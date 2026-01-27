@@ -23,7 +23,7 @@ vi.mock('next/navigation', () => ({
 
 // Mock next/image
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: { src: string; alt: string }) => {
+  default: ({ src, alt, priority, fill, unoptimized, ...props }: { src: string; alt: string; priority?: boolean; fill?: boolean; unoptimized?: boolean }) => {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt} {...props} />
   },
@@ -69,3 +69,10 @@ vi.mock('@/lib/supabase/client', () => ({
     },
   },
 }))
+
+// Mock ResizeObserver
+global.ResizeObserver = class ResizeObserver {
+  observe() { }
+  unobserve() { }
+  disconnect() { }
+}

@@ -13,9 +13,33 @@ const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
 
 export const metadata: Metadata = {
-  title: 'Slovor Marketplace - Slovakia Classifieds',
+  title: {
+    default: 'Slovor Marketplace - Slovakia Classifieds',
+    template: '%s | Slovor Marketplace',
+  },
   description:
     'The modern marketplace for Slovakia. Buy and sell electronics, cars, real estate, and more locally.',
+  metadataBase: new URL('https://slovor.sk'),
+  openGraph: {
+    type: 'website',
+    locale: 'sk_SK',
+    url: '/',
+    siteName: 'Slovor',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Slovor Marketplace',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Slovor Marketplace',
+    description: 'The modern marketplace for Slovakia.',
+    images: ['/og-image.png'],
+  },
 }
 
 export default function RootLayout({

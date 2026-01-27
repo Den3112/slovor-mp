@@ -10,7 +10,7 @@ const { mockFrom } = vi.hoisted(() => {
     then: vi.fn(),
   }
   // Fix recursive return
-  chain.select('mockReturnValue')(chain)
+  chain.select.mockReturnValue(chain)
   chain.eq.mockReturnValue(chain)
   chain.order.mockReturnValue(chain)
   chain.limit.mockReturnValue(chain)
@@ -19,7 +19,6 @@ const { mockFrom } = vi.hoisted(() => {
 
   return {
     mockFrom: vi.fn(() => chain),
-    mockChain: chain,
   }
 })
 

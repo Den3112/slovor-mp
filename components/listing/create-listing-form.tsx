@@ -12,7 +12,9 @@ import {
   Edit3,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { StepCategory, StepDetails, StepImages } from './form-steps'
+import { StepCategory } from './form-steps/step-category'
+import { StepDetails } from './form-steps/step-details'
+import { StepImages } from './form-steps/step-images'
 import { useCreateListing } from '@/lib/hooks/use-create-listing'
 import { ListingPreview } from './listing-preview'
 
@@ -74,7 +76,7 @@ function CreateListingFormContent() {
           <span className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {showPreview
               ? t('createListing.preview')
-              : t('createListing.step.replace')('{step}', step.toString())}
+              : t('createListing.step', { step })}
           </span>
           {!showPreview && (
             <div className="mt-1 flex gap-1">
@@ -116,7 +118,7 @@ function CreateListingFormContent() {
           <p className="text-muted-foreground">
             {showPreview
               ? t('createListing.previewDescription')
-              : t('createListing.step.replace')('{step}', step.toString())}
+              : t('createListing.step', { step })}
           </p>
         </div>
 

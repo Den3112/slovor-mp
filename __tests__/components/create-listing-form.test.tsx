@@ -10,39 +10,79 @@ vi.mock('@/components/providers/auth-provider', () => ({
   }),
 }))
 
-// Mock useTranslation
-vi.mock('@/lib/i18n', () => ({
-  useTranslation: () => ({
-    t: {
-      createListing: {
-        title: 'Create New Listing',
-        step: 'Step {step} of 3',
-        preview: 'Preview',
-        previewDescription: 'Preview description',
-        edit: 'Edit',
-        back: 'Back',
-        nextStep: 'Next',
-        publish: 'Publish',
-        backToEdit: 'Back to Edit',
+const mockUpdateField = vi.fn()
+
+vi.mock('@/lib/hooks/use-create-listing', () => ({
+  useCreateListing: () => ({
+    state: {
+      step: 1,
+      error: null,
+      fieldErrors: {},
+      categories: [
+        { id: '1', name: 'Electronics', slug: 'electronics', icon: '📱' },
+        { id: '2', name: 'Fashion', slug: 'fashion', icon: '👗' },
+      ],
+      isUploading: false,
+      uploadProgress: null,
+      formData: {
+        title: '',
+        price: '',
+        description: '',
+        location: '',
+        category_id: '',
+        condition: 'new',
+        images: [],
       },
-      common: {
-        home: 'Home',
-      },
-      filters: {
-        new: 'new',
-        used: 'used',
-      },
-      categories: {
-        electronics: 'Electronics',
-        fashion: 'Fashion',
-      },
+      isSubmitting: false,
+      isLoadingData: false,
+      authLoading: false,
     },
-    locale: 'en',
-    setLocale: vi.fn(),
+    actions: {
+      updateField: mockUpdateField,
+      goToNextStep: vi.fn(),
+      prevStep: vi.fn(),
+      handleSubmit: vi.fn(),
+      handleFilesSelected: vi.fn(),
+      setStep: vi.fn(),
+    },
+    flags: {
+      showLoader: false,
+    },
+    t: (key: string, params?: any) => {
+      const translations: any = {
+        'createListing.title': 'Create New Listing',
+        'createListing.step': 'Step {step} of 3',
+        'createListing.preview': 'Preview',
+        'createListing.previewDescription': 'Preview description',
+        'createListing.edit': 'Edit',
+        'createListing.back': 'Back',
+        'createListing.nextStep': 'Next',
+        'createListing.publish': 'Publish',
+        'createListing.backToEdit': 'Back to Edit',
+        'createListing.itemTitle': 'Title',
+        'createListing.price': 'Price',
+        'createListing.currency': 'Currency',
+        'createListing.description': 'Description',
+        'createListing.location': 'Location',
+        'filters.new': 'new',
+        'filters.used': 'used',
+        'categories.electronics': 'Electronics',
+        'categories.fashion': 'Fashion',
+      }
+      let text = translations[key] || key
+      if (params) {
+        Object.entries(params).forEach(([k, v]) => {
+          text = text.replace(`{${k}}`, String(v))
+        })
+      }
+      return text
+    },
+    router: {
+      push: vi.fn(),
+    },
   }),
 }))
 
-// Mock next/navigation
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: vi.fn(),
@@ -54,7 +94,6 @@ vi.mock('next/navigation', () => ({
   useParams: () => ({}),
 }))
 
-// Mock Supabase client
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
     auth: {
@@ -63,7 +102,30 @@ vi.mock('@/lib/supabase/client', () => ({
   }),
 }))
 
-// Mock categoriesApi and listingsApi
+vi.mock('@/components/listing/form-steps/step-category', () => ({
+  StepCategory: ({ categories, updateField }: any) => (
+    <div>
+      {categories?.map((cat: any) => (
+        <button key={cat.id} onClick={() => updateField('category_id', cat.id)}>
+          {cat.name}
+        </button>
+      ))}
+      <button onClick={() => updateField('condition', 'new')}>new</button>
+      <button onClick={() => updateField('condition', 'used')}>used</button>
+    </div>
+  ),
+}))
+vi.mock('@/components/listing/form-steps/step-details', () => ({
+  StepDetails: () => <div data-testid="step-details">Step Details Form</div>,
+}))
+vi.mock('@/components/listing/form-steps/step-images', () => ({
+  StepImages: () => <div data-testid="step-images">Step Images Form</div>,
+}))
+
+vi.mock('@/components/listing/listing-preview', () => ({
+  ListingPreview: () => <div data-testid="listing-preview">Listing Preview</div>,
+}))
+
 vi.mock('@/lib/api', () => ({
   categoriesApi: {
     getAll: vi.fn().mockResolvedValue({
@@ -106,13 +168,9 @@ describe('CreateListingForm', () => {
     render(<CreateListingForm />)
 
     await waitFor(() => {
-      const electronicsButton = screen
-        .getByText('Electronics')
-        .closest('button')
-      if (electronicsButton) {
-        fireEvent.click(electronicsButton)
-        expect(electronicsButton).toHaveClass('border-primary')
-      }
+      const electronicsButton = screen.getByText('Electronics')
+      fireEvent.click(electronicsButton)
+      expect(mockUpdateField).toHaveBeenCalledWith('category_id', '1')
     })
   })
 

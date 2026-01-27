@@ -5,15 +5,14 @@ import { ListingActionButtons } from '@/components/listing/shared/listing-action
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    t: {
-      listing: {
-        contactSeller: 'Contact Seller',
-        callNow: 'Call Now',
-        message: 'Message',
-      },
-      common: {
-        loading: 'Loading...',
-      },
+    t: (key: string) => {
+      const translations: any = {
+        'listing.contactSeller': 'Contact Seller',
+        'listing.callNow': 'Call Now',
+        'listing.message': 'Message',
+        'common.loading': 'Loading...',
+      }
+      return translations[key] || key
     },
   }),
 }))

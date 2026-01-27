@@ -1,6 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { reportsApi, type ReportReason } from '@/lib/api/reports'
-import { supabase } from '@/lib/supabase/client'
+const { mockFrom, mockSupabase } = vi.hoisted(() => {
+  const mockFrom = vi.fn()
+  const mockSupabase = {
+    from: mockFrom
+  }
+  return { mockFrom, mockSupabase }
+})
+
+vi.mock('@/lib/supabase/client', () => ({
+  createClient: () => mockSupabase,
+  supabase: mockSupabase // if used directly
+}))
 
 describe('reportsApi', () => {
   beforeEach(() => {
@@ -23,7 +34,7 @@ describe('reportsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ single: singleMock })
       const insertMock = vi.fn().mockReturnValue({ select: selectMock })
 
-      vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
+      mockFrom.mockReturnValue({ insert: insertMock } as any)
 
       const response = await reportsApi.create(reportData)
       expect(response.error).toBeNull()
@@ -56,11 +67,11 @@ describe('reportsApi', () => {
       const orderMock = vi.fn().mockReturnValue({ eq: eqMock })
       const selectMock = vi.fn().mockReturnValue({ order: orderMock })
 
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       await reportsApi.list({ status: 'pending', limit: 10, offset: 0 })
 
-      expect(selectMock).toHaveBeenCalledWith('*', { count: 'exact' })
+      expect(selectMock).toHaveBeenCalledWith('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
       expect(orderMock).toHaveBeenCalledWith('created_at', { ascending: false })
       expect(eqMock).toHaveBeenCalledWith('status', 'pending')
     })
@@ -70,7 +81,7 @@ describe('reportsApi', () => {
         .fn()
         .mockResolvedValue({ data: [], count: 0, error: null })
       const selectMock = vi.fn().mockReturnValue({ order: orderMock })
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       await reportsApi.list()
       expect(orderMock).toHaveBeenCalled()
@@ -87,7 +98,7 @@ describe('reportsApi', () => {
       const eqMock = vi.fn().mockReturnValue({ select: selectMock })
       const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
 
-      vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
+      mockFrom.mockReturnValue({ update: updateMock } as any)
 
       const response = await reportsApi.updateStatus('1', 'resolved')
       expect(response.data?.status).toBe('resolved')
@@ -106,7 +117,7 @@ describe('reportsApi', () => {
       const eqMock1 = vi.fn().mockReturnValue({ eq: eqMock2 })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock1 })
 
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       const response = await reportsApi.hasReported('u1', 'l1')
       expect(response.data).toBe(true)
@@ -120,7 +131,7 @@ describe('reportsApi', () => {
       const eqMock1 = vi.fn().mockReturnValue({ eq: eqMock2 })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock1 })
 
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       const response = await reportsApi.hasReported('u1', 'l1')
       expect(response.data).toBe(false)

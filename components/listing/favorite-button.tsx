@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Heart } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -15,14 +16,14 @@ interface FavoriteButtonProps {
 
 const sizeClasses = {
   sm: 'h-8 w-8',
-  default: 'h-10 w-10 md:h-9 md:w-9',
-  lg: 'h-12 w-12',
+  default: 'h-10 w-10 md:h-11 md:w-11',
+  lg: 'h-14 w-14',
 }
 
 const iconSizeClasses = {
   sm: 'h-3.5 w-3.5',
-  default: 'h-4 w-4',
-  lg: 'h-5 w-5',
+  default: 'h-5 w-5',
+  lg: 'h-7 w-7',
 }
 
 export function FavoriteButton({
@@ -36,10 +37,8 @@ export function FavoriteButton({
   const router = useRouter()
   const supabase = createClient()
 
-  // Fetch actual state on mount if not provided (or to verify)
   useEffect(() => {
     const checkFavoriteStatus = async () => {
-      // Check session first to avoid 406 errors for unauthenticated users
       const {
         data: { session },
       } = await supabase.auth.getSession()
@@ -54,19 +53,15 @@ export function FavoriteButton({
 
       setIsFavorited(Boolean(data))
     }
-
-    // Only fetch if we are unsure or want strictly fresh state.
-    // For now we'll trust initial if passed, but verify.
     checkFavoriteStatus()
   }, [listingId, supabase])
 
   const toggleFavorite = async (e: React.MouseEvent) => {
-    e.preventDefault() // Prevent navigation if inside a link
+    e.preventDefault()
     e.stopPropagation()
 
     if (isLoading) return
 
-    // Optimistic update
     const previousState = isFavorited
     setIsFavorited(!previousState)
     setIsLoading(true)
@@ -76,7 +71,6 @@ export function FavoriteButton({
     } = await supabase.auth.getUser()
 
     if (!user) {
-      // Revert and redirect to login
       setIsFavorited(previousState)
       setIsLoading(false)
       router.push('/auth/login')
@@ -85,60 +79,60 @@ export function FavoriteButton({
 
     try {
       if (previousState) {
-        // Remove favorite
         const { error } = await supabase
           .from('favorites')
           .delete()
           .eq('listing_id', listingId)
           .eq('user_id', user.id)
-
         if (error) throw error
       } else {
-        // Add favorite
         const { error } = await supabase
           .from('favorites')
           .insert({ listing_id: listingId, user_id: user.id })
-
-        if (error) {
-          // If unique constraint violation (already favorited), just ignore
-          if (error.code === '23505') {
-            console.warn('Already favorited')
-          } else {
-            throw error
-          }
-        }
+        if (error && error.code !== '23505') throw error
       }
-
       router.refresh()
     } catch (error) {
-      console.error('Error toggling favorite:', JSON.stringify(error, null, 2))
-      setIsFavorited(previousState) // Revert
+      console.error('Error toggling favorite:', error)
+      setIsFavorited(previousState)
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       onClick={toggleFavorite}
       className={cn(
-        'group/fav relative flex items-center justify-center rounded-full transition-all active:scale-90',
+        'group relative flex items-center justify-center rounded-full transition-all duration-300',
         sizeClasses[size],
         isFavorited
-          ? 'bg-red-500 text-white shadow-lg shadow-red-500/30 hover:bg-red-600'
-          : 'bg-black/20 text-white/80 backdrop-blur-md hover:bg-white hover:text-red-500 hover:shadow-lg',
+          ? 'bg-red-500 text-white shadow-xl shadow-red-500/40'
+          : 'bg-black/20 text-white/90 backdrop-blur-md hover:bg-white hover:text-red-500 hover:shadow-xl',
         className
       )}
       aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
     >
-      <Heart
-        className={cn(
-          iconSizeClasses[size],
-          'transition-all duration-300',
-          isFavorited && 'scale-110 fill-current',
-          isLoading && 'opacity-50'
-        )}
-      />
-    </button>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isFavorited ? 'favorited' : 'not-favorited'}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 1.2, opacity: 0 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 300 }}
+        >
+          <Heart
+            className={cn(
+              iconSizeClasses[size],
+              'transition-colors duration-300',
+              isFavorited && 'fill-current'
+            )}
+          />
+        </motion.div>
+      </AnimatePresence>
+    </motion.button>
   )
 }
+
