@@ -1,0 +1,15 @@
+{
+  "title": "Identity Verification",
+  "subtitle": "Build trust in the community by verifying your details.",
+  "emailTitle": "Email Address",
+  "phoneTitle": "Phone Number",
+  "idTitle": "Identity Document",
+  "verified": "Verified",
+  "notVerified": "Not Verified",
+  "pending": "Pending Review",
+  "start": "Start Verification",
+  "emailDesc": "Your email is a core security element.",
+  "phoneDesc": "Get a verified badge for better sales performance.",
+  "idDesc": "Highest trust level. Requires document upload.",
+  "submitDocuments": "Upload Documents"
+}

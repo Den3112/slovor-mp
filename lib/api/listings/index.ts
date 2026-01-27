@@ -98,7 +98,7 @@ export const listingsApi = {
         .from('listings')
         .select('*, category:categories(*)')
         .eq('status', 'active')
-        .eq('is_promoted', true)
+        .eq('is_highlighted', true)
         .order('created_at', { ascending: false })
         .limit(limit)
 

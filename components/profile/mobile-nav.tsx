@@ -44,7 +44,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               isActive('/profile/overview') && 'fill-primary/20'
             )}
           />
-          <span className="text-[10px] font-bold">{t.common.home}</span>
+          <span className="text-[10px] font-bold">{t('common.home')}</span>
         </Link>
 
         {/* 2. My Listings - Show Badge */}
@@ -70,7 +70,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               </span>
             )}
           </div>
-          <span className="text-[10px] font-bold">{t.profile.myListings}</span>
+          <span className="text-[10px] font-bold">{t('profile.myListings')}</span>
         </Link>
 
         {/* 3. CORE ACTION: POST AD */}
@@ -105,7 +105,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               </span>
             )}
           </div>
-          <span className="text-[10px] font-bold">{t.profile.inbox}</span>
+          <span className="text-[10px] font-bold">{t('profile.inbox')}</span>
         </Link>
 
         {/* 5. Menu Drawer Trigger */}
@@ -119,7 +119,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
             )}
           >
             <Menu className="h-6 w-6" />
-            <span className="text-[10px] font-bold">{t.common.dashboard}</span>
+            <span className="text-[10px] font-bold">{t('common.dashboard')}</span>
           </button>
         </MobileMenuDrawer>
       </nav>

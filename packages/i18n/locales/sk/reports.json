@@ -1,0 +1,19 @@
+{
+  "title": "Nahlásiť",
+  "reportListing": "Nahlásiť inzerát",
+  "reportUser": "Nahlásiť používateľa",
+  "reason": "Dôvod nahlásenia",
+  "description": "Popis (voliteľné)",
+  "submit": "Odoslať nahlásenie",
+  "thankYou": "Ďakujeme za nahlásenie! Preveríme to.",
+  "reasons": {
+    "spam": "Spam",
+    "inappropriate": "Nevhodný obsah",
+    "fraud": "Podozrenie z podvodu",
+    "offensive": "Urážlivý obsah",
+    "counterfeit": "Falzifikát",
+    "prohibited": "Zakázaný tovar",
+    "duplicate": "Duplicitný inzerát",
+    "other": "Iné"
+  }
+}

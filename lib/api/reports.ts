@@ -1,129 +1,62 @@
-// Reports API
-// Centralized API layer for managing listing reports
-import { supabase } from '@/lib/supabase/client'
-import type { ApiResponse, ListingReport } from '@/lib/types/database'
+import { createClient } from '@/lib/supabase/client'
 import { logError } from '@/lib/utils/logger'
+import type { ApiResponse, ListingReport } from '@/lib/types/database'
 
 export type ReportReason =
   | 'spam'
-  | 'fraud'
-  | 'offensive'
   | 'inappropriate'
+  | 'fraud'
   | 'counterfeit'
   | 'prohibited'
   | 'duplicate'
+  | 'offensive'
   | 'other'
 
+export interface ReportWithDetails extends ListingReport {
+  listing?: {
+    id: string
+    title: string
+  }
+  reporter?: {
+    display_name: string
+  }
+}
+
 export const reportsApi = {
-  /**
-   * Creates a new report for a listing or user
-   */
-  async create(report: {
-    reporter_id: string
-    listing_id?: string
-    reported_user_id?: string
-    reason: string
-    description?: string
-  }): Promise<ApiResponse<ListingReport>> {
-    try {
-      // Must report either a listing or a user
-      if (!report.listing_id && !report.reported_user_id) {
-        return { data: null, error: 'Must report either a listing or a user' }
-      }
-
-      // Cannot report yourself
-      if (report.reporter_id === report.reported_user_id) {
-        return { data: null, error: 'You cannot report yourself' }
-      }
-
-      const { data, error } = await supabase
-        .from('listing_reports')
-        .insert({
-          reporter_id: report.reporter_id,
-          listing_id: report.listing_id || null,
-          reported_user_id: report.reported_user_id || null,
-          reason: report.reason,
-          description: report.description || null,
-          status: 'pending',
-        })
-        .select()
-        .single()
-
-      if (error) throw error
-
-      return { data: data as ListingReport, error: null }
-    } catch (error) {
-      logError('reportsApi.create', error)
-      return { data: null, error: (error as Error).message }
-    }
+  async getAll(): Promise<ApiResponse<ReportWithDetails[]>> {
+    return this.list()
   },
 
-  /**
-   * Gets all reports (for moderators)
-   */
-  async list(params?: {
-    status?: ListingReport['status']
-    limit?: number
-    offset?: number
-  }): Promise<ApiResponse<{ reports: ListingReport[]; total: number }>> {
+  async list(options?: { status?: string; limit?: number; offset?: number }): Promise<ApiResponse<ReportWithDetails[]>> {
+    const supabase = createClient()
     try {
       let query = supabase
         .from('listing_reports')
-        .select('*', { count: 'exact' })
+        .select('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
         .order('created_at', { ascending: false })
 
-      if (params?.status) {
-        query = query.eq('status', params.status)
+      if (options?.status) {
+        query = query.eq('status', options.status)
+      }
+      if (options?.limit) {
+        query = query.limit(options.limit)
+      }
+      if (options?.offset && options.limit) {
+        query = query.range(options.offset, options.offset + options.limit - 1)
       }
 
-      const { data, error, count } = await query
+      const { data, error } = await query
 
       if (error) throw error
-
-      return {
-        data: {
-          reports: (data || []) as ListingReport[],
-          total: count || 0,
-        },
-        error: null,
-      }
+      return { data: (data as any) || [], error: null }
     } catch (error) {
       logError('reportsApi.list', error)
       return { data: null, error: (error as Error).message }
     }
   },
 
-  /**
-   * Updates the status of a report
-   */
-  async updateStatus(
-    id: string,
-    status: ListingReport['status']
-  ): Promise<ApiResponse<ListingReport>> {
-    try {
-      const { data, error } = await supabase
-        .from('listing_reports')
-        .update({ status })
-        .eq('id', id)
-        .select()
-        .single()
-
-      if (error) throw error
-
-      return { data: data as ListingReport, error: null }
-    } catch (error) {
-      logError('reportsApi.updateStatus', error)
-      return { data: null, error: (error as Error).message }
-    }
-  },
-
-  /**
-   * Checks if a user has already reported a listing
-   */
-  async hasReported(
-    reporterId: string,
-    listingId: string
-  ): Promise<ApiResponse<boolean>> {
+  async hasReported(reporterId: string, listingId: string): Promise<ApiResponse<boolean>> {
+    const supabase = createClient()
     try {
       const { data, error } = await supabase
         .from('listing_reports')
@@ -133,11 +66,45 @@ export const reportsApi = {
         .maybeSingle()
 
       if (error) throw error
-
-      return { data: Boolean(data), error: null }
+      return { data: !!data, error: null }
     } catch (error) {
       logError('reportsApi.hasReported', error)
       return { data: null, error: (error as Error).message }
     }
   },
+
+  async updateStatus(id: string, status: 'resolved' | 'dismissed'): Promise<ApiResponse<ListingReport>> {
+    const supabase = createClient()
+    try {
+      const { data, error } = await supabase
+        .from('listing_reports')
+        .update({ status })
+        .eq('id', id)
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      logError('reportsApi.updateStatus', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  async create(report: Partial<ListingReport>): Promise<ApiResponse<ListingReport>> {
+    const supabase = createClient()
+    try {
+      const { data, error } = await supabase
+        .from('listing_reports')
+        .insert([report])
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      logError('reportsApi.create', error)
+      return { data: null, error: (error as Error).message }
+    }
+  }
 }

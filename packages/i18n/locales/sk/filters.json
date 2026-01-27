@@ -1,0 +1,20 @@
+{
+  "title": "Filtre",
+  "sort": "Zoradiť podľa",
+  "newest": "Najnovšie",
+  "oldest": "Najstaršie",
+  "priceLow": "Cena: Nízka → Vysoká",
+  "priceHigh": "Cena: Vysoká → Nízka",
+  "popular": "Najpopulárnejšie",
+  "priceMin": "Min. cena",
+  "priceMax": "Max. cena",
+  "location": "Lokalita",
+  "allLocations": "Všetky lokality",
+  "apply": "Použiť filtre",
+  "reset": "Vymazať",
+  "condition": "Stav",
+  "new": "Nové",
+  "used": "Použité",
+  "clearAll": "Vymazať všetko",
+  "cityPlaceholder": "Mesto alebo región"
+}

@@ -1,6 +1,7 @@
 // Blog API
 import { supabase } from '@/lib/supabase/client'
 import type { ApiResponse, BlogPost } from '@/lib/types/database'
+export type { BlogPost } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
 
 export const blogApi = {
@@ -77,6 +78,63 @@ export const blogApi = {
             return { data: data as BlogPost[], error: null }
         } catch (error) {
             logError('blogApi.adminListPosts', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Admin: Create a new blog post
+     */
+    async create(post: Partial<BlogPost>): Promise<ApiResponse<BlogPost>> {
+        try {
+            const { data, error } = await supabase
+                .from('blog_posts')
+                .insert(post)
+                .select()
+                .single()
+
+            if (error) throw error
+            return { data: data as BlogPost, error: null }
+        } catch (error) {
+            logError('blogApi.create', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Admin: Update a blog post
+     */
+    async update(id: string, post: Partial<BlogPost>): Promise<ApiResponse<BlogPost>> {
+        try {
+            const { data, error } = await supabase
+                .from('blog_posts')
+                .update({ ...post, updated_at: new Date().toISOString() })
+                .eq('id', id)
+                .select()
+                .single()
+
+            if (error) throw error
+            return { data: data as BlogPost, error: null }
+        } catch (error) {
+            logError('blogApi.update', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Admin: Delete a blog post
+     */
+    async delete(id: string): Promise<ApiResponse<boolean>> {
+        try {
+            const { error } = await supabase
+                .from('blog_posts')
+                .delete()
+                .eq('id', id)
+
+            if (error) throw error
+            return { data: true, error: null }
+        } catch (error) {
+            logError('blogApi.delete', error)
             return { data: null, error: (error as Error).message }
         }
     }

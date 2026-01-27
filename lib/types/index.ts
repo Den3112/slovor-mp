@@ -26,7 +26,7 @@ export interface Listing {
     status: ListingStatus;
     views_count: number;
     likes_count: number;
-    is_promoted: boolean;
+    is_highlighted: boolean;
     promoted_until: string | null;
     created_at: string;
     updated_at: string;

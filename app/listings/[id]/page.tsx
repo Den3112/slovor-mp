@@ -10,6 +10,10 @@ interface Props {
   }>
 }
 
+import { generateListingMetadata } from '@/lib/utils/metadata'
+
+export const generateMetadata = generateListingMetadata
+
 export default async function ListingDetailPage({ params }: Props) {
   const { id } = await params
   const supabase = await createClient()

@@ -1,0 +1,18 @@
+{
+  "title": "Nahlásit",
+  "reportListing": "Nahlásit inzerát",
+  "reportUser": "Nahlásit uživatele",
+  "reason": "Důvod nahlášení",
+  "description": "Popis (volitelné)",
+  "submit": "Odeslat nahlášení",
+  "thankYou": "Děkujeme za nahlášení! Prověříme to.",
+  "reasons": {
+    "spam": "Spam",
+    "inappropriate": "Nevhodný obsah",
+    "fraud": "Podezření z podvodu",
+    "counterfeit": "Padělky",
+    "prohibited": "Zakázané zboží",
+    "duplicate": "Duplicitní inzerát",
+    "other": "Jiné"
+  }
+}

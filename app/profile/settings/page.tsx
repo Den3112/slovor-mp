@@ -88,12 +88,12 @@ export default function SettingsPage() {
 
     if (error) {
       console.error('Profile update error:', error)
-      toast.error(t.profile.updateError, {
+      toast.error(t('profile.updateError'), {
         description: error.message,
       })
     } else {
-      toast.success(t.profile.updateSuccess, {
-        description: t.profile.updateSuccessDesc,
+      toast.success(t('profile.updateSuccess'), {
+        description: t('profile.updateSuccessDesc'),
       })
       router.refresh()
     }
@@ -105,7 +105,7 @@ export default function SettingsPage() {
     if (!file || !user) return
 
     setIsUploading(true)
-    const toastId = toast.loading(t.profile.uploading)
+    const toastId = toast.loading(t('profile.uploading'))
 
     // Upload logic reusing storageApi
     // Use 'avatars' bucket
@@ -113,9 +113,9 @@ export default function SettingsPage() {
 
     if (res.data) {
       setFormData((prev) => ({ ...prev, avatar_url: res.data.url }))
-      toast.success(t.profile.avatarSuccess, { id: toastId })
+      toast.success(t('profile.avatarSuccess'), { id: toastId })
     } else if (res.error) {
-      toast.error(t.profile.avatarError, {
+      toast.error(t('profile.avatarError'), {
         description: res.error,
         id: toastId,
       })
@@ -132,10 +132,10 @@ export default function SettingsPage() {
           <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-blue-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="relative z-10">
             <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
-              {t.profile.settings}
+              {t('profile.settings')}
             </h1>
             <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
-              {t.profile.settingsDescription}
+              {t('profile.settingsDescription')}
             </p>
           </div>
         </div>
@@ -211,9 +211,9 @@ export default function SettingsPage() {
                   </div>
 
                   <div className="flex-1 space-y-2 text-center sm:text-left">
-                    <h3 className="text-xl font-bold">{t.profile.profilePicture}</h3>
+                    <h3 className="text-xl font-bold">{t('profile.profilePicture')}</h3>
                     <p className="text-muted-foreground mx-auto max-w-sm text-sm sm:mx-0">
-                      {t.profile.uploadDescription}
+                      {t('profile.uploadDescription')}
                     </p>
                     <input
                       id="avatar-input"
@@ -229,7 +229,7 @@ export default function SettingsPage() {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {/* Full Name */}
                   <div className="space-y-2">
-                    <label className="ml-1 text-sm font-bold">{t.profile.fullName}</label>
+                    <label className="ml-1 text-sm font-bold">{t('profile.fullName')}</label>
                     <div className="group relative">
                       <User className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
                       <Input
@@ -248,7 +248,7 @@ export default function SettingsPage() {
 
                   {/* Location */}
                   <div className="space-y-2">
-                    <label className="ml-1 text-sm font-bold">{t.profile.location}</label>
+                    <label className="ml-1 text-sm font-bold">{t('profile.location')}</label>
                     <div className="group relative">
                       <MapPin className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
                       <Input
@@ -265,7 +265,7 @@ export default function SettingsPage() {
                   {/* Phone */}
                   <div className="space-y-2">
                     <label className="ml-1 text-sm font-bold">
-                      {t.profile.phoneNumber}
+                      {t('profile.phoneNumber')}
                     </label>
                     <div className="group relative">
                       <Phone className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
@@ -283,7 +283,7 @@ export default function SettingsPage() {
                   {/* Currency */}
                   <div className="space-y-2">
                     <label className="ml-1 text-sm font-bold">
-                      {t.profile.preferredCurrency}
+                      {t('profile.preferredCurrency')}
                     </label>
                     <div className="group relative">
                       <Coins className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
@@ -306,7 +306,7 @@ export default function SettingsPage() {
                   {/* Email (Full Width) */}
                   <div className="space-y-2 md:col-span-2">
                     <label className="text-muted-foreground ml-1 text-sm font-bold">
-                      {t.profile.emailReadonly}
+                      {t('profile.emailReadonly')}
                     </label>
                     <div className="relative">
                       <Mail className="text-muted-foreground/50 absolute top-3.5 left-4 h-4 w-4" />
@@ -322,7 +322,7 @@ export default function SettingsPage() {
                   {/* Bio (Full Width) */}
                   <div className="space-y-2 md:col-span-2">
                     <label className="ml-1 text-sm font-bold">
-                      {t.profile.bio}
+                      {t('profile.bio')}
                     </label>
                     <div className="group relative">
                       <AlignLeft className="text-muted-foreground group-hover:text-primary absolute top-3.5 left-4 h-4 w-4 transition-colors" />
@@ -332,7 +332,7 @@ export default function SettingsPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, bio: e.target.value })
                         }
-                        placeholder={t.profile.bioPlaceholder}
+                        placeholder={t('profile.bioPlaceholder')}
                       />
                     </div>
                   </div>
@@ -349,7 +349,7 @@ export default function SettingsPage() {
                     ) : (
                       <Save className="mr-2 h-5 w-5" />
                     )}
-                    {t.profile.saveChanges}
+                    {t('profile.saveChanges')}
                   </Button>
                 </div>
               </form>

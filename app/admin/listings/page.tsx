@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { listingsApi, type Listing } from '@/lib/api'
+import { listingsApi, adminApi, type Listing } from '@/lib/api'
 import {
     CheckCircle2,
     XCircle,
@@ -42,6 +42,13 @@ export default function AdminModerationPage() {
         } else {
             toast.success(status === 'active' ? 'Listing approved' : 'Listing rejected/hidden')
             setListings(prev => prev.map(l => l.id === id ? { ...l, status } : l))
+            // Log action
+            adminApi.logAction({
+                target_id: id,
+                target_type: 'listing',
+                action_type: status === 'active' ? 'approve' : 'reject',
+                reason: status === 'active' ? 'Admin approved listing' : `Admin set status to ${status}`
+            })
         }
     }
 

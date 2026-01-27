@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { usersApi, type User } from '@/lib/api'
+import { usersApi, adminApi, type User } from '@/lib/api'
 import {
     ShieldCheck,
     ShieldAlert,
@@ -39,6 +39,46 @@ export default function AdminUsersPage() {
         } else {
             toast.success(newStatus ? 'User verified' : 'Verification removed')
             setUsers(prev => prev.map(u => u.id === user.id ? { ...u, is_verified: newStatus } : u))
+            // Log action
+            if (newStatus) {
+                adminApi.logAction({
+                    target_id: user.id,
+                    target_type: 'user',
+                    action_type: 'verify',
+                    reason: 'Admin manual verification'
+                })
+            }
+        }
+    }
+
+    const handleToggleBan = async (user: User) => {
+        const isBanned = user.status === 'banned'
+        const newStatus = isBanned ? 'active' : 'banned'
+        const { error } = await usersApi.update(user.id, { status: newStatus as any })
+        if (error) {
+            toast.error(error)
+        } else {
+            toast.success(isBanned ? 'User unbanned' : 'User banned')
+            setUsers(prev => prev.map(u => u.id === user.id ? { ...u, status: newStatus } : u))
+            // Log action
+            if (newStatus === 'banned') {
+                adminApi.logAction({
+                    target_id: user.id,
+                    target_type: 'user',
+                    action_type: 'ban',
+                    reason: 'Admin manual ban'
+                })
+            }
+        }
+    }
+
+    const handleRoleChange = async (user: User, newRole: 'user' | 'admin' | 'moderator') => {
+        const { error } = await usersApi.update(user.id, { role: newRole })
+        if (error) {
+            toast.error(error)
+        } else {
+            toast.success(`Role updated to ${newRole}`)
+            setUsers(prev => prev.map(u => u.id === user.id ? { ...u, role: newRole } : u))
         }
     }
 
@@ -111,19 +151,34 @@ export default function AdminUsersPage() {
                                     <td className="px-6 py-6 text-sm font-medium text-muted-foreground">
                                         {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
                                     </td>
-                                    <td className="px-6 py-6 font-bold text-xs">
+                                    <td className="px-6 py-6">
                                         <div className="flex flex-col gap-1">
-                                            <span className="text-primary uppercase tracking-widest">{user.role || 'User'}</span>
-                                            <span className="text-muted-foreground/60">Level: {user.verification_level || 'None'}</span>
+                                            <select
+                                                value={user.role || 'user'}
+                                                onChange={(e) => handleRoleChange(user, e.target.value as any)}
+                                                className="bg-transparent text-primary uppercase tracking-widest font-bold outline-none cursor-pointer hover:underline text-[10px]"
+                                            >
+                                                <option value="user">User</option>
+                                                <option value="moderator">Moderator</option>
+                                                <option value="admin">Admin</option>
+                                            </select>
+                                            <span className="text-muted-foreground/60 text-[10px]">Level: {user.verification_level || 'None'}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-6">
-                                        <span className={cn(
-                                            "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-widest",
-                                            user.is_verified ? "bg-emerald-500/10 text-emerald-500" : "bg-muted text-muted-foreground"
-                                        )}>
-                                            {user.is_verified ? 'Verified' : 'Unverified'}
-                                        </span>
+                                        <div className="flex flex-col gap-1">
+                                            <span className={cn(
+                                                "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-widest",
+                                                user.is_verified ? "bg-emerald-500/10 text-emerald-500" : "bg-muted text-muted-foreground"
+                                            )}>
+                                                {user.is_verified ? 'Verified' : 'Unverified'}
+                                            </span>
+                                            {user.status === 'banned' && (
+                                                <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-widest bg-destructive/10 text-destructive">
+                                                    Banned
+                                                </span>
+                                            )}
+                                        </div>
                                     </td>
                                     <td className="px-6 py-6 text-right">
                                         <div className="flex items-center justify-end gap-2">
@@ -143,8 +198,12 @@ export default function AdminUsersPage() {
                                             <Button
                                                 variant="ghost"
                                                 size="sm"
-                                                className="text-destructive hover:bg-destructive/10 rounded-xl"
-                                                title="Ban User"
+                                                onClick={() => handleToggleBan(user)}
+                                                className={cn(
+                                                    "rounded-xl",
+                                                    user.status === 'banned' ? "text-emerald-600 hover:bg-emerald-50" : "text-destructive hover:bg-destructive/10"
+                                                )}
+                                                title={user.status === 'banned' ? "Unban User" : "Ban User"}
                                             >
                                                 <Ban className="h-4 w-4" />
                                             </Button>

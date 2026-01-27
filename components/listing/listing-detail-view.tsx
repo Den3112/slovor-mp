@@ -24,19 +24,22 @@ import { messagesApi } from '@/lib/api/messages'
 import { toast } from 'sonner'
 import { ListingDetailsGrid } from './details/listing-attributes'
 import { SellerInfoCard } from './details/seller-info'
+import { ReportDialog } from '@/components/ui/report-dialog'
 
 interface ListingDetailViewProps {
   listing: Listing
 }
 
 export function ListingDetailView({ listing }: ListingDetailViewProps) {
-  const { t, locale } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
   const { user } = useAuth()
   const router = useRouter()
   const seller = listing.user
 
   const [isContacting, setIsContacting] = useState(false)
   const [showPhone, setShowPhone] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   const displayTitle = getLocalizedTitle(listing, locale)
   const displayDescription = getLocalizedDescription(listing, locale)
@@ -95,7 +98,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
         <div className="mt-0 md:mt-8">
           <Breadcrumbs
             items={[
-              { label: t.common.allListings, href: '/listings' },
+              { label: t('allListings'), href: '/listings' },
               ...(listing.category
                 ? [
                   {
@@ -128,7 +131,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
             <div className="space-y-10">
               <div className="space-y-4">
                 <h2 className="font-heading text-3xl font-black tracking-tight italic">
-                  {t.listing.itemDescription}
+                  {t('listing.itemDescription')}
                 </h2>
                 <div className="bg-primary h-1.5 w-20 rounded-full" />
                 <p className="text-foreground/80 text-lg leading-relaxed font-medium whitespace-pre-wrap">
@@ -144,7 +147,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
             <div className="shadow-primary/5 bg-background/80 sticky top-28 space-y-8 rounded-5xl border border-white/10 p-6 shadow-2xl backdrop-blur-xl md:p-8">
               <div className="space-y-3 border-b border-white/10 pb-6">
                 <span className="text-primary/80 text-[10px] font-black tracking-[0.2em] uppercase">
-                  {t.common.price}
+                  {t('price')}
                 </span>
 
                 {listing.status !== 'active' && (
@@ -177,12 +180,12 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                 <div className="text-muted-foreground flex items-center gap-4 text-xs font-bold">
                   <div className="flex items-center gap-1.5">
                     <Eye className="h-4 w-4" />
-                    {listing.views_count} {t.common.views}
+                    {listing.views_count} {t('views')}
                   </div>
                   <div className="bg-border h-1 w-1 rounded-full" />
                   <div className="flex items-center gap-1.5">
                     <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                    {t.trust.verified}
+                    {t('trust.verified')}
                   </div>
                 </div>
               </div>
@@ -212,14 +215,14 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                     size="lg"
                     className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold"
                   >
-                    <Heart className="h-5 w-5" /> {t.listing.saveListing}
+                    <Heart className="h-5 w-5" /> {t('listing.saveListing')}
                   </Button>
                   <Button
                     variant="ghost"
                     size="lg"
                     className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold"
                   >
-                    <Share2 className="h-5 w-5" /> {t.listing.shareListing}
+                    <Share2 className="h-5 w-5" /> {t('listing.shareListing')}
                   </Button>
                 </div>
 
@@ -227,12 +230,20 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                   <Button
                     variant="ghost"
                     size="sm"
+                    onClick={() => setShowReportModal(true)}
                     className="text-destructive hover:text-destructive hover:bg-destructive/10 gap-2"
                   >
                     <Flag className="h-4 w-4" />
-                    {t.listing.reportListing}
+                    {t('listing.reportListing')}
                   </Button>
                 </div>
+
+                <ReportDialog
+                  listingId={listing.id}
+                  userId={listing.user_id}
+                  isOpen={showReportModal}
+                  onClose={() => setShowReportModal(false)}
+                />
               </div>
             </div>
           </div>

@@ -35,7 +35,7 @@ export function DashboardListingsContent({
             value="all"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            {t.dashboard.all}{' '}
+            {t('dashboard.all')}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {all.length}
             </span>
@@ -44,7 +44,7 @@ export function DashboardListingsContent({
             value="active"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            {t.dashboard.active}{' '}
+            {t('dashboard.active')}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {active.length}
             </span>
@@ -53,7 +53,7 @@ export function DashboardListingsContent({
             value="draft"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            {t.dashboard.drafts}{' '}
+            {t('dashboard.drafts')}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {drafts.length}
             </span>
@@ -62,7 +62,7 @@ export function DashboardListingsContent({
             value="sold"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            {t.dashboard.sold}{' '}
+            {t('dashboard.sold')}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {sold.length}
             </span>
@@ -71,7 +71,7 @@ export function DashboardListingsContent({
             value="archived"
             className="mobile:text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-primary/25 flex-1 rounded-xl px-1 py-2 text-[10px] font-bold transition-all duration-300 data-[state=active]:shadow-lg md:flex-none md:px-4 md:py-2.5 md:text-sm"
           >
-            {t.dashboard.archived}{' '}
+            {t('dashboard.archived')}{' '}
             <span className="bg-background/20 ml-1 rounded-md px-1 py-0.5 text-[9px] opacity-80 md:ml-2 md:px-1.5 md:text-[10px]">
               {archived.length}
             </span>
@@ -92,8 +92,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title={t.dashboard.noListings}
-              description={t.dashboard.noListingsDescription}
+              title={t('dashboard.noListings')}
+              description={t('dashboard.noListingsDescription')}
             />
           )}
         </TabsContent>
@@ -112,8 +112,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title={t.dashboard.noActiveListings}
-              description={t.dashboard.noActiveListingsDescription}
+              title={t('dashboard.noActiveListings')}
+              description={t('dashboard.noActiveListingsDescription')}
             />
           )}
         </TabsContent>
@@ -132,8 +132,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title={t.dashboard.noDrafts}
-              description={t.dashboard.noDraftsDescription}
+              title={t('dashboard.noDrafts')}
+              description={t('dashboard.noDraftsDescription')}
             />
           )}
         </TabsContent>
@@ -152,8 +152,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title={t.dashboard.noSoldItems}
-              description={t.dashboard.noSoldItemsDescription}
+              title={t('dashboard.noSoldItems')}
+              description={t('dashboard.noSoldItemsDescription')}
             />
           )}
         </TabsContent>
@@ -172,8 +172,8 @@ export function DashboardListingsContent({
           ) : (
             <EmptyState
               icon={PackageOpen}
-              title={t.dashboard.noArchivedItems}
-              description={t.dashboard.noArchivedItemsDescription}
+              title={t('dashboard.noArchivedItems')}
+              description={t('dashboard.noArchivedItemsDescription')}
             />
           )}
         </TabsContent>

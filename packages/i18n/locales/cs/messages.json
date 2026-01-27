@@ -1,0 +1,21 @@
+{
+  "title": "Zprávy",
+  "conversations": "Konverzace",
+  "noConversations": "Zatím žádné konverzace",
+  "startConversation": "Začít konverzaci",
+  "typeMessage": "Napište zprávu...",
+  "send": "Odeslat",
+  "unread": "Nepřečtené",
+  "you": "Vy",
+  "today": "Dnes",
+  "yesterday": "Včera",
+  "selectConversation": "Vyberte konverzaci",
+  "negotiateDeals": "Vyberte si chat vlevo, abyste si ověřili podrobnosti, položili otázky nebo dohodli obchod.",
+  "clearAllChats": "Vymazat všechny chaty",
+  "confirmDeleteAll": "Smazat všechny zprávy?",
+  "confirmDeleteAllDesc": "Tuto akci nelze vrátit zpět. Tímto se natrvalo smaže celá vaše historie konverzací.",
+  "deleteAll": "Smazat vše",
+  "clearSuccess": "Všechny zprávy byly smazány",
+  "clearError": "Nepodařilo se smazat zprávy",
+  "noMessages": "Zatím žádné zprávy"
+}

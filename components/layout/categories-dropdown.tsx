@@ -16,7 +16,8 @@ interface CategoriesDropdownProps {
 }
 
 export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
-  const { t, locale } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
   const [isOpen, setIsOpen] = useState(false)
   const [categories, setCategories] = useState<Category[]>([])
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -68,7 +69,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
         aria-haspopup="true"
       >
         <Grid3X3 className="h-4 w-4" />
-        <span className="hidden lg:inline">{t.common.categories}</span>
+        <span className="hidden lg:inline">{t('categories')}</span>
         <ChevronDown
           className={cn(
             'h-3.5 w-3.5 transition-transform duration-200',
@@ -92,14 +93,14 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
               <div className="flex-1 p-6 lg:p-8">
                 <div className="mb-6 flex items-center justify-between">
                   <h3 className="text-sm font-black tracking-[0.2em] text-muted-foreground uppercase">
-                    {(t.categories as any).title || 'Marketplace Categories'}
+                    {t('cat.title') || 'Marketplace Categories'}
                   </h3>
                   <Link
                     href="/categories"
                     onClick={() => setIsOpen(false)}
                     className="text-primary hover:text-primary/80 flex items-center gap-1.5 text-xs font-bold transition-colors"
                   >
-                    {t.common.viewAll}
+                    {t('viewAll')}
                     <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
@@ -122,7 +123,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                             {getLocalizedCategoryName(category, locale, t)}
                           </span>
                           <span className="text-[10px] font-medium text-muted-foreground/60 transition-colors group-hover:text-muted-foreground">
-                            {category.listings_count || category.listing_count || 0} {t.common.listings}
+                            {category.listings_count || category.listing_count || 0} {t('listings')}
                           </span>
                         </div>
                       </Link>
@@ -139,12 +140,12 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                     <div className="flex items-center gap-2 text-primary">
                       <Sparkles className="h-4 w-4" />
                       <span className="text-[10px] font-black tracking-widest uppercase">
-                        {t.common.featured}
+                        {t('featured')}
                       </span>
                     </div>
                     <div className="group/item relative overflow-hidden rounded-2xl bg-primary/10 p-4 transition-all hover:bg-primary/20">
                       <p className="relative z-10 text-xs font-bold leading-relaxed text-foreground">
-                        {t.home.heroSubtitle.split('.')[0]}
+                        {t('home.heroSubtitle').split('.')[0]}
                       </p>
                       <div className="absolute -right-4 -bottom-4 opacity-10 transition-transform group-hover/item:scale-110">
                         <TrendingUp className="h-16 w-16 rotate-12" />
@@ -164,7 +165,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                         className="text-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-colors"
                       >
                         <Plus className="h-3.5 w-3.5" />
-                        {t.common.postAd}
+                        {t('postAd')}
                       </Link>
                       <Link
                         href="/listings?sort=newest"
@@ -172,7 +173,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                         className="text-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-colors"
                       >
                         <TrendingUp className="h-3.5 w-3.5" />
-                        {t.common.newest}
+                        {t('newest')}
                       </Link>
                     </nav>
                   </div>
@@ -183,7 +184,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
             {/* Bottom Bar */}
             <div className="bg-muted/10 border-border/50 border-t p-4 px-8">
               <p className="text-center text-[10px] font-medium text-muted-foreground/50">
-                {t.footer.description}
+                {t('footer.description')}
               </p>
             </div>
           </motion.div>

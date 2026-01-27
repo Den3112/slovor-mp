@@ -17,6 +17,7 @@ export interface User {
   created_at: string
   updated_at: string
   role: 'user' | 'admin' | 'moderator'
+  status: 'active' | 'banned' | 'suspended'
 }
 
 export type Profile = User
@@ -53,8 +54,7 @@ export interface Listing {
   location: string
 
   // Promotion fields
-  is_promoted: boolean
-  is_highlighted: boolean // Added highlight feature
+  is_highlighted: boolean
   promoted_until: string | null
   is_featured?: boolean // Legacy support (optional)
 
@@ -149,6 +149,14 @@ export interface BlogPost {
   author?: User
 }
 
+export interface StaticPage {
+  id: string
+  slug: string
+  title: string
+  content: string
+  updated_at: string
+}
+
 export interface ListingReport {
   id: string
   listing_id: string | null
@@ -157,6 +165,16 @@ export interface ListingReport {
   reason: string
   description: string | null
   status: 'pending' | 'resolved' | 'dismissed'
+  created_at: string
+}
+
+export interface UserVerification {
+  id: string
+  user_id: string
+  document_type: string
+  document_data: Record<string, any>
+  status: 'pending' | 'verified' | 'rejected'
+  verified_at: string | null
   created_at: string
 }
 

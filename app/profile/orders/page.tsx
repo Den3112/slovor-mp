@@ -13,17 +13,17 @@ export default function OrdersPage() {
         <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-amber-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative z-10">
           <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
-            {t.orders.title}
+            {t('orders.title')}
           </h1>
           <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
-            {t.orders.description}
+            {t('orders.description')}
           </p>
         </div>
       </div>
 
       <DashboardFeaturePlaceholder
-        title={t.orders.title}
-        description={t.orders.description}
+        title={t('orders.title')}
+        description={t('orders.description')}
         icon={Package}
       />
     </div>

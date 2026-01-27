@@ -23,7 +23,8 @@ export function ListingCard({
   featured,
   variant = 'default',
 }: ListingCardProps) {
-  const { locale, t } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
   const [imageError, setImageError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -73,7 +74,7 @@ export function ListingCard({
           {listing.condition === 'new' && (
             <div className="bg-card/90 text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[8px] font-black uppercase backdrop-blur-sm">
               <Sparkles className="fill-primary h-2.5 w-2.5" />
-              {t.common.new}
+              {t('new')}
             </div>
           )}
         </div>
@@ -156,23 +157,23 @@ export function ListingCard({
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-8 w-8 stroke-[1.5] md:mb-3 md:h-12 md:w-12" />
             <span className="text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
-              {t.common.noImage}
+              {t('noImage')}
             </span>
           </div>
         )}
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
-          {(featured || listing.is_promoted) && (
+          {(featured || listing.is_highlighted) && (
             <div className="bg-primary/90 shadow-primary/30 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide text-white uppercase shadow-lg backdrop-blur-md md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
-              {t.common.featured}
+              {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
             <div className="bg-card/90 text-card-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-lg backdrop-blur-md md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
-              {t.common.new}
+              {t('new')}
             </div>
           )}
         </div>

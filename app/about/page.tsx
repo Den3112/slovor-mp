@@ -20,10 +20,10 @@ export default async function AboutPage() {
             Our Story
           </div>
           <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-black tracking-tight md:text-8xl">
-            {t.about.title}
+            {t('about.title')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
-            {t.about.subtitle}
+            {t('about.subtitle')}
           </p>
         </div>
 
@@ -34,10 +34,10 @@ export default async function AboutPage() {
                 <Target className="text-primary h-8 w-8" />
               </div>
               <h2 className="font-heading mb-6 text-3xl font-black tracking-tight text-white italic">
-                {t.about.mission}
+                {t('about.mission')}
               </h2>
               <p className="text-lg leading-relaxed font-medium text-zinc-400">
-                {t.about.missionText}
+                {t('about.missionText')}
               </p>
             </div>
             <div className="border-border/50 bg-muted/20 rounded-[2.5rem] border p-10 md:p-12">
@@ -45,10 +45,10 @@ export default async function AboutPage() {
                 <Star className="h-8 w-8 text-violet-500" />
               </div>
               <h2 className="font-heading mb-6 text-3xl font-black tracking-tight text-white italic">
-                {t.about.whyTitle}
+                {t('about.whyTitle')}
               </h2>
               <p className="text-lg leading-relaxed font-medium text-zinc-400">
-                {t.about.whyText}
+                {t('about.whyText')}
               </p>
             </div>
           </div>

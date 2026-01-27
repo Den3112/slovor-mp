@@ -52,8 +52,8 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
     category_id: formData.category_id,
     user_id: '',
     location: formData.location,
-    is_promoted: false,
     is_highlighted: false,
+
     promoted_until: null,
     images: formData.images,
     condition: formData.condition,
@@ -101,7 +101,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-8 w-8 stroke-[1.5] md:mb-3 md:h-12 md:w-12" />
             <span className="text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
-              {t.common.noImage}
+              {t('common.noImage')}
             </span>
           </div>
         )}
@@ -111,7 +111,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
           {listing.condition === 'new' && (
             <div className="bg-card/90 text-card-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-lg backdrop-blur-md md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
-              {t.common.new}
+              {t('common.new')}
             </div>
           )}
         </div>

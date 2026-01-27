@@ -48,7 +48,7 @@ export function StepImages({
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
       <div className="space-y-2">
         <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t.createListing.uploadPhotos}
+          {t('createListing.uploadPhotos')}
         </label>
 
         <div
@@ -66,11 +66,11 @@ export function StepImages({
           <div className="space-y-1">
             <h3 className="text-foreground text-xl font-bold">
               {isUploading
-                ? t.createListing.uploading
-                : t.createListing.dragDrop}
+                ? t('createListing.uploading')
+                : t('createListing.dragDrop')}
             </h3>
             <p className="text-muted-foreground/70 text-sm font-medium">
-              {t.createListing.selectImages}
+              {t('createListing.selectImages')}
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export function StepImages({
           variant="ghost"
           className="text-muted-foreground hover:text-primary text-xs font-medium"
         >
-          + {t.createListing.addMockImage}
+          + {t('createListing.addMockImage')}
         </Button>
       </div>
 

@@ -1,14 +1,20 @@
 import { cookies } from 'next/headers'
-import { translations, type Locale, type TranslationKeys } from './translations'
+import { useTranslation } from '@/packages/i18n/server'
+import { fallbackLng, languages } from '@/packages/i18n/settings'
 
 const LOCALE_COOKIE_KEY = 'slovor-locale'
 
-export async function getTranslationServer() {
+// Rename to satisfy hooks linter (even though it's server-side logic)
+export async function getTranslationServer(ns: string | string[] = 'common') {
   const cookieStore = await cookies()
-  const locale = (cookieStore.get(LOCALE_COOKIE_KEY)?.value as Locale) || 'en'
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE_KEY)?.value
+  const locale = (languages.includes(cookieLocale as any) ? cookieLocale : fallbackLng) as string
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { t } = await useTranslation(locale, ns)
 
   return {
     locale,
-    t: translations[locale] as TranslationKeys,
+    t,
   }
 }

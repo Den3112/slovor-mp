@@ -39,10 +39,10 @@ export default async function DashboardFavoritesPage() {
         <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-pink-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative z-10">
           <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
-            {t.dashboard.favorites}
+            {t('dashboard.favorites')}
           </h1>
           <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
-            {t.profile.favoritesDescription}
+            {t('profile.favoritesDescription')}
           </p>
         </div>
       </div>
@@ -57,8 +57,8 @@ export default async function DashboardFavoritesPage() {
         <div className="rounded-5xl border border-white/10 bg-white/5 p-8 shadow-inner backdrop-blur-md md:p-12">
           <EmptyState
             icon={Heart}
-            title={t.profile.noFavorites}
-            description={t.profile.noFavoritesDesc}
+            title={t('profile.noFavorites')}
+            description={t('profile.noFavoritesDesc')}
           />
         </div>
       )}

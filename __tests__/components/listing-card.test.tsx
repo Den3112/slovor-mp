@@ -6,16 +6,15 @@ import { ListingCard } from '@/components/listing/card'
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
     locale: 'en',
-    t: {
-      common: {
-        new: 'New',
-        used: 'Used',
-        featured: 'Featured',
-        noImage: 'No image',
-      },
-      categories: {
-        electronics: 'Electronics',
-      },
+    t: (key: string) => {
+      const translations: any = {
+        'common.new': 'New',
+        'common.used': 'Used',
+        'common.featured': 'Featured',
+        'common.noImage': 'No image',
+        'categories.electronics': 'Electronics',
+      }
+      return translations[key] || key
     },
   }),
 }))

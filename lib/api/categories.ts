@@ -86,4 +86,58 @@ export const categoriesApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+
+  /**
+   * Creates a new category
+   */
+  async create(category: Omit<Category, 'id' | 'created_at'>): Promise<ApiResponse<Category>> {
+    try {
+      const { data, error } = await supabase
+        .from('categories')
+        .insert(category)
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Updates an existing category
+   */
+  async update(id: string, updates: Partial<Category>): Promise<ApiResponse<Category>> {
+    try {
+      const { data, error } = await supabase
+        .from('categories')
+        .update(updates)
+        .eq('id', id)
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  /**
+   * Deletes a category
+   */
+  async delete(id: string): Promise<ApiResponse<void>> {
+    try {
+      const { error } = await supabase
+        .from('categories')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+      return { data: undefined, error: null }
+    } catch (error) {
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }

@@ -1,0 +1,19 @@
+{
+  "title": "Report",
+  "reportListing": "Report Listing",
+  "reportUser": "Report User",
+  "reason": "Reason for Report",
+  "description": "Description (optional)",
+  "submit": "Submit Report",
+  "thankYou": "Thank you for your report! We will review it.",
+  "reasons": {
+    "spam": "Spam",
+    "inappropriate": "Inappropriate Content",
+    "fraud": "Suspected Fraud",
+    "offensive": "Offensive Content",
+    "counterfeit": "Counterfeit",
+    "prohibited": "Prohibited Item",
+    "duplicate": "Duplicate Listing",
+    "other": "Other"
+  }
+}

@@ -97,7 +97,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
           )}
         >
           <SlidersHorizontal className="h-4 w-4" />
-          {t.filters.title}
+          {t('filters.title')}
           {hasActiveFilters && (
             <span className="bg-primary flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black text-white">
               !
@@ -116,11 +116,11 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
           <div className="border-border/50 flex items-center justify-between border-b px-6 py-4">
             <div>
               <Drawer.Title className="text-foreground text-xl font-black">
-                {t.filters.title}
+                {t('filters.title')}
               </Drawer.Title>
               {resultCount !== undefined && (
                 <p className="text-muted-foreground text-sm">
-                  {resultCount} {t.common.listings}
+                  {resultCount} {t('common.listings')}
                 </p>
               )}
             </div>
@@ -131,7 +131,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                   className="border-border/50 text-muted-foreground hover:text-destructive flex h-10 items-center gap-2 rounded-xl border px-3 text-sm font-bold transition-colors"
                 >
                   <RotateCcw className="h-4 w-4" />
-                  {t.filters.clearAll}
+                  {t('filters.clearAll')}
                 </button>
               )}
               <Drawer.Close asChild>
@@ -148,7 +148,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
               {/* Price Range */}
               <div className="space-y-4">
                 <h3 className="text-foreground text-sm font-black tracking-wider uppercase">
-                  {t.common.price}
+                  {t('common.price')}
                 </h3>
                 <Slider
                   value={priceRange}
@@ -195,7 +195,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
               {/* Condition */}
               <div className="space-y-4">
                 <h3 className="text-foreground text-sm font-black tracking-wider uppercase">
-                  {t.filters.condition}
+                  {t('filters.condition')}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -209,7 +209,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                         : 'border-border/50 text-muted-foreground'
                     )}
                   >
-                    {t.filters.new}
+                    {t('filters.new')}
                   </button>
                   <button
                     onClick={() =>
@@ -222,7 +222,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                         : 'border-border/50 text-muted-foreground'
                     )}
                   >
-                    {t.filters.used}
+                    {t('filters.used')}
                   </button>
                 </div>
               </div>
@@ -230,10 +230,10 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
               {/* Location */}
               <div className="space-y-4">
                 <h3 className="text-foreground text-sm font-black tracking-wider uppercase">
-                  {t.filters.location}
+                  {t('filters.location')}
                 </h3>
                 <Input
-                  placeholder={t.filters.cityPlaceholder}
+                  placeholder={t('filters.cityPlaceholder')}
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="h-14 text-base"
@@ -248,7 +248,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
               onClick={applyFilters}
               className="h-14 w-full rounded-2xl text-base font-black"
             >
-              {t.filters.apply}
+              {t('filters.apply')}
               {resultCount !== undefined && ` (${resultCount})`}
             </Button>
           </div>

@@ -5,6 +5,7 @@ import { User, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
+import { useUnreadMessages } from '@/lib/hooks/use-unread-messages'
 
 interface NavLink {
   href: string
@@ -19,7 +20,8 @@ interface BottomNavBarProps {
 }
 
 export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
+  const unreadCount = useUnreadMessages()
 
   // Split links: First 2 go left, rest go right (before the profile)
   // NOTE: We assume navLinks has enough items. If not, the layout might look sparse but won't break.
@@ -65,10 +67,10 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
         ))}
 
         {/* CORE ACTION: POST AD (+) */}
-        <div className="relative -top-6 flex min-w-[4.5rem] justify-center">
+        <div className="relative -top-6 flex min-w-18 justify-center">
           <Link href="/post">
             <div className="bg-primary shadow-primary/40 border-background flex h-14 w-14 items-center justify-center rounded-full border-[3px] text-white shadow-lg transition-transform active:scale-95">
-              <Plus className="h-7 w-7 stroke-[3]" />
+              <Plus className="h-7 w-7 stroke-3" />
             </div>
           </Link>
         </div>
@@ -108,14 +110,21 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
-            <User
-              className={cn(
-                'h-6 w-6',
-                pathname?.startsWith('/profile') && 'fill-primary/20'
+            <div className="relative">
+              <User
+                className={cn(
+                  'h-6 w-6',
+                  pathname?.startsWith('/profile') && 'fill-primary/20'
+                )}
+              />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white ring-2 ring-background">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
               )}
-            />
+            </div>
             <span className="text-[10px] font-bold whitespace-nowrap">
-              {t.common.profile}
+              {t('profile')}
             </span>
           </Link>
         ) : (
@@ -125,7 +134,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
           >
             <User className="h-6 w-6" />
             <span className="text-[10px] font-bold whitespace-nowrap">
-              {t.auth.signIn}
+              {t('signIn')}
             </span>
           </Link>
         )}

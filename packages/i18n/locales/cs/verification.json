@@ -1,0 +1,15 @@
+{
+  "title": "Ověření identity",
+  "subtitle": "Budujte důvěru v komunitě ověřením svých údajů.",
+  "emailTitle": "E-mailová adresa",
+  "phoneTitle": "Telefonní číslo",
+  "idTitle": "Doklad totožnosti",
+  "verified": "Ověřeno",
+  "notVerified": "Neověřeno",
+  "pending": "Čeká na zpracování",
+  "start": "Spustit ověření",
+  "emailDesc": "Váš e-mail je základním prvkem bezpečnosti.",
+  "phoneDesc": "Získejte odznak ověřeného čísla pro lepší prodej.",
+  "idDesc": "Nejvyšší úroveň důvěry. Vyžaduje nahrání dokladu.",
+  "submitDocuments": "Nahrát doklady"
+}

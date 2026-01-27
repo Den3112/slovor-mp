@@ -168,7 +168,8 @@ export function useCreateListing() {
 
     const contentCheck = validateListingContent(
       formData.title,
-      formData.description
+      formData.description,
+      formData.location
     )
     if (!contentCheck.isValid) {
       setError(contentCheck.error || 'Obsah obsahuje nevhodné výrazy.')
@@ -179,7 +180,7 @@ export function useCreateListing() {
     const translations = await generateListingTranslations(
       formData.title,
       formData.description,
-      locale
+      locale as any
     )
 
     try {

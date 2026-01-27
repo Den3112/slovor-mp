@@ -60,7 +60,7 @@ export function SearchFilters() {
       {searchParams.toString().length > 0 && (
         <div className="flex items-center justify-between">
           <h3 className="text-muted-foreground text-sm font-bold uppercase">
-            {t.filters.title}
+            {t('filters.title')}
           </h3>
           <Button
             variant="ghost"
@@ -68,14 +68,14 @@ export function SearchFilters() {
             className="text-destructive hover:text-destructive/80 h-auto p-0"
             onClick={() => router.push('/search')}
           >
-            {t.filters.clearAll}
+            {t('filters.clearAll')}
           </Button>
         </div>
       )}
 
       {/* Price Range */}
       <div className="space-y-4">
-        <h3 className="text-foreground font-bold">{t.common.price}</h3>
+        <h3 className="text-foreground font-bold">{t('common.price')}</h3>
         <Slider
           defaultValue={[0, 5000]}
           value={priceRange}
@@ -132,7 +132,7 @@ export function SearchFilters() {
 
       {/* Condition */}
       <div className="space-y-4">
-        <h3 className="text-foreground font-bold">{t.filters.condition}</h3>
+        <h3 className="text-foreground font-bold">{t('filters.condition')}</h3>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -142,7 +142,7 @@ export function SearchFilters() {
                 updateFilters({ condition: checked ? 'new' : null })
               }
             />
-            <Label htmlFor="new">{t.filters.new}</Label>
+            <Label htmlFor="new">{t('filters.new')}</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -152,16 +152,16 @@ export function SearchFilters() {
                 updateFilters({ condition: checked ? 'used' : null })
               }
             />
-            <Label htmlFor="used">{t.filters.used}</Label>
+            <Label htmlFor="used">{t('filters.used')}</Label>
           </div>
         </div>
       </div>
 
       {/* Location */}
       <div className="space-y-4">
-        <h3 className="text-foreground font-bold">{t.filters.location}</h3>
+        <h3 className="text-foreground font-bold">{t('filters.location')}</h3>
         <Input
-          placeholder={t.filters.cityPlaceholder}
+          placeholder={t('filters.cityPlaceholder')}
           defaultValue={searchParams.get('location') || ''}
           onBlur={(e) => updateFilters({ location: e.target.value || null })}
           onKeyDown={(e) => {

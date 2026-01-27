@@ -33,7 +33,7 @@ export function LocaleWelcomeModal() {
   const { locale, setLocale } = useTranslation()
   const [open, setOpen] = useState(false)
   const [detectedLocale, setDetectedLocale] = useState<Locale>('en')
-  const [selectedLocale, setSelectedLocale] = useState<Locale>(locale)
+  const [selectedLocale, setSelectedLocale] = useState<Locale>(locale as Locale)
 
   const detectUserLocale = useCallback(async (): Promise<Locale> => {
     try {
@@ -106,11 +106,10 @@ export function LocaleWelcomeModal() {
             <button
               key={option.code}
               onClick={() => setSelectedLocale(option.code)}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${
-                selectedLocale === option.code
+              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${selectedLocale === option.code
                   ? 'border-primary bg-primary/10 shadow-md'
                   : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
-              }`}
+                }`}
             >
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">

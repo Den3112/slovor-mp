@@ -16,6 +16,7 @@ import {
 import { config } from '@/lib/config'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useUnreadMessages } from '@/lib/hooks/use-unread-messages'
 
 interface UserMenuProps {
   user: SupabaseUser
@@ -24,6 +25,7 @@ interface UserMenuProps {
 
 export function UserMenu({ user, signOut }: UserMenuProps) {
   const { t } = useTranslation()
+  const unreadCount = useUnreadMessages()
   const [showUserMenu, setShowUserMenu] = useState(false)
 
   return (
@@ -33,7 +35,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
         onBlur={() => setTimeout(() => setShowUserMenu(false), 200)}
         aria-label="User menu"
         aria-expanded={showUserMenu}
-        className="group flex items-center gap-2"
+        className="group relative flex items-center gap-2"
       >
         <div className="from-primary shadow-primary/10 h-9 w-9 rounded-full bg-linear-to-tr via-violet-500 to-indigo-500 p-[1.5px] shadow-lg transition-transform group-hover:scale-105">
           <div className="border-primary/10 bg-card text-primary relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border font-black">
@@ -49,6 +51,11 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
             )}
           </div>
         </div>
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white ring-2 ring-background">
+            {unreadCount > 9 ? '9+' : unreadCount}
+          </span>
+        )}
       </button>
       <AnimatePresence>
         {showUserMenu && (
@@ -60,7 +67,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
           >
             <div className="border-border/50 bg-muted/30 border-b px-5 py-4">
               <p className="text-primary mb-1 text-[10px] font-black tracking-[0.2em] uppercase">
-                {t.auth.signedInAs}
+                {t('auth.signedInAs')}
               </p>
               <p className="text-foreground truncate text-sm font-bold">
                 {user.email}
@@ -74,7 +81,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                   onClick={() => setShowUserMenu(false)}
                 >
                   <ShieldAlert className="h-4 w-4 transition-transform group-hover:scale-110" />
-                  {t.common.adminPanel}
+                  {t('common.adminPanel')}
                 </Link>
               )}
 
@@ -84,7 +91,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t.common.dashboard}
+                {t('common.dashboard')}
               </Link>
 
               <Link
@@ -93,7 +100,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Store className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t.profile.myListings}
+                {t('profile.myListings')}
               </Link>
 
               <Link
@@ -102,7 +109,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Heart className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t.profile.favorites}
+                {t('profile.favorites')}
               </Link>
 
               <Link
@@ -111,7 +118,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t.profile.savedSearches}
+                {t('profile.savedSearches')}
               </Link>
 
               <div className="bg-border/50 mx-2 my-1 h-px" />
@@ -122,7 +129,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Eye className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t.profile.publicProfile}
+                {t('profile.publicProfile')}
               </Link>
 
               <Link
@@ -131,7 +138,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Settings className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t.profile.settings}
+                {t('profile.settings')}
               </Link>
 
               <div className="bg-border/50 mx-2 my-1 h-px" />
@@ -141,7 +148,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 className="text-destructive hover:bg-destructive/5 flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
               >
                 <LogOut className="h-4 w-4" />
-                {t.auth.signOut}
+                {t('auth.signOut')}
               </button>
             </div>
           </motion.div>

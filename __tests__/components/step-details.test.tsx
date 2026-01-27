@@ -5,15 +5,7 @@ import { StepDetails } from '@/components/listing/form-steps/step-details'
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    t: {
-      createListing: {
-        itemTitle: 'Item Title',
-        price: 'Price',
-        currency: 'Currency',
-        description: 'Description',
-        location: 'Location',
-      },
-    },
+    t: (key: string) => key,
   }),
 }))
 

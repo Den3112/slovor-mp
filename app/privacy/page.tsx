@@ -15,7 +15,7 @@ export default async function PrivacyPage() {
             </div>
             <div className="flex-1">
               <Breadcrumbs
-                items={[{ label: t.footer.privacy || 'Privacy Policy' }]}
+                items={[{ label: t('footer.privacy') || 'Privacy Policy' }]}
               />
               <h1 className="font-heading text-foreground text-4xl font-black tracking-tight italic md:text-5xl">
                 Privacy Policy

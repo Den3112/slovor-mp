@@ -16,7 +16,8 @@ interface CategoryGridProps {
 }
 
 export function CategoryGrid({ categories }: CategoryGridProps) {
-  const { t, locale } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
 
   // Use the shared helper for consistency
   const uniqueCategories = getUniqueCategories(categories, locale, t)
@@ -33,7 +34,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           <div className="group flex h-full flex-col gap-4">
             <Link
               href={`/categories/${category.slug}`}
-              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[2.5rem] border p-10 shadow-sm transition-all duration-500"
+              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-5xl border p-10 shadow-sm transition-all duration-500"
             >
               {/* Decorative Pattern */}
               <div className="bg-primary/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl transition-transform duration-700 group-hover/card:scale-150" />
@@ -54,7 +55,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
 
               {category.listing_count !== undefined && (
                 <span className="bg-muted/50 text-muted-foreground group-hover/card:bg-primary/10 group-hover/card:text-primary mt-3 rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all">
-                  {category.listing_count} {t.common.listings}
+                  {category.listing_count} {t('common.listings')}
                 </span>
               )}
             </Link>

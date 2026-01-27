@@ -1,0 +1,28 @@
+{
+  "heroTagline": "Prémiový bazar na Slovensku",
+  "heroTitleMain": "Najděte přesně to,",
+  "heroTitleHighlight": "co potřebujete",
+  "heroSubtitle": "Tisíce inzerátů každý den. Kup a prodej všechno - od elektroniky až po nemovitosti.",
+  "searchPlaceholder": "Co hledáte?",
+  "popularSearches": "Populární vyhledávání",
+  "categoriesTitle": "Procházej kategorie",
+  "featuredListings": "Významné inzeráty",
+  "ctaTitle": "Začni prodávat dnes!",
+  "ctaSubtitle": "Jednoduché, rychlé a zdarma. Přidej svůj inzerát za 2 minuty.",
+  "hero": {
+    "title": "Najdi, co hledáš",
+    "subtitle": "Tisíce inzerátů každý den"
+  },
+  "categories": {
+    "title": "Procházej kategorie",
+    "subtitle": "Prohlédni naše populární kategorie"
+  },
+  "featured": {
+    "title": "Významné inzeráty",
+    "subtitle": "Nejlepší nabídky týdne"
+  },
+  "features": {
+    "reimagined": "Přetvořeno",
+    "forSlovakia": "pro Slovensko"
+  }
+}

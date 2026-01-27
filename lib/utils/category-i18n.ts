@@ -3,7 +3,7 @@
 // Principle #3: One place for category name localization
 
 import type { Category } from '@/lib/types/database'
-import type { Locale, TranslationKeys } from '@/lib/i18n/translations'
+
 
 /**
  * Returns localized category name based on current locale
@@ -20,8 +20,8 @@ import type { Locale, TranslationKeys } from '@/lib/i18n/translations'
  */
 export function getLocalizedCategoryName(
   category: Category,
-  locale: Locale,
-  t: TranslationKeys
+  locale: string,
+  t: (key: string, options?: any) => string
 ): string {
   // Try locale-specific name first
   if (locale === 'sk' && category.name_sk) {
@@ -34,17 +34,10 @@ export function getLocalizedCategoryName(
     return category.name_en
   }
 
-  // Fall back to translation key (under 'categories' namespace)
-  const categories = t.categories as Record<string, string>
-  const translationKey = categories[category.slug]
+  // Fall back to translation key (under 'cat' namespace in common.json)
+  const translationKey = t(`cat.${category.slug}`, { defaultValue: '' })
   if (translationKey) {
     return translationKey
-  }
-
-  // Priority 2: Fall back to root translation key (v0 compatibility)
-  const rootKey = (t as unknown as Record<string, string>)[category.slug]
-  if (rootKey && typeof rootKey === 'string') {
-    return rootKey
   }
 
   // Final fallback to default name or capitalized slug
@@ -63,8 +56,8 @@ export { getLocalizedCategoryName as getCategoryName }
  */
 export function getUniqueCategories(
   categories: Category[],
-  locale: Locale,
-  t: TranslationKeys
+  locale: string,
+  t: (key: string, options?: any) => string
 ): Category[] {
   return categories.reduce((acc: Category[], current) => {
     const currentName = getLocalizedCategoryName(

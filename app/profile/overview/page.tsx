@@ -57,10 +57,10 @@ export default async function DashboardOverviewPage() {
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="text-foreground text-3xl font-black tracking-tight">
-            {t.common.dashboard}
+            {t('common.dashboard')}
           </h1>
           <p className="text-muted-foreground mt-1 font-medium">
-            {t.dashboard.welcomeBack},{' '}
+            {t('dashboard.welcomeBack')},{' '}
             {user.user_metadata.full_name || user.email?.split('@')[0]}!
           </p>
         </div>
@@ -86,7 +86,7 @@ export default async function DashboardOverviewPage() {
                 </span>
               </div>
               <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase md:text-xs">
-                {t.dashboard.active}
+                {t('dashboard.active')}
               </p>
             </div>
           </Card>
@@ -110,7 +110,7 @@ export default async function DashboardOverviewPage() {
                 </span>
               </div>
               <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase md:text-xs">
-                {t.dashboard.views}
+                {t('dashboard.views')}
               </p>
             </div>
           </Card>
@@ -137,7 +137,7 @@ export default async function DashboardOverviewPage() {
                 </span>
               </div>
               <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase md:text-xs">
-                {t.dashboard.favorites}
+                {t('dashboard.favorites')}
               </p>
             </div>
           </Card>
@@ -150,16 +150,16 @@ export default async function DashboardOverviewPage() {
         <div className="relative z-10 mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
             <h2 className="font-heading text-xl font-black tracking-tight md:text-2xl">
-              {t.dashboard.performance}
+              {t('dashboard.performance')}
             </h2>
             <p className="text-muted-foreground text-xs font-medium md:text-sm">
-              {t.dashboard.viewsOverTime} • {t.dashboard.pastDays}
+              {t('dashboard.viewsOverTime')} • {t('dashboard.pastDays')}
             </p>
           </div>
           <div className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-3 py-1.5 text-emerald-600">
             <BarChart3 className="h-4 w-4" />
             <span className="text-xs font-bold uppercase tracking-wider">
-              +12.5% {t.dashboard.growth}
+              +12.5% {t('dashboard.growth')}
             </span>
           </div>
         </div>
@@ -177,17 +177,17 @@ export default async function DashboardOverviewPage() {
           <div className="relative z-10 mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <h2 className="font-heading text-xl font-black tracking-tight md:text-2xl">
-                {t.dashboard.myListings}
+                {t('dashboard.myListings')}
               </h2>
               <p className="text-muted-foreground text-xs font-medium md:text-sm">
-                {t.dashboard.recentActivity}
+                {t('dashboard.recentActivity')}
               </p>
             </div>
             <Link
               href="/profile/listings"
               className="group/btn text-muted-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-colors"
             >
-              {t.common.viewAll}
+              {t('common.viewAll')}
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
             </Link>
           </div>
@@ -237,7 +237,7 @@ export default async function DashboardOverviewPage() {
                                   : 'bg-muted text-muted-foreground border-border/50'
                               )}
                             >
-                              {listing.is_active ? t.dashboard.active : t.dashboard.inactive}
+                              {listing.is_active ? t('dashboard.active') : t('dashboard.inactive')}
                             </span>
                           </div>
                         </div>
@@ -253,7 +253,7 @@ export default async function DashboardOverviewPage() {
                     href="/profile/listings"
                     className="group/btn text-muted-foreground hover:text-primary hover:bg-primary/5 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-colors"
                   >
-                    {t.common.viewAll}
+                    {t('common.viewAll')}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
                   </Link>
                 </div>
@@ -264,17 +264,17 @@ export default async function DashboardOverviewPage() {
                   <Plus className="text-primary/40 h-8 w-8 md:h-10 md:w-10" />
                 </div>
                 <h3 className="mb-2 text-lg font-black md:text-xl">
-                  {t.dashboard.noListingsYet}
+                  {t('dashboard.noListingsYet')}
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-[220px] text-xs leading-relaxed font-medium md:mb-8 md:text-sm">
-                  {t.dashboard.startSelling}
+                  {t('dashboard.startSelling')}
                 </p>
                 <Button
                   asChild
                   size="lg"
                   className="shadow-primary/25 hover:shadow-primary/40 rounded-2xl px-6 py-5 text-sm font-bold shadow-xl transition-all hover:scale-105 md:px-8 md:py-6 md:text-base"
                 >
-                  <Link href="/post">{t.createListing.publish}</Link>
+                  <Link href="/post">{t('createListing.publish')}</Link>
                 </Button>
               </div>
             )}
@@ -292,14 +292,14 @@ export default async function DashboardOverviewPage() {
                   href="/profile/messages"
                   className="font-heading hover:text-primary flex items-center gap-2 text-xl font-black tracking-tight transition-colors md:text-2xl"
                 >
-                  {t.dashboard.activityFeed}
+                  {t('dashboard.activityFeed')}
                 </Link>
                 <span className="bg-primary text-primary-foreground shadow-primary/20 flex animate-pulse items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold shadow-lg">
-                  3 {t.dashboard.new}
+                  3 {t('dashboard.new')}
                 </span>
               </div>
               <p className="text-muted-foreground text-xs font-medium md:text-sm">
-                {t.dashboard.recentActivity}
+                {t('dashboard.recentActivity')}
               </p>
             </div>
           </div>
@@ -311,7 +311,7 @@ export default async function DashboardOverviewPage() {
                 href="/profile/messages"
                 className="group/btn text-muted-foreground hover:text-primary hover:bg-primary/5 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-colors"
               >
-                {t.common.viewAll}
+                {t('common.viewAll')}
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
               </Link>
             </div>

@@ -117,7 +117,7 @@ export function MobileDrawer({
                     >
                       <LayoutDashboard className="h-6 w-6" />
                       <span className="text-sm font-bold">
-                        {t.common.profile}
+                        {t('common.profile')}
                       </span>
                     </Link>
                     <Link
@@ -127,7 +127,7 @@ export function MobileDrawer({
                     >
                       <Heart className="h-6 w-6" />
                       <span className="text-sm font-bold">
-                        {t.dashboard.favorites}
+                        {t('dashboard.favorites')}
                       </span>
                     </Link>
 
@@ -138,7 +138,7 @@ export function MobileDrawer({
                     >
                       <Star className="h-6 w-6" />
                       <span className="text-sm font-bold">
-                        {t.common.savedSearches}
+                        {t('common.savedSearches')}
                       </span>
                     </Link>
 
@@ -150,7 +150,7 @@ export function MobileDrawer({
                       >
                         <ShieldAlert className="h-6 w-6" />
                         <span className="text-sm font-bold">
-                          {t.common.adminPanel}
+                          {t('common.adminPanel')}
                         </span>
                       </Link>
                     )}
@@ -171,8 +171,8 @@ export function MobileDrawer({
                 className="border-border/50 bg-muted/30 text-foreground active:bg-muted mt-3 block w-full rounded-2xl border py-4 text-center text-base font-bold transition-colors"
                 onClick={() => onOpenChange(false)}
               >
-                {t.auth.hasAccount}{' '}
-                <span className="text-primary">{t.auth.signIn}</span>
+                {t('auth.hasAccount')}{' '}
+                <span className="text-primary">{t('auth.signIn')}</span>
               </Link>
             )}
 
@@ -185,7 +185,7 @@ export function MobileDrawer({
                 className="border-destructive/20 text-destructive active:bg-destructive/5 mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border py-4 text-base font-bold transition-colors"
               >
                 <LogOut className="h-4 w-4" />
-                {t.auth.signOut}
+                {t('auth.signOut')}
               </button>
             )}
           </div>

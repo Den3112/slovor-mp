@@ -41,10 +41,10 @@ export default async function DashboardListingsPage() {
         <div className="from-primary/10 pointer-events-none absolute inset-0 bg-linear-to-r via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative z-10 max-w-2xl">
           <h1 className="font-heading text-foreground mb-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            {t.dashboard.myListings}
+            {t('dashboard.myListings')}
           </h1>
           <p className="text-muted-foreground text-sm leading-relaxed font-medium sm:text-base md:text-lg">
-            {t.dashboard.inventoryDescription}
+            {t('dashboard.inventoryDescription')}
           </p>
         </div>
         <div className="relative z-10 shrink-0">

@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { StepCategory, StepDetails, StepImages } from './form-steps'
-import { useCreateListing } from './use-create-listing'
+import { useCreateListing } from '@/lib/hooks/use-create-listing'
 import { ListingPreview } from './listing-preview'
 
 function CreateListingFormContent() {
@@ -57,7 +57,7 @@ function CreateListingFormContent() {
   const showPreview = viewMode === 'preview'
 
   return (
-    <div className="bg-background md:from-background md:via-background/95 md:to-background flex min-h-[100dvh] flex-col items-center justify-center p-0 md:bg-linear-to-b md:py-20">
+    <div className="bg-background md:from-background md:via-background/95 md:to-background flex min-h-dvh flex-col items-center justify-center p-0 md:bg-linear-to-b md:py-20">
       {/* Mobile Top Bar */}
       <div className="border-border/10 bg-background/80 sticky top-0 z-50 flex w-full items-center justify-between border-b px-4 py-3 backdrop-blur-xl md:hidden">
         <Button
@@ -73,8 +73,8 @@ function CreateListingFormContent() {
         <div className="flex flex-col items-center">
           <span className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {showPreview
-              ? t.createListing.preview
-              : t.createListing.step.replace('{step}', step.toString())}
+              ? t('createListing.preview')
+              : t('createListing.step.replace')('{step}', step.toString())}
           </span>
           {!showPreview && (
             <div className="mt-1 flex gap-1">
@@ -95,7 +95,7 @@ function CreateListingFormContent() {
 
       <div
         className={cn(
-          'bg-background relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-[2.5rem] md:border md:border-white/10 md:bg-black/20 md:p-10 md:shadow-2xl md:backdrop-blur-2xl',
+          'bg-background relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-5xl md:border md:border-white/10 md:bg-black/20 md:p-10 md:shadow-2xl md:backdrop-blur-2xl',
           containerWidth,
           'min-h-[calc(100dvh-60px)] md:min-h-0'
         )}
@@ -111,12 +111,12 @@ function CreateListingFormContent() {
         {/* Header - Desktop Only */}
         <div className="mb-6 hidden text-center md:block">
           <h1 className="font-heading mb-2 text-3xl font-black tracking-tight text-white drop-shadow-sm">
-            {showPreview ? t.createListing.preview : t.createListing.title}
+            {showPreview ? t('createListing.preview') : t('createListing.title')}
           </h1>
           <p className="text-muted-foreground">
             {showPreview
-              ? t.createListing.previewDescription
-              : t.createListing.step.replace('{step}', step.toString())}
+              ? t('createListing.previewDescription')
+              : t('createListing.step.replace')('{step}', step.toString())}
           </p>
         </div>
 
@@ -129,11 +129,11 @@ function CreateListingFormContent() {
             <TabsList className="bg-muted/50">
               <TabsTrigger value="edit" className="flex items-center gap-2">
                 <Edit3 className="h-4 w-4" />
-                {t.createListing.edit}
+                {t('createListing.edit')}
               </TabsTrigger>
               <TabsTrigger value="preview" className="flex items-center gap-2">
                 <Eye className="h-4 w-4" />
-                {t.createListing.preview}
+                {t('createListing.preview')}
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -191,7 +191,7 @@ function CreateListingFormContent() {
                   onClick={prevStep}
                   className="text-muted-foreground hidden rounded-xl font-bold hover:bg-white/10 hover:text-white md:flex"
                 >
-                  <ArrowLeft className="mr-2 h-4 w-4" /> {t.createListing.back}
+                  <ArrowLeft className="mr-2 h-4 w-4" /> {t('createListing.back')}
                 </Button>
               ) : (
                 <div className="hidden md:block" />
@@ -207,7 +207,7 @@ function CreateListingFormContent() {
                   step === 1 && 'invisible'
                 )}
               >
-                {t.createListing.back}
+                {t('createListing.back')}
               </Button>
 
               {step < 3 ? (
@@ -216,7 +216,7 @@ function CreateListingFormContent() {
                   onClick={goToNextStep}
                   className="shadow-primary/20 rounded-2xl px-8 py-6 font-bold shadow-lg transition-transform active:scale-95 md:py-4"
                 >
-                  {t.createListing.nextStep}{' '}
+                  {t('createListing.nextStep')}{' '}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
@@ -229,7 +229,7 @@ function CreateListingFormContent() {
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
-                    t.createListing.publish
+                    t('createListing.publish')
                   )}
                 </Button>
               )}
@@ -243,7 +243,7 @@ function CreateListingFormContent() {
                 className="flex-1 rounded-xl"
               >
                 <Edit3 className="mr-2 h-4 w-4" />
-                {t.createListing.backToEdit}
+                {t('createListing.backToEdit')}
               </Button>
               <Button
                 type="button"
@@ -254,7 +254,7 @@ function CreateListingFormContent() {
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                  t.createListing.publish
+                  t('createListing.publish')
                 )}
               </Button>
             </div>

@@ -15,7 +15,7 @@ export default async function TermsPage() {
             </div>
             <div className="flex-1">
               <Breadcrumbs
-                items={[{ label: t.footer.terms || 'Terms of Service' }]}
+                items={[{ label: t('footer.terms') || 'Terms of Service' }]}
               />
               <h1 className="font-heading text-foreground text-4xl font-black tracking-tight italic md:text-5xl">
                 Terms of Service

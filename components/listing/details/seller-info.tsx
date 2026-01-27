@@ -30,14 +30,14 @@ export function SellerInfoCard({ seller }: SellerInfoCardProps) {
         </p>
         <div className="text-muted-foreground flex items-center gap-2 text-xs">
           <span suppressHydrationWarning>
-            {t.seller.memberSince} {new Date(seller.created_at).getFullYear()}
+            {t('seller.memberSince')} {new Date(seller.created_at).getFullYear()}
           </span>
           {seller.verified && (
             <>
               <span className="bg-border h-1 w-1 rounded-full" />
               <div className="flex items-center gap-1 font-medium text-emerald-600">
                 <ShieldCheck className="h-3 w-3" />
-                {t.trust.verified}
+                {t('trust.verified')}
               </div>
             </>
           )}

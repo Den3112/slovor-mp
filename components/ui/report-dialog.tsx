@@ -100,7 +100,7 @@ export function ReportDialog({
               <AlertTriangle className="h-5 w-5 text-rose-500" />
             </div>
             <h2 className="text-lg font-bold">
-              {listingId ? t.reports.reportListing : t.reports.reportUser}
+              {listingId ? t('reports.reportListing') : t('reports.reportUser')}
             </h2>
           </div>
           <button
@@ -115,7 +115,7 @@ export function ReportDialog({
         {submitState === 'success' ? (
           <div className="rounded-2xl bg-emerald-50 p-6 text-center">
             <div className="mb-2 text-4xl">✓</div>
-            <p className="font-medium text-emerald-600">{t.reports.thankYou}</p>
+            <p className="font-medium text-emerald-600">{t('reports.thankYou')}</p>
           </div>
         ) : (
           <>
@@ -129,7 +129,7 @@ export function ReportDialog({
             {/* Reason Select */}
             <div className="mb-4">
               <label className="mb-2 block text-sm font-medium">
-                {t.reports.reason} *
+                {t('reports.reason')} *
               </label>
               <select
                 value={reason}
@@ -139,7 +139,7 @@ export function ReportDialog({
                 <option value="">—</option>
                 {REPORT_REASONS.map((r) => (
                   <option key={r} value={r}>
-                    {t.reports.reasons[r]}
+                    {t('reports.reasons')[r]}
                   </option>
                 ))}
               </select>
@@ -148,7 +148,7 @@ export function ReportDialog({
             {/* Description */}
             <div className="mb-6">
               <label className="mb-2 block text-sm font-medium">
-                {t.reports.description}
+                {t('reports.description')}
               </label>
               <textarea
                 value={description}
@@ -166,7 +166,7 @@ export function ReportDialog({
                 disabled={!reason || isSubmitting || !user}
                 className={cn('flex-1 rounded-xl', !user && 'opacity-50')}
               >
-                {isSubmitting ? '...' : t.reports.submit}
+                {isSubmitting ? '...' : t('reports.submit')}
               </Button>
               <Button
                 variant="outline"
@@ -174,14 +174,14 @@ export function ReportDialog({
                 disabled={isSubmitting}
                 className="rounded-xl"
               >
-                {t.common.back}
+                {t('common.back')}
               </Button>
             </div>
 
             {/* Login hint */}
             {!user && (
               <p className="text-muted-foreground mt-4 text-center text-xs">
-                {t.auth.signIn} required
+                {t('auth.signIn')} required
               </p>
             )}
           </>

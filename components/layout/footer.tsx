@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
-import { categoriesApi } from '@/lib/api'
-import type { Category } from '@/lib/types/database'
+import { categoriesApi, blogApi, pagesApi } from '@/lib/api'
+import type { Category, BlogPost, StaticPage } from '@/lib/types/database'
 import {
   getUniqueCategories,
   getLocalizedCategoryName,
@@ -23,9 +23,12 @@ import { useCurrency } from '@/components/providers/currency-provider'
 import { CURRENCIES } from '@/lib/types/currency'
 
 export function Footer() {
-  const { t, locale } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
   const { currency, geoLocation, isLoading } = useCurrency()
   const [categories, setCategories] = useState<Category[]>([])
+  const [latestPosts, setLatestPosts] = useState<BlogPost[]>([])
+  const [dynamicPages, setDynamicPages] = useState<StaticPage[]>([])
   const [openSection, setOpenSection] = useState<number | null>(null)
   const [mounted, setMounted] = useState(false)
 
@@ -34,8 +37,14 @@ export function Footer() {
   }, [])
 
   useEffect(() => {
-    categoriesApi.getAll().then((res) => {
-      if (res.data) setCategories(res.data)
+    Promise.all([
+      categoriesApi.getAll(),
+      blogApi.listPosts({ limit: 4 }),
+      pagesApi.getAll()
+    ]).then(([catRes, blogRes, pagesRes]) => {
+      if (catRes.data) setCategories(catRes.data)
+      if (blogRes.data) setLatestPosts(blogRes.data)
+      if (pagesRes.data) setDynamicPages(pagesRes.data)
     })
   }, [])
 
@@ -44,28 +53,33 @@ export function Footer() {
 
   const navGroups = [
     {
-      title: t.footer.popular,
+      title: t('footer.popular'),
       links: topCategories.map((cat) => ({
         label: getLocalizedCategoryName(cat, locale, t),
         href: `/categories/${cat.slug}`,
       })),
     },
     {
-      title: t.footer.quickLinks,
-      links: [
-        { label: t.common.home, href: '/' },
-        { label: t.common.allListings, href: '/listings' },
-        { label: t.common.postAd, href: '/post' },
-        { label: t.common.marketTrends, href: '/blog' },
-      ],
+      title: t('marketTrends') || 'News & Tips',
+      links: latestPosts.length > 0
+        ? latestPosts.map(post => ({ label: post.title, href: `/blog/${post.slug}` }))
+        : [
+          { label: 'Selling Tips', href: '/blog' },
+          { label: 'Safety Guide', href: '/blog' },
+          { label: 'Market Trends', href: '/blog' },
+        ],
     },
     {
-      title: t.footer.info,
+      title: t('footer.info'),
       links: [
-        { label: t.footer.about, href: '/about' },
-        { label: t.footer.terms, href: '/terms' },
-        { label: t.footer.privacy, href: '/privacy' },
-        { label: t.footer.faq, href: '/faq' },
+        { label: t('footer.about'), href: '/about' },
+        ...dynamicPages.filter(p => !['about', 'terms', 'privacy', 'faq'].includes(p.slug)).map(p => ({
+          label: p.title,
+          href: `/${p.slug}`
+        })),
+        { label: t('footer.faq'), href: '/faq' },
+        { label: t('footer.terms'), href: '/terms' },
+        { label: t('footer.privacy'), href: '/privacy' },
       ],
     },
   ]
@@ -99,7 +113,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="max-w-xs text-base leading-relaxed font-medium text-zinc-500 italic md:max-w-sm md:text-xl">
-              &ldquo;{t.footer.description}&rdquo;
+              &ldquo;{t('footer.description')}&rdquo;
             </p>
             <div className="flex gap-3 md:gap-5">
               {[
@@ -123,7 +137,7 @@ export function Footer() {
                   key={i}
                   href={social.href}
                   aria-label={social.label}
-                  className="hover:border-primary hover:bg-primary flex h-12 w-12 transform items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.03] text-zinc-500 shadow-xl transition-all hover:-translate-y-1 hover:text-white md:h-14 md:w-14 md:rounded-2xl"
+                  className="hover:border-primary hover:bg-primary flex h-12 w-12 transform items-center justify-center rounded-xl border border-white/5 bg-white/3 text-zinc-500 shadow-xl transition-all hover:-translate-y-1 hover:text-white md:h-14 md:w-14 md:rounded-2xl"
                 >
                   {social.icon}
                 </a>
@@ -136,7 +150,7 @@ export function Footer() {
             {/* Mobile Accordion */}
             <div className="space-y-2 md:hidden">
               {navGroups.map((group, i) => (
-                <div key={i} className="border-b border-white/[0.05]">
+                <div key={i} className="border-b border-white/5">
                   <button
                     onClick={() => toggleSection(i)}
                     aria-expanded={openSection === i}
@@ -209,13 +223,13 @@ export function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition-colors duration-700 hover:bg-white/[0.04] md:mb-24 md:gap-10 md:rounded-4xl md:p-10 lg:mb-32 lg:flex-row lg:p-12">
+        <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/5 bg-white/2 p-5 transition-colors duration-700 hover:bg-white/4 md:mb-24 md:gap-10 md:rounded-4xl md:p-10 lg:mb-32 lg:flex-row lg:p-12">
           <div className="w-full text-center lg:max-w-md lg:text-left">
             <h3 className="mb-2 text-lg font-black tracking-tight text-white md:mb-3 md:text-2xl lg:text-3xl">
-              {t.footer.newsletterTitle}
+              {t('footer.newsletterTitle')}
             </h3>
             <p className="text-sm font-medium text-zinc-500 md:text-base">
-              {t.footer.newsletterSubtitle}
+              {t('footer.newsletterSubtitle')}
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 lg:max-w-lg lg:flex-row lg:gap-4">
@@ -223,22 +237,22 @@ export function Footer() {
               <Mail className="group-focus-within/input:text-primary absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-zinc-600 transition-colors" />
               <input
                 type="email"
-                placeholder={t.footer.newsletterPlaceholder}
+                placeholder={t('footer.newsletterPlaceholder')}
                 className="focus:border-primary/50 w-full rounded-xl border border-white/5 bg-zinc-950 py-4 pr-4 pl-12 text-base font-bold text-white transition-all placeholder:text-zinc-700 focus:outline-none"
               />
             </div>
             <button className="bg-primary shadow-primary/20 hover:bg-primary/90 h-14 w-full shrink-0 rounded-xl px-6 text-base font-black text-white shadow-xl transition-all active:scale-95 lg:w-auto lg:px-8">
-              {t.footer.subscribe}
+              {t('footer.subscribe')}
             </button>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/[0.03] pt-6 md:pt-10">
+        <div className="border-t border-white/3 pt-6 md:pt-10">
           {/* Mobile: Vertical stack */}
           <div className="flex flex-col items-center gap-4 text-center md:hidden">
             <span
-              className="inline-flex items-center gap-2 rounded-full border border-white/[0.05] bg-white/[0.03] px-3 py-1.5 text-[10px] font-black tracking-wider uppercase"
+              className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/3 px-3 py-1.5 text-[10px] font-black tracking-wider uppercase"
               suppressHydrationWarning
             >
               <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
@@ -250,7 +264,7 @@ export function Footer() {
               className="text-[10px] font-black tracking-widest text-zinc-600 uppercase"
               suppressHydrationWarning
             >
-              © {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}
+              © {new Date().getFullYear()} Slovor Marketplace. {t('footer.rights')}
               .
             </p>
             <div className="flex items-center gap-4">
@@ -258,13 +272,13 @@ export function Footer() {
                 href="/terms"
                 className="text-[10px] font-black tracking-wider text-zinc-600 uppercase transition-colors hover:text-white"
               >
-                {t.footer.transparency || 'Transparency'}
+                {t('footer.transparency') || 'Transparency'}
               </Link>
               <Link
                 href="/privacy"
                 className="text-[10px] font-black tracking-wider text-zinc-600 uppercase transition-colors hover:text-white"
               >
-                {t.footer.privacyPolicy || 'Privacy Policy'}
+                {t('footer.privacyPolicy') || 'Privacy Policy'}
               </Link>
             </div>
           </div>
@@ -275,12 +289,12 @@ export function Footer() {
               className="text-[10px] font-black tracking-widest text-zinc-600 uppercase"
               suppressHydrationWarning
             >
-              © {new Date().getFullYear()} Slovor Marketplace. {t.footer.rights}
+              © {new Date().getFullYear()} Slovor Marketplace. {t('footer.rights')}
               .
             </p>
             <div className="flex items-center gap-6">
               <span
-                className="flex h-7 items-center gap-2 rounded-full border border-white/[0.05] bg-white/[0.03] px-3 text-[10px] font-black tracking-wider uppercase"
+                className="flex h-7 items-center gap-2 rounded-full border border-white/5 bg-white/3 px-3 text-[10px] font-black tracking-wider uppercase"
                 suppressHydrationWarning
               >
                 <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
@@ -292,13 +306,13 @@ export function Footer() {
                 href="/terms"
                 className="flex h-7 items-center text-[10px] font-black tracking-widest text-zinc-600 uppercase transition-colors hover:text-white"
               >
-                {t.footer.transparency || 'Transparency'}
+                {t('footer.transparency') || 'Transparency'}
               </Link>
               <Link
                 href="/privacy"
                 className="flex h-7 items-center text-[10px] font-black tracking-widest text-zinc-600 uppercase transition-colors hover:text-white"
               >
-                {t.footer.privacyPolicy || 'Privacy Policy'}
+                {t('footer.privacyPolicy') || 'Privacy Policy'}
               </Link>
             </div>
           </div>

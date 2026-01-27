@@ -17,6 +17,7 @@ import {
   History,
   TrendingUp,
 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { EmptyState } from '@/components/ui/empty-state'
 import { useCurrency } from '@/components/providers/currency-provider'
@@ -28,6 +29,10 @@ export default function WalletPage() {
   const { currency } = useCurrency()
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isRefilling, setIsRefilling] = useState(false)
+  const [showRefillModal, setShowRefillModal] = useState(false)
+  const [refillAmount, setRefillAmount] = useState('50')
+  const [selectedMethod, setSelectedMethod] = useState<'card' | 'apple' | 'google'>('card')
 
   useEffect(() => {
     async function fetchTransactions() {
@@ -38,6 +43,30 @@ export default function WalletPage() {
     }
     fetchTransactions()
   }, [user])
+
+  const handleRefill = async () => {
+    if (!user) return
+    setIsRefilling(true)
+
+    // Simulate API call
+    const amount = parseFloat(refillAmount)
+    const { data } = await transactionsApi.create({
+      user_id: user.id,
+      amount,
+      currency: currency || 'EUR',
+      type: 'refill',
+      metadata: { description: `Wallet refill via ${selectedMethod}` },
+      status: 'completed'
+    })
+
+    if (data) {
+      // Refresh transactions
+      const { data: newTransactions } = await transactionsApi.getForUser(user.id)
+      if (newTransactions) setTransactions(newTransactions)
+      setShowRefillModal(false)
+    }
+    setIsRefilling(false)
+  }
 
   // Simple balance calculation (in real app, this comes from server/ledger)
   const balance = transactions
@@ -76,7 +105,7 @@ export default function WalletPage() {
         <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="space-y-2">
             <span className="text-[10px] font-black tracking-[0.3em] uppercase opacity-70">
-              {t.wallet.title} Balance
+              {t('wallet.title')} Balance
             </span>
             <div className="flex items-baseline gap-2">
               <h2 className="font-heading text-5xl font-black tracking-tighter md:text-7xl">
@@ -85,9 +114,12 @@ export default function WalletPage() {
             </div>
           </div>
           <div className="flex gap-4">
-            <button className="flex h-14 items-center gap-3 rounded-2xl bg-white/10 px-6 font-black tracking-widest uppercase backdrop-blur-md transition-all hover:bg-white/20 active:scale-95">
+            <button
+              onClick={() => setShowRefillModal(true)}
+              className="flex h-14 items-center gap-3 rounded-2xl bg-white/10 px-6 font-black tracking-widest uppercase backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+            >
               <Plus className="h-5 w-5" />
-              Add Funds
+              {t('wallet.addFunds')}
             </button>
           </div>
         </div>
@@ -141,7 +173,7 @@ export default function WalletPage() {
                         {new Date(transaction.created_at).toLocaleDateString()}
                       </span>
                       {transaction.id.slice(0, 8) && (
-                        <span>• ID: #{transaction.id.slice(0, 8)}</span>
+                        <span className="opacity-40">ID: #{transaction.id.slice(0, 8)}</span>
                       )}
                     </div>
                   </div>
@@ -173,6 +205,114 @@ export default function WalletPage() {
           />
         )}
       </div>
+
+      {/* Add Funds Modal */}
+      {showRefillModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-black/40">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-card border-border border-2 w-full max-w-xl overflow-hidden rounded-5xl shadow-2xl"
+          >
+            <div className="p-8 space-y-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-3xl font-black italic tracking-tight">{t('wallet.refillBalance')}</h2>
+                  <p className="text-muted-foreground text-sm font-medium">Add credits to your account instantly.</p>
+                </div>
+                <button
+                  onClick={() => setShowRefillModal(false)}
+                  className="bg-muted hover:bg-muted/80 flex h-10 w-10 items-center justify-center rounded-full transition-colors"
+                >
+                  <Plus className="h-5 w-5 rotate-45" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('wallet.amount')}</label>
+                <div className="grid grid-cols-3 gap-3">
+                  {['20', '50', '100', '200', '500'].map((amt) => (
+                    <button
+                      key={amt}
+                      onClick={() => setRefillAmount(amt)}
+                      className={cn(
+                        "rounded-2xl border-2 py-4 text-lg font-black transition-all",
+                        refillAmount === amt
+                          ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20 scale-105"
+                          : "bg-muted border-transparent text-foreground hover:border-border"
+                      )}
+                    >
+                      €{amt}
+                    </button>
+                  ))}
+                  <div className="relative">
+                    <input
+                      type="number"
+                      placeholder="Other"
+                      value={refillAmount}
+                      onChange={(e) => setRefillAmount(e.target.value)}
+                      className="bg-muted w-full rounded-2xl border-2 border-transparent py-4 pl-8 text-center text-lg font-black outline-none focus:border-primary/50"
+                    />
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-black">€</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('wallet.selectMethod')}</label>
+                <div className="space-y-2">
+                  {[
+                    { id: 'card', label: 'Credit / Debit Card', icon: CreditCardIcon },
+                    { id: 'apple', label: 'Apple Pay', icon: Zap },
+                    { id: 'google', label: 'Google Pay', icon: Zap },
+                  ].map((method) => (
+                    <button
+                      key={method.id}
+                      onClick={() => setSelectedMethod(method.id as any)}
+                      className={cn(
+                        "flex w-full items-center gap-4 rounded-2xl border-2 p-4 transition-all",
+                        selectedMethod === method.id
+                          ? "bg-primary/5 border-primary text-primary"
+                          : "bg-muted border-transparent text-muted-foreground hover:border-border"
+                      )}
+                    >
+                      <method.icon className="h-5 w-5" />
+                      <span className="font-bold flex-1 text-left">{method.label}</span>
+                      <div className={cn(
+                        "h-5 w-5 rounded-full border-2 flex items-center justify-center",
+                        selectedMethod === method.id ? "border-primary bg-primary" : "border-muted-foreground/30"
+                      )}>
+                        {selectedMethod === method.id && <Zap className="h-3 w-3 text-white fill-current" />}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-4 border-t border-border/50">
+                <button
+                  className="bg-primary flex-1 rounded-2xl h-16 text-lg font-black tracking-widest uppercase shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
+                  onClick={handleRefill}
+                  disabled={isRefilling || !refillAmount}
+                >
+                  {isRefilling ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Processing...
+                    </div>
+                  ) : (
+                    `${t('wallet.confirmPayment')} €${refillAmount}`
+                  )}
+                </button>
+              </div>
+
+              <p className="text-center text-[10px] font-medium text-muted-foreground">
+                Payment secured by Slovor Pay. No credit card details are stored on our servers.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   )
 }

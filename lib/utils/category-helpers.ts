@@ -1,5 +1,4 @@
 import type { Category } from '@/lib/types/database'
-import type { TranslationKeys } from '@/lib/i18n'
 
 /**
  * Deduplicates categories based on their localized name.
@@ -9,7 +8,7 @@ import type { TranslationKeys } from '@/lib/i18n'
 export function getUniqueCategories(
   categories: Category[],
   locale: string,
-  t: TranslationKeys
+  t: (key: string) => string
 ): Category[] {
   return categories.reduce((acc: Category[], current) => {
     const currentName = getCategoryName(current, locale, t).toLowerCase()
@@ -32,7 +31,7 @@ export function getUniqueCategories(
 export function getCategoryName(
   category: Category,
   locale: string,
-  t: TranslationKeys
+  t: (key: string) => string
 ): string {
   // Priority 1: Database localized fields
   if (locale === 'sk' && category.name_sk) return category.name_sk
@@ -40,9 +39,12 @@ export function getCategoryName(
   if (locale === 'en' && category.name_en) return category.name_en
 
   // Priority 2: Translation keys (at root level of locale object)
+  // Priority 2: Translation keys (using categories namespace)
   const slug = category.slug as string
-  const translatedName = (t as Record<string, unknown>)[slug]
-  if (typeof translatedName === 'string') {
+  const key = `categories.${slug}`
+  const translatedName = t(key)
+
+  if (translatedName !== key) {
     return translatedName
   }
 

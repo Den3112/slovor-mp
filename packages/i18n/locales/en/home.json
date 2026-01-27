@@ -1,0 +1,28 @@
+{
+  "heroTagline": "Slovakia's Premium Marketplace",
+  "heroTitleMain": "Find exactly",
+  "heroTitleHighlight": "what you need",
+  "heroSubtitle": "Thousands of listings every day. Buy and sell everything - from electronics to real estate.",
+  "searchPlaceholder": "What are you looking for?",
+  "popularSearches": "Popular searches",
+  "categoriesTitle": "Browse Categories",
+  "featuredListings": "Featured Listings",
+  "ctaTitle": "Start selling today!",
+  "ctaSubtitle": "Simple, fast and free. Post your ad in 2 minutes.",
+  "hero": {
+    "title": "Find what you need",
+    "subtitle": "Thousands of listings every day"
+  },
+  "categories": {
+    "title": "Browse Categories",
+    "subtitle": "Explore our popular categories"
+  },
+  "featured": {
+    "title": "Featured Listings",
+    "subtitle": "Best deals of the week"
+  },
+  "features": {
+    "reimagined": "Reimagined",
+    "forSlovakia": "for Slovakia"
+  }
+}
