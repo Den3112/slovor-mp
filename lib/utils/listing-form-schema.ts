@@ -18,6 +18,8 @@ export interface ListingFormErrors {
   price?: string
   category_id?: string
   location?: string
+  description?: string
+  condition?: string
 }
 
 export const DEFAULT_LISTING_FORM: ListingFormData = {

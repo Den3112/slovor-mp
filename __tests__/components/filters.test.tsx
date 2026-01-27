@@ -16,33 +16,31 @@ vi.mock('next/navigation', () => ({
 }))
 
 // Mock useTranslation
+// Mock useTranslation
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    t: {
-      home: {
-        searchPlaceholder: 'Search listings...',
-      },
-      filters: {
-        location: 'Location',
-        allLocations: 'All Locations',
-        priceMin: 'Min Price',
-        priceMax: 'Max Price',
-        condition: 'Condition',
-        new: 'New',
-        used: 'Used',
-        sort: 'Sort',
-        newest: 'Newest',
-        oldest: 'Oldest',
-        priceLow: 'Price Low',
-        priceHigh: 'Price High',
-        popular: 'Popular',
-        apply: 'Apply Filters',
-      },
-      common: {
-        price: 'Price',
-        all: 'All',
-        loading: 'Loading...',
-      },
+    t: (key: string) => {
+      const translations: any = {
+        'home.searchPlaceholder': 'Search listings...',
+        'filters.location': 'Location',
+        'filters.allLocations': 'All Locations',
+        'filters.priceMin': 'Min Price',
+        'filters.priceMax': 'Max Price',
+        'filters.condition': 'Condition',
+        'filters.new': 'New',
+        'filters.used': 'Used',
+        'filters.sort': 'Sort',
+        'filters.newest': 'Newest',
+        'filters.oldest': 'Oldest',
+        'filters.priceLow': 'Price Low',
+        'filters.priceHigh': 'Price High',
+        'filters.popular': 'Popular',
+        'filters.apply': 'Apply Filters',
+        'common.price': 'Price',
+        'common.all': 'All',
+        'common.loading': 'Loading...',
+      }
+      return translations[key] || key
     },
   }),
 }))

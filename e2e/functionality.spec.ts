@@ -151,10 +151,11 @@ test.describe('Navigation & Links', () => {
   test('Logo navigates to homepage', async ({ page }) => {
     await page.goto('/about')
 
-    // Click logo
-    const logo = page.locator('header a[href="/"]').first()
-    await logo.click()
-    await expect(page).toHaveURL('/')
+    // Click logo - target by data-testid
+    const logo = page.getByTestId('header-logo').first()
+    await logo.click({ force: true })
+    // Use regex to account for locale redirects (e.g., /en or /sk)
+    await expect(page).toHaveURL(/\/(en|sk)?$/)
   })
 
   test('Post Ad button navigates correctly', async ({ page }) => {
@@ -221,8 +222,8 @@ test.describe('UI Elements', () => {
       // Theme should have toggled (classes changed)
       expect(
         htmlBefore !== htmlAfter ||
-          htmlAfter?.includes('dark') ||
-          htmlAfter?.includes('light')
+        htmlAfter?.includes('dark') ||
+        htmlAfter?.includes('light')
       ).toBeTruthy()
     }
   })

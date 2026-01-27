@@ -1,23 +1,19 @@
-// Server-side Listings API
-// For use in Server Components only
-
 import { createClient } from '@/lib/supabase/server'
 import type { Listing, ApiResponse } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
-
-export interface ServerListingFilterOptions {
-  categoryId?: string
-  limit?: number
-  isFeatured?: boolean
-  sort?: 'newest' | 'oldest' | 'price-low' | 'price-high' | 'views'
-}
+import {
+  applyListingFilters,
+  applyListingSorting,
+  applyListingPagination,
+} from './listings/filters'
+import type { ListingFilterOptions } from './listings'
 
 export const serverListingsApi = {
   /**
-   * Fetches listings for Server Components
+   * Fetches listings for Server Components using shared filtering logic
    */
   async getAll(
-    options?: ServerListingFilterOptions
+    options?: ListingFilterOptions
   ): Promise<ApiResponse<Listing[]>> {
     try {
       const supabase = await createClient()
@@ -27,42 +23,14 @@ export const serverListingsApi = {
         .select('*, category:categories(*)')
         .eq('status', 'active')
 
-      if (options?.categoryId) {
-        query = query.eq('category_id', options.categoryId)
-      }
-
-      if (options?.isFeatured !== undefined) {
-        query = query.eq('is_highlighted', options.isFeatured)
-      }
-
-      // Apply sorting
-      switch (options?.sort) {
-        case 'oldest':
-          query = query.order('created_at', { ascending: true })
-          break
-        case 'price-low':
-          query = query.order('price', { ascending: true })
-          break
-        case 'price-high':
-          query = query.order('price', { ascending: false })
-          break
-        case 'views':
-          query = query.order('views_count', { ascending: false })
-          break
-        case 'newest':
-        default:
-          query = query.order('created_at', { ascending: false })
-      }
-
-      if (options?.limit) {
-        query = query.limit(options.limit)
-      }
+      // Use unified filtering logic
+      query = applyListingFilters(query, options)
+      query = applyListingSorting(query, options?.sort)
+      query = applyListingPagination(query, options)
 
       const { data, error } = await query
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
 
       return { data: data || [], error: null }
     } catch (error) {
@@ -72,22 +40,23 @@ export const serverListingsApi = {
   },
 
   /**
-   * Fetches featured listings sorted by view count
+   * Fetches featured listings using shared logic
    */
   async getFeatured(limit = 8): Promise<ApiResponse<Listing[]>> {
     try {
       const supabase = await createClient()
 
-      const { data, error } = await supabase
+      let query = supabase
         .from('listings')
         .select('*, category:categories(*)')
         .eq('status', 'active')
+        .eq('is_highlighted', true) // Featured always highlighted
         .order('views_count', { ascending: false })
         .limit(limit)
 
-      if (error) {
-        throw error
-      }
+      const { data, error } = await query
+
+      if (error) throw error
 
       return { data: data || [], error: null }
     } catch (error) {
@@ -96,3 +65,4 @@ export const serverListingsApi = {
     }
   },
 }
+

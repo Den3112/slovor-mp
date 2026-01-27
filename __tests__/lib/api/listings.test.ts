@@ -1,8 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { listingsApi } from '@/lib/api/listings'
-import { supabase } from '@/lib/supabase/client'
+const { mockFrom, mockRpc, mockSupabase } = vi.hoisted(() => {
+  const mockFrom = vi.fn()
+  const mockRpc = vi.fn()
+  const mockSupabase = {
+    from: mockFrom,
+    rpc: mockRpc,
+  }
+  return { mockFrom, mockRpc, mockSupabase }
+})
 
-// vi.mock('@/lib/moderation') removed to use real implementation
+vi.mock('@/lib/supabase/client', () => ({
+  createClient: () => mockSupabase,
+  supabase: mockSupabase // if used directly
+}))
 
 vi.mock('@/lib/api/listings/filters', () => ({
   applyListingFilters: vi.fn((q) => q),
@@ -24,7 +35,7 @@ describe('listingsApi', () => {
           then: (r: any) => r({ data: mockData, error: null }),
         })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       const response = await listingsApi.getAll({})
       expect(response.data).toEqual(mockData)
@@ -37,7 +48,7 @@ describe('listingsApi', () => {
         .fn()
         .mockReturnValue({ then: (r: any) => r({ count: 10, error: null }) })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       const response = await listingsApi.getCount({})
       expect(response.data).toBe(10)
@@ -46,7 +57,7 @@ describe('listingsApi', () => {
 
   describe('getById', () => {
     it('fetches listing and increments views', async () => {
-      const mockListing = { id: '1', views: 5 }
+      const mockListing = { id: '1', views_count: 5, views: 5 } // Both for compatibility checks
       const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: mockListing, error: null })
@@ -66,7 +77,7 @@ describe('listingsApi', () => {
 
       const updateMock = vi.fn().mockReturnValue(updateBuilder)
 
-      vi.mocked(supabase.from).mockImplementation((table) => {
+      mockFrom.mockImplementation((table: string) => {
         if (table === 'listings') {
           return {
             select: selectMock,
@@ -79,7 +90,7 @@ describe('listingsApi', () => {
       const response = await listingsApi.getById('1')
 
       expect(response.data).toEqual(mockListing)
-      expect(updateMock).toHaveBeenCalledWith({ views: 6 })
+      expect(updateMock).toHaveBeenCalledWith({ views_count: 6 })
     })
 
     it('returns error if not found', async () => {
@@ -93,7 +104,7 @@ describe('listingsApi', () => {
           eq: vi.fn().mockReturnThis(),
         })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
-      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue({ select: selectMock } as any)
 
       const response = await listingsApi.getById('1')
       expect(response.error).toBe('Listing not found')
@@ -111,7 +122,7 @@ describe('listingsApi', () => {
         .mockReturnValue({ maybeSingle: maybeSingleMock })
       const insertMock = vi.fn().mockReturnValue({ select: selectMock })
 
-      vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
+      mockFrom.mockReturnValue({ insert: insertMock } as any)
 
       const response = await listingsApi.create(mockListing)
       expect(response.data?.id).toBe('1')
@@ -126,10 +137,10 @@ describe('listingsApi', () => {
 
   describe('incrementContactClicks', () => {
     it('calls rpc', async () => {
-      vi.mocked(supabase.rpc).mockResolvedValue({ error: null } as any)
+      mockRpc.mockResolvedValue({ error: null } as any)
       const response = await listingsApi.incrementContactClicks('1')
       expect(response.data).toBe(true)
-      expect(supabase.rpc).toHaveBeenCalledWith('increment_contact_clicks', {
+      expect(mockRpc).toHaveBeenCalledWith('increment_contact_clicks', {
         listing_id: '1',
       })
     })
@@ -139,7 +150,7 @@ describe('listingsApi', () => {
     it('deletes listing', async () => {
       const eqMock = vi.fn().mockResolvedValue({ error: null })
       const deleteMock = vi.fn().mockReturnValue({ eq: eqMock })
-      vi.mocked(supabase.from).mockReturnValue({ delete: deleteMock } as any)
+      mockFrom.mockReturnValue({ delete: deleteMock } as any)
 
       const response = await listingsApi.delete('1')
       expect(response.data).toBeNull()

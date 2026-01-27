@@ -29,6 +29,7 @@ function Logo({ className }: { className?: string }) {
         'group relative z-50 flex items-center gap-2 md:gap-3',
         className
       )}
+      data-testid="header-logo"
     >
       <div className="relative h-9 w-9 md:h-11 md:w-11">
         <div className="absolute inset-0 rotate-6 rounded-xl bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400 shadow-lg shadow-indigo-500/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 md:rounded-2xl" />
