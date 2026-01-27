@@ -151,16 +151,16 @@ export function ListingsView({
               items={[
                 {
                   label: searchQuery
-                    ? `${t.common.search}: ${searchQuery}`
-                    : t.common.allListings,
+                    ? `${t('common.search')}: ${searchQuery}`
+                    : t('common.allListings'),
                 },
               ]}
             />
 
             <h1 className="font-heading text-foreground max-w-4xl text-5xl font-black tracking-tighter italic md:text-8xl">
               {searchQuery
-                ? `${t.common.search}: ${searchQuery}`
-                : t.common.allListings}
+                ? `${t('common.search')}: ${searchQuery}`
+                : t('common.allListings')}
             </h1>
             <div className="flex flex-wrap items-center gap-4">
               <p className="text-muted-foreground flex items-center gap-3 text-lg font-medium md:text-2xl">
@@ -168,9 +168,9 @@ export function ListingsView({
                   {totalCount}
                 </span>
                 {totalCount === 1
-                  ? t.common.listings.slice(0, -1)
-                  : t.common.listings}{' '}
-                {t.common.found}
+                  ? t('common.listings.slice')(0, -1)
+                  : t('common.listings')}{' '}
+                {t('common.found')}
               </p>
               <div className="bg-border mx-2 hidden h-6 w-px md:block" />
               <SaveSearchButton
@@ -190,7 +190,7 @@ export function ListingsView({
               <button className="border-border bg-card flex w-full items-center justify-between rounded-2xl border p-4 font-bold shadow-sm transition-all active:scale-[0.98]">
                 <div className="flex items-center gap-2">
                   <SlidersHorizontal className="text-primary h-5 w-5" />
-                  <span>{t.filters.title}</span>
+                  <span>{t('filters.title')}</span>
                 </div>
                 <div className="bg-primary/10 text-primary flex h-6 w-6 items-center justify-center rounded-full text-xs">
                   +
@@ -204,7 +204,7 @@ export function ListingsView({
                   <div className="bg-muted-foreground/30 mx-auto mb-6 h-1.5 w-12 flex-shrink-0 rounded-full" />
                   <div className="flex items-center justify-between px-2">
                     <Drawer.Title className="text-xl font-black tracking-tight italic">
-                      {t.filters.title}
+                      {t('filters.title')}
                     </Drawer.Title>
                     <Drawer.Close asChild>
                       <button className="text-muted-foreground -mr-2 p-2">
@@ -236,7 +236,7 @@ export function ListingsView({
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="flex items-center gap-2 text-xl font-black tracking-tight italic">
                   <SlidersHorizontal className="text-primary h-5 w-5" />
-                  {t.filters.title}
+                  {t('filters.title')}
                 </h2>
               </div>
               <div className="shadow-premium border-border bg-card rounded-4xl border p-6">
@@ -271,10 +271,10 @@ export function ListingsView({
                     <PackageSearch className="text-muted-foreground h-10 w-10" />
                   </div>
                   <p className="font-heading text-foreground mb-3 text-2xl font-black italic">
-                    {t.common.noResults}
+                    {t('common.noResults')}
                   </p>
                   <p className="text-muted-foreground max-w-sm font-medium">
-                    {t.common.tryDifferentFilters}
+                    {t('common.tryDifferentFilters')}
                   </p>
                 </motion.div>
               ) : (
@@ -308,7 +308,7 @@ export function ListingsView({
                     {loading && (
                       <div className="bg-muted/50 text-muted-foreground flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        {t.common.loading || 'Loading more...'}
+                        {t('common.loading') || 'Loading more...'}
                       </div>
                     )}
                   </div>
@@ -320,7 +320,7 @@ export function ListingsView({
                       animate={{ opacity: 1 }}
                       className="text-muted-foreground text-center text-sm"
                     >
-                      {t.common.allLoaded || 'All listings loaded'} ✓
+                      {t('common.allLoaded') || 'All listings loaded'} ✓
                     </motion.p>
                   )}
                 </div>

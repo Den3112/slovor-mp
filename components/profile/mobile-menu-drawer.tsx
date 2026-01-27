@@ -98,48 +98,48 @@ export function MobileMenuDrawer({
 
   const sections: NavSection[] = [
     {
-      title: t.profile.commerce,
+      title: t('profile.commerce'),
       items: [
         {
           href: '/profile/listings',
-          label: t.profile.myListings,
+          label: t('profile.myListings'),
           icon: Store,
         },
-        { href: '/profile/orders', label: t.profile.orders, icon: Package },
-        { href: '/profile/wallet', label: t.profile.wallet, icon: ShoppingBag },
+        { href: '/profile/orders', label: t('profile.orders'), icon: Package },
+        { href: '/profile/wallet', label: t('profile.wallet'), icon: ShoppingBag },
       ],
     },
     {
-      title: t.profile.shopping,
+      title: t('profile.shopping'),
       items: [
         {
           href: '/profile/purchases',
-          label: t.profile.purchases,
+          label: t('profile.purchases'),
           icon: ShoppingBag,
         },
-        { href: '/profile/favorites', label: t.profile.favorites, icon: Heart },
+        { href: '/profile/favorites', label: t('profile.favorites'), icon: Heart },
         {
           href: '/profile/saved-searches',
-          label: t.profile.savedSearches,
+          label: t('profile.savedSearches'),
           icon: Star,
         },
       ],
     },
     {
-      title: t.profile.communication,
+      title: t('profile.communication'),
       items: [
-        { href: '/profile/messages', label: t.profile.inbox, icon: MessageCircle },
-        { href: '/profile/reviews', label: t.profile.reviews, icon: Star },
+        { href: '/profile/messages', label: t('profile.inbox'), icon: MessageCircle },
+        { href: '/profile/reviews', label: t('profile.reviews'), icon: Star },
       ],
     },
     {
-      title: t.profile.account,
+      title: t('profile.account'),
       items: [
-        { href: '/profile/profile', label: t.profile.publicProfile, icon: Eye },
-        { href: '/profile/settings', label: t.profile.settings, icon: Settings },
+        { href: '/profile/profile', label: t('profile.publicProfile'), icon: Eye },
+        { href: '/profile/settings', label: t('profile.settings'), icon: Settings },
         {
           href: '/admin',
-          label: t.common.adminPanel,
+          label: t('common.adminPanel'),
           icon: ShieldAlert,
           isAdmin: true,
         },
@@ -174,7 +174,7 @@ export function MobileMenuDrawer({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-lg font-bold">
-                    {user.user_metadata?.full_name || t.profile.user}
+                    {user.user_metadata?.full_name || t('profile.user')}
                   </p>
                   <p className="text-muted-foreground truncate font-mono text-xs">
                     {user.email}
@@ -243,7 +243,7 @@ export function MobileMenuDrawer({
               {/* Language Selector */}
               <div className="mb-6">
                 <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-black tracking-widest uppercase">
-                  {t.profile.language}
+                  {t('profile.language')}
                 </h3>
                 <div className="grid grid-cols-3 gap-3">
                   {SUPPORTED_LOCALES.map((lang) => (
@@ -278,7 +278,7 @@ export function MobileMenuDrawer({
                   onClick={handleSignOut}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  {t.auth.signOut}
+                  {t('auth.signOut')}
                 </Button>
               </div>
             </div>

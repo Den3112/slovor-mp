@@ -46,7 +46,7 @@ export function Hero() {
           >
             <span className="glass text-primary shadow-primary/5 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[9px] font-black tracking-widest uppercase shadow-lg md:mb-10 md:px-5 md:text-[10px] md:tracking-[0.2em]">
               <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
-              {t.home.heroTagline}
+              {t('home.heroTagline')}
             </span>
           </motion.div>
 
@@ -56,9 +56,9 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
             className="font-heading text-foreground mb-6 text-[2.5rem] leading-[1] font-black tracking-[-0.03em] sm:text-5xl md:mb-10 md:text-6xl lg:text-[7rem] lg:leading-[0.95] lg:tracking-[-0.04em]"
           >
-            {t.home.heroTitleMain} <br className="hidden sm:block" />
+            {t('home.heroTitleMain')} <br className="hidden sm:block" />
             <span className="animate-gradient-x from-primary bg-linear-to-r via-violet-500 to-indigo-500 bg-clip-text text-transparent">
-              {t.home.heroTitleHighlight}
+              {t('home.heroTitleHighlight')}
             </span>
           </motion.h1>
 
@@ -68,7 +68,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-muted-foreground mx-auto mb-8 max-w-lg px-4 text-base leading-relaxed font-medium opacity-80 sm:px-0 md:mb-16 md:max-w-2xl md:text-xl lg:text-2xl"
           >
-            {t.home.heroSubtitle}
+            {t('home.heroSubtitle')}
           </motion.p>
 
           <motion.div
@@ -100,8 +100,8 @@ export function Hero() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder={t.home.searchPlaceholder}
-                    aria-label={t.home.searchPlaceholder}
+                    placeholder={t('home.searchPlaceholder')}
+                    aria-label={t('home.searchPlaceholder')}
                     className="placeholder:text-muted-foreground/40 w-full border-none bg-transparent px-3 py-4 text-base font-bold focus:ring-0 focus:outline-none active:border-none active:outline-none sm:py-5 md:px-4 md:py-6 md:text-xl"
                     style={{ outline: 'none', boxShadow: 'none' }}
                     onKeyDown={(e) => {
@@ -117,7 +117,7 @@ export function Hero() {
                   size="lg"
                   className="shadow-primary/30 hover:shadow-primary/50 h-14 w-full shrink-0 rounded-xl text-base font-black shadow-lg transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-[1.5rem] sm:px-8 md:h-16 md:rounded-[1.8rem] md:px-10 md:text-lg"
                 >
-                  {t.common.search}
+                  {t('common.search')}
                   <ArrowRight className="ml-2 h-5 w-5 md:h-6 md:w-6" />
                 </Button>
               </div>
@@ -131,7 +131,7 @@ export function Hero() {
             className="mt-8 flex flex-wrap items-center justify-center gap-2 px-2 md:mt-14 md:gap-3"
           >
             <span className="text-muted-foreground mb-2 w-full text-center text-[9px] font-black tracking-widest uppercase opacity-60 sm:mr-4 sm:mb-0 sm:w-auto md:text-[10px] md:tracking-[0.2em]">
-              {t.home.popularSearches}
+              {t('home.popularSearches')}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {popularSearches.map((term) => (

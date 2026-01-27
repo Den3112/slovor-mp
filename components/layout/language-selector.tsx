@@ -10,10 +10,12 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useTranslation } from '@/lib/i18n'
+import { useTranslation } from '@/packages/i18n/client'
 
 export function LanguageSelector() {
-  const { locale, setLocale } = useTranslation()
+  const { i18n } = useTranslation('common')
+  const locale = i18n.language
+  const setLocale = (l: string) => i18n.changeLanguage(l)
   const [showLangMenu, setShowLangMenu] = useState(false)
 
   return (

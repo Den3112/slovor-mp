@@ -12,10 +12,10 @@ export default function MessagesPage() {
         <MessageSquarePlus className="text-primary h-10 w-10 opacity-80" />
       </div>
       <h3 className="text-foreground mb-3 text-2xl font-black tracking-tight italic">
-        {t.messages.selectConversation}
+        {t('messages.selectConversation')}
       </h3>
       <p className="text-muted-foreground mx-auto max-w-xs text-base leading-relaxed font-medium">
-        {t.messages.negotiateDeals}
+        {t('messages.negotiateDeals')}
       </p>
     </div>
   )

@@ -6,9 +6,9 @@ export default async function FAQPage() {
   const { t } = await getTranslationServer()
 
   const faqs = [
-    { q: t.faq.q1, a: t.faq.a1 },
-    { q: t.faq.q2, a: t.faq.a2 },
-    { q: t.faq.q3, a: t.faq.a3 },
+    { q: t('faq.q1'), a: t('faq.a1') },
+    { q: t('faq.q2'), a: t('faq.a2') },
+    { q: t('faq.q3'), a: t('faq.a3') },
   ]
 
   return (
@@ -26,10 +26,10 @@ export default async function FAQPage() {
             Help Center
           </div>
           <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-black tracking-tight md:text-8xl">
-            {t.faq.title}
+            {t('faq.title')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
-            {t.faq.subtitle}
+            {t('faq.subtitle')}
           </p>
         </div>
 

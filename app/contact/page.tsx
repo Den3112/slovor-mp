@@ -15,10 +15,10 @@ export default async function ContactPage() {
       <Container className="relative z-10 pt-32 md:pt-40">
         <div className="mx-auto mb-20 max-w-4xl text-center">
           <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-black tracking-tight md:text-8xl">
-            {t.contact.title}
+            {t('contact.title')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
-            {t.contact.subtitle}
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -28,18 +28,18 @@ export default async function ContactPage() {
             {[
               {
                 icon: <Mail className="text-primary h-6 w-6" />,
-                title: t.contact.email,
+                title: t('contact.email'),
                 values: ['info@slovor.sk', 'support@slovor.sk'],
               },
               {
                 icon: <Phone className="h-6 w-6 text-blue-500" />,
-                title: t.contact.phone,
+                title: t('contact.phone'),
                 values: ['+421 2 123 456 78'],
                 extra: 'Mon-Fri: 9:00 - 17:00',
               },
               {
                 icon: <MapPin className="h-6 w-6 text-emerald-500" />,
-                title: t.contact.office,
+                title: t('contact.office'),
                 values: [
                   'Slovor Marketplace s.r.o.',
                   'Námestie slobody 1',
@@ -80,14 +80,14 @@ export default async function ContactPage() {
               <div className="bg-primary/5 absolute top-0 right-0 h-32 w-32 rounded-full blur-3xl" />
 
               <h2 className="font-heading mb-8 text-3xl font-black tracking-tight text-white italic">
-                {t.contact.sendMessage}
+                {t('contact.sendMessage')}
               </h2>
 
               <form className="space-y-6">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="space-y-2">
                     <label className="text-primary ml-1 text-xs font-black tracking-[0.2em] uppercase">
-                      {t.contact.name}
+                      {t('contact.name')}
                     </label>
                     <input
                       type="text"
@@ -109,7 +109,7 @@ export default async function ContactPage() {
 
                 <div className="space-y-2">
                   <label className="text-primary ml-1 text-xs font-black tracking-[0.2em] uppercase">
-                    {t.contact.message}
+                    {t('contact.message')}
                   </label>
                   <textarea
                     rows={5}
@@ -122,7 +122,7 @@ export default async function ContactPage() {
                   size="lg"
                   className="group shadow-primary/20 h-16 w-full rounded-2xl text-lg font-black shadow-xl"
                 >
-                  {t.contact.send}
+                  {t('contact.send')}
                   <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </Button>
               </form>

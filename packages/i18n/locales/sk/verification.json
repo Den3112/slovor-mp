@@ -1,0 +1,15 @@
+{
+  "title": "Overenie identity",
+  "subtitle": "Budujte dôveru v komunite overením svojich údajov.",
+  "emailTitle": "E-mailová adresa",
+  "phoneTitle": "Telefónne číslo",
+  "idTitle": "Doklad totožnosti",
+  "verified": "Overené",
+  "notVerified": "Neoverené",
+  "pending": "Čaká na spracovanie",
+  "start": "Spustiť overenie",
+  "emailDesc": "Váš e-mail je základným prvkom bezpečnosti.",
+  "phoneDesc": "Získajte odznak overeného čísla pre lepší predaj.",
+  "idDesc": "Najvyššia úroveň dôvery. Vyžaduje nahratie dokladu.",
+  "submitDocuments": "Nahrať doklady"
+}

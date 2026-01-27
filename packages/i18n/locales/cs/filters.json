@@ -1,0 +1,20 @@
+{
+  "title": "Filtry",
+  "sort": "Seřadit podle",
+  "newest": "Nejnovější",
+  "oldest": "Nejstarší",
+  "priceLow": "Cena: Nízká → Vysoká",
+  "priceHigh": "Cena: Vysoká → Nízká",
+  "popular": "Nejpopulárnější",
+  "priceMin": "Min. cena",
+  "priceMax": "Max. cena",
+  "location": "Lokalita",
+  "allLocations": "Všechny lokality",
+  "apply": "Použít filtry",
+  "reset": "Vymazat",
+  "condition": "Stav",
+  "new": "Nové",
+  "used": "Použité",
+  "clearAll": "Vymazat vše",
+  "cityPlaceholder": "Město nebo region"
+}

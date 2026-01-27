@@ -48,7 +48,7 @@ export function HomeView({
                 Trending Now
               </span>
               <h2 className="font-heading mb-4 text-4xl font-black tracking-tight italic md:text-5xl">
-                {t.home.featuredListings}
+                {t('home.featuredListings')}
               </h2>
               <p className="text-muted-foreground text-lg font-medium">
                 Hand-picked selection of premium items recently published.

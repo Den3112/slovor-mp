@@ -1,0 +1,20 @@
+{
+  "title": "Filters",
+  "sort": "Sort by",
+  "newest": "Newest first",
+  "oldest": "Oldest first",
+  "priceLow": "Price: Low → High",
+  "priceHigh": "Price: High → Low",
+  "popular": "Most Popular",
+  "priceMin": "Min Price",
+  "priceMax": "Max Price",
+  "location": "Location",
+  "allLocations": "All locations",
+  "apply": "Apply Filters",
+  "reset": "Reset",
+  "condition": "Condition",
+  "new": "New",
+  "used": "Used",
+  "clearAll": "Clear all",
+  "cityPlaceholder": "City or region"
+}

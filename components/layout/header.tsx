@@ -5,7 +5,7 @@ import { useScrollPosition } from '@/lib/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Menu, Plus, Home, Grid3X3, Search, MessageCircle, User } from 'lucide-react'
+import { Menu, Plus, Home, Grid3X3, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
@@ -18,6 +18,7 @@ import { UserMenu } from './user-menu'
 import { BottomNavBar } from './bottom-nav-bar'
 import { MobileDrawer } from './mobile-drawer'
 import { CategoriesDropdown } from './categories-dropdown'
+import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 
 // Logo component - reused in header and drawer
 function Logo({ className }: { className?: string }) {
@@ -111,7 +112,7 @@ function HeaderSkeleton() {
 }
 
 export function Header() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
   const { user, signOut } = useAuth()
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -130,10 +131,10 @@ export function Header() {
   }, [pathname])
 
   const navLinks = [
-    { href: '/', label: t.common.home, icon: Home },
-    { href: '/listings', label: t.common.allListings, icon: Search },
-    { href: '/categories', label: t.common.categories, icon: Grid3X3 },
-    { href: '/blog', label: t.common.marketTrends, icon: Grid3X3 },
+    { href: '/', label: t('home'), icon: Home },
+    { href: '/listings', label: t('search'), icon: Search },
+    { href: '/categories', label: t('categories'), icon: Grid3X3 },
+    { href: '/blog', label: t('blog'), icon: Grid3X3 },
   ]
 
   if (!mounted) {
@@ -166,6 +167,7 @@ export function Header() {
               {/* Categories Dropdown */}
               <CategoriesDropdown />
 
+              {user && <NotificationDropdown />}
               <LanguageSelector />
               <ThemeToggle className="self-center" />
 
@@ -178,7 +180,7 @@ export function Header() {
                     href="/login"
                     className="border-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-primary/20 flex h-10 items-center justify-center rounded-full border px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 xl:px-7"
                   >
-                    {t.auth.signIn}
+                    {t('signIn')}
                   </Link>
                 )}
 
@@ -188,7 +190,7 @@ export function Header() {
                   className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 flex h-10 items-center justify-center gap-1.5 rounded-full px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl active:scale-95 xl:px-7"
                 >
                   <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
-                  <span className="hidden lg:inline">{t.common.postAd}</span>
+                  <span className="hidden lg:inline">{t('postAd')}</span>
                   <span className="lg:hidden">Post</span>
                 </Link>
               </div>
@@ -196,6 +198,7 @@ export function Header() {
 
             {/* Mobile Actions */}
             <div className="flex items-center gap-3 lg:hidden">
+              {user && <NotificationDropdown />}
               <ThemeToggle />
 
               {user && (
@@ -221,7 +224,6 @@ export function Header() {
           </div>
         </Container>
       </header>
-
       {/* Mobile Drawer */}
       <MobileDrawer
         open={mobileMenuOpen}
@@ -233,17 +235,18 @@ export function Header() {
       />
 
       {/* Mobile Bottom Navigation Bar */}
-      <BottomNavBar
-        navLinks={[
-          { href: '/', label: t.common.home, icon: Home },
-          { href: '/listings', label: t.common.explore, icon: Search },
-          { href: '/listings/create', label: t.common.postAd, icon: Plus },
-          { href: '/profile/messages', label: t.common.messages, icon: MessageCircle },
-          { href: '/profile/overview', label: t.common.profile, icon: User },
-        ]}
-        pathname={pathname}
-        user={user}
-      />
+      {!mobileMenuOpen && (
+        <BottomNavBar
+          navLinks={[
+            { href: '/', label: t('home'), icon: Home },
+            { href: '/listings', label: t('allListings'), icon: Search },
+            { href: '/categories', label: t('categories'), icon: Grid3X3 },
+            { href: '/blog', label: t('blog'), icon: Grid3X3 },
+          ]}
+          pathname={pathname}
+          user={user}
+        />
+      )}
     </>
   )
 }

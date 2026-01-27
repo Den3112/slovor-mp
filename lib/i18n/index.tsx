@@ -7,29 +7,32 @@ import {
   useEffect,
   type ReactNode,
 } from 'react'
-import { translations, type Locale, type TranslationKeys } from './translations'
+// import i18next from 'i18next'
+import { useTranslation as useI18nextTranslation } from 'react-i18next'
+import '@/packages/i18n/client' // Ensure i18next is initialized
+
+export type Locale = 'en' | 'sk' | 'cs'
 
 interface I18nContextValue {
   locale: Locale
   setLocale: (locale: Locale) => void
-  t: TranslationKeys
+  t: (key: string, options?: any) => string
 }
 
-const I18nContext = createContext<I18nContextValue | undefined>(undefined)
+export const I18nContext = createContext<I18nContextValue | undefined>(undefined)
 
 const LOCALE_STORAGE_KEY = 'slovor-locale'
+const LOCALE_COOKIE_KEY = 'slovor-locale'
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  // Default to English
-  const [locale, setLocaleState] = useState<Locale>('en')
+  const { t, i18n } = useI18nextTranslation()
+  const [locale, setLocaleState] = useState<Locale>((i18n.language as Locale) || 'en')
 
   // Update HTML lang attribute and meta tags
   const updateHtmlLang = (newLocale: Locale) => {
     if (typeof document !== 'undefined') {
-      // Update html lang attribute
       document.documentElement.lang = newLocale
 
-      // Update or create og:locale meta tag for SEO
       let metaLang = document.querySelector('meta[property="og:locale"]')
       if (!metaLang) {
         metaLang = document.createElement('meta')
@@ -44,7 +47,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       }
       metaLang.setAttribute('content', localeMap[newLocale])
 
-      // Update content language meta tag for browser translators
       let contentLang = document.querySelector(
         'meta[http-equiv="content-language"]'
       )
@@ -57,80 +59,34 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // Initialize locale from localStorage or detect from browser/IP
   useEffect(() => {
     const initLocale = async () => {
-      try {
-        // Check if user has already set a preference
-        const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
-        if (stored && translations[stored]) {
-          setLocaleState(stored)
-          updateHtmlLang(stored)
-          // Ensure cookie matches storage on load
-          document.cookie = `${LOCALE_STORAGE_KEY}=${stored}; path=/; max-age=31536000`
-          return
+      const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
+      if (stored && ['en', 'sk', 'cs'].includes(stored)) {
+        if (i18n.language !== stored) {
+          await i18n.changeLanguage(stored)
         }
-
-        // No stored preference - try smart detection
-        // First try IP-based detection
-        try {
-          const response = await fetch('/api/detect-locale')
-          if (response.ok) {
-            const data = await response.json()
-            if (data.locale && translations[data.locale as Locale]) {
-              setLocaleState(data.locale as Locale)
-              updateHtmlLang(data.locale as Locale)
-              document.cookie = `${LOCALE_STORAGE_KEY}=${data.locale}; path=/; max-age=31536000`
-              return
-            }
-          }
-        } catch (error) {
-          console.warn('IP-based locale detection failed:', error)
-        }
-
-        // Fallback to browser language
-        const browserLang = navigator.language.split('-')[0] as Locale
-        if (translations[browserLang]) {
-          setLocaleState(browserLang)
-          updateHtmlLang(browserLang)
-          document.cookie = `${LOCALE_STORAGE_KEY}=${browserLang}; path=/; max-age=31536000`
-        } else {
-          // Final fallback to English
-          setLocaleState('en')
-          updateHtmlLang('en')
-          document.cookie = `${LOCALE_STORAGE_KEY}=en; path=/; max-age=31536000`
-        }
-      } catch (error) {
-        console.warn('Failed to initialize locale:', error)
-        setLocaleState('en')
-        updateHtmlLang('en')
-        document.cookie = `${LOCALE_STORAGE_KEY}=en; path=/; max-age=31536000`
+        setLocaleState(stored)
+        updateHtmlLang(stored)
       }
     }
-
     initLocale()
-  }, [])
+  }, [i18n])
 
-  const setLocale = (newLocale: Locale) => {
+  const setLocale = async (newLocale: Locale) => {
     setLocaleState(newLocale)
-    try {
-      localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
-      // Set cookie for server components
-      document.cookie = `${LOCALE_STORAGE_KEY}=${newLocale}; path=/; max-age=31536000`
-      updateHtmlLang(newLocale)
-    } catch (error) {
-      console.warn('Failed to save locale to storage:', error)
-    }
+    await i18n.changeLanguage(newLocale)
+    localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
+    document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
+    updateHtmlLang(newLocale)
   }
 
   const value: I18nContextValue = {
     locale,
     setLocale,
-    t: translations[locale] as TranslationKeys,
+    t: (key: string, options?: any) => t(key, options) as string,
   }
 
-  // Return children immediately but with default locale until mounted
-  // This prevents hydration mismatch
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
@@ -141,7 +97,3 @@ export function useTranslation() {
   }
   return context
 }
-
-// Re-export for convenience
-export { translations }
-export type { Locale }

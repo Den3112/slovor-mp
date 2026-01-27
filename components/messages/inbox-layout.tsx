@@ -63,10 +63,10 @@ export function InboxLayout({ children }: InboxLayoutProps) {
     try {
       await messagesApi.cleanupAllData(user.id)
       setConversations([])
-      toast.success(t.messages.clearSuccess)
+      toast.success(t('messages.clearSuccess'))
       router.push('/profile/messages')
     } catch {
-      toast.error(t.messages.clearError)
+      toast.error(t('messages.clearError'))
     } finally {
       setIsCleaning(false)
     }
@@ -96,7 +96,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
         <div className="space-y-6 border-b border-white/5 p-6">
           <div className="flex items-center justify-between">
             <h2 className="font-heading text-2xl font-black tracking-tighter italic">
-              {t.messages.title}
+              {t('messages.title')}
             </h2>
 
             <AlertDialog>
@@ -105,16 +105,16 @@ export function InboxLayout({ children }: InboxLayoutProps) {
                   variant="ghost"
                   size="icon"
                   className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 rounded-full transition-colors"
-                  title={t.messages.clearAllChats}
+                  title={t('messages.clearAllChats')}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>{t.messages.confirmDeleteAll}</AlertDialogTitle>
+                  <AlertDialogTitle>{t('messages.confirmDeleteAll')}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    {t.messages.confirmDeleteAllDesc}
+                    {t('messages.confirmDeleteAllDesc')}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -126,7 +126,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
                     {isCleaning ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
                     ) : (
-                      t.messages.deleteAll
+                      t('messages.deleteAll')
                     )}
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -136,7 +136,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
           <div className="group relative">
             <Search className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 transition-colors" />
             <Input
-              placeholder={t.common.search}
+              placeholder={t('common.search')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-muted/30 focus:bg-background focus:border-primary/20 focus:shadow-primary/5 h-12 rounded-2xl border-transparent pl-11 transition-all focus:shadow-lg"
@@ -254,7 +254,7 @@ export function InboxLayout({ children }: InboxLayoutProps) {
           ) : (
             <div className="text-muted-foreground/50 flex h-full flex-col items-center justify-center space-y-4 p-8 text-center">
               <MessageSquarePlus className="h-12 w-12 opacity-20" />
-              <p className="font-medium">{t.messages.noMessages}</p>
+              <p className="font-medium">{t('messages.noMessages')}</p>
             </div>
           )}
         </div>
@@ -275,10 +275,10 @@ export function InboxLayout({ children }: InboxLayoutProps) {
               <MessageSquarePlus className="text-primary/40 h-16 w-16" />
             </div>
             <h3 className="font-heading mb-4 text-3xl font-black tracking-tight italic">
-              {t.messages.title}
+              {t('messages.title')}
             </h3>
             <p className="text-muted-foreground mx-auto max-w-md text-lg leading-relaxed">
-              {t.messages.negotiateDeals}
+              {t('messages.negotiateDeals')}
             </p>
           </div>
         )}

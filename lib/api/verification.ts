@@ -15,22 +15,32 @@ export const verificationApi = {
      */
     async getStatus(userId: string): Promise<ApiResponse<VerificationStatus>> {
         try {
-            const { data, error } = await supabase
+            // Fetch profile for phone and level
+            const { data: profile, error: profileError } = await supabase
                 .from('profiles')
                 .select('is_verified, verification_level, phone')
                 .eq('id', userId)
                 .single()
 
-            if (error) throw error
+            if (profileError) throw profileError
 
-            // In a real app, we'd check if email is confirmed via auth.getUser()
-            // For now, we rely on the profile field
+            // Fetch latest document verification request
+            const { data: latestVerification, error: verificationError } = await supabase
+                .from('user_verifications')
+                .select('status')
+                .eq('user_id', userId)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle()
+
+            if (verificationError && verificationError.code !== 'PGRST116') throw verificationError
+
             return {
                 data: {
-                    email: true, // Assuming they are logged in
-                    phone: !!data.phone,
-                    documents: data.verification_level === 'documents' ? 'verified' : 'none', // Simplified
-                    level: data.verification_level || 'none',
+                    email: true, // Assuming they are logged in and session is valid
+                    phone: !!profile.phone,
+                    documents: latestVerification?.status || 'none',
+                    level: (profile.verification_level as any) || 'none',
                 },
                 error: null,
             }
@@ -45,21 +55,97 @@ export const verificationApi = {
      */
     async submitDocuments(userId: string, documentUrls: string[]): Promise<ApiResponse<boolean>> {
         try {
-            const { error } = await supabase
+            // 1. Create verification request
+            const { error: insertError } = await supabase
+                .from('user_verifications')
+                .insert({
+                    user_id: userId,
+                    document_type: 'id_card',
+                    document_data: { urls: documentUrls },
+                    status: 'pending'
+                })
+
+            if (insertError) throw insertError
+
+            // 2. Update profile level to show pending status if needed,
+            // but usually we keep verification_level as the LAST COMPLETED level.
+            // Let's just update the metadata if we want to track it there too.
+            await supabase
                 .from('profiles')
                 .update({
-                    verification_level: 'documents', // In real app: set to pending and create a task for admin
                     metadata: {
-                        verification_documents: documentUrls,
-                        verification_submitted_at: new Date().toISOString(),
+                        last_verification_attempt: new Date().toISOString()
                     }
                 })
                 .eq('id', userId)
 
-            if (error) throw error
             return { data: true, error: null }
         } catch (error) {
             logError('verificationApi.submitDocuments', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Admin: Approves a verification request
+     */
+    async approveVerification(verificationId: string, userId: string): Promise<ApiResponse<boolean>> {
+        try {
+            // 1. Update verification request status
+            const { error: verifError } = await supabase
+                .from('user_verifications')
+                .update({ status: 'verified', verified_at: new Date().toISOString() })
+                .eq('id', verificationId)
+
+            if (verifError) throw verifError
+
+            // 2. Update user profile
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .update({ verification_level: 'documents', is_verified: true })
+                .eq('id', userId)
+
+            if (profileError) throw profileError
+
+            return { data: true, error: null }
+        } catch (error) {
+            logError('verificationApi.approveVerification', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Admin: Rejects a verification request
+     */
+    async rejectVerification(verificationId: string): Promise<ApiResponse<boolean>> {
+        try {
+            const { error } = await supabase
+                .from('user_verifications')
+                .update({ status: 'rejected' })
+                .eq('id', verificationId)
+
+            if (error) throw error
+            return { data: true, error: null }
+        } catch (error) {
+            logError('verificationApi.rejectVerification', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    /**
+     * Admin: Fetches all verification requests
+     */
+    async getAdminAll(): Promise<ApiResponse<any[]>> {
+        try {
+            const { data, error } = await supabase
+                .from('user_verifications')
+                .select('*, profile:profiles(id, display_name, avatar_url, phone)')
+                .order('created_at', { ascending: false })
+
+            if (error) throw error
+            return { data: data || [], error: null }
+        } catch (error) {
+            logError('verificationApi.getAdminAll', error)
             return { data: null, error: (error as Error).message }
         }
     }

@@ -69,86 +69,86 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
   /* Premium Marketplace Sidebar Structure */
   const sections: NavSection[] = [
     {
-      title: t.profile.overview,
+      title: t('profile.overview'),
       items: [
         {
           href: '/profile/overview',
-          label: t.common.dashboard,
+          label: t('common.dashboard'),
           icon: LayoutDashboard,
         },
       ],
     },
     {
-      title: t.profile.commerce,
+      title: t('profile.commerce'),
       items: [
         {
           href: '/profile/listings',
-          label: t.profile.myListings,
+          label: t('profile.myListings'),
           icon: Store,
         },
         {
           href: '/profile/orders',
-          label: t.profile.orders,
+          label: t('profile.orders'),
           icon: Package,
         },
         {
           href: '/profile/wallet',
-          label: t.profile.wallet,
+          label: t('profile.wallet'),
           icon: ShoppingBag,
         },
       ],
     },
     {
-      title: t.profile.shopping,
+      title: t('profile.shopping'),
       items: [
         {
           href: '/profile/purchases',
-          label: t.profile.purchases,
+          label: t('profile.purchases'),
           icon: ShoppingBag,
         },
         {
           href: '/profile/favorites',
-          label: t.profile.favorites,
+          label: t('profile.favorites'),
           icon: Heart,
         },
         {
           href: '/profile/saved-searches',
-          label: t.profile.savedSearches,
+          label: t('profile.savedSearches'),
           icon: Star,
         },
       ],
     },
     {
-      title: t.profile.communication,
+      title: t('profile.communication'),
       items: [
         {
           href: '/profile/messages',
-          label: t.profile.inbox,
+          label: t('profile.inbox'),
           icon: MessageCircle,
         },
         {
           href: '/profile/reviews',
-          label: t.profile.reviews,
+          label: t('profile.reviews'),
           icon: Star,
         },
       ],
     },
     {
-      title: t.profile.account,
+      title: t('profile.account'),
       items: [
         {
           href: '/profile/profile',
-          label: t.profile.publicProfile,
+          label: t('profile.publicProfile'),
           icon: Eye,
         },
         {
           href: '/profile/verification',
-          label: t.profile.verification,
+          label: t('profile.verification'),
           icon: ShieldCheck,
         },
         {
           href: '/profile/settings',
-          label: t.profile.settings,
+          label: t('profile.settings'),
           icon: Settings,
         },
       ],
@@ -249,7 +249,7 @@ export function DashboardSidebar({ stats }: DashboardSidebarProps) {
             className="text-muted-foreground hover:text-destructive hover:bg-destructive/5 group relative z-10 flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all"
           >
             <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            {t.auth.signOut}
+            {t('auth.signOut')}
           </button>
         </div>
       </aside>

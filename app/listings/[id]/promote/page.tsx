@@ -77,9 +77,8 @@ export default function PromoteListingPage({ params }: Props) {
 
             // Update the listing to be promoted
             await listingsApi.update(id, {
-                is_promoted: true,
+                is_highlighted: true,
                 promoted_until: new Date(Date.now() + (plan.id === 'top' ? 7 : 14) * 24 * 60 * 60 * 1000).toISOString(),
-                is_highlighted: plan.id === 'highlight'
             })
 
             toast.success('Listing promoted successfully!')

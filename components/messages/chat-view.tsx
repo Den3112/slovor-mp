@@ -7,6 +7,7 @@ import {
   type Message,
   type Conversation,
 } from '@/lib/api/messages'
+import { useTranslation } from '@/lib/i18n'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -35,13 +36,20 @@ export function ChatView({ conversationId }: ChatViewProps) {
   const supabase = createClient()
   const bottomRef = useRef<HTMLDivElement>(null)
 
+  const { t } = useTranslation('messages')
   const [conversation, setConversation] = useState<Conversation | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [isSending, setIsSending] = useState(false)
+  const [isOtherTyping, setIsOtherTyping] = useState(false)
+  const [otherUserStatus, setOtherUserStatus] = useState<'online' | 'offline'>('offline')
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const channelRef = useRef<any>(null)
 
   useEffect(() => {
+    if (!user) return
+
     async function loadData() {
       if (!user) return
       try {
@@ -65,7 +73,13 @@ export function ChatView({ conversationId }: ChatViewProps) {
 
     // Realtime Subscription
     const channel = supabase
-      .channel(`chat:${conversationId}`)
+      .channel(`chat:${conversationId}`, {
+        config: {
+          presence: {
+            key: user.id,
+          },
+        },
+      })
       .on(
         'postgres_changes',
         {
@@ -77,18 +91,60 @@ export function ChatView({ conversationId }: ChatViewProps) {
         (payload) => {
           const newMsg = payload.new as Message
           setMessages((prev) => {
-            // Dedup
             if (prev.some((p) => p.id === newMsg.id)) return prev
             return [...prev, newMsg]
           })
+
+          // Mark as read if we are looking at the chat
+          if (newMsg.sender_id !== user.id) {
+            messagesApi.markAsRead(conversationId, user.id)
+          }
         }
       )
-      .subscribe()
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'messages',
+          filter: `conversation_id=eq.${conversationId}`,
+        },
+        (payload) => {
+          const updated = payload.new as Message
+          setMessages((prev) =>
+            prev.map((m) => (m.id === updated.id ? updated : m))
+          )
+        }
+      )
+      .on('broadcast', { event: 'typing' }, ({ payload }) => {
+        if (payload.userId !== user.id) {
+          setIsOtherTyping(payload.isTyping)
+        }
+      })
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState()
+        const otherUserId = conversation?.buyer_id === user.id ? conversation.seller_id : conversation?.buyer_id
+        const isOnline = Object.values(state).some(
+          (presences: any) => presences.some((p: any) => p.user_id === otherUserId)
+        )
+        setOtherUserStatus(isOnline ? 'online' : 'offline')
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED' && user) {
+          await channel.track({
+            user_id: user.id,
+            online_at: new Date().toISOString(),
+          })
+        }
+      })
+
+    channelRef.current = channel
 
     return () => {
       supabase.removeChannel(channel)
+      channelRef.current = null
     }
-  }, [conversationId, user, supabase])
+  }, [conversationId, user, supabase, conversation?.buyer_id, conversation?.seller_id])
 
   useEffect(() => {
     // Scroll to bottom
@@ -122,7 +178,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
   if (isLoading) {
     return (
       <div className="text-muted-foreground flex h-full items-center justify-center">
-        <span className="animate-pulse">Loading conversation...</span>
+        <span className="animate-pulse">{t('loading')}</span>
       </div>
     )
   }
@@ -130,7 +186,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
   if (!conversation) {
     return (
       <div className="text-muted-foreground flex h-full items-center justify-center">
-        Conversation not found
+        {t('notFound')}
       </div>
     )
   }
@@ -159,15 +215,27 @@ export function ChatView({ conversationId }: ChatViewProps) {
                 {otherUser?.display_name?.[0] || 'U'}
               </AvatarFallback>
             </Avatar>
-            <span className="border-background absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 bg-green-500" />
+            <span className={cn(
+              "border-background absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 transition-colors duration-500",
+              otherUserStatus === 'online' ? "bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" : "bg-muted-foreground/30"
+            )} />
           </div>
 
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg leading-none font-bold tracking-tight">
-                {otherUser?.display_name || 'User'}
-              </h3>
-              <ShieldCheck className="text-primary fill-primary/10 h-4 w-4" />
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg leading-none font-bold tracking-tight">
+                  {otherUser?.display_name || 'User'}
+                </h3>
+                <ShieldCheck className="text-primary fill-primary/10 h-4 w-4" />
+              </div>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground/60 mt-0.5">
+                {isOtherTyping ? (
+                  <span className="text-primary animate-pulse">{t('typing')}</span>
+                ) : (
+                  otherUserStatus === 'online' ? 'Active now' : 'Offline'
+                )}
+              </span>
             </div>
             {listing && (
               <Link
@@ -209,7 +277,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
           {messages.length === 0 && (
             <div className="py-10 text-center opacity-50">
               <p className="text-sm">
-                Start the conversation with {otherUser?.display_name}
+                {t('startConversationWith').replace('{name}', otherUser?.display_name || 'User')}
               </p>
             </div>
           )}
@@ -231,12 +299,12 @@ export function ChatView({ conversationId }: ChatViewProps) {
                   className={cn(
                     'shadow-premium relative max-w-[85%] px-5 py-3 text-sm leading-relaxed md:max-w-[70%]',
                     isMe
-                      ? 'bg-primary text-primary-foreground rounded-[1.5rem] rounded-tr-sm'
-                      : 'bg-background/80 text-foreground rounded-[1.5rem] rounded-tl-sm border border-white/10 backdrop-blur-md',
+                      ? 'bg-primary text-primary-foreground rounded-3xl rounded-tr-sm'
+                      : 'bg-background/80 text-foreground rounded-3xl rounded-tl-sm border border-white/10 backdrop-blur-md',
                     isSequential &&
                     (isMe
-                      ? 'mt-1 rounded-tr-[1.5rem]'
-                      : 'mt-1 rounded-tl-[1.5rem]')
+                      ? 'mt-1 rounded-tr-3xl'
+                      : 'mt-1 rounded-tl-3xl')
                   )}
                 >
                   {msg.content}
@@ -279,9 +347,30 @@ export function ChatView({ conversationId }: ChatViewProps) {
 
           <Input
             value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+            onChange={(e) => {
+              setNewMessage(e.target.value)
+
+              // Typing Indicator logic
+              if (!isSending && user && channelRef.current) {
+                const userId = user.id
+                channelRef.current.send({
+                  type: 'broadcast',
+                  event: 'typing',
+                  payload: { userId, isTyping: true },
+                })
+
+                if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current)
+                typingTimeoutRef.current = setTimeout(() => {
+                  channelRef.current?.send({
+                    type: 'broadcast',
+                    event: 'typing',
+                    payload: { userId, isTyping: false },
+                  })
+                }, 3000)
+              }
+            }}
             onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-            placeholder="Type a message..."
+            placeholder={t('typeMessage')}
             className="placeholder:text-muted-foreground/50 max-h-32 min-h-[44px] flex-1 border-none bg-transparent px-2 py-3 text-base font-medium focus-visible:ring-0"
           />
 

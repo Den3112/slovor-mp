@@ -1,13 +1,14 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { languages } from '@/packages/i18n/settings'
 
-export async function updateSession(request: NextRequest) {
+export async function updateSession(request: NextRequest, existingResponse?: NextResponse) {
     // Ignore OPTIONS requests for session updates
     if (request.method === 'OPTIONS') {
         return NextResponse.next()
     }
 
-    let response = NextResponse.next({
+    let response = existingResponse || NextResponse.next({
         request: {
             headers: request.headers,
         },
@@ -70,12 +71,28 @@ export async function updateSession(request: NextRequest) {
     // RBAC & Route Protection
     // -------------------------------------------------------------------------
 
-    const path = request.nextUrl.pathname;
+    let path = request.nextUrl.pathname;
+
+    // Check for locale in path and strip it for RBAC checks
+    const currentLocale = languages.find(
+        (locale) => path.startsWith(`/${locale}/`) || path === `/${locale}`
+    )
+
+    // Normalize path for RBAC (remove locale)
+    if (currentLocale) {
+        path = path.replace(new RegExp(`^/${currentLocale}`), '') || '/'
+    }
+
+    // Helper to preserve locale in redirects
+    const getRedirectUrl = (targetPath: string) => {
+        const localePrefix = currentLocale ? `/${currentLocale}` : ''
+        return new URL(`${localePrefix}${targetPath}`, request.url)
+    }
 
     // 1. Admin Routes Protection
     if (path.startsWith('/admin')) {
         if (!user) {
-            return NextResponse.redirect(new URL('/', request.url))
+            return NextResponse.redirect(getRedirectUrl('/'))
         }
 
         // Check Role
@@ -86,7 +103,7 @@ export async function updateSession(request: NextRequest) {
             .single()
 
         if (!profile || profile.role !== 'admin') {
-            return NextResponse.redirect(new URL('/', request.url))
+            return NextResponse.redirect(getRedirectUrl('/'))
         }
     }
 
@@ -96,22 +113,17 @@ export async function updateSession(request: NextRequest) {
         (path.startsWith('/post') ||
             path.startsWith('/profile'))
     ) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/auth/login' // Redirect to login, assuming /auth/login exists or /login
-        // The previous proxy.ts used /login. Existing app might use /auth/login or /login.
-        // I see /auth/login in app/profile/layout.tsx redirect (Step 51). So /auth/login is likely correct.
-        // proxy.ts used /login (Step 112). This is inconsistent. I will use /auth/login as seen in layout.tsx.
-
-        // Check if /login exists in file list? Step 6 didn't show /login. It showed app/auth/login likely?
-        // Step 9 for profile layout used '/auth/login'.
-        return NextResponse.redirect(url)
+        // Redirect to login
+        // Assuming /auth/login is the correct path for login
+        // Preserving the original behavior but adding locale support
+        const redirectUrl = getRedirectUrl('/auth/login')
+        return NextResponse.redirect(redirectUrl)
     }
 
     // 3. Redirect to profile if logged in and trying to access auth pages
     if (user && path.startsWith('/auth')) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/profile'
-        return NextResponse.redirect(url)
+        const redirectUrl = getRedirectUrl('/profile')
+        return NextResponse.redirect(redirectUrl)
     }
 
     return response

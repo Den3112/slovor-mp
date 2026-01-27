@@ -84,11 +84,11 @@ export function ListingFilters() {
   }
 
   const sortOptions = [
-    { value: 'newest', label: t.filters.newest },
-    { value: 'oldest', label: t.filters.oldest },
-    { value: 'price-low', label: t.filters.priceLow },
-    { value: 'price-high', label: t.filters.priceHigh },
-    { value: 'views', label: t.filters.popular },
+    { value: 'newest', label: t('filters.newest') },
+    { value: 'oldest', label: t('filters.oldest') },
+    { value: 'price-low', label: t('filters.priceLow') },
+    { value: 'price-high', label: t('filters.priceHigh') },
+    { value: 'views', label: t('filters.popular') },
   ]
 
   return (
@@ -103,7 +103,7 @@ export function ListingFilters() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
-            placeholder={t.home.searchPlaceholder}
+            placeholder={t('home.searchPlaceholder')}
             className="border-input bg-muted/30 placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border py-4 pr-4 pl-12 text-base font-bold transition-all focus:ring-1 focus:outline-none"
           />
         </div>
@@ -114,16 +114,16 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <MapPin className="h-4 w-4" />
-            {t.filters.location}
+            {t('filters.location')}
           </label>
           <Select value={location} onValueChange={setLocation}>
             <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
-              <SelectValue placeholder={t.filters.allLocations} />
+              <SelectValue placeholder={t('filters.allLocations')} />
             </SelectTrigger>
             <SelectContent>
               {LOCATIONS.map((loc) => (
                 <SelectItem key={loc.value} value={loc.value || 'all'}>
-                  {loc.value === '' ? t.filters.allLocations : loc.label}
+                  {loc.value === '' ? t('filters.allLocations') : loc.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -134,21 +134,21 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <Tag className="h-4 w-4" />
-            {t.common.price} (EUR)
+            {t('common.price')} (EUR)
           </label>
           <div className="grid grid-cols-2 gap-3">
             <input
               type="number"
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
-              placeholder={t.filters.priceMin}
+              placeholder={t('filters.priceMin')}
               className="border-input bg-muted/30 placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-3 text-base font-bold transition-all focus:ring-1 focus:outline-none"
             />
             <input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
-              placeholder={t.filters.priceMax}
+              placeholder={t('filters.priceMax')}
               className="border-input bg-muted/30 placeholder:text-muted-foreground focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-3 text-base font-bold transition-all focus:ring-1 focus:outline-none"
             />
           </div>
@@ -158,13 +158,13 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <PackageCheck className="h-4 w-4" />
-            {t.filters.condition}
+            {t('filters.condition')}
           </label>
           <div className="border-border/50 bg-muted/30 flex rounded-2xl border p-1.5">
             {[
-              { value: '', label: t.common.all || 'All' },
-              { value: 'new', label: t.filters.new },
-              { value: 'used', label: t.filters.used },
+              { value: '', label: t('common.all') || 'All' },
+              { value: 'new', label: t('filters.new') },
+              { value: 'used', label: t('filters.used') },
             ].map((c) => (
               <button
                 key={c.value}
@@ -186,7 +186,7 @@ export function ListingFilters() {
         <div className="space-y-3">
           <label className="text-primary flex items-center gap-2 text-xs font-black tracking-widest uppercase">
             <TrendingUp className="h-4 w-4" />
-            {t.filters.sort}
+            {t('filters.sort')}
           </label>
           <Select value={sort} onValueChange={setSort}>
             <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
@@ -210,7 +210,7 @@ export function ListingFilters() {
           disabled={isPending}
           className="shadow-primary/20 h-14 flex-1 rounded-2xl text-sm font-black tracking-widest uppercase shadow-lg"
         >
-          {isPending ? t.common.loading : t.filters.apply}
+          {isPending ? t('common.loading') : t('filters.apply')}
         </Button>
         <Button
           variant="outline"

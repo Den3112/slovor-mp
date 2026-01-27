@@ -51,6 +51,16 @@ export function SellerProfileView({
     }
   )
 
+  const [ratingData, setRatingData] = useState<{ averageRating: number; totalReviews: number } | null>(null)
+
+  useState(() => {
+    import('@/lib/api').then(({ reviewsApi }) => {
+      reviewsApi.getForSeller(seller.id).then(({ data }) => {
+        if (data) setRatingData(data)
+      })
+    })
+  })
+
   const Wrapper = variant === 'public' ? Container : 'div'
   const wrapperProps = variant === 'public' ? {} : { className: 'w-full' }
 
@@ -117,7 +127,7 @@ export function SellerProfileView({
             className="group text-muted-foreground hover:text-primary inline-flex items-center gap-2 text-sm font-bold transition-colors"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            {t.common.backToSearch}
+            {t('common.backToSearch')}
           </Link>
         </Container>
       )}
@@ -176,7 +186,7 @@ export function SellerProfileView({
                         <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1">
                           <ShieldCheck className="h-3 w-3 text-blue-500" />
                           <span className="text-[10px] font-bold tracking-wider text-blue-500 uppercase">
-                            {t.trust.verified}
+                            {t('trust.verified')}
                           </span>
                         </div>
                       )}
@@ -196,18 +206,18 @@ export function SellerProfileView({
                           {listings.length}
                         </p>
                         <p className="text-muted-foreground/70 mt-1 text-[10px] font-bold tracking-widest uppercase">
-                          {t.seller.activeListings}
+                          {t('seller.activeListings')}
                         </p>
                       </div>
                       <div className="group cursor-default text-center">
                         <div className="flex items-center justify-center gap-1">
                           <span className="from-foreground to-foreground/50 bg-linear-to-b bg-clip-text text-3xl font-black text-transparent transition-all group-hover:scale-110">
-                            —
+                            {ratingData?.averageRating || '—'}
                           </span>
                           <Star className="mb-1 h-4 w-4 fill-amber-500 text-amber-500" />
                         </div>
                         <p className="text-muted-foreground/70 mt-1 text-[10px] font-bold tracking-widest uppercase">
-                          {t.seller.rating}
+                          {t('seller.rating')}
                         </p>
                       </div>
                     </div>
@@ -249,7 +259,7 @@ export function SellerProfileView({
                   ) : (
                     <MessageCircle className="mr-2 h-5 w-5" />
                   )}
-                  {t.seller.contactSeller}
+                  {t('seller.contactSeller')}
                 </Button>
               ) : (
                 <Link href="/profile/settings" className="block">
@@ -270,10 +280,10 @@ export function SellerProfileView({
                     <ShieldCheck className="text-primary h-6 w-6 shrink-0" />
                     <div>
                       <p className="text-foreground text-sm font-bold">
-                        {t.trust.safetyTitle}
+                        {t('trust.safetyTitle')}
                       </p>
                       <p className="text-muted-foreground mt-1 text-xs font-medium">
-                        {t.trust.safetyTip1}
+                        {t('trust.safetyTip1')}
                       </p>
                     </div>
                   </div>
@@ -290,7 +300,7 @@ export function SellerProfileView({
             <div className="space-y-8 lg:col-span-8">
               <div>
                 <h2 className="font-heading mb-2 text-3xl font-black tracking-tight italic">
-                  {t.seller.listings}
+                  {t('seller.listings')}
                 </h2>
                 <div className="bg-primary h-1.5 w-20 rounded-full" />
               </div>
@@ -304,8 +314,8 @@ export function SellerProfileView({
               ) : (
                 <EmptyState
                   icon="📦"
-                  title={t.seller.noListings}
-                  description={t.seller.noListingsDescription}
+                  title={t('seller.noListings')}
+                  description={t('seller.noListingsDescription')}
                 />
               )}
             </div>

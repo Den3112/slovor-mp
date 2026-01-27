@@ -31,7 +31,7 @@ export function HomeCTA() {
               whileInView={{ opacity: 1, scale: 1 }}
               className="glass mb-10 inline-block rounded-full border-white/10 px-6 py-2 text-[10px] font-black tracking-[0.3em] text-white uppercase"
             >
-              {t.common.joinCommunity}
+              {t('common.joinCommunity')}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -40,7 +40,7 @@ export function HomeCTA() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="font-heading mb-12 text-6xl leading-[0.9] font-black tracking-tighter md:text-[5.5rem]"
             >
-              {t.home.ctaTitle}
+              {t('home.ctaTitle')}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ export function HomeCTA() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="mx-auto mb-16 max-w-xl text-xl leading-relaxed font-medium text-white/60 md:text-2xl"
             >
-              {t.home.ctaSubtitle}
+              {t('home.ctaSubtitle')}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -64,7 +64,7 @@ export function HomeCTA() {
               >
                 <Link href="/post">
                   <Plus className="mr-3 h-6 w-6 transition-transform duration-700 group-hover:rotate-90" />
-                  {t.common.postAd}
+                  {t('common.postAd')}
                 </Link>
               </Button>
             </motion.div>

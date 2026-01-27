@@ -32,7 +32,7 @@ export const serverListingsApi = {
       }
 
       if (options?.isFeatured !== undefined) {
-        query = query.eq('is_promoted', options.isFeatured)
+        query = query.eq('is_highlighted', options.isFeatured)
       }
 
       // Apply sorting

@@ -9,6 +9,8 @@ import {
     Users,
     FileText,
     LogOut,
+    AlertTriangle,
+    FileCheck
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -21,8 +23,9 @@ export function AdminSidebar() {
         { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
         { href: '/admin/listings', label: 'Moderation', icon: ShieldCheck },
         { href: '/admin/users', label: 'Users', icon: Users },
+        { href: '/admin/reports', label: 'Reports', icon: AlertTriangle },
+        { href: '/admin/verifications', label: 'Verifications', icon: FileCheck },
         { href: '/admin/content', label: 'Content', icon: FileText },
-        // { href: '/admin/settings', label: 'Settings', icon: Settings },
     ]
 
     const isActive = (href: string) => {

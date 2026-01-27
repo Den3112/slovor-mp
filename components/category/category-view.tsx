@@ -27,14 +27,15 @@ export function CategoryView({
   totalCount,
   itemsPerPage,
 }: CategoryViewProps) {
-  const { t, locale } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
   const categoryName = getLocalizedCategoryName(category, locale, t)
 
   return (
     <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pt-24 pb-12 md:pt-32">
       <Breadcrumbs
         items={[
-          { label: t.common.categories, href: '/listings' },
+          { label: t('common.categories'), href: '/listings' },
           { label: categoryName },
         ]}
       />
@@ -54,7 +55,7 @@ export function CategoryView({
             <div className="flex items-center gap-3">
               <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 px-4 py-1.5 text-xs font-black tracking-widest text-indigo-600 uppercase dark:text-indigo-400">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />
-                {totalCount} {t.common.listings} {t.common.found}
+                {totalCount} {t('common.listings')} {t('common.found')}
               </div>
             </div>
           </div>
@@ -70,10 +71,10 @@ export function CategoryView({
       ) : listings.length === 0 ? (
         <div className="py-16 text-center">
           <p className="text-muted-foreground mb-4 text-xl">
-            {t.common.noListings || 'No listings found'}
+            {t('common.noListings') || 'No listings found'}
           </p>
           <p className="text-muted-foreground">
-            {t.common.tryDifferentFilters || 'Try adjusting your filters'}
+            {t('common.tryDifferentFilters') || 'Try adjusting your filters'}
           </p>
         </div>
       ) : (

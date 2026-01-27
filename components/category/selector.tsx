@@ -20,7 +20,8 @@ export function CategorySelector({
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const { t, locale } = useTranslation()
+  const { t, i18n } = useTranslation('common')
+  const locale = i18n.language
 
   useEffect(() => {
     loadCategories()
@@ -40,13 +41,13 @@ export function CategorySelector({
   }
 
   if (loading) {
-    return <div className="text-muted-foreground">{t.common.loading}</div>
+    return <div className="text-muted-foreground">{t('loading')}</div>
   }
 
   if (error) {
     return (
       <div className="text-destructive">
-        {t.common.error}: {error}
+        {t('error')}: {error}
       </div>
     )
   }
@@ -57,7 +58,7 @@ export function CategorySelector({
         htmlFor="category"
         className="text-muted-foreground mb-2 block text-sm font-medium"
       >
-        {t.listing.categoryLabel}
+        {t('categoryLabel')}
       </label>
       <select
         id="category"
@@ -65,7 +66,7 @@ export function CategorySelector({
         onChange={(e) => onSelect(e.target.value)}
         className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-2 transition-all focus:ring-1 focus:outline-none"
       >
-        <option value="">{t.common.selectCategory}</option>
+        <option value="">{t('selectCategory')}</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {getLocalizedCategoryName(category, locale, t)}

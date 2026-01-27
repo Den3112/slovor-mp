@@ -38,7 +38,7 @@ export function LocaleDetector() {
   const { locale, setLocale } = useTranslation()
   const [showModal, setShowModal] = useState(false)
   const [detectedLocale, setDetectedLocale] = useState<Locale | null>(null)
-  const [selectedLocale, setSelectedLocale] = useState<Locale>(locale)
+  const [selectedLocale, setSelectedLocale] = useState<Locale>(locale as Locale)
 
   useEffect(() => {
     // 1. Check if locale is already stored (user selected before)
@@ -152,11 +152,10 @@ export function LocaleDetector() {
               <button
                 key={option.code}
                 onClick={() => setSelectedLocale(option.code)}
-                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${
-                  selectedLocale === option.code
+                className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${selectedLocale === option.code
                     ? 'border-primary bg-primary/10'
                     : 'border-border hover:border-border hover:bg-accent'
-                }`}
+                  }`}
               >
                 <span className="text-3xl">{option.flag}</span>
                 <span className="flex-1 text-left text-lg font-semibold">

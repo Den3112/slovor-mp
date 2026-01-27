@@ -1,0 +1,21 @@
+{
+  "title": "Reviews",
+  "writeReview": "Write a Review",
+  "noReviews": "No reviews yet",
+  "averageRating": "Average Rating",
+  "basedOn": "based on",
+  "reviewsCount": "reviews",
+  "yourRating": "Your Rating",
+  "yourComment": "Your Comment",
+  "submitReview": "Submit Review",
+  "thankYou": "Thank you for your review!",
+  "alreadyReviewed": "You have already reviewed this seller",
+  "manageReputation": "Manage your reputation and view feedback from buyers.",
+  "rating": "Rating",
+  "totalReviews": "Total Reviews",
+  "anonymous": "Anonymous User",
+  "noReviewsDesc": "You haven't received any reviews yet. Sell items to build your reputation!",
+  "backToListings": "Back to listings",
+  "received": "Received",
+  "given": "Given"
+}

@@ -28,7 +28,7 @@ export function StepDetails({
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
       <div className="space-y-2">
         <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t.createListing.itemTitle}
+          {t('createListing.itemTitle')}
         </label>
         <div className="group relative">
           <input
@@ -54,7 +54,7 @@ export function StepDetails({
       <div className="flex gap-4 md:gap-6">
         <div className="flex-1 space-y-2">
           <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-            {t.createListing.price}
+            {t('createListing.price')}
           </label>
           <div className="group relative">
             <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-black">
@@ -83,7 +83,7 @@ export function StepDetails({
         {/* Visual Currency Badge (Static for now as mostly EUR) */}
         <div className="pointer-events-none w-24 space-y-2 opacity-50 grayscale md:w-32">
           <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-            {t.createListing.currency}
+            {t('createListing.currency')}
           </label>
           <div className="text-muted-foreground flex h-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-black">
             EUR
@@ -93,7 +93,7 @@ export function StepDetails({
 
       <div className="space-y-2">
         <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t.createListing.description}
+          {t('createListing.description')}
         </label>
         <textarea
           value={formData.description}
@@ -105,7 +105,7 @@ export function StepDetails({
 
       <div className="space-y-2">
         <label className="text-muted-foreground/80 ml-1 text-xs font-black tracking-widest uppercase">
-          {t.createListing.location}
+          {t('createListing.location')}
         </label>
         <LocationCombobox
           value={formData.location}

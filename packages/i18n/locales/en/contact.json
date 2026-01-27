@@ -1,0 +1,12 @@
+{
+  "title": "Contact Us",
+  "subtitle": "We're here for you. Drop us a line or visit our office.",
+  "email": "Email Address",
+  "phone": "Phone Number",
+  "office": "Office",
+  "sendMessage": "Send us a message",
+  "name": "Name",
+  "message": "Message",
+  "send": "Send Message",
+  "success": "Message sent successfully!"
+}

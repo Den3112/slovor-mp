@@ -23,7 +23,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
           className="text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 transition-colors"
         >
           <Home className="h-4 w-4" />
-          <span className="hidden sm:inline">{t.common.home}</span>
+          <span className="hidden sm:inline">{t('common.home')}</span>
         </Link>
         {items.map((item, index) => (
           <div key={index} className="inline-flex items-center gap-2 sm:gap-3">

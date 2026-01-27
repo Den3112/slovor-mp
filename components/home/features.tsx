@@ -13,25 +13,25 @@ export function Features() {
   const features = [
     {
       icon: <ShieldCheck className="h-8 w-8" />,
-      title: t.trust.secure,
+      title: t('trust.secure'),
       desc: 'Verified users & protected communications.',
       color: 'text-primary',
     },
     {
       icon: <Zap className="h-8 w-8" />,
-      title: t.trust.fast,
+      title: t('trust.fast'),
       desc: 'Lightning fast listing creation process.',
       color: 'text-violet-500',
     },
     {
       icon: <Banknote className="h-8 w-8" />,
-      title: t.trust.free,
+      title: t('trust.free'),
       desc: 'No commissions. 100% profit stays with you.',
       color: 'text-indigo-500',
     },
     {
       icon: <Map className="h-8 w-8" />,
-      title: t.trust.local,
+      title: t('trust.local'),
       desc: 'Focusing exclusively on the Slovak market.',
       color: 'text-sky-500',
     },
@@ -53,11 +53,11 @@ export function Features() {
             <h2 className="font-heading text-4xl font-black tracking-tight md:text-5xl lg:text-6xl">
               <span className="block text-white">
                 <span className="text-primary">
-                  {t.home.features.reimagined}
+                  {t('home.features.reimagined')}
                 </span>{' '}
                 <br />
                 <span className="opacity-40">
-                  {t.home.features.forSlovakia}
+                  {t('home.features.forSlovakia')}
                 </span>
               </span>
             </h2>
