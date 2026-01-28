@@ -3,6 +3,34 @@ import { notFound } from 'next/navigation'
 import { ErrorState } from '@/components/ui/error-state'
 import { CategoryView } from '@/components/category/category-view'
 import { categoriesApi, listingsApi } from '@/lib/api'
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const supabase = createStaticClient()
+  const { data: category } = await categoriesApi.getBySlug(slug, supabase)
+
+  if (!category) {
+    return {
+      title: 'Category Not Found | Slovor',
+    }
+  }
+
+  return {
+    title: `${category.name} | Slovor Marketplace`,
+    description: `Browse ${category.name} on Slovor. Find the best deals in Slovakia.`,
+    openGraph: {
+      title: `${category.name} | Slovor Marketplace`,
+      description: `Browse ${category.name} on Slovor. Find the best deals in Slovakia.`,
+      images: ['/og-image.png'],
+    },
+  }
+}
+
 
 /**
  * ISR for category pages

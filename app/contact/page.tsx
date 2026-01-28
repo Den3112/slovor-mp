@@ -2,6 +2,12 @@ import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { getTranslationServer } from '@/lib/i18n/server'
 import { Button } from '@/components/ui/button'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact Us | Slovor Marketplace',
+  description: 'Get in touch with the Slovor team. We are here to help.',
+}
 
 export default async function ContactPage() {
   const { t } = await getTranslationServer()
@@ -76,7 +82,7 @@ export default async function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <div className="shadow-premium border-border/50 bg-card/60 relative h-full overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-md md:p-12">
+            <div className="shadow-premium border-border/50 bg-card/60 relative h-full overflow-hidden rounded-5xl border p-10 backdrop-blur-md md:p-12">
               <div className="bg-primary/5 absolute top-0 right-0 h-32 w-32 rounded-full blur-3xl" />
 
               <h2 className="font-heading mb-8 text-3xl font-black tracking-tight text-white italic">
