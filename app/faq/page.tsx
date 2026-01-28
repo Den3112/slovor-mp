@@ -1,6 +1,12 @@
 import { Container } from '@/components/ui/container'
 import { getTranslationServer } from '@/lib/i18n/server'
 import { HelpCircle, ChevronRight } from 'lucide-react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'FAQ | Slovor Marketplace',
+  description: 'Frequently Asked Questions about buying and selling on Slovor.',
+}
 
 export default async function FAQPage() {
   const { t } = await getTranslationServer()

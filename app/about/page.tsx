@@ -1,6 +1,12 @@
 import { Container } from '@/components/ui/container'
 import { getTranslationServer } from '@/lib/i18n/server'
 import { Sparkles, Target, Star } from 'lucide-react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About Us | Slovor Marketplace',
+  description: 'Learn about Slovor Marketplace, our mission, and why we are built for Slovakia.',
+}
 
 export default async function AboutPage() {
   const { t } = await getTranslationServer()
@@ -29,7 +35,7 @@ export default async function AboutPage() {
 
         <div className="mx-auto max-w-4xl space-y-24">
           <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-            <div className="shadow-premium border-border/50 bg-card/60 rounded-[2.5rem] border p-10 backdrop-blur-md md:p-12">
+            <div className="shadow-premium border-border/50 bg-card/60 rounded-5xl border p-10 backdrop-blur-md md:p-12">
               <div className="bg-primary/10 mb-8 flex h-14 w-14 items-center justify-center rounded-2xl">
                 <Target className="text-primary h-8 w-8" />
               </div>
@@ -40,7 +46,7 @@ export default async function AboutPage() {
                 {t('about.missionText')}
               </p>
             </div>
-            <div className="border-border/50 bg-muted/20 rounded-[2.5rem] border p-10 md:p-12">
+            <div className="border-border/50 bg-muted/20 rounded-5xl border p-10 md:p-12">
               <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-500/10">
                 <Star className="h-8 w-8 text-violet-500" />
               </div>
