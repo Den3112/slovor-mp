@@ -21,7 +21,7 @@
   "location": "Location",
   "category": "Category",
   "postedOn": "Posted On",
-  "itemDescription": "Product Description",
+  "itemDescription": "Description",
   "callRecommendation": "Click to call seller directly",
   "whatsapp": "Open in WhatsApp"
 }
