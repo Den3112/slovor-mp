@@ -7,7 +7,7 @@ import { CurrencyProvider } from '@/components/providers/currency-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { useEffect } from 'react'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children, lang }: { children: React.ReactNode; lang?: string }) {
   // Clear localStorage for welcome modal on dev (for testing)
   useEffect(() => {
     // Uncomment to reset welcome modal for testing:
@@ -24,7 +24,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     >
       <AuthProvider>
         <CurrencyProvider>
-          <I18nProvider>
+          <I18nProvider lang={lang}>
             {/* Welcome modal disabled mostly for dev annoyance reduction, uncomment in prod */}
             {/* <LocaleWelcomeModal /> */}
             {children}

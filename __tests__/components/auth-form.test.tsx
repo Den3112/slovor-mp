@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { AuthForm } from '@/app/auth/login/components/auth-form'
+import { AuthForm } from '@/app/[lang]/auth/login/components/auth-form'
 
 describe('AuthForm', () => {
   const defaultProps = {

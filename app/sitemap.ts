@@ -6,17 +6,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://slovor.sk'
     const supabase = createStaticClient()
 
-    // Static routes
-    const routes = [
-        '',
-        '/about',
-        '/contact',
-        '/faq',
-        '/categories',
-        '/search',
-        '/auth/login',
-        '/auth/register',
-    ].map((route) => ({
+    const languages = ['en', 'sk', 'cs']
+
+    // Static routes for each language
+    const routes = languages.flatMap(lang => [
+        `/${lang}`,
+        `/${lang}/about`,
+        `/${lang}/contact`,
+        `/${lang}/faq`,
+        `/${lang}/categories`,
+        `/${lang}/search`,
+        `/${lang}/auth/login`,
+        `/${lang}/auth/register`,
+    ]).map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
         changeFrequency: 'daily' as const,
@@ -26,12 +28,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Dynamic routes: Categories
     const { data: categories } = await categoriesApi.getAll(supabase)
 
-    const categoryRoutes = (categories || []).map((category) => ({
-        url: `${baseUrl}/categories/${category.slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily' as const,
-        priority: 0.8,
-    }))
+    const categoryRoutes = (categories || []).flatMap(category =>
+        languages.map(lang => ({
+            url: `${baseUrl}/${lang}/categories/${category.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'daily' as const,
+            priority: 0.8,
+        }))
+    )
 
     return [...routes, ...categoryRoutes]
 }

@@ -24,9 +24,10 @@ export const I18nContext = createContext<I18nContextValue | undefined>(undefined
 const LOCALE_STORAGE_KEY = 'slovor-locale'
 const LOCALE_COOKIE_KEY = 'slovor-locale'
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+export function I18nProvider({ children, lang }: { children: ReactNode; lang?: string }) {
   const { t, i18n } = useI18nextTranslation()
-  const [locale, setLocaleState] = useState<Locale>((i18n.language as Locale) || 'en')
+  const initialLocale = (lang as Locale) || (i18n.language as Locale) || 'en'
+  const [locale, setLocaleState] = useState<Locale>(initialLocale)
 
   // Update HTML lang attribute and meta tags
   const updateHtmlLang = (newLocale: Locale) => {
@@ -59,19 +60,20 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // Sync with URL lang prop
   useEffect(() => {
-    const initLocale = async () => {
-      const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null
-      if (stored && ['en', 'sk', 'cs'].includes(stored)) {
-        if (i18n.language !== stored) {
-          await i18n.changeLanguage(stored)
-        }
-        setLocaleState(stored)
-        updateHtmlLang(stored)
+    if (lang && ['en', 'sk', 'cs'].includes(lang)) {
+      const newLocale = lang as Locale
+      if (i18n.language !== newLocale) {
+        i18n.changeLanguage(newLocale)
       }
+      setLocaleState(newLocale)
+      updateHtmlLang(newLocale)
+      // Update storage to match URL
+      localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
+      document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
     }
-    initLocale()
-  }, [i18n])
+  }, [lang, i18n])
 
   const setLocale = async (newLocale: Locale) => {
     setLocaleState(newLocale)

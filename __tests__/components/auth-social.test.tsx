@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { AuthSocial } from '@/app/auth/login/components/auth-social'
+import { AuthSocial } from '@/app/[lang]/auth/login/components/auth-social'
 
 describe('AuthSocial', () => {
   const defaultProps = {
