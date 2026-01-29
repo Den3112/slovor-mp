@@ -48,7 +48,7 @@ export function MobileDrawer({
           {/* Drawer Header */}
           <div className="border-border/50 flex items-center justify-between border-b px-6 py-4">
             <Link
-              href="/"
+              href={`/${locale}`}
               onClick={() => onOpenChange(false)}
               className="flex items-center gap-2"
             >
@@ -111,7 +111,7 @@ export function MobileDrawer({
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
                     <Link
-                      href="/profile"
+                      href={`/${locale}/profile`}
                       onClick={() => onOpenChange(false)}
                       className="bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground flex flex-col gap-2 rounded-2xl border border-transparent p-4 transition-all active:scale-95"
                     >
@@ -121,7 +121,7 @@ export function MobileDrawer({
                       </span>
                     </Link>
                     <Link
-                      href="/profile/favorites"
+                      href={`/${locale}/profile/favorites`}
                       onClick={() => onOpenChange(false)}
                       className="bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground flex flex-col gap-2 rounded-2xl border border-transparent p-4 transition-all active:scale-95"
                     >
@@ -132,7 +132,7 @@ export function MobileDrawer({
                     </Link>
 
                     <Link
-                      href="/profile/saved-searches"
+                      href={`/${locale}/profile/saved-searches`}
                       onClick={() => onOpenChange(false)}
                       className="bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground col-span-2 flex flex-col gap-2 rounded-2xl border border-transparent p-4 transition-all active:scale-95"
                     >
@@ -144,7 +144,7 @@ export function MobileDrawer({
 
                     {user && config.app.adminEmails.includes(user.email || '') && (
                       <Link
-                        href="/admin"
+                        href={`/${locale}/admin`}
                         onClick={() => onOpenChange(false)}
                         className="border-amber-500/10 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 col-span-2 flex flex-col gap-2 rounded-2xl border p-4 transition-all active:scale-95"
                       >
@@ -167,7 +167,7 @@ export function MobileDrawer({
           <div className="border-border/50 safe-bottom border-t p-6">
             {!user && (
               <Link
-                href="/login"
+                href={`/${locale}/auth/login`}
                 className="border-border/50 bg-muted/30 text-foreground active:bg-muted mt-3 block w-full rounded-2xl border py-4 text-center text-base font-bold transition-colors"
                 onClick={() => onOpenChange(false)}
               >

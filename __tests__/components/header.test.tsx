@@ -99,6 +99,6 @@ describe('Header', () => {
 
   it('renders Post Ad button', () => {
     render(<Header />)
-    expect(screen.getByText('Post Ad')).toBeInTheDocument()
+    expect(screen.getAllByText('Post Ad').length).toBeGreaterThan(0)
   })
 })

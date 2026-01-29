@@ -21,10 +21,11 @@ import { CategoriesDropdown } from './categories-dropdown'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 
 // Logo component - reused in header and drawer
-function Logo({ className }: { className?: string }) {
+function Logo({ className, locale }: { className?: string, locale?: string }) {
+  const href = locale ? `/${locale}` : '/'
   return (
     <Link
-      href="/"
+      href={href}
       className={cn(
         'group relative z-50 flex items-center gap-2 md:gap-3',
         className
@@ -113,7 +114,7 @@ function HeaderSkeleton() {
 }
 
 export function Header() {
-  const { t } = useTranslation('common')
+  const { t, locale } = useTranslation('common')
   const { user, signOut } = useAuth()
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -132,10 +133,10 @@ export function Header() {
   }, [pathname])
 
   const navLinks = [
-    { href: '/', label: t('home'), icon: Home },
-    { href: '/listings', label: t('search'), icon: Search },
-    { href: '/categories', label: t('categories'), icon: Grid3X3 },
-    { href: '/blog', label: t('blog'), icon: Grid3X3 },
+    { href: `/${locale}`, label: t('home'), icon: Home },
+    { href: `/${locale}/listings`, label: t('search'), icon: Search },
+    { href: `/${locale}/categories`, label: t('categories'), icon: Grid3X3 },
+    { href: `/${locale}/blog`, label: t('blog'), icon: Grid3X3 },
   ]
 
   if (!mounted) {
@@ -157,7 +158,7 @@ export function Header() {
           <div className="flex h-12 items-center justify-between md:h-16">
             {/* Logo */}
             <div className="flex flex-1 items-center">
-              <Logo />
+              <Logo locale={locale} />
             </div>
 
             {/* Desktop Navigation */}
@@ -178,7 +179,7 @@ export function Header() {
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
-                    href="/login"
+                    href={`/${locale}/auth/login`}
                     className="border-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-primary/20 flex h-10 items-center justify-center rounded-full border px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 xl:px-7"
                   >
                     {t('signIn')}
@@ -187,7 +188,7 @@ export function Header() {
 
                 {/* POST BUTTON */}
                 <Link
-                  href="/post"
+                  href={`/${locale}/post`}
                   className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 flex h-10 items-center justify-center gap-1.5 rounded-full px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl active:scale-95 xl:px-7"
                 >
                   <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
@@ -204,7 +205,7 @@ export function Header() {
 
               {user && (
                 <Link
-                  href="/profile/settings"
+                  href={`/${locale}/profile/settings`}
                   className="border-primary/20 bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black transition-transform active:scale-95"
                 >
                   {user.email?.[0]?.toUpperCase()}
@@ -239,10 +240,10 @@ export function Header() {
       {!mobileMenuOpen && (
         <BottomNavBar
           navLinks={[
-            { href: '/', label: t('home'), icon: Home },
-            { href: '/listings', label: t('allListings'), icon: Search },
-            { href: '/categories', label: t('categories'), icon: Grid3X3 },
-            { href: '/blog', label: t('blog'), icon: Grid3X3 },
+            { href: `/${locale}`, label: t('home'), icon: Home },
+            { href: `/${locale}/listings`, label: t('allListings'), icon: Search },
+            { href: `/${locale}/categories`, label: t('categories'), icon: Grid3X3 },
+            { href: `/${locale}/blog`, label: t('blog'), icon: Grid3X3 },
           ]}
           pathname={pathname}
           user={user}
