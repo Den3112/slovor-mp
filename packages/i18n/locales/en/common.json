@@ -8,6 +8,51 @@
     "profile": "Profile",
     "postAd": "Post Ad"
   },
+  "dashboard": {
+    "welcomeBack": "Welcome back",
+    "active": "Active Listings",
+    "views": "Total Views",
+    "favorites": "Favorites",
+    "performance": "Performance",
+    "viewsOverTime": "Views over time",
+    "pastDays": "Past 7 days",
+    "growth": "Growth",
+    "myListings": "My Listings",
+    "recentActivity": "Recent Activity",
+    "noListingsYet": "No listings yet",
+    "startSelling": "Start selling your items today.",
+    "activityFeed": "Activity Feed",
+    "new": "New",
+    "inactive": "Inactive",
+    "orders": "Orders",
+    "messages": "Messages",
+    "reviews": "Reviews",
+    "savedSearches": "Saved Searches"
+  },
+  "profile": {
+    "overview": "Overview",
+    "commerce": "Commerce",
+    "myListings": "My Listings",
+    "orders": "Orders",
+    "wallet": "Wallet",
+    "shopping": "Shopping",
+    "purchases": "Purchases",
+    "favorites": "Favorites",
+    "savedSearches": "Saved Searches",
+    "communication": "Communication",
+    "inbox": "Inbox",
+    "reviews": "Reviews",
+    "account": "Account",
+    "publicProfile": "Public Profile",
+    "verification": "Verification",
+    "settings": "Settings"
+  },
+  "createListing": {
+    "publish": "Publish Listing"
+  },
+  "auth": {
+    "signOut": "Sign Out"
+  },
   "cat": {
     "transport": "Transport",
     "realEstate": "Real Estate",
