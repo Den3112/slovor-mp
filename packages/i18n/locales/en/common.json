@@ -98,8 +98,6 @@
     "cancel": "Cancel",
     "searchingFor": "Searching for",
     "marketplaceSlogan": "Find the best deals in your city today.",
-    "price": "Price",
-    "views": "Views",
     "trust": {
       "verified": "Verified Listing"
     },
@@ -113,6 +111,8 @@
       "security": "Safety Tips",
       "description_missing": "No description provided."
     },
-    "loading": "Loading..."
+    "seller": {
+      "memberSince": "Member since"
+    }
   }
 }

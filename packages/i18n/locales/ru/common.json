@@ -97,6 +97,22 @@
         "advancedSearch": "Расширенный поиск",
         "cancel": "Отмена",
         "searchingFor": "Поиск",
-        "marketplaceSlogan": "Найдите лучшие предложения в вашем городе уже сегодня."
+        "marketplaceSlogan": "Найдите лучшие предложения в вашем городе уже сегодня.",
+        "trust": {
+            "verified": "Проверенное объявление"
+        },
+        "listing": {
+            "saveListing": "Сохранить",
+            "shareListing": "Поделиться",
+            "reportListing": "Пожаловаться",
+            "attributes": "Детали",
+            "description": "Описание",
+            "location": "Местоположение",
+            "security": "Советы по безопасности",
+            "description_missing": "Описание отсутствует."
+        },
+        "seller": {
+            "memberSince": "На сайте с"
+        }
     }
 }
