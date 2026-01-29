@@ -32,7 +32,7 @@ export function MobileDrawer({
   user,
   signOut,
 }: MobileDrawerProps) {
-  const { locale, setLocale, t } = useTranslation()
+  const { locale, t } = useTranslation()
 
   return (
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
@@ -160,7 +160,7 @@ export function MobileDrawer({
             </div>
 
             {/* Language Selector */}
-            <MobileLanguageSelector locale={locale} setLocale={setLocale} />
+            <MobileLanguageSelector locale={locale} />
           </div>
 
           {/* Drawer Footer */}

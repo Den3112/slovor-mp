@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export function Hero() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('home')
   const router = useRouter()
   const [query, setQuery] = useState('')
 
@@ -35,7 +35,7 @@ export function Hero() {
         <div className="bg-primary/15 absolute top-0 right-0 h-[300px] w-[300px] translate-x-1/2 -translate-y-1/2 rounded-full blur-[80px]" />
       </div>
 
-      <div className="absolute top-1/2 left-1/2 hidden h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[url('/grid-pattern.svg')] [mask-image:radial-gradient(white,transparent_70%)] bg-center opacity-20 md:block" />
+      <div className="absolute top-1/2 left-1/2 hidden h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[url('/grid-pattern.svg')] mask-[radial-gradient(white,transparent_70%)] bg-center opacity-20 md:block" />
 
       <Container className="relative">
         <div className="mx-auto max-w-5xl text-center">
@@ -46,7 +46,7 @@ export function Hero() {
           >
             <span className="glass text-primary shadow-primary/5 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[9px] font-black tracking-widest uppercase shadow-lg md:mb-10 md:px-5 md:text-[10px] md:tracking-[0.2em]">
               <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
-              {t('home.heroTagline')}
+              {t('heroTagline')}
             </span>
           </motion.div>
 
@@ -54,11 +54,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
-            className="font-heading text-foreground mb-6 text-[2.5rem] leading-[1] font-black tracking-[-0.03em] sm:text-5xl md:mb-10 md:text-6xl lg:text-[7rem] lg:leading-[0.95] lg:tracking-[-0.04em]"
+            className="font-heading text-foreground mb-6 text-[2.5rem] leading-none font-black tracking-[-0.03em] sm:text-5xl md:mb-10 md:text-6xl lg:text-[7rem] lg:leading-[0.95] lg:tracking-[-0.04em]"
           >
-            {t('home.heroTitleMain')} <br className="hidden sm:block" />
+            {t('heroTitleMain')} <br className="hidden sm:block" />
             <span className="animate-gradient-x from-primary bg-linear-to-r via-violet-500 to-indigo-500 bg-clip-text text-transparent">
-              {t('home.heroTitleHighlight')}
+              {t('heroTitleHighlight')}
             </span>
           </motion.h1>
 
@@ -68,7 +68,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-muted-foreground mx-auto mb-8 max-w-lg px-4 text-base leading-relaxed font-medium opacity-80 sm:px-0 md:mb-16 md:max-w-2xl md:text-xl lg:text-2xl"
           >
-            {t('home.heroSubtitle')}
+            {t('heroSubtitle')}
           </motion.p>
 
           <motion.div
@@ -84,7 +84,7 @@ export function Hero() {
           >
             <div className="group relative">
               {/* Glow effect - hidden on mobile */}
-              <div className="from-primary absolute -inset-1 hidden rounded-4xl bg-linear-to-r to-violet-600 opacity-20 blur-2xl transition duration-1000 group-focus-within:opacity-40 md:block md:rounded-[2.5rem]" />
+              <div className="from-primary absolute -inset-1 hidden rounded-4xl bg-linear-to-r to-violet-600 opacity-20 blur-2xl transition duration-1000 group-focus-within:opacity-40 md:block md:rounded-5xl" />
 
               <div className="border-border/30 bg-card/60 sm:focus-within:border-primary/50 sm:focus-within:ring-primary/10 relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-3 shadow-xl backdrop-blur-3xl transition-all duration-300 sm:flex-row sm:items-center sm:rounded-4xl sm:p-2 sm:pr-2 sm:focus-within:ring-4 md:rounded-[2.2rem] md:shadow-2xl">
                 <div className="focus-within:bg-primary/5 flex flex-1 items-center rounded-xl px-4 py-1 transition-colors sm:pl-4 sm:focus-within:bg-transparent md:pl-6">
@@ -100,8 +100,8 @@ export function Hero() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder={t('home.searchPlaceholder')}
-                    aria-label={t('home.searchPlaceholder')}
+                    placeholder={t('searchPlaceholder')}
+                    aria-label={t('searchPlaceholder')}
                     className="placeholder:text-muted-foreground/40 w-full border-none bg-transparent px-3 py-4 text-base font-bold focus:ring-0 focus:outline-none active:border-none active:outline-none sm:py-5 md:px-4 md:py-6 md:text-xl"
                     style={{ outline: 'none', boxShadow: 'none' }}
                     onKeyDown={(e) => {
@@ -115,9 +115,9 @@ export function Hero() {
                 <Button
                   onClick={handleSearch}
                   size="lg"
-                  className="shadow-primary/30 hover:shadow-primary/50 h-14 w-full shrink-0 rounded-xl text-base font-black shadow-lg transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-[1.5rem] sm:px-8 md:h-16 md:rounded-[1.8rem] md:px-10 md:text-lg"
+                  className="shadow-primary/30 hover:shadow-primary/50 h-14 w-full shrink-0 rounded-xl text-base font-black shadow-lg transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-3xl sm:px-8 md:h-16 md:rounded-[1.8rem] md:px-10 md:text-lg"
                 >
-                  {t('common.search')}
+                  {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5 md:h-6 md:w-6" />
                 </Button>
               </div>
@@ -131,7 +131,7 @@ export function Hero() {
             className="mt-8 flex flex-wrap items-center justify-center gap-2 px-2 md:mt-14 md:gap-3"
           >
             <span className="text-muted-foreground mb-2 w-full text-center text-[9px] font-black tracking-widest uppercase opacity-60 sm:mr-4 sm:mb-0 sm:w-auto md:text-[10px] md:tracking-[0.2em]">
-              {t('home.popularSearches')}
+              {t('popularSearches')}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {popularSearches.map((term) => (

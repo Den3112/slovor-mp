@@ -45,8 +45,17 @@ export const FlagCZ = ({ className }: { className?: string }) => (
     <path fill="#11457e" d="M0 0l360 240L0 480z" />
   </svg>
 )
+
+export const FlagRU = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 640 480" className={className}>
+    <path fill="#ffffff" d="M0 0h640v160H0z" />
+    <path fill="#0039a6" d="M0 160h640v160H0z" />
+    <path fill="#d52b1e" d="M0 320h640v160H0z" />
+  </svg>
+)
 export const SUPPORTED_LOCALES = [
   { code: 'en', name: 'English', flag: <FlagUS className="h-full w-full object-cover" /> },
   { code: 'sk', name: 'Slovenčina', flag: <FlagSK className="h-full w-full object-cover" /> },
   { code: 'cs', name: 'Čeština', flag: <FlagCZ className="h-full w-full object-cover" /> },
+  { code: 'ru', name: 'Русский', flag: <FlagRU className="h-full w-full object-cover" /> },
 ]

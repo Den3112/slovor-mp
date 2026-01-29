@@ -1,0 +1,19 @@
+{
+    "home": "Главная",
+    "categories": "Категории",
+    "allListings": "Все объявления",
+    "searchPlaceholder": "Что вы ищете?",
+    "postAd": "Подать объявление",
+    "login": "Вход",
+    "register": "Регистрация",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "dashboard": "Дашборд",
+    "profile": "Профиль",
+    "viewAll": "Посмотреть все",
+    "exploreMarketplace": "Исследуйте маркетплейс",
+    "joinCommunity": "Присоединяйтесь к сообществу",
+    "search": "Поиск",
+    "listings": "объявлений",
+    "blog": "Блог"
+}

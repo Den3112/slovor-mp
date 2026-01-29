@@ -22,7 +22,7 @@ export function HomeView({
   categoriesError,
   children,
 }: HomeViewProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['home', 'common'])
 
   return (
     <div className="flex flex-col overflow-x-hidden">
@@ -48,7 +48,7 @@ export function HomeView({
                 Trending Now
               </span>
               <h2 className="font-heading mb-4 text-4xl font-black tracking-tight italic md:text-5xl">
-                {t('home.featuredListings')}
+                {t('featuredListings')}
               </h2>
               <p className="text-muted-foreground text-lg font-medium">
                 Hand-picked selection of premium items recently published.

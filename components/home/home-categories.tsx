@@ -14,7 +14,7 @@ interface HomeCategoriesProps {
 }
 
 export function HomeCategories({ categories }: HomeCategoriesProps) {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation(['home', 'common'])
   const locale = i18n.language
 
   // Take top 8 main categories
@@ -29,20 +29,20 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
         <div className="mb-8 flex flex-col justify-between gap-4 md:mb-16 md:flex-row md:items-end md:gap-8 lg:mb-20">
           <div className="max-w-2xl">
             <span className="text-primary mb-3 block text-3xs font-black tracking-widest uppercase md:mb-4 md:text-2xs">
-              {t('common.exploreMarketplace')}
+              {t('common:exploreMarketplace')}
             </span>
             <h2 className="font-heading mb-4 text-3xl leading-none font-black tracking-tighter italic sm:text-4xl md:mb-6 md:text-5xl lg:text-7xl">
-              {t('home.categoriesTitle')}
+              {t('categoriesTitle')}
             </h2>
             <p className="text-muted-foreground max-w-md text-base font-medium opacity-70 md:max-w-lg md:text-xl">
-              {t('home.categories.subtitle')}
+              {t('categories.subtitle')}
             </p>
           </div>
           <Link
             href="/categories"
             className="group border-border/50 bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 text-xs font-black tracking-widest uppercase transition-all md:gap-3 md:px-8 md:py-4 md:text-sm"
           >
-            {t('common.viewAll')}
+            {t('common:viewAll')}
             <ArrowRight className="text-primary h-4 w-4 transition-transform group-hover:translate-x-1 md:h-5 md:w-5" />
           </Link>
         </div>
@@ -76,7 +76,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
                   {category.listing_count !== undefined && (
                     <div className="bg-muted/50 group-hover:bg-primary/5 mt-2 rounded-full px-2.5 py-1 transition-colors md:mt-3 md:px-3">
                       <p className="text-muted-foreground group-hover:text-primary text-3xs font-black tracking-widest uppercase md:text-2xs">
-                        {category.listing_count} {t('common.listings')}
+                        {category.listing_count} {t('common:listings')}
                       </p>
                     </div>
                   )}

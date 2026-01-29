@@ -12,11 +12,22 @@ import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/packages/i18n/client'
 
+import { usePathname, useRouter } from 'next/navigation'
+
 export function LanguageSelector() {
   const { i18n } = useTranslation('common')
   const locale = i18n.language
-  const setLocale = (l: string) => i18n.changeLanguage(l)
+  const router = useRouter()
+  const pathname = usePathname()
   const [showLangMenu, setShowLangMenu] = useState(false)
+
+  const setLocale = (newLocale: string) => {
+    if (!pathname) return
+    const segments = pathname.split('/')
+    segments[1] = newLocale
+    const newPath = segments.join('/')
+    router.push(newPath)
+  }
 
   return (
     <div className="relative">
@@ -51,7 +62,7 @@ export function LanguageSelector() {
             {SUPPORTED_LOCALES.map((lang) => (
               <button
                 key={lang.code}
-                onClick={() => setLocale(lang.code as 'sk' | 'en' | 'cs')}
+                onClick={() => setLocale(lang.code)}
                 className={cn(
                   'flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition-all',
                   locale === lang.code
@@ -77,15 +88,24 @@ export function LanguageSelector() {
   )
 }
 
-interface MobileLanguageSelectorProps {
-  locale: string
-  setLocale: (locale: 'sk' | 'en' | 'cs') => void
-}
+
 
 export function MobileLanguageSelector({
   locale,
-  setLocale,
-}: MobileLanguageSelectorProps) {
+}: {
+  locale: string
+}) {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const setLocale = (newLocale: string) => {
+    if (!pathname) return
+    const segments = pathname.split('/')
+    segments[1] = newLocale
+    const newPath = segments.join('/')
+    router.push(newPath)
+  }
+
   return (
     <div className="mt-8">
       <p className="text-muted-foreground mb-4 text-[10px] font-black tracking-[0.2em] uppercase">
@@ -95,7 +115,7 @@ export function MobileLanguageSelector({
         {SUPPORTED_LOCALES.map((lang) => (
           <button
             key={lang.code}
-            onClick={() => setLocale(lang.code as 'sk' | 'en' | 'cs')}
+            onClick={() => setLocale(lang.code)}
             className={cn(
               'flex flex-col items-center gap-2 rounded-2xl border py-4 font-bold transition-all',
               locale === lang.code

@@ -11,7 +11,7 @@ import {
 import { useTranslation as useI18nextTranslation } from 'react-i18next'
 import '@/packages/i18n/client' // Ensure i18next is initialized
 
-export type Locale = 'en' | 'sk' | 'cs'
+export type Locale = 'en' | 'sk' | 'cs' | 'ru'
 
 interface I18nContextValue {
   locale: Locale
@@ -26,6 +26,13 @@ const LOCALE_COOKIE_KEY = 'slovor-locale'
 
 export function I18nProvider({ children, lang }: { children: ReactNode; lang?: string }) {
   const { t, i18n } = useI18nextTranslation()
+
+  // Important: Sync language immediately for SSR and first client render
+  // This ensures the t() function inside the provider uses the correct locale
+  if (lang && i18n.language !== lang && ['en', 'sk', 'cs', 'ru'].includes(lang)) {
+    i18n.changeLanguage(lang)
+  }
+
   const initialLocale = (lang as Locale) || (i18n.language as Locale) || 'en'
   const [locale, setLocaleState] = useState<Locale>(initialLocale)
 
@@ -45,6 +52,7 @@ export function I18nProvider({ children, lang }: { children: ReactNode; lang?: s
         en: 'en_US',
         sk: 'sk_SK',
         cs: 'cs_CZ',
+        ru: 'ru_RU',
       }
       metaLang.setAttribute('content', localeMap[newLocale])
 
@@ -62,7 +70,7 @@ export function I18nProvider({ children, lang }: { children: ReactNode; lang?: s
 
   // Sync with URL lang prop
   useEffect(() => {
-    if (lang && ['en', 'sk', 'cs'].includes(lang)) {
+    if (lang && ['en', 'sk', 'cs', 'ru'].includes(lang)) {
       const newLocale = lang as Locale
       if (i18n.language !== newLocale) {
         i18n.changeLanguage(newLocale)
@@ -92,10 +100,17 @@ export function I18nProvider({ children, lang }: { children: ReactNode; lang?: s
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
-export function useTranslation() {
+export function useTranslation(ns?: string | string[]) {
   const context = useContext(I18nContext)
+  const { t, i18n } = useI18nextTranslation(ns)
+
   if (!context) {
     throw new Error('useTranslation must be used within I18nProvider')
   }
-  return context
+
+  return {
+    ...context,
+    t: (key: string, options?: any) => t(key, options) as string,
+    i18n,
+  }
 }
