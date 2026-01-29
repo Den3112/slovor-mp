@@ -9,6 +9,8 @@ import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
 
+import { useListingSearch } from '@/hooks/use-listing-search'
+
 interface CommandCenterProps {
     locale: string
     onClose?: () => void
@@ -17,34 +19,12 @@ interface CommandCenterProps {
 export function CommandCenter({ locale, onClose }: CommandCenterProps) {
     const { t } = useTranslation('common')
     const router = useRouter()
-    const [query, setQuery] = useState('')
-    const [results, setResults] = useState<any[]>([])
-    const [isSearching, setIsSearching] = useState(false)
-    const [debouncedQuery, setDebouncedQuery] = useState(query)
+
+    // Use shared search hook
+    const { query, setQuery, results, isSearching } = useListingSearch()
+
     const [isOpen, setIsOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
-
-    // Debounce query
-    useEffect(() => {
-        const timer = setTimeout(() => setDebouncedQuery(query), 300)
-        return () => clearTimeout(timer)
-    }, [query])
-
-    // Perform search
-    useEffect(() => {
-        if (debouncedQuery.length >= 2) {
-            setIsSearching(true)
-            import('@/lib/actions/search-listings').then(({ searchListings }) => {
-                searchListings(debouncedQuery).then(res => {
-                    if (res.data) setResults(res.data)
-                    setIsSearching(false)
-                })
-            })
-        } else {
-            setResults([])
-            setIsSearching(false)
-        }
-    }, [debouncedQuery])
 
     // Quick categories for the search overlay
     const quickCategories = NAV_LINKS.categories.slice(0, 4)
@@ -193,7 +173,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                                     <div className="relative h-8 w-8 overflow-hidden rounded-md bg-muted">
                                                         <Image
                                                             src={item.images[0]}
-                                                            alt={item.title}
+                                                            alt={item.title || 'Listing'}
                                                             fill
                                                             sizes="32px"
                                                             className="object-cover"

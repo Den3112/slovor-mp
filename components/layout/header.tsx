@@ -186,7 +186,6 @@ export function Header() {
       <MobileSearchOverlay
         isOpen={isSearchOverlayOpen}
         onClose={() => setIsSearchOverlayOpen(false)}
-        locale={locale}
       />
     </>
   )

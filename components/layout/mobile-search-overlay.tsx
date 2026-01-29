@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, X, TrendingUp, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
@@ -9,41 +9,19 @@ import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
 
+import { useListingSearch } from '@/hooks/use-listing-search'
+
 interface MobileSearchOverlayProps {
     isOpen: boolean
     onClose: () => void
-    locale: string
 }
 
-export function MobileSearchOverlay({ isOpen, onClose, locale }: MobileSearchOverlayProps) {
-    const { t } = useTranslation('common')
+export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProps) {
+    const { t, i18n } = useTranslation('common')
+    const locale = i18n.language
     const router = useRouter()
-    const [query, setQuery] = useState('')
-    const [results, setResults] = useState<any[]>([])
-    const [isSearching, setIsSearching] = useState(false)
-    const [debouncedQuery, setDebouncedQuery] = useState(query)
 
-    // Debounce query
-    useEffect(() => {
-        const timer = setTimeout(() => setDebouncedQuery(query), 300)
-        return () => clearTimeout(timer)
-    }, [query])
-
-    // Perform search
-    useEffect(() => {
-        if (debouncedQuery.length >= 2) {
-            setIsSearching(true)
-            import('@/lib/actions/search-listings').then(({ searchListings }) => {
-                searchListings(debouncedQuery).then(res => {
-                    if (res.data) setResults(res.data)
-                    setIsSearching(false)
-                })
-            })
-        } else {
-            setResults([])
-            setIsSearching(false)
-        }
-    }, [debouncedQuery])
+    const { query, setQuery, results, isSearching } = useListingSearch()
 
     const handleSearch = (e?: React.FormEvent) => {
         e?.preventDefault()
@@ -169,8 +147,10 @@ export function MobileSearchOverlay({ isOpen, onClose, locale }: MobileSearchOve
                                             <div
                                                 key={item.id}
                                                 onClick={() => {
-                                                    router.push(`/${locale}/listings/${item.id}`)
-                                                    onClose()
+                                                    if (item.id) {
+                                                        router.push(`/${locale}/listings/${item.id}`)
+                                                        onClose()
+                                                    }
                                                 }}
                                                 className="flex items-center justify-between border-b border-border/40 py-3 active:bg-muted/50 cursor-pointer"
                                             >
@@ -179,7 +159,7 @@ export function MobileSearchOverlay({ isOpen, onClose, locale }: MobileSearchOve
                                                         <div className="relative h-10 w-10 overflow-hidden rounded-md bg-muted">
                                                             <Image
                                                                 src={item.images[0]}
-                                                                alt={item.title}
+                                                                alt={item.title || 'Listing'}
                                                                 fill
                                                                 sizes="40px"
                                                                 className="object-cover"
