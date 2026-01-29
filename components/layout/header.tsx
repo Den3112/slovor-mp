@@ -5,31 +5,31 @@ import { useScrollPosition } from '@/lib/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Menu, Plus, Home, Grid3X3, Search } from 'lucide-react'
+import { Menu, Plus, Grid3X3, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-// Extracted components for code minimization (Rule #1)
+// New Components
 import { LanguageSelector } from './language-selector'
 import { UserMenu } from './user-menu'
 import { BottomNavBar } from './bottom-nav-bar'
 import { MobileDrawer } from './mobile-drawer'
-import { CategoriesDropdown } from './categories-dropdown'
+import { CommandCenter } from './command-center'
+import { LocationSwitcher } from './location-switcher'
+import { MegaMenu } from './mega-menu'
+import { MobileSearchOverlay } from './mobile-search-overlay'
 import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 
-// Logo component - reused in header and drawer
-function Logo({ className, locale }: { className?: string, locale?: string }) {
+// Logo component
+function Logo({ locale }: { locale?: string }) {
   const href = locale ? `/${locale}` : '/'
   return (
     <Link
       href={href}
-      className={cn(
-        'group relative z-50 flex items-center gap-2 md:gap-3',
-        className
-      )}
+      className="group relative z-50 flex items-center gap-2 md:gap-3"
       data-testid="header-logo"
     >
       <div className="relative h-9 w-9 md:h-11 md:w-11">
@@ -40,76 +40,9 @@ function Logo({ className, locale }: { className?: string, locale?: string }) {
       </div>
       <span className="font-heading text-foreground group-hover:text-primary flex items-baseline text-xl font-black tracking-tighter transition-colors md:text-3xl">
         Slovor
-        <span className="group-hover:animate-bounce-subtle text-primary">
-          .
-        </span>
+        <span className="group-hover:animate-bounce-subtle text-primary">.</span>
       </span>
     </Link>
-  )
-}
-
-// Desktop navigation pill
-interface DesktopNavProps {
-  navLinks: { href: string; label: string; icon: React.ComponentType }[]
-  pathname: string | null
-}
-
-function DesktopNav({ navLinks, pathname }: DesktopNavProps) {
-  return (
-    <div className="pointer-events-none hidden flex-1 items-center justify-center lg:flex">
-      <nav className="group border-border/40 bg-muted/20 hover:bg-muted/30 pointer-events-auto flex items-center gap-1 rounded-full border p-1.5 shadow-inner backdrop-blur-3xl transition-all">
-        {navLinks.map((link) => {
-          const isActive =
-            pathname === link.href ||
-            (link.href !== '/' && pathname?.startsWith(link.href))
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'relative flex h-10 items-center justify-center rounded-full px-4 text-center text-[10px] leading-none font-black tracking-widest uppercase transition-all xl:px-8',
-                isActive
-                  ? 'text-primary-foreground shadow-lg'
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="active-nav"
-                  className="bg-primary absolute inset-0 -z-10 rounded-full shadow-[0_8px_20px_rgba(139,92,246,0.35)]"
-                  transition={{
-                    type: 'spring',
-                    bounce: 0.15,
-                    duration: 0.6,
-                  }}
-                />
-              )}
-              {link.label}
-            </Link>
-          )
-        })}
-      </nav>
-    </div>
-  )
-}
-
-// Loading skeleton for SSR
-function HeaderSkeleton() {
-  return (
-    <header
-      className={cn(
-        'fixed top-0 z-50 w-full py-5 transition-all duration-500',
-        'safe-top bg-transparent'
-      )}
-    >
-      <Container>
-        <div className="flex h-14 items-center justify-between md:h-16">
-          <div className="flex flex-1 items-center">
-            <Logo />
-          </div>
-        </div>
-      </Container>
-    </header>
   )
 }
 
@@ -118,30 +51,22 @@ export function Header() {
   const { user, signOut } = useAuth()
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
+  const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
-  // Use extracted scroll hook (Rule #3: One responsibility)
   const { isScrolled } = useScrollPosition(10)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false)
+    setIsMegaMenuOpen(false)
   }, [pathname])
 
-  const navLinks = [
-    { href: `/${locale}`, label: t('home'), icon: Home },
-    { href: `/${locale}/listings`, label: t('search'), icon: Search },
-    { href: `/${locale}/categories`, label: t('categories'), icon: Grid3X3 },
-    { href: `/${locale}/blog`, label: t('blog'), icon: Grid3X3 },
-  ]
-
-  if (!mounted) {
-    return <HeaderSkeleton />
-  }
+  if (!mounted) return null
 
   return (
     <>
@@ -150,105 +75,119 @@ export function Header() {
           'fixed top-0 z-50 w-full transition-all duration-500',
           'safe-top',
           isScrolled
-            ? 'shadow-premium border-border bg-background/80 border-b py-2 backdrop-blur-2xl md:py-3'
-            : 'bg-transparent py-3 md:py-5'
+            ? 'border-border/40 bg-background/80 border-b py-2 backdrop-blur-xl'
+            : 'bg-transparent py-4'
         )}
       >
         <Container>
-          <div className="flex h-12 items-center justify-between md:h-16">
-            {/* Logo */}
-            <div className="flex flex-1 items-center">
+          <div className="flex h-14 items-center justify-between gap-4 md:h-16">
+            {/* 1. Logo & Business Trigger */}
+            <div className="flex shrink-0 items-center gap-6">
               <Logo locale={locale} />
+
+              <button
+                onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                className={cn(
+                  "hover:bg-muted group hidden items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition-all lg:flex",
+                  isMegaMenuOpen && "bg-primary text-primary-foreground hover:bg-primary/90"
+                )}
+              >
+                {isMegaMenuOpen ? <X className="h-4 w-4" /> : <Grid3X3 className="h-4 w-4" />}
+                <span>{t('nav.categories')}</span>
+              </button>
             </div>
 
-            {/* Desktop Navigation */}
-            <DesktopNav navLinks={navLinks} pathname={pathname} />
+            {/* 2. Command Center & Location (Desktop) */}
+            <div className="hidden flex-1 items-center justify-center gap-3 md:flex">
+              <CommandCenter locale={locale} />
+              <LocationSwitcher />
+            </div>
 
-            {/* Desktop Right Actions */}
-            <div className="text-foreground hidden flex-1 items-center justify-end gap-3 lg:flex xl:gap-6">
-              {/* Categories Dropdown */}
-              <CategoriesDropdown />
+            {/* 3. Actions / Profile */}
+            <div className="flex shrink-0 items-center gap-2 md:gap-4">
+              <div className="hidden items-center gap-3 lg:flex">
+                {user && <NotificationDropdown />}
+                <LanguageSelector />
+                <ThemeToggle />
 
-              {user && <NotificationDropdown />}
-              <LanguageSelector />
-              <ThemeToggle className="self-center" />
+                <div className="mx-1 h-6 w-px bg-border/40" />
 
-              {/* User Section */}
-              <div className="border-border/50 flex items-center gap-2 border-l pl-3 xl:gap-4 xl:pl-6">
                 {user ? (
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
                     href={`/${locale}/auth/login`}
-                    className="border-primary/20 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-primary/20 flex h-10 items-center justify-center rounded-full border px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 xl:px-7"
+                    className="text-muted-foreground hover:text-foreground text-sm font-bold transition-colors"
                   >
-                    {t('signIn')}
+                    {t('common.signIn')}
                   </Link>
                 )}
-
-                {/* POST BUTTON */}
-                <Link
-                  href={`/${locale}/post`}
-                  className="group bg-primary text-primary-foreground shadow-primary/20 hover:shadow-primary/30 flex h-10 items-center justify-center gap-1.5 rounded-full px-5 text-[10px] font-black tracking-widest whitespace-nowrap uppercase shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl active:scale-95 xl:px-7"
-                >
-                  <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
-                  <span className="hidden lg:inline">{t('postAd')}</span>
-                  <span className="lg:hidden">{t('postAd')}</span>
-                </Link>
               </div>
-            </div>
 
-            {/* Mobile Actions */}
-            <div className="flex items-center gap-3 lg:hidden">
-              {user && <NotificationDropdown />}
-              <ThemeToggle />
-
-              {user && (
-                <Link
-                  href={`/${locale}/profile/settings`}
-                  className="border-primary/20 bg-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black transition-transform active:scale-95"
+              {/* Mobile Menu Trigger & Theme Toggle */}
+              <div className="flex items-center gap-2 lg:hidden">
+                <ThemeToggle />
+                <button
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="bg-muted/50 hover:bg-muted text-foreground flex h-10 w-10 items-center justify-center rounded-full transition-colors"
+                  aria-label="Open menu"
                 >
-                  {user.email?.[0]?.toUpperCase()}
-                </Link>
-              )}
+                  <Menu className="h-5 w-5" />
+                </button>
+              </div>
 
-              <button
-                onClick={() => setMobileMenuOpen(true)}
-                className={cn(
-                  'border-border/40 bg-muted/30 text-foreground hover:bg-muted relative z-50 flex h-11 w-11 items-center justify-center rounded-xl border transition-colors',
-                  pathname?.startsWith('/profile') && 'hidden'
-                )}
-                aria-label="Open menu"
+              {/* Add Listing CTA */}
+              <Link
+                href={`/${locale}/post`}
+                className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-primary/25 group hidden items-center gap-2 rounded-full px-6 py-2.5 text-sm font-black shadow-lg transition-all hover:scale-105 active:scale-95 lg:flex"
               >
-                <Menu className="h-6 w-6" />
-              </button>
+                <Plus className="h-4 w-4 transition-transform group-hover:rotate-90" />
+                <span>{t('nav.postAd')}</span>
+              </Link>
             </div>
           </div>
         </Container>
+
+        {/* Mega Menu Overlay */}
+        <AnimatePresence>
+          {isMegaMenuOpen && (
+            <MegaMenu locale={locale} onClose={() => setIsMegaMenuOpen(false)} />
+          )}
+        </AnimatePresence>
       </header>
-      {/* Mobile Drawer */}
+
+      {/* Background Dim for Mega Menu */}
+      <AnimatePresence>
+        {isMegaMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMegaMenuOpen(false)}
+            className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
+          />
+        )}
+      </AnimatePresence>
+
       <MobileDrawer
         open={mobileMenuOpen}
         onOpenChange={setMobileMenuOpen}
-        navLinks={navLinks}
         pathname={pathname}
         user={user}
         signOut={signOut}
       />
 
-      {/* Mobile Bottom Navigation Bar */}
-      {!mobileMenuOpen && (
-        <BottomNavBar
-          navLinks={[
-            { href: `/${locale}`, label: t('home'), icon: Home },
-            { href: `/${locale}/listings`, label: t('allListings'), icon: Search },
-            { href: `/${locale}/categories`, label: t('categories'), icon: Grid3X3 },
-            { href: `/${locale}/blog`, label: t('blog'), icon: Grid3X3 },
-          ]}
-          pathname={pathname}
-          user={user}
-        />
-      )}
+      <BottomNavBar
+        pathname={pathname}
+        user={user}
+        onSearchClick={() => setIsSearchOverlayOpen(true)}
+      />
+
+      <MobileSearchOverlay
+        isOpen={isSearchOverlayOpen}
+        onClose={() => setIsSearchOverlayOpen(false)}
+        locale={locale}
+      />
     </>
   )
 }

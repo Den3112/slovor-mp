@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
-import { DM_Sans, Outfit } from 'next/font/google'
+// import { DM_Sans, Outfit } from 'next/font/google'
 import { Suspense } from 'react'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
+import { StructuredData } from '@/components/layout/structured-data'
 import { Providers } from '../providers'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import '../globals.css'
 import { cn } from '@/lib/utils'
 
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
+// const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
+// const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
 
 export const metadata: Metadata = {
   title: {
@@ -56,7 +57,7 @@ export default async function RootLayout({
       lang={lang}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${dmSans.variable} ${outfit.variable}`}
+      className="" // Fonts loaded manually in globals.css
     >
       <head>
         <meta charSet="utf-8" />
@@ -78,6 +79,7 @@ export default async function RootLayout({
         )}
       >
         <Providers lang={lang}>
+          <StructuredData locale={lang} />
           <div className="relative flex min-h-screen flex-col">
             <Suspense
               fallback={

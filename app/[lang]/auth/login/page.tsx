@@ -100,12 +100,17 @@ function LoginContent() {
 
   return (
     <div className="glass-card animate-in fade-in zoom-in-95 relative z-10 w-full max-w-md rounded-5xl p-6 duration-500 md:p-10">
-      <Link
-        href="/"
-        className="mb-8 inline-flex items-center rounded-full border border-indigo-500/10 bg-indigo-500/5 px-5 py-2.5 text-sm font-bold text-indigo-600 transition-all hover:scale-105 hover:bg-indigo-500/10 active:scale-95 dark:text-indigo-400"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" /> {t('auth:backToHome')}
-      </Link>
+      <div className="absolute top-6 left-6 md:top-10 md:left-10">
+        <Link
+          href="/"
+          className="group text-muted-foreground hover:text-primary flex items-center gap-2 text-sm font-bold transition-colors"
+        >
+          <div className="border-border/40 bg-background/50 group-hover:bg-primary/10 flex h-8 w-8 items-center justify-center rounded-full border transition-all group-hover:scale-110">
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+          </div>
+          <span className="hidden sm:inline">{t('auth:backToHome')}</span>
+        </Link>
+      </div>
 
       <div className="mb-10 text-center">
         <div className="text-primary mb-6 inline-flex h-16 w-16 items-center justify-center rounded-3xl border border-white/20 bg-linear-to-br from-indigo-500/20 to-indigo-500/5 shadow-inner md:h-20 md:w-20">

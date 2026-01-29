@@ -10,7 +10,7 @@ function getLocale(request: NextRequest): string {
     return match(languagesList, languages, fallbackLng)
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const pathname = request.nextUrl.pathname
 
     // 1. Check if pathname is missing locale
