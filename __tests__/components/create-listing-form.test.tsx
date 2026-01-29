@@ -10,7 +10,9 @@ vi.mock('@/components/providers/auth-provider', () => ({
   }),
 }))
 
-const mockUpdateField = vi.fn()
+const { mockUpdateField } = vi.hoisted(() => ({
+  mockUpdateField: vi.fn(),
+}))
 
 vi.mock('@/lib/hooks/use-create-listing', () => ({
   useCreateListing: () => ({

@@ -2,6 +2,19 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { AuthSocial } from '@/app/[lang]/auth/login/components/auth-social'
 
+// Mock i18n
+vi.mock('@/lib/i18n', () => ({
+  useTranslation: () => ({
+    t: (key: string) => {
+      const translations: any = {
+        'googleSignIn': 'Continue with Google',
+        'orContinueWith': 'Or continue with email',
+      }
+      return translations[key] || key
+    },
+  }),
+}))
+
 describe('AuthSocial', () => {
   const defaultProps = {
     onGoogleLogin: vi.fn(),
@@ -27,14 +40,14 @@ describe('AuthSocial', () => {
 
   it('disables button and shows loader when googleLoading is true', () => {
     render(<AuthSocial {...defaultProps} googleLoading={true} />)
-    const button = screen.getByRole('button')
+    const button = screen.getByRole('button', { name: /Continue with Google/i })
     expect(button).toBeDisabled()
     // Check for loader (using class or searching for svg if needed, but disabled state is a good indicator)
   })
 
   it('disables button when general loading is true', () => {
     render(<AuthSocial {...defaultProps} loading={true} />)
-    const button = screen.getByRole('button')
+    const button = screen.getByRole('button', { name: /Continue with Google/i })
     expect(button).toBeDisabled()
   })
 })

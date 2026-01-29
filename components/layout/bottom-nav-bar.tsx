@@ -20,7 +20,7 @@ interface BottomNavBarProps {
 }
 
 export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
-  const { t } = useTranslation('common')
+  const { t, locale } = useTranslation('common')
   const unreadCount = useUnreadMessages()
 
   // Split links: First 2 go left, rest go right (before the profile)
@@ -29,7 +29,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
   const rightLinks = navLinks.slice(2)
 
   const isActive = (href: string) =>
-    pathname === href || (href !== '/' && pathname?.startsWith(href))
+    pathname === href || (href !== `/${locale}` && pathname?.startsWith(href))
 
   // Don't render the public bottom nav on dashboard pages (Dashboard has its own nav)
   if (pathname?.startsWith('/profile')) {
@@ -68,7 +68,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
 
         {/* CORE ACTION: POST AD (+) */}
         <div className="relative -top-6 flex min-w-18 justify-center">
-          <Link href="/post">
+          <Link href={`/${locale}/post`}>
             <div className="bg-primary shadow-primary/40 border-background flex h-14 w-14 items-center justify-center rounded-full border-[3px] text-white shadow-lg transition-transform active:scale-95">
               <Plus className="h-7 w-7 stroke-3" />
             </div>
@@ -102,7 +102,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
         {/* Profile / Login */}
         {user ? (
           <Link
-            href="/profile"
+            href={`/${locale}/profile`}
             className={cn(
               'flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95',
               pathname?.startsWith('/profile')
@@ -129,7 +129,7 @@ export function BottomNavBar({ navLinks, pathname, user }: BottomNavBarProps) {
           </Link>
         ) : (
           <Link
-            href="/login"
+            href={`/${locale}/auth/login`}
             className="text-muted-foreground hover:text-foreground flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95"
           >
             <User className="h-6 w-6" />

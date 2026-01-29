@@ -13,13 +13,14 @@ interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
-  const { t } = useTranslation()
+  const { t, locale } = useTranslation()
+  const homeHref = `/${locale}`
 
   return (
     <nav className="no-scrollbar mb-8 w-full overflow-x-auto pb-1">
       <div className="border-border/50 bg-card/80 inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm whitespace-nowrap shadow-sm backdrop-blur-sm sm:gap-3 sm:px-5">
         <Link
-          href="/"
+          href={homeHref}
           className="text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 transition-colors"
         >
           <Home className="h-4 w-4" />

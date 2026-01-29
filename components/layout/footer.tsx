@@ -56,30 +56,30 @@ export function Footer() {
       title: t('footer.popular'),
       links: topCategories.map((cat) => ({
         label: getLocalizedCategoryName(cat, locale, t),
-        href: `/categories/${cat.slug}`,
+        href: `/${locale}/categories/${cat.slug}`,
       })),
     },
     {
       title: t('marketTrends') || 'News & Tips',
       links: latestPosts.length > 0
-        ? latestPosts.map(post => ({ label: post.title, href: `/blog/${post.slug}` }))
+        ? latestPosts.map(post => ({ label: post.title, href: `/${locale}/blog/${post.slug}` }))
         : [
-          { label: 'Selling Tips', href: '/blog' },
-          { label: 'Safety Guide', href: '/blog' },
-          { label: 'Market Trends', href: '/blog' },
+          { label: 'Selling Tips', href: `/${locale}/blog` },
+          { label: 'Safety Guide', href: `/${locale}/blog` },
+          { label: 'Market Trends', href: `/${locale}/blog` },
         ],
     },
     {
       title: t('footer.info'),
       links: [
-        { label: t('footer.about'), href: '/about' },
+        { label: t('footer.about'), href: `/${locale}/about` },
         ...dynamicPages.filter(p => !['about', 'terms', 'privacy', 'faq'].includes(p.slug)).map(p => ({
           label: p.title,
-          href: `/${p.slug}`
+          href: `/${locale}/${p.slug}`
         })),
-        { label: t('footer.faq'), href: '/faq' },
-        { label: t('footer.terms'), href: '/terms' },
-        { label: t('footer.privacy'), href: '/privacy' },
+        { label: t('footer.faq'), href: `/${locale}/faq` },
+        { label: t('footer.terms'), href: `/${locale}/terms` },
+        { label: t('footer.privacy'), href: `/${locale}/privacy` },
       ],
     },
   ]
@@ -99,7 +99,7 @@ export function Footer() {
           {/* Brand Info */}
           <div className="space-y-6 md:space-y-10 lg:col-span-4">
             <Link
-              href="/"
+              href={`/${locale}`}
               className="group inline-flex items-center gap-3 md:gap-4"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400 text-xl font-black text-white shadow-lg shadow-indigo-500/20 transition-transform duration-500 group-hover:rotate-6 md:h-12 md:w-12 md:rounded-2xl md:text-2xl">
@@ -269,13 +269,13 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <Link
-                href="/terms"
+                href={`/${locale}/terms`}
                 className="text-[10px] font-black tracking-wider text-zinc-600 uppercase transition-colors hover:text-white"
               >
                 {t('footer.transparency') || 'Transparency'}
               </Link>
               <Link
-                href="/privacy"
+                href={`/${locale}/privacy`}
                 className="text-[10px] font-black tracking-wider text-zinc-600 uppercase transition-colors hover:text-white"
               >
                 {t('footer.privacyPolicy') || 'Privacy Policy'}
@@ -303,13 +303,13 @@ export function Footer() {
                   : '...'}
               </span>
               <Link
-                href="/terms"
+                href={`/${locale}/terms`}
                 className="flex h-7 items-center text-[10px] font-black tracking-widest text-zinc-600 uppercase transition-colors hover:text-white"
               >
                 {t('footer.transparency') || 'Transparency'}
               </Link>
               <Link
-                href="/privacy"
+                href={`/${locale}/privacy`}
                 className="flex h-7 items-center text-[10px] font-black tracking-widest text-zinc-600 uppercase transition-colors hover:text-white"
               >
                 {t('footer.privacyPolicy') || 'Privacy Policy'}

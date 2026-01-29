@@ -2,6 +2,25 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { AuthForm } from '@/app/[lang]/auth/login/components/auth-form'
 
+// Mock i18n
+vi.mock('@/lib/i18n', () => ({
+  useTranslation: () => ({
+    t: (key: string) => {
+      const translations: any = {
+        'email': 'Email',
+        'password': 'Password',
+        'signIn': 'Sign In',
+        'signUp': 'Sign Up',
+        'dontHaveAccount': "Don't have an account?",
+        'alreadyHaveAccount': 'Already have an account?',
+        'showPassword': 'Show Password',
+        'hidePassword': 'Hide Password',
+      }
+      return translations[key] || key
+    },
+  }),
+}))
+
 describe('AuthForm', () => {
   const defaultProps = {
     onSubmit: vi.fn((e) => e.preventDefault()),
@@ -24,7 +43,7 @@ describe('AuthForm', () => {
   it('renders register form when isRegistering is true', () => {
     render(<AuthForm {...defaultProps} isRegistering={true} />)
     expect(
-      screen.getByRole('button', { name: /Create Account/i })
+      screen.getByRole('button', { name: /Sign Up/i })
     ).toBeInTheDocument()
     expect(screen.getByText(/Already have an account\?/i)).toBeInTheDocument()
   })
@@ -33,7 +52,7 @@ describe('AuthForm', () => {
     const setShowPassword = vi.fn()
     render(<AuthForm {...defaultProps} setShowPassword={setShowPassword} />)
 
-    const toggleButton = screen.getByRole('button', { name: '' }) // The icon button has no text
+    const toggleButton = screen.getByRole('button', { name: /Show Password/i })
     fireEvent.click(toggleButton)
     expect(setShowPassword).toHaveBeenCalledWith(true)
   })
