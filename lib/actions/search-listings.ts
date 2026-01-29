@@ -16,7 +16,7 @@ export async function searchListings(
     try {
         const { data, error } = await supabase
             .from('listings')
-            .select('id, title, price, currency, images, category')
+            .select('id, title, price, currency, images') // Removed category as it's not strictly needed for basic search results
             .eq('status', 'active')
             .ilike('title', `%${query}%`)
             .limit(limit)
@@ -26,16 +26,13 @@ export async function searchListings(
             return { data: null, error: 'Failed to search listings' }
         }
 
-        // Map database result to ensure partial Listing compatibility if needed
-        // In this case, standard select returns what we need
-        const listings: Partial<Listing>[] = data.map((item: any) => ({
+        // Map database result to ensure partial Listing compatibility
+        const listings: Partial<Listing>[] = data.map((item) => ({
             id: item.id,
             title: item.title,
             price: item.price,
             currency: item.currency,
-            images: item.images,
-            // @ts-ignore - Supabase join handling might be needed depending on detailed query, but simple select is fine for basic view
-            category: item.category
+            images: item.images
         }))
 
         return { data: listings, error: null }
