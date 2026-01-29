@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Search, Clock, TrendingUp, X, Car, Home, Smartphone, Briefcase, Zap } from 'lucide-react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
@@ -17,8 +18,33 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
     const { t } = useTranslation('common')
     const router = useRouter()
     const [query, setQuery] = useState('')
+    const [results, setResults] = useState<any[]>([])
+    const [isSearching, setIsSearching] = useState(false)
+    const [debouncedQuery, setDebouncedQuery] = useState(query)
     const [isOpen, setIsOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
+
+    // Debounce query
+    useEffect(() => {
+        const timer = setTimeout(() => setDebouncedQuery(query), 300)
+        return () => clearTimeout(timer)
+    }, [query])
+
+    // Perform search
+    useEffect(() => {
+        if (debouncedQuery.length >= 2) {
+            setIsSearching(true)
+            import('@/lib/actions/search-listings').then(({ searchListings }) => {
+                searchListings(debouncedQuery).then(res => {
+                    if (res.data) setResults(res.data)
+                    setIsSearching(false)
+                })
+            })
+        } else {
+            setResults([])
+            setIsSearching(false)
+        }
+    }, [debouncedQuery])
 
     // Quick categories for the search overlay
     const quickCategories = NAV_LINKS.categories.slice(0, 4)
@@ -140,26 +166,83 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                 </div>
                             </div>
 
-                            {/* Quick Links / Suggestions */}
+                            {/* Search Results or Quick/Mock Suggestions */}
                             <div className="space-y-1">
-                                <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
-                                    {t('common.quickSuggestions')}
-                                </div>
-                                {[
-                                    { label: "iPhone 15 Pro Max", icon: Smartphone },
-                                    { label: "BMW M5 2023", icon: Car },
-                                    { label: "Apartment in Bratislava", icon: Home },
-                                    { label: "Remote React Developer", icon: Briefcase },
-                                ].map((item, idx) => (
-                                    <button
-                                        key={idx}
-                                        className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
-                                    >
-                                        <Clock className="text-muted-foreground group-hover:text-primary h-4 w-4" />
-                                        <span className="text-sm font-medium">{item.label}</span>
-                                        <Zap className="text-primary ml-auto h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    </button>
-                                ))}
+                                {isSearching ? (
+                                    <div className="py-8 text-center">
+                                        <div className="mx-auto h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                        <p className="mt-2 text-xs text-muted-foreground">{t('common.loading')}</p>
+                                    </div>
+                                ) : query.length >= 2 ? (
+                                    // Real results
+                                    <>
+                                        <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                            {t('common.searchResultsFor')} &quot;{query}&quot;
+                                        </div>
+                                        {results.length > 0 ? results.map((item) => (
+                                            <button
+                                                key={item.id}
+                                                onClick={() => {
+                                                    router.push(`/${locale}/listings/${item.id}`)
+                                                    setIsOpen(false)
+                                                    onClose?.()
+                                                }}
+                                                className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors text-left"
+                                            >
+                                                {item.images?.[0] ? (
+                                                    <div className="relative h-8 w-8 overflow-hidden rounded-md bg-muted">
+                                                        <Image
+                                                            src={item.images[0]}
+                                                            alt={item.title}
+                                                            fill
+                                                            sizes="32px"
+                                                            className="object-cover"
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
+                                                        <Search className="h-4 w-4 text-primary" />
+                                                    </div>
+                                                )}
+                                                <div>
+                                                    <span className="block text-sm font-medium line-clamp-1">{item.title}</span>
+                                                    <span className="block text-xs text-muted-foreground font-bold text-primary">{item.price} {item.currency}</span>
+                                                </div>
+                                                <Zap className="text-primary ml-auto h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            </button>
+                                        )) : (
+                                            <div className="py-4 text-center text-sm text-muted-foreground">
+                                                {t('common.noResults')}
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    // Default suggestions
+                                    <>
+                                        <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                            {t('common.quickSuggestions')}
+                                        </div>
+                                        {[
+                                            { label: "iPhone 15 Pro Max", icon: Smartphone },
+                                            { label: "BMW M5 2023", icon: Car },
+                                            { label: "Apartment in Bratislava", icon: Home },
+                                            { label: "Remote React Developer", icon: Briefcase },
+                                        ].map((item, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => {
+                                                    setQuery(item.label)
+                                                    // Trigger search effect automatically via state change
+                                                }}
+                                                className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
+                                            >
+                                                <Clock className="text-muted-foreground group-hover:text-primary h-4 w-4" />
+                                                <span className="text-sm font-medium">{item.label}</span>
+                                                <Zap className="text-primary ml-auto h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            </button>
+                                        ))}
+                                    </>
+                                )}
                             </div>
                         </div>
 
