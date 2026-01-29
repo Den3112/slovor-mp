@@ -8,6 +8,51 @@
         "profile": "Профиль",
         "postAd": "Подать объявление"
     },
+    "dashboard": {
+        "welcomeBack": "С возвращением",
+        "active": "Активные объявления",
+        "views": "Всего просмотров",
+        "favorites": "Избранное",
+        "performance": "Эффективность",
+        "viewsOverTime": "Динамика просмотров",
+        "pastDays": "Последние 7 дней",
+        "growth": "Рост",
+        "myListings": "Мои объявления",
+        "recentActivity": "Недавняя активность",
+        "noListingsYet": "Пока нет объявлений",
+        "startSelling": "Начните продавать свои товары сегодня и охватите тысячи покупателей.",
+        "activityFeed": "Лента активности",
+        "new": "Новое",
+        "inactive": "Неактивно",
+        "orders": "Заказы",
+        "messages": "Сообщения",
+        "reviews": "Отзывы",
+        "savedSearches": "Сохраненные поиски"
+    },
+    "profile": {
+        "overview": "Обзор",
+        "commerce": "Торговля",
+        "myListings": "Мои объявления",
+        "orders": "Заказы",
+        "wallet": "Кошелек",
+        "shopping": "Покупки",
+        "purchases": "Мои покупки",
+        "favorites": "Избранное",
+        "savedSearches": "Сохраненные поиски",
+        "communication": "Общение",
+        "inbox": "Входящие",
+        "reviews": "Отзывы",
+        "account": "Аккаунт",
+        "publicProfile": "Публичный профиль",
+        "verification": "Верификация",
+        "settings": "Настройки"
+    },
+    "createListing": {
+        "publish": "Опубликовать объявление"
+    },
+    "auth": {
+        "signOut": "Выйти"
+    },
     "cat": {
         "transport": "Транспорт",
         "realEstate": "Недвижимость",
