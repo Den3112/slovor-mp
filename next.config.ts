@@ -55,11 +55,11 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:lang(en|sk|cs)/login',
+        source: '/:lang(en|sk|cs|ru)/login',
         destination: '/:lang/auth/login',
       },
       {
-        source: '/:lang(en|sk|cs)/register',
+        source: '/:lang(en|sk|cs|ru)/register',
         destination: '/:lang/auth/register',
       },
       {

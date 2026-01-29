@@ -125,6 +125,14 @@ export function LocaleDetector() {
       confirm: 'Continue',
       selectLanguage: 'Or select language:',
     },
+    ru: {
+      title: 'Добро пожаловать в Slovor Marketplace! 👋',
+      subtitle: 'Мы определили ваш язык',
+      description:
+        'На основе вашего браузера и местоположения мы рекомендуем этот язык. Вы можете выбрать другой.',
+      confirm: 'Продолжить',
+      selectLanguage: 'Или выберите язык:',
+    },
   }
 
   const t = translations[selectedLocale]
@@ -153,8 +161,8 @@ export function LocaleDetector() {
                 key={option.code}
                 onClick={() => setSelectedLocale(option.code)}
                 className={`flex items-center gap-3 rounded-xl border-2 p-4 transition-all ${selectedLocale === option.code
-                    ? 'border-primary bg-primary/10'
-                    : 'border-border hover:border-border hover:bg-accent'
+                  ? 'border-primary bg-primary/10'
+                  : 'border-border hover:border-border hover:bg-accent'
                   }`}
               >
                 <span className="text-3xl">{option.flag}</span>

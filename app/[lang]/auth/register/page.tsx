@@ -1,14 +1,16 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function RegisterRedirect() {
   const router = useRouter()
+  const params = useParams()
+  const lang = params.lang as string
 
   useEffect(() => {
-    router.replace('/login?mode=register')
-  }, [router])
+    router.replace(`/${lang}/login?mode=register`)
+  }, [router, lang])
 
   return (
     <div className="bg-background flex min-h-screen items-center justify-center">

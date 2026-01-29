@@ -192,7 +192,7 @@ export function Header() {
                 >
                   <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   <span className="hidden lg:inline">{t('postAd')}</span>
-                  <span className="lg:hidden">Post</span>
+                  <span className="lg:hidden">{t('postAd')}</span>
                 </Link>
               </div>
             </div>

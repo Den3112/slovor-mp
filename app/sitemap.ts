@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://slovor.sk'
     const supabase = createStaticClient()
 
-    const languages = ['en', 'sk', 'cs']
+    const languages = ['en', 'sk', 'cs', 'ru']
 
     // Static routes for each language
     const routes = languages.flatMap(lang => [

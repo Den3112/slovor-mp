@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 
 interface AuthSocialProps {
   onGoogleLogin: () => void
@@ -14,6 +15,7 @@ export function AuthSocial({
   googleLoading,
   loading,
 }: AuthSocialProps) {
+  const { t } = useTranslation('auth')
   return (
     <div className="mb-8 space-y-4">
       <Button
@@ -48,7 +50,7 @@ export function AuthSocial({
             />
           </svg>
         )}
-        Continue with Google
+        {t('googleSignIn')}
       </Button>
 
       <div className="relative py-1 md:py-2">
@@ -57,7 +59,7 @@ export function AuthSocial({
         </div>
         <div className="relative flex justify-center text-[10px] tracking-widest uppercase">
           <span className="bg-background/80 text-muted-foreground px-2 backdrop-blur">
-            Or continue with email
+            {t('orContinueWith')}
           </span>
         </div>
       </div>

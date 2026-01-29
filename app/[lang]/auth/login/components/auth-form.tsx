@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Loader2, Eye, EyeOff } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 
 interface AuthFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
@@ -22,12 +23,13 @@ export function AuthForm({
   setShowPassword,
   setIsRegistering,
 }: AuthFormProps) {
+  const { t } = useTranslation('auth')
   return (
     <>
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-3">
           <label className="ml-1 text-xs font-black tracking-widest text-indigo-500/80 uppercase">
-            Email Address
+            {t('email')}
           </label>
           <input
             name="email"
@@ -41,7 +43,7 @@ export function AuthForm({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <label className="ml-1 text-xs font-black tracking-widest text-indigo-500/80 uppercase">
-              Password
+              {t('password')}
             </label>
           </div>
           <div className="relative">
@@ -56,6 +58,7 @@ export function AuthForm({
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? t('hidePassword') : t('showPassword')}
               className="text-muted-foreground/40 absolute top-1/2 right-5 -translate-y-1/2 p-2 transition-colors hover:text-indigo-500"
             >
               {showPassword ? (
@@ -75,9 +78,9 @@ export function AuthForm({
           {loading ? (
             <Loader2 className="h-6 w-6 animate-spin" />
           ) : isRegistering ? (
-            'Create Account'
+            t('signUp')
           ) : (
-            'Sign In'
+            t('signIn')
           )}
         </Button>
       </form>
@@ -85,14 +88,14 @@ export function AuthForm({
       <div className="mt-8 text-center text-sm">
         <span className="text-muted-foreground">
           {isRegistering
-            ? 'Already have an account?'
-            : "Don't have an account?"}
+            ? t('alreadyHaveAccount')
+            : t('dontHaveAccount')}
         </span>{' '}
         <button
           onClick={() => setIsRegistering(!isRegistering)}
           className="text-primary font-bold decoration-2 underline-offset-4 hover:underline"
         >
-          {isRegistering ? 'Sign In' : 'Sign Up'}
+          {isRegistering ? t('signIn') : t('signUp')}
         </button>
       </div>
     </>
