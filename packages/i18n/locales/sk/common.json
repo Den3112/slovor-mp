@@ -56,5 +56,17 @@
   "allLoaded": "Všetky inzeráty načítané",
   "explore": "Prieskum",
   "blog": "Blog",
-  "messages": "Správy"
+  "messages": "Správy",
+  "cat": {
+    "auto": "Auto-moto",
+    "realEstate": "Nehnuteľnosti",
+    "jobs": "Práca",
+    "electronics": "Elektronika"
+  },
+  "pricing": "Cenník",
+  "support": "Podpora",
+  "account": "Účet",
+  "guest": "Hosť",
+  "help": "Pomoc",
+  "legal": "Právne informácie"
 }

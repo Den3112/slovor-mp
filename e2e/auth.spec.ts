@@ -1,54 +1,62 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Auth Flow', () => {
-  // Генерация случайных учетных данных для каждого прогона
-  const randomId = Math.random().toString(36).substring(7)
-  const email = `test.${randomId}@example.com`
-  const password = 'Password123!'
-
-  test('Registration and Login flow', async ({ page }) => {
-    // 1. Register
-    await page.goto('/register')
-    await expect(page).toHaveURL(/\/register|\/login\?mode=register/) // Обработка возможного редиректа или query param
-
-    // Заполняем форму регистрации
-    // Предполагаем стандартные поля, если они есть. В functionality.spec.ts видели, что register редиректит на login с mode=register
-    // Проверим, есть ли форма регистрации на /login?mode=register
-    // Если страница логина меняется динамически:
-
-    // Заполняем Email
-    await page.fill('form input[type="email"]', email)
-    // Заполняем Password
-    await page.fill('form input[type="password"]', password)
-
-    // Если есть кнопка "Sign Up" или "Registrovať"
-    const submitBtn = page.locator('button[type="submit"]')
-    await expect(submitBtn).toBeVisible()
-    await submitBtn.click()
-
-    // Ожидаем, что нас перекинет на главную или в профиль, либо покажет сообщение (зависит от настроек Supabase - подтверждение почты)
-    // В локальной разработке часто email confirm отключен.
-    // Если перебросило на /, значит вошли.
-
-    // ПРИМЕЧАНИЕ: Если требуется подтверждение почты, этот тест упадет или остановится.
-    // В таком случае, мы просто проверим валидацию формы.
+test.describe('Authentication Flow & UI', () => {
+  test.beforeEach(async ({ page }) => {
+    // Start at English login page
+    await page.goto('/en/auth/login')
   })
 
-  test('Protected routes redirect to login', async ({ page }) => {
+  test('Login page renders correctly with new UI fixes', async ({ page }) => {
+    // Check Title
+    await expect(page.locator('h1')).toContainText(/Welcome Back|Vitajte späť|С возвращением/i)
+
+    // Check Subtitle (should NOT contain "premium")
+    const subtitle = page.locator('p.text-muted-foreground')
+    await expect(subtitle).not.toContainText(/premium|prémiov/i)
+
+    // Check Header: Sign In button should be hidden
+    const headerSignIn = page.locator('header').getByRole('link', { name: /Sign In|Prihlásiť/i })
+    await expect(headerSignIn).not.toBeVisible()
+
+    // Check Forgot Password link
+    const forgotPassword = page.getByRole('button', { name: /Forgot password|Zabudnuté heslo|Забыли пароль/i })
+    await expect(forgotPassword).toBeVisible()
+
+    // Check labels readability (should be visible)
+    await expect(page.locator('label', { hasText: /Email|E-mail/i })).toBeVisible()
+    await expect(page.locator('label', { hasText: /Password|Heslo|Пароль/i })).toBeVisible()
+  })
+
+  test('Redirects work correctly', async ({ page }) => {
+    // Root should redirect to localized home
+    await page.goto('/')
+    await expect(page.url()).toMatch(/\/en|\/sk|\/cs|\/ru/)
+
+    // Protected route redirect
     await page.goto('/profile')
-    await expect(page).toHaveURL(/\/login/)
+    await expect(page.url()).toContain('/auth/login')
   })
 
-  test('Login attempt with invalid credentials shows error', async ({
-    page,
-  }) => {
-    await page.goto('/login')
-    await page.fill('form input[type="email"]', 'invalid@user.com')
-    await page.fill('form input[type="password"]', 'wrongpass')
-    await page.click('form button[type="submit"]')
+  test('Invalid login shows error', async ({ page }) => {
+    await page.fill('input[name="email"]', 'wrong@example.com')
+    await page.fill('input[name="password"]', 'wrongpassword')
+    await page.click('button[type="submit"]')
 
-    // Проверяем появление сообщения об ошибке
-    const errorMsg = page.locator('text=/Invalid|Error|Chyba|Nesprávne/i')
-    await expect(errorMsg).toBeVisible({ timeout: 10000 })
+    // Error message should appear (handled by Supabase or our error state)
+    const errorContainer = page.locator('.shake, [role="alert"], text=/Invalid|Error|Chyba|Nesprávne/i').first()
+    await expect(errorContainer).toBeVisible({ timeout: 10000 })
+  })
+
+  test('Toggle between Login and Register', async ({ page }) => {
+    // Click Sign Up link
+    await page.getByRole('button', { name: /Sign Up|Vytvoriť účet|Создать аккаунт/i }).click()
+
+    // URL may change if we use state-based toggle, or stay same
+    // But text should change
+    await expect(page.locator('h1')).toContainText(/Join Slovor|Pridať sa/i)
+
+    // Check that "Forgot password" is HIDDEN in register mode
+    const forgotPassword = page.getByRole('button', { name: /Forgot password|Zabudnuté heslo|Забыли пароль/i })
+    await expect(forgotPassword).not.toBeVisible()
   })
 })

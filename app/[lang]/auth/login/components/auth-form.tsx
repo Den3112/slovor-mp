@@ -28,7 +28,7 @@ export function AuthForm({
     <>
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-3">
-          <label className="ml-1 text-xs font-black tracking-widest text-indigo-500/80 uppercase">
+          <label className="ml-1 text-[11px] font-black tracking-[0.2em] text-indigo-500/80 uppercase">
             {t('email')}
           </label>
           <input
@@ -42,9 +42,17 @@ export function AuthForm({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="ml-1 text-xs font-black tracking-widest text-indigo-500/80 uppercase">
+            <label className="ml-1 text-[11px] font-black tracking-[0.2em] text-indigo-500/80 uppercase">
               {t('password')}
             </label>
+            {!isRegistering && (
+              <button
+                type="button"
+                className="text-primary text-[11px] font-bold tracking-tight hover:underline focus:outline-none"
+              >
+                {t('forgotPassword')}
+              </button>
+            )}
           </div>
           <div className="relative">
             <input
