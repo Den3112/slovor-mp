@@ -21,7 +21,6 @@ vi.mock('@/lib/i18n', () => ({
 describe('StepImages', () => {
   const defaultProps = {
     formData: { images: [] } as any,
-    updateField: vi.fn(),
     isUploading: false,
     uploadProgress: null,
     onFilesSelected: vi.fn(),
