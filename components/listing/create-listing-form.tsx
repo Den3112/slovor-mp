@@ -179,7 +179,6 @@ function CreateListingFormContent() {
               {step === 3 && (
                 <StepImages
                   formData={formData}
-                  updateField={updateField}
                   isUploading={isUploading}
                   uploadProgress={uploadProgress}
                   onFilesSelected={handleFilesSelected}

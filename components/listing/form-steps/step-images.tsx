@@ -11,10 +11,6 @@ import { motion, AnimatePresence, Reorder } from 'framer-motion'
 
 interface StepImagesProps {
   formData: ListingFormData
-  updateField: <K extends keyof ListingFormData>(
-    field: K,
-    value: ListingFormData[K]
-  ) => void
   isUploading: boolean
   uploadProgress: { current: number; total: number; fileName?: string } | null
   onFilesSelected: (files: FileList | null) => void
