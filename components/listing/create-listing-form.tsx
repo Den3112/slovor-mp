@@ -17,9 +17,14 @@ import { StepDetails } from './form-steps/step-details'
 import { StepImages } from './form-steps/step-images'
 import { useCreateListing } from '@/lib/hooks/use-create-listing'
 import { ListingPreview } from './listing-preview'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/components/providers/auth-provider'
 
 function CreateListingFormContent() {
-  const { state, actions, flags, t, router } = useCreateListing()
+  const { state, actions, flags, t } = useCreateListing()
+  const router = useRouter()
+  const { user, isLoading: authLoading } = useAuth()
+  console.log('CreateListingForm: RENDER', { user: !!user, authLoading });
 
   const {
     step,
@@ -75,8 +80,8 @@ function CreateListingFormContent() {
         <div className="flex flex-col items-center">
           <span className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {showPreview
-              ? t('createListing.preview')
-              : t('createListing.step', { step })}
+              ? t('preview')
+              : t('step', { step })}
           </span>
           {!showPreview && (
             <div className="mt-1 flex gap-1">
@@ -113,12 +118,12 @@ function CreateListingFormContent() {
         {/* Header - Desktop Only */}
         <div className="mb-6 hidden text-center md:block">
           <h1 className="font-heading mb-2 text-3xl font-black tracking-tight text-white drop-shadow-sm">
-            {showPreview ? t('createListing.preview') : t('createListing.title')}
+            {showPreview ? t('preview') : t('title')}
           </h1>
           <p className="text-muted-foreground">
             {showPreview
-              ? t('createListing.previewDescription')
-              : t('createListing.step', { step })}
+              ? t('previewDescription')
+              : t('step', { step })}
           </p>
         </div>
 
@@ -131,11 +136,11 @@ function CreateListingFormContent() {
             <TabsList className="bg-muted/50">
               <TabsTrigger value="edit" className="flex items-center gap-2">
                 <Edit3 className="h-4 w-4" />
-                {t('createListing.edit')}
+                {t('edit')}
               </TabsTrigger>
               <TabsTrigger value="preview" className="flex items-center gap-2">
                 <Eye className="h-4 w-4" />
-                {t('createListing.preview')}
+                {t('preview')}
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -193,7 +198,7 @@ function CreateListingFormContent() {
                   onClick={prevStep}
                   className="text-muted-foreground hidden rounded-xl font-bold hover:bg-white/10 hover:text-white md:flex"
                 >
-                  <ArrowLeft className="mr-2 h-4 w-4" /> {t('createListing.back')}
+                  <ArrowLeft className="mr-2 h-4 w-4" /> {t('back')}
                 </Button>
               ) : (
                 <div className="hidden md:block" />
@@ -209,7 +214,7 @@ function CreateListingFormContent() {
                   step === 1 && 'invisible'
                 )}
               >
-                {t('createListing.back')}
+                {t('back')}
               </Button>
 
               {step < 3 ? (
@@ -218,7 +223,7 @@ function CreateListingFormContent() {
                   onClick={goToNextStep}
                   className="shadow-primary/20 rounded-2xl px-8 py-6 font-bold shadow-lg transition-transform active:scale-95 md:py-4"
                 >
-                  {t('createListing.nextStep')}{' '}
+                  {t('nextStep')}{' '}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
@@ -231,7 +236,7 @@ function CreateListingFormContent() {
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
-                    t('createListing.publish')
+                    t('publish')
                   )}
                 </Button>
               )}
@@ -245,7 +250,7 @@ function CreateListingFormContent() {
                 className="flex-1 rounded-xl"
               >
                 <Edit3 className="mr-2 h-4 w-4" />
-                {t('createListing.backToEdit')}
+                {t('backToEdit')}
               </Button>
               <Button
                 type="button"

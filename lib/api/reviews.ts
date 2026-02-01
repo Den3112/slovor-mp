@@ -78,7 +78,6 @@ export const reviewsApi = {
         .eq('recipient_id', sellerId)
         .order('created_at', { ascending: false })
 
-      console.log('API: getForSeller', { sellerId, data, error })
 
       if (error) {
         throw error

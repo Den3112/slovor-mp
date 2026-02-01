@@ -51,7 +51,7 @@ export function Features() {
               Our Excellence
             </span>
             <h2 className="font-heading text-4xl font-black tracking-tight md:text-5xl lg:text-6xl">
-              <span className="block text-white">
+              <span className="block text-foreground">
                 <span className="text-primary">
                   {t('home.features.reimagined')}
                 </span>{' '}
@@ -86,7 +86,7 @@ export function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group border-border/40 bg-card/60 hover:border-primary/30 relative overflow-hidden rounded-[2.5rem] border p-10 shadow-sm backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                className="group border-border/40 bg-card/60 hover:border-primary/30 relative overflow-hidden rounded-5xl border p-10 shadow-sm backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
               >
                 <div className="bg-primary/5 group-hover:bg-primary/20 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-3xl transition-colors duration-700" />
 

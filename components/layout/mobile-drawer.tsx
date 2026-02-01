@@ -1,14 +1,40 @@
 'use client'
 
 import Link from 'next/link'
-import { X, LogOut, ChevronRight } from 'lucide-react'
+import { X, LogOut, ChevronRight, Plus } from 'lucide-react'
 import { config } from '@/lib/config'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import { Drawer } from 'vaul'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
+import { motion, AnimatePresence } from 'framer-motion'
 import { MobileLanguageSelector } from './language-selector'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants: any = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 24
+    },
+  },
+}
 
 interface MobileDrawerProps {
   open: boolean
@@ -25,36 +51,43 @@ export function MobileDrawer({
   user,
   signOut,
 }: MobileDrawerProps) {
-  const { locale, t } = useTranslation('common')
+  const { locale, t } = useTranslation(['common', 'nav', 'profile', 'categories'])
 
-  const renderLink = (link: typeof NAV_LINKS['main'][0]) => {
+  const renderLink = (link: any) => {
     const Icon = link.icon
     const href = `/${locale}${link.href === '/' ? '' : link.href}`
     const isActive = pathname === href || (link.href !== '/' && pathname?.startsWith(href))
 
     return (
-      <Link
-        key={link.href}
-        href={href}
-        onClick={() => onOpenChange(false)}
-        className={cn(
-          "group flex items-center justify-between rounded-xl p-3 transition-all active:scale-95",
-          isActive ? "bg-primary/10 text-primary" : "hover:bg-muted text-foreground"
-        )}
-      >
-        <div className="flex items-center gap-3">
-          <div className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-full transition-colors",
-            isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground group-hover:bg-background"
-          )}>
-            <Icon className="h-4 w-4" />
+      <motion.div key={link.href} variants={itemVariants}>
+        <Link
+          href={href}
+          onClick={() => onOpenChange(false)}
+          className={cn(
+            "group flex items-center justify-between rounded-2xl p-4 transition-all active:scale-95",
+            isActive ? "bg-primary/10 text-primary shadow-sm ring-1 ring-primary/20" : "hover:bg-muted text-foreground"
+          )}
+        >
+          <div className="flex items-center gap-4">
+            <div className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-2xl transition-all duration-300",
+              isActive ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 rotate-3" : "bg-muted text-muted-foreground group-hover:bg-background group-hover:scale-110"
+            )}>
+              <Icon className="h-5 w-5" />
+            </div>
+            <span className="font-heading text-base font-bold tracking-tight">
+              {t(link.label) || link.label}
+            </span>
           </div>
-          <span className="font-bold text-sm tracking-wide">
-            {t(link.label) || link.label}
-          </span>
-        </div>
-        {isActive && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
-      </Link>
+          {isActive && (
+            <motion.div
+              layoutId="active-indicator"
+              className="h-2 w-2 rounded-full bg-primary"
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
+          )}
+        </Link>
+      </motion.div>
     )
   }
 
@@ -62,127 +95,165 @@ export function MobileDrawer({
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md" />
-        <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[92vh] flex-col rounded-t-[32px] border-t border-white/10 bg-background outline-hidden">
-          {/* Drawer Handle */}
-          <div className="mx-auto mt-4 h-1.5 w-12 rounded-full bg-white/20" />
+        <AnimatePresence>
+          {open && (
+            <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[94vh] flex-col rounded-t-[32px] border-t border-white/10 bg-background/95 shadow-2xl backdrop-blur-2xl outline-hidden overflow-hidden">
+              {/* Drawer Handle */}
+              <div className="mx-auto mt-4 h-1.5 w-12 rounded-full bg-white/20" />
 
-          {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-2">
-              <span className="font-heading text-xl font-black">Menu</span>
-            </div>
-            <Drawer.Close asChild>
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-muted/40 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-                <X className="h-4 w-4" />
-              </button>
-            </Drawer.Close>
-          </div>
-
-          <div className="flex-1 overflow-y-auto px-4 pb-10">
-            {/* Main Links */}
-            <div className="space-y-1 py-2">
-              {NAV_LINKS.main.map(renderLink)}
-            </div>
-
-            <div className="my-4 h-px bg-border/40" />
-
-            {/* Categories Preview */}
-            <div className="px-2 pb-2">
-              <h3 className="mb-3 px-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
-                {t('nav.categories')}
-              </h3>
-              <div className="grid grid-cols-2 gap-2">
-                {NAV_LINKS.categories.slice(0, 4).map((cat) => {
-                  const Icon = cat.icon
-                  return (
-                    <Link
-                      key={cat.id}
-                      href={`/${locale}${cat.href}`}
-                      onClick={() => onOpenChange(false)}
-                      className="group flex flex-col items-center justify-center gap-3 rounded-2xl bg-muted/20 p-5 transition-all hover:bg-muted/40 active:scale-95"
-                    >
-                      <div className={cn(
-                        "flex h-12 w-12 items-center justify-center rounded-xl shadow-lg transition-transform group-hover:scale-110",
-                        cat.color
-                      )}>
-                        <Icon className="h-6 w-6 text-white" />
-                      </div>
-                      <span className="text-xs font-black tracking-tight text-center">{t(cat.label)}</span>
-                    </Link>
-                  )
-                })}
-              </div>
-              <Link
-                href={`/${locale}/categories`}
-                onClick={() => onOpenChange(false)}
-                className="mt-3 flex items-center justify-center gap-1 text-xs font-bold text-primary"
-              >
-                {t('viewAll')} <ChevronRight className="h-3 w-3" />
-              </Link>
-            </div>
-
-            <div className="my-4 h-px bg-border/40" />
-
-            {/* User / Auth Links */}
-            <div className="space-y-1">
-              <h3 className="mb-3 px-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
-                {user ? t('account') : t('guest')}
-              </h3>
-
-              {user ? (
-                <>
-                  {NAV_LINKS.user.map(renderLink)}
-                  {config.app.adminEmails.includes(user.email || '') && (
-                    <Link
-                      href={`/${locale}/admin`}
-                      onClick={() => onOpenChange(false)}
-                      className="group flex items-center gap-3 rounded-xl bg-amber-500/10 p-3 text-amber-500 transition-all active:scale-95"
-                    >
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-500/20">
-                        <LogOut className="h-4 w-4 rotate-180" />
-                      </div>
-                      <span className="font-bold text-sm">{t('adminPanel')}</span>
-                    </Link>
-                  )}
-
-                  <button
-                    onClick={() => {
-                      signOut()
-                      onOpenChange(false)
-                    }}
-                    className="group mt-2 flex w-full items-center gap-3 rounded-xl p-3 text-destructive transition-all hover:bg-destructive/5 active:scale-95"
-                  >
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-destructive/10">
-                      <LogOut className="h-4 w-4" />
-                    </div>
-                    <span className="font-bold text-sm">{t('signOut')}</span>
-                  </button>
-                </>
-              ) : (
-                <div className="space-y-2 px-1">
-                  <Link
-                    href={`/${locale}/auth/login`}
-                    onClick={() => onOpenChange(false)}
-                    className="flex w-full items-center justify-center rounded-xl bg-primary py-3.5 text-sm font-black uppercase tracking-wide text-primary-foreground shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
-                  >
-                    {t('common.signIn')}
-                  </Link>
-                  <Link
-                    href={`/${locale}/auth/register`}
-                    onClick={() => onOpenChange(false)}
-                    className="flex w-full items-center justify-center rounded-xl bg-muted/50 py-3.5 text-sm font-black uppercase tracking-wide text-foreground hover:bg-muted active:scale-95 transition-all"
-                  >
-                    {t('common.register')}
-                  </Link>
+              {/* Header */}
+              <div className="flex items-center justify-between px-8 py-6">
+                <div className="flex flex-col">
+                  <span className="font-heading text-2xl font-black italic tracking-tighter text-foreground">Slovor.</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('nav:menu') || 'Navigation'}</span>
                 </div>
-              )}
-            </div>
+                <Drawer.Close asChild>
+                  <button className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/40 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-90">
+                    <X className="h-5 w-5" />
+                  </button>
+                </Drawer.Close>
+              </div>
 
-            <div className="my-6 mb-20">
-              <MobileLanguageSelector locale={locale} />
-            </div>
-          </div>
-        </Drawer.Content>
+              <ScrollArea className="flex-1 px-4">
+                <motion.div
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="pb-32"
+                >
+                  {/* Main Links */}
+                  <div className="space-y-1.5 py-4">
+                    {NAV_LINKS.main.map(renderLink)}
+                  </div>
+
+                  <div className="my-6 h-px bg-linear-to-r from-transparent via-border/40 to-transparent" />
+
+                  {/* Categories Preview */}
+                  <div className="px-2 pb-6">
+                    <h3 className="mb-4 px-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary/80">
+                      {t('nav:categories')}
+                    </h3>
+                    <div className="grid grid-cols-2 gap-3">
+                      {NAV_LINKS.categories.slice(0, 4).map((cat) => {
+                        const Icon = cat.icon
+                        return (
+                          <motion.div key={cat.id} variants={itemVariants}>
+                            <Link
+                              href={`/${locale}${cat.href}`}
+                              onClick={() => onOpenChange(false)}
+                              className="group relative flex h-36 flex-col items-center justify-center gap-4 overflow-hidden rounded-[24px] bg-muted/20 p-6 transition-all hover:bg-muted/40 active:scale-95"
+                            >
+                              <div className={cn(
+                                "flex h-14 w-14 items-center justify-center rounded-2xl shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3",
+                                cat.color
+                              )}>
+                                <Icon className="h-7 w-7 text-white" />
+                              </div>
+                              <span className="text-xs font-black tracking-tight text-center">{t(cat.label)}</span>
+
+                              {/* Decorative gradient overlay */}
+                              <div className="absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                            </Link>
+                          </motion.div>
+                        )
+                      })}
+                    </div>
+                    <motion.div variants={itemVariants}>
+                      <Link
+                        href={`/${locale}/categories`}
+                        onClick={() => onOpenChange(false)}
+                        className="mt-6 flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-border/40 bg-muted/10 text-sm font-black transition-all hover:bg-muted/30 active:scale-95"
+                      >
+                        {t('viewAll')} <ChevronRight className="h-4 w-4 text-primary" />
+                      </Link>
+                    </motion.div>
+                  </div>
+
+                  <div className="my-6 h-px bg-linear-to-r from-transparent via-border/40 to-transparent" />
+
+                  {/* User / Auth Links */}
+                  <div className="space-y-1.5 px-2">
+                    <h3 className="mb-4 px-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary/80">
+                      {user ? t('account') : t('guest')}
+                    </h3>
+
+                    {user ? (
+                      <div className="space-y-1.5">
+                        {NAV_LINKS.user.map(renderLink)}
+                        {config.app.adminEmails.includes(user.email || '') && (
+                          <motion.div variants={itemVariants}>
+                            <Link
+                              href={`/${locale}/admin`}
+                              onClick={() => onOpenChange(false)}
+                              className="group flex items-center gap-4 rounded-2xl bg-amber-500/10 p-4 text-amber-500 transition-all active:scale-95"
+                            >
+                              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/20 shadow-lg shadow-amber-500/10 transition-transform group-hover:rotate-3">
+                                <LogOut className="h-5 w-5 rotate-180" />
+                              </div>
+                              <span className="font-heading text-base font-bold tracking-tight">{t('adminPanel')}</span>
+                            </Link>
+                          </motion.div>
+                        )}
+
+                        <motion.div variants={itemVariants}>
+                          <button
+                            onClick={() => {
+                              signOut()
+                              onOpenChange(false)
+                            }}
+                            className="group mt-4 flex w-full items-center gap-4 rounded-2xl p-4 text-destructive transition-all hover:bg-destructive/5 active:scale-95"
+                          >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-destructive/10 transition-transform group-hover:rotate-3">
+                              <LogOut className="h-5 w-5" />
+                            </div>
+                            <span className="font-heading text-base font-bold tracking-tight">{t('profile:signOut')}</span>
+                          </button>
+                        </motion.div>
+                      </div>
+                    ) : (
+                      <div className="space-y-4 pt-2">
+                        <motion.div variants={itemVariants}>
+                          <Link
+                            href={`/${locale}/auth/login`}
+                            onClick={() => onOpenChange(false)}
+                            className="flex w-full items-center justify-center rounded-2xl bg-primary py-4 mt-2 text-sm font-black uppercase tracking-widest text-primary-foreground shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all"
+                          >
+                            {t('common:signIn')}
+                          </Link>
+                        </motion.div>
+                        <motion.div variants={itemVariants}>
+                          <Link
+                            href={`/${locale}/auth/register`}
+                            onClick={() => onOpenChange(false)}
+                            className="flex w-full items-center justify-center rounded-2xl bg-muted/50 py-4 text-sm font-black uppercase tracking-widest text-foreground hover:bg-muted active:scale-95 transition-all border border-border/40"
+                          >
+                            {t('common:register')}
+                          </Link>
+                        </motion.div>
+                      </div>
+                    )}
+                  </div>
+
+                  <motion.div variants={itemVariants} className="mt-8 px-2">
+                    <MobileLanguageSelector locale={locale} />
+                  </motion.div>
+                </motion.div>
+              </ScrollArea>
+
+              {/* Persistent Bottom CTA */}
+              <div className="absolute inset-x-0 bottom-0 border-t border-border/40 bg-background/80 p-6 backdrop-blur-lg">
+                <Link
+                  href={`/${locale}/post`}
+                  onClick={() => onOpenChange(false)}
+                  className="flex w-full items-center justify-center gap-3 rounded-2xl bg-linear-to-tr from-indigo-600 to-violet-500 py-4 text-sm font-black uppercase tracking-widest text-white shadow-xl shadow-indigo-500/20 active:scale-95 transition-all"
+                >
+                  <Plus className="h-5 w-5" />
+                  {t('nav:postAd')}
+                </Link>
+              </div>
+            </Drawer.Content>
+          )}
+        </AnimatePresence>
       </Drawer.Portal>
     </Drawer.Root>
   )

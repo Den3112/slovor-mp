@@ -1,7 +1,7 @@
 # Design Protocol Manifest
 
 > **STATUS**: ACTIVE
-> **THEME**: Avant-Garde (Minimalist / Premium)
+> **THEME**: Customer CRM (Data-Dense / Pro Max)
 
 This directory contains the **Single Source of Truth** for all design decisions in Slovor MP.
 

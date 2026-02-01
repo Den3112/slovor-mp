@@ -23,7 +23,7 @@ export function StepDetails({
   fieldErrors,
   updateField,
 }: StepDetailsProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['createListing', 'common', 'filters'])
 
   const inputClasses = (hasError: boolean) =>
     cn(
@@ -37,7 +37,7 @@ export function StepDetails({
   return (
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
       <FormField
-        label={t('createListing.itemTitle')}
+        label={t('itemTitle')}
         error={fieldErrors.title}
         description="Write a clear, descriptive title for your item"
       >
@@ -45,13 +45,13 @@ export function StepDetails({
           value={formData.title}
           onChange={(e) => updateField('title', e.target.value)}
           className={cn(inputClasses(!!fieldErrors.title), 'h-16 px-6 text-xl font-bold')}
-          placeholder="e.g. iPhone 13 Pro Max - 256GB"
+          placeholder={t('titlePlaceholder')}
         />
       </FormField>
 
       <div className="flex flex-col gap-6 md:flex-row">
         <FormField
-          label={t('createListing.price')}
+          label={t('price')}
           error={fieldErrors.price}
           className="flex-1"
         >
@@ -67,14 +67,14 @@ export function StepDetails({
                 inputClasses(!!fieldErrors.price),
                 'h-16 pr-6 pl-12 text-2xl font-black tracking-tight'
               )}
-              placeholder="0.00"
+              placeholder="0"
             />
           </div>
         </FormField>
 
         <div className="pointer-events-none w-full space-y-2.5 opacity-50 grayscale md:w-32">
           <label className="text-muted-foreground/80 ml-1 text-[10px] font-black tracking-[0.2em] uppercase">
-            {t('createListing.currency')}
+            {t('currency')}
           </label>
           <div className="text-muted-foreground flex h-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-black">
             EUR
@@ -83,7 +83,7 @@ export function StepDetails({
       </div>
 
       <FormField
-        label={t('createListing.description')}
+        label={t('description')}
         error={fieldErrors.description}
       >
         <textarea
@@ -93,19 +93,18 @@ export function StepDetails({
             inputClasses(!!fieldErrors.description),
             'h-48 resize-none p-6 text-lg leading-relaxed'
           )}
-          placeholder="Describe your item in detail..."
+          placeholder={t('descPlaceholder')}
         />
       </FormField>
 
-      <FormField label={t('createListing.location')} error={fieldErrors.location}>
+      <FormField label={t('location')} error={fieldErrors.location}>
         <LocationCombobox
           value={formData.location}
           onChange={(value) => updateField('location', value)}
           error={fieldErrors.location}
-          placeholder="Search for a city in Slovakia..."
+          placeholder={t('locationPlaceholder')}
         />
       </FormField>
     </div>
   )
 }
-

@@ -13,14 +13,13 @@ description: 8 coding principles - mandatory for all code changes
 **You must NOT wait for the USER to remind you of the rules.**
 Before starting any task, you **MUST** read all files in `.agent/workflows/` (especially `coding-rules.md`, `git-workflow.md`, and `language-policy.md`) to align with the latest project standards. You are responsible for maintaining project consistency autonomously.
 
-### 00. Zero User Burden & Automated QA (MANDATORY)
+### 00. Zero User Burden & Mandatory Self-Check (CRITICAL)
 
 **Your goal is to save the USER's time.**
-
-- You **MUST** run all necessary checks (`./scripts/docker.sh verify` or `npm run verify`) **automatically** before declaring a task complete.
-- Never ask the user to "check if it builds" — check it yourself.
-- If a test fails, fix it. If a lint error occurs, fix it.
-- The user should only see a working, verified solution.
+- **MANDATORY:** You MUST run `npm run verify` (Lint + Type-check + Build) BEFORE writing your final report or notifying the user that the task is finished.
+- You are strictly prohibited from saying "everything works" if there are any remaining lint errors or warnings (even minor ones like `@[current_problems]`).
+- If you find errors, fix them. If you can't fix them, you MUST list them in the "⚠️ Какие есть проблемы" section of your report.
+- Never ask the user to "check if it builds" — check it yourself and provide proof if needed.
 
 ### 1. Minimize Code
 
@@ -95,7 +94,7 @@ Global state = hidden dependencies = chaos.
 - Context only for truly global things (theme, auth)
 - URL state for filters and pagination
 
-### 8. KISS — No Compromises
+### 9. KISS — No Compromises
 
 Simple solution is almost always more correct, more stable, and cheaper to maintain.
 
@@ -107,7 +106,7 @@ Simple solution is almost always more correct, more stable, and cheaper to maint
 
 ### 9. Language Policy (CRITICAL)
 
-All communication with the owner (USER) — replies in chat, implementation plans, summaries, and explanations — must be in **Russian**.
+All communication with the owner (USER) — replies in chat, **Implementation Plans**, **Implementation Task Lists**, **Walkthroughs**, summaries, and all reports — must be in **Russian**.
 However, **all code**, including variable names, function names, and comments within the code files, must be in **English**.
 
 ### 10. Communication & Confirmation (MANDATORY)

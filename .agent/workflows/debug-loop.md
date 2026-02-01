@@ -32,4 +32,4 @@ description: Systematic process for debugging errors and system recovery.
 ## Step 5: PREVENT (Future Proofing)
 
 - **Test Coverage**: Add a regression test for this specific scenario.
-- **Documentation**: record the finding in `memory/lessons.md`.
+- **Documentation**: record the finding in `.agent/MEMORY.md` under `📚 Knowledge Base`. This is CRITICAL for future agents.

@@ -17,24 +17,36 @@ export default defineConfig({
     timeout: 10000, // 10s for assertions
   },
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     actionTimeout: 15000,
+    storageState: 'e2e/.auth/user.json',
   },
+  globalSetup: require.resolve('./e2e/global-setup'),
 
   // Only Chromium - focused on functionality, not cross-browser
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'Light Mode',
+      use: {
+        ...devices['Desktop Chrome'],
+        colorScheme: 'light',
+      },
+    },
+    {
+      name: 'Dark Mode',
+      use: {
+        ...devices['Desktop Chrome'],
+        colorScheme: 'dark',
+      },
     },
   ],
 
   webServer: {
     command: 'npm run dev',
-    url: 'http://127.0.0.1:3000',
+    url: 'http://localhost:3000',
     reuseExistingServer: true,
     timeout: 120000,
   },

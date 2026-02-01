@@ -16,7 +16,7 @@ import {
   ShieldAlert,
 } from 'lucide-react'
 import { config } from '@/lib/config'
-import { FlagSK, FlagUS, FlagCZ } from '@/components/ui/flags'
+import { SUPPORTED_LOCALES } from '@/components/ui/flags'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -53,7 +53,7 @@ export function MobileMenuDrawer({
 }) {
   const pathname = usePathname()
   const router = useRouter()
-  const { locale, setLocale, t } = useTranslation()
+  const { locale, setLocale, t } = useTranslation(['common', 'profile'])
   const [user, setUser] = useState<{
     id: string
     email?: string
@@ -98,48 +98,48 @@ export function MobileMenuDrawer({
 
   const sections: NavSection[] = [
     {
-      title: t('profile.commerce'),
+      title: t('profile:commerce'),
       items: [
         {
           href: '/profile/listings',
-          label: t('profile.myListings'),
+          label: t('profile:myListings'),
           icon: Store,
         },
-        { href: '/profile/orders', label: t('profile.orders'), icon: Package },
-        { href: '/profile/wallet', label: t('profile.wallet'), icon: ShoppingBag },
+        { href: '/profile/orders', label: t('profile:orders'), icon: Package },
+        { href: '/profile/wallet', label: t('profile:wallet'), icon: ShoppingBag },
       ],
     },
     {
-      title: t('profile.shopping'),
+      title: t('profile:shopping'),
       items: [
         {
           href: '/profile/purchases',
-          label: t('profile.purchases'),
+          label: t('profile:purchases'),
           icon: ShoppingBag,
         },
-        { href: '/profile/favorites', label: t('profile.favorites'), icon: Heart },
+        { href: '/profile/favorites', label: t('profile:favorites'), icon: Heart },
         {
           href: '/profile/saved-searches',
-          label: t('profile.savedSearches'),
+          label: t('profile:savedSearches'),
           icon: Star,
         },
       ],
     },
     {
-      title: t('profile.communication'),
+      title: t('profile:communication'),
       items: [
-        { href: '/profile/messages', label: t('profile.inbox'), icon: MessageCircle },
-        { href: '/profile/reviews', label: t('profile.reviews'), icon: Star },
+        { href: '/profile/messages', label: t('profile:inbox'), icon: MessageCircle },
+        { href: '/profile/reviews', label: t('profile:reviews'), icon: Star },
       ],
     },
     {
-      title: t('profile.account'),
+      title: t('profile:account'),
       items: [
-        { href: '/profile/profile', label: t('profile.publicProfile'), icon: Eye },
-        { href: '/profile/settings', label: t('profile.settings'), icon: Settings },
+        { href: '/profile/profile', label: t('profile:publicProfile'), icon: Eye },
+        { href: '/profile/settings', label: t('profile:settings'), icon: Settings },
         {
           href: '/admin',
-          label: t('common.adminPanel'),
+          label: t('adminPanel'),
           icon: ShieldAlert,
           isAdmin: true,
         },
@@ -153,7 +153,7 @@ export function MobileMenuDrawer({
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
         <Drawer.Content
-          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-4xl border-t border-white/10 outline-none"
+          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-4xl border-t border-border outline-none"
           aria-describedby={undefined}
         >
           {/* Handle Indicator */}
@@ -174,7 +174,7 @@ export function MobileMenuDrawer({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-lg font-bold">
-                    {user.user_metadata?.full_name || t('profile.user')}
+                    {user.user_metadata?.full_name || t('profile:user')}
                   </p>
                   <p className="text-muted-foreground truncate font-mono text-xs">
                     {user.email}
@@ -200,7 +200,8 @@ export function MobileMenuDrawer({
                         return null
                       }
                       const Icon = item.icon
-                      const isActive = pathname.startsWith(item.href)
+                      const cleanPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/')
+                      const isActive = cleanPathname === item.href || cleanPathname.startsWith(item.href + '/')
                       const count = getBadgeCount(item.href)
 
                       return (
@@ -243,14 +244,14 @@ export function MobileMenuDrawer({
               {/* Language Selector */}
               <div className="mb-6">
                 <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-black tracking-widest uppercase">
-                  {t('profile.language')}
+                  {t('profile:language')}
                 </h3>
                 <div className="grid grid-cols-3 gap-3">
                   {SUPPORTED_LOCALES.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => {
-                        setLocale(lang.code as 'sk' | 'en' | 'cs')
+                        setLocale(lang.code as any)
                         setOpenAction?.(false)
                       }}
                       className={cn(
@@ -278,7 +279,7 @@ export function MobileMenuDrawer({
                   onClick={handleSignOut}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  {t('auth.signOut')}
+                  {t('profile:signOut')}
                 </Button>
               </div>
             </div>
@@ -289,20 +290,4 @@ export function MobileMenuDrawer({
   )
 }
 
-const SUPPORTED_LOCALES = [
-  {
-    code: 'en',
-    name: 'English',
-    flag: <FlagUS className="h-full w-full object-cover" />,
-  },
-  {
-    code: 'sk',
-    name: 'Slovenčina',
-    flag: <FlagSK className="h-full w-full object-cover" />,
-  },
-  {
-    code: 'cs',
-    name: 'Čeština',
-    flag: <FlagCZ className="h-full w-full object-cover" />,
-  },
-]
+

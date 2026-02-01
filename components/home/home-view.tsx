@@ -55,7 +55,7 @@ export function HomeView({
               </p>
             </div>
             <Link
-              href="/listings"
+              href={`/${useTranslation('common').i18n.language}/listings`}
               className="group text-primary hover:text-primary/80 inline-flex items-center gap-2 text-lg font-bold transition-colors"
             >
               Explore All{' '}

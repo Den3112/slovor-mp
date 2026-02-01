@@ -60,6 +60,7 @@ Every bot MUST:
 3. **Always PR to `dev` first** and wait for user acknowledgment or integration.
 4. **Verify BEFORE push**. Pushing broken code to any branch is prohibited.
 5. **Autoreport**: Provide the PR link to `dev` in your final report.
+6. **Update Memory**: Ensure `.agent/MEMORY.md` is active and updated before you PR. Commit the memory update with your changes.
 
 ---
 

@@ -9,6 +9,13 @@ This policy is **MANDATORY** for all AI agents and bots working on this project.
 ## 1. Communication with USER
 
 - **ALL** chat responses, summaries, plans, and explanations intended for the user must be in **Russian (RU)**.
+- **This specifically includes (STRICTLY REQUIRED IN RUSSIAN):**
+  - **Start/End Task Reports** (task.md, implementation_plan.md)
+  - **Implementation Plans** (implementation_plan.md)
+  - **Implementation Task Lists** (task.md)
+  - **Walkthroughs** (documents summarizing completed work)
+  - **Final Reports** (and any intermediate status reports)
+- **ARTIFACTS MUST BE IN RUSSIAN.** Even if the file name is in English, the content inside MUST be in Russian.
 - If the user provides a request in English, the response must still be in Russian.
 
 ## 2. Technical Implementation

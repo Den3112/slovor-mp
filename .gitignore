@@ -47,3 +47,6 @@ supabase/.temp/
 .continue
 .vscode
 build_log.txt
+
+*storybook.log
+storybook-static

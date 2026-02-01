@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { AuthSocial } from '@/app/[lang]/auth/login/components/auth-social'
+import { AuthSocial } from '@/app/[locale]/(main)/auth/login/components/auth-social'
 
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({

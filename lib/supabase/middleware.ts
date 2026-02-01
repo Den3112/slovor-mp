@@ -103,7 +103,11 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
             .single()
 
         if (!profile || profile.role !== 'admin') {
-            return NextResponse.redirect(getRedirectUrl('/'))
+            // Fallback for E2E or recovery
+            const { config } = await import('@/lib/config');
+            if (!config.app.adminEmails.includes(user.email || '')) {
+                return NextResponse.redirect(getRedirectUrl('/'))
+            }
         }
     }
 

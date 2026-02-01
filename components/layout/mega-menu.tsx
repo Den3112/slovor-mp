@@ -13,7 +13,7 @@ interface MegaMenuProps {
 }
 
 export function MegaMenu({ locale, onClose }: MegaMenuProps) {
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['common', 'nav', 'categories'])
 
     const containerVariants = {
         hidden: { opacity: 0, y: -20 },
@@ -42,7 +42,7 @@ export function MegaMenu({ locale, onClose }: MegaMenuProps) {
                     <div className="mb-6 flex items-center gap-2">
                         <Grid3X3 className="text-primary h-5 w-5" />
                         <h2 className="text-sm font-black tracking-tight uppercase">
-                            {t('nav.categories')}
+                            {t('nav:categories')}
                         </h2>
                     </div>
                     <div className="space-y-1">
@@ -97,7 +97,7 @@ export function MegaMenu({ locale, onClose }: MegaMenuProps) {
                                         onClick={onClose}
                                         className="text-primary mt-1 text-[10px] font-black uppercase hover:underline"
                                     >
-                                        {t('common.viewAll')}
+                                        {t('viewAll')}
                                     </Link>
                                 </div>
                             </div>
@@ -108,10 +108,10 @@ export function MegaMenu({ locale, onClose }: MegaMenuProps) {
                     <div className="border-border/40 bg-linear-to-r from-primary/5 to-violet-500/5 mt-4 flex items-center justify-between rounded-2xl border p-6">
                         <div className="space-y-1">
                             <h3 className="text-lg font-black tracking-tight">
-                                {t('common.exploreMarketplace')}
+                                {t('exploreMarketplace')}
                             </h3>
                             <p className="text-muted-foreground text-sm font-medium">
-                                {t('common.marketplaceSlogan')}
+                                {t('marketplaceSlogan')}
                             </p>
                         </div>
                         <Link
@@ -119,7 +119,7 @@ export function MegaMenu({ locale, onClose }: MegaMenuProps) {
                             onClick={onClose}
                             className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold shadow-xl shadow-primary/20 transition-all hover:scale-105"
                         >
-                            {t('nav.postAd')}
+                            {t('nav:postAd')}
                         </Link>
                     </div>
                 </div>

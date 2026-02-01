@@ -24,5 +24,5 @@ description: Workflow for checking external documentation using Context7/MCP.
 
 ## Step 4: Update Directives
 
-- If a new pattern is found, update `memory/decisions.log` or `memory/lessons.md`.
+- If a new pattern is found, update `.agent/MEMORY.md` under `📚 Knowledge Base`.
 - Example: "Next.js 13+ requires `app/` directory structure. Do not use `pages/`."

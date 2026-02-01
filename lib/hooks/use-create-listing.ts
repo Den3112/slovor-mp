@@ -24,7 +24,7 @@ import {
 } from '@/lib/utils/draft-storage'
 
 export function useCreateListing() {
-  const { t, locale } = useTranslation()
+  const { t, locale } = useTranslation(['createListing', 'common', 'home'])
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const supabase = createClient()
@@ -146,7 +146,7 @@ export function useCreateListing() {
     const missingFields = Object.keys(errors)
       .map((k) => k.charAt(0).toUpperCase() + k.slice(1))
       .join(', ')
-    setError(`Please fix the highlighted fields: ${missingFields}`)
+    setError(`${t('fixErrors')}: ${missingFields}`)
   }
 
   const prevStep = () => setStep((prev) => prev - 1)
@@ -159,7 +159,7 @@ export function useCreateListing() {
       const missingFields = Object.keys(errors)
         .map((k) => k.charAt(0).toUpperCase() + k.slice(1))
         .join(', ')
-      setError(`Please check the following fields: ${missingFields}`)
+      setError(`${t('checkFields')}: ${missingFields}`)
       return
     }
 

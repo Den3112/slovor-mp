@@ -4,7 +4,10 @@ description: The "Ultrathink" deep reasoning protocol for complex problem solvin
 
 # ULTRATHINK PROTOCOL
 
-**Trigger**: Architectural Complexity / Ambiguity / High-Risk Refactoring.
+**Trigger (Adaptive Mode)**:
+1.  **ALWAYS ON for**: Refactoring, creating new features, fixing bugs that have failed once, architecture changes.
+2.  **OPTIONAL for**: Simple typo fixes, text changes, css tweaks (to save User Credits).
+3.  **Fallback**: If a "simple" task fails verify -> ESCALATE to Ultrathink immediately.
 
 ## Phase 1: Contextual Analysis
 

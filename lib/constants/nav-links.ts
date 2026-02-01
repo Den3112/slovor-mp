@@ -23,15 +23,15 @@ import {
 
 export const NAV_LINKS = {
   main: [
-    { href: '/', label: 'nav.home', icon: Home },
-    { href: '/listings', label: 'nav.search', icon: Search },
-    { href: '/categories', label: 'nav.categories', icon: Grid3X3 },
+    { href: '/', label: 'nav:home', icon: Home },
+    { href: '/listings', label: 'nav:search', icon: Search },
+    { href: '/categories', label: 'nav:categories', icon: Grid3X3 },
   ],
   categories: [
     {
       id: 'transport',
       href: '/categories/transport',
-      label: 'cat.transport',
+      label: 'categories:transport',
       icon: Car,
       color: 'bg-blue-500',
       popularSubcategories: ['cars', 'motorcycles', 'parts', 'trucks']
@@ -39,7 +39,7 @@ export const NAV_LINKS = {
     {
       id: 'real-estate',
       href: '/categories/real-estate',
-      label: 'cat.realEstate',
+      label: 'categories:realEstate',
       icon: RealEstate,
       color: 'bg-emerald-500',
       popularSubcategories: ['rent', 'sale', 'new-projects', 'commercial']
@@ -47,7 +47,7 @@ export const NAV_LINKS = {
     {
       id: 'electronics',
       href: '/categories/electronics',
-      label: 'cat.electronics',
+      label: 'categories:electronics',
       icon: Smartphone,
       color: 'bg-purple-500',
       popularSubcategories: ['smartphones', 'computers', 'tv-audio', 'cameras']
@@ -55,7 +55,7 @@ export const NAV_LINKS = {
     {
       id: 'home-garden',
       href: '/categories/home-garden',
-      label: 'cat.homeGarden',
+      label: 'categories:homeGarden',
       icon: Armchair,
       color: 'bg-orange-500',
       popularSubcategories: ['furniture', 'appliances', 'garden', 'tools']
@@ -63,7 +63,7 @@ export const NAV_LINKS = {
     {
       id: 'fashion',
       href: '/categories/fashion',
-      label: 'cat.fashion',
+      label: 'categories:fashion',
       icon: Shirt,
       color: 'bg-pink-500',
       popularSubcategories: ['clothing', 'shoes', 'accessories', 'kids']
@@ -71,7 +71,7 @@ export const NAV_LINKS = {
     {
       id: 'jobs',
       href: '/categories/jobs',
-      label: 'cat.jobs',
+      label: 'categories:jobs',
       icon: Briefcase,
       color: 'bg-indigo-500',
       popularSubcategories: ['vacancies', 'resumes']
@@ -79,7 +79,7 @@ export const NAV_LINKS = {
     {
       id: 'services',
       href: '/categories/services',
-      label: 'cat.services',
+      label: 'categories:services',
       icon: Hammer,
       color: 'bg-cyan-500',
       popularSubcategories: ['beauty', 'repairs', 'it', 'tuition']
@@ -87,7 +87,7 @@ export const NAV_LINKS = {
     {
       id: 'hobby-sport',
       href: '/categories/hobby-sport',
-      label: 'cat.hobbySport',
+      label: 'categories:hobbySport',
       icon: Bike,
       color: 'bg-red-500',
       popularSubcategories: ['sport', 'books', 'music', 'tickets']
@@ -95,7 +95,7 @@ export const NAV_LINKS = {
     {
       id: 'pets',
       href: '/categories/pets',
-      label: 'cat.pets',
+      label: 'categories:pets',
       icon: Dog,
       color: 'bg-amber-500',
       popularSubcategories: ['cats', 'dogs', 'birds']
@@ -103,18 +103,18 @@ export const NAV_LINKS = {
     {
       id: 'other',
       href: '/categories/other',
-      label: 'cat.other',
+      label: 'categories:other',
       icon: ShoppingBag,
       color: 'bg-slate-500'
     }
   ],
   user: [
-    { href: '/messages', label: 'nav.messages', icon: MessageSquare },
-    { href: '/profile/favorites', label: 'nav.favorites', icon: Heart },
-    { href: '/profile', label: 'nav.profile', icon: User },
+    { href: '/messages', label: 'nav:messages', icon: MessageSquare },
+    { href: '/profile/favorites', label: 'nav:favorites', icon: Heart },
+    { href: '/profile', label: 'nav:profile', icon: User },
   ],
   action: {
-    post: { href: '/post', label: 'nav.postAd', icon: PlusCircle }
+    post: { href: '/post', label: 'nav:postAd', icon: PlusCircle }
   },
   footer: [
     { href: '/help', label: 'footer.help', icon: HelpCircle },

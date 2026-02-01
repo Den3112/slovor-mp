@@ -56,5 +56,22 @@
   "allLoaded": "Všechny inzeráty načteny",
   "explore": "Průzkum",
   "blog": "Blog",
-  "messages": "Zprávy"
+  "messages": "Zprávy",
+  "footer": {
+    "popular": "Populární kategorie",
+    "info": "Informace",
+    "about": "O Slovor",
+    "faq": "Často kladené otázky",
+    "terms": "Obchodní podmínky",
+    "privacy": "Ochrana osobních údajů",
+    "description": "Elitní platforma tržiště přizpůsobená pro moderního prodejce a vědomého kupujícího na Slovensku.",
+    "newsletterTitle": "Přidejte sa k našemu elitnímu kruhu",
+    "newsletterSubtitle": "Získejte exkluzivní aktualizace trhu a nejlepší nabídky přímo do vaší schránky.",
+    "newsletterPlaceholder": "Zadejte svůj pracovní email",
+    "subscribe": "Přihlásit se k odběru",
+    "rights": "Všechna práva vyhrazena",
+    "transparency": "Transparentnost",
+    "privacyPolicy": "Ochrana osobních údajů"
+  },
+  "marketplaceSlogan": "Najděte ty nejlepší nabídky ve vašem městě ještě dnes."
 }

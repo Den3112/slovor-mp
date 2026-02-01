@@ -17,7 +17,7 @@ export function Providers({ children, lang }: { children: React.ReactNode; lang?
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
+      defaultTheme="light"
       enableSystem
       disableTransitionOnChange
       storageKey="slovor-theme"
