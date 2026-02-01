@@ -43,6 +43,8 @@ function CreateListingFormContent() {
     prevStep,
     handleSubmit,
     handleFilesSelected,
+    handleRemoveImage,
+    handleReorderImages,
   } = actions
 
   const [viewMode, setViewMode] = useState<'edit' | 'preview'>('edit')
@@ -181,6 +183,8 @@ function CreateListingFormContent() {
                   isUploading={isUploading}
                   uploadProgress={uploadProgress}
                   onFilesSelected={handleFilesSelected}
+                  onRemoveImage={handleRemoveImage}
+                  onReorderImages={handleReorderImages}
                 />
               )}
             </>
