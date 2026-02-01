@@ -18,27 +18,15 @@ export function HomeCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative overflow-hidden rounded-5xl bg-blue-600 p-12 text-center text-white shadow-xl shadow-blue-200 dark:shadow-none md:p-24"
+          className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-center text-primary-foreground md:px-12 md:py-20"
         >
-          {/* Subtle decoration */}
-          <div className="absolute top-0 right-0 -mt-20 -mr-20 h-[500px] w-[500px] rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute bottom-0 left-0 -mb-20 -ml-20 h-[400px] w-[400px] rounded-full bg-blue-400/20 blur-3xl" />
-
           <div className="relative z-10 mx-auto max-w-4xl">
-            <motion.span
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="mb-8 inline-block rounded-full bg-white/20 px-5 py-1.5 text-[11px] font-bold tracking-widest text-white uppercase backdrop-blur-sm"
-            >
-              {t('common:joinCommunity')}
-            </motion.span>
-
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-heading mb-8 text-4xl leading-tight font-black tracking-tight text-white md:text-5xl lg:text-6xl"
+              className="font-heading mb-6 text-3xl font-bold tracking-tight md:text-5xl"
             >
               {t('ctaTitle')}
             </motion.h2>
@@ -48,7 +36,7 @@ export function HomeCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="mx-auto mb-12 max-w-xl text-lg leading-relaxed font-medium text-blue-50 md:text-2xl"
+              className="mx-auto mb-10 max-w-2xl text-lg font-medium text-primary-foreground/90 md:text-xl"
             >
               {t('ctaSubtitle')}
             </motion.p>
@@ -62,10 +50,11 @@ export function HomeCTA() {
               <Button
                 asChild
                 size="lg"
-                className="group bg-white text-blue-600 hover:bg-blue-50 h-16 rounded-2xl px-10 text-lg font-bold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                variant="secondary"
+                className="h-14 rounded-xl px-8 text-lg font-semibold shadow-sm transition-transform hover:scale-105"
               >
                 <Link href="/post">
-                  <Plus className="mr-2 h-5 w-5 transition-transform duration-500 group-hover:rotate-90" />
+                  <Plus className="mr-2 h-5 w-5" />
                   {t('common:postAd')}
                 </Link>
               </Button>

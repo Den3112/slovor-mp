@@ -64,9 +64,9 @@ function CreateListingFormContent() {
   const showPreview = viewMode === 'preview'
 
   return (
-    <div className="bg-background md:from-background md:via-background/95 md:to-background flex min-h-dvh flex-col items-center justify-center p-0 md:bg-linear-to-b md:py-20">
+    <div className="bg-background flex min-h-dvh flex-col items-center justify-center py-8 md:py-16">
       {/* Mobile Top Bar */}
-      <div className="border-border/10 bg-background/80 sticky top-0 z-50 flex w-full items-center justify-between border-b px-4 py-3 backdrop-blur-xl md:hidden">
+      <div className="border-border bg-background sticky top-0 z-50 flex w-full items-center justify-between border-b px-4 py-3 md:hidden">
         <Button
           variant="ghost"
           size="icon"
@@ -102,22 +102,22 @@ function CreateListingFormContent() {
 
       <div
         className={cn(
-          'bg-background relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-5xl md:border md:border-white/10 md:bg-black/20 md:p-10 md:shadow-2xl md:backdrop-blur-2xl',
+          'bg-card relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-xl md:border md:border-border md:p-10 md:shadow-sm',
           containerWidth,
           'min-h-[calc(100dvh-60px)] md:min-h-0'
         )}
       >
         {/* Desktop Progress Bar */}
-        <div className="absolute top-0 left-0 hidden h-1.5 w-full bg-white/5 md:block">
+        <div className="bg-muted absolute top-0 left-0 hidden h-1 w-full md:block">
           <div
-            className="from-primary/50 to-primary box-shadow-glow h-full bg-linear-to-r transition-all duration-700 ease-out"
+            className="bg-primary h-full transition-all duration-700 ease-out"
             style={{ width: `${showPreview ? 100 : (step / 3) * 100}%` }}
           />
         </div>
 
         {/* Header - Desktop Only */}
         <div className="mb-6 hidden text-center md:block">
-          <h1 className="font-heading mb-2 text-3xl font-black tracking-tight text-white drop-shadow-sm">
+          <h1 className="font-heading text-foreground mb-2 text-3xl font-bold tracking-tight">
             {showPreview ? t('preview') : t('title')}
           </h1>
           <p className="text-muted-foreground">
@@ -133,7 +133,7 @@ function CreateListingFormContent() {
             value={viewMode}
             onValueChange={(v) => setViewMode(v as 'edit' | 'preview')}
           >
-            <TabsList className="bg-muted/50">
+            <TabsList className="bg-muted">
               <TabsTrigger value="edit" className="flex items-center gap-2">
                 <Edit3 className="h-4 w-4" />
                 {t('edit')}
@@ -147,7 +147,7 @@ function CreateListingFormContent() {
         </div>
 
         {error && (
-          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-2xl border p-4 font-medium md:mx-0">
+          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-xl border p-4 font-medium md:mx-0">
             <AlertCircle className="h-5 w-5" /> {error}
           </div>
         )}
@@ -188,7 +188,7 @@ function CreateListingFormContent() {
         </div>
 
         {/* Actions */}
-        <div className="border-border/10 bg-background/90 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-between border-t p-4 backdrop-blur-xl md:relative md:mt-10 md:justify-between md:border-t md:border-white/10 md:bg-transparent md:p-0 md:pt-8">
+        <div className="border-border bg-card fixed right-0 bottom-0 left-0 z-50 flex items-center justify-between border-t p-4 md:relative md:mt-10 md:justify-between md:border-t md:border-transparent md:bg-transparent md:p-0 md:pt-8">
           {!showPreview ? (
             <>
               {step > 1 ? (
@@ -196,7 +196,7 @@ function CreateListingFormContent() {
                   type="button"
                   variant="ghost"
                   onClick={prevStep}
-                  className="text-muted-foreground hidden rounded-xl font-bold hover:bg-white/10 hover:text-white md:flex"
+                  className="text-muted-foreground hidden rounded-lg font-bold hover:bg-secondary md:flex"
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t('back')}
                 </Button>
@@ -210,7 +210,7 @@ function CreateListingFormContent() {
                 variant="ghost"
                 onClick={prevStep}
                 className={cn(
-                  'text-muted-foreground rounded-xl font-bold md:hidden',
+                  'text-muted-foreground rounded-lg font-bold md:hidden',
                   step === 1 && 'invisible'
                 )}
               >
@@ -221,7 +221,7 @@ function CreateListingFormContent() {
                 <Button
                   type="button"
                   onClick={goToNextStep}
-                  className="shadow-primary/20 rounded-2xl px-8 py-6 font-bold shadow-lg transition-transform active:scale-95 md:py-4"
+                  className="rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
                 >
                   {t('nextStep')}{' '}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -231,7 +231,7 @@ function CreateListingFormContent() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="bg-primary shadow-primary/20 hover:bg-primary/90 min-w-[140px] rounded-2xl px-8 py-6 font-bold shadow-lg transition-transform active:scale-95 md:py-4"
+                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -247,7 +247,7 @@ function CreateListingFormContent() {
                 type="button"
                 variant="outline"
                 onClick={() => setViewMode('edit')}
-                className="flex-1 rounded-xl"
+                className="flex-1 rounded-lg"
               >
                 <Edit3 className="mr-2 h-4 w-4" />
                 {t('backToEdit')}
@@ -256,7 +256,7 @@ function CreateListingFormContent() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-primary shadow-primary/20 flex-1 rounded-2xl px-8 py-4 font-bold shadow-lg"
+                className="bg-primary flex-1 rounded-lg px-8 py-4 font-bold"
               >
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />

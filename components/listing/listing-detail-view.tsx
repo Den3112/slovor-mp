@@ -36,9 +36,9 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
   }, [listing.id])
 
   return (
-    <div className="from-background via-background/95 to-background min-h-screen bg-linear-to-b pb-10">
-      <Container className="relative z-10 py-6 pt-24 md:pt-32">
-        <div className="mt-0 md:mt-8">
+    <div className="bg-background min-h-screen pb-12">
+      <Container className="pt-24 md:pt-32">
+        <div className="mb-6 md:mb-8">
           <Breadcrumbs
             items={[
               { label: t('allListings'), href: '/listings' },
@@ -58,31 +58,33 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
             ]}
           />
         </div>
-      </Container>
 
-      <Container>
-        <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-12">
-          <div className="space-y-8 md:space-y-12 lg:col-span-8">
-            <div className="bg-card/50 group relative overflow-hidden rounded-4xl border border-white/10 shadow-2xl shadow-black/20 backdrop-blur-xl md:rounded-5xl">
-              <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/20 to-transparent" />
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+          {/* Main Content */}
+          <div className="space-y-8 lg:col-span-8">
+            {/* Image Gallery - Solid Clean Style */}
+            <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
               <ImageGallery
                 images={listing.images || []}
                 title={displayTitle}
               />
             </div>
 
-            <div className="space-y-10">
+            <div className="space-y-8">
               <ListingDescription description={displayDescription} />
               <ListingDetailsGrid listing={listing} />
             </div>
           </div>
 
-          <div className="space-y-8 lg:col-span-4">
-            <ListingSidebar listing={listing} />
+          {/* Sidebar */}
+          <div className="lg:col-span-4">
+            <div className="sticky top-24 space-y-6">
+              <ListingSidebar listing={listing} />
+            </div>
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-16">
           <RecentlyViewed />
         </div>
       </Container>

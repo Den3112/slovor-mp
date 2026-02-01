@@ -41,7 +41,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
 
   if (!images || images.length === 0) {
     return (
-      <div className="bg-muted/50 flex aspect-[4/3] items-center justify-center rounded-2xl md:aspect-[16/10] md:rounded-[3rem]">
+      <div className="bg-muted/50 flex aspect-4/3 items-center justify-center rounded-xl md:aspect-16/10">
         <div className="text-muted-foreground/40 text-center">
           <ImageOff className="mx-auto mb-3 h-12 w-12" />
           <p className="text-sm font-bold">No images</p>
@@ -54,14 +54,14 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
     <>
       <div className="space-y-3 md:space-y-6">
         {/* Main Gallery */}
-        <div className="group border-border bg-card md:shadow-primary/5 relative overflow-hidden rounded-2xl border shadow-lg md:rounded-[3rem] md:shadow-2xl">
+        <div className="group border-border bg-card relative overflow-hidden rounded-xl border shadow-sm">
           {/* Carousel */}
           <div ref={emblaRef} className="overflow-hidden">
             <div className="flex touch-pan-y">
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="relative aspect-[4/3] min-w-0 flex-[0_0_100%] md:aspect-[16/10]"
+                  className="relative aspect-4/3 min-w-0 flex-[0_0_100%] md:aspect-16/10"
                 >
                   {!imageErrors.has(index) ? (
                     <Image
@@ -143,7 +143,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
                 key={index}
                 onClick={() => emblaApi?.scrollTo(index)}
                 className={cn(
-                  'relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all lg:h-24 lg:w-24',
+                  'relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all lg:h-24 lg:w-24',
                   selectedIndex === index
                     ? 'border-primary scale-105 shadow-lg'
                     : 'border-transparent opacity-60 hover:opacity-100'
@@ -174,7 +174,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black"
           >
             <button
               onClick={() => setFullscreen(false)}

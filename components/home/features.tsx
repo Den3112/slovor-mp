@@ -38,19 +38,20 @@ export function Features() {
   ]
 
   return (
-    <section className="bg-card/5 overflow-hidden py-24">
+    <section className="bg-background py-24">
       <Container>
-        <div className="grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="lg:sticky lg:top-32"
           >
             <span className="text-primary mb-4 block text-[10px] font-black tracking-[0.3em] uppercase">
               Our Excellence
             </span>
-            <h2 className="font-heading text-4xl font-black tracking-tight md:text-5xl lg:text-6xl">
+            <h2 className="font-heading text-4xl font-black tracking-tight md:text-5xl lg:text-6xl mb-6">
               <span className="block text-foreground">
                 <span className="text-primary">
                   {t('home.features.reimagined')}
@@ -67,7 +68,7 @@ export function Features() {
                 'Direct contact between buyers and sellers',
               ].map((item, i) => (
                 <div key={i} className="group flex items-center gap-4">
-                  <div className="bg-primary/10 group-hover:bg-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-all group-hover:scale-110">
+                  <div className="bg-primary/10 group-hover:bg-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all group-hover:scale-110">
                     <CheckCircle2 className="text-primary h-4 w-4 group-hover:text-white" />
                   </div>
                   <span className="text-foreground/80 group-hover:text-primary text-xl font-bold transition-colors">
@@ -78,7 +79,7 @@ export function Features() {
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {features.map((feature, idx) => (
               <motion.div
                 key={idx}
@@ -86,22 +87,20 @@ export function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group border-border/40 bg-card/60 hover:border-primary/30 relative overflow-hidden rounded-5xl border p-10 shadow-sm backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                className="group rounded-xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-primary/50"
               >
-                <div className="bg-primary/5 group-hover:bg-primary/20 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-3xl transition-colors duration-700" />
-
                 <div
                   className={cn(
-                    'bg-muted/40 group-hover:bg-primary group-hover:text-primary-foreground mb-8 flex h-20 w-20 items-center justify-center rounded-2xl shadow-sm transition-all duration-500 group-hover:scale-110',
+                    'bg-muted group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-lg shadow-sm transition-all duration-300',
                     feature.color
                   )}
                 >
                   {feature.icon}
                 </div>
-                <h3 className="text-foreground mb-3 text-2xl font-black tracking-tight">
+                <h3 className="text-foreground mb-3 text-xl font-bold tracking-tight">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed font-medium opacity-70">
+                <p className="text-muted-foreground leading-relaxed text-sm">
                   {feature.desc}
                 </p>
               </motion.div>

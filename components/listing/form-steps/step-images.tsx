@@ -42,7 +42,7 @@ export function StepImages({
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold text-white">
+          <h3 className="text-xl font-bold text-foreground">
             {t('uploadPhotos')}
           </h3>
           <span className="text-muted-foreground text-sm">
@@ -52,10 +52,10 @@ export function StepImages({
 
         <div
           className={cn(
-            'group relative flex min-h-[300px] flex-col items-center justify-center rounded-3xl border-2 border-dashed transition-all',
+            'group relative flex min-h-[300px] flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all',
             isUploading
               ? 'border-primary/50 bg-primary/5'
-              : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+              : 'border-border bg-card hover:border-primary/50 hover:bg-accent/50'
           )}
         >
           <input
@@ -69,11 +69,11 @@ export function StepImages({
           />
 
           <div className="flex flex-col items-center gap-4 p-8 text-center">
-            <div className="bg-primary/20 flex h-20 w-20 items-center justify-center rounded-2xl text-primary transition-transform group-hover:scale-110">
+            <div className="bg-primary/10 flex h-20 w-20 items-center justify-center rounded-lg text-primary transition-transform group-hover:scale-110">
               {isUploading ? <Loader2 className="h-10 w-10 animate-spin" /> : <Upload className="h-10 w-10" />}
             </div>
             <div className="space-y-2">
-              <p className="text-lg font-bold text-white">
+              <p className="text-lg font-bold text-foreground">
                 {isUploading
                   ? t('uploading')
                   : t('dragDrop')}
@@ -86,7 +86,7 @@ export function StepImages({
               type="button"
               variant="secondary"
               onClick={() => fileInputRef.current?.click()}
-              className="bg-primary text-white hover:bg-primary/90 rounded-2xl px-8 shadow-lg shadow-primary/20"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-8 shadow-sm"
             >
               {t('selectImages')}
             </Button>
@@ -106,7 +106,7 @@ export function StepImages({
       </div>
 
       {uploadProgress && (
-        <div className="bg-muted/20 rounded-2xl border border-white/5 p-4">
+        <div className="bg-muted/20 rounded-xl border border-border p-4">
           <div className="text-muted-foreground mb-2 flex w-full items-center justify-between text-xs font-bold tracking-widest uppercase">
             <span>{t('uploading')}</span>
             <span>
@@ -116,7 +116,7 @@ export function StepImages({
               %
             </span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-black/20">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
             <div
               className="bg-primary h-full transition-all duration-300 ease-out"
               style={{
@@ -133,7 +133,7 @@ export function StepImages({
           {formData.images.map((img, idx) => (
             <div
               key={idx}
-              className="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-xl transition-transform hover:scale-105"
+              className="group relative aspect-square overflow-hidden rounded-xl border border-border bg-muted shadow-sm transition-transform hover:scale-105"
             >
               <Image
                 src={img}
@@ -151,7 +151,7 @@ export function StepImages({
                       formData.images.filter((_, i) => i !== idx)
                     )
                   }}
-                  className="bg-destructive hover:bg-destructive/90 scale-90 rounded-full p-3 text-white shadow-lg transition-transform hover:scale-100"
+                  className="bg-destructive hover:bg-destructive/90 scale-90 rounded-full p-3 text-destructive-foreground shadow-sm transition-transform hover:scale-100"
                 >
                   <AlertCircle className="h-6 w-6" />
                 </button>

@@ -71,7 +71,7 @@ export default async function SearchPage(props: SearchPageProps) {
   const query = searchParams.q || ''
 
   return (
-    <Container className="min-h-screen bg-gray-50/50">
+    <Container className="min-h-screen bg-background pb-12">
       {/* Header Section */}
       <SearchHeader query={query} />
 

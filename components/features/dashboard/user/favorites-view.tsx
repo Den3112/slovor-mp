@@ -16,16 +16,14 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Premium Header */}
-            <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-4 overflow-hidden rounded-5xl border border-white/10 bg-linear-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-center md:justify-between md:p-10">
-                <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-pink-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="relative z-10">
-                    <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
-                        {t('dashboard:favorites')}
-                    </h1>
-                    <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
-                        {t('profile:favoritesDescription')}
-                    </p>
-                </div>
+            {/* Header */}
+            <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-bold tracking-tight">
+                    {t('dashboard:favorites')}
+                </h1>
+                <p className="text-muted-foreground">
+                    {t('profile:favoritesDescription')}
+                </p>
             </div>
 
             {favoriteListings.length > 0 ? (
@@ -35,7 +33,7 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
                     ))}
                 </div>
             ) : (
-                <div className="rounded-5xl border border-white/10 bg-white/5 p-8 shadow-inner backdrop-blur-md md:p-12">
+                <div className="rounded-xl border border-border bg-card p-12 shadow-sm text-center flex flex-col items-center justify-center">
                     <EmptyState
                         icon={Heart}
                         title={t('profile:noFavorites')}
