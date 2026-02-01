@@ -2,18 +2,19 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'
 import { UnifiedSidebar, type SidebarConfig } from '@/components/features/dashboard/shared/sidebar'
-import { Container } from '@/components/ui/container'
 import { Logo } from '@/components/ui/logo'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 interface DashboardShellProps {
     children: React.ReactNode
     config: SidebarConfig
-    mobileNav?: React.ReactNode // Optional custom mobile nav (e.g. BottomNav)
+    mobileNav?: React.ReactNode
     headerContent?: React.ReactNode
+    title?: string
 }
 
 export function DashboardShell({
@@ -21,104 +22,114 @@ export function DashboardShell({
     config,
     mobileNav,
     headerContent,
+    title,
 }: DashboardShellProps) {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isMobileOpen, setIsMobileOpen] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
 
-    // Prevent hydration mismatch for responsive checks if needed
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
     if (!isMounted) {
-        return null // or a loading skeleton
+        return (
+            <div className="min-h-screen bg-background flex items-center justify-center">
+                <div className="animate-pulse text-muted-foreground">Loading...</div>
+            </div>
+        )
     }
 
     return (
-        <div className="dashboard-view relative min-h-screen bg-background transition-colors duration-300">
-
-            {/* --- Mobile Header --- */}
-            <div className="sticky top-0 z-40 flex h-14 items-center justify-between border-b bg-background px-4 md:hidden">
-                <div className="flex items-center gap-3">
-                    <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="-ml-2">
-                                <Menu className="h-6 w-6" />
-                                <span className="sr-only">Toggle Menu</span>
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="p-0 w-80 border-none bg-transparent shadow-none">
-                            <div className="h-full w-full bg-card rounded-r-3xl overflow-hidden shadow-2xl">
-                                <UnifiedSidebar
-                                    config={config}
-                                    isMobile
-                                    onNavigate={() => setIsMobileOpen(false)}
-                                />
-                            </div>
-                        </SheetContent>
-                    </Sheet>
-                    <Logo size="sm" />
-                </div>
-                <div className="flex items-center gap-2">
-                    {headerContent}
-                </div>
-            </div>
-
-            <div className="flex h-screen overflow-hidden pt-0 md:pt-0">
-
-                {/* --- Desktop Sidebar --- */}
-                <div className="hidden md:flex md:shrink-0 z-30 relative">
+        <div className="dashboard-view min-h-screen bg-background">
+            <div className="flex">
+                {/* Desktop Sidebar */}
+                <div className="hidden md:block">
                     <UnifiedSidebar
                         config={config}
                         isCollapsed={isCollapsed}
                         onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
-                        className="h-full border-r border-border/50 shadow-sm"
                     />
                 </div>
 
-                {/* --- Main Content Area --- */}
-                <main className="flex-1 overflow-y-auto overflow-x-hidden relative scroll-smooth focus:outline-none" id="main-content">
-                    {/* Header offset for fixed global header */}
-                    <div className="hidden h-16 md:block" />
+                {/* Main Content Area */}
+                <div className="flex-1 flex flex-col min-h-screen">
+                    {/* Mobile Header */}
+                    <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-4 border-b border-border bg-card px-4 md:hidden">
+                        <div className="flex items-center gap-3">
+                            <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
+                                <SheetTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-9 w-9">
+                                        <Menu className="h-5 w-5" />
+                                        <span className="sr-only">Open menu</span>
+                                    </Button>
+                                </SheetTrigger>
+                                <SheetContent side="left" className="w-72 p-0 border-r border-border">
+                                    <SheetClose className="absolute right-4 top-4 z-50">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                                            <X className="h-4 w-4" />
+                                        </Button>
+                                    </SheetClose>
+                                    <UnifiedSidebar
+                                        config={config}
+                                        isMobile
+                                        onNavigate={() => setIsMobileOpen(false)}
+                                    />
+                                </SheetContent>
+                            </Sheet>
+                            <Logo size="sm" />
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <ThemeToggle />
+                            {headerContent}
+                        </div>
+                    </header>
 
-                    <Container className="py-6 min-h-full">
-                        {/* Page Header Area */}
-                        {(headerContent) && (
-                            <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                                <div className="hidden md:block">
-                                    {headerContent}
-                                </div>
+                    {/* Desktop Header (Optional) */}
+                    {(title || headerContent) && (
+                        <header className="hidden md:flex h-16 items-center justify-between gap-4 border-b border-border bg-card px-6">
+                            <div className="flex items-center gap-4">
+                                {title && (
+                                    <h1 className="text-xl font-semibold text-foreground">
+                                        {title}
+                                    </h1>
+                                )}
                             </div>
-                        )}
+                            <div className="flex items-center gap-3">
+                                <ThemeToggle />
+                                {headerContent}
+                            </div>
+                        </header>
+                    )}
 
-                        {/* Page Content with Transition */}
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key="content-root"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.3, ease: "easeOut" }}
-                                className="min-h-[500px]"
-                            >
-                                {children}
-                            </motion.div>
-                        </AnimatePresence>
+                    {/* Page Content */}
+                    <main className="flex-1 overflow-y-auto">
+                        <div className="p-4 md:p-6">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key="dashboard-content"
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -8 }}
+                                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                                >
+                                    {children}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
 
-                        {/* Spacer for bottom nav if exists */}
+                        {/* Bottom padding for mobile nav */}
                         {mobileNav && <div className="h-20 md:hidden" />}
-                    </Container>
-                </main>
+                    </main>
+                </div>
             </div>
 
-            {/* --- Mobile Bottom Nav (Optional Overlay) --- */}
+            {/* Mobile Bottom Nav */}
             {mobileNav && (
-                <div className="fixed bottom-0 left-0 right-0 z-60 md:hidden">
+                <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
                     {mobileNav}
                 </div>
             )}
-
         </div>
     )
 }

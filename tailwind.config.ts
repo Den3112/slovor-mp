@@ -1,5 +1,9 @@
 import type { Config } from 'tailwindcss'
 
+/**
+ * Slovor Marketplace - Tailwind Configuration
+ * Design System: Customer CRM (Data-Dense, Professional)
+ */
 const config = {
   darkMode: 'class',
   content: [
@@ -14,10 +18,10 @@ const config = {
       center: true,
       padding: {
         DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
+        sm: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
       },
       screens: {
         '2xl': '1400px',
@@ -25,8 +29,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', 'sans-serif'],
-        heading: ['var(--font-heading)', 'sans-serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-heading)', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -45,6 +49,14 @@ const config = {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -65,10 +77,23 @@ const config = {
       },
       borderRadius: {
         '2xl': 'var(--radius)',
-        xl: 'calc(var(--radius) - 4px)',
-        lg: 'calc(var(--radius) - 8px)',
-        md: 'calc(var(--radius) - 12px)',
-        sm: 'calc(var(--radius) - 16px)',
+        xl: 'calc(var(--radius) - 2px)',
+        lg: 'calc(var(--radius) - 4px)',
+        md: 'calc(var(--radius) - 6px)',
+        sm: 'calc(var(--radius) - 8px)',
+      },
+      spacing: {
+        'sidebar': '256px',
+        'sidebar-collapsed': '72px',
+        'header': '64px',
+        'header-mobile': '56px',
+        'bottom-nav': '64px',
+      },
+      boxShadow: {
+        'card': '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06)',
+        'card-hover': '0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08)',
+        'dropdown': '0 10px 40px -10px rgba(0, 0, 0, 0.2)',
+        'sidebar': '2px 0 8px rgba(0, 0, 0, 0.05)',
       },
       keyframes: {
         'accordion-down': {
@@ -79,21 +104,34 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
         'fade-in-up': {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'slide-in-right': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        'slide-in-left': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
+        'fade-in': 'fade-in 0.2s ease-out',
+        'fade-in-up': 'fade-in-up 0.3s ease-out forwards',
+        'slide-in-right': 'slide-in-right 0.3s ease-out',
+        'slide-in-left': 'slide-in-left 0.3s ease-out',
       },
-      boxShadow: {
-        highlight: 'inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
-        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        'soft-shadow':
-          '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+      transitionDuration: {
+        '250': '250ms',
+        '350': '350ms',
       },
     },
   },

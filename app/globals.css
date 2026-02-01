@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
+/* ============================================
+   SLOVOR MARKETPLACE - PREMIUM CRM DESIGN SYSTEM
+   Based on: Customer Support CRM (Data-Dense)
+   ============================================ */
+
 @theme {
+  /* Core semantic colors mapped from CSS variables */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -17,100 +23,142 @@
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
+  /* Typography scale */
   --font-size-2xs: 0.625rem;
   --font-size-3xs: 0.5625rem;
 
+  /* Border radius scale - CRM style: subtle, professional */
   --radius-2xl: var(--radius);
-  --radius-xl: calc(var(--radius) - 4px);
-  --radius-lg: calc(var(--radius) - 8px);
-  --radius-md: calc(var(--radius) - 12px);
-  --radius-sm: calc(var(--radius) - 16px);
-  --radius-4xl: 2rem;
-  --radius-5xl: 2.5rem;
+  --radius-xl: calc(var(--radius) - 2px);
+  --radius-lg: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 6px);
+  --radius-sm: calc(var(--radius) - 8px);
 
-  --shadow-premium: 0 20px 50px -12px rgba(79, 70, 229, 0.15);
-  --shadow-soft-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  /* Shadows - CRM style: crisp, not diffused */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 10px 40px -10px rgba(0, 0, 0, 0.2);
+
+  /* Layout constants */
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 72px;
+  --header-height: 64px;
+  --mobile-header-height: 56px;
+  --bottom-nav-height: 64px;
 }
 
 @layer base {
   :root {
-    /* Pro Max Light - Clean, Crisp, Professional */
-    --background: 210 40% 98%;
-    /* Slate 50 */
-    --foreground: 222 47% 11%;
-    /* Slate 900 */
+    /* ========================================
+       LIGHT THEME - Customer CRM Style
+       Clean, Crisp, Professional, Data-Dense
+       ======================================== */
 
+    /* Background: Soft gray-blue, not pure white */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    /* Cards: Pure white for contrast */
     --card: 0 0% 100%;
-    /* White */
     --card-foreground: 222 47% 11%;
 
+    /* Popover: Same as card */
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 221 83% 53%;
-    /* Vivid Blue #2563EB */
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Vivid Blue - #3B82F6 */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    /* Slate 100 */
+    /* Secondary: Light blue tint for highlights */
+    --secondary: 214 95% 93%;
     --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
+    /* Muted: For disabled states and subtle backgrounds */
+    --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
-    /* Slate 500 */
 
-    --accent: 210 40% 96.1%;
+    /* Accent: Same as secondary for consistency */
+    --accent: 214 95% 93%;
     --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive: Red for errors/deletions */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    /* Slate 200 */
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
+    /* Success: Green for confirmations */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    --radius: 1rem;
+    /* Warning: Amber for alerts */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Border: Crisp slate lines */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    /* Radius: CRM style - subtle, professional */
+    --radius: 0.75rem;
   }
 
   .dark {
-    /* Pro Max Dark - Deep, Rich, Glassy */
-    --background: 222 47% 5%;
-    /* #020617 Slate 950 */
+    /* ========================================
+       DARK THEME - Customer CRM Style
+       Deep slate, NOT pure black
+       ======================================== */
+
+    /* Background: Deep slate */
+    --background: 222 47% 6%;
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 8%;
-    /* Slate 900/950 mix */
+    /* Cards: Slightly elevated from background */
+    --card: 222 47% 9%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 8%;
+    /* Popover: Same as card */
+    --popover: 222 47% 9%;
     --popover-foreground: 210 40% 98%;
 
+    /* Primary: Bright blue - same as light */
     --primary: 217 91% 60%;
-    /* Bright Blue #3B82F6 */
-    --primary-foreground: 222 47.4% 11.2%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    /* Slate 800 */
+    /* Secondary: Dark slate for subtle backgrounds */
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    /* Muted: For disabled states */
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
+    /* Accent: Same as secondary */
+    --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    /* Destructive: Muted red for dark mode */
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    /* Slate 800 */
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Success/Warning */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+
+    /* Border: Subtle separation */
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 212 27% 84%;
   }
 }
 
@@ -120,7 +168,7 @@
   }
 
   ::selection {
-    background-color: hsl(var(--primary) / 0.2);
+    background-color: hsl(var(--primary) / 0.15);
     color: hsl(var(--primary));
   }
 
@@ -128,18 +176,17 @@
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
 
-    /* Enable smooth scrolling but respect user preferences */
     @media (prefers-reduced-motion: reduce) {
       scroll-behavior: auto;
     }
 
-    /* Only reserve scrollbar space on devices that likely have non-overlay scrollbars */
+    /* Reserve scrollbar space on desktop */
     @media (hover: hover) and (pointer: fine) {
       scrollbar-gutter: stable;
     }
   }
 
-  /* Enforce cursor-pointer on interactive elements per design protocol */
+  /* Enforce cursor-pointer on interactive elements */
   button,
   [role='button'],
   a,
@@ -154,17 +201,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    /* Prevent horizontal scroll on mobile */
     overflow-x: hidden;
-    /* Add bottom padding for fixed bottom bars */
-    padding-bottom: var(--safe-area-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* Custom Scrollbar - Desktop Only */
+  /* Premium Scrollbar - Desktop Only */
   @media (hover: hover) and (pointer: fine) {
     ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
     }
 
     ::-webkit-scrollbar-track {
@@ -172,7 +217,9 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      @apply bg-muted-foreground/20 hover:bg-muted-foreground/40 rounded-full border-4 border-solid border-transparent bg-clip-padding;
+      @apply bg-muted-foreground/20 hover:bg-muted-foreground/40 rounded-full;
+      border: 2px solid transparent;
+      background-clip: padding-box;
     }
   }
 
@@ -188,9 +235,9 @@
     }
   }
 
-  /* Native Select Styling for Dark Mode */
+  /* Native Select Styling */
   select {
-    color-scheme: dark;
+    color-scheme: light dark;
   }
 
   select option {
@@ -214,7 +261,7 @@
     }
   }
 
-  /* Autofill styling for dark mode */
+  /* Autofill styling */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -230,20 +277,17 @@
   button,
   [role='button'],
   a {
-    min-height: var(--touch-target);
     touch-action: manipulation;
   }
 
-  /* Ensure proper focus styles for accessibility */
+  /* Focus styles for accessibility */
   :focus-visible {
     outline: 2px solid transparent;
     outline-offset: 2px;
-    --tw-ring-offset-width: 2px;
-    --tw-ring-offset-color: hsl(var(--background));
-    @apply ring-primary ring-2;
+    @apply ring-primary ring-2 ring-offset-2 ring-offset-background;
   }
 
-  /* Remove focus outline on touch devices for cleaner look */
+  /* Remove focus outline on touch devices */
   @media (hover: none) and (pointer: coarse) {
     :focus:not(:focus-visible) {
       outline: none;
@@ -252,130 +296,93 @@
   }
 }
 
-@utility glass {
-  /* CRM Style: Minimal transparency, mostly solid */
-  @apply bg-white/95 border border-slate-200 shadow-sm backdrop-blur-sm;
+/* ============================================
+   UTILITY CLASSES - CRM Design System
+   ============================================ */
+
+/* Card Utility - CRM Style: Solid, Crisp Border */
+@utility card-base {
+  @apply bg-card border border-border rounded-xl;
 }
 
-@utility mesh-gradient {
-  /* CRM Style: Clean Slate-50 background, NO mesh gradient chaos */
-  @apply bg-slate-50;
+@utility card-interactive {
+  @apply card-base transition-shadow duration-200 hover:shadow-md;
 }
 
-.dark .glass {
-  @apply border-slate-800 bg-slate-900/95 shadow-md;
+/* Data Table Styles */
+@utility table-header {
+  @apply bg-muted/50 text-xs uppercase font-medium text-muted-foreground tracking-wider;
 }
 
-.dark .mesh-gradient {
-  @apply bg-slate-950;
+@utility table-row {
+  @apply bg-card border-b border-border/50 transition-colors hover:bg-accent/50;
 }
 
-/* ... Safe Area Helpers ... */
-
-@utility glass-card {
-  /* CRM Style: Solid, crisp border, subtle shadow. Professional. */
-  @apply bg-white border border-slate-200 shadow-sm rounded-xl;
+/* Button Utilities */
+@utility btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 font-semibold transition-colors;
 }
 
-.dark .glass-card {
-  @apply bg-slate-900 border-slate-800 shadow-md;
+@utility btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 font-medium transition-colors;
 }
 
-@utility glow {
-  /* CRM Style: Disable annoying glows */
-  @apply hidden;
+@utility btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground font-medium transition-colors;
 }
 
-@utility premium-gradient {
-  /* CRM Style: Professional Blue Gradient for primary actions only */
-  @apply bg-linear-to-r from-blue-600 to-blue-500;
+/* Badge Utilities */
+@utility badge-success {
+  @apply bg-success/10 text-success border border-success/20 font-medium;
 }
 
-/* Vaul Drawer Styling */
-[vaul-drawer] {
-  @apply border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-4xl border-t;
+@utility badge-warning {
+  @apply bg-warning/10 text-warning border border-warning/20 font-medium;
 }
 
-[vaul-drawer]::after {
-  @apply bg-muted-foreground/20 absolute top-3 left-1/2 h-1.5 w-12 -translate-x-1/2 rounded-full;
-  content: '';
+@utility badge-destructive {
+  @apply bg-destructive/10 text-destructive border border-destructive/20 font-medium;
 }
 
-[vaul-overlay] {
-  @apply fixed inset-0 z-40 bg-black/40 backdrop-blur-sm;
+/* Sidebar Utilities */
+@utility sidebar-item {
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground;
 }
 
-/* Premium Shadows */
-.shadow-premium {
-  box-shadow: 0 20px 50px -12px rgba(99, 102, 241, 0.15);
+@utility sidebar-item-active {
+  @apply bg-primary/10 text-primary font-semibold;
 }
 
-.dark .shadow-premium {
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-}
+/* Hide scrollbar utility */
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-/* Animations */
-@keyframes float {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-20px) rotate(2deg);
-  }
-
-  100% {
-    transform: translateY(0px) rotate(0deg);
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
+/* ============================================
+   ANIMATIONS - Subtle, Professional
+   ============================================ */
 
-.animate-float-delayed {
-  animation: float 8s ease-in-out infinite;
-  animation-delay: 2s;
-}
-
-/* Reduce motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-
-  .animate-float,
-  .animate-float-delayed {
-    animation: none;
+/* Fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  to {
+    opacity: 1;
   }
 }
 
-/* Skeleton animation */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
 }
 
-.animate-shimmer {
-  background: linear-gradient(90deg,
-      hsl(var(--muted)) 0%,
-      hsl(var(--muted-foreground) / 0.1) 50%,
-      hsl(var(--muted)) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-/* Slide up animation for modals/drawers */
+/* Slide up (for modals/drawers) */
 @keyframes slideUp {
   from {
     transform: translateY(100%);
@@ -392,22 +399,7 @@
   animation: slideUp 0.3s ease-out;
 }
 
-/* Fade in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out;
-}
-
-/* Scale in animation */
+/* Scale in */
 @keyframes scaleIn {
   from {
     transform: scale(0.95);
@@ -424,16 +416,64 @@
   animation: scaleIn 0.2s ease-out;
 }
 
-@utility scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
 
-  &::-webkit-scrollbar {
-    display: none;
+  100% {
+    background-position: 200% 0;
   }
 }
 
-/* Hide Next.js dev indicator in dashboard for cleaner view */
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.08) 50%,
+      hsl(var(--muted)) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-scale-in,
+  .animate-shimmer {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   COMPONENT OVERRIDES
+   ============================================ */
+
+/* Vaul Drawer Styling */
+[vaul-drawer] {
+  @apply border-border bg-card fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-2xl border-t;
+}
+
+[vaul-drawer]::after {
+  @apply bg-muted-foreground/30 absolute top-3 left-1/2 h-1 w-10 -translate-x-1/2 rounded-full;
+  content: '';
+}
+
+[vaul-overlay] {
+  @apply fixed inset-0 z-40 bg-black/50 backdrop-blur-sm;
+}
+
+/* Hide Next.js dev indicators in dashboard */
 .dashboard-view [data-nextjs-toast],
 .dashboard-view [data-nextjs-portal],
 .dashboard-view .nextjs-static-indicator {
