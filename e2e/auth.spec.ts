@@ -38,18 +38,19 @@ test.describe('Authentication Flow & UI', () => {
   })
 
   test('Invalid login shows error', async ({ page }) => {
-    await page.fill('input[name="email"]', 'wrong@example.com')
-    await page.fill('input[name="password"]', 'wrongpassword')
-    await page.click('button[type="submit"]')
+    await page.getByTestId('auth-email-input').fill('wrong@example.com')
+    await page.getByTestId('auth-password-input').fill('wrongpassword')
+    await page.getByTestId('auth-submit-btn').click()
 
     // Error message should appear (handled by Supabase or our error state)
-    const errorContainer = page.locator('.shake, [role="alert"], text=/Invalid|Error|Chyba|Nesprávne/i').first()
-    await expect(errorContainer).toBeVisible({ timeout: 10000 })
+    // Increased timeout for slow network/Supabase response
+    const errorContainer = page.getByTestId('auth-error-alert')
+    await expect(errorContainer).toBeVisible({ timeout: 20000 })
   })
 
   test('Toggle between Login and Register', async ({ page }) => {
-    // Click Sign Up link
-    await page.getByRole('button', { name: /Sign Up|Vytvoriť účet|Создать аккаунт/i }).click()
+    // Click Sign Up link using data-testid
+    await page.getByTestId('auth-toggle-mode-btn').click()
 
     // URL may change if we use state-based toggle, or stay same
     // But text should change

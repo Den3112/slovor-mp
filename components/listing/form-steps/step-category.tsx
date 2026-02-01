@@ -27,48 +27,50 @@ export function StepCategory({
   fieldErrors,
   updateField,
 }: StepCategoryProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['createListing', 'common', 'filters'])
 
   return (
-    <div className="animate-in fade-in slide-in-from-right-8 space-y-10 duration-500">
-      <FormField label={t('createListing.category')} error={fieldErrors.category_id}>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
+      <FormField label={t('category')} error={fieldErrors.category_id}>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => updateField('category_id', cat.id)}
               className={cn(
-                'group relative flex flex-col items-center justify-center gap-4 rounded-4xl border p-6 text-center transition-all duration-300',
+                'group relative flex flex-col items-center gap-3 rounded-2xl border p-4 transition-all active:scale-95 md:p-6',
                 formData.category_id === cat.id
-                  ? 'bg-primary border-primary text-primary-foreground shadow-primary/30 ring-primary/20 scale-105 shadow-xl ring-4'
-                  : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 hover:shadow-lg'
+                  ? 'border-primary bg-primary/10 ring-primary/20 ring-4'
+                  : 'border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/10'
               )}
             >
               <div
                 className={cn(
-                  'flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300',
+                  'flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110 md:h-16 md:w-16',
                   formData.category_id === cat.id
-                    ? 'bg-white/20 scale-110'
-                    : 'bg-primary/10 group-hover:bg-primary group-hover:text-white'
+                    ? 'bg-primary text-white shadow-lg'
+                    : 'bg-white/5 text-white/70'
                 )}
               >
-                <CategoryIcon slug={cat.slug} className="h-7 w-7" />
+                <CategoryIcon slug={cat.slug} className="h-6 w-6 md:h-8 md:w-8" />
               </div>
-              <span className="text-sm font-black tracking-tight uppercase">
+              <span
+                className={cn(
+                  'text-center text-xs font-bold transition-colors md:text-sm',
+                  formData.category_id === cat.id
+                    ? 'text-white'
+                    : 'text-muted-foreground group-hover:text-white'
+                )}
+              >
                 {cat.name}
               </span>
-
-              {/* Checkmark indicator for active state */}
-              {formData.category_id === cat.id && (
-                <div className="animate-in zoom-in absolute top-5 right-5 h-2.5 w-2.5 rounded-full bg-white shadow-sm ring-4 ring-white/20" />
-              )}
             </button>
           ))}
         </div>
       </FormField>
 
-      <FormField label={t('createListing.condition')} error={fieldErrors.condition}>
+      <FormField label={t('condition')} error={fieldErrors.condition}>
         <div className="bg-white/5 flex gap-4 rounded-3xl border border-white/5 p-1.5 active:scale-[0.99] transition-transform">
           {(['new', 'used'] as const).map((c) => (
             <button

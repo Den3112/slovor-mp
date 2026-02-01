@@ -24,7 +24,7 @@ interface UserMenuProps {
 }
 
 export function UserMenu({ user, signOut }: UserMenuProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'profile', 'auth'])
   const unreadCount = useUnreadMessages()
   const [showUserMenu, setShowUserMenu] = useState(false)
 
@@ -67,7 +67,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
           >
             <div className="border-border/50 bg-muted/30 border-b px-5 py-4">
               <p className="text-primary mb-1 text-[10px] font-black tracking-[0.2em] uppercase">
-                {t('auth.signedInAs')}
+                {t('auth:signedInAs')}
               </p>
               <p className="text-foreground truncate text-sm font-bold">
                 {user.email}
@@ -81,7 +81,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                   onClick={() => setShowUserMenu(false)}
                 >
                   <ShieldAlert className="h-4 w-4 transition-transform group-hover:scale-110" />
-                  {t('common.adminPanel')}
+                  {t('common:adminPanel')}
                 </Link>
               )}
 
@@ -91,7 +91,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t('common.dashboard')}
+                {t('common:dashboard')}
               </Link>
 
               <Link
@@ -100,7 +100,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Store className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t('profile.myListings')}
+                {t('profile:myListings')}
               </Link>
 
               <Link
@@ -109,7 +109,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Heart className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t('profile.favorites')}
+                {t('profile:favorites')}
               </Link>
 
               <Link
@@ -118,7 +118,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t('profile.savedSearches')}
+                {t('profile:savedSearches')}
               </Link>
 
               <div className="bg-border/50 mx-2 my-1 h-px" />
@@ -129,7 +129,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Eye className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t('profile.publicProfile')}
+                {t('profile:publicProfile')}
               </Link>
 
               <Link
@@ -138,7 +138,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 onClick={() => setShowUserMenu(false)}
               >
                 <Settings className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
-                {t('profile.settings')}
+                {t('profile:settings')}
               </Link>
 
               <div className="bg-border/50 mx-2 my-1 h-px" />
@@ -148,7 +148,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 className="text-destructive hover:bg-destructive/5 flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
               >
                 <LogOut className="h-4 w-4" />
-                {t('auth.signOut')}
+                {t('auth:signOut')}
               </button>
             </div>
           </motion.div>

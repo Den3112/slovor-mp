@@ -186,7 +186,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                                 )}
                                                 <div>
                                                     <span className="block text-sm font-medium line-clamp-1">{item.title}</span>
-                                                    <span className="block text-xs text-muted-foreground font-bold text-primary">{item.price} {item.currency}</span>
+                                                    <span className="block text-xs font-bold text-primary">{item.price} {item.currency}</span>
                                                 </div>
                                                 <Zap className="text-primary ml-auto h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </button>

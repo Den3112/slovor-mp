@@ -1,49 +1,68 @@
 'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ChevronRight, Home } from 'lucide-react'
-import { useTranslation } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 
-interface BreadcrumbItem {
-  label: string
-  href?: string
+export interface BreadcrumbsProps {
+  items?: { label: string; href?: string }[]
+  className?: string
 }
 
-interface BreadcrumbsProps {
-  items: BreadcrumbItem[]
-}
 
-export function Breadcrumbs({ items }: BreadcrumbsProps) {
-  const { t, locale } = useTranslation()
-  const homeHref = `/${locale}`
+export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
+  const pathname = usePathname()
+
+  // if no items provided, auto-generate from pathname
+  const breadcrumbs = items || pathname
+    .split('/')
+    .filter(path => path !== '')
+    .map((path, index, array) => {
+      // Skip the locale part (first part) for the label usually, unless you want it
+      // For Slovor, first segment is usually [lang] (e.g. 'ru', 'en')
+      const href = '/' + array.slice(0, index + 1).join('/')
+      const label = path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ')
+      return { label, href }
+    })
+
+  // Filter out the locale segment from display if it's the first one
+  const displayItems = breadcrumbs.filter((item, index) => index > 0 || (breadcrumbs.length === 1 && item.label.length > 3))
 
   return (
-    <nav className="no-scrollbar mb-8 w-full overflow-x-auto pb-1">
-      <div className="border-border/50 bg-card/80 inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm whitespace-nowrap shadow-sm backdrop-blur-sm sm:gap-3 sm:px-5">
-        <Link
-          href={homeHref}
-          className="text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 transition-colors"
-        >
-          <Home className="h-4 w-4" />
-          <span className="hidden sm:inline">{t('common.home')}</span>
-        </Link>
-        {items.map((item, index) => (
-          <div key={index} className="inline-flex items-center gap-2 sm:gap-3">
-            <ChevronRight className="text-muted-foreground/50 h-4 w-4" />
-            {item.href ? (
+    <nav aria-label="Breadcrumb" className={cn("flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-muted-foreground/60", className)}>
+      <Link
+        href="/"
+        className="flex items-center hover:text-primary transition-colors duration-300"
+      >
+        <Home className="h-3.5 w-3.5" />
+      </Link>
+
+      {displayItems.map((item, index) => {
+        const isLast = index === displayItems.length - 1
+
+        return (
+          <div key={item.href || `item-${index}`} className="flex items-center space-x-2">
+            <ChevronRight className="h-3 w-3 opacity-40" />
+
+            {isLast || !item.href ? (
+              <span className={cn(
+                "font-black italic",
+                isLast ? "text-primary" : "text-muted-foreground"
+              )}>
+                {item.label}
+              </span>
+            ) : (
               <Link
                 href={item.href}
-                className="text-muted-foreground hover:text-primary inline-flex items-center transition-colors"
+                className="hover:text-foreground transition-colors duration-300"
               >
                 {item.label}
               </Link>
-            ) : (
-              <span className="text-foreground inline-flex items-center font-medium">
-                {item.label}
-              </span>
             )}
           </div>
-        ))}
-      </div>
+        )
+      })}
     </nav>
   )
 }

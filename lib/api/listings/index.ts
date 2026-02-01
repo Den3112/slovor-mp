@@ -238,9 +238,10 @@ export const listingsApi = {
     }
   },
 
-  async getByUser(userId: string): Promise<ApiResponse<Listing[]>> {
+  async getByUser(userId: string, client?: SupabaseClient): Promise<ApiResponse<Listing[]>> {
     try {
-      const { data, error } = await supabase
+      const supabaseClient = client || supabase
+      const { data, error } = await supabaseClient
         .from('listings')
         .select('*, category:categories(*)')
         .eq('user_id', userId)

@@ -21,6 +21,11 @@ export const FALLBACK_GEO: GeoData = {
 }
 
 export async function getGeoByIp(ip: string | null): Promise<GeoData> {
+  // Mock for Test/Dev environments where external API might fail or be slow
+  if (process.env.NODE_ENV === 'test') {
+    return FALLBACK_GEO
+  }
+
   const isLocal =
     !ip ||
     ip === '127.0.0.1' ||
@@ -50,7 +55,7 @@ export async function getGeoByIp(ip: string | null): Promise<GeoData> {
 
     const currency: CurrencyCode =
       COUNTRY_CURRENCY_MAP[
-        data.countryCode as keyof typeof COUNTRY_CURRENCY_MAP
+      data.countryCode as keyof typeof COUNTRY_CURRENCY_MAP
       ] || DEFAULT_CURRENCY
 
     return {

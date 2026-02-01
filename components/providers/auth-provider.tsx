@@ -16,17 +16,20 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
   isLoading: true,
-  signOut: async () => {},
+  signOut: async () => { },
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  console.log('AuthProvider: RENDER. URL:', process.env.NEXT_PUBLIC_SUPABASE_URL, 'Key length:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.length);
 
   useEffect(() => {
+    console.log('AuthProvider: Initializing...');
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('AuthProvider: Session retrieved', !!session);
       setSession(session)
       setIsLoading(false)
     })

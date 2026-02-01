@@ -8,10 +8,12 @@
   "register": "Registrácia",
   "signIn": "Prihlásiť sa",
   "signUp": "Registrácia",
-  "dashboard": "Dashboard",
+  "dashboard": "Prehľad",
   "profile": "Môj profil",
   "marketTrends": "Trhové trendy",
   "adminPanel": "Administrácia",
+  "switchToProfile": "Prepnúť na profil",
+  "switchToAdmin": "Prepnúť na administráciu",
   "viewAll": "Zobraziť všetko",
   "exploreMarketplace": "Preskúmajte trhovisko",
   "joinCommunity": "Pridajte sa ku komunite",
@@ -68,5 +70,22 @@
   "account": "Účet",
   "guest": "Hosť",
   "help": "Pomoc",
-  "legal": "Právne informácie"
+  "legal": "Právne informácie",
+  "footer": {
+    "popular": "Populárne kategórie",
+    "info": "Informácie",
+    "about": "O Slovor",
+    "faq": "Často kladené otázky",
+    "terms": "Obchodné podmienky",
+    "privacy": "Ochrana osobných údajov",
+    "description": "Elitná platforma trhoviska prispôsobená pre moderného predajcu a vedomého kupujúceho na Slovensku.",
+    "newsletterTitle": "Pridajte sa k nášmu elitnému kruhu",
+    "newsletterSubtitle": "Získajte exkluzívne aktualizácie trhu a najlepšie ponuky priamo do vašej schránky.",
+    "newsletterPlaceholder": "Zadajte svoj pracovný email",
+    "subscribe": "Prihlásiť sa na odber",
+    "rights": "Všetky práva vyhradené",
+    "transparency": "Transparentnosť",
+    "privacyPolicy": "Ochrana osobných údajov"
+  },
+  "marketplaceSlogan": "Nájdite tie najlepšie ponuky vo vašom meste ešte dnes."
 }

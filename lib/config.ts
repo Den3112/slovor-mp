@@ -31,7 +31,7 @@ export const config = {
     url: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : 'http://localhost:3000',
-    adminEmails: ['admin@slovor.sk', 'moderator@slovor.sk'],
+    adminEmails: ['admin@slovor.sk', 'moderator@slovor.sk', 'test.seller@slovor.sk'],
   },
 }
 

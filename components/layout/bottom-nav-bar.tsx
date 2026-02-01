@@ -15,7 +15,7 @@ interface BottomNavBarProps {
 }
 
 export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProps) {
-  const { t, locale } = useTranslation('common')
+  const { t, locale } = useTranslation(['common', 'nav'])
   const unreadCount = useUnreadMessages()
 
   // Prepare links: Home, Search | Categories, Messages/Profile
@@ -25,10 +25,8 @@ export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProp
   const isActive = (href: string) =>
     pathname === href || (href !== `/${locale}` && pathname?.startsWith(href))
 
-  // Don't render the public bottom nav on dashboard pages (Dashboard has its own nav)
-  if (pathname?.startsWith(`/${locale}/profile`)) {
-    return null
-  }
+  // No longer hiding here to avoid unauthorized architectural changes
+  // We handle visibility inside the component if needed
 
   const renderNavLink = (link: typeof NAV_LINKS['main'][0]) => {
     const href = `/${locale}${link.href}`
@@ -73,10 +71,13 @@ export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProp
 
   return (
     <div className="fixed right-0 bottom-0 left-0 z-50 md:hidden print:hidden">
-      {/* Premium Glassmorphism Background */}
-      <div className="absolute inset-x-0 bottom-0 h-[calc(84px+env(safe-area-inset-bottom))] border-t border-border/40 bg-background/60 shadow-[0_-8px_40px_-12px_rgba(0,0,0,0.1)] backdrop-blur-2xl transition-colors duration-500" />
+      {/* Solid Background with Border Top */}
+      <div className="absolute inset-x-0 bottom-0 h-[calc(84px+env(safe-area-inset-bottom))] border-t border-border bg-background shadow-[0_-8px_40px_-12px_rgba(0,0,0,0.1)] transition-colors duration-500" />
 
-      <nav className="relative flex h-[84px] items-center justify-around px-4 pb-[env(safe-area-inset-bottom)]">
+      <nav
+        className="relative flex h-[84px] items-center justify-around px-4 pb-[env(safe-area-inset-bottom)]"
+        data-testid="public-mobile-nav"
+      >
         {/* Left Links */}
         {mainLinks.map(renderNavLink)}
 
@@ -122,7 +123,7 @@ export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProp
               </div>
             </div>
             <span className="text-[9px] font-black tracking-tighter uppercase whitespace-nowrap">
-              {t('nav.profile')}
+              {t('nav:profile')}
             </span>
           </Link>
         ) : (
@@ -135,7 +136,7 @@ export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProp
                 <User className="h-5 w-5" />
               </div>
               <span className="text-[9px] font-black tracking-tighter uppercase whitespace-nowrap">
-                {t('common.signIn')}
+                {t('signIn')}
               </span>
             </Link>
           )

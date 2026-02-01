@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export function Hero() {
-  const { t } = useTranslation('home')
+  const { t, locale, i18n } = useTranslation(['home', 'common'])
   const router = useRouter()
   const [query, setQuery] = useState('')
 
@@ -18,46 +18,36 @@ export function Hero() {
 
   const handleSearch = () => {
     if (query.trim()) {
-      router.push(`/listings?search=${encodeURIComponent(query)}`)
+      router.push(`/${locale}/listings?search=${encodeURIComponent(query)}`)
     }
   }
 
   return (
-    <section className="mesh-gradient relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-32 lg:pt-36 lg:pb-48">
-      {/* Decorative Elements - Hidden on mobile for performance */}
-      <div className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
-        <div className="animate-float bg-primary/20 absolute top-[-10%] right-[-5%] h-[600px] w-[600px] rounded-full blur-[120px]" />
-        <div className="animate-float-delayed absolute bottom-[-10%] left-[-5%] h-[800px] w-[800px] rounded-full bg-violet-600/10 blur-[140px]" />
-      </div>
+    <section className="bg-background relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-32 lg:pt-36 lg:pb-48">
+      {/* Clean Background - SaaS Style */}
+      <div className="absolute inset-0 bg-background" />
 
-      {/* Simplified decorative for mobile */}
-      <div className="pointer-events-none absolute inset-0 md:hidden">
-        <div className="bg-primary/15 absolute top-0 right-0 h-[300px] w-[300px] translate-x-1/2 -translate-y-1/2 rounded-full blur-[80px]" />
-      </div>
-
-      <div className="absolute top-1/2 left-1/2 hidden h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[url('/grid-pattern.svg')] mask-[radial-gradient(white,transparent_70%)] bg-center opacity-20 md:block" />
-
-      <Container className="relative">
-        <div className="mx-auto max-w-5xl text-center">
+      <Container className="relative z-10">
+        <div className="mx-auto max-w-4xl text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <span className="glass text-primary shadow-primary/5 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[9px] font-black tracking-widest uppercase shadow-lg md:mb-10 md:px-5 md:text-[10px] md:tracking-[0.2em]">
-              <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
+            <span className="inline-flex items-center gap-2 rounded-full bg-blue-100 dark:bg-blue-900/30 px-4 py-1.5 text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-8">
+              <Sparkles className="h-3.5 w-3.5" />
               {t('heroTagline')}
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
-            className="font-heading text-foreground mb-6 text-[2.5rem] leading-none font-black tracking-[-0.03em] sm:text-5xl md:mb-10 md:text-6xl lg:text-[7rem] lg:leading-[0.95] lg:tracking-[-0.04em]"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-heading text-foreground mb-6 text-4xl leading-tight font-black tracking-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl"
           >
             {t('heroTitleMain')} <br className="hidden sm:block" />
-            <span className="animate-gradient-x from-primary bg-linear-to-r via-violet-500 to-indigo-500 bg-clip-text text-transparent">
+            <span className="text-blue-600">
               {t('heroTitleHighlight')}
             </span>
           </motion.h1>
@@ -65,34 +55,27 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-muted-foreground mx-auto mb-8 max-w-lg px-4 text-base leading-relaxed font-medium opacity-80 sm:px-0 md:mb-16 md:max-w-2xl md:text-xl lg:text-2xl"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-muted-foreground mx-auto mb-10 max-w-2xl px-4 text-lg leading-relaxed font-medium sm:px-0 md:mb-14 md:text-xl lg:text-2xl"
           >
             {t('heroSubtitle')}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.3,
-              type: 'spring',
-              damping: 20,
-            }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="relative mx-auto max-w-3xl px-2 sm:px-0"
           >
             <div className="group relative">
-              {/* Glow effect - hidden on mobile */}
-              <div className="from-primary absolute -inset-1 hidden rounded-4xl bg-linear-to-r to-violet-600 opacity-20 blur-2xl transition duration-1000 group-focus-within:opacity-40 md:block md:rounded-5xl" />
-
-              <div className="border-border/30 bg-card/60 sm:focus-within:border-primary/50 sm:focus-within:ring-primary/10 relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-3 shadow-xl backdrop-blur-3xl transition-all duration-300 sm:flex-row sm:items-center sm:rounded-4xl sm:p-2 sm:pr-2 sm:focus-within:ring-4 md:rounded-[2.2rem] md:shadow-2xl">
-                <div className="focus-within:bg-primary/5 flex flex-1 items-center rounded-xl px-4 py-1 transition-colors sm:pl-4 sm:focus-within:bg-transparent md:pl-6">
+              {/* Clean Search Box - SaaS Style */}
+              <div className="bg-card relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 sm:flex-row sm:items-center sm:rounded-3xl sm:focus-within:ring-4 ring-primary/10">
+                <div className="flex flex-1 items-center px-4 py-2 sm:pl-6">
                   <label htmlFor="hero-search" className="sr-only">
                     Search
                   </label>
                   <Search
-                    className="text-primary h-5 w-5 shrink-0 opacity-70 md:h-6 md:w-6"
+                    className="text-muted-foreground h-5 w-5 shrink-0 md:h-6 md:w-6"
                     aria-hidden="true"
                   />
                   <input
@@ -102,7 +85,7 @@ export function Hero() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={t('searchPlaceholder')}
                     aria-label={t('searchPlaceholder')}
-                    className="placeholder:text-muted-foreground/40 w-full border-none bg-transparent px-3 py-4 text-base font-bold focus:ring-0 focus:outline-none active:border-none active:outline-none sm:py-5 md:px-4 md:py-6 md:text-xl"
+                    className="placeholder:text-muted-foreground w-full border-none bg-transparent px-3 py-3 text-base font-semibold text-foreground focus:ring-0 focus:outline-none sm:py-4 md:px-4 md:text-lg"
                     style={{ outline: 'none', boxShadow: 'none' }}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
@@ -115,10 +98,10 @@ export function Hero() {
                 <Button
                   onClick={handleSearch}
                   size="lg"
-                  className="shadow-primary/30 hover:shadow-primary/50 h-14 w-full shrink-0 rounded-xl text-base font-black shadow-lg transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-3xl sm:px-8 md:h-16 md:rounded-[1.8rem] md:px-10 md:text-lg"
+                  className="bg-blue-600 hover:bg-blue-700 h-12 w-full shrink-0 rounded-xl text-base font-bold text-white shadow-none transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-2xl sm:px-8 md:px-10"
                 >
                   {t('common:search')}
-                  <ArrowRight className="ml-2 h-5 w-5 md:h-6 md:w-6" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
             </div>
@@ -127,18 +110,18 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-2 px-2 md:mt-14 md:gap-3"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-3 px-2"
           >
-            <span className="text-muted-foreground mb-2 w-full text-center text-[9px] font-black tracking-widest uppercase opacity-60 sm:mr-4 sm:mb-0 sm:w-auto md:text-[10px] md:tracking-[0.2em]">
+            <span className="text-slate-400 mb-2 w-full text-center text-[10px] font-bold tracking-widest uppercase sm:mr-2 sm:mb-0 sm:w-auto">
               {t('popularSearches')}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {popularSearches.map((term) => (
                 <Link
                   key={term}
-                  href={`/listings?search=${term}`}
-                  className="bg-muted/40 hover:border-primary/20 hover:bg-primary/10 hover:text-primary rounded-full border border-transparent px-4 py-2 text-xs font-bold backdrop-blur-sm transition-all active:scale-95 md:px-6 md:text-sm"
+                  href={`/${i18n.language || 'en'}/listings?search=${term}`}
+                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary rounded-full border border-border px-4 py-1.5 text-sm font-semibold transition-colors"
                 >
                   {term}
                 </Link>

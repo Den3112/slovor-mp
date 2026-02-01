@@ -39,7 +39,7 @@ export function ListingCard({
   if (variant === 'compact') {
     return (
       <Link
-        href={`/listings/${listing.id}`}
+        href={`/${locale}/listings/${listing.id}`}
         className="group border-border/40 bg-card active:bg-muted/50 md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-2xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-1 md:hover:shadow-lg"
       >
         {/* Compact Image */}

@@ -1,6 +1,6 @@
 {
   "title": "Create New Listing",
-  "step": "Step {step} of 3",
+  "step": "Step {{step}} of 3",
   "category": "Category",
   "condition": "Condition",
   "itemTitle": "Title",

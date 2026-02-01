@@ -17,16 +17,19 @@ export interface Conversation {
     title: string
     images: string[]
     price: number
+    currency: string
   }
   buyer?: {
     id: string
     display_name: string | null
     avatar_url: string | null
+    is_verified?: boolean
   }
   seller?: {
     id: string
     display_name: string | null
     avatar_url: string | null
+    is_verified?: boolean
   }
   last_message?: Message | null
 }

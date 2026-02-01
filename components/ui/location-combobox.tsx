@@ -57,15 +57,11 @@ export function LocationCombobox({
         !inputRef.current?.contains(event.target as Node)
       ) {
         setIsOpen(false)
-        // Reset to original value if user didn't select
-        if (!isValidSlovakLocation(searchQuery)) {
-          setSearchQuery(value)
-        }
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [searchQuery, value])
+  }, []) // Remove dependencies to avoid unnecessary resets
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
@@ -103,11 +99,12 @@ export function LocationCombobox({
         e.preventDefault()
         if (highlightedIndex >= 0 && suggestions[highlightedIndex]) {
           handleSelectCity(suggestions[highlightedIndex])
+        } else if (suggestions.length > 0) {
+          if(suggestions[0]) handleSelectCity(suggestions[0])
         }
         break
       case 'Escape':
         setIsOpen(false)
-        setSearchQuery(value)
         break
     }
   }
@@ -167,6 +164,8 @@ export function LocationCombobox({
                 <button
                   key={`${city.nameSk}-${city.district}`}
                   type="button"
+                  onMouseEnter={() => setHighlightedIndex(index)}
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleSelectCity(city)}
                   className={cn(
                     'flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-colors',
@@ -176,7 +175,7 @@ export function LocationCombobox({
                     city.nameSk === value && 'bg-primary/5'
                   )}
                 >
-                  <MapPin className="text-muted-foreground h-4 w-4 flex-shrink-0" />
+                  <MapPin className="text-muted-foreground h-4 w-4 shrink-0" />
                   <div className="flex-1">
                     <div className="font-medium">{city.nameSk}</div>
                     <div className="text-muted-foreground text-xs">

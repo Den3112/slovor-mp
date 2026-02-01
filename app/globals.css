@@ -1,12 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap');
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --font-sans:
-    'DM Sans', ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-heading: 'Outfit', ui-sans-serif, system-ui, sans-serif;
-
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -38,83 +32,85 @@
   --radius-4xl: 2rem;
   --radius-5xl: 2.5rem;
 
-  --shadow-premium: 0 20px 50px -12px rgba(99, 102, 241, 0.15);
-  --shadow-soft-shadow:
-    0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-premium: 0 20px 50px -12px rgba(79, 70, 229, 0.15);
+  --shadow-soft-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 @layer base {
   :root {
+    /* Pro Max Light - Clean, Crisp, Professional */
     --background: 210 40% 98%;
-    /* slate-50 #F8FAFC */
+    /* Slate 50 */
     --foreground: 222 47% 11%;
-    /* slate-900 #0F172A */
+    /* Slate 900 */
 
     --card: 0 0% 100%;
+    /* White */
     --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 239 84% 67%;
-    /* indigo-500 #6366F1 */
+    --primary: 221 83% 53%;
+    /* Vivid Blue #2563EB */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96%;
-    /* slate-100 */
+    --secondary: 210 40% 96.1%;
+    /* Slate 100 */
     --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96%;
+    --muted: 210 40% 96.1%;
     --muted-foreground: 215 16% 47%;
-    /* slate-500 */
+    /* Slate 500 */
 
-    --accent: 210 40% 96%;
+    --accent: 210 40% 96.1%;
     --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    /* slate-200 */
-    --input: 214 32% 91%;
-    --ring: 239 84% 67%;
+    --border: 214.3 31.8% 91.4%;
+    /* Slate 200 */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
 
-    --radius: 1.5rem;
-    /* 24px - Avant-Garde Soft UI */
+    --radius: 1rem;
   }
 
   .dark {
+    /* Pro Max Dark - Deep, Rich, Glassy */
     --background: 222 47% 5%;
-    /* Very deep slate */
+    /* #020617 Slate 950 */
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 11%;
-    /* slate-900 */
+    --card: 222 47% 8%;
+    /* Slate 900/950 mix */
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 11%;
+    --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 239 84% 67%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    /* Bright Blue #3B82F6 */
+    --primary-foreground: 222 47.4% 11.2%;
 
-    --secondary: 217 33% 17%;
-    /* slate-800 */
+    --secondary: 217.2 32.6% 17.5%;
+    /* Slate 800 */
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    /* slate-400 */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217 33% 17%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 239 84% 67%;
+    --border: 217.2 32.6% 17.5%;
+    /* Slate 800 */
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
@@ -257,131 +253,42 @@
 }
 
 @utility glass {
-  @apply bg-background/80 border border-white/20 shadow-xl backdrop-blur-2xl;
+  /* CRM Style: Minimal transparency, mostly solid */
+  @apply bg-white/95 border border-slate-200 shadow-sm backdrop-blur-sm;
 }
 
 @utility mesh-gradient {
-  background-color: hsla(0, 0%, 100%, 1);
-  background-image:
-    radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%,
-      hsla(262, 83%, 57%, 0.15) 0px,
-      transparent 50%),
-    radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%);
+  /* CRM Style: Clean Slate-50 background, NO mesh gradient chaos */
+  @apply bg-slate-50;
 }
 
 .dark .glass {
-  @apply border-white/5 bg-slate-950/80 shadow-2xl;
+  @apply border-slate-800 bg-slate-900/95 shadow-md;
 }
 
 .dark .mesh-gradient {
-  background-color: hsla(240, 10%, 4%, 1);
-  background-image:
-    radial-gradient(at 0% 0%, hsla(262, 83%, 57%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%,
-      hsla(262, 83%, 57%, 0.1) 0px,
-      transparent 50%),
-    radial-gradient(at 0% 100%, hsla(271, 91%, 65%, 0.1) 0px, transparent 50%);
+  @apply bg-slate-950;
 }
 
-/* Safe Area Helpers */
-@utility safe-top {
-  padding-top: var(--safe-area-top);
-}
-
-@utility safe-bottom {
-  padding-bottom: var(--safe-area-bottom);
-}
-
-@utility safe-left {
-  padding-left: var(--safe-area-left);
-}
-
-@utility safe-right {
-  padding-right: var(--safe-area-right);
-}
-
-@utility safe-x {
-  padding-left: var(--safe-area-left);
-  padding-right: var(--safe-area-right);
-}
-
-@utility safe-y {
-  padding-top: var(--safe-area-top);
-  padding-bottom: var(--safe-area-bottom);
-}
-
-@utility safe-all {
-  padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
-}
-
-@utility fixed-bottom-bar {
-  @apply fixed right-0 bottom-0 left-0 z-40;
-  padding-bottom: calc(var(--safe-area-bottom) + 0.5rem);
-  padding-left: var(--safe-area-left);
-  padding-right: var(--safe-area-right);
-}
-
-@utility hide-mobile {
-  @apply hidden md:block;
-}
-
-@utility hide-desktop {
-  @apply block md:hidden;
-}
-
-@utility scroll-touch {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-}
-
-@utility no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-@utility scroll-x {
-  @apply no-scrollbar scroll-touch flex overflow-x-auto;
-  scroll-snap-type: x mandatory;
-
-  &>* {
-    scroll-snap-align: start;
-    flex-shrink: 0;
-  }
-}
-
-@utility card-hover {
-  @media (hover: hover) and (pointer: fine) {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
-  }
-}
-
-@utility tap-effect {
-  @media (hover: none) and (pointer: coarse) {
-    @apply transition-transform active:scale-[0.98] active:opacity-90;
-  }
-}
+/* ... Safe Area Helpers ... */
 
 @utility glass-card {
-  @apply shadow-soft-shadow border border-white/30 bg-white/70 backdrop-blur-2xl;
+  /* CRM Style: Solid, crisp border, subtle shadow. Professional. */
+  @apply bg-white border border-slate-200 shadow-sm rounded-xl;
 }
 
 .dark .glass-card {
-  @apply border-slate-700/30 bg-slate-900/40 shadow-2xl backdrop-blur-2xl;
+  @apply bg-slate-900 border-slate-800 shadow-md;
 }
 
 @utility glow {
-  @apply absolute -z-10 animate-pulse rounded-full opacity-30 blur-[100px];
+  /* CRM Style: Disable annoying glows */
+  @apply hidden;
 }
 
 @utility premium-gradient {
-  @apply bg-linear-to-tr from-indigo-600 via-violet-500 to-indigo-400;
+  /* CRM Style: Professional Blue Gradient for primary actions only */
+  @apply bg-linear-to-r from-blue-600 to-blue-500;
 }
 
 /* Vaul Drawer Styling */
@@ -515,4 +422,20 @@
 
 .animate-scale-in {
   animation: scaleIn 0.2s ease-out;
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Hide Next.js dev indicator in dashboard for cleaner view */
+.dashboard-view [data-nextjs-toast],
+.dashboard-view [data-nextjs-portal],
+.dashboard-view .nextjs-static-indicator {
+  display: none !important;
 }

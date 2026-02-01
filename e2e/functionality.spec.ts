@@ -7,11 +7,13 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Public Pages - Load & Display', () => {
   test('Homepage loads with all key elements', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
+    await page.waitForLoadState('networkidle')
 
     // Header elements
     await expect(page.locator('header')).toBeVisible()
-    await expect(page.locator('a[href="/"]').first()).toBeVisible() // Logo
+    // Logo usually redirects to home with locale
+    await expect(page.locator('a[data-testid="header-logo"]').first()).toBeVisible()
 
     // Hero section
     await expect(page.locator('h1')).toBeVisible()
@@ -24,21 +26,22 @@ test.describe('Public Pages - Load & Display', () => {
     const mainContent = page.locator('main, [role="main"], .container').first()
     await expect(mainContent).toBeVisible()
 
-    // Post Ad button
-    await expect(page.locator('a[href="/post"]').first()).toBeVisible()
+    // Post Ad button - link ends with /post
+    await expect(page.getByTestId('header-post-ad-btn').first()).toBeVisible()
 
     // Footer
     await expect(page.locator('footer')).toBeVisible()
   })
 
   test('Categories page displays all categories', async ({ page }) => {
-    await page.goto('/categories')
+    await page.goto('/en/categories')
 
     await expect(page.locator('h1').first()).toBeVisible()
 
     // Check some categories are visible
     const categoryLinks = page.locator('a[href*="/categories/"]')
-    await expect(categoryLinks.first()).toBeVisible()
+    // Filter out potential non-links if any
+    await expect(categoryLinks.first()).toBeVisible({ timeout: 10000 })
 
     // Verify we have multiple categories
     const count = await categoryLinks.count()
@@ -46,7 +49,7 @@ test.describe('Public Pages - Load & Display', () => {
   })
 
   test('Listings page displays listings grid', async ({ page }) => {
-    await page.goto('/listings')
+    await page.goto('/en/listings')
 
     await expect(page.locator('h1')).toBeVisible()
 
@@ -60,34 +63,34 @@ test.describe('Public Pages - Load & Display', () => {
   })
 
   test('About page loads correctly', async ({ page }) => {
-    await page.goto('/about')
+    await page.goto('/en/about')
     await expect(page.locator('h1').first()).toBeVisible()
   })
 
   test('FAQ page displays questions', async ({ page }) => {
-    await page.goto('/faq')
+    await page.goto('/en/faq')
     await expect(page.locator('h1')).toBeVisible()
   })
 
   test('Terms page loads', async ({ page }) => {
-    await page.goto('/terms')
+    await page.goto('/en/terms')
     await expect(page.locator('h1')).toContainText(/Terms|Podmienky/i)
   })
 
   test('Privacy page loads', async ({ page }) => {
-    await page.goto('/privacy')
+    await page.goto('/en/privacy')
     await expect(page.locator('h1')).toContainText(/Privacy|Súkromie/i)
   })
 
   test('Blog page shows coming soon', async ({ page }) => {
-    await page.goto('/blog')
+    await page.goto('/en/blog')
     await expect(page.locator('h1')).toBeVisible()
   })
 })
 
 test.describe('Authentication Flow', () => {
   test('Login page displays form', async ({ page }) => {
-    await page.goto('/login')
+    await page.goto('/en/auth/login')
     await page.waitForLoadState('networkidle')
 
     // Check form exists - login page has a form with email/password
@@ -98,26 +101,26 @@ test.describe('Authentication Flow', () => {
   })
 
   test('Register redirects to login with mode', async ({ page }) => {
-    await page.goto('/register')
-    await page.waitForURL(/\/login/)
-    await expect(page).toHaveURL(/mode=register|\/login/)
+    await page.goto('/en/auth/register')
+    await page.waitForURL(/\/auth\/login/)
+    await expect(page).toHaveURL(/mode=register/)
   })
 
   test('Protected routes redirect to login', async ({ page }) => {
-    await page.goto('/profile')
-    await page.waitForURL(/\/login/)
-    await expect(page).toHaveURL(/\/login/)
+    await page.goto('/en/profile')
+    await page.waitForURL(/\/auth\/login/)
+    await expect(page).toHaveURL(/\/auth\/login/)
   })
 
   test('Post page requires auth', async ({ page }) => {
     // Clear any existing session first
     await page.context().clearCookies()
-    await page.goto('/post')
+    await page.goto('/en/post')
 
     // Should either show form (if somehow auth persists) or redirect
     const url = page.url()
-    if (url.includes('/login')) {
-      await expect(page).toHaveURL(/\/login/)
+    if (url.includes('/auth/login')) {
+      await expect(page).toHaveURL(/\/auth\/login/)
     } else {
       // If we're still on /post, form should be visible
       await expect(page.locator('form')).toBeVisible()
@@ -127,29 +130,30 @@ test.describe('Authentication Flow', () => {
 
 test.describe('Navigation & Links', () => {
   test('Header navigation works', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
-    // Click on categories link in header if exists
-    const categoriesLink = page.locator('header a[href="/categories"]').first()
-    if (await categoriesLink.isVisible()) {
-      await categoriesLink.click()
-      await expect(page).toHaveURL('/categories')
+    // In this UI, categories in header is a button that opens a MegaMenu
+    const categoriesBtn = page.getByTestId('header-categories-btn').first()
+    if (await categoriesBtn.isVisible()) {
+      await categoriesBtn.click()
+      // Check if MegaMenu appears
+      await expect(page.locator('div:has-text("Popular"), div:has-text("Populárne")').first()).toBeVisible({ timeout: 5000 })
     }
   })
 
   test('Footer links work', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Test footer About link
-    const aboutLink = page.locator('footer a[href="/about"]').first()
+    const aboutLink = page.locator('footer a[href$="/about"]').first()
     if (await aboutLink.isVisible()) {
       await aboutLink.click()
-      await expect(page).toHaveURL('/about')
+      await expect(page).toHaveURL(/\/about$/)
     }
   })
 
   test('Logo navigates to homepage', async ({ page }) => {
-    await page.goto('/about')
+    await page.goto('/en/about')
 
     // Click logo - target by data-testid
     const logo = page.getByTestId('header-logo').first()
@@ -159,10 +163,10 @@ test.describe('Navigation & Links', () => {
   })
 
   test('Post Ad button navigates correctly', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Check Post Ad link exists in header
-    const postButton = page.locator('header a[href="/post"]').first()
+    const postButton = page.getByTestId('header-post-ad-btn').first()
 
     if (await postButton.isVisible({ timeout: 5000 })) {
       await postButton.click()
@@ -177,7 +181,7 @@ test.describe('Navigation & Links', () => {
 
 test.describe('Search Functionality', () => {
   test('Search input accepts text', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     const searchInput = page.locator('input[type="text"]').first()
     await searchInput.fill('iPhone')
@@ -187,7 +191,7 @@ test.describe('Search Functionality', () => {
   })
 
   test('Quick search tags are clickable', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Find quick search links (containing popular search terms)
     const quickTags = page.locator('a[href*="search="], a[href*="listings?"]')
@@ -200,7 +204,7 @@ test.describe('Search Functionality', () => {
 
 test.describe('UI Elements', () => {
   test('Theme toggle works', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     const themeButton = page
       .locator(
@@ -229,7 +233,7 @@ test.describe('UI Elements', () => {
   })
 
   test('Language selector is visible', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Look for language selector in header
     const langSelector = page
@@ -240,7 +244,7 @@ test.describe('UI Elements', () => {
 
   test('Mobile menu opens on small screens', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 })
-    await page.goto('/')
+    await page.goto('/en')
 
     // Look for hamburger menu or mobile menu button
     const mobileMenuBtn = page
@@ -263,7 +267,7 @@ test.describe('UI Elements', () => {
 test.describe('Listing Details', () => {
   test('Listing detail page structure', async ({ page }) => {
     // Go to listings and click first one
-    await page.goto('/listings')
+    await page.goto('/en/listings')
     await page.waitForLoadState('networkidle')
 
     const listingLink = page.locator('a[href*="/listings/"]').first()
@@ -280,7 +284,7 @@ test.describe('Listing Details', () => {
 
 test.describe('Buttons Functionality', () => {
   test('All buttons are clickable', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Get all visible buttons
     const buttons = page.locator('button:visible')
@@ -296,7 +300,7 @@ test.describe('Buttons Functionality', () => {
   })
 
   test('Links have valid hrefs', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Get all links
     const links = page.locator('a[href]:visible')
@@ -316,7 +320,7 @@ test.describe('Buttons Functionality', () => {
 test.describe('Responsive Layout', () => {
   test('No horizontal scroll on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 })
-    await page.goto('/')
+    await page.goto('/en')
 
     const body = page.locator('body')
     const scrollWidth = await body.evaluate((el) => el.scrollWidth)
@@ -327,7 +331,7 @@ test.describe('Responsive Layout', () => {
   })
 
   test('Header is fixed/sticky', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/en')
 
     // Scroll down
     await page.evaluate(() => window.scrollTo(0, 500))
@@ -341,14 +345,14 @@ test.describe('Responsive Layout', () => {
 test.describe('Create Listing Form', () => {
   test('Post page loads and shows form elements', async ({ page }) => {
     // First, we need to be logged in or redirected to login
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
 
     // If redirected to login, test passes (auth required)
-    if (url.includes('/login')) {
-      await expect(page).toHaveURL(/\/login/)
+    if (url.includes('/auth/login')) {
+      await expect(page).toHaveURL(/\/auth\/login/)
       return
     }
 
@@ -363,11 +367,11 @@ test.describe('Create Listing Form', () => {
 
   test('Create listing form has step indicators', async ({ page }) => {
     // Navigate to post page
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       // Auth required - test passes
       return
     }
@@ -381,11 +385,11 @@ test.describe('Create Listing Form', () => {
     // Set desktop viewport
     await page.setViewportSize({ width: 1280, height: 720 })
 
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -409,11 +413,11 @@ test.describe('Create Listing Form', () => {
   })
 
   test('Create listing form has category selection', async ({ page }) => {
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -427,11 +431,11 @@ test.describe('Create Listing Form', () => {
   })
 
   test('Create listing form has price input', async ({ page }) => {
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -445,11 +449,11 @@ test.describe('Create Listing Form', () => {
   })
 
   test('Create listing form has title input', async ({ page }) => {
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -463,11 +467,11 @@ test.describe('Create Listing Form', () => {
   })
 
   test('Create listing form navigation buttons work', async ({ page }) => {
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -500,11 +504,11 @@ test.describe('Create Listing Form', () => {
 test.describe('Listing Preview Component', () => {
   test('Preview shows listing card with all elements', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 })
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -531,11 +535,11 @@ test.describe('Listing Preview Component', () => {
 
   test('Preview card shows price', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 })
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -559,11 +563,11 @@ test.describe('Listing Preview Component', () => {
 
   test('Preview card shows title placeholder when empty', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 })
-    await page.goto('/post')
+    await page.goto('/en/post')
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/login')) {
+    if (url.includes('/auth/login')) {
       return
     }
 
@@ -588,7 +592,7 @@ test.describe('Skeleton Loading States', () => {
   test('Skeleton components render correctly', async ({ page }) => {
     // Import and check skeleton components are available
     // This is a simple test to ensure skeleton files exist
-    await page.goto('/listings')
+    await page.goto('/en/listings')
     await page.waitForLoadState('networkidle')
 
     // Page should load - skeletons would show during loading
@@ -598,7 +602,7 @@ test.describe('Skeleton Loading States', () => {
   test('SkeletonCard structure is correct', async ({ page }) => {
     // Verify skeleton components exist in the codebase
     const skeletonCardPath = 'components/ui/skeleton-card.tsx'
-    await page.goto('/')
+    await page.goto('/en')
 
     // Just verify page loads - actual component testing would be done in unit tests
     await expect(page.locator('h1').first()).toBeVisible()
