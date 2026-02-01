@@ -48,6 +48,9 @@ jobs:
       - name: Type Check
         run: npm run type-check
 
+      - name: Circular Dependency Check
+        run: npm run check:circular
+
       - name: Install Playwright Browsers
         run: npx playwright install chromium --with-deps
 

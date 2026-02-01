@@ -1,4 +1,20 @@
-import type { ListingFilterOptions } from '../listings'
+/**
+ * Filtering options for listings
+ */
+export interface ListingFilterOptions {
+  categoryId?: string
+  categorySlug?: string
+  search?: string
+  limit?: number
+  offset?: number
+  page?: number
+  priceMin?: number
+  priceMax?: number
+  condition?: 'new' | 'used'
+  location?: string
+  sort?: string
+  isFeatured?: boolean
+}
 
 /**
  * Applies filters to listings query
