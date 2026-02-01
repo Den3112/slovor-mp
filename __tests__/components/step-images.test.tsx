@@ -25,6 +25,8 @@ describe('StepImages', () => {
     isUploading: false,
     uploadProgress: null,
     onFilesSelected: vi.fn(),
+    onRemoveImage: vi.fn(),
+    onReorderImages: vi.fn(),
   }
 
   it('renders upload area', () => {
@@ -64,33 +66,22 @@ describe('StepImages', () => {
   })
 
   it('renders previews and allows removal', () => {
-    const updateField = vi.fn()
+    const onRemoveImage = vi.fn()
     const images = ['https://example.com/1.jpg', 'https://example.com/2.jpg']
     render(
       <StepImages
         {...defaultProps}
         formData={{ images } as any}
-        updateField={updateField}
+        onRemoveImage={onRemoveImage}
       />
     )
 
     const previews = screen.getAllByAltText('preview')
     expect(previews).toHaveLength(2)
 
-    const removeButtons = screen
-      .getAllByRole('button')
-      .filter((btn: HTMLElement) => btn.className.includes('bg-destructive'))
+    const removeButtons = screen.getAllByRole('button').filter(btn => btn.querySelector('svg.lucide-trash-2'))
     fireEvent.click(removeButtons[0]!)
 
-    expect(updateField).toHaveBeenCalledWith('images', [images[1]])
-  })
-
-  it('calls addMockImage click', () => {
-    const updateField = vi.fn()
-    render(<StepImages {...defaultProps} updateField={updateField} />)
-
-    const mockButton = screen.getByText(/\+ Add Mock Image/i)
-    fireEvent.click(mockButton)
-    expect(updateField).toHaveBeenCalledWith('images', expect.any(Array))
+    expect(onRemoveImage).toHaveBeenCalledWith(0)
   })
 })

@@ -43,6 +43,7 @@ export function useCreateListing() {
   const [uploadProgress, setUploadProgress] = useState<{
     current: number
     total: number
+    fileName?: string
   } | null>(null)
   const [formData, setFormData] =
     useState<ListingFormData>(DEFAULT_LISTING_FORM)
@@ -225,6 +226,30 @@ export function useCreateListing() {
     }
   }
 
+  const handleRemoveImage = async (index: number) => {
+    const imageUrl = formData.images[index]
+    if (!imageUrl) return
+
+    // 1. Update local state immediately for snappy UX
+    const newImages = formData.images.filter((_, i) => i !== index)
+    updateField('images', newImages)
+
+    // 2. If it's a Supabase URL, try to delete it from storage
+    if (imageUrl.includes('supabase.co/storage/v1/object/public/listings-images/')) {
+      const path = imageUrl.split('listings-images/')[1]
+      if (path) {
+        // We don't await this to keep UI fast, but it's good practice to try
+        storageApi.deleteImage(path).catch((err) => {
+          console.error('Failed to delete image from storage:', err)
+        })
+      }
+    }
+  }
+
+  const handleReorderImages = (newImages: string[]) => {
+    updateField('images', newImages)
+  }
+
   const handleFilesSelected = async (files: FileList | null) => {
     if (!files || files.length === 0) return
 
@@ -241,7 +266,7 @@ export function useCreateListing() {
     const result = await storageApi.uploadImages(
       fileArray,
       user.id,
-      (current, total) => setUploadProgress({ current, total })
+      (current, total, fileName) => setUploadProgress({ current, total, fileName })
     )
 
     if (result.error || !result.data) {
@@ -278,6 +303,8 @@ export function useCreateListing() {
       prevStep,
       handleSubmit,
       handleFilesSelected,
+      handleRemoveImage,
+      handleReorderImages,
       setStep,
     },
     flags: {

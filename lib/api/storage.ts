@@ -93,7 +93,7 @@ export const storageApi = {
   async uploadImages(
     files: File[],
     userId: string,
-    onProgress?: (current: number, total: number) => void
+    onProgress?: (current: number, total: number, fileName?: string) => void
   ): Promise<ApiResponse<UploadedFile[]>> {
     try {
       const uploadedFiles: UploadedFile[] = []
@@ -105,16 +105,20 @@ export const storageApi = {
           continue
         }
 
-        const result = await this.uploadImage(file, userId)
-
         if (onProgress) {
-          onProgress(i + 1, files.length)
+          onProgress(i, files.length, file.name)
         }
+
+        const result = await this.uploadImage(file, userId)
 
         if (result.error) {
           errors.push(`File ${file.name}: ${result.error}`)
         } else if (result.data) {
           uploadedFiles.push(result.data)
+        }
+
+        if (onProgress) {
+          onProgress(i + 1, files.length, file.name)
         }
       }
 
