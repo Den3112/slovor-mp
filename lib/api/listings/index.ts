@@ -8,22 +8,10 @@ import {
   applyListingFilters,
   applyListingSorting,
   applyListingPagination,
+  type ListingFilterOptions
 } from './filters'
 
-export interface ListingFilterOptions {
-  categoryId?: string
-  categorySlug?: string
-  search?: string
-  limit?: number
-  offset?: number
-  page?: number
-  priceMin?: number
-  priceMax?: number
-  condition?: 'new' | 'used'
-  location?: string
-  sort?: string
-  isFeatured?: boolean
-}
+export type { ListingFilterOptions }
 
 function buildListingsQuery(
   options?: ListingFilterOptions,

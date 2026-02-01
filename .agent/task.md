@@ -61,3 +61,21 @@
     - [x] `npm run verify` (FINAL)
     - [x] Check console for hydration errors.
     - [x] Verify Mobile Responsiveness (Search, Post Ad).
+
+---
+
+# Phase 5: Advanced Media Management (Investor Wow-Effect)
+
+**Цель**: Внедрить профессиональную систему работы с изображениями, которая вызовет "Wow-эффект" у инвесторов.
+
+- [ ] **Drag-and-Drop Uploader (Sleek UI)**
+    - [ ] Реализовать красивую зону загрузки с использованием `framer-motion`.
+    - [ ] Добавить визуальные подсказки при наведении файла (Hover states).
+- [ ] **Live Previews & Micro-interactions**
+    - [ ] Анимированные превью изображений (появление, удаление).
+    - [ ] Индикаторы прогресса загрузки для каждого файла отдельно.
+- [ ] **Image Optimization & Management**
+    - [ ] Проверить/улучшить логику удаления из Supabase Storage при нажатии "X".
+    - [ ] Реализовать сортировку (Drag-to-reorder) для выбора главного фото (Cover).
+- [ ] **Responsive Media Performance**
+    - [ ] Оптимизация загрузки через Next.js Image и blur-up плейсхолдеры.
