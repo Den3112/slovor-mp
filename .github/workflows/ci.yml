@@ -1,11 +1,11 @@
 name: CI Verification
 
-# on:
-#   push:
-#     branches: [main, dev]
-#   pull_request:
-#     branches: [main, dev]
-on: workflow_dispatch # Allow manual triggering only for now
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
 
 jobs:
   verify:
@@ -39,12 +39,6 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Debug Environment
-        run: |
-          node -v
-          npm -v
-          git --version
-
       - name: Install dependencies
         run: npm ci
 
@@ -53,6 +47,12 @@ jobs:
 
       - name: Type Check
         run: npm run type-check
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Unit Tests
+        run: npm run test:run
 
       - name: Build
         run: npm run build

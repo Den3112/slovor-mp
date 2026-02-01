@@ -13,7 +13,7 @@ const meta: Meta<typeof Button> = {
         },
         size: {
             control: 'select',
-            options: ['default', 'sm', 'lg', 'xl', 'icon'],
+            options: ['default', 'sm', 'lg', 'icon'],
         },
     },
 };
@@ -66,17 +66,14 @@ export const Link: Story = {
 
 export const Large: Story = {
     args: {
-        children: 'Large Button',
+        variant: 'default',
         size: 'lg',
+        children: 'Extra Large Button',
+        className: 'text-lg',
     },
 };
 
-export const ExtraLarge: Story = {
-    args: {
-        children: 'XL Button',
-        size: 'xl',
-    },
-};
+
 
 export const Small: Story = {
     args: {

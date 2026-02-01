@@ -47,43 +47,35 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {mainCategories.map((category, idx) => (
             <motion.div
               key={category.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.05 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
             >
               <Link
                 href={`/categories/${category.slug}`}
-                className="group border-border/40 bg-card/50 md:hover:border-primary/30 relative block aspect-square overflow-hidden rounded-2xl border shadow-sm backdrop-blur-sm transition-all duration-500 active:scale-[0.98] sm:rounded-4xl md:rounded-5xl md:hover:shadow-2xl"
+                className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 text-center shadow-sm transition-all hover:border-primary/50 hover:shadow-md active:scale-[0.98]"
               >
-                <div className="from-primary/10 absolute inset-0 bg-linear-to-br via-transparent to-indigo-500/5 opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-4xl md:rounded-5xl" />
-
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 text-center md:p-8">
-                  <div className="bg-muted/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/30 md:group-hover:shadow-primary/40 mb-3 flex h-14 w-14 items-center justify-center rounded-xl shadow-sm transition-all duration-500 group-hover:scale-105 group-hover:rotate-10 group-hover:shadow-lg sm:h-16 sm:w-16 sm:rounded-2xl md:mb-6 md:h-20 md:w-20 md:rounded-3xl md:group-hover:scale-110 md:group-hover:rotate-15 md:group-hover:shadow-xl">
-                    <CategoryIcon
-                      slug={category.slug}
-                      className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10"
-                    />
-                  </div>
-                  <h3 className="text-foreground group-hover:text-primary text-sm font-black tracking-tight transition-colors sm:text-base md:text-lg lg:text-xl">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <CategoryIcon
+                    slug={category.slug}
+                    className="h-6 w-6"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold tracking-tight text-sm">
                     {getLocalizedCategoryName(category, locale, t)}
                   </h3>
                   {category.listing_count !== undefined && (
-                    <div className="bg-muted/50 group-hover:bg-primary/5 mt-2 rounded-full px-2.5 py-1 transition-colors md:mt-3 md:px-3">
-                      <p className="text-muted-foreground group-hover:text-primary text-3xs font-black tracking-widest uppercase md:text-2xs">
-                        {category.listing_count} {t('common:listings')}
-                      </p>
-                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {category.listing_count} {t('common:listings')}
+                    </p>
                   )}
                 </div>
-
-                {/* Decorative Element - Hidden on mobile */}
-                <div className="bg-primary/5 group-hover:bg-primary/10 absolute -top-8 -left-8 hidden h-24 w-24 rounded-full blur-[30px] transition-colors duration-700 md:block md:h-32 md:w-32 md:blur-2xl" />
               </Link>
             </motion.div>
           ))}

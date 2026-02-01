@@ -123,10 +123,10 @@ export function ListingCard({
     <Link
       href={`/listings/${listing.id}`}
       className={cn(
-        'group relative block overflow-hidden rounded-4xl border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98]',
+        'group relative block overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
         listing.is_highlighted
-          ? 'border-primary/20 bg-primary/5 shadow-primary/5 hover:border-primary/40 hover:shadow-primary/10'
-          : 'border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow dark:bg-white/5 dark:hover:bg-white/10'
+          ? 'border-primary/50 bg-primary/5 shadow-sm'
+          : 'border-border bg-card'
       )}
     >
       {/* Image */}
@@ -150,8 +150,8 @@ export function ListingCard({
               unoptimized
               priority={featured}
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-40" />
-            <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] md:rounded-3xl" />
+            <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+            <div className="pointer-events-none absolute inset-0 rounded-xl border border-transparent group-hover:border-black/5 dark:group-hover:border-white/10" />
           </>
         ) : (
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
@@ -184,7 +184,7 @@ export function ListingCard({
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="glass text-foreground/80 absolute bottom-3 left-3 rounded-full border border-white/20 px-2.5 py-1 text-[9px] font-black md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[9px] font-bold text-white md:bottom-3 md:left-3 md:px-2 md:text-[10px] backdrop-blur-sm">
             {listing.images.length} PHOTOS
           </div>
         )}

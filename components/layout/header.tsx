@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useScrollPosition } from '@/lib/hooks'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
@@ -32,8 +31,6 @@ export function Header() {
   const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
-  const { isScrolled } = useScrollPosition(10)
-
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -56,10 +53,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          'fixed top-0 z-50 w-full transition-all duration-300',
-          isScrolled
-            ? 'bg-card/95 backdrop-blur-sm border-b border-border shadow-sm'
-            : 'bg-transparent'
+          'fixed top-0 z-50 w-full h-16 bg-background border-b border-border transition-none',
         )}
       >
         <Container>

@@ -34,7 +34,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-blue-100 dark:bg-blue-900/30 px-4 py-1.5 text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-8">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider mb-8">
               <Sparkles className="h-3.5 w-3.5" />
               {t('heroTagline')}
             </span>
@@ -47,7 +47,7 @@ export function Hero() {
             className="font-heading text-foreground mb-6 text-4xl leading-tight font-black tracking-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl"
           >
             {t('heroTitleMain')} <br className="hidden sm:block" />
-            <span className="text-blue-600">
+            <span className="text-primary">
               {t('heroTitleHighlight')}
             </span>
           </motion.h1>
@@ -69,7 +69,7 @@ export function Hero() {
           >
             <div className="group relative">
               {/* Clean Search Box - SaaS Style */}
-              <div className="bg-card relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 sm:flex-row sm:items-center sm:rounded-3xl sm:focus-within:ring-4 ring-primary/10">
+              <div className="bg-card relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 sm:flex-row sm:items-center sm:rounded-3xl sm:focus-within:ring-4 ring-primary/10">
                 <div className="flex flex-1 items-center px-4 py-2 sm:pl-6">
                   <label htmlFor="hero-search" className="sr-only">
                     Search
@@ -98,7 +98,7 @@ export function Hero() {
                 <Button
                   onClick={handleSearch}
                   size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 h-12 w-full shrink-0 rounded-xl text-base font-bold text-white shadow-none transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-2xl sm:px-8 md:px-10"
+                  className="bg-primary hover:bg-primary/90 h-12 w-full shrink-0 rounded-xl text-base font-bold text-primary-foreground shadow-none transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-2xl sm:px-8 md:px-10"
                 >
                   {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5" />

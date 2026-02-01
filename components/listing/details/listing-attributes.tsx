@@ -14,8 +14,8 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
 
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-transform hover:scale-105">
-        <p className="text-muted-foreground/70 mb-2 text-[10px] font-black tracking-widest uppercase">
+      <div className="rounded-xl border border-border bg-card p-5 transition-transform hover:scale-105">
+        <p className="text-muted-foreground mb-2 text-[10px] font-bold tracking-widest uppercase">
           {t('common.condition')}
         </p>
         <div className="text-foreground flex items-center gap-2 text-lg font-bold">
@@ -32,8 +32,8 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
           )}
         </div>
       </div>
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-transform hover:scale-105">
-        <p className="text-muted-foreground/70 mb-2 text-[10px] font-black tracking-widest uppercase">
+      <div className="rounded-xl border border-border bg-card p-5 transition-transform hover:scale-105">
+        <p className="text-muted-foreground mb-2 text-[10px] font-bold tracking-widest uppercase">
           {t('common.location')}
         </p>
         <div className="text-foreground flex items-center gap-2 text-lg font-bold">
@@ -41,8 +41,8 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
           <span className="truncate">{listing.location}</span>
         </div>
       </div>
-      <div className="col-span-2 rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-transform hover:scale-105 md:col-span-1">
-        <p className="text-muted-foreground/70 mb-2 text-[10px] font-black tracking-widest uppercase">
+      <div className="col-span-2 rounded-xl border border-border bg-card p-5 transition-transform hover:scale-105 md:col-span-1">
+        <p className="text-muted-foreground mb-2 text-[10px] font-bold tracking-widest uppercase">
           {t('common.published')}
         </p>
         <div className="text-foreground flex items-center gap-2 text-lg font-bold">

@@ -77,7 +77,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
             <motion.div variants={item} className="flex flex-col gap-2">
                 <h1 className="text-3xl font-black tracking-tight text-foreground">{t('admin.overview')}</h1>
                 <p className="flex items-center gap-2 font-medium text-muted-foreground">
-                    <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                    <ShieldCheck className="h-4 w-4 text-success" />
                     {t('admin.systemsOperational')}. {t('admin.loggedInAs')} <span className="font-bold text-foreground">{userEmail}</span>
                 </p>
             </motion.div>
@@ -111,7 +111,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     icon={Clock}
                     trend={{ value: 0, direction: 'neutral', label: 'needs attention' }}
                     delay={0.4}
-                    className={stats.pendingModeration > 0 ? "border-orange-500/50 bg-orange-500/5" : ""}
+                    className={stats.pendingModeration > 0 ? "border-warning/50 bg-warning/5" : ""}
                 />
             </motion.div>
 
@@ -141,14 +141,14 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                 <motion.div variants={item} className="space-y-6 lg:col-span-4">
                     <Card className="rounded-3xl border-border bg-card p-6">
                         <h3 className="mb-6 flex items-center gap-2 text-lg font-black tracking-tight">
-                            <AlertCircle className="h-5 w-5 text-orange-500" />
+                            <AlertCircle className="h-5 w-5 text-warning" />
                             {t('admin.actionCenter')}
                         </h3>
                         <div className="space-y-4">
                             <Link href="/admin/listings" className="block">
-                                <div className="group flex cursor-pointer items-center justify-between rounded-2xl border border-orange-500/10 bg-orange-500/5 p-4 transition-colors hover:bg-orange-500/10">
+                                <div className="group flex cursor-pointer items-center justify-between rounded-xl border border-warning/20 bg-warning/5 p-4 transition-colors hover:bg-warning/10">
                                     <div className="flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/20 font-bold text-orange-500">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-warning/10 font-bold text-warning">
                                             {stats.pendingModeration}
                                         </div>
                                         <div>
@@ -156,14 +156,14 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                                             <p className="text-sm font-bold">{t('admin.listingsAwaitingApproval')}</p>
                                         </div>
                                     </div>
-                                    <ArrowRight className="h-4 w-4 text-orange-500 opacity-0 transition-opacity group-hover:opacity-100" />
+                                    <ArrowRight className="h-4 w-4 text-warning opacity-0 transition-opacity group-hover:opacity-100" />
                                 </div>
                             </Link>
 
                             <Link href="/admin/reports" className="block">
-                                <div className="group flex cursor-pointer items-center justify-between rounded-2xl border border-blue-500/10 bg-blue-500/5 p-4 transition-colors hover:bg-blue-500/10">
+                                <div className="group flex cursor-pointer items-center justify-between rounded-xl border border-dashed border-border p-4 transition-colors hover:border-primary/50 hover:bg-primary/5">
                                     <div className="flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/20 font-bold text-blue-500">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 font-bold text-primary">
                                             {stats.recentReports}
                                         </div>
                                         <div>
@@ -171,7 +171,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                                             <p className="text-sm font-bold">{t('admin.userComplaintsPending')}</p>
                                         </div>
                                     </div>
-                                    <ArrowRight className="h-4 w-4 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
+                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" />
                                 </div>
                             </Link>
                         </div>

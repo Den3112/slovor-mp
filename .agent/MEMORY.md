@@ -10,14 +10,15 @@
 7.  **Redesign Instructions**: READ `.agent/REDESIGN_INSTRUCTIONS.md` for complete implementation guide!
 
 > **Last Updated**: 2026-02-01 20:32
-> **Status**: 🟡 Premium Redesign - Instructions Ready
+> **Status**: 🟡 Premium Redesign - Phase 2 (Marketplace Core)
 
 ## ⚡ Active RAM (Operational Context)
 
-- **Current User Intent**: Полная переработка дизайна 1:1 под CRM референс
+- **Current User Intent**: Полная переработка дизайна 1:1 под CRM референс (Phase 2)
 - **Active Branch**: `feature/premium-redesign`
-- **PR**: #28 (to dev)
-- **Instructions File**: `.agent/REDESIGN_INSTRUCTIONS.md` ← ГЛАВНЫЙ ДОКУМЕНТ!
+- **Focus**: Redesigning Auth, Listing Details, and Search pages.
+- **Problem**: Key marketplace pages still use gradients, blurs, and `rounded-3xl`.
+- **Instructions**: Follow `.agent/REDESIGN_INSTRUCTIONS.md` (Strict "Solid" rules).
 
 ## ✅ Completed
 1. ✅ Created PR #27 (snapshot before redesign)

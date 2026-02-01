@@ -34,15 +34,16 @@ export function StatsCard({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay, ease: 'easeOut' }}
+            className="h-full"
         >
-            <Card className={cn('h-full transition-shadow hover:shadow-md', className)}>
+            <Card className={cn('h-full', className)}>
                 <CardContent className="p-4">
-                    <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0 flex-1">
-                            <p className="text-xs font-medium text-muted-foreground truncate">
+                            <p className="text-xs font-semibold text-muted-foreground truncate uppercase tracking-wider">
                                 {label}
                             </p>
-                            <p className="mt-1 text-2xl font-bold tracking-tight">
+                            <p className="mt-2 text-2xl font-bold tracking-tight">
                                 {value}
                             </p>
                             {(description || trend) && (
@@ -72,7 +73,7 @@ export function StatsCard({
                         </div>
                         {Icon && (
                             <div className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary">
-                                <Icon className="h-4 w-4" />
+                                <Icon className="h-5 w-5" />
                             </div>
                         )}
                     </div>

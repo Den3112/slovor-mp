@@ -27,11 +27,11 @@ export function StepDetails({
 
   const inputClasses = (hasError: boolean) =>
     cn(
-      'placeholder:text-muted-foreground/30 w-full rounded-2xl border bg-white/5 transition-all outline-none',
-      'focus:border-primary focus:ring-primary/10 focus:bg-white/10 focus:ring-4',
+      'placeholder:text-muted-foreground/30 w-full rounded-xl border bg-card transition-all outline-none',
+      'focus:border-primary focus:ring-primary/10 focus:bg-accent/5 focus:ring-4',
       hasError
         ? 'border-destructive/50 bg-destructive/5'
-        : 'border-white/10 hover:border-white/20'
+        : 'border-border hover:border-primary/50'
     )
 
   return (
@@ -76,7 +76,7 @@ export function StepDetails({
           <label className="text-muted-foreground/80 ml-1 text-[10px] font-black tracking-[0.2em] uppercase">
             {t('currency')}
           </label>
-          <div className="text-muted-foreground flex h-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-black">
+          <div className="text-muted-foreground flex h-16 items-center justify-center rounded-xl border border-border bg-muted/50 font-black">
             EUR
           </div>
         </div>

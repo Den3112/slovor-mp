@@ -99,29 +99,25 @@ function LoginContent() {
   }
 
   return (
-    <div className="bg-card animate-in fade-in zoom-in-95 relative z-10 w-full max-w-md rounded-3xl border border-border p-6 shadow-xl duration-500 md:p-10">
-      <div className="absolute top-6 left-6 md:top-10 md:left-10">
+    <div className="bg-card relative z-10 w-full max-w-md rounded-xl border border-border p-6 shadow-sm md:p-8">
+      <div className="mb-6">
         <Link
           href="/"
-          className="group text-muted-foreground hover:text-primary flex items-center gap-2 text-sm font-bold transition-colors"
+          className="text-muted-foreground hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
         >
-          <div className="bg-muted group-hover:bg-primary/10 flex h-8 w-8 items-center justify-center rounded-full transition-all group-hover:scale-110">
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-          </div>
-          <span className="hidden sm:inline">{t('auth:backToHome')}</span>
+          <ArrowLeft className="h-4 w-4" />
+          <span>{t('auth:backToHome')}</span>
         </Link>
       </div>
 
-      <div className="mb-10 text-center">
-        <div className="bg-primary/5 text-primary mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/20 shadow-sm md:h-20 md:w-20">
-          <span className="animate-bounce-subtle text-3xl md:text-4xl">
-            ✨
-          </span>
+      <div className="mb-8 text-center">
+        <div className="bg-primary/10 text-primary mb-6 inline-flex h-12 w-12 items-center justify-center rounded-lg">
+          <span className="text-2xl">✨</span>
         </div>
-        <h1 className="font-heading text-foreground mb-3 text-3xl font-black tracking-tight italic md:text-4xl">
+        <h1 className="font-heading text-foreground mb-2 text-2xl font-bold tracking-tight md:text-3xl">
           {isRegistering ? t('auth:joinSlovor') : t('auth:welcomeBack')}
         </h1>
-        <p className="text-muted-foreground text-sm font-medium md:text-base">
+        <p className="text-muted-foreground text-sm">
           {isRegistering
             ? t('auth:signUpSubtitle')
             : t('auth:signInSubtitle')}
@@ -130,7 +126,7 @@ function LoginContent() {
 
       {error && (
         <div
-          className="shake border-destructive/20 bg-destructive/10 text-destructive animate-in mb-6 rounded-xl border p-4 text-sm font-bold"
+          className="bg-destructive/10 text-destructive mb-6 rounded-lg border border-destructive/20 p-3 text-sm font-medium"
           data-testid="auth-error-alert"
         >
           {error}
@@ -159,12 +155,7 @@ function LoginContent() {
 export default function LoginPage() {
   const { t } = useTranslation('common')
   return (
-    <div className="bg-background relative flex min-h-dvh flex-col items-center justify-center overflow-hidden p-4 md:p-8">
-      {/* Background Effects */}
-      <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden bg-muted/10">
-        {/* Removed blobs for solid design */}
-      </div>
-
+    <div className="bg-background relative flex min-h-dvh flex-col items-center justify-center p-4 md:p-8">
       <Suspense
         fallback={
           <div className="text-primary text-center font-bold">{t('loading')}</div>
