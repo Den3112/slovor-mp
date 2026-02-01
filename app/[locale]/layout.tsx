@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, DM_Sans } from 'next/font/google'
+import { Space_Grotesk, DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { StructuredData } from '@/components/layout/structured-data'
 import { Providers } from '../providers'
 import { Analytics } from '@vercel/analytics/react'
@@ -9,6 +9,11 @@ import { cn } from '@/lib/utils'
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-heading' })
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' })
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +59,7 @@ export default async function RootLayout({
       lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${spaceGrotesk.variable} ${dmSans.variable}`}
+      className={`${spaceGrotesk.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <meta charSet="utf-8" />

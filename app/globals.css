@@ -57,108 +57,107 @@
 
 @layer base {
   :root {
-    /* ========================================
-       LIGHT THEME - Customer CRM Style
-       Clean, Crisp, Professional, Data-Dense
-       ======================================== */
-
-    /* Background: Soft gray-blue, not pure white */
-    --background: 210 20% 98%;
+    /* Background & Surface */
+    --background: 210 40% 98%;
+    /* #F8FAFC - Page background */
     --foreground: 222 47% 11%;
+    /* #0F172A - Primary text */
 
-    /* Cards: Pure white for contrast */
+    /* Card/Surface */
     --card: 0 0% 100%;
+    /* #FFFFFF - Cards, modals */
     --card-foreground: 222 47% 11%;
 
-    /* Popover: Same as card */
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-
-    /* Primary: Vivid Blue - #3B82F6 */
+    /* Primary Action Color */
     --primary: 217 91% 60%;
+    /* #3B82F6 - Buttons, links, active */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Light blue tint for highlights */
-    --secondary: 214 95% 93%;
+    /* Secondary/Muted */
+    --secondary: 214 32% 91%;
+    /* #E2E8F0 - Secondary buttons */
     --secondary-foreground: 222 47% 11%;
 
-    /* Muted: For disabled states and subtle backgrounds */
-    --muted: 210 20% 96%;
+    /* Muted Text & Backgrounds */
+    --muted: 210 40% 96%;
+    /* #F1F5F9 - Muted backgrounds */
     --muted-foreground: 215 16% 47%;
+    /* #64748B - Muted text */
 
-    /* Accent: Same as secondary for consistency */
+    /* Accent (for hover states) */
     --accent: 214 95% 93%;
+    /* #EFF6FF - Hover bg, table headers */
     --accent-foreground: 222 47% 11%;
 
-    /* Destructive: Red for errors/deletions */
+    /* Borders */
+    --border: 214 32% 91%;
+    /* #E2E8F0 - All borders */
+    --input: 214 32% 91%;
+    /* Same as border */
+    --ring: 217 91% 60%;
+    /* Primary for focus rings */
+
+    /* Semantic Colors */
     --destructive: 0 84% 60%;
+    /* #EF4444 - Errors, delete */
     --destructive-foreground: 0 0% 100%;
-
-    /* Success: Green for confirmations */
     --success: 142 76% 36%;
+    /* #22C55E - Success states */
     --success-foreground: 0 0% 100%;
-
-    /* Warning: Amber for alerts */
     --warning: 38 92% 50%;
+    /* #F59E0B - Warnings */
     --warning-foreground: 0 0% 100%;
 
-    /* Border: Crisp slate lines */
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
-
-    /* Radius: CRM style - subtle, professional */
+    /* Layout */
     --radius: 0.75rem;
+    /* 12px - Default border-radius */
+    --sidebar-width: 256px;
+    --header-height: 64px;
   }
 
   .dark {
-    /* ========================================
-       DARK THEME - Customer CRM Style
-       Deep slate, NOT pure black
-       ======================================== */
-
-    /* Background: Deep slate */
-    --background: 222 47% 6%;
+    /* Background & Surface - DARK */
+    --background: 222 47% 3%;
+    /* #020617 - Deep navy */
     --foreground: 210 40% 98%;
+    /* #F8FAFC - Light text */
 
-    /* Cards: Slightly elevated from background */
-    --card: 222 47% 9%;
+    /* Card/Surface - DARK */
+    --card: 222 47% 6%;
+    /* #0F172A - Slate-900 */
     --card-foreground: 210 40% 98%;
 
-    /* Popover: Same as card */
-    --popover: 222 47% 9%;
-    --popover-foreground: 210 40% 98%;
-
-    /* Primary: Bright blue - same as light */
+    /* Primary stays same */
     --primary: 217 91% 60%;
+    /* #3B82F6 */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Dark slate for subtle backgrounds */
+    /* Secondary - DARK */
     --secondary: 217 33% 17%;
+    /* #1E293B - Slate-800 */
     --secondary-foreground: 210 40% 98%;
 
-    /* Muted: For disabled states */
+    /* Muted - DARK */
     --muted: 217 33% 17%;
+    /* #1E293B */
     --muted-foreground: 215 20% 65%;
+    /* #94A3B8 */
 
-    /* Accent: Same as secondary */
+    /* Accent - DARK */
     --accent: 217 33% 17%;
+    /* #1E293B */
     --accent-foreground: 210 40% 98%;
 
-    /* Destructive: Muted red for dark mode */
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    /* Success/Warning */
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 222 47% 11%;
-
-    /* Border: Subtle separation */
+    /* Borders - DARK */
     --border: 217 33% 17%;
+    /* #1E293B */
     --input: 217 33% 17%;
-    --ring: 212 27% 84%;
+    --ring: 217 91% 60%;
+
+    /* Semantic stay same */
+    --destructive: 0 84% 60%;
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
   }
 }
 
