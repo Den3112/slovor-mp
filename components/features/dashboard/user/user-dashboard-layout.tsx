@@ -7,7 +7,6 @@ import type { SidebarConfig } from '@/components/features/dashboard/shared/sideb
 import type { DashboardStats } from '@/lib/api/dashboard-stats'
 import {
     LayoutDashboard,
-    Store,
     Package,
     ShoppingBag,
     Heart,
@@ -28,74 +27,83 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
 
     const config: SidebarConfig = {
         signOutLabel: t('auth:signOut'),
-        items: [
+        sections: [
             {
-                href: '/dashboard',
-                label: t('common:dashboard'),
-                icon: LayoutDashboard,
+                title: t('dashboard:main') || 'Main',
+                items: [
+                    {
+                        href: '/dashboard',
+                        label: t('common:dashboard'),
+                        icon: LayoutDashboard,
+                    },
+                    {
+                        href: '/dashboard/listings',
+                        label: t('profile:myListings'),
+                        icon: Package,
+                        badgeCount: stats?.activeListings,
+                    },
+                    {
+                        href: '/dashboard/wallet',
+                        label: t('profile:wallet'),
+                        icon: ShoppingBag,
+                    },
+                ]
             },
             {
-                href: '/dashboard/listings',
-                label: t('profile:myListings'),
-                icon: Store,
-                badgeCount: stats?.activeListings,
+                title: t('dashboard:activity') || 'Activity',
+                items: [
+                    {
+                        href: '/dashboard/orders',
+                        label: t('profile:orders'),
+                        icon: ShoppingBag,
+                        badgeCount: stats?.orders,
+                    },
+                    {
+                        href: '/dashboard/reviews',
+                        label: t('profile:reviews'),
+                        icon: Star,
+                        badgeCount: stats?.reviews,
+                    },
+                ]
             },
             {
-                href: '/dashboard/orders',
-                label: t('profile:orders'),
-                icon: Package,
-                badgeCount: stats?.orders,
+                title: t('dashboard:quickAccess') || 'Quick Access',
+                items: [
+                    {
+                        href: '/messages',
+                        label: t('profile:inbox'),
+                        icon: MessageCircle,
+                        badgeCount: stats?.messages,
+                    },
+                    {
+                        href: '/favorites',
+                        label: t('profile:favorites'),
+                        icon: Heart,
+                        badgeCount: stats?.favorites,
+                    },
+                ]
             },
             {
-                href: '/dashboard/wallet',
-                label: t('profile:wallet'),
-                icon: ShoppingBag,
-            },
-            {
-                href: '/dashboard/purchases',
-                label: t('profile:purchases'),
-                icon: ShoppingBag,
-            },
-            {
-                href: '/favorites',
-                label: t('profile:favorites'),
-                icon: Heart,
-                badgeCount: stats?.favorites,
-            },
-            {
-                href: '/dashboard/saved-searches',
-                label: t('profile:savedSearches'),
-                icon: Star,
-                badgeCount: stats?.savedSearches,
-            },
-            {
-                href: '/messages',
-                label: t('profile:inbox'),
-                icon: MessageCircle,
-                badgeCount: stats?.messages,
-            },
-            {
-                href: '/dashboard/reviews',
-                label: t('profile:reviews'),
-                icon: Star,
-                badgeCount: stats?.reviews,
-            },
-            {
-                href: '/dashboard/profile',
-                label: t('profile:publicProfile'),
-                icon: Eye,
-                external: true,
-            },
-            {
-                href: '/dashboard/verification',
-                label: t('profile:verification'),
-                icon: ShieldCheck,
-            },
-            {
-                href: '/dashboard/settings',
-                label: t('profile:settings'),
-                icon: Settings,
-            },
+                title: t('dashboard:account') || 'Account',
+                items: [
+                    {
+                        href: '/dashboard/settings',
+                        label: t('profile:settings'),
+                        icon: Settings,
+                    },
+                    {
+                        href: '/dashboard/profile',
+                        label: t('profile:publicProfile'),
+                        icon: Eye,
+                        external: true,
+                    },
+                    {
+                        href: '/dashboard/verification',
+                        label: t('profile:verification'),
+                        icon: ShieldCheck,
+                    },
+                ]
+            }
         ],
     }
 
