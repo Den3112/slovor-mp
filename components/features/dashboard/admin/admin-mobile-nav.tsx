@@ -48,7 +48,7 @@ export function AdminMobileNav({ onMenuClick }: AdminMobileNavProps) {
                             )}
                         >
                             <Icon className={cn('h-5 w-5', active && 'fill-primary/10')} />
-                            <span className="text-[10px] font-bold truncate max-w-[60px]">{item.label}</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest truncate max-w-[60px]">{item.label}</span>
                         </Link>
                     )
                 })}
@@ -59,7 +59,7 @@ export function AdminMobileNav({ onMenuClick }: AdminMobileNavProps) {
                     className="text-muted-foreground hover:text-foreground flex h-full flex-1 flex-col items-center justify-center gap-1 transition-colors active:scale-95"
                 >
                     <Menu className="h-5 w-5" />
-                    <span className="text-[10px] font-bold">{t('common:more')}</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest">{t('common:more')}</span>
                 </button>
             </nav>
         </div>

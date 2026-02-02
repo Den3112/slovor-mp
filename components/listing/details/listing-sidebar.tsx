@@ -76,8 +76,8 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
     }
 
     return (
-        <div className="shadow-primary/5 bg-background/80 sticky top-28 space-y-8 rounded-5xl border border-white/10 p-6 shadow-2xl backdrop-blur-xl md:p-8">
-            <div className="space-y-3 border-b border-white/10 pb-6">
+        <div className="sticky top-28 space-y-8 rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
+            <div className="space-y-3 border-b border-border pb-6">
                 <span className="text-primary/80 text-[10px] font-black tracking-[0.2em] uppercase">
                     {t('price')}
                 </span>
@@ -114,10 +114,12 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                         {listing.views_count} {t('views')}
                     </div>
                     <div className="bg-border h-1 w-1 rounded-full" />
-                    <div className="flex items-center gap-1.5">
-                        <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                        {t('trust.verified')}
-                    </div>
+                    {listing.user?.verified && (
+                        <div className="flex items-center gap-1.5">
+                            <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                            {t('trust.verified')}
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -137,21 +139,21 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                 <ListingOwnerActions
                     listingId={listing.id}
                     ownerId={listing.user_id}
-                    className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50 h-14 w-full gap-2 rounded-xl border-2 font-bold"
+                    className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50 h-14 w-full gap-2 rounded-xl border-2 font-black uppercase tracking-widest text-xs"
                 />
 
                 <div className="grid grid-cols-2 gap-3">
                     <Button
                         variant="ghost"
                         size="lg"
-                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold"
+                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-black uppercase tracking-widest text-[10px]"
                     >
                         <Heart className="h-5 w-5" /> {t('listing.saveListing')}
                     </Button>
                     <Button
                         variant="ghost"
                         size="lg"
-                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold"
+                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-black uppercase tracking-widest text-[10px]"
                     >
                         <Share2 className="h-5 w-5" /> {t('listing.shareListing')}
                     </Button>

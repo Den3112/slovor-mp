@@ -53,19 +53,18 @@ export default function ReviewsPage() {
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Premium Header */}
-      <div className="group relative overflow-hidden rounded-xl border border-border/50 bg-card p-8 shadow-sm transition-all duration-300">
-        <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-50" />
+      <div className="relative overflow-hidden rounded-xl border border-border bg-card p-8 shadow-sm">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
+          <div className="space-y-1">
             <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
               {t('reviews:title')}
             </h1>
-            <p className="text-muted-foreground/80 max-w-lg text-sm font-bold uppercase tracking-widest leading-relaxed">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
               {t('reviews:manageReputation')}
             </p>
           </div>
-          <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 text-primary shadow-inner ring-1 ring-primary/20">
-            <Award className="h-8 w-8" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
+            <Award className="h-6 w-6" />
           </div>
         </div>
       </div>
@@ -151,7 +150,7 @@ export default function ReviewsPage() {
                 return (
                   <div
                     key={review.id}
-                    className="group relative rounded-xl border border-border/50 bg-card p-5 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+                    className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/30"
                   >
                     <div className="flex flex-col sm:flex-row gap-5">
                       <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border/40 bg-muted/50 group-hover:scale-105 transition-transform duration-300">

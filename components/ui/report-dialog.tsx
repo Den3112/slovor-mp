@@ -85,21 +85,21 @@ export function ReportDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
+      {/* Backdrop - Solid Dark */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/80"
         onClick={handleClose}
       />
 
-      {/* Dialog */}
-      <div className="bg-card relative z-10 w-full max-w-md rounded-3xl p-6 shadow-2xl">
+      {/* Dialog - Solid */}
+      <div className="bg-card border border-border relative z-10 w-full max-w-md rounded-xl p-6 shadow-sm">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-100">
-              <AlertTriangle className="h-5 w-5 text-rose-500" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-destructive/10 border border-destructive/20">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
             </div>
-            <h2 className="text-lg font-bold">
+            <h2 className="text-lg font-black uppercase tracking-tight">
               {listingId ? t('reports.reportListing') : t('reports.reportUser')}
             </h2>
           </div>
@@ -113,28 +113,28 @@ export function ReportDialog({
 
         {/* Success State */}
         {submitState === 'success' ? (
-          <div className="rounded-2xl bg-emerald-50 p-6 text-center">
+          <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-6 text-center">
             <div className="mb-2 text-4xl">✓</div>
-            <p className="font-medium text-emerald-600">{t('reports.thankYou')}</p>
+            <p className="font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-500">{t('reports.thankYou')}</p>
           </div>
         ) : (
           <>
             {/* Error Message */}
             {submitState === 'error' && (
-              <div className="bg-destructive/10 text-destructive mb-4 rounded-xl px-4 py-2 text-sm">
+              <div className="bg-destructive/10 border border-destructive/20 text-destructive mb-4 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wide">
                 {errorMessage}
               </div>
             )}
 
             {/* Reason Select */}
-            <div className="mb-4">
-              <label className="mb-2 block text-sm font-medium">
+            <div className="mb-4 space-y-2">
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                 {t('reports.reason')} *
               </label>
               <select
                 value={reason}
                 onChange={(e) => setReason(e.target.value as ReportReason)}
-                className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-1"
+                className="border-input bg-background focus:ring-ring w-full rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
               >
                 <option value="">—</option>
                 {REPORT_REASONS.map((r) => (
@@ -146,15 +146,15 @@ export function ReportDialog({
             </div>
 
             {/* Description */}
-            <div className="mb-6">
-              <label className="mb-2 block text-sm font-medium">
+            <div className="mb-6 space-y-2">
+              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                 {t('reports.description')}
               </label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="..."
-                className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full resize-none rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-1"
+                className="border-input bg-background focus:ring-ring w-full resize-none rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
                 rows={3}
               />
             </div>
@@ -164,7 +164,7 @@ export function ReportDialog({
               <Button
                 onClick={handleSubmit}
                 disabled={!reason || isSubmitting || !user}
-                className={cn('flex-1 rounded-xl', !user && 'opacity-50')}
+                className={cn('flex-1 rounded-xl font-black uppercase tracking-widest', !user && 'opacity-50')}
               >
                 {isSubmitting ? '...' : t('reports.submit')}
               </Button>
@@ -172,7 +172,7 @@ export function ReportDialog({
                 variant="outline"
                 onClick={handleClose}
                 disabled={isSubmitting}
-                className="rounded-xl"
+                className="rounded-xl font-black uppercase tracking-widest"
               >
                 {t('common.back')}
               </Button>
@@ -180,7 +180,7 @@ export function ReportDialog({
 
             {/* Login hint */}
             {!user && (
-              <p className="text-muted-foreground mt-4 text-center text-xs">
+              <p className="text-muted-foreground mt-4 text-center text-[10px] font-bold uppercase tracking-widest">
                 {t('auth.signIn')} required
               </p>
             )}

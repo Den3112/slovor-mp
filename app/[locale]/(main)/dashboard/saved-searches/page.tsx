@@ -16,7 +16,6 @@ import {
   ExternalLink,
   MapPin,
   Tag,
-  Calendar,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -100,14 +99,13 @@ export default function SavedSearchesPage() {
   return (
     <div className="min-h-screen pt-24 pb-20 md:pt-32">
       <Container>
-        <div className="from-background/80 via-background/60 to-background/40 group relative flex flex-col gap-4 overflow-hidden rounded-5xl border border-white/10 bg-linear-to-br p-6 shadow-2xl backdrop-blur-xl md:flex-row md:items-center md:justify-between md:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-blue-500/10 via-transparent to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-100" />
-          <div className="relative z-10">
-            <h1 className="font-heading text-foreground mb-2 text-4xl font-black tracking-tight md:text-5xl">
-              {t('dashboard.savedSearches')}
+        <div className="relative overflow-hidden rounded-xl border border-border bg-card p-8 shadow-sm md:p-10">
+          <div className="relative z-10 space-y-1">
+            <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
+              {t('dashboard:savedSearches')}
             </h1>
-            <p className="text-muted-foreground max-w-lg text-base leading-relaxed font-medium md:text-lg">
-              {t('profile.savedSearchesDescription')}
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              {t('profile:savedSearchesDescription')}
             </p>
           </div>
         </div>
@@ -117,66 +115,62 @@ export default function SavedSearchesPage() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="bg-muted/30 animate-pulse rounded-2xl p-6"
-              >
-                <div className="bg-muted h-5 w-40 rounded" />
-                <div className="bg-muted mt-3 h-4 w-64 rounded" />
-              </div>
+                className="bg-muted/40 animate-pulse rounded-xl border border-border/40 p-6 h-32"
+              />
             ))}
           </div>
         ) : searches.length === 0 ? (
-          <div className="rounded-5xl border border-white/10 bg-white/5 p-8 shadow-inner backdrop-blur-md md:p-12">
+          <div className="rounded-xl border border-border bg-card p-8 shadow-sm md:p-12">
             <EmptyState
               icon={Search}
-              title={t('profile.noSavedSearches')}
-              description={t('profile.noSavedSearchesDesc')}
+              title={t('profile:noSavedSearches')}
+              description={t('profile:noSavedSearchesDesc')}
             />
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {searches.map((search) => (
               <div
                 key={search.id}
-                className="border-border/50 bg-card hover:border-primary/30 rounded-2xl border p-6 transition-all"
+                className="border-border bg-card hover:border-primary/30 rounded-xl border p-6 transition-all shadow-sm"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold">{search.name}</h3>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base font-black uppercase tracking-tight text-foreground truncate">{search.name}</h3>
 
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="mt-3 flex flex-wrap gap-1.5">
                       {search.query && (
-                        <span className="bg-muted inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm">
-                          <Search className="h-3 w-3" />
+                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
+                          <Search className="h-2.5 w-2.5" />
                           {search.query}
                         </span>
                       )}
                       {search.category?.name && (
-                        <span className="bg-muted inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm">
-                          <Tag className="h-3 w-3" />
+                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
+                          <Tag className="h-2.5 w-2.5" />
                           {search.category.name}
                         </span>
                       )}
                       {search.location && (
-                        <span className="bg-muted inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm">
-                          <MapPin className="h-3 w-3" />
+                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
+                          <MapPin className="h-2.5 w-2.5" />
                           {search.location}
                         </span>
                       )}
                       {(search.min_price || search.max_price) && (
-                        <span className="bg-muted inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm">
+                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
                           €{search.min_price || 0} - €{search.max_price || '∞'}
                         </span>
                       )}
                     </div>
 
-                    <div className="text-muted-foreground mt-3 flex items-center gap-4 text-sm">
-                      <span className="inline-flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {search.frequency} {t('profile.notifications')}
+                    <div className="text-muted-foreground/50 mt-4 flex items-center gap-4 text-[9px] font-bold uppercase tracking-widest">
+                      <span className="inline-flex items-center gap-1 text-primary/70">
+                        <Bell className="h-2.5 w-2.5" />
+                        {search.frequency} {t('profile:notifications')}
                       </span>
                       <span>
-                        {t('profile.created')}{' '}
-                        {new Date(search.created_at).toLocaleDateString()}
+                        {t('profile:created')} {new Date(search.created_at).toLocaleDateString()}
                       </span>
                     </div>
                   </div>

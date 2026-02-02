@@ -68,8 +68,8 @@ export function LiveMonitor() {
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-success animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                         Live Monitor
                     </span>
                 </div>
@@ -106,10 +106,10 @@ export function LiveMonitor() {
                                 </div>
 
                                 <div className="space-y-0.5 py-1">
-                                    <p className="text-[11px] font-bold text-foreground leading-tight tracking-tight line-clamp-1">
+                                    <p className="text-[11px] font-black text-foreground leading-tight tracking-tight line-clamp-1 uppercase">
                                         {event.message}
                                     </p>
-                                    <p className="text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                                    <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-widest">
                                         {event.time}
                                     </p>
                                 </div>
@@ -120,7 +120,7 @@ export function LiveMonitor() {
             </div>
 
             <div className="pt-2">
-                <button className="w-full py-2 rounded-lg border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all">
+                <button className="w-full py-2 rounded-lg border border-border/60 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 hover:text-primary hover:border-primary/40 hover:bg-muted/50 transition-all">
                     View Full Audit Log
                 </button>
             </div>

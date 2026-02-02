@@ -25,7 +25,7 @@ export function DashboardShell({
     const [isMobileOpen, setIsMobileOpen] = useState(false)
 
     return (
-        <div className="flex h-screen overflow-hidden bg-background/50">
+        <div className="flex h-screen overflow-hidden bg-background">
             {/* Sidebar - Desktop */}
             <aside className={cn(
                 "hidden md:flex shrink-0 transition-all duration-300 ease-in-out border-r border-border/60 bg-card",
@@ -40,8 +40,8 @@ export function DashboardShell({
 
             {/* Main Content */}
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-                {/* Top Bar - Glassmorphism */}
-                <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-border/60 bg-background/80 px-6 shadow-sm">
+                {/* Top Bar - Solid */}
+                <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-border/60 bg-background px-6 shadow-sm">
                     <div className="flex items-center gap-4">
                         <div className="md:hidden">
                             <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>

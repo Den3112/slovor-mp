@@ -164,7 +164,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
         },
         {
             key: 'title',
-            header: t('admin.tableListing'),
+            header: t('admin:tableListing'),
             sortable: true,
             className: "min-w-[340px]",
             cell: (row) => (
@@ -202,7 +202,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
         },
         {
             key: 'user',
-            header: t('admin.tableSeller'),
+            header: t('admin:tableSeller'),
             sortable: false,
             className: "min-w-[180px]",
             cell: (row) => (
@@ -215,7 +215,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                             {row.user?.display_name || t('admin.unknown')}
                         </span>
                         <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
-                            {t('admin.proSeller') || 'Member'}
+                            {t('admin:proSeller') || 'Member'}
                         </span>
                     </div>
                 </div>
@@ -223,14 +223,14 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
         },
         {
             key: 'status',
-            header: t('admin.tableStatus'),
+            header: t('admin:tableStatus'),
             sortable: true,
             cell: (row) => {
                 const statusObj = {
                     active: {
                         bg: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
                         dot: "bg-emerald-500",
-                        label: t('admin.active')
+                        label: t('admin:active')
                     },
                     draft: {
                         bg: "bg-amber-500/10 text-amber-600 border-amber-500/20",
@@ -245,7 +245,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                     rejected: {
                         bg: "bg-destructive/10 text-destructive border-destructive/20",
                         dot: "bg-destructive",
-                        label: t('admin.rejected')
+                        label: t('admin:rejected')
                     },
                     expired: {
                         bg: "bg-muted text-muted-foreground border-border/40",
@@ -271,7 +271,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
         },
         {
             key: 'created_at',
-            header: t('admin.tableDate'),
+            header: t('admin:tableDate'),
             sortable: true,
             cell: (row) => (
                 <div className="flex flex-col text-[11px] font-bold uppercase tracking-widest">
@@ -282,7 +282,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
         },
         {
             key: 'actions',
-            header: <span className="sr-only">{t('admin.tableActions')}</span>,
+            header: <span className="sr-only">{t('admin:tableActions')}</span>,
             className: "text-right",
             cell: (row) => (
                 <div className="flex justify-end gap-2">
@@ -332,11 +332,11 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                 <div className="space-y-1">
                     <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
                         <Layers className="h-8 w-8 text-primary" />
-                        {t('admin.moderation')}
+                        {t('admin:moderation')}
                     </h1>
-                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                        <ShieldAlert className="h-3.5 w-3.5 text-amber-500" />
-                        {t('admin.reviewManageListings')}
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                        <ShieldAlert className="h-3.5 w-3.5 text-warning" />
+                        {t('admin:reviewManageListings')}
                     </p>
                 </div>
             </div>
@@ -344,19 +344,19 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
             {/* Tab Navigation */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center mb-6">
-                    <TabsList className="bg-muted/20 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
+                    <TabsList className="bg-muted/40 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
                         {tabs.map((tab) => (
                             <TabsTrigger
                                 key={tab.value}
                                 value={tab.value}
-                                className="rounded-lg px-4 py-2 text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
                                 {tab.label}
                                 <span className={cn(
-                                    "ml-2 rounded-md px-1.5 py-0.5 text-[9px] font-black border",
+                                    "ml-2 rounded px-1.5 py-0.5 text-[9px] font-black border",
                                     tab.value === 'pending' && tab.count > 0
-                                        ? "bg-amber-500/10 text-amber-600 border-amber-500/20"
-                                        : "bg-muted-foreground/5 text-muted-foreground/60 border-border/40"
+                                        ? "bg-warning/10 text-warning border-warning/20"
+                                        : "bg-muted-foreground/5 text-muted-foreground/40 border-border/40"
                                 )}>
                                     {tab.count}
                                 </span>
@@ -373,7 +373,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                     sortDirection={sortDirection}
                     onSort={handleSort}
                     onSearch={setSearchQuery}
-                    searchPlaceholder={t('admin.searchPlaceholderListings')}
+                    searchPlaceholder={t('admin:searchPlaceholderListings')}
                     isLoading={isLoading}
                     emptyMessage="No listings found matching criteria."
                 />
@@ -386,23 +386,23 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                         initial={{ opacity: 0, y: 50, x: '-50%' }}
                         animate={{ opacity: 1, y: 0, x: '-50%' }}
                         exit={{ opacity: 0, y: 50, x: '-50%' }}
-                        className="fixed bottom-8 left-1/2 z-50 bg-slate-950 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-6 border border-white/10"
+                        className="fixed bottom-8 left-1/2 z-50 bg-foreground text-background px-6 py-3 rounded-xl shadow-sm flex items-center gap-6 border border-border"
                     >
                         <div className="flex items-center gap-3">
-                            <span className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center text-[11px] font-black text-white shadow-[0_0_15px_-3px_rgba(59,130,246,0.6)]">
+                            <span className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center text-[11px] font-black text-primary-foreground">
                                 {selectedIds.length}
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Selected Items</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-background/60">Selected Items</span>
                         </div>
-                        <div className="h-6 w-px bg-white/10" />
+                        <div className="h-6 w-px bg-background/20" />
                         <div className="flex gap-2">
-                            <Button size="sm" onClick={() => handleBulkAction('active')} className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg h-9 px-4 text-[10px] font-bold uppercase tracking-widest border-0">
+                            <Button size="sm" onClick={() => handleBulkAction('active')} className="bg-success hover:bg-success/90 text-white rounded-lg h-9 px-4 text-[10px] font-black uppercase tracking-widest border-0">
                                 Approve All
                             </Button>
-                            <Button size="sm" onClick={() => handleBulkAction('rejected')} variant="destructive" className="rounded-lg h-9 px-4 text-[10px] font-bold uppercase tracking-widest border-0">
+                            <Button size="sm" onClick={() => handleBulkAction('rejected')} variant="destructive" className="rounded-lg h-9 px-4 text-[10px] font-black uppercase tracking-widest border-0">
                                 Reject All
                             </Button>
-                            <Button size="sm" variant="ghost" onClick={() => setSelectedIds([])} className="text-white/40 hover:text-white rounded-lg h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-white/5">
+                            <Button size="sm" variant="ghost" onClick={() => setSelectedIds([])} className="text-background/60 hover:text-background rounded-lg h-9 px-4 text-[10px] font-black uppercase tracking-widest hover:bg-background/10">
                                 Cancel
                             </Button>
                         </div>

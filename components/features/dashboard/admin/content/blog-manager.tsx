@@ -115,7 +115,7 @@ export function BlogManager() {
 
     if (editingPost) {
         return (
-            <div className="bg-card border border-border/50 rounded-3xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-300 shadow-2xl">
+            <div className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-300 shadow-sm">
                 <div className="flex items-center justify-between">
                     <h3 className="text-xl font-black italic">{editingPost.id ? t('admin.editPost') : t('admin.newPost')}</h3>
                     <Button variant="ghost" size="sm" onClick={handleCancel} className="rounded-full">
@@ -204,13 +204,13 @@ export function BlogManager() {
                         <label htmlFor="is_published" className="text-sm font-bold">{t('admin.publishImmediately')}</label>
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-4 border-t border-border/50">
-                        <Button variant="outline" type="button" onClick={handleCancel} className="rounded-xl px-6">
-                            {t('common.cancel')}
+                    <div className="flex justify-end gap-3 pt-4 border-t border-border/40">
+                        <Button variant="outline" type="button" onClick={handleCancel} className="rounded-xl px-6 h-11 text-[10px] font-black uppercase tracking-widest">
+                            {t('common:cancel')}
                         </Button>
-                        <Button disabled={isSubmitting} className="rounded-xl px-8 font-black uppercase tracking-widest shadow-lg shadow-primary/20">
+                        <Button disabled={isSubmitting} className="rounded-xl px-8 h-11 font-black uppercase tracking-widest text-[10px] shadow-sm">
                             {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
-                            {editingPost.id ? t('admin.saveChanges') : t('admin.postCreated')}
+                            {editingPost.id ? t('admin:saveChanges') : t('admin:postCreated')}
                         </Button>
                     </div>
                 </form>
@@ -224,26 +224,26 @@ export function BlogManager() {
                 <div className="relative group flex-1 max-w-md">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                     <Input
-                        placeholder={t('admin.searchPosts')}
+                        placeholder={t('admin:searchPosts')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-12 h-11 rounded-2xl bg-card/50 border-border/50 focus:bg-card transition-all"
+                        className="pl-12 h-11 rounded-xl bg-card border-border transition-all font-bold text-xs uppercase tracking-widest"
                     />
                 </div>
-                <Button onClick={handleCreate} className="rounded-xl font-bold">
-                    <Plus className="mr-2 h-4 w-4" /> {t('admin.newArticle')}
+                <Button onClick={handleCreate} className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 px-6">
+                    <Plus className="mr-2 h-4 w-4" /> {t('admin:newArticle')}
                 </Button>
             </div>
 
-            <div className="bg-card/50 border border-border/50 rounded-3xl overflow-hidden backdrop-blur-sm shadow-xl shadow-black/5">
+            <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>
-                            <tr className="bg-muted/30 border-b border-border/50">
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableArticle')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableStatus')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableDate')}</th>
-                                <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableActions')}</th>
+                            <tr className="bg-muted/10 border-b border-border/40">
+                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableArticle')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableStatus')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableDate')}</th>
+                                <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableActions')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
@@ -285,12 +285,12 @@ export function BlogManager() {
                                         </td>
                                         <td className="px-6 py-4">
                                             {post.is_published ? (
-                                                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-500">
-                                                    <CheckCircle2 className="h-3 w-3" /> {t('admin.published')}
+                                                <span className="inline-flex items-center gap-1.5 rounded-md bg-success/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-success border border-success/20">
+                                                    <CheckCircle2 className="h-3 w-3" /> {t('admin:published')}
                                                 </span>
                                             ) : (
-                                                <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                                                    <Clock className="h-3 w-3" /> {t('admin.draft')}
+                                                <span className="inline-flex items-center gap-1.5 rounded-md bg-muted/40 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-muted-foreground border border-border/40">
+                                                    <Clock className="h-3 w-3" /> {t('admin:draft')}
                                                 </span>
                                             )}
                                         </td>

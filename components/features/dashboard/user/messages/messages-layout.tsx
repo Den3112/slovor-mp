@@ -95,7 +95,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                 )}
             >
                 {/* Header */}
-                <div className="p-4 border-b border-border space-y-4 bg-background/50 backdrop-blur-sm">
+                <div className="p-4 border-b border-border space-y-4 bg-background">
                     <div className="flex items-center justify-between">
                         <h2 className="font-black text-lg uppercase tracking-tight">{t('messages:title')}</h2>
                         <AlertDialog>
@@ -259,7 +259,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
 
             {/* Main Content (Chat or Placeholder) */}
             <div className={cn(
-                "flex-1 flex flex-col min-w-0 bg-background lg:bg-background/40",
+                "flex-1 flex flex-col min-w-0 bg-background",
                 !activeId ? 'hidden lg:flex' : 'flex'
             )}>
                 {children}

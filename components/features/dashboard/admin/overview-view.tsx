@@ -79,20 +79,20 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
             {/* Header section with refined typography */}
             <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div className="space-y-1">
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin.overview')}</h1>
-                    <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin:overview')}</h1>
+                    <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                         <ShieldCheck className="h-3.5 w-3.5 text-success" />
-                        {t('admin.systemsOperational')} • <span className="text-foreground/40">{t('admin.loggedInAs')}</span> <span className="text-foreground">{userEmail}</span>
+                        {t('admin:systemsOperational')} • <span className="text-foreground/40">{t('admin:loggedInAs')}</span> <span className="text-foreground">{userEmail}</span>
                     </p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="text-[10px] font-bold uppercase tracking-widest border-border/60 h-9 px-4 rounded-xl">
+                    <Button variant="outline" size="sm" className="text-[10px] font-black uppercase tracking-widest border-border/60 h-9 px-4 rounded-xl hover:bg-muted transition-all">
                         <Download className="h-3.5 w-3.5 mr-2" />
                         {t('common:export')}
                     </Button>
-                    <Button size="sm" className="text-[10px] font-bold uppercase tracking-widest shadow-md shadow-primary/20 bg-primary h-9 px-4 rounded-xl">
+                    <Button size="sm" className="text-[10px] font-black uppercase tracking-widest shadow-sm bg-primary h-9 px-4 rounded-xl hover:bg-primary/90 transition-all active:scale-95">
                         <Zap className="h-3.5 w-3.5 mr-2" />
-                        {t('admin.runAudit')}
+                        {t('admin:runAudit')}
                     </Button>
                 </div>
             </motion.div>
@@ -138,15 +138,15 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <CardTitle className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground flex items-center gap-2">
+                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                         <BarChart3 className="h-4 w-4 text-primary" />
-                                        {t('admin.activityMetrics')}
+                                        {t('admin:activityMetrics')}
                                     </CardTitle>
-                                    <p className="text-[10px] text-muted-foreground/60 mt-0.5 uppercase tracking-widest font-bold">{t('admin.activityMetricsDesc') || 'Global Traffic & Conversion'}</p>
+                                    <p className="text-[10px] text-muted-foreground/40 mt-1 uppercase tracking-widest font-black">{t('admin:activityMetricsDesc') || 'Global Traffic & Conversion'}</p>
                                 </div>
-                                <div className="flex bg-muted/50 p-1 rounded-lg border border-border/40">
-                                    <button className="px-3 py-1 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">{t('admin.days7')}</button>
-                                    <button className="px-3 py-1 text-[10px] font-black uppercase tracking-widest bg-card text-primary rounded-md shadow-sm border border-border/40">{t('admin.days30')}</button>
+                                <div className="flex bg-muted/30 p-1 rounded-lg border border-border/40">
+                                    <button className="px-3 py-1 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 hover:text-foreground transition-colors">{t('admin.days7')}</button>
+                                    <button className="px-3 py-1 text-[9px] font-black uppercase tracking-widest bg-card text-primary rounded-md shadow-sm border border-border/40">{t('admin.days30')}</button>
                                 </div>
                             </div>
                         </CardHeader>
@@ -160,9 +160,9 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                 <motion.div variants={item} className="space-y-8 lg:col-span-4">
                     <Card className="border-border/60 shadow-sm overflow-hidden rounded-xl bg-card">
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground flex items-center gap-2">
+                            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <Zap className="h-4 w-4 text-primary" />
-                                {t('admin.controlCenter')}
+                                {t('admin:controlCenter')}
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-6 space-y-8">
@@ -189,9 +189,9 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     </Card>
 
                     {/* System Health Panel */}
-                    <Card className="border-border/60 shadow-sm overflow-hidden rounded-xl bg-slate-950 text-white selection:bg-primary/30">
-                        <CardHeader className="border-b border-white/10 bg-white/5 px-6 py-4">
-                            <CardTitle className="text-sm font-bold uppercase tracking-[0.15em] text-white/70 flex items-center gap-2">
+                    <Card className="border-border rounded-xl overflow-hidden bg-slate-950 text-white selection:bg-primary/30 shadow-sm border-none">
+                        <CardHeader className="border-b border-white/5 bg-white/5 px-6 py-4">
+                            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
                                 <ShieldCheck className="h-4 w-4 text-success" />
                                 System Health
                             </CardTitle>
@@ -200,35 +200,35 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
+                                        <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/5">
                                             <Database className="h-4 w-4 text-blue-400" />
                                         </div>
-                                        <span className="text-[11px] font-bold uppercase tracking-widest text-white/60">Database</span>
+                                        <span className="text-[11px] font-black uppercase tracking-widest text-white/40">Database</span>
                                     </div>
-                                    <span className="text-[10px] font-black text-success uppercase tracking-widest bg-success/10 px-2 py-0.5 rounded border border-success/20">Operational</span>
+                                    <span className="text-[10px] font-black text-success uppercase tracking-widest px-2 py-0.5 rounded-sm border border-success/20 bg-success/5">Operational</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
+                                        <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/5">
                                             <Activity className="h-4 w-4 text-emerald-400" />
                                         </div>
-                                        <span className="text-[11px] font-bold uppercase tracking-widest text-white/60">API Latency</span>
+                                        <span className="text-[11px] font-black uppercase tracking-widest text-white/40">API Latency</span>
                                     </div>
                                     <span className="text-[10px] font-black text-white uppercase tracking-widest">24ms</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
+                                        <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/5">
                                             <Lock className="h-4 w-4 text-amber-400" />
                                         </div>
-                                        <span className="text-[11px] font-bold uppercase tracking-widest text-white/60">SSL Status</span>
+                                        <span className="text-[11px] font-black uppercase tracking-widest text-white/40">SSL Status</span>
                                     </div>
-                                    <span className="text-[10px] font-black text-success uppercase tracking-widest">Secure</span>
+                                    <span className="text-[10px] font-black text-success uppercase tracking-widest px-2 py-0.5 rounded-sm border border-success/20 bg-success/5">Secure</span>
                                 </div>
                             </div>
 
-                            <div className="pt-4 border-t border-white/10 mt-4">
-                                <Button size="sm" className="w-full bg-white/10 hover:bg-white/20 text-white rounded-xl h-10 text-[10px] font-bold uppercase tracking-widest border-0 transition-all">
+                            <div className="pt-4 border-t border-white/5 mt-4">
+                                <Button size="sm" className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl h-11 text-[9px] font-black uppercase tracking-widest border-0 transition-all active:scale-95">
                                     <RefreshCcw className="h-3 w-3 mr-2" />
                                     Full System Report
                                 </Button>
