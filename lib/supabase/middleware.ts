@@ -115,7 +115,7 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
     if (
         !user &&
         (path.startsWith('/post') ||
-            path.startsWith('/profile'))
+            path.startsWith('/dashboard'))
     ) {
         // Redirect to login
         // Assuming /auth/login is the correct path for login
@@ -126,7 +126,7 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
 
     // 3. Redirect to profile if logged in and trying to access auth pages
     if (user && path.startsWith('/auth')) {
-        const redirectUrl = getRedirectUrl('/profile')
+        const redirectUrl = getRedirectUrl('/dashboard')
         return NextResponse.redirect(redirectUrl)
     }
 

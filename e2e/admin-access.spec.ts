@@ -63,8 +63,8 @@ test.describe('Admin Dashboard Access', () => {
         await expect(switchButton).toBeVisible();
         await switchButton.click();
 
-        // Should navigate to /profile/overview
-        await expect(page).toHaveURL(/.*\/profile\/overview/);
+        // Should navigate to /dashboard
+        await expect(page).toHaveURL(/.*\/dashboard\/overview/);
 
         // Go back (user might not see "Switch to Admin" if they are not admin, but our mock user IS admin)
         const adminButton = page.getByRole('button', { name: /Switch to Admin|Admin/i });

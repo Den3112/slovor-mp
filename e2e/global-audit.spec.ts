@@ -70,7 +70,7 @@ test.describe('Admin & Dashboard Audit', () => {
     });
 
     test('User Dashboard / Profile Visibility', async ({ page }) => {
-        await page.goto('/en/profile');
+        await page.goto('/en/dashboard');
         await runUniversalHealthCheck(page);
     });
 });

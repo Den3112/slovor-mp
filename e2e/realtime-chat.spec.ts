@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test.describe('Real-time Chat & Notifications', () => {
   test('Inbox page loads correctly', async ({ page }) => {
     // Requires login, so we expect a redirect if not authenticated
-    await page.goto('/profile/messages')
+    await page.goto('/messages')
     await page.waitForLoadState('networkidle')
     
     const url = page.url()
@@ -33,7 +33,7 @@ test.describe('Real-time Chat & Notifications', () => {
 
   test('Presence indicator in chat view', async ({ page }) => {
     // We navigate to a specific chat (mock id)
-    await page.goto('/profile/messages/mock-id')
+    await page.goto('/messages/mock-id')
     await page.waitForLoadState('networkidle')
     
     // Should show localized "Loading" or "Not found" for guest

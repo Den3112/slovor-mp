@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: 'payment',
-      success_url: `${origin}/profile/wallet?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/dashboard/wallet?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/listings/${listing_id}/promote?canceled=true`,
       metadata: {
         transaction_id: transaction.id,

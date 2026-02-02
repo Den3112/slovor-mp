@@ -56,7 +56,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
             if (error) throw new Error(error)
 
             if (data) {
-                router.push(`/profile/messages/${data.id}`)
+                router.push(`/messages/${data.id}`)
             }
         } catch (error) {
             console.error('Failed to start conversation:', error)

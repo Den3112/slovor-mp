@@ -23,7 +23,7 @@ test.describe('Chat Interactions', () => {
     })
 
     test('Inbox sidebar has search', async ({ page }) => {
-        await page.goto('/profile/messages')
+        await page.goto('/messages')
         const url = page.url()
         if (url.includes('/login')) return
 

@@ -29,7 +29,7 @@ export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProp
   }
 
   // Hide on dashboard pages
-  if (pathname?.includes('/admin') || pathname?.includes('/profile') || pathname?.includes('/messages')) {
+  if (pathname?.includes('/admin') || pathname?.includes('/dashboard') || pathname?.includes('/messages') || pathname?.includes('/favorites')) {
     return null
   }
 
@@ -111,10 +111,10 @@ export function BottomNavBar({ pathname, user, onSearchClick }: BottomNavBarProp
         {/* Profile / Login */}
         {user ? (
           <Link
-            href={`/${locale}/profile`}
+            href={`/${locale}/dashboard`}
             className={cn(
               'relative flex flex-col items-center justify-center gap-1 h-12 w-16 transition-colors',
-              pathname?.includes('/profile') ? 'text-primary' : 'text-muted-foreground'
+              pathname?.includes('/dashboard') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             <div className="relative">

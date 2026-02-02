@@ -158,7 +158,7 @@ export function NotificationDropdown() {
 
                         {/* Footer */}
                         <div className="p-3 bg-muted/30 border-t border-white/5">
-                            <Link href="/profile/notifications">
+                            <Link href="/dashboard/notifications">
                                 <Button variant="ghost" className="w-full rounded-xl text-xs font-bold text-muted-foreground hover:text-foreground">
                                     View full history
                                 </Button>

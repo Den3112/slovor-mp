@@ -1,6 +1,6 @@
 'use client'
 
-import { DashboardFavoriteItem } from '@/components/profile/favorite-item'
+import { DashboardFavoriteItem } from '@/components/seller-profile/favorite-item'
 import { EmptyState } from '@/components/ui/empty-state'
 import { Heart } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
@@ -16,12 +16,11 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Premium Header */}
-            {/* Header */}
             <div className="flex flex-col gap-2">
-                <h1 className="text-2xl font-bold tracking-tight">
+                <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
                     {t('dashboard:favorites')}
                 </h1>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground/80 text-xs font-bold uppercase tracking-widest">
                     {t('profile:favoritesDescription')}
                 </p>
             </div>

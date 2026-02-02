@@ -213,7 +213,7 @@ export function useCreateListing() {
       setIsDirty(false)
 
       if (isEditing) {
-        router.push('/profile/listings')
+        router.push('/dashboard/listings')
       } else {
         router.push(`/listings/${res.data.id}`)
       }

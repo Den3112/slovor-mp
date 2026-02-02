@@ -16,6 +16,7 @@ import { DataGrid, type Column } from '@/components/features/dashboard/shared/da
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { formatPrice } from '@/lib/utils/formatting'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface AdminListingsViewProps {
@@ -148,6 +149,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                     checked={filteredListings.length > 0 && selectedIds.length === filteredListings.length}
                     onCheckedChange={toggleSelectAll}
                     aria-label="Select all"
+                    className="border-border/60 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
             ),
             cell: (row) => (
@@ -155,31 +157,45 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                     checked={selectedIds.includes(row.id)}
                     onCheckedChange={() => toggleSelect(row.id)}
                     aria-label={`Select ${row.title}`}
+                    className="border-border/60 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
             ),
-            className: "w-[50px]"
+            className: "w-[40px]"
         },
         {
             key: 'title',
             header: t('admin.tableListing'),
             sortable: true,
-            className: "min-w-[300px]",
+            className: "min-w-[340px]",
             cell: (row) => (
-                <div className="flex items-center gap-3">
-                    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-muted border border-border">
+                <div className="flex items-center gap-4">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-muted border border-border/40 shadow-sm group-hover:border-primary/30 transition-colors">
                         {row.images?.[0] ? (
                             <Image src={row.images[0]} alt={row.title} fill className="object-cover" unoptimized />
                         ) : (
-                            <div className="flex h-full w-full items-center justify-center text-muted-foreground">
-                                <Tag className="h-4 w-4" />
+                            <div className="flex h-full w-full items-center justify-center text-muted-foreground/40">
+                                <Tag className="h-5 w-5" />
                             </div>
                         )}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
                     </div>
-                    <div className="flex flex-col">
-                        <Link href={`/listings/${row.id}`} target="_blank" className="font-medium hover:text-primary transition-colors line-clamp-1 group-hover:underline">
+                    <div className="flex flex-col space-y-1">
+                        <Link
+                            href={`/listings/${row.id}`}
+                            target="_blank"
+                            className="text-sm font-bold hover:text-primary transition-colors line-clamp-1 leading-tight tracking-tight"
+                        >
                             {row.title}
                         </Link>
-                        <span className="text-xs text-muted-foreground font-bold">{row.price} {row.currency}</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-[11px] font-black text-primary uppercase tracking-wider">
+                                {formatPrice(row.price)} {row.currency}
+                            </span>
+                            <span className="text-[11px] font-bold text-muted-foreground/40 uppercase tracking-widest">•</span>
+                            <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                                ID: {row.id.split('-')[0]}
+                            </span>
+                        </div>
                     </div>
                 </div>
             )
@@ -188,12 +204,20 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
             key: 'user',
             header: t('admin.tableSeller'),
             sortable: false,
+            className: "min-w-[180px]",
             cell: (row) => (
-                <div className="flex items-center gap-2 text-sm">
-                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                        <Users className="h-3 w-3" />
+                <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-lg bg-primary/5 flex items-center justify-center text-primary border border-primary/10 group-hover:bg-primary/10 transition-colors">
+                        <Users className="h-4 w-4" />
                     </div>
-                    <span className="truncate max-w-[150px]">{row.user?.display_name || t('admin.unknown')}</span>
+                    <div className="flex flex-col">
+                        <span className="text-sm font-bold tracking-tight text-foreground truncate max-w-[120px]">
+                            {row.user?.display_name || t('admin.unknown')}
+                        </span>
+                        <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                            {t('admin.proSeller') || 'Member'}
+                        </span>
+                    </div>
                 </div>
             )
         },
@@ -203,18 +227,43 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
             sortable: true,
             cell: (row) => {
                 const statusObj = {
-                    active: { color: "bg-emerald-500/10 text-emerald-600", label: t('admin.active') },
-                    draft: { color: "bg-amber-500/10 text-amber-600", label: 'Pending' },
-                    pending: { color: "bg-amber-500/10 text-amber-600", label: 'Pending' },
-                    rejected: { color: "bg-destructive/10 text-destructive", label: t('admin.rejected') },
-                    expired: { color: "bg-muted text-muted-foreground", label: 'Expired' },
-                    sold: { color: "bg-blue-500/10 text-blue-600", label: 'Sold' },
+                    active: {
+                        bg: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+                        dot: "bg-emerald-500",
+                        label: t('admin.active')
+                    },
+                    draft: {
+                        bg: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+                        dot: "bg-amber-500",
+                        label: 'Draft'
+                    },
+                    pending: {
+                        bg: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+                        dot: "bg-blue-500",
+                        label: 'Pending'
+                    },
+                    rejected: {
+                        bg: "bg-destructive/10 text-destructive border-destructive/20",
+                        dot: "bg-destructive",
+                        label: t('admin.rejected')
+                    },
+                    expired: {
+                        bg: "bg-muted text-muted-foreground border-border/40",
+                        dot: "bg-muted-foreground/40",
+                        label: 'Expired'
+                    },
+                    sold: {
+                        bg: "bg-slate-500/10 text-slate-600 border-slate-500/20",
+                        dot: "bg-slate-500",
+                        label: 'Sold'
+                    },
                 }
                 // @ts-ignore
                 const current = statusObj[row.status] || statusObj.draft
 
                 return (
-                    <Badge variant="outline" className={cn("border-0 font-bold", current.color)}>
+                    <Badge variant="outline" className={cn("px-2.5 py-0.5 border font-bold text-[10px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6", current.bg)}>
+                        <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", current.dot)} />
                         {current.label}
                     </Badge>
                 )
@@ -225,9 +274,9 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
             header: t('admin.tableDate'),
             sortable: true,
             cell: (row) => (
-                <div className="flex flex-col text-xs">
-                    <span className="font-medium text-foreground">{new Date(row.created_at).toLocaleDateString()}</span>
-                    <span className="text-muted-foreground">{new Date(row.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                <div className="flex flex-col text-[11px] font-bold uppercase tracking-widest">
+                    <span className="text-foreground">{new Date(row.created_at).toLocaleDateString()}</span>
+                    <span className="text-muted-foreground/50">{new Date(row.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
             )
         },
@@ -236,36 +285,33 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
             header: <span className="sr-only">{t('admin.tableActions')}</span>,
             className: "text-right",
             cell: (row) => (
-                <div className="flex justify-end gap-1">
+                <div className="flex justify-end gap-2">
                     {row.status === 'active' || row.status === 'sold' ? (
                         <Button
-                            variant="ghost"
+                            variant="outline"
                             size="icon"
                             onClick={() => handleAction(row.id, 'draft')}
-                            title="Suspend to Draft"
-                            className="text-amber-500 hover:bg-amber-500/10 hover:text-amber-600 h-8 w-8"
+                            className="bg-background hover:bg-amber-500/5 hover:text-amber-600 hover:border-amber-500/30 border-border/60 text-muted-foreground h-8 w-8 transition-all shrink-0"
                         >
-                            <ShieldAlert className="h-4 w-4" />
+                            <ShieldAlert className="h-3.5 w-3.5" />
                         </Button>
                     ) : (
                         <Button
-                            variant="ghost"
+                            variant="outline"
                             size="icon"
                             onClick={() => handleAction(row.id, 'active')}
-                            title="Approve"
-                            className="text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-600 h-8 w-8"
+                            className="bg-background hover:bg-emerald-500/5 hover:text-emerald-600 hover:border-emerald-500/30 border-border/60 text-muted-foreground h-8 w-8 transition-all shrink-0"
                         >
-                            <CheckCircle2 className="h-4 w-4" />
+                            <CheckCircle2 className="h-3.5 w-3.5" />
                         </Button>
                     )}
                     <Button
-                        variant="ghost"
+                        variant="outline"
                         size="icon"
                         onClick={() => handleAction(row.id, 'rejected')}
-                        title="Reject"
-                        className="text-destructive hover:bg-destructive/10 hover:text-destructive h-8 w-8"
+                        className="bg-background hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 border-border/60 text-muted-foreground h-8 w-8 transition-all shrink-0"
                     >
-                        <XCircle className="h-4 w-4" />
+                        <XCircle className="h-3.5 w-3.5" />
                     </Button>
                 </div>
             )
@@ -280,32 +326,37 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
     ]
 
     return (
-        <div className="space-y-6" data-testid="admin-listings-view">
+        <div className="space-y-8" data-testid="admin-listings-view">
             {/* Header */}
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                    <h1 className="text-3xl font-black tracking-tight flex items-center gap-2">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div className="space-y-1">
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
                         <Layers className="h-8 w-8 text-primary" />
                         {t('admin.moderation')}
                     </h1>
-                    <p className="text-muted-foreground font-medium mt-1">{t('admin.reviewManageListings')}</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                        <ShieldAlert className="h-3.5 w-3.5 text-amber-500" />
+                        {t('admin.reviewManageListings')}
+                    </p>
                 </div>
             </div>
 
             {/* Tab Navigation */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center mb-6">
-                    <TabsList className="bg-muted/40 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/50">
+                    <TabsList className="bg-muted/20 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
                         {tabs.map((tab) => (
                             <TabsTrigger
                                 key={tab.value}
                                 value={tab.value}
-                                className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
                                 {tab.label}
                                 <span className={cn(
-                                    "ml-2 rounded-full px-1.5 py-0.5 text-[10px] font-bold",
-                                    tab.value === 'pending' && tab.count > 0 ? "bg-orange-500 text-white" : "bg-muted-foreground/10"
+                                    "ml-2 rounded-md px-1.5 py-0.5 text-[9px] font-black border",
+                                    tab.value === 'pending' && tab.count > 0
+                                        ? "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                                        : "bg-muted-foreground/5 text-muted-foreground/60 border-border/40"
                                 )}>
                                     {tab.count}
                                 </span>
@@ -332,27 +383,27 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
             <AnimatePresence>
                 {selectedIds.length > 0 && (
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 50 }}
-                        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-foreground text-background px-6 py-4 rounded-full shadow-2xl flex items-center gap-6 border border-white/10"
+                        initial={{ opacity: 0, y: 50, x: '-50%' }}
+                        animate={{ opacity: 1, y: 0, x: '-50%' }}
+                        exit={{ opacity: 0, y: 50, x: '-50%' }}
+                        className="fixed bottom-8 left-1/2 z-50 bg-slate-950 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-6 border border-white/10"
                     >
-                        <div className="flex items-center gap-2">
-                            <span className="h-6 w-6 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground">
+                        <div className="flex items-center gap-3">
+                            <span className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center text-[11px] font-black text-white shadow-[0_0_15px_-3px_rgba(59,130,246,0.6)]">
                                 {selectedIds.length}
                             </span>
-                            <span className="text-sm font-bold">Selected</span>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Selected Items</span>
                         </div>
-                        <div className="h-4 w-px bg-white/20" />
+                        <div className="h-6 w-px bg-white/10" />
                         <div className="flex gap-2">
-                            <Button size="sm" onClick={() => handleBulkAction('active')} className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl h-8 text-xs font-bold">
+                            <Button size="sm" onClick={() => handleBulkAction('active')} className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg h-9 px-4 text-[10px] font-bold uppercase tracking-widest border-0">
                                 Approve All
                             </Button>
-                            <Button size="sm" onClick={() => handleBulkAction('rejected')} variant="destructive" className="rounded-xl h-8 text-xs font-bold">
+                            <Button size="sm" onClick={() => handleBulkAction('rejected')} variant="destructive" className="rounded-lg h-9 px-4 text-[10px] font-bold uppercase tracking-widest border-0">
                                 Reject All
                             </Button>
-                            <Button size="sm" variant="ghost" onClick={() => setSelectedIds([])} className="text-white/60 hover:text-white rounded-xl h-8 text-xs">
-                                Close
+                            <Button size="sm" variant="ghost" onClick={() => setSelectedIds([])} className="text-white/40 hover:text-white rounded-lg h-9 px-4 text-[10px] font-bold uppercase tracking-widest hover:bg-white/5">
+                                Cancel
                             </Button>
                         </div>
                     </motion.div>

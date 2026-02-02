@@ -108,6 +108,41 @@ const nextConfig: NextConfig = {
     ]
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/profile/:path*',
+        destination: '/dashboard/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:lang/profile/:path*',
+        destination: '/:lang/dashboard/:path*',
+        permanent: true,
+      },
+      {
+        source: '/dashboard/messages/:path*',
+        destination: '/messages/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:lang/dashboard/messages/:path*',
+        destination: '/:lang/messages/:path*',
+        permanent: true,
+      },
+      {
+        source: '/dashboard/favorites/:path*',
+        destination: '/favorites/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:lang/dashboard/favorites/:path*',
+        destination: '/:lang/favorites/:path*',
+        permanent: true,
+      },
+    ]
+  },
+
   // Compression
   compress: true,
 

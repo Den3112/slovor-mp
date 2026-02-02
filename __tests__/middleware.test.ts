@@ -71,8 +71,8 @@ describe('middleware utility', () => {
         expect(NextResponse.redirect).not.toHaveBeenCalled()
     })
 
-    it('redirects to /auth/login if user is not authenticated on protected route (/profile)', async () => {
-        const req = mockRequest('/profile')
+    it('redirects to /auth/login if user is not authenticated on protected route (/dashboard)', async () => {
+        const req = mockRequest('/dashboard')
         await updateSession(req)
         expect(NextResponse.redirect).toHaveBeenCalled()
         // Verify redirect URL ends with /auth/login
@@ -80,12 +80,12 @@ describe('middleware utility', () => {
         // My implementation: url.pathname = '/auth/login'.
     })
 
-    it('redirects to /profile if user is authenticated on auth route', async () => {
+    it('redirects to /dashboard if user is authenticated on auth route', async () => {
         mockGetUser.mockResolvedValue({ data: { user: { id: '1' } }, error: null })
         const req = mockRequest('/auth/login')
         await updateSession(req)
         expect(NextResponse.redirect).toHaveBeenCalled()
-        // Verify redirect to /profile
+        // Verify redirect to /dashboard
     })
 
     it('redirects guests attempting to access /admin', async () => {

@@ -33,51 +33,63 @@ export function StatsCard({
         <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay, ease: 'easeOut' }}
+            transition={{ duration: 0.4, delay, ease: 'easeOut' }}
             className="h-full"
         >
-            <Card className={cn('h-full', className)}>
-                <CardContent className="p-4">
-                    <div className="flex items-start justify-between gap-4">
-                        <div className="min-w-0 flex-1">
-                            <p className="text-xs font-semibold text-muted-foreground truncate uppercase tracking-wider">
+            <Card className={cn(
+                'h-full relative overflow-hidden group transition-all duration-300 border-border/60 hover:border-primary/40 shadow-sm',
+                className
+            )}>
+                <CardContent className="p-5 relative z-10">
+                    <div className="flex items-center justify-between">
+                        <div className="space-y-1.5">
+                            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none">
                                 {label}
                             </p>
-                            <p className="mt-2 text-2xl font-bold tracking-tight">
+                            <p className="text-3xl font-black tracking-tighter leading-none">
                                 {value}
                             </p>
                             {(description || trend) && (
-                                <div className="mt-1 flex items-center gap-2 text-xs">
+                                <div className="flex items-center gap-2 mt-1.5">
                                     {trend && (
-                                        <span
-                                            className={cn(
-                                                'inline-flex items-center font-medium',
-                                                trend.direction === 'up' && 'text-success',
-                                                trend.direction === 'down' && 'text-destructive',
-                                                trend.direction === 'neutral' && 'text-warning'
-                                            )}
-                                        >
-                                            {trend.direction === 'up' && <TrendingUp className="mr-0.5 h-3 w-3" />}
-                                            {trend.direction === 'down' && <TrendingDown className="mr-0.5 h-3 w-3" />}
-                                            {trend.direction === 'neutral' && <Minus className="mr-0.5 h-3 w-3" />}
-                                            {trend.value}%
-                                        </span>
+                                        <div className={cn(
+                                            "flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-tight",
+                                            trend.direction === 'up' ? "text-success" :
+                                                trend.direction === 'down' ? "text-destructive" : "text-amber-500"
+                                        )}>
+                                            {trend.direction === 'up' && <TrendingUp className="h-3 w-3" />}
+                                            {trend.direction === 'down' && <TrendingDown className="h-3 w-3" />}
+                                            {trend.direction === 'neutral' && <Minus className="h-3 w-3" />}
+                                            <span>{trend.value}%</span>
+                                        </div>
                                     )}
                                     {description && (
-                                        <span className="text-muted-foreground truncate">
+                                        <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest truncate">
                                             {description}
+                                        </span>
+                                    )}
+                                    {trend?.label && !description && (
+                                        <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest truncate">
+                                            {trend.label}
                                         </span>
                                     )}
                                 </div>
                             )}
                         </div>
                         {Icon && (
-                            <div className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary">
+                            <div className="rounded-xl bg-primary/10 p-2.5 text-primary transition-transform duration-300 group-hover:scale-110">
                                 <Icon className="h-5 w-5" />
                             </div>
                         )}
                     </div>
                 </CardContent>
+
+                {/* Background Decoration */}
+                {Icon && (
+                    <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500 pointer-events-none">
+                        <Icon size={100} strokeWidth={1} />
+                    </div>
+                )}
             </Card>
         </motion.div>
     )

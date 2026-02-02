@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 import { DataGrid, type Column } from '@/components/features/dashboard/shared/data-grid'
 import { Badge } from '@/components/ui/badge'
 import { motion } from 'framer-motion'
@@ -88,20 +89,20 @@ export function AdminReportsView() {
             key: 'listing_id',
             header: t('admin.tableTarget'),
             cell: (row) => (
-                <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 min-w-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 min-w-[40px] rounded-lg bg-destructive/10 flex items-center justify-center text-destructive border border-destructive/20 shadow-sm transition-transform group-hover:scale-110">
                         <AlertTriangle className="h-5 w-5" />
                     </div>
-                    <div>
-                        <p className="font-bold text-foreground line-clamp-1 max-w-[200px]">
+                    <div className="flex flex-col space-y-0.5">
+                        <p className="font-bold text-sm text-foreground line-clamp-1 max-w-[200px] tracking-tight">
                             {row.listing?.title || t('admin.unknownListing')}
                         </p>
                         <Link
                             href={`/listings/${row.listing_id}`}
                             target="_blank"
-                            className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1 hover:underline"
+                            className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1.5 hover:text-primary/80 transition-colors"
                         >
-                            {t('admin.viewListing')} <ExternalLink className="h-2.5 w-2.5" />
+                            {t('admin.viewListing')} <ExternalLink className="h-3 w-3" />
                         </Link>
                     </div>
                 </div>
@@ -111,9 +112,9 @@ export function AdminReportsView() {
             key: 'reason',
             header: t('admin.tableReason'),
             cell: (row) => (
-                <div className="space-y-1 max-w-[300px]">
-                    <p className="font-bold text-sm">{row.reason}</p>
-                    <p className="text-muted-foreground text-xs line-clamp-2">{row.description}</p>
+                <div className="space-y-1.5 max-w-[320px]">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-destructive/80 leading-none">{row.reason}</p>
+                    <p className="text-xs font-medium text-muted-foreground/80 line-clamp-2 leading-relaxed">{row.description}</p>
                 </div>
             )
         },
@@ -121,12 +122,12 @@ export function AdminReportsView() {
             key: 'reporter_id',
             header: t('admin.tableReporter'),
             cell: (row) => (
-                <div className="flex flex-col">
-                    <div className="flex items-center gap-2 font-bold text-sm">
-                        <User className="h-3.5 w-3.5 text-muted-foreground" />
+                <div className="flex flex-col space-y-1.5">
+                    <div className="flex items-center gap-2 font-bold text-xs tracking-tight text-foreground">
+                        <User className="h-3.5 w-3.5 text-muted-foreground/60" />
                         {row.reporter?.display_name || t('admin.anonymous')}
                     </div>
-                    <div className="flex items-center gap-2 text-[10px] text-muted-foreground mt-1">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
                         <Calendar className="h-3 w-3" />
                         {new Date(row.created_at).toLocaleDateString()}
                     </div>
@@ -136,40 +137,52 @@ export function AdminReportsView() {
         {
             key: 'status',
             header: t('admin.tableStatus'),
-            cell: (row) => (
-                <Badge variant={
-                    row.status === 'pending' ? 'destructive' :
-                        row.status === 'resolved' ? 'success' : 'secondary'
-                }>
-                    {t(`admin.${row.status}`)}
-                </Badge>
-            )
+            cell: (row) => {
+                const statusStyles = {
+                    pending: "bg-destructive/10 text-destructive border-destructive/20 dot-destructive",
+                    resolved: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dot-emerald-500",
+                    dismissed: "bg-muted text-muted-foreground border-border/40 dot-muted-foreground/40"
+                }
+                const dotStyles = {
+                    pending: "bg-destructive",
+                    resolved: "bg-emerald-500",
+                    dismissed: "bg-muted-foreground/40"
+                }
+                const currentStatus = row.status as keyof typeof statusStyles
+
+                return (
+                    <Badge variant="outline" className={cn("px-2.5 py-0.5 border font-bold text-[10px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6", statusStyles[currentStatus] || statusStyles.dismissed)}>
+                        <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", dotStyles[currentStatus] || dotStyles.dismissed)} />
+                        {t(`admin.${row.status}`)}
+                    </Badge>
+                )
+            }
         },
         {
             key: 'actions',
-            header: t('admin.tableActions'),
+            header: <span className="sr-only">{t('admin.tableActions')}</span>,
             className: "text-right",
             cell: (row) => (
                 <div className="flex items-center justify-end gap-2">
                     {row.status === 'pending' && (
                         <>
                             <Button
-                                variant="ghost"
+                                variant="outline"
                                 size="sm"
                                 onClick={() => handleAction(row.id, 'resolved')}
-                                className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl"
-                                title={t('admin.resolve')}
+                                className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest bg-background hover:bg-emerald-500/5 hover:text-emerald-600 hover:border-emerald-500/30 border-border/60 transition-all gap-1.5"
                             >
-                                <CheckCircle2 className="h-4 w-4" />
+                                <CheckCircle2 className="h-3.5 w-3.5" />
+                                {t('admin.resolve')}
                             </Button>
                             <Button
-                                variant="ghost"
+                                variant="outline"
                                 size="sm"
                                 onClick={() => handleAction(row.id, 'dismissed')}
-                                className="text-destructive hover:bg-destructive/10 rounded-xl"
-                                title={t('admin.dismiss')}
+                                className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest bg-background hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 border-border/60 transition-all gap-1.5"
                             >
-                                <XCircle className="h-4 w-4" />
+                                <XCircle className="h-3.5 w-3.5" />
+                                {t('admin.dismiss')}
                             </Button>
                         </>
                     )}
@@ -179,56 +192,56 @@ export function AdminReportsView() {
     ]
 
     return (
-        <div className="space-y-6">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                    <h1 className="font-heading text-3xl font-black tracking-tight">{t('admin.reportsTitle')}</h1>
-                    <p className="text-muted-foreground">{t('admin.reviewResolveComplaints')}</p>
+        <div className="space-y-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div className="space-y-1">
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin.reportsTitle')}</h1>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                        <AlertTriangle className="h-3.5 w-3.5 text-destructive" />
+                        {t('admin.reviewResolveComplaints')}
+                    </p>
                 </div>
             </div>
 
-            <Tabs defaultValue="all" onValueChange={setActiveTab} className="w-full">
-                <div className="flex items-center justify-between mb-4">
-                    <TabsList className="bg-muted/50 p-1 rounded-xl">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <div className="flex items-center justify-between mb-6">
+                    <TabsList className="bg-muted/20 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
                         {['all', 'pending', 'resolved', 'dismissed'].map(tab => (
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="rounded-lg capitalize data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
                                 {tab === 'all' ? t('common.all') : t(`admin.${tab}`)}
                             </TabsTrigger>
                         ))}
                     </TabsList>
                 </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                >
+                    <DataGrid
+                        data={filteredReports}
+                        columns={columns}
+                        isLoading={isLoading}
+                        onSearch={setSearchQuery}
+                        sortColumn={sortColumn}
+                        sortDirection={sortDirection}
+                        onSort={(col) => {
+                            if (sortColumn === col) {
+                                setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')
+                            } else {
+                                setSortColumn(col)
+                                setSortDirection('desc')
+                            }
+                        }}
+                        searchPlaceholder={t('admin.searchReports')}
+                    />
+                </motion.div>
             </Tabs>
-
-            {/* Stats Cards optional here? Maybe later. */}
-
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="rounded-3xl border border-border/50 bg-card overflow-hidden shadow-xl"
-            >
-                <DataGrid
-                    data={filteredReports}
-                    columns={columns}
-                    isLoading={isLoading}
-                    onSearch={setSearchQuery}
-                    sortColumn={sortColumn}
-                    sortDirection={sortDirection}
-                    onSort={(col) => {
-                        if (sortColumn === col) {
-                            setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')
-                        } else {
-                            setSortColumn(col)
-                            setSortDirection('desc') // default new sort to desc usually better for dates
-                        }
-                    }}
-                    searchPlaceholder={t('admin.searchReports')}
-                />
-            </motion.div>
         </div>
     )
 }
