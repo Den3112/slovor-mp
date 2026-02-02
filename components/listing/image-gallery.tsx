@@ -165,8 +165,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${index === currentIndex
-                  ? 'border-primary ring-offset-1 ring-primary/20 ring-2'
+                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${index === currentIndex
+                  ? 'border-primary ring-offset-1 ring-primary/10 ring-2'
+
                   : 'border-transparent hover:border-border'
                   }`}
                 aria-label={`View image ${index + 1}`}

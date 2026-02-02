@@ -89,7 +89,7 @@ export function SellerRating({
 
   if (isLoading) {
     return (
-      <div className="bg-muted/30 animate-pulse space-y-4 rounded-2xl p-6">
+      <div className="bg-muted/30 animate-pulse space-y-4 rounded-xl p-6">
         <div className="bg-muted h-6 w-32 rounded" />
         <div className="bg-muted h-4 w-48 rounded" />
       </div>
@@ -97,7 +97,7 @@ export function SellerRating({
   }
 
   return (
-    <div className="border-border/50 bg-card space-y-6 rounded-4xl border p-6">
+    <div className="border-border/60 bg-card space-y-6 rounded-xl border p-6 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">{t('reviews.title')}</h3>
@@ -157,7 +157,7 @@ export function SellerRating({
 
       {/* Review Form */}
       {showForm && (
-        <div className="bg-muted/20 space-y-4 rounded-2xl p-4">
+        <div className="bg-muted/20 space-y-4 rounded-xl p-4">
           <div>
             <label className="mb-2 block text-sm font-medium">
               {t('reviews.yourRating')}

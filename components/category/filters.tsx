@@ -86,8 +86,7 @@ export function Filters() {
   ]
 
   return (
-    <div className="shadow-premium group border-border/40 bg-card relative mb-8 overflow-hidden rounded-4xl border p-6">
-      <div className="bg-primary/5 pointer-events-none absolute top-0 right-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl" />
+    <div className="shadow-sm border-border/60 bg-card relative mb-8 overflow-hidden rounded-xl border p-6">
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {/* Sort */}

@@ -44,5 +44,6 @@
   "deleteSearchConfirm": "Delete this saved search?",
   "notifications": "notifications",
   "created": "Created",
-  "verification": "Verification"
+  "verification": "Verification",
+  "subscription": "Subscription"
 }

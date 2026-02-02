@@ -283,6 +283,7 @@ export function useCreateListing() {
     setUploadProgress(null)
   }
 
+
   return {
     state: {
       step,

@@ -76,7 +76,8 @@ export function StepImages({
             'group relative flex min-h-[280px] flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all duration-200',
             isUploading
               ? 'border-primary/50 bg-primary/5 cursor-wait'
-              : 'bg-card hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 transition-all'
+              : 'bg-card hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/10 transition-all'
+
           )}
         >
           <input
@@ -93,7 +94,8 @@ export function StepImages({
           <div className="flex flex-col items-center gap-4 p-8 text-center pointer-events-none">
             <motion.div
               animate={isDragActive ? { y: -10 } : { y: 0 }}
-              className="bg-primary/10 flex h-20 w-20 items-center justify-center rounded-2xl text-primary transition-transform group-hover:scale-110"
+              className="bg-primary/10 flex h-20 w-20 items-center justify-center rounded-xl text-primary transition-transform group-hover:scale-110"
+
             >
               {isUploading ? <Loader2 className="h-10 w-10 animate-spin" /> : <Upload className="h-10 w-10" />}
             </motion.div>
@@ -111,7 +113,8 @@ export function StepImages({
               <Button
                 type="button"
                 variant="secondary"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2 rounded-lg px-8 shadow-sm transition-all active:scale-95 pointer-events-auto"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2 rounded-xl px-8 shadow-sm transition-all active:scale-95 pointer-events-auto"
+
                 disabled={formData.images.length >= 10}
               >
                 {t('selectImages')}
@@ -191,11 +194,12 @@ export function StepImages({
                       e.stopPropagation()
                       onRemoveImage(idx)
                     }}
-                    className="h-10 w-10 rounded-lg shadow-lg"
+                    className="h-10 w-10 rounded-xl shadow-sm"
                   >
                     <Trash2 className="h-5 w-5" />
                   </Button>
-                  <div className="bg-white/20 p-2.5 rounded-lg backdrop-blur-sm text-white">
+                  <div className="bg-white/20 p-2.5 rounded-xl text-white">
+
                     <GripHorizontal className="h-5 w-5" />
                   </div>
                 </div>
@@ -207,14 +211,16 @@ export function StepImages({
                       key="cover-badge"
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-lg shadow-primary/20"
+                      className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-sm shadow-primary/20"
+
                     >
                       Cover
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-[10px] font-bold text-white backdrop-blur-sm md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-[10px] font-bold text-white md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+
                   {idx + 1}
                 </div>
               </Reorder.Item>

@@ -130,11 +130,11 @@ export function DashboardListingCard({
 
   return (
     <>
-      <div className="group hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col items-start gap-4 rounded-4xl border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-2xl md:flex-row md:items-center md:gap-6 md:p-4">
+      <div className="group relative flex flex-col items-start gap-4 rounded-xl border border-border bg-card p-3 shadow-sm transition-all duration-300 hover:border-primary/50 hover:bg-accent/5 md:flex-row md:items-center md:gap-6 md:p-4">
         {/* Clickable Image Thumbnail */}
         <Link
           href={`/listings/${listing.id}`}
-          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-3xl shadow-inner md:h-32 md:w-32 md:rounded-2xl"
+          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-xl shadow-inner md:h-32 md:w-32"
         >
           {listing.images?.[0] ? (
             <>
@@ -146,7 +146,6 @@ export function DashboardListingCard({
                 unoptimized
                 priority={priority}
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 transition-opacity md:opacity-0" />
             </>
           ) : (
             <div className="text-muted-foreground bg-primary/5 flex h-full w-full items-center justify-center">
@@ -202,7 +201,7 @@ export function DashboardListingCard({
         </Link>
 
         {/* Actions - Modern Pill Group */}
-        <div className="mt-2 flex w-full items-center gap-2 rounded-2xl border-white/5 bg-black/5 p-1 md:mt-0 md:w-auto md:border-l md:bg-transparent md:pl-4">
+        <div className="mt-2 flex w-full items-center gap-2 rounded-xl border border-border/40 bg-muted/30 p-1 md:mt-0 md:w-auto md:border-none md:bg-transparent md:pl-4">
           <Link
             href={`/post?edit=${listing.id}`}
             title="Edit"

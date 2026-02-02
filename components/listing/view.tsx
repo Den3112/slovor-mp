@@ -134,15 +134,14 @@ export function ListingsView({
   }, [hasMore, loadMore]) // dependencies stable
 
   return (
-    <div className="from-background via-background/95 to-muted/20 min-h-screen bg-linear-to-b pb-20">
+    <div className="min-h-screen bg-background pb-20">
       <div className="relative mb-8 overflow-hidden border-b border-white/5 pt-24 pb-10 md:mb-12 md:pt-32 md:pb-16">
-        {/* Decorative Orbs - Refined */}
-        <div className="bg-primary/5 absolute top-0 right-0 h-[500px] w-[500px] translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/2 translate-y-1/2 rounded-full bg-violet-500/5 blur-[120px]" />
+        {/* Decorative elements - Replaced orbs with subtle background */}
+        <div className="bg-primary/5 absolute inset-0 z-0" />
 
         <Container>
           <div className="relative z-10 flex flex-col gap-4 md:gap-8">
-            <div className="border-primary/20 bg-primary/5 text-primary inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-black tracking-[0.2em] uppercase backdrop-blur-md">
+            <div className="border-primary/20 bg-primary/10 text-primary inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-1.5 text-[10px] font-black tracking-[0.2em] uppercase">
               <Search className="h-3.5 w-3.5" />
               Explorer
             </div>
@@ -187,7 +186,7 @@ export function ListingsView({
         <div className="mb-6 lg:hidden">
           <Drawer.Root open={filterOpen} onOpenChange={setFilterOpen}>
             <Drawer.Trigger asChild>
-              <button className="border-border bg-card flex w-full items-center justify-between rounded-2xl border p-4 font-bold shadow-sm transition-all active:scale-[0.98]">
+              <button className="border-border bg-card flex w-full items-center justify-between rounded-xl border p-4 font-bold shadow-sm transition-all active:scale-[0.98]">
                 <div className="flex items-center gap-2">
                   <SlidersHorizontal className="text-primary h-5 w-5" />
                   <span>{t('filters.title')}</span>
@@ -198,10 +197,10 @@ export function ListingsView({
               </button>
             </Drawer.Trigger>
             <Drawer.Portal>
-              <Drawer.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-              <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-[2rem] border-t outline-none">
-                <div className="bg-background border-border/40 flex-shrink-0 rounded-t-[2rem] border-b p-4">
-                  <div className="bg-muted-foreground/30 mx-auto mb-6 h-1.5 w-12 flex-shrink-0 rounded-full" />
+              <Drawer.Overlay className="fixed inset-0 z-50 bg-black/60" />
+              <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-xl border-t outline-none">
+                <div className="bg-background border-border/40 shrink-0 rounded-t-xl border-b p-4">
+                  <div className="bg-muted-foreground/30 mx-auto mb-6 h-1.5 w-12 shrink-0 rounded-full" />
                   <div className="flex items-center justify-between px-2">
                     <Drawer.Title className="text-xl font-black tracking-tight italic">
                       {t('filters.title')}
@@ -218,7 +217,7 @@ export function ListingsView({
                 </div>
                 <div className="border-border/40 safe-bottom border-t p-4">
                   <Button
-                    className="h-14 w-full rounded-2xl text-lg font-bold"
+                    className="h-14 w-full rounded-xl text-lg font-bold"
                     onClick={() => setFilterOpen(false)}
                   >
                     Show {totalCount} Listings
@@ -239,7 +238,7 @@ export function ListingsView({
                   {t('filters.title')}
                 </h2>
               </div>
-              <div className="shadow-premium border-border bg-card rounded-4xl border p-6">
+              <div className="border-border bg-card rounded-xl border p-6 shadow-sm">
                 <ListingFilters />
               </div>
             </div>
@@ -253,7 +252,7 @@ export function ListingsView({
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="border-destructive/10 bg-destructive/5 text-destructive rounded-[2.5rem] border p-12 text-center"
+                  className="border-destructive/10 bg-destructive/5 text-destructive rounded-xl border p-12 text-center"
                 >
                   <p className="mb-2 text-xl font-black italic">
                     Error Loading Marketplace
@@ -265,7 +264,7 @@ export function ListingsView({
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="border-border/60 bg-muted/20 flex flex-col items-center justify-center rounded-[3rem] border border-dashed p-8 py-32 text-center"
+                  className="border-border/60 bg-muted/20 flex flex-col items-center justify-center rounded-xl border border-dashed p-8 py-32 text-center"
                 >
                   <div className="bg-muted/50 mb-6 flex h-20 w-20 items-center justify-center rounded-full">
                     <PackageSearch className="text-muted-foreground h-10 w-10" />

@@ -83,7 +83,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                 </span>
 
                 {listing.status !== 'active' && (
-                    <div className="mb-4 animate-pulse rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4">
+                    <div className="mb-4 animate-pulse rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
                         <h4 className="flex items-center gap-2 font-bold text-amber-600">
                             <ShieldCheck className="h-5 w-5" />
                             Listing Inactive

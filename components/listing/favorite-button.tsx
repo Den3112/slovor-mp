@@ -109,8 +109,8 @@ export function FavoriteButton({
         'group relative flex items-center justify-center rounded-full transition-all duration-300',
         sizeClasses[size],
         isFavorited
-          ? 'bg-red-500 text-white shadow-xl shadow-red-500/40'
-          : 'bg-black/20 text-white/90 backdrop-blur-md hover:bg-white hover:text-red-500 hover:shadow-xl',
+          ? 'bg-red-500 text-white shadow-sm shadow-red-500/10'
+          : 'bg-black/30 text-white/90 hover:bg-white hover:text-red-500 hover:shadow-sm',
         className
       )}
       aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}

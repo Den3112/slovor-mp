@@ -92,16 +92,17 @@ export default function PromoteListingPage({ params }: Props) {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-b from-background via-background/95 to-muted/20">
-            <Container className="pt-24 pb-20 md:pt-32">
+        <div className="min-h-screen bg-background pb-20">
+            <Container className="pt-24 md:pt-32">
                 <div className="mx-auto max-w-4xl space-y-12">
                     {/* Header */}
                     <div className="text-center space-y-4">
-                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-primary/10 text-primary shadow-2xl shadow-primary/20">
+                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
                             <Rocket className="h-8 w-8" />
                         </div>
-                        <h1 className="font-heading text-4xl font-black tracking-tight md:text-6xl">
-                            Promote your <span className="text-primary italic">Listing</span>
+                        <h1 className="font-heading text-4xl font-black tracking-tight md:text-5xl uppercase text-foreground">
+                            {/* NOTE: Keep hardcoded text for now or verify keys later. Sticking to structure. */}
+                            Promote your <span className="text-primary">Listing</span>
                         </h1>
                         <p className="text-muted-foreground mx-auto max-w-xl text-lg font-medium leading-relaxed">
                             Reach more buyers and sell up to 5x faster with our premium promotion tools.
@@ -115,45 +116,49 @@ export default function PromoteListingPage({ params }: Props) {
                                 key={plan.id}
                                 onClick={() => setSelectedPlan(plan.id as any)}
                                 className={cn(
-                                    "group relative cursor-pointer overflow-hidden rounded-5xl border-2 p-8 transition-all hover:shadow-2xl active:scale-[0.98]",
+                                    "group relative cursor-pointer overflow-hidden rounded-xl border-2 p-8 transition-all hover:bg-accent/50",
                                     selectedPlan === plan.id
-                                        ? "border-primary bg-primary/2 shadow-primary/5"
-                                        : "border-border/50 bg-card hover:border-primary/30"
+                                        ? "border-primary bg-primary/5"
+                                        : "border-border bg-card hover:border-primary/50"
                                 )}
                             >
                                 {/* Selection indicator */}
                                 <div className={cn(
-                                    "absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all",
+                                    "absolute top-6 right-6 flex h-6 w-6 items-center justify-center rounded-full border-2 transition-all",
                                     selectedPlan === plan.id
                                         ? "border-primary bg-primary text-primary-foreground"
-                                        : "border-border group-hover:border-primary/30"
+                                        : "border-border group-hover:border-primary/50"
                                 )}>
-                                    {selectedPlan === plan.id && <Check className="h-5 w-5 stroke-3" />}
+                                    {selectedPlan === plan.id && <Check className="h-3.5 w-3.5 stroke-3" />}
                                 </div>
 
                                 <div className="space-y-6">
                                     <div className={cn(
-                                        "flex h-14 w-14 items-center justify-center rounded-2xl shadow-inner",
-                                        plan.color === 'blue' ? "bg-blue-500/10 text-blue-500" : "bg-amber-500/10 text-amber-500"
+                                        "flex h-14 w-14 items-center justify-center rounded-xl border",
+                                        plan.color === 'blue'
+                                            ? "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-900"
+                                            : "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-900"
                                     )}>
                                         <plan.icon className="h-7 w-7" />
                                     </div>
 
                                     <div className="space-y-1">
-                                        <h3 className="text-2xl font-black text-foreground">{plan.title}</h3>
-                                        <p className="text-muted-foreground font-bold">{plan.subtitle}</p>
+                                        <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">{plan.title}</h3>
+                                        <p className="text-muted-foreground text-sm font-bold uppercase tracking-widest">{plan.subtitle}</p>
                                     </div>
 
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl font-black">{plan.price}</span>
-                                        <span className="text-muted-foreground font-black tracking-widest uppercase">EUR</span>
+                                        <span className="text-4xl font-black text-foreground">{plan.price}</span>
+                                        <span className="text-muted-foreground font-black tracking-widest uppercase text-sm">EUR</span>
                                     </div>
 
-                                    <ul className="space-y-3 pt-2">
+                                    <div className="h-px w-full bg-border" />
+
+                                    <ul className="space-y-3">
                                         {plan.features.map((f, i) => (
                                             <li key={i} className="flex items-center gap-3 text-sm font-bold text-foreground/80">
-                                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
-                                                    <Check className="h-3 w-3 stroke-4" />
+                                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
+                                                    <Check className="h-3 w-3 stroke-3" />
                                                 </div>
                                                 {f}
                                             </li>
@@ -162,7 +167,7 @@ export default function PromoteListingPage({ params }: Props) {
                                 </div>
 
                                 {plan.id === 'highlight' && (
-                                    <div className="absolute top-0 right-0 bg-amber-500 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-white transform rotate-45 translate-x-[20px] translate-y-[10px]">
+                                    <div className="absolute top-0 right-0 bg-amber-500 px-6 py-1 text-[10px] font-black uppercase tracking-widest text-white transform rotate-45 translate-x-[30px] translate-y-[15px] shadow-sm">
                                         Best Value
                                     </div>
                                 )}
@@ -171,15 +176,15 @@ export default function PromoteListingPage({ params }: Props) {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-col items-center gap-6 pt-8">
+                    <div className="flex flex-col items-center gap-6 pt-4 border-t border-border">
                         <Button
                             size="lg"
                             disabled={!selectedPlan || isSubmitting}
                             onClick={handlePromote}
-                            className="h-16 w-full max-w-sm rounded-2xl text-lg font-black uppercase tracking-widest shadow-xl shadow-primary/20 transition-all hover:scale-105"
+                            className="h-14 w-full max-w-sm rounded-xl text-sm font-black uppercase tracking-widest transition-all hover:scale-[1.02] shadow-sm active:scale-[0.98]"
                         >
                             {isSubmitting ? (
-                                <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             ) : (
                                 <>
                                     Confirm and Pay
@@ -188,7 +193,7 @@ export default function PromoteListingPage({ params }: Props) {
                             )}
                         </Button>
 
-                        <div className="flex items-center gap-2 text-muted-foreground text-xs font-bold">
+                        <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
                             <ShieldCheck className="h-4 w-4" />
                             Secure Checkout • Satisfaction Guaranteed
                         </div>
