@@ -95,7 +95,7 @@ export function ListingFilters() {
     <div className="space-y-8">
       {/* Search Input */}
       <div className="group/search relative">
-        <div className="bg-primary/5 group-focus-within/search:bg-primary/10 absolute inset-0 rounded-2xl blur-sm transition-colors" />
+        <div className="bg-primary/5 group-focus-within/search:bg-primary/10 absolute inset-0 rounded-xl transition-colors" />
         <div className="relative">
           <Search className="text-muted-foreground group-focus-within/search:text-primary absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transition-colors" />
           <input
@@ -160,7 +160,7 @@ export function ListingFilters() {
             <PackageCheck className="h-4 w-4" />
             {t('filters.condition')}
           </label>
-          <div className="border-border/50 bg-muted/30 flex rounded-2xl border p-1.5">
+          <div className="border-border/50 bg-muted/30 flex rounded-xl border p-1.5">
             {[
               { value: '', label: t('common.all') || 'All' },
               { value: 'new', label: t('filters.new') },
@@ -172,7 +172,7 @@ export function ListingFilters() {
                 className={cn(
                   'flex-1 rounded-xl py-2.5 text-xs font-black tracking-wider uppercase transition-all',
                   condition === c.value
-                    ? 'bg-primary text-primary-foreground shadow-primary/20 shadow-lg'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -208,7 +208,7 @@ export function ListingFilters() {
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="shadow-primary/20 h-14 flex-1 rounded-2xl text-sm font-black tracking-widest uppercase shadow-lg"
+          className="h-14 flex-1 rounded-xl text-sm font-black tracking-widest uppercase shadow-sm"
         >
           {isPending ? t('common.loading') : t('filters.apply')}
         </Button>
@@ -216,7 +216,7 @@ export function ListingFilters() {
           variant="outline"
           onClick={resetFilters}
           disabled={isPending}
-          className="border-border/50 hover:bg-destructive/5 hover:text-destructive h-14 w-14 shrink-0 rounded-2xl transition-colors"
+          className="border-border/50 hover:bg-destructive/5 hover:text-destructive h-14 w-14 shrink-0 rounded-xl transition-colors"
         >
           <X className="h-5 w-5" />
         </Button>

@@ -199,7 +199,8 @@ function CreateListingFormContent() {
                   type="button"
                   variant="ghost"
                   onClick={prevStep}
-                  className="text-muted-foreground hidden rounded-lg font-bold hover:bg-secondary md:flex"
+                  className="text-muted-foreground hidden rounded-xl font-bold hover:bg-secondary md:flex"
+
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t('back')}
                 </Button>
@@ -224,7 +225,8 @@ function CreateListingFormContent() {
                 <Button
                   type="button"
                   onClick={goToNextStep}
-                  className="rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
+                  className="rounded-xl px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
+
                 >
                   {t('nextStep')}{' '}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -234,7 +236,8 @@ function CreateListingFormContent() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
+                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-xl px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
+
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -259,7 +262,8 @@ function CreateListingFormContent() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-primary flex-1 rounded-lg px-8 py-4 font-bold"
+                className="bg-primary flex-1 rounded-xl px-8 py-4 font-bold"
+
               >
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />

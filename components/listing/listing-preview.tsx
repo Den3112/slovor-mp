@@ -83,7 +83,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
   const categoryName = listing.category?.name || ''
 
   return (
-    <div className="bg-card/60 overflow-hidden rounded-2xl border border-white/10 backdrop-blur-sm md:rounded-3xl">
+    <div className="bg-card overflow-hidden rounded-xl border border-border shadow-sm">
       {/* Image */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
         {hasValidImage ? (
@@ -95,7 +95,6 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60" />
           </>
         ) : (
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
@@ -109,7 +108,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
           {listing.condition === 'new' && (
-            <div className="bg-card/90 text-card-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-lg backdrop-blur-md md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
               {t('common.new')}
             </div>
@@ -117,7 +116,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="glass text-foreground/80 absolute bottom-3 left-3 rounded-full border border-white/20 px-2.5 py-1 text-[9px] font-black md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="bg-black/60 text-white absolute bottom-3 left-3 rounded-full border border-white/20 px-2.5 py-1 text-[9px] font-black md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
             {listing.images.length} PHOTOS
           </div>
         )}

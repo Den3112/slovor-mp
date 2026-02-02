@@ -78,7 +78,10 @@ describe('StepImages', () => {
     const previews = screen.getAllByAltText('preview')
     expect(previews).toHaveLength(2)
 
-    const removeButtons = screen.getAllByRole('button').filter(btn => btn.querySelector('svg.lucide-trash-2'))
+    const removeButtons = screen
+      .getAllByRole('button')
+      .filter((btn: HTMLElement) => btn.querySelector('svg.lucide-trash2'))
+
     fireEvent.click(removeButtons[0]!)
 
     expect(onRemoveImage).toHaveBeenCalledWith(0)

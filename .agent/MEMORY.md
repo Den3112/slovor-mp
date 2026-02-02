@@ -9,11 +9,15 @@
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-03
-> **Status**: ✅ Phase 6 Complete. Фокус: Git интеграция + Фаза 7 (Monetization)
+> **Status**: ✅ Phase 6 Complete. Фокус: Git интеграция + Фаза 7 (Monetization).
 
 ---
 
 ## 📌 Current State
+- **Current User Intent**: Очистка UI от glassmorphism, градиентов и блюров. Унификация border-radius (rounded-xl).
+- **Active Errors / Blockers**: Проверка сборки (npm run verify).
+- **Scratchpad / Hypothesis**: Все компоненты `ui/*` и основные вью листингов приведены к единому стандарту "Solid, Clean, Data-Dense".
+
 
 - **Branch**: `dev` (17 коммитов впереди origin/dev)
 - **Focus**: Git cleanup + Phase 7 - Monetization

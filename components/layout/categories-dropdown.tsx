@@ -86,7 +86,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="border-border/50 bg-card/95 absolute top-full left-0 z-50 mt-4 w-[640px] origin-top-left overflow-hidden rounded-4xl border shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] backdrop-blur-2xl"
+            className="border-border/60 bg-card absolute top-full left-0 z-50 mt-4 w-[640px] origin-top-left overflow-hidden rounded-xl border shadow-xl"
           >
             <div className="flex h-full min-h-[400px]">
               {/* Left Side: Category Grid */}
@@ -113,7 +113,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                         key={category.id}
                         href={`/categories/${category.slug}`}
                         onClick={() => setIsOpen(false)}
-                        className="group flex items-center gap-4 rounded-2xl p-2.5 transition-all hover:bg-white/5 active:scale-95"
+                        className="group flex items-center gap-4 rounded-xl p-2.5 transition-all hover:bg-muted/50 active:scale-95"
                       >
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-muted/50 text-muted-foreground shadow-inner transition-all group-hover:bg-primary/10 group-hover:text-primary group-hover:shadow-primary/10">
                           <Icon className="h-5 w-5 md:h-6 md:w-6" />
@@ -143,7 +143,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                         {t('featured')}
                       </span>
                     </div>
-                    <div className="group/item relative overflow-hidden rounded-2xl bg-primary/10 p-4 transition-all hover:bg-primary/20">
+                    <div className="group/item relative overflow-hidden rounded-xl bg-primary/10 p-4 transition-all hover:bg-primary/20">
                       <p className="relative z-10 text-xs font-bold leading-relaxed text-foreground">
                         {t('home.heroSubtitle').split('.')[0]}
                       </p>

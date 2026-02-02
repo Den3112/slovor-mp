@@ -15,6 +15,7 @@ import {
     Eye,
     ShieldCheck,
     Settings,
+    Zap,
 } from 'lucide-react'
 
 interface UserDashboardLayoutProps {
@@ -47,6 +48,12 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
                         label: t('profile:wallet'),
                         icon: ShoppingBag,
                     },
+                    {
+                        href: '/dashboard/subscription',
+                        label: t('profile:subscription'),
+                        icon: Zap,
+                    },
+
                 ]
             },
             {

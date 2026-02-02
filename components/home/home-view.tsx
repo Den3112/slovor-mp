@@ -32,7 +32,7 @@ export function HomeView({
         <HomeCategories categories={categories} />
       ) : (
         <Container className="py-20">
-          <div className="border-destructive/10 bg-destructive/5 text-destructive rounded-4xl border p-12 text-center font-bold">
+          <div className="border-destructive/10 bg-destructive/5 text-destructive rounded-xl border p-12 text-center font-bold">
             {categoriesError}
           </div>
         </Container>
