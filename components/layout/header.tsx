@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button'
 
 import { LanguageSelector } from './language-selector'
 import { UserMenu } from './user-menu'
-import { BottomNavBar } from './bottom-nav-bar'
 import { MobileDrawer } from './mobile-drawer'
 import { CommandCenter } from './command-center'
 import { LocationSwitcher } from './location-switcher'
@@ -155,11 +154,6 @@ export function Header() {
         signOut={signOut}
       />
 
-      <BottomNavBar
-        pathname={pathname}
-        user={user}
-        onSearchClick={() => setIsSearchOverlayOpen(true)}
-      />
 
       <MobileSearchOverlay
         isOpen={isSearchOverlayOpen}

@@ -95,7 +95,7 @@ export function Footer() {
 
   if (isDashboard) {
     return (
-      <footer className="border-t border-border bg-background py-8 text-muted-foreground">
+      <footer className="border-t border-border bg-background pt-8 pb-20 md:py-8 text-muted-foreground">
         <Container>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-xs font-bold tracking-wider text-muted-foreground uppercase">
@@ -124,7 +124,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border bg-muted/30 pt-16 pb-12 text-muted-foreground md:pt-20 md:pb-12">
+    <footer className="border-t border-border bg-muted/30 pt-16 pb-20 text-muted-foreground md:pt-20 md:pb-12">
       <Container>
         <div className="mb-12 grid grid-cols-1 gap-8 md:mb-16 md:grid-cols-2 md:gap-12 lg:mb-20 lg:grid-cols-12 lg:gap-12">
           {/* Brand Info */}
