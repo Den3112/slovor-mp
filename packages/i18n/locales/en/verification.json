@@ -11,5 +11,8 @@
   "emailDesc": "Your email is a core security element.",
   "phoneDesc": "Get a verified badge for better sales performance.",
   "idDesc": "Highest trust level. Requires document upload.",
-  "submitDocuments": "Upload Documents"
+  "submitDocuments": "Upload Documents",
+  "rejected": "Rejected",
+  "whyVerify": "Why verify?",
+  "whyVerifyDesc": "Verified accounts are 3x more likely to sell successfully. Buyers prefer profiles with a verified phone and identity badge as it ensures a safer marketplace experience."
 }
