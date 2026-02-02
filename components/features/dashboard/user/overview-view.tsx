@@ -63,7 +63,7 @@ export function UserOverviewView({
             <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('common:dashboard')}</h1>
-                    <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground mt-1">
+                    <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
                         {t('dashboard:welcomeBack')}, <span className="text-foreground">{user.user_metadata.full_name || user.email?.split('@')[0]}</span>
                     </p>
                 </div>
@@ -125,12 +125,12 @@ export function UserOverviewView({
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <CardTitle className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                                    <CardTitle className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                                         {t('dashboard:performance')}
                                     </CardTitle>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 mt-1">{t('dashboard:viewsOverTime')}</p>
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 mt-1">{t('dashboard:viewsOverTime')}</p>
                                 </div>
-                                <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-widest border-border/60">
+                                <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-border/60">
                                     Last 7 Days
                                 </Badge>
                             </div>
@@ -145,7 +145,7 @@ export function UserOverviewView({
                     {/* Quick Actions */}
                     <Card className="border-border/60 shadow-sm overflow-hidden rounded-xl bg-card">
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4 flex-row items-center justify-between space-y-0">
-                            <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                                 {t('dashboard:quickActions')}
                             </CardTitle>
                         </CardHeader>
@@ -169,7 +169,7 @@ export function UserOverviewView({
 
                     <Card className="flex flex-col border-border/60 shadow-sm overflow-hidden h-full rounded-xl">
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4 flex-row items-center justify-between space-y-0">
-                            <CardTitle className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                                 {t('dashboard:activityFeed')}
                             </CardTitle>
                             <Button variant="ghost" size="sm" asChild className="h-8 px-2 text-[10px] font-bold uppercase tracking-widest hover:bg-primary/5 hover:text-primary">
@@ -187,7 +187,7 @@ export function UserOverviewView({
             <motion.div variants={item}>
                 <Card className="border-border/60 shadow-sm overflow-hidden rounded-xl">
                     <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4 flex flex-row items-center justify-between space-y-0">
-                        <CardTitle className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                        <CardTitle className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                             {t('dashboard:recentActivity')}
                         </CardTitle>
                         <Button variant="ghost" size="sm" asChild className="hover:bg-primary/5 hover:text-primary transition-colors">
@@ -201,11 +201,11 @@ export function UserOverviewView({
                             <div className="overflow-x-auto">
                                 <Table>
                                     <TableHeader>
-                                        <TableRow className="hover:bg-transparent bg-muted/30">
-                                            <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('createListing:title')}</TableHead>
-                                            <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('createListing:price')}</TableHead>
-                                            <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('dashboard:status')}</TableHead>
-                                            <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-widest text-muted-foreground text-right">{t('common:actions')}</TableHead>
+                                        <TableRow className="hover:bg-transparent bg-muted/20 border-b border-border/40">
+                                            <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">{t('createListing:title')}</TableHead>
+                                            <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">{t('createListing:price')}</TableHead>
+                                            <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">{t('dashboard:status')}</TableHead>
+                                            <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 text-right">{t('common:actions')}</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>

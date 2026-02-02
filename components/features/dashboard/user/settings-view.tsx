@@ -20,7 +20,6 @@ import { useCurrency } from '@/components/providers/currency-provider'
 import { CURRENCIES, type CurrencyCode } from '@/lib/types/currency'
 import Image from 'next/image'
 import { storageApi } from '@/lib/api'
-import { Card } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
@@ -127,17 +126,17 @@ export function SettingsView() {
     return (
         <PageTransition>
             <div className="space-y-6">
-                {/* Header */}
-                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                    <div>
-                        <h1 className="text-3xl font-black tracking-tight flex items-center gap-2">
+                {/* Header - Solid */}
+                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between bg-card border border-border p-6 rounded-xl shadow-sm">
+                    <div className="space-y-1">
+                        <h1 className="text-3xl font-black uppercase tracking-tight flex items-center gap-2">
                             {t('profile.settings')}
                         </h1>
-                        <p className="text-muted-foreground font-medium mt-1">{t('profile.settingsDescription')}</p>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{t('profile.settingsDescription')}</p>
                     </div>
                 </div>
 
-                <Card className="p-6 md:p-8">
+                <div className="bg-card border border-border rounded-xl p-6 md:p-8 shadow-sm">
                     {!isDataLoaded ? (
                         // Skeleton Loading State
                         <div className="animate-pulse space-y-8">
@@ -209,11 +208,11 @@ export function SettingsView() {
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                 {/* Full Name */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold">{t('profile.fullName')}</label>
+                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('profile.fullName')}</label>
                                     <div className="relative">
                                         <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <Input
-                                            className="pl-9 h-11"
+                                            className="pl-9 h-11 rounded-xl"
                                             value={formData.display_name}
                                             onChange={(e) =>
                                                 setFormData({
@@ -228,11 +227,11 @@ export function SettingsView() {
 
                                 {/* Location */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold">{t('profile.location')}</label>
+                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('profile.location')}</label>
                                     <div className="relative">
                                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <Input
-                                            className="pl-9 h-11"
+                                            className="pl-9 h-11 rounded-xl"
                                             value={formData.location}
                                             onChange={(e) =>
                                                 setFormData({ ...formData, location: e.target.value })
@@ -244,13 +243,13 @@ export function SettingsView() {
 
                                 {/* Phone */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold">
+                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                                         {t('profile.phoneNumber')}
                                     </label>
                                     <div className="relative">
                                         <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <Input
-                                            className="pl-9 h-11"
+                                            className="pl-9 h-11 rounded-xl"
                                             value={formData.phone}
                                             onChange={(e) =>
                                                 setFormData({ ...formData, phone: e.target.value })
@@ -262,13 +261,13 @@ export function SettingsView() {
 
                                 {/* Currency */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold">
+                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                                         {t('profile.preferredCurrency')}
                                     </label>
                                     <div className="relative">
                                         <Coins className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <select
-                                            className="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+                                            className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
                                             value={currency}
                                             onChange={(e) =>
                                                 setCurrency(e.target.value as CurrencyCode)
@@ -285,13 +284,13 @@ export function SettingsView() {
 
                                 {/* Email (Full Width) */}
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-sm font-semibold text-muted-foreground">
+                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                                         {t('profile.emailReadonly')}
                                     </label>
                                     <div className="relative">
                                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
                                         <Input
-                                            className="pl-9 h-11 bg-muted/20 text-muted-foreground"
+                                            className="pl-9 h-11 bg-muted/20 text-muted-foreground rounded-xl"
                                             value={user?.email || ''}
                                             readOnly
                                             disabled
@@ -301,14 +300,14 @@ export function SettingsView() {
 
                                 {/* Bio (Full Width) */}
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-sm font-semibold">
+                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                                         {t('profile.bio')}
                                     </label>
                                     <div className="relative">
                                         <AlignLeft className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
                                         <textarea
                                             data-testid="profile-settings-bio"
-                                            className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-3 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
+                                            className="flex min-h-[120px] w-full rounded-xl border border-input bg-background px-3 py-3 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
                                             value={formData.bio}
                                             onChange={(e) =>
                                                 setFormData({ ...formData, bio: e.target.value })
@@ -324,7 +323,7 @@ export function SettingsView() {
                                     type="submit"
                                     data-testid="profile-settings-save"
                                     disabled={isLoading || isUploading}
-                                    className="min-w-[140px]"
+                                    className="min-w-[140px] rounded-xl font-black uppercase tracking-widest"
                                 >
                                     {isLoading ? (
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -336,7 +335,7 @@ export function SettingsView() {
                             </div>
                         </form>
                     )}
-                </Card>
+                </div>
             </div>
         </PageTransition>
     )

@@ -1,6 +1,6 @@
 # 📋 Текущие задачи: Ревизия архитектуры
 
-> **Статус**: Фаза 4 завершена
+> **Статус**: Фаза 5 в процессе (Редизайн страниц)
 > См. `.agent/README.md` для полного порядка выполнения
 
 ---
@@ -25,9 +25,15 @@
 ## Фаза 4: Шапка (Header) ✅
 - [x] Интегрировать строку поиска
 - [x] Добавить быстрые действия
-
-## Фаза 5: Все 41 страница
-- [ ] Согласно `plans/ARCHITECTURE_BLUEPRINT.md`
+## Фаза 5: Редизайн страниц (Solid Aesthetic) ✅
+- [x] Применить эстетику "Solid, Clean, Data-Dense" ко всем страницам
+- [x] Dashboard Layout & Shell (Solid background)
+- [x] User Overview
+- [x] Admin Overview
+- [x] User Listings
+- [x] Messages Layout
+- [x] Favorites View
+- [x] Settings & Verification Views
 
 ## Фаза 6: Доверие и безопасность
 - [ ] Значки верификации
@@ -38,7 +44,7 @@
 - [ ] Кошелек (Wallet)
 
 ## Фаза 8: Верификация
-- [ ] `npm run verify`
+- [x] `npm run verify`
 - [ ] E2E тесты
 
 ## Фаза 9: Переключение тем (Опционально)

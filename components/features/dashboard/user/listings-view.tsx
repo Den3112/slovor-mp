@@ -90,8 +90,8 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
             {/* Header */}
             <motion.div variants={item} className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight">{t('dashboard:myListings')}</h1>
-                    <p className="mt-1 text-sm font-medium text-muted-foreground">{t('dashboard:inventoryDescription')}</p>
+                    <h1 className="text-3xl font-black uppercase tracking-tight">{t('dashboard:myListings')}</h1>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{t('dashboard:inventoryDescription')}</p>
                 </div>
                 <Button asChild className="shadow-lg shadow-primary/20">
                     <Link href="/post">
@@ -109,10 +109,10 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             <TabsTrigger
                                 key={tab.value}
                                 value={tab.value}
-                                className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all px-4 py-2 h-auto text-xs font-bold uppercase tracking-widest"
+                                className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all px-4 py-2 h-auto text-[9px] font-black uppercase tracking-widest"
                             >
                                 {tab.label}
-                                <Badge variant="secondary" className="ml-2 px-1.5 py-0 h-4 min-w-5 border-transparent bg-muted/80 text-[10px]">
+                                <Badge variant="secondary" className="ml-2 px-1.5 py-0 h-4 min-w-5 border-transparent bg-muted/80 text-[8px] font-black">
                                     {tab.count}
                                 </Badge>
                             </TabsTrigger>
@@ -141,13 +141,13 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                 <div className="overflow-x-auto">
                     <Table>
                         <TableHeader>
-                            <TableRow className="bg-muted/30 hover:bg-muted/30 border-b border-border/40">
-                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('common:title')}</TableHead>
-                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('createListing:price')}</TableHead>
-                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('dashboard:status')}</TableHead>
-                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('dashboard:stats')}</TableHead>
-                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('common:date')}</TableHead>
-                                <TableHead className="px-6 h-12 text-right"></TableHead>
+                            <TableRow className="bg-muted/20 hover:bg-muted/20 border-b border-border/40">
+                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:title')}</TableHead>
+                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('createListing:price')}</TableHead>
+                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('dashboard:status')}</TableHead>
+                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('dashboard:stats')}</TableHead>
+                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:date')}</TableHead>
+                                <TableHead className="px-6 h-10 text-right"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

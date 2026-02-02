@@ -47,7 +47,7 @@ export function AdminReportsView() {
         if (error) {
             toast.error(error)
         } else {
-            toast.success(status === 'resolved' ? t('admin.reportResolved') : t('admin.reportDismissed'))
+            toast.success(status === 'resolved' ? t('admin:reportResolved') : t('admin:reportDismissed'))
             setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r))
         }
     }
@@ -87,7 +87,7 @@ export function AdminReportsView() {
     const columns: Column<ReportWithDetails>[] = [
         {
             key: 'listing_id',
-            header: t('admin.tableTarget'),
+            header: t('admin:tableTarget'),
             cell: (row) => (
                 <div className="flex items-center gap-4">
                     <div className="h-10 w-10 min-w-[40px] rounded-lg bg-destructive/10 flex items-center justify-center text-destructive border border-destructive/20 shadow-sm transition-transform group-hover:scale-110">
@@ -95,14 +95,14 @@ export function AdminReportsView() {
                     </div>
                     <div className="flex flex-col space-y-0.5">
                         <p className="font-bold text-sm text-foreground line-clamp-1 max-w-[200px] tracking-tight">
-                            {row.listing?.title || t('admin.unknownListing')}
+                            {row.listing?.title || t('admin:unknownListing')}
                         </p>
                         <Link
                             href={`/listings/${row.listing_id}`}
                             target="_blank"
                             className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1.5 hover:text-primary/80 transition-colors"
                         >
-                            {t('admin.viewListing')} <ExternalLink className="h-3 w-3" />
+                            {t('admin:viewListing')} <ExternalLink className="h-3 w-3" />
                         </Link>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export function AdminReportsView() {
         },
         {
             key: 'reason',
-            header: t('admin.tableReason'),
+            header: t('admin:tableReason'),
             cell: (row) => (
                 <div className="space-y-1.5 max-w-[320px]">
                     <p className="text-[10px] font-black uppercase tracking-widest text-destructive/80 leading-none">{row.reason}</p>
@@ -120,12 +120,12 @@ export function AdminReportsView() {
         },
         {
             key: 'reporter_id',
-            header: t('admin.tableReporter'),
+            header: t('admin:tableReporter'),
             cell: (row) => (
                 <div className="flex flex-col space-y-1.5">
                     <div className="flex items-center gap-2 font-bold text-xs tracking-tight text-foreground">
                         <User className="h-3.5 w-3.5 text-muted-foreground/60" />
-                        {row.reporter?.display_name || t('admin.anonymous')}
+                        {row.reporter?.display_name || t('admin:anonymous')}
                     </div>
                     <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
                         <Calendar className="h-3 w-3" />
@@ -136,7 +136,7 @@ export function AdminReportsView() {
         },
         {
             key: 'status',
-            header: t('admin.tableStatus'),
+            header: t('admin:tableStatus'),
             cell: (row) => {
                 const statusStyles = {
                     pending: "bg-destructive/10 text-destructive border-destructive/20 dot-destructive",
@@ -151,16 +151,16 @@ export function AdminReportsView() {
                 const currentStatus = row.status as keyof typeof statusStyles
 
                 return (
-                    <Badge variant="outline" className={cn("px-2.5 py-0.5 border font-bold text-[10px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6", statusStyles[currentStatus] || statusStyles.dismissed)}>
+                    <Badge variant="outline" className={cn("px-2.5 py-0.5 border font-black text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6", statusStyles[currentStatus] || statusStyles.dismissed)}>
                         <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", dotStyles[currentStatus] || dotStyles.dismissed)} />
-                        {t(`admin.${row.status}`)}
+                        {t(`admin:${row.status}`)}
                     </Badge>
                 )
             }
         },
         {
             key: 'actions',
-            header: <span className="sr-only">{t('admin.tableActions')}</span>,
+            header: <span className="sr-only">{t('admin:tableActions')}</span>,
             className: "text-right",
             cell: (row) => (
                 <div className="flex items-center justify-end gap-2">
@@ -173,7 +173,7 @@ export function AdminReportsView() {
                                 className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest bg-background hover:bg-emerald-500/5 hover:text-emerald-600 hover:border-emerald-500/30 border-border/60 transition-all gap-1.5"
                             >
                                 <CheckCircle2 className="h-3.5 w-3.5" />
-                                {t('admin.resolve')}
+                                {t('admin:resolve')}
                             </Button>
                             <Button
                                 variant="outline"
@@ -182,7 +182,7 @@ export function AdminReportsView() {
                                 className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest bg-background hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 border-border/60 transition-all gap-1.5"
                             >
                                 <XCircle className="h-3.5 w-3.5" />
-                                {t('admin.dismiss')}
+                                {t('admin:dismiss')}
                             </Button>
                         </>
                     )}
@@ -195,24 +195,24 @@ export function AdminReportsView() {
         <div className="space-y-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div className="space-y-1">
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin.reportsTitle')}</h1>
-                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin:reportsTitle')}</h1>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                         <AlertTriangle className="h-3.5 w-3.5 text-destructive" />
-                        {t('admin.reviewResolveComplaints')}
+                        {t('admin:reviewResolveComplaints')}
                     </p>
                 </div>
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <div className="flex items-center justify-between mb-6">
-                    <TabsList className="bg-muted/20 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
+                    <TabsList className="bg-muted/40 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
                         {['all', 'pending', 'resolved', 'dismissed'].map(tab => (
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="rounded-lg px-4 py-2 text-[10px] font-bold uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
-                                {tab === 'all' ? t('common.all') : t(`admin.${tab}`)}
+                                {tab === 'all' ? t('common:all') : t(`admin:${tab}`)}
                             </TabsTrigger>
                         ))}
                     </TabsList>
@@ -238,7 +238,7 @@ export function AdminReportsView() {
                                 setSortDirection('desc')
                             }
                         }}
-                        searchPlaceholder={t('admin.searchReports')}
+                        searchPlaceholder={t('admin:searchReports')}
                     />
                 </motion.div>
             </Tabs>

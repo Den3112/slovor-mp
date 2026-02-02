@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
 import { DataGrid, type Column } from '@/components/features/dashboard/shared/data-grid'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
@@ -156,12 +157,19 @@ export function AdminVerificationsView() {
             key: 'status',
             header: t('admin.tableStatus'),
             cell: (row) => (
-                <Badge variant={
-                    row.status === 'pending' ? 'outline' :
-                        row.status === 'verified' ? 'success' :
-                            'destructive'
-                }>
-                    {t(`admin.${row.status}`)}
+                <Badge variant="outline" className={cn(
+                    "px-2.5 py-0.5 border font-black text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6",
+                    row.status === 'pending' ? 'bg-warning/10 text-warning border-warning/20' :
+                        row.status === 'verified' ? 'bg-success/10 text-success border-success/20' :
+                            'bg-destructive/10 text-destructive border-destructive/20'
+                )}>
+                    <span className={cn(
+                        "h-1.5 w-1.5 rounded-full shrink-0",
+                        row.status === 'pending' ? 'bg-warning' :
+                            row.status === 'verified' ? 'bg-success' :
+                                'bg-destructive'
+                    )} />
+                    {t(`admin:${row.status}`)}
                 </Badge>
             )
         },
@@ -174,20 +182,20 @@ export function AdminVerificationsView() {
                     {row.status === 'pending' && (
                         <>
                             <Button
-                                variant="ghost"
+                                variant="outline"
                                 size="sm"
                                 onClick={() => handleAction(row.id, row.user_id, 'verified')}
-                                className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl"
-                                title={t('admin.approve')}
+                                className="h-8 px-3 text-[10px] font-black uppercase tracking-widest bg-background hover:bg-success/5 hover:text-success hover:border-success/30 border-border/60 transition-all gap-1.5 rounded-lg"
+                                title={t('admin:approve')}
                             >
                                 <CheckCircle2 className="h-4 w-4" />
                             </Button>
                             <Button
-                                variant="ghost"
+                                variant="outline"
                                 size="sm"
                                 onClick={() => handleAction(row.id, row.user_id, 'rejected')}
-                                className="text-destructive hover:bg-destructive/10 rounded-xl"
-                                title={t('admin.reject')}
+                                className="h-8 px-3 text-[10px] font-black uppercase tracking-widest bg-background hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 border-border/60 transition-all gap-1.5 rounded-lg"
+                                title={t('admin:reject')}
                             >
                                 <XCircle className="h-4 w-4" />
                             </Button>
@@ -202,21 +210,26 @@ export function AdminVerificationsView() {
         <div className="space-y-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="font-heading text-3xl font-black tracking-tight text-indigo-500">{t('admin.identityChecks')}</h1>
-                    <p className="text-muted-foreground">{t('admin.reviewVerifyDocs')}</p>
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
+                        <FileText className="h-8 w-8 text-primary" />
+                        {t('admin:identityChecks')}
+                    </h1>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
+                        {t('admin:reviewVerifyDocs')}
+                    </p>
                 </div>
             </div>
 
-            <Tabs defaultValue="all" onValueChange={setActiveTab} className="w-full">
-                <div className="flex items-center justify-between mb-4">
-                    <TabsList className="bg-muted/50 p-1 rounded-xl">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <div className="flex items-center justify-between mb-6">
+                    <TabsList className="bg-muted/40 p-1 rounded-xl h-auto flex-wrap justify-start border border-border/40">
                         {['all', 'pending', 'verified', 'rejected'].map(tab => (
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="rounded-lg capitalize data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
-                                {tab === 'all' ? t('common.all') : t(`admin.${tab}`)}
+                                {tab === 'all' ? t('common:all') : t(`admin:${tab}`)}
                             </TabsTrigger>
                         ))}
                     </TabsList>
@@ -227,7 +240,6 @@ export function AdminVerificationsView() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="rounded-3xl border border-border/50 bg-card overflow-hidden shadow-xl"
             >
                 <DataGrid
                     data={filteredRequests}
@@ -244,7 +256,7 @@ export function AdminVerificationsView() {
                             setSortDirection('desc')
                         }
                     }}
-                    searchPlaceholder={t('admin.users')}
+                    searchPlaceholder={t('admin:users')}
                 />
             </motion.div>
         </div>

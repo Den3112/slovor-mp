@@ -111,10 +111,10 @@ export function CategoriesManager() {
                 <div className="relative group flex-1 max-w-md">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                     <Input
-                        placeholder={t('admin.searchCategories')}
+                        placeholder={t('admin:searchCategories')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-12 h-11 rounded-2xl bg-card/50 border-border/50 focus:bg-card transition-all"
+                        className="pl-12 h-11 rounded-xl bg-card border-border transition-all font-bold text-xs uppercase tracking-widest"
                     />
                 </div>
                 <Button
@@ -127,21 +127,21 @@ export function CategoriesManager() {
                             description: '', icon: '', color: ''
                         })
                     }}
-                    className="rounded-xl font-bold"
+                    className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 px-6"
                 >
-                    <Plus className="mr-2 h-4 w-4" /> {t('admin.addCategory')}
+                    <Plus className="mr-2 h-4 w-4" /> {t('admin:addCategory')}
                 </Button>
             </div>
 
-            <div className="bg-card/50 border border-border/50 rounded-3xl overflow-hidden backdrop-blur-sm shadow-xl shadow-black/5">
+            <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>
-                            <tr className="bg-muted/30 border-b border-border/50">
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableListing')} / {t('admin.inputSlug')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableTranslations')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableIconOrder')}</th>
-                                <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin.tableActions')}</th>
+                            <tr className="bg-muted/10 border-b border-border/40">
+                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableListing')} / {t('admin:inputSlug')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableTranslations')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableIconOrder')}</th>
+                                <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableActions')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
@@ -225,10 +225,10 @@ export function CategoriesManager() {
                                                         <Input value={formData.name_en} onChange={e => setFormData({ ...formData, name_en: e.target.value })} placeholder="EN" className="h-8 text-xs rounded-lg" />
                                                     </div>
                                                 ) : (
-                                                    <div className="flex flex-wrap gap-2">
-                                                        <span className="bg-muted px-2 py-0.5 rounded text-[10px] font-bold">{category.name_sk || 'SK'}</span>
-                                                        <span className="bg-muted px-2 py-0.5 rounded text-[10px] font-bold">{category.name_cs || 'CS'}</span>
-                                                        <span className="bg-muted px-2 py-0.5 rounded text-[10px] font-bold">{category.name_en || 'EN'}</span>
+                                                    <div className="flex flex-wrap gap-1.5">
+                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">{category.name_sk || 'SK'}</span>
+                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">{category.name_cs || 'CS'}</span>
+                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">{category.name_en || 'EN'}</span>
                                                     </div>
                                                 )}
                                             </td>

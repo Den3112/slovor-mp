@@ -33,9 +33,9 @@ export function AdminContentView() {
             {/* Header */}
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="font-heading text-3xl font-black tracking-tight italic">{t('admin.contentHub')}</h1>
-                    <p className="text-muted-foreground font-medium flex items-center gap-2">
-                        {t('admin.contentHubDesc')}
+                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin:contentHub')}</h1>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
+                        {t('admin:contentHubDesc')}
                     </p>
                 </div>
             </div>
@@ -59,7 +59,7 @@ export function AdminContentView() {
                             <Icon className={cn("h-4 w-4 transition-transform group-hover:scale-110", isActive && "text-primary")} />
                             {tab.label}
                             {isActive && (
-                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-t-full shadow-[0_-4px_12px_rgba(var(--primary),0.4)]" />
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-t-sm" />
                             )}
                         </button>
                     )
