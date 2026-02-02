@@ -96,7 +96,7 @@ export function VerificationView() {
             statusLabel:
                 status?.documents === 'verified' ? t('verification.verified') :
                     status?.documents === 'pending' ? t('verification.pending') :
-                        status?.documents === 'rejected' ? 'Rejected' :
+                        status?.documents === 'rejected' ? t('verification.rejected') :
                             t('verification.notVerified'),
             color: 'indigo',
         },
@@ -165,7 +165,7 @@ export function VerificationView() {
                                     )}
                                     {step.isRejected && (
                                         <span className="flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-black tracking-widest text-destructive uppercase">
-                                            Rejected
+                                            {t('verification.rejected')}
                                         </span>
                                     )}
                                 </div>
@@ -192,7 +192,7 @@ export function VerificationView() {
                                         variant="destructive"
                                         className="rounded-xl px-6 font-black uppercase tracking-widest shadow-sm"
                                     >
-                                        Try Again
+                                        {t('common:tryAgain')}
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 ) : (
@@ -216,9 +216,9 @@ export function VerificationView() {
                 <div className="flex gap-4">
                     <AlertCircle className="h-6 w-6 shrink-0 text-blue-500" />
                     <div className="space-y-2">
-                        <h4 className="text-lg font-bold text-foreground">Why verify?</h4>
+                        <h4 className="text-lg font-bold text-foreground">{t('verification.whyVerify')}</h4>
                         <p className="text-muted-foreground text-sm font-medium leading-relaxed">
-                            Verified accounts are 3x more likely to sell successfully. Buyers prefer profiles with a verified phone and identity badge as it ensures a safer marketplace experience.
+                            {t('verification.whyVerifyDesc')}
                         </p>
                     </div>
                 </div>
@@ -234,7 +234,7 @@ export function VerificationView() {
                     >
                         <div className="p-8 space-y-6">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-2xl font-black italic tracking-tight">Verify Identity</h2>
+                                <h2 className="text-2xl font-black italic tracking-tight">{t('verification.idTitle')}</h2>
                                 <Button variant="ghost" size="icon" onClick={() => setShowingUploadModal(false)} className="rounded-lg">
                                     <ChevronRight className="rotate-90" />
                                 </Button>
