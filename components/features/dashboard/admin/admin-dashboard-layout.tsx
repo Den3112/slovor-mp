@@ -22,13 +22,28 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
 
     const config: SidebarConfig = {
         signOutLabel: t('admin:signOut'),
-        items: [
-            { href: '/admin', label: t('admin:dashboard'), icon: LayoutDashboard },
-            { href: '/admin/listings', label: t('admin:moderation'), icon: ShieldCheck },
-            { href: '/admin/users', label: t('admin:users'), icon: Users },
-            { href: '/admin/reports', label: t('admin:reports'), icon: AlertTriangle },
-            { href: '/admin/verifications', label: t('admin:verifications'), icon: FileCheck },
-            { href: '/admin/content', label: t('admin:content'), icon: FileText },
+        sections: [
+            {
+                title: t('admin:overview') || 'Overview',
+                items: [
+                    { href: '/admin', label: t('admin:dashboard'), icon: LayoutDashboard },
+                ]
+            },
+            {
+                title: t('admin:management') || 'Management',
+                items: [
+                    { href: '/admin/listings', label: t('admin:moderation'), icon: ShieldCheck },
+                    { href: '/admin/users', label: t('admin:users'), icon: Users },
+                    { href: '/admin/verifications', label: t('admin:verifications'), icon: FileCheck },
+                ]
+            },
+            {
+                title: t('admin:reports') || 'Reports & Content',
+                items: [
+                    { href: '/admin/reports', label: t('admin:reports'), icon: AlertTriangle },
+                    { href: '/admin/content', label: t('admin:content'), icon: FileText },
+                ]
+            }
         ],
     }
 

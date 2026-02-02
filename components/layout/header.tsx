@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Menu, Plus, Search, X } from 'lucide-react'
+import { Menu, Plus, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
@@ -16,17 +16,17 @@ import { UserMenu } from './user-menu'
 import { MobileDrawer } from './mobile-drawer'
 import { CommandCenter } from './command-center'
 import { LocationSwitcher } from './location-switcher'
-import { MegaMenu } from './mega-menu'
 import { MobileSearchOverlay } from './mobile-search-overlay'
-import { NotificationDropdown } from '@/components/notifications/notification-dropdown'
 import { Logo } from '@/components/ui/logo'
+import { Heart, MessageCircle } from 'lucide-react'
+import { useUnreadMessages } from '@/lib/hooks/use-unread-messages'
 
 export function Header() {
   const { t, locale } = useTranslation(['common', 'nav'])
   const { user, signOut } = useAuth()
   const pathname = usePathname()
+  const unreadCount = useUnreadMessages()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
   const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -36,7 +36,6 @@ export function Header() {
 
   useEffect(() => {
     setMobileMenuOpen(false)
-    setIsMegaMenuOpen(false)
   }, [pathname])
 
   if (!mounted) return null
@@ -52,25 +51,14 @@ export function Header() {
     <>
       <header
         className={cn(
-          'fixed top-0 z-50 w-full h-16 bg-background border-b border-border transition-none',
+          'sticky top-0 z-50 w-full h-16 bg-background border-b border-border transition-none',
         )}
       >
         <Container>
           <div className="flex h-16 items-center justify-between gap-4">
-            {/* Logo & Categories Trigger */}
+            {/* Logo Area */}
             <div className="flex shrink-0 items-center gap-4">
               <Logo locale={locale} />
-
-              {/* Categories Button - Desktop */}
-              <Button
-                variant={isMegaMenuOpen ? 'default' : 'ghost'}
-                onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                className="hidden lg:flex items-center gap-2 font-medium"
-                data-testid="header-categories-btn"
-              >
-                {isMegaMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-                <span>{t('nav:categories')}</span>
-              </Button>
             </div>
 
             {/* Search & Location - Desktop */}
@@ -83,30 +71,50 @@ export function Header() {
             <div className="flex shrink-0 items-center gap-2">
               {/* Desktop Actions */}
               <div className="hidden items-center gap-2 lg:flex">
-                {user && <NotificationDropdown />}
                 <LanguageSelector />
                 <ThemeToggle />
 
-                <div className="mx-2 h-6 w-px bg-border" />
+                <div className="mx-2 h-6 w-px bg-border/60" />
+
+                {/* Favorites */}
+                <Button variant="ghost" size="icon" asChild className="h-9 w-9 text-muted-foreground hover:text-primary transition-colors">
+                  <Link href={`/${locale}/favorites`}>
+                    <Heart className="h-5 w-5" />
+                  </Link>
+                </Button>
+
+                {/* Messages */}
+                <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 text-muted-foreground hover:text-primary transition-colors">
+                  <Link href={`/${locale}/messages`}>
+                    <MessageCircle className="h-5 w-5" />
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white ring-2 ring-background">
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    )}
+                  </Link>
+                </Button>
+
+                <div className="mx-2 h-6 w-px bg-border/60" />
 
                 {user ? (
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
                     href={`/${locale}/auth/login`}
-                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80 hover:text-primary transition-colors px-2"
                   >
                     {t('common:signIn')}
                   </Link>
                 )}
 
                 {/* Post Ad CTA */}
-                <Link href={`/${locale}/post`} data-testid="header-post-ad-btn">
-                  <Button className="gap-2 font-semibold">
-                    <Plus className="h-4 w-4" />
+                <Button asChild className="gap-2 font-bold uppercase tracking-widest ml-2 shadow-md shadow-primary/20">
+                  <Link href={`/${locale}/post`} data-testid="header-post-ad-btn">
+                    <Plus className="h-4 w-4" strokeWidth={2.5} />
                     <span>{t('nav:postAd')}</span>
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
 
               {/* Mobile Actions */}
@@ -134,16 +142,6 @@ export function Header() {
           </div>
         </Container>
 
-        {/* Mega Menu */}
-        {isMegaMenuOpen && (
-          <>
-            <MegaMenu locale={locale} onClose={() => setIsMegaMenuOpen(false)} />
-            <div
-              className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
-              onClick={() => setIsMegaMenuOpen(false)}
-            />
-          </>
-        )}
       </header>
 
       <MobileDrawer
