@@ -5,10 +5,8 @@ import { useTranslation } from '@/lib/i18n' // Using project's i18n wrapper
 import { DashboardShell } from '@/components/features/dashboard/layouts/dashboard-shell'
 import type { SidebarConfig } from '@/components/features/dashboard/shared/sidebar'
 import type { DashboardStats } from '@/lib/api/dashboard-stats'
-import { MobileBottomNav } from '@/components/profile/mobile-nav' // Reuse for now as per plan to keep distinct mobile nav style
 import {
     LayoutDashboard,
-    Store,
     Package,
     ShoppingBag,
     Heart,
@@ -17,6 +15,7 @@ import {
     Eye,
     ShieldCheck,
     Settings,
+    Zap,
 } from 'lucide-react'
 
 interface UserDashboardLayoutProps {
@@ -31,105 +30,92 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
         signOutLabel: t('auth:signOut'),
         sections: [
             {
-                title: t('profile:overview'),
+                title: t('dashboard:main') || 'Main',
                 items: [
                     {
-                        href: '/profile/overview',
+                        href: '/dashboard',
                         label: t('common:dashboard'),
                         icon: LayoutDashboard,
                     },
-                ],
-            },
-            {
-                title: t('profile:commerce'),
-                items: [
                     {
-                        href: '/profile/listings',
+                        href: '/dashboard/listings',
                         label: t('profile:myListings'),
-                        icon: Store,
+                        icon: Package,
                         badgeCount: stats?.activeListings,
                     },
                     {
-                        href: '/profile/orders',
+                        href: '/dashboard/wallet',
+                        label: t('profile:wallet'),
+                        icon: ShoppingBag,
+                    },
+                    {
+                        href: '/dashboard/subscription',
+                        label: t('profile:subscription'),
+                        icon: Zap,
+                    },
+                ]
+            },
+            {
+                title: t('dashboard:activity') || 'Activity',
+                items: [
+                    {
+                        href: '/dashboard/orders',
                         label: t('profile:orders'),
-                        icon: Package,
+                        icon: ShoppingBag,
                         badgeCount: stats?.orders,
                     },
                     {
-                        href: '/profile/wallet',
-                        label: t('profile:wallet'),
-                        icon: ShoppingBag,
-                        // badgeCount: 0
-                    },
-                ],
-            },
-            {
-                title: t('profile:shopping'),
-                items: [
-                    {
-                        href: '/profile/purchases',
-                        label: t('profile:purchases'),
-                        icon: ShoppingBag,
-                    },
-                    {
-                        href: '/profile/favorites',
-                        label: t('profile:favorites'),
-                        icon: Heart,
-                        badgeCount: stats?.favorites,
-                    },
-                    {
-                        href: '/profile/saved-searches',
-                        label: t('profile:savedSearches'),
+                        href: '/dashboard/reviews',
+                        label: t('profile:reviews'),
                         icon: Star,
-                        badgeCount: stats?.savedSearches,
+                        badgeCount: stats?.reviews,
                     },
-                ],
+                ]
             },
             {
-                title: t('profile:communication'),
+                title: t('dashboard:quickAccess') || 'Quick Access',
                 items: [
                     {
-                        href: '/profile/messages',
+                        href: '/messages',
                         label: t('profile:inbox'),
                         icon: MessageCircle,
                         badgeCount: stats?.messages,
                     },
                     {
-                        href: '/profile/reviews',
-                        label: t('profile:reviews'),
-                        icon: Star,
-                        badgeCount: stats?.reviews,
+                        href: '/favorites',
+                        label: t('profile:favorites'),
+                        icon: Heart,
+                        badgeCount: stats?.favorites,
                     },
-                ],
+                ]
             },
             {
-                title: t('profile:account'),
+                title: t('dashboard:account') || 'Account',
                 items: [
                     {
-                        href: '/profile/profile',
-                        label: t('profile:publicProfile'),
-                        icon: Eye,
-                        external: true, // Though it's internal link, semantically "View Public"
-                    },
-                    {
-                        href: '/profile/verification',
-                        label: t('profile:verification'),
-                        icon: ShieldCheck,
-                    },
-                    {
-                        href: '/profile/settings',
+                        href: '/dashboard/settings',
                         label: t('profile:settings'),
                         icon: Settings,
                     },
-                ],
-            },
+                    {
+                        href: '/dashboard/profile',
+                        label: t('profile:publicProfile'),
+                        icon: Eye,
+                        external: true,
+                    },
+                    {
+                        href: '/dashboard/verification',
+                        label: t('profile:verification'),
+                        icon: ShieldCheck,
+                    },
+                ]
+            }
         ],
     }
 
     return (
         <DashboardShell
             config={config}
-            mobileNav={<MobileBottomNav stats={stats} />}
         >
             {children}
         </DashboardShell>

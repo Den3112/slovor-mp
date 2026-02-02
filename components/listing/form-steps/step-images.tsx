@@ -1,170 +1,228 @@
 'use client'
 
-import { } from 'react' // Wait, this is actually used if it was { useState } but it's empty
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Loader2, Upload, AlertCircle } from 'lucide-react'
+import { Loader2, Upload, Trash2, GripHorizontal } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import type { ListingFormData } from '@/lib/utils/listing-form-schema'
+import { motion, AnimatePresence, Reorder } from 'framer-motion'
 
 interface StepImagesProps {
   formData: ListingFormData
-  updateField: <K extends keyof ListingFormData>(
-    field: K,
-    value: ListingFormData[K]
-  ) => void
   isUploading: boolean
-  uploadProgress: { current: number; total: number } | null
+  uploadProgress: { current: number; total: number; fileName?: string } | null
   onFilesSelected: (files: FileList | null) => void
+  onRemoveImage: (index: number) => void
+  onReorderImages: (newImages: string[]) => void
 }
 
 export function StepImages({
   formData,
-  updateField,
   isUploading,
   uploadProgress,
   onFilesSelected,
+  onRemoveImage,
+  onReorderImages,
 }: StepImagesProps) {
   const { t } = useTranslation(['createListing', 'common'])
-  const fileInputRef = { current: null as HTMLInputElement | null }
+  const [isDragActive, setIsDragActive] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleMockImage = () => {
-    const mockImages = [
-      'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop',
-    ]
-    const randomImage = mockImages[Math.floor(Math.random() * mockImages.length)] as string
-    updateField('images', [...formData.images, randomImage])
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragActive(true)
+  }
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragActive(false)
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragActive(false)
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      onFilesSelected(e.dataTransfer.files)
+    }
   }
 
   return (
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold text-white">
+          <h3 className="text-xl font-bold text-foreground">
             {t('uploadPhotos')}
           </h3>
-          <span className="text-muted-foreground text-sm">
+          <span className="text-muted-foreground text-sm font-medium">
             {formData.images.length} / 10
           </span>
         </div>
 
-        <div
+        <motion.div
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          animate={{
+            borderColor: isDragActive ? 'var(--primary)' : 'var(--border)',
+            backgroundColor: isDragActive ? 'var(--accent)' : 'transparent',
+            scale: isDragActive ? 1.01 : 1,
+          }}
           className={cn(
-            'group relative flex min-h-[300px] flex-col items-center justify-center rounded-3xl border-2 border-dashed transition-all',
+            'group relative flex min-h-[280px] flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all duration-200',
             isUploading
-              ? 'border-primary/50 bg-primary/5'
-              : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+              ? 'border-primary/50 bg-primary/5 cursor-wait'
+              : 'bg-card hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/10 transition-all'
           )}
         >
           <input
-            ref={(el) => { if (el) fileInputRef.current = el }}
+            ref={fileInputRef}
             type="file"
             multiple
             accept="image/*"
             onChange={(e) => onFilesSelected(e.target.files)}
             className="absolute inset-0 cursor-pointer opacity-0"
-            disabled={isUploading}
+            disabled={isUploading || formData.images.length >= 10}
+            title=""
           />
 
-          <div className="flex flex-col items-center gap-4 p-8 text-center">
-            <div className="bg-primary/20 flex h-20 w-20 items-center justify-center rounded-2xl text-primary transition-transform group-hover:scale-110">
+          <div className="flex flex-col items-center gap-4 p-8 text-center pointer-events-none">
+            <motion.div
+              animate={isDragActive ? { y: -10 } : { y: 0 }}
+              className="bg-primary/10 flex h-20 w-20 items-center justify-center rounded-xl text-primary transition-transform group-hover:scale-110"
+            >
               {isUploading ? <Loader2 className="h-10 w-10 animate-spin" /> : <Upload className="h-10 w-10" />}
-            </div>
+            </motion.div>
             <div className="space-y-2">
-              <p className="text-lg font-bold text-white">
+              <p className="text-lg font-bold text-foreground">
                 {isUploading
                   ? t('uploading')
-                  : t('dragDrop')}
+                  : isDragActive ? 'Drop images here' : t('dragDrop')}
               </p>
-              <p className="text-muted-foreground text-sm max-w-xs">
+              <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
                 {t('maxSize')}
               </p>
             </div>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() => fileInputRef.current?.click()}
-              className="bg-primary text-white hover:bg-primary/90 rounded-2xl px-8 shadow-lg shadow-primary/20"
-            >
-              {t('selectImages')}
-            </Button>
+            {!isUploading && (
+              <Button
+                type="button"
+                variant="secondary"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2 rounded-xl px-8 shadow-sm transition-all active:scale-95 pointer-events-auto"
+                disabled={formData.images.length >= 10}
+              >
+                {t('selectImages')}
+              </Button>
+            )}
           </div>
-        </div>
-
-        {/* Mock Image Button (only for dev/test) */}
-        {process.env.NODE_ENV !== 'production' && (
-          <button
-            type="button"
-            onClick={handleMockImage}
-            className="text-primary hover:text-primary/80 flex items-center gap-2 text-sm font-bold transition-colors"
-          >
-            + {t('addMockImage')}
-          </button>
-        )}
+        </motion.div>
       </div>
 
-      {uploadProgress && (
-        <div className="bg-muted/20 rounded-2xl border border-white/5 p-4">
-          <div className="text-muted-foreground mb-2 flex w-full items-center justify-between text-xs font-bold tracking-widest uppercase">
-            <span>{t('uploading')}</span>
-            <span>
-              {Math.round(
-                (uploadProgress.current / uploadProgress.total) * 100
-              )}
-              %
-            </span>
-          </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-black/20">
-            <div
-              className="bg-primary h-full transition-all duration-300 ease-out"
-              style={{
-                width: `${(uploadProgress.current / uploadProgress.total) * 100}%`,
-              }}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Image Preview Grid */}
-      {formData.images.length > 0 && (
-        <div className="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-4">
-          {formData.images.map((img, idx) => (
-            <div
-              key={idx}
-              className="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-xl transition-transform hover:scale-105"
-            >
-              <Image
-                src={img}
-                alt="preview"
-                fill
-                className="object-cover transition-opacity group-hover:opacity-75"
-                unoptimized
-              />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    updateField(
-                      'images',
-                      formData.images.filter((_, i) => i !== idx)
-                    )
-                  }}
-                  className="bg-destructive hover:bg-destructive/90 scale-90 rounded-full p-3 text-white shadow-lg transition-transform hover:scale-100"
-                >
-                  <AlertCircle className="h-6 w-6" />
-                </button>
-              </div>
-              {idx === 0 && (
-                <div className="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[10px] font-bold tracking-widest text-white uppercase backdrop-blur-sm">
-                  Cover
-                </div>
-              )}
+      <AnimatePresence>
+        {uploadProgress && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="bg-muted/30 rounded-xl border border-border p-5 shadow-sm"
+          >
+            <div className="text-muted-foreground mb-3 flex w-full items-center justify-between text-[10px] font-bold tracking-widest uppercase">
+              <span className="flex items-center gap-2">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                {uploadProgress.fileName ? `Uploading: ${uploadProgress.fileName}` : `${t('uploading')}...`}
+              </span>
+              <span>
+                {Math.round((uploadProgress.current / uploadProgress.total) * 100)}%
+              </span>
             </div>
-          ))}
+            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+              <motion.div
+                className="bg-primary h-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }}
+                transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Image Preview Grid with Reorder */}
+      {formData.images.length > 0 && (
+        <div className="space-y-4 pt-4">
+          <div className="flex items-center justify-between px-1">
+            <h4 className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+              Manage & Reorder
+            </h4>
+            <p className="text-muted-foreground text-[10px] hidden sm:block">
+              Drag to change order. First image is the cover.
+            </p>
+          </div>
+
+          <Reorder.Group
+            axis="y"
+            values={formData.images}
+            onReorder={onReorderImages}
+            className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+          >
+            {formData.images.map((img, idx) => (
+              <Reorder.Item
+                key={img}
+                value={img}
+                className="group relative aspect-square cursor-grab overflow-hidden rounded-xl border border-border bg-muted shadow-sm active:cursor-grabbing"
+              >
+                <Image
+                  src={img}
+                  alt="preview"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  unoptimized
+                />
+
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-200 group-hover:opacity-100 flex items-center justify-center gap-2">
+                  <Button
+                    size="icon"
+                    variant="destructive"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onRemoveImage(idx)
+                    }}
+                    className="h-10 w-10 rounded-xl shadow-sm"
+                  >
+                    <Trash2 className="h-5 w-5" />
+                  </Button>
+                  <div className="bg-white/20 p-2.5 rounded-xl text-white">
+                    <GripHorizontal className="h-5 w-5" />
+                  </div>
+                </div>
+
+                {/* Cover Badge */}
+                <AnimatePresence>
+                  {idx === 0 && (
+                    <motion.div
+                      key="cover-badge"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-sm shadow-primary/20"
+                    >
+                      Cover
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-[10px] font-bold text-white md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                  {idx + 1}
+                </div>
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
         </div>
       )}
     </div>
   )
 }
+

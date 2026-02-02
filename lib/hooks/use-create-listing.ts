@@ -258,6 +258,16 @@ export function useCreateListing() {
     setUploadProgress(null)
   }
 
+  const handleRemoveImage = (index: number) => {
+    const newImages = [...formData.images]
+    newImages.splice(index, 1)
+    updateField('images', newImages)
+  }
+
+  const handleReorderImages = (newImages: string[]) => {
+    updateField('images', newImages)
+  }
+
   return {
     state: {
       step,
@@ -278,6 +288,8 @@ export function useCreateListing() {
       prevStep,
       handleSubmit,
       handleFilesSelected,
+      handleRemoveImage,
+      handleReorderImages,
       setStep,
     },
     flags: {

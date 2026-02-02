@@ -90,7 +90,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
           Save Search
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-3xl sm:max-w-[425px]">
+      <DialogContent className="rounded-xl sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Save this search</DialogTitle>
           <DialogDescription>
@@ -108,7 +108,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
               className="rounded-xl"
             />
           </div>
-          <div className="bg-muted/40 hover:bg-muted/60 flex items-center justify-between rounded-2xl p-5 transition-colors">
+          <div className="bg-muted/40 hover:bg-muted/60 flex items-center justify-between rounded-xl p-5 transition-colors">
             <Label
               htmlFor="email-notif"
               className="flex cursor-pointer flex-col gap-1"

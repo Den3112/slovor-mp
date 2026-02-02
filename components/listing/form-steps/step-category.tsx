@@ -39,18 +39,18 @@ export function StepCategory({
               type="button"
               onClick={() => updateField('category_id', cat.id)}
               className={cn(
-                'group relative flex flex-col items-center gap-3 rounded-2xl border p-4 transition-all active:scale-95 md:p-6',
+                'group relative flex flex-col items-center gap-3 rounded-xl border p-4 transition-all active:scale-95 md:p-6',
                 formData.category_id === cat.id
-                  ? 'border-primary bg-primary/10 ring-primary/20 ring-4'
-                  : 'border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/10'
+                  ? 'border-primary bg-primary/10 ring-primary/10 ring-2'
+                  : 'border-border bg-card hover:border-primary/50 hover:bg-accent/50'
               )}
             >
               <div
                 className={cn(
                   'flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110 md:h-16 md:w-16',
                   formData.category_id === cat.id
-                    ? 'bg-primary text-white shadow-lg'
-                    : 'bg-white/5 text-white/70'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary'
                 )}
               >
                 <CategoryIcon slug={cat.slug} className="h-6 w-6 md:h-8 md:w-8" />
@@ -59,8 +59,8 @@ export function StepCategory({
                 className={cn(
                   'text-center text-xs font-bold transition-colors md:text-sm',
                   formData.category_id === cat.id
-                    ? 'text-white'
-                    : 'text-muted-foreground group-hover:text-white'
+                    ? 'text-primary'
+                    : 'text-muted-foreground group-hover:text-foreground'
                 )}
               >
                 {cat.name}
@@ -71,17 +71,17 @@ export function StepCategory({
       </FormField>
 
       <FormField label={t('condition')} error={fieldErrors.condition}>
-        <div className="bg-white/5 flex gap-4 rounded-3xl border border-white/5 p-1.5 active:scale-[0.99] transition-transform">
+        <div className="bg-muted/50 flex gap-2 rounded-xl border border-border p-1">
           {(['new', 'used'] as const).map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => updateField('condition', c)}
               className={cn(
-                'flex-1 rounded-2xl py-4 text-sm font-black tracking-widest uppercase transition-all duration-500',
+                'flex-1 rounded-xl py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
                 formData.condition === c
-                  ? 'bg-primary text-primary-foreground shadow-primary/20 scale-[1.02] shadow-xl'
-                  : 'text-muted-foreground/60 hover:text-foreground hover:bg-white/5'
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-background/50 hover:text-foreground'
               )}
             >
               {c === 'new' ? t('filters.new') : t('filters.used')}

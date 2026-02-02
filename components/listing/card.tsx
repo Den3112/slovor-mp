@@ -40,7 +40,7 @@ export function ListingCard({
     return (
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="group border-border/40 bg-card active:bg-muted/50 md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-2xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-1 md:hover:shadow-lg"
+        className="group border-border/60 bg-card active:bg-muted/50 md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-0.5 md:hover:shadow-md"
       >
         {/* Compact Image */}
         <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
@@ -52,7 +52,7 @@ export function ListingCard({
                 fill
                 className={cn(
                   'object-cover transition-all',
-                  isLoading ? 'scale-105 blur-sm' : 'blur-0'
+                  isLoading ? 'scale-105 opacity-0' : 'opacity-100'
                 )}
                 sizes="120px"
                 onError={() => {
@@ -62,7 +62,6 @@ export function ListingCard({
                 onLoad={() => setIsLoading(false)}
                 unoptimized
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
             </>
           ) : (
             <div className="bg-muted/50 text-muted-foreground/40 flex h-full w-full items-center justify-center">
@@ -72,7 +71,7 @@ export function ListingCard({
 
           {/* Condition Badge */}
           {listing.condition === 'new' && (
-            <div className="bg-card/90 text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[8px] font-black uppercase backdrop-blur-sm">
+            <div className="bg-background/90 text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[8px] font-black uppercase shadow-sm">
               <Sparkles className="fill-primary h-2.5 w-2.5" />
               {t('new')}
             </div>
@@ -123,10 +122,10 @@ export function ListingCard({
     <Link
       href={`/listings/${listing.id}`}
       className={cn(
-        'group relative block overflow-hidden rounded-4xl border backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 active:scale-[0.98]',
+        'group relative block overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-md',
         listing.is_highlighted
-          ? 'border-primary/20 bg-primary/5 shadow-primary/5 hover:border-primary/40 hover:shadow-primary/10'
-          : 'border-border/10 bg-card/60 hover:border-primary/30 hover:shadow-soft-shadow dark:bg-white/5 dark:hover:bg-white/10'
+          ? 'border-primary/50 bg-primary/5 shadow-sm'
+          : 'border-border bg-card'
       )}
     >
       {/* Image */}
@@ -139,7 +138,7 @@ export function ListingCard({
               fill
               className={cn(
                 'object-cover transition-transform duration-700 group-hover:scale-110',
-                isLoading ? 'scale-105 blur-md' : 'blur-0'
+                isLoading ? 'scale-105 opacity-0' : 'opacity-100'
               )}
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => {
@@ -150,8 +149,8 @@ export function ListingCard({
               unoptimized
               priority={featured}
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-40" />
-            <div className="pointer-events-none absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] md:rounded-3xl" />
+            <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+            <div className="pointer-events-none absolute inset-0 rounded-xl border border-transparent group-hover:border-black/5 dark:group-hover:border-white/10" />
           </>
         ) : (
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
@@ -165,13 +164,13 @@ export function ListingCard({
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary/90 shadow-primary/30 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide text-white uppercase shadow-lg backdrop-blur-md md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-primary/90 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide text-white uppercase shadow-sm md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-card/90 text-card-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-lg backdrop-blur-md md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
               {t('new')}
             </div>
@@ -184,7 +183,7 @@ export function ListingCard({
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="glass text-foreground/80 absolute bottom-3 left-3 rounded-full border border-white/20 px-2.5 py-1 text-[9px] font-black md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[9px] font-bold text-white md:bottom-3 md:left-3 md:px-2 md:text-[10px]">
             {listing.images.length} PHOTOS
           </div>
         )}

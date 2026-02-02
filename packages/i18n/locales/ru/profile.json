@@ -44,5 +44,6 @@
     "deleteSearchConfirm": "Удалить этот сохраненный поиск?",
     "notifications": "уведомления",
     "created": "Создан",
-    "verification": "Верификация"
+    "verification": "Верификация",
+    "subscription": "Подписка"
 }

@@ -21,10 +21,11 @@ vi.mock('@/lib/i18n', () => ({
 describe('StepImages', () => {
   const defaultProps = {
     formData: { images: [] } as any,
-    updateField: vi.fn(),
     isUploading: false,
     uploadProgress: null,
     onFilesSelected: vi.fn(),
+    onRemoveImage: vi.fn(),
+    onReorderImages: vi.fn(),
   }
 
   it('renders upload area', () => {
@@ -64,13 +65,13 @@ describe('StepImages', () => {
   })
 
   it('renders previews and allows removal', () => {
-    const updateField = vi.fn()
+    const onRemoveImage = vi.fn()
     const images = ['https://example.com/1.jpg', 'https://example.com/2.jpg']
     render(
       <StepImages
         {...defaultProps}
         formData={{ images } as any}
-        updateField={updateField}
+        onRemoveImage={onRemoveImage}
       />
     )
 
@@ -79,18 +80,12 @@ describe('StepImages', () => {
 
     const removeButtons = screen
       .getAllByRole('button')
-      .filter((btn: HTMLElement) => btn.className.includes('bg-destructive'))
+      .filter((btn: HTMLElement) => btn.querySelector('svg.lucide-trash2'))
+
+    // The button has classes from Button component, and contains Trash2 icon
+    // Actually, I can just click the button that has Trash2
     fireEvent.click(removeButtons[0]!)
 
-    expect(updateField).toHaveBeenCalledWith('images', [images[1]])
-  })
-
-  it('calls addMockImage click', () => {
-    const updateField = vi.fn()
-    render(<StepImages {...defaultProps} updateField={updateField} />)
-
-    const mockButton = screen.getByText(/\+ Add Mock Image/i)
-    fireEvent.click(mockButton)
-    expect(updateField).toHaveBeenCalledWith('images', expect.any(Array))
+    expect(onRemoveImage).toHaveBeenCalledWith(0)
   })
 })
