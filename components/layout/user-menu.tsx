@@ -86,7 +86,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               )}
 
               <Link
-                href="/profile/overview"
+                href="/dashboard"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >
@@ -95,7 +95,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </Link>
 
               <Link
-                href="/profile/listings"
+                href="/dashboard/listings"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >
@@ -104,7 +104,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </Link>
 
               <Link
-                href="/profile/favorites"
+                href="/favorites"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >
@@ -113,7 +113,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </Link>
 
               <Link
-                href="/profile/saved-searches"
+                href="/dashboard/saved-searches"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >
@@ -124,7 +124,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               <div className="bg-border/50 mx-2 my-1 h-px" />
 
               <Link
-                href="/profile/profile"
+                href="/dashboard/profile"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >
@@ -133,7 +133,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </Link>
 
               <Link
-                href="/profile/settings"
+                href="/dashboard/settings"
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >

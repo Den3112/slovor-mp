@@ -9,7 +9,7 @@ import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
 
-import { useListingSearch } from '@/hooks/use-listing-search'
+import { useListingSearch } from '@/lib/hooks/use-listing-search'
 
 interface CommandCenterProps {
     locale: string

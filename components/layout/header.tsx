@@ -43,7 +43,7 @@ export function Header() {
   if (!mounted) return null
 
   // Hide header on dashboard routes
-  const isDashboard = pathname.includes('/admin') || pathname.includes('/profile') || pathname.includes('/messages')
+  const isDashboard = pathname?.includes('/admin') || pathname?.includes('/dashboard') || pathname?.includes('/messages') || pathname?.includes('/favorites')
 
   if (isDashboard) {
     return null

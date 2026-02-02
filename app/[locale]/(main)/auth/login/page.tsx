@@ -74,7 +74,7 @@ function LoginContent() {
         // Fire and forget log access
         fetch('/api/auth/log-access', { method: 'POST' }).catch(console.error)
 
-        router.push('/profile')
+        router.push('/dashboard')
         router.refresh()
       }
     } catch (err) {

@@ -1,78 +1,88 @@
 # 🧠 Project Memory: Slovor MP
 
-## 🚨 CRITICAL RULES REFRESH (DO NOT IGNORE)
-1.  **Language**: Chat = **Russian** 🇷🇺. Code/Comments = **English** 🇬🇧.
-2.  **Zero-Error**: NEVER finish a task with broken code. run `npm run verify`.
-3.  **Design**: "Customer CRM" style. Solid, Clean, Data-Dense. NO Glassmorphism.
-4.  **Process**: Read Memory -> Fix -> Verify -> Update Memory.
-5.  **Unsure?**: ASK the user. Do not guess.
-6.  **URGENT**: If User uses CAPS, pay SPECIAL ATTENTION. It is a critical instruction.
-7.  **Redesign Instructions**: READ `.agent/REDESIGN_INSTRUCTIONS.md` for complete implementation guide!
+## 🚨 CRITICAL RULES (DO NOT IGNORE)
+1. **Language**: Chat = **Russian** 🇷🇺. Code/Comments = **English** 🇬🇧.
+2. **Zero-Error**: NEVER finish with broken code. Run `npm run verify`.
+3. **Design**: "Customer CRM" style. Solid, Clean, Data-Dense. NO Glassmorphism.
+4. **Process**: Read Memory → Work → Verify → Update Memory.
+5. **Unsure?**: ASK the user. Do not guess.
+6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
-> **Last Updated**: 2024-05-23
-> **Status**: ✅ Phase 5: Advanced Media Management - COMPLETE
+> **Last Updated**: 2026-02-01
+> **Status**: ✅ Premium Redesign Complete. Starting Architecture Overhaul.
 
-## ⚡ Active RAM (Operational Context)
+---
 
-- **Current User Intent**: Переход к Фазе 6: Premium User Dashboard.
-- **Active Branch**: `feature/advanced-media`
-- **Focus**: Premium User Dashboard (Phase 6).
-- **Recent Change**:Implemented sleek drag-and-drop uploader with Framer Motion and image reordering.
+## 📌 Current State
 
-## ✅ Completed
-1. ✅ Created PR #27 (snapshot before redesign)
-2. ✅ Created branch `feature/premium-redesign`
-3. ✅ Created PR #28 (redesign to dev)
-4. ✅ Updated core components (Button, Badge, Input, Card)
-5. ✅ Updated layout components (Header, Sidebar, DashboardShell)
-6. ✅ Completed Full Premium Redesign (Phases 1-4)
-7. ✅ Pushed PR #28 with final updates
-8. ✅ Optimized CI/CD (GitHub Actions, Tests, Circular checks)
-9. ✅ Resolved circular dependency in Listings API
-10. ✅ Phase 5: Advanced Media Management
-    - Sleek drag-and-drop uploader with Framer Motion.
-    - Live previews with animated states and per-file progress.
-    - Image reordering (drag-to-reorder) for Cover photo selection.
-    - Backend cleanup for deleted files in Supabase Storage.
-    - Responsive blur-up плейсхолдеры.
+- **Branch**: `feature/premium-redesign`
+- **Focus**: Complete architecture restructure (URL changes, navigation, all 41 pages)
+- **Next**: Phase 1 - URL restructure (`/profile` → `/dashboard`)
 
-## 📋 REDESIGN_INSTRUCTIONS.md Summary
+---
 
-Файл содержит:
-- **Part 1**: Design System (exact CSS values)
-- **Part 2**: Component Updates (Button, Card, Badge, Input)
-- **Part 3**: Layout Components (Sidebar, Header, DashboardShell)
-- **Part 4**: Page-by-Page Updates
-- **Part 5**: Dark Theme rules
-- **Part 6**: Verification checklist
+## ✅ Completed (Premium Redesign)
 
-## 🎯 Решения по архитектуре
-1. ✅ Навигация: Упростить до 6 пунктов (без вложенности)
-2. ❌ URL: Оставить `/profile/*` (не менять на `/dashboard/*`)
-3. ✅ Приоритет: Сначала дизайн, потом архитектура
+1. ✅ Core components (Button, Badge, Input, Card)
+2. ✅ Layout components (Header, Sidebar, DashboardShell)
+3. ✅ Auth, Search, Listing pages
+4. ✅ User Dashboard (Overview, Listings, Wallet, Orders, Reviews)
+5. ✅ Admin Dashboard (Overview, Users, Moderation)
+6. ✅ Messaging & Favorites
+7. ✅ Dark mode verified
+8. ✅ Mobile responsiveness verified
 
-## 🎨 Design System Reference
+---
+
+## 📋 New Architecture Plan
+
+**Documentation**: `.agent/plans/`
+- `ARCHITECTURE_BLUEPRINT.md` - All 41 pages, layouts, components
+- `UX_FUNCTIONALITY_GUIDE.md` - UX patterns, empty states
+- `ADVANCED_FEATURES_GUIDE.md` - Trust, safety, monetization
+
+**8 Main Phases + 1 Optional**:
+1. URL Restructure
+2. Mobile Navigation
+3. Sidebar Restructure
+4. Header Redesign
+5. All 41 Pages
+6. Trust & Safety
+7. Monetization
+8. Final Verification
+9. Theme Switching (Not Urgent)
+
+---
+
+## 🎨 Design System
+
 ```css
 /* CRM Palette */
---primary: 217 91% 60%;     /* #3B82F6 Blue */
---background: 210 40% 98%;  /* #F8FAFC Light */
---background: 222 47% 3%;   /* #020617 Dark */
---card: 0 0% 100%;          /* #FFFFFF Light */
---card: 222 47% 6%;         /* #0F172A Dark */
---border: 214 32% 91%;      /* #E2E8F0 Light */
---border: 217 33% 17%;      /* #1E293B Dark */
+--primary: #3B82F6;       /* Blue */
+--background: #F8FAFC;    /* Light */
+--background: #020617;    /* Dark */
+--card: #FFFFFF;          /* Light */
+--card: #0F172A;          /* Dark */
 ```
 
+**Fonts**: DM Sans, Space Grotesk, JetBrains Mono
+
+---
+
 ## 🚫 Forbidden Styles
+
 - NO `backdrop-blur-*`
 - NO `bg-gradient-*`
 - NO `shadow-2xl`
 - NO `rounded-3xl`
 - NO emojis as icons
 
+---
+
 ## 📝 For Next AI Agent
-1. **READ** `.agent/REDESIGN_INSTRUCTIONS.md` FIRST
-2. Checkout `feature/premium-redesign` branch
-3. Follow instructions step by step
-4. Run `npm run verify` after each change
-5. Commit frequently with conventional commits
+
+1. **READ** this file first
+2. **READ** `.agent/README.md` for execution order
+3. **READ** `.agent/plans/ARCHITECTURE_BLUEPRINT.md`
+4. Start with Phase 1 (URL restructure)
+5. Run `npm run verify` after each change

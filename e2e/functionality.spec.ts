@@ -107,7 +107,7 @@ test.describe('Authentication Flow', () => {
   })
 
   test('Protected routes redirect to login', async ({ page }) => {
-    await page.goto('/en/profile')
+    await page.goto('/en/dashboard')
     await page.waitForURL(/\/auth\/login/)
     await expect(page).toHaveURL(/\/auth\/login/)
   })

@@ -1,48 +1,99 @@
-# 🤖 .agent Directory
+# 📁 Slovor MP - Agent Documentation
 
-**Welcome, AI Agent.**
+## 📂 Structure
 
-This directory contains the **Cognitive Operating System** for this project. It is your strict set of laws, memory, and operational protocols. You rely on these files to maintain continuity, quality, and alignment with the human user.
+```
+.agent/
+├── README.md           ← ВЫ ЗДЕСЬ (главный файл)
+├── MEMORY.md           ← Контекст проекта
+├── task.md             ← Текущие задачи
+│
+├── plans/              ← 📋 Все планы архитектуры
+│   ├── ARCHITECTURE_BLUEPRINT.md   (41 страница, layouts)
+│   ├── UX_FUNCTIONALITY_GUIDE.md   (UX паттерны)
+│   ├── ADVANCED_FEATURES_GUIDE.md  (Trust, Safety, SEO)
+│   └── REDESIGN_INSTRUCTIONS.md    (Step-by-step guide)
+│
+├── design-system/      ← 🎨 Дизайн-система
+│   ├── DESIGN_TOKENS.md
+│   ├── COMPONENT_STYLES.md
+│   └── THEME_SWITCHING.md
+│
+└── workflows/          ← 🔄 Процессы
+```
 
-## 📂 Core Structure
+---
 
-| File / Folder | Description |
-| :--- | :--- |
-| **`MEMORY.md`** | **CRITICAL.** The active brain of the project. Contains current status, active blockers, context, and lessons learned. **You MUST read and update this file in every session.** |
-| **`workflows/`** | Standard Operating Procedures (SOPs). Detailed algorithms for how to perform specific tasks (Git, Verification, Debugging, etc.). |
-| **`task.md`** | The active tactical checklist. Tracks the immediate progress of the current sprint or large feature. |
-| **`REDESIGN_INSTRUCTIONS.md`** | (Context Specific) Detailed specifications for the current UI/UX redesign mission. |
+## 🎯 Execution Order (8 Phases + 1 Optional)
 
-## 🚀 Workflows (SOPs)
+### Phase 1: URL Restructure ⚡ CRITICAL
+- [ ] Rename `/profile/*` → `/dashboard/*`
+- [ ] Move `/messages`, `/favorites` to top-level
+- [ ] Add redirects in `next.config.ts`
+- [ ] Update all internal links
 
-Located in `.agent/workflows/`. You **MUST** follow these protocols:
+### Phase 2: Mobile Navigation
+- [ ] Create `BottomTabBar` component
+- [ ] Add to main layout (visible on md:hidden)
 
-- **`bot-charter.md`**: Your Constitution. The "Zero-Error Policy" and "Ask Before Acting" rules live here.
-- **`coding-rules.md`**: 10 Commandments of Code. (Small functions, explicit types, etc.).
-- **`language-policy.md`**: **Communication in Russian**, Code in English.
-- **`git-workflow.md`**: Branching strategy (`feature/*` -> `dev`) and Verification before Push.
-- **`debug-loop.md`**: How to systematically solve bugs.
-- **`verify.md`**: How to run `npm run verify` to ensure quality.
+### Phase 3: Sidebar Restructure
+- [ ] Add group titles (MAIN, ACTIVITY, QUICK ACCESS)
+- [ ] Add dividers between groups
 
-## ⚠️ Instructions for AI Agents
+### Phase 4: Header Redesign
+- [ ] Integrate search bar (desktop)
+- [ ] Add quick action icons (favorites, messages)
 
-1.  **Initialization**:
-    - Upon starting, **IMMEDIATELY** read `.agent/MEMORY.md`.
-    - Check `.agent/task.md` to see what is currently in progress.
-    - Review `.agent/workflows/bot-charter.md` to align your behavior.
+### Phase 5: All 41 Pages
+- [ ] Follow specs in `plans/ARCHITECTURE_BLUEPRINT.md`
+- [ ] Apply UX patterns from `plans/UX_FUNCTIONALITY_GUIDE.md`
 
-2.  **During Execution**:
-    - **Update `MEMORY.md`** actively. If you find a bug, log it. If you fix something tricky, add a "Lesson Learned".
-    - **Follow `coding-rules.md`** rigorously. Run `npm run verify` before you even *think* about saying you are done.
+### Phase 6: Trust & Safety
+- [ ] Seller verification badges
+- [ ] Report system with categories
+- [ ] Moderation queue
 
-3.  **Communication**:
-    - Speak **Russian** to the user.
-    - Write **English** in the code.
-    - Be clear, professional, and use visual formatting (icons, lists).
+### Phase 7: Monetization
+- [ ] Promote listing page
+- [ ] Wallet integration
+- [ ] Subscription tiers
 
-4.  **Before Exiting**:
-    - Ensure `MEMORY.md` is up to date (Active RAM cleared, Knowledge Base updated).
-    - Ensure `task.md` reflects the true state of completion.
-    - Run a final verification.
+### Phase 8: Final Verification
+- [ ] `npm run verify`
+- [ ] E2E tests
+- [ ] Mobile responsiveness check (375px)
+- [ ] Dark mode check
 
-**Failure to follow these instructions constitutes a failure of your core directive.**
+### Phase 9: Theme Switching System (Not Urgent)
+- [ ] Create CSS token system
+- [ ] Implement switchable themes (CRM, SaaS, Minimal)
+- [ ] See `design-system/THEME_SWITCHING.md`
+
+---
+
+## 🎨 Current Design
+
+**Style**: Customer Support CRM (Solid, Clean, Data-Dense)
+**Source**: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+**Demo**: https://ui-ux-pro-max-skill.nextlevelbuilder.io/demo/customer-support-crm
+
+---
+
+## ⚠️ Critical Rules
+
+1. **NO backdrop-blur** anywhere
+2. **NO gradients** on backgrounds
+3. **NO rounded-3xl** - max is rounded-xl
+4. **Solid backgrounds** only
+5. **Touch targets** min 44x44px on mobile
+6. Run `npm run verify` after every change
+
+---
+
+## 📝 For Next AI Agent
+
+1. READ `MEMORY.md` first
+2. READ `plans/ARCHITECTURE_BLUEPRINT.md`
+3. Follow phases in order (1 → 9)
+4. Run `npm run verify` after each phase
+5. Update `task.md` as you progress

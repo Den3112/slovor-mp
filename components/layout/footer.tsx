@@ -91,7 +91,7 @@ export function Footer() {
 
   if (!mounted) return null
 
-  const isDashboard = pathname.includes('/admin') || pathname?.includes('/profile') || pathname?.includes('/messages')
+  const isDashboard = pathname?.includes('/admin') || pathname?.includes('/dashboard') || pathname?.includes('/messages') || pathname?.includes('/favorites')
 
   if (isDashboard) {
     return (

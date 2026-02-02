@@ -110,8 +110,8 @@ export const NAV_LINKS = {
   ],
   user: [
     { href: '/messages', label: 'nav:messages', icon: MessageSquare },
-    { href: '/profile/favorites', label: 'nav:favorites', icon: Heart },
-    { href: '/profile', label: 'nav:profile', icon: User },
+    { href: '/favorites', label: 'nav:favorites', icon: Heart },
+    { href: '/dashboard', label: 'nav:profile', icon: User },
   ],
   action: {
     post: { href: '/post', label: 'nav:postAd', icon: PlusCircle }

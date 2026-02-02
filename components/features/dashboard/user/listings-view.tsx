@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Plus, Package, Eye, Heart, Search } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Plus, Package, Eye, Heart, Search, Filter } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
@@ -19,9 +20,23 @@ import {
 } from '@/components/ui/table'
 import { ListingRowActions } from '@/components/features/dashboard/user/components/listing-row-actions'
 
-
 interface UserListingsViewProps {
     initialListings: any[]
+}
+
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.05
+        }
+    }
+}
+
+const item = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0 }
 }
 
 export function UserListingsView({ initialListings = [] }: UserListingsViewProps) {
@@ -65,133 +80,153 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
     ]
 
     return (
-        <div className="space-y-6" data-testid="user-listings-view">
+        <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="space-y-8"
+            data-testid="user-listings-view"
+        >
             {/* Header */}
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <motion.div variants={item} className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight">{t('dashboard:myListings')}</h1>
-                    <p className="mt-1 text-sm text-muted-foreground">{t('dashboard:inventoryDescription')}</p>
+                    <h1 className="text-3xl font-black tracking-tight">{t('dashboard:myListings')}</h1>
+                    <p className="mt-1 text-sm font-medium text-muted-foreground">{t('dashboard:inventoryDescription')}</p>
                 </div>
-                <Button asChild>
+                <Button asChild className="shadow-lg shadow-primary/20">
                     <Link href="/post">
                         <Plus className="mr-2 h-4 w-4" />
                         {t('createListing:publish')}
                     </Link>
                 </Button>
-            </div>
+            </motion.div>
 
             {/* Controls */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full sm:w-auto">
-                    <TabsList className="bg-muted p-1 rounded-lg h-auto flex-wrap justify-start">
+            <motion.div variants={item} className="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center bg-card p-4 rounded-xl border border-border/60 shadow-sm">
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full lg:w-auto">
+                    <TabsList className="bg-muted/50 p-1 rounded-lg h-auto flex-wrap justify-start border border-border/20">
                         {tabs.map((tab) => (
                             <TabsTrigger
                                 key={tab.value}
                                 value={tab.value}
-                                className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all px-3 py-1.5 h-auto text-sm"
+                                className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all px-4 py-2 h-auto text-xs font-bold uppercase tracking-widest"
                             >
                                 {tab.label}
-                                <span className="ml-2 py-0.5 text-xs text-muted-foreground">
+                                <Badge variant="secondary" className="ml-2 px-1.5 py-0 h-4 min-w-5 border-transparent bg-muted/80 text-[10px]">
                                     {tab.count}
-                                </span>
+                                </Badge>
                             </TabsTrigger>
                         ))}
                     </TabsList>
                 </Tabs>
 
-                <div className="relative w-full sm:w-72">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                        placeholder={t('common:search')}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9"
-                    />
+                <div className="flex gap-2 w-full lg:w-auto">
+                    <div className="relative flex-1 lg:w-72">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
+                        <Input
+                            placeholder={t('common:search')}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-9 h-10 border-border/60 focus:ring-primary/20"
+                        />
+                    </div>
+                    <Button variant="outline" size="icon" className="h-10 w-10 shrink-0 border-border/60">
+                        <Filter className="h-4 w-4" />
+                    </Button>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Table */}
-            <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
-                <Table>
-                    <TableHeader>
-                        <TableRow className="bg-muted/50 hover:bg-muted/50">
-                            <TableHead className="w-[400px] text-xs uppercase">{t('common:title')}</TableHead>
-                            <TableHead className="text-xs uppercase">{t('createListing:price')}</TableHead>
-                            <TableHead className="text-xs uppercase">{t('dashboard:status')}</TableHead>
-                            <TableHead className="text-xs uppercase">{t('dashboard:views')}</TableHead>
-                            <TableHead className="text-xs uppercase">{t('common:date')}</TableHead>
-                            <TableHead className="text-xs uppercase text-right"></TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {filteredListings.length > 0 ? (
-                            filteredListings.map((listing) => (
-                                <TableRow key={listing.id} className="hover:bg-muted/50 transition-colors">
-                                    <TableCell className="font-medium">
-                                        <div className="flex items-center gap-3">
-                                            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
-                                                {listing.images?.[0] ? (
-                                                    <Image
-                                                        src={listing.images[0]}
-                                                        alt={listing.title}
-                                                        fill
-                                                        className="object-cover"
-                                                        unoptimized
-                                                    />
-                                                ) : (
-                                                    <div className="flex h-full w-full items-center justify-center text-muted-foreground">
-                                                        <Package className="h-4 w-4" />
-                                                    </div>
-                                                )}
+            <motion.div variants={item} className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">
+                <div className="overflow-x-auto">
+                    <Table>
+                        <TableHeader>
+                            <TableRow className="bg-muted/30 hover:bg-muted/30 border-b border-border/40">
+                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('common:title')}</TableHead>
+                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('createListing:price')}</TableHead>
+                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('dashboard:status')}</TableHead>
+                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('dashboard:stats')}</TableHead>
+                                <TableHead className="px-6 h-12 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t('common:date')}</TableHead>
+                                <TableHead className="px-6 h-12 text-right"></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {filteredListings.length > 0 ? (
+                                filteredListings.map((listing) => (
+                                    <TableRow key={listing.id} className="hover:bg-accent/40 transition-colors group">
+                                        <TableCell className="px-6 py-4">
+                                            <div className="flex items-center gap-4">
+                                                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border/10 bg-muted">
+                                                    {listing.images?.[0] ? (
+                                                        <Image
+                                                            src={listing.images[0]}
+                                                            alt={listing.title}
+                                                            fill
+                                                            className="object-cover transition-transform group-hover:scale-110"
+                                                            unoptimized
+                                                        />
+                                                    ) : (
+                                                        <div className="flex h-full w-full items-center justify-center text-muted-foreground/40">
+                                                            <Package className="h-5 w-5" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <Link
+                                                        href={`/listings/${listing.id}`}
+                                                        className="block truncate font-bold text-sm hover:text-primary transition-colors max-w-[200px] sm:max-w-md"
+                                                    >
+                                                        {listing.title}
+                                                    </Link>
+                                                    <p className="text-[10px] text-muted-foreground mt-0.5 uppercase tracking-wider font-medium">#{listing.id.split('-')[0]}</p>
+                                                </div>
                                             </div>
-                                            <div className="min-w-0">
-                                                <Link
-                                                    href={`/listings/${listing.id}`}
-                                                    className="block truncate font-medium hover:text-primary transition-colors max-w-[200px] sm:max-w-md"
-                                                >
-                                                    {listing.title}
-                                                </Link>
+                                        </TableCell>
+                                        <TableCell className="px-6 py-4">
+                                            <span className="font-heading text-base font-black tracking-tight">{listing.price} {listing.currency}</span>
+                                        </TableCell>
+                                        <TableCell className="px-6 py-4">
+                                            <Badge
+                                                variant={listing.status === 'active' ? 'success' : 'secondary'}
+                                                className="rounded-md px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest"
+                                            >
+                                                {listing.status}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell className="px-6 py-4">
+                                            <div className="flex items-center gap-4 text-[11px] font-bold text-muted-foreground/70">
+                                                <span className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-help">
+                                                    <Eye className="h-3.5 w-3.5" /> {listing.views_count || 0}
+                                                </span>
+                                                <span className="flex items-center gap-1.5 hover:text-pink-500 transition-colors cursor-help">
+                                                    <Heart className="h-3.5 w-3.5" /> {listing.favorites_count || 0}
+                                                </span>
                                             </div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <span className="font-mono text-sm">{listing.price} {listing.currency}</span>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Badge variant={listing.is_active ? 'success' : 'secondary'} className="rounded-md font-normal">
-                                            {listing.status}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                                            <span className="flex items-center gap-1">
-                                                <Eye className="h-3 w-3" /> {listing.views_count || 0}
+                                        </TableCell>
+                                        <TableCell className="px-6 py-4">
+                                            <span className="text-muted-foreground font-medium text-xs whitespace-nowrap">
+                                                {new Date(listing.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
                                             </span>
-                                            <span className="flex items-center gap-1">
-                                                <Heart className="h-3 w-3" /> {listing.favorites_count || 0}
-                                            </span>
+                                        </TableCell>
+                                        <TableCell className="px-6 py-4 text-right">
+                                            <ListingRowActions listing={listing} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={6} className="h-48 text-center">
+                                        <div className="flex flex-col items-center justify-center text-muted-foreground">
+                                            <Package className="h-10 w-10 opacity-20 mb-3" />
+                                            <p className="text-sm font-medium">{t('dashboard:noListingsYet')}</p>
                                         </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <span className="text-muted-foreground text-xs whitespace-nowrap">
-                                            {new Date(listing.created_at).toLocaleDateString()}
-                                        </span>
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <ListingRowActions listing={listing} />
                                     </TableCell>
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                    {t('dashboard:noListingsYet')}
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </div>
-        </div>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
+            </motion.div>
+        </motion.div>
     )
 }

@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: ['/admin/', '/profile/', '/api/'],
+            disallow: ['/admin/', '/dashboard/', '/api/'],
         },
         sitemap: 'https://slovor.sk/sitemap.xml',
     }

@@ -33,7 +33,7 @@ test.describe('Authentication Flow & UI', () => {
     await expect(page.url()).toMatch(/\/en|\/sk|\/cs|\/ru/)
 
     // Protected route redirect
-    await page.goto('/profile')
+    await page.goto('/dashboard')
     await expect(page.url()).toContain('/auth/login')
   })
 
