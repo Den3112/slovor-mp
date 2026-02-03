@@ -1,51 +1,104 @@
-# 📋 Текущие задачи: Ревизия архитектуры
+# 📋 Текущие задачи: Premium Redesign
 
-> **Статус**: Фаза 5 в процессе (Редизайн страниц)
-> См. `.agent/README.md` для полного порядка выполнения
+> **Обновлено**: 2026-02-03
+> **Статус**: ✅ Фаза 1-6 завершены | 🚧 Фаза 7-8 в процессе
 
 ---
 
-## Фаза 1: Реструктуризация URL ✅
-- [x] Переименовать `app/[locale]/(main)/profile/` → `dashboard/`
-- [x] Переместить `messages/` в корень (top-level route)
-- [x] Переместить `favorites/` в корень (top-level route)
-- [x] Добавить редиректы в `next.config.ts`
-- [x] Обновить все внутренние ссылки
-- [x] Обновить E2E и Unit тесты
-- [x] Обновить триггеры уведомлений в БД
+## 📚 Документация проекта
 
-## Фаза 2: Мобильная навигация ✅
-- [x] Создать `components/layout/bottom-tab-bar.tsx`
-- [x] Интегрировать в основной макет
+| Документ | Описание | Для кого |
+|----------|----------|----------|
+| **[IMPLEMENTATION_STATUS.md](.agent/IMPLEMENTATION_STATUS.md)** | 📊 Детальный статус: что сделано, что осталось | Архитектор / Lead |
+| **[TASK_FOR_AI.md](.agent/TASK_FOR_AI.md)** | ⚡ Краткая задача с командами для выполнения | Исполнитель AI |
+| **[plans/REDESIGN_INSTRUCTIONS.md](.agent/plans/REDESIGN_INSTRUCTIONS.md)** | 📖 Полный гайд реализации (603 строки) | Разработчик |
+| **[MEMORY.md](.agent/MEMORY.md)** | 🧠 Правила проекта и запреты | Все AI-агенты |
 
-## Фаза 3: Боковая панель (Sidebar) ✅
-- [x] Добавить заголовки групп (MAIN, ACTIVITY, QUICK ACCESS)
-- [x] Добавить разделители
+---
 
-## Фаза 4: Шапка (Header) ✅
-- [x] Интегрировать строку поиска
-- [x] Добавить быстрые действия
-## Фаза 5: Редизайн страниц (Solid Aesthetic) ✅
-- [x] Применить эстетику "Solid, Clean, Data-Dense" ко всем страницам
-- [x] Dashboard Layout & Shell (Solid background)
-- [x] User Overview
-- [x] Admin Overview
-- [x] User Listings
-- [x] Messages Layout
-- [x] Favorites View
-- [x] Settings & Verification Views
+## ✅ СТАТУС ФАЗ
 
-## Фаза 6: Доверие и безопасность
-- [ ] Значки верификации
-- [ ] Система жалоб (Report system)
+### Фаза 1: URL Реструктуризация ✅ ГОТОВО
+- [x] `profile/` → `dashboard/`
+- [x] Top-level routes: `messages/`, `favorites/`
+- [x] Редиректы и обновление ссылок
 
-## Фаза 7: Монетизация
-- [ ] Страница продвижения
-- [ ] Кошелек (Wallet)
+### Фаза 2: Мобильная навигация ✅ ГОТОВО
+- [x] Bottom Tab Bar
 
-## Фаза 8: Верификация
-- [x] `npm run verify`
+### Фаза 3: Sidebar ✅ ГОТОВО
+- [x] Группы меню
+- [x] Разделители
+
+### Фаза 4: Header ✅ ГОТОВО
+- [x] Поиск
+- [x] Быстрые действия
+
+### Фаза 5: Редизайн страниц ✅ ГОТОВО
+- [x] 41 страница в "Solid, Clean, Data-Dense" стиле
+- [x] Dark mode
+- [x] Mobile responsive
+
+### Фаза 6: Trust & Safety ✅ ГОТОВО
+- [x] Seller Verification View
+- [x] Report System
+
+### Фаза 7: Монетизация 🚧 В ПРОЦЕССЕ
+- [ ] **Promotion Page** (`/dashboard/promote`)
+- [ ] **Transaction History** (в Wallet View)
+- [ ] Pricing Plans
+- [x] Wallet View (базовый)
+- [x] Orders View
+
+### Фаза 8: Финальная верификация ⚠️ ТРЕБУЕТСЯ
+- [ ] `npm run verify` ✅
 - [ ] E2E тесты
+- [ ] Visual testing (dark mode + mobile)
+- [ ] Translation check (no hardcoded text)
+- [ ] **PR dev → main**
 
-## Фаза 9: Переключение тем (Опционально)
-- [ ] Согласно `design-system/THEME_SWITCHING.md`
+### Фаза 9: Theme Switching 🔵 НЕ СРОЧНО
+- [ ] См. `.agent/design-system/THEME_SWITCHING.md`
+
+---
+
+## 🎯 СЛЕДУЮЩИЕ ШАГИ
+
+### Для человека:
+1. Прочитать **IMPLEMENTATION_STATUS.md** - понять общую картину
+2. Решить: делать Фазу 7 сейчас или создать PR после верификации
+
+### Для AI-исполнителя:
+1. Открыть **TASK_FOR_AI.md**
+2. Следовать инструкциям там (4 шага)
+3. Результат: PR готов к merge
+
+---
+
+## 📞 Быстрые команды
+
+```bash
+# Проверка статуса
+cd /home/creator/slovor-mp
+git status
+git log --oneline -5
+
+# Верификация
+npm run verify
+
+# Dev сервер
+npm run dev
+
+# Тесты
+npm run test:e2e
+```
+
+---
+
+## 🚨 ВАЖНО
+
+- Все чат-отчеты на **русском** 🇷🇺
+- Весь код на **английском** 🇬🇧
+- **Zero-Error Policy**: `npm run verify` ОБЯЗАТЕЛЕН
+- **Design**: Solid backgrounds, NO blur/gradients
+- **Git**: Conventional Commits (`feat:`, `fix:`, `chore:`)
