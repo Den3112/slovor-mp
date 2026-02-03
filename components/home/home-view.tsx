@@ -1,10 +1,11 @@
 'use client'
 
 import { Hero } from './hero'
-import { HomeCategories } from './home-categories'
-import { Features } from './features'
+import { CategoriesGrid } from './categories-grid'
+import { RegionsSection } from './regions-section'
+import { HowItWorks } from './how-it-works'
 import { HomeCTA } from './home-cta'
-import { Flame, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
@@ -25,41 +26,39 @@ export function HomeView({
   const { t } = useTranslation(['home', 'common'])
 
   return (
-    <div className="flex flex-col overflow-x-hidden">
+    <div className="flex flex-col scroll-smooth">
       <Hero />
 
       {!categoriesError ? (
-        <HomeCategories categories={categories} />
+        <CategoriesGrid categories={categories} />
       ) : (
         <Container className="py-20">
-          <div className="border-destructive/10 bg-destructive/5 text-destructive rounded-xl border p-12 text-center font-bold">
+          <div className="border-destructive/20 bg-destructive/5 text-destructive rounded-2xl border p-12 text-center font-bold">
             {categoriesError}
           </div>
         </Container>
       )}
 
+      <RegionsSection />
+
       {/* Featured Listings Section */}
-      <section className="border-border/40 bg-muted/20 border-y py-24">
+      <section className="bg-muted/10 border-y border-border/40 py-24">
         <Container>
-          <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="max-w-xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-lg bg-orange-500/10 px-3 py-1 text-[10px] font-black tracking-widest text-orange-600 uppercase">
-                <Flame className="h-3.5 w-3.5 fill-orange-600/20" />
+          <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8 lg:mb-20">
+            <div className="max-w-2xl">
+              <span className="mb-4 inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[10px] font-black tracking-[0.3em] text-primary uppercase border border-primary/20">
                 Trending Now
               </span>
-              <h2 className="font-heading mb-4 text-4xl font-black tracking-tight italic md:text-5xl">
-                {t('featuredListings')}
+              <h2 className="font-heading text-4xl font-black italic tracking-tight md:text-5xl lg:text-6xl">
+                {t('home:featuredListings')}
               </h2>
-              <p className="text-muted-foreground text-lg font-medium">
-                Hand-picked selection of premium items recently published.
-              </p>
             </div>
             <Link
-              href={`/${useTranslation('common').i18n.language}/listings`}
-              className="group text-primary hover:text-primary/80 inline-flex items-center gap-2 text-lg font-bold transition-colors"
+              href="/listings"
+              className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary transition-all hover:opacity-80"
             >
-              Explore All{' '}
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              {t('common:viewAll')}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
@@ -73,8 +72,7 @@ export function HomeView({
           </motion.div>
         </Container>
       </section>
-
-      <Features />
+      <HowItWorks />
 
       <HomeCTA />
     </div>

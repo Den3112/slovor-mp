@@ -21,5 +21,31 @@
   "features": {
     "reimagined": "Reimaginované",
     "forSlovakia": "pre Slovensko"
+  },
+  "categoriesGrid": "Preskúmať kategórie",
+  "regionsTitle": "Populárne podľa regiónov",
+  "howItWorksTitle": "Ako to funguje",
+  "howItWorksStep1": "Vytvoriť",
+  "howItWorksStep1Desc": "Vytvorte si inzerát za 2 minúty",
+  "howItWorksStep2": "Uverejniť",
+  "howItWorksStep2Desc": "Zverejnite zadarmo tisícom ľudí",
+  "howItWorksStep3": "Predať",
+  "howItWorksStep3Desc": "Predajte rýchlo a dostaňte zaplatené",
+  "popularInRegion": "inzerátov",
+  "viewAllVip": "Všetky VIP",
+  "viewAllRecent": "Všetky najnovšie",
+  "readyToSell": "Pripravený predávať?",
+  "createAdIn2Min": "Vytvorte inzerát za 2 minúty!",
+  "postListingBtn": "Pridať inzerát",
+  "megaMenu": {
+    "title": "Kategórie",
+    "viewAll": "Zobraziť všetky kategórie"
+  },
+  "regions": {
+    "bratislava": "Bratislava",
+    "kosice": "Košice",
+    "zilina": "Žilina",
+    "nitra": "Nitra",
+    "banskaBystrica": "Banská Bystrica"
   }
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
-import { Menu, Plus, Search } from 'lucide-react'
+import { Menu, Plus, Search, LayoutGrid } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Container } from '@/components/ui/container'
@@ -18,8 +18,9 @@ import { CommandCenter } from './command-center'
 import { LocationSwitcher } from './location-switcher'
 import { MobileSearchOverlay } from './mobile-search-overlay'
 import { Logo } from '@/components/ui/logo'
-import { Heart, MessageCircle } from 'lucide-react'
+import { Heart, MessageCircle, ChevronDown } from 'lucide-react'
 import { useUnreadMessages } from '@/lib/hooks/use-unread-messages'
+import { MegaMenu } from './mega-menu'
 
 export function Header() {
   const { t, locale } = useTranslation(['common', 'nav'])
@@ -28,6 +29,7 @@ export function Header() {
   const unreadCount = useUnreadMessages()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false)
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -57,8 +59,22 @@ export function Header() {
         <Container>
           <div className="flex h-16 items-center justify-between gap-4">
             {/* Logo Area */}
-            <div className="flex shrink-0 items-center gap-4">
+            <div className="flex shrink-0 items-center gap-6">
               <Logo locale={locale} />
+
+              {/* Trigger for Mega Menu - Desktop */}
+              <button
+                className={cn(
+                  "hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold transition-all hover:bg-muted active:scale-95",
+                  isMegaMenuOpen ? "bg-muted text-primary" : "text-muted-foreground"
+                )}
+                onMouseEnter={() => setIsMegaMenuOpen(true)}
+                onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+              >
+                <LayoutGrid className="w-4 h-4" />
+                <span>{t('nav:categories')}</span>
+                <ChevronDown className={cn("w-4 h-4 transition-transform", isMegaMenuOpen && "rotate-180")} />
+              </button>
             </div>
 
             {/* Search & Location - Desktop */}
@@ -142,6 +158,10 @@ export function Header() {
           </div>
         </Container>
 
+        <MegaMenu
+          isOpen={isMegaMenuOpen}
+          onClose={() => setIsMegaMenuOpen(false)}
+        />
       </header>
 
       <MobileDrawer

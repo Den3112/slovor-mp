@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { X, LogOut, ChevronRight, Plus } from 'lucide-react'
+import { X, LogOut, Plus } from 'lucide-react'
 import { config } from '@/lib/config'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
@@ -97,9 +97,9 @@ export function MobileDrawer({
         <Drawer.Overlay className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md" />
         <AnimatePresence>
           {open && (
-            <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[94vh] flex-col rounded-t-[32px] border-t border-white/10 bg-background/95 shadow-2xl backdrop-blur-2xl outline-hidden overflow-hidden">
+            <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[94vh] flex-col rounded-t-[32px] border-t border-border bg-background shadow-2xl outline-hidden overflow-hidden">
               {/* Drawer Handle */}
-              <div className="mx-auto mt-4 h-1.5 w-12 rounded-full bg-white/20" />
+              <div className="mx-auto mt-4 h-1.5 w-12 rounded-full bg-muted-foreground/20" />
 
               {/* Header */}
               <div className="flex items-center justify-between px-8 py-6">
@@ -108,7 +108,7 @@ export function MobileDrawer({
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">{t('nav:menu') || 'Navigation'}</span>
                 </div>
                 <Drawer.Close asChild>
-                  <button className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/40 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-90">
+                  <button className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground transition-all hover:bg-muted/80 hover:text-foreground active:scale-90">
                     <X className="h-5 w-5" />
                   </button>
                 </Drawer.Close>
@@ -121,18 +121,32 @@ export function MobileDrawer({
                   animate="visible"
                   className="pb-32"
                 >
-                  {/* Main Links */}
-                  <div className="space-y-1.5 py-4">
-                    {NAV_LINKS.main.map(renderLink)}
+                  {/* Marketplace Section */}
+                  <div className="space-y-1.5 px-2 py-4">
+                    <h3 className="mb-4 px-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary/80">
+                      {t('common:exploreMarketplace') || 'Marketplace'}
+                    </h3>
+                    <div className="space-y-1">
+                      {NAV_LINKS.main.map(renderLink)}
+                    </div>
                   </div>
 
-                  <div className="my-6 h-px bg-linear-to-r from-transparent via-border/40 to-transparent" />
+                  <div className="my-2 h-px bg-linear-to-r from-transparent via-border/40 to-transparent" />
 
                   {/* Categories Preview */}
-                  <div className="px-2 pb-6">
-                    <h3 className="mb-4 px-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary/80">
-                      {t('nav:categories')}
-                    </h3>
+                  <div className="px-2 py-4">
+                    <div className="mb-4 flex items-center justify-between px-2">
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/80">
+                        {t('nav:categories')}
+                      </h3>
+                      <Link
+                        href={`/${locale}/categories`}
+                        onClick={() => onOpenChange(false)}
+                        className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {t('common:viewAll')}
+                      </Link>
+                    </div>
                     <div className="grid grid-cols-2 gap-3">
                       {NAV_LINKS.categories.slice(0, 4).map((cat) => {
                         const Icon = cat.icon
@@ -141,45 +155,34 @@ export function MobileDrawer({
                             <Link
                               href={`/${locale}${cat.href}`}
                               onClick={() => onOpenChange(false)}
-                              className="group relative flex h-36 flex-col items-center justify-center gap-4 overflow-hidden rounded-[24px] bg-muted/20 p-6 transition-all hover:bg-muted/40 active:scale-95"
+                              className="group relative flex h-32 flex-col items-center justify-center gap-3 overflow-hidden rounded-[24px] bg-muted/20 p-4 transition-all hover:bg-muted/40 active:scale-95"
                             >
                               <div className={cn(
-                                "flex h-14 w-14 items-center justify-center rounded-2xl shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3",
+                                "flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-3",
                                 cat.color
                               )}>
-                                <Icon className="h-7 w-7 text-white" />
+                                <Icon className="h-6 w-6 text-white" />
                               </div>
-                              <span className="text-xs font-black tracking-tight text-center">{t(cat.label)}</span>
-
-                              {/* Decorative gradient overlay */}
-                              <div className="absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                              <span className="text-[11px] font-black tracking-tight text-center uppercase">{t(cat.label)}</span>
                             </Link>
                           </motion.div>
                         )
                       })}
                     </div>
-                    <motion.div variants={itemVariants}>
-                      <Link
-                        href={`/${locale}/categories`}
-                        onClick={() => onOpenChange(false)}
-                        className="mt-6 flex h-14 w-full items-center justify-center gap-3 rounded-2xl border border-border/40 bg-muted/10 text-sm font-black transition-all hover:bg-muted/30 active:scale-95"
-                      >
-                        {t('viewAll')} <ChevronRight className="h-4 w-4 text-primary" />
-                      </Link>
-                    </motion.div>
                   </div>
 
-                  <div className="my-6 h-px bg-linear-to-r from-transparent via-border/40 to-transparent" />
+                  <div className="my-2 h-px bg-linear-to-r from-transparent via-border/40 to-transparent" />
 
-                  {/* User / Auth Links */}
-                  <div className="space-y-1.5 px-2">
+                  {/* User / Account Section */}
+                  <div className="space-y-1.5 px-2 py-4">
                     <h3 className="mb-4 px-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary/80">
-                      {user ? t('account') : t('guest')}
+                      {user ? t('common:account') || 'Account' : t('common:guest') || 'Guest'}
                     </h3>
 
                     {user ? (
                       <div className="space-y-1.5">
                         {NAV_LINKS.user.map(renderLink)}
+
                         {config.app.adminEmails.includes(user.email || '') && (
                           <motion.div variants={itemVariants}>
                             <Link
@@ -188,9 +191,9 @@ export function MobileDrawer({
                               className="group flex items-center gap-4 rounded-2xl bg-amber-500/10 p-4 text-amber-500 transition-all active:scale-95"
                             >
                               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/20 shadow-lg shadow-amber-500/10 transition-transform group-hover:rotate-3">
-                                <LogOut className="h-5 w-5 rotate-180" />
+                                <Plus className="h-5 w-5 rotate-45" />
                               </div>
-                              <span className="font-heading text-base font-bold tracking-tight">{t('adminPanel')}</span>
+                              <span className="font-heading text-base font-bold tracking-tight">{t('common:adminPanel')}</span>
                             </Link>
                           </motion.div>
                         )}
@@ -201,7 +204,7 @@ export function MobileDrawer({
                               signOut()
                               onOpenChange(false)
                             }}
-                            className="group mt-4 flex w-full items-center gap-4 rounded-2xl p-4 text-destructive transition-all hover:bg-destructive/5 active:scale-95"
+                            className="group mt-2 flex w-full items-center gap-4 rounded-2xl p-4 text-destructive transition-all hover:bg-destructive/5 active:scale-95"
                           >
                             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-destructive/10 transition-transform group-hover:rotate-3">
                               <LogOut className="h-5 w-5" />
@@ -211,12 +214,12 @@ export function MobileDrawer({
                         </motion.div>
                       </div>
                     ) : (
-                      <div className="space-y-4 pt-2">
+                      <div className="grid grid-cols-2 gap-3 pt-2">
                         <motion.div variants={itemVariants}>
                           <Link
                             href={`/${locale}/auth/login`}
                             onClick={() => onOpenChange(false)}
-                            className="flex w-full items-center justify-center rounded-2xl bg-primary py-4 mt-2 text-sm font-black uppercase tracking-widest text-primary-foreground shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all"
+                            className="flex w-full items-center justify-center rounded-2xl bg-primary py-4 text-xs font-black uppercase tracking-widest text-primary-foreground shadow-xl shadow-primary/20 transition-all active:scale-95"
                           >
                             {t('common:signIn')}
                           </Link>
@@ -225,7 +228,7 @@ export function MobileDrawer({
                           <Link
                             href={`/${locale}/auth/register`}
                             onClick={() => onOpenChange(false)}
-                            className="flex w-full items-center justify-center rounded-2xl bg-muted/50 py-4 text-sm font-black uppercase tracking-widest text-foreground hover:bg-muted active:scale-95 transition-all border border-border/40"
+                            className="flex w-full items-center justify-center rounded-2xl bg-muted py-4 text-xs font-black uppercase tracking-widest text-foreground transition-all active:scale-95 border border-border/40"
                           >
                             {t('common:register')}
                           </Link>
@@ -234,9 +237,9 @@ export function MobileDrawer({
                     )}
                   </div>
 
-                  <motion.div variants={itemVariants} className="mt-8 px-2">
+                  <div className="mt-4 border-t border-border/40 px-2 pt-6">
                     <MobileLanguageSelector locale={locale} />
-                  </motion.div>
+                  </div>
                 </motion.div>
               </ScrollArea>
 
