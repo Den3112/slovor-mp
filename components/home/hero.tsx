@@ -14,7 +14,7 @@ export function Hero() {
   const router = useRouter()
   const [query, setQuery] = useState('')
 
-  const popularSearches = ['iPhone', 'BMW', 'Byt', 'Kočík', 'Gauč', 'PS5']
+  const popularSearches = ['iPhone', 'BMW', 'Byt', 'Pohovka', 'Bicykel', 'PS5', 'Práca']
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -68,8 +68,8 @@ export function Hero() {
             className="relative mx-auto max-w-3xl px-2 sm:px-0"
           >
             <div className="group relative">
-              {/* Clean Search Box - SaaS Style */}
-              <div className="bg-card relative flex flex-col gap-3 overflow-hidden rounded-xl border border-border p-2 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 sm:flex-row sm:items-center sm:rounded-xl sm:focus-within:ring-4 ring-primary/10">
+              {/* Clean Search Box - Solid Style */}
+              <div className="bg-background relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-2xl shadow-primary/5 transition-all duration-300 hover:border-primary/40 sm:flex-row sm:items-center sm:focus-within:ring-4 ring-primary/10">
                 <div className="flex flex-1 items-center px-4 py-2 sm:pl-6">
                   <label htmlFor="hero-search" className="sr-only">
                     Search

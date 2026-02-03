@@ -9,7 +9,7 @@
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-03
-> **Status**: ✅ Phase 7 & 8 Overcomplete. Next.js 16 infra stable. UI standardized to "Solid, Clean, Data-Dense" aesthetic. Checked on local dev server. Ready for PR.
+> **Status**: 🚀 Начинаем MASTERPLAN V2. Фаза 1: Homepage & Navigation.
 
 ---
 
@@ -21,48 +21,27 @@
 ---
 
 ## 📌 Current State
-- **Current User Intent**: Полная очистка UI завершена. Верификация пройдена. Создание PR в main.
+- **Current User Intent**: Реализация Фазы 1 Masterplan V2 (Главная страница, Навигация, Mega Menu).
 - **Active Errors / Blockers**: Нет.
-- **Scratchpad / Hypothesis**: Проект готов к релизу Фазы 7. Все страницы (включая блог и контакты) приведены к Solid стилю.
-
-
-- **Branch**: `dev`
-- **Focus**: Final PR to main
-- **Next**: Deployment & Phase 8/9 review
-- **Детальный статус**: См. `.agent/IMPLEMENTATION_STATUS.md`
+- **Current Focus**: [Masterplan V2] - Phase 2: Product & Search Experience
+- **Current Branch**: `feature/masterplan-phase1-homepage` (Will merge to dev soon)
+- **Latest Achievement**: Completed homepage & navigation rework (Mega Menu, Categories Grid, Mobile Drawer).
+- **Next**: Mega Menu & Categories Grid.
+- **Детальный статус**: См. `.agent/plans/implementation_plan_v2_phase1.md`
 
 ---
 
 ## ✅ Completed (Premium Redesign)
 
-1. ✅ Core components (Button, Badge, Input, Card)
-2. ✅ Layout components (Header, Sidebar, DashboardShell)
-3. ✅ Auth, Search, Listing pages
-4. ✅ User Dashboard (Overview, Listings, Wallet, Orders, Reviews)
-5. ✅ Admin Dashboard (Overview, Users, Moderation)
-6. ✅ Messaging & Favorites
-7. ✅ Dark mode verified
-8. ✅ Mobile responsiveness verified
-
----
-
-## 📋 New Architecture Plan
-
-**Documentation**: `.agent/plans/`
-- `ARCHITECTURE_BLUEPRINT.md` - All 41 pages, layouts, components
-- `UX_FUNCTIONALITY_GUIDE.md` - UX patterns, empty states
-- `ADVANCED_FEATURES_GUIDE.md` - Trust, safety, monetization
-
-**8 Main Phases + 1 Optional**:
-1. URL Restructure
-2. Mobile Navigation
-3. Sidebar Restructure
-4. Header Redesign
-5. All 41 Pages
-6. ✅ Trust & Safety
-7. ✅ Monetization
-8. ✅ Final Verification
-9. Theme Switching (Not Urgent)
+1. ✅ Core components (Button, Badge, Input, Card) - Standardized `rounded-xl`.
+2. ✅ Layout components (Header, Sidebar, DashboardShell) - Integrated & Solid.
+3. ✅ Auth, Search, Listing pages - Removed glassmorphism.
+4. ✅ User Dashboard (Overview, Listings, Wallet, Orders, Reviews) - Clean & Data-Dense.
+5. ✅ Admin Dashboard (Overview, Users, Moderation, Content Management) - Fully fixed rounding.
+6. ✅ Messaging & Favorites - Systemic fixes.
+7. ✅ I18n fix: Proxied `useTranslation` + Hydration sync fix (removed from render).
+8. ✅ [Masterplan V2] Phase 1: Completed Homepage & Nav overhaul (Mega Menu, Categories Grid, Regions, Mobile Drawer).
+9. ✅ SEO: `StructuredData` component with breadcrumbs and navigation.
 
 ---
 
@@ -81,20 +60,19 @@
 
 ---
 
-## 🚫 Forbidden Styles
+## 🚫 Forbidden Styles (STRICT)
 
-- NO `backdrop-blur-*`
-- NO `bg-gradient-*`
-- NO `shadow-2xl`
-- NO `rounded-3xl`
-- NO emojis as icons
+- NO `backdrop-blur-*` (Cleaned up in all components).
+- NO `bg-gradient-*`.
+- NO `shadow-2xl`.
+- NO `rounded-3xl` or higher (Except avatars). Standard is `rounded-xl`/`rounded-lg`.
+- NO emojis as icons.
 
 ---
 
 ## 📝 For Next AI Agent
 
-1. **READ** this file first
-2. **READ** `.agent/README.md` for execution order
-3. **READ** `.agent/plans/ARCHITECTURE_BLUEPRINT.md`
-4. Start with Phase 1 (URL restructure)
-5. Run `npm run verify` after each change
+1. **READ** this file first.
+2. Check existing PR #30 before pushing new changes.
+3. If continuing to Phase 9, ensure and maintain the "Solid" aesthetic.
+4. Run `npm run verify` religiously.

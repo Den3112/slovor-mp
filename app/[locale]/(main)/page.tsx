@@ -7,6 +7,33 @@
 import { HomeView } from '@/components/home/home-view'
 import { FeaturedListings } from '@/components/listing/featured'
 import { createClient } from '@/lib/supabase/server'
+import { Metadata } from 'next'
+import { categoriesApi } from '@/lib/api/categories'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+
+  const titles: Record<string, string> = {
+    en: "Slovor - Premium Marketplace in Slovakia",
+    sk: "Slovor - Prémiový bazár na Slovensku",
+    cs: "Slovor - Premiový bazar na Slovensku"
+  }
+
+  const descriptions: Record<string, string> = {
+    en: "Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.",
+    sk: "Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku.",
+    cs: "Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku."
+  }
+
+  return {
+    title: titles[locale] || titles.en,
+    description: descriptions[locale] || descriptions.en,
+    openGraph: {
+      type: 'website',
+      siteName: 'Slovor',
+    }
+  }
+}
 
 /**
  * Incremental Static Regeneration (ISR)
@@ -22,14 +49,12 @@ export const revalidate = 60
 export default async function HomePage() {
   console.log('>>> RENDER HOMEPAGE <<<');
   const supabase = await createClient()
-  const { data: categories, error } = await supabase
-    .from('categories')
-    .select('*')
+  const { data: categories, error } = await categoriesApi.getAll(supabase)
 
   return (
     <HomeView
       categories={categories || []}
-      categoriesError={error?.message || null}
+      categoriesError={error || null}
     >
       <FeaturedListings />
     </HomeView>

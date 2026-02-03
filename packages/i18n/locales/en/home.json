@@ -21,5 +21,31 @@
   "features": {
     "reimagined": "Reimagined",
     "forSlovakia": "for Slovakia"
+  },
+  "categoriesGrid": "Explore Categories",
+  "regionsTitle": "Popular by Regions",
+  "howItWorksTitle": "How It Works",
+  "howItWorksStep1": "Create",
+  "howItWorksStep1Desc": "Create your listing in 2 minutes",
+  "howItWorksStep2": "Publish",
+  "howItWorksStep2Desc": "Publish for free to thousands",
+  "howItWorksStep3": "Sell",
+  "howItWorksStep3Desc": "Sell fast and get paid",
+  "popularInRegion": "listings",
+  "viewAllVip": "All VIP",
+  "viewAllRecent": "All Latest",
+  "readyToSell": "Ready to sell?",
+  "createAdIn2Min": "Create an ad in 2 minutes!",
+  "postListingBtn": "Post an ad",
+  "megaMenu": {
+    "title": "Categories",
+    "viewAll": "View all categories"
+  },
+  "regions": {
+    "bratislava": "Bratislava",
+    "kosice": "Košice",
+    "zilina": "Žilina",
+    "nitra": "Nitra",
+    "banskaBystrica": "Banská Bystrica"
   }
 }
