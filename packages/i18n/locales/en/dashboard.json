@@ -42,5 +42,28 @@
   "viewsOverTime": "Views over time",
   "activityFeed": "Activity",
   "growth": "growth",
-  "savedSearches": "Saved Searches"
+  "savedSearches": "Saved Searches",
+  "wallet": {
+    "title": "Wallet",
+    "addFunds": "Add Funds",
+    "refillBalance": "Refill Balance",
+    "addCreditsDescription": "Add credits to your account instantly.",
+    "amount": "Amount",
+    "selectMethod": "Select Method",
+    "confirmPayment": "Confirm and Pay",
+    "expenses": "Expenses",
+    "refill": "Refill",
+    "promotion_top": "Top Position",
+    "promotion_highlight": "Premium Highlight",
+    "subscription": "Subscription"
+  },
+  "promote": {
+    "title": "Promotion",
+    "subtitle": "Boost your item's visibility",
+    "selectListing": "Select Listing",
+    "selectPlan": "Select Plan",
+    "confirmPromote": "Confirm Promotion",
+    "success": "Listing promoted successfully!",
+    "error": "Error setting up promotion"
+  }
 }

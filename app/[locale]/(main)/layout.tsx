@@ -12,7 +12,7 @@ export default function MainLayout({
         <div className="relative flex min-h-screen flex-col">
             <Suspense
                 fallback={
-                    <div className="bg-background/80 h-16 border-b border-white/5 backdrop-blur-md" />
+                    <div className="bg-background h-16 border-b border-border" />
                 }
             >
                 <Header />
