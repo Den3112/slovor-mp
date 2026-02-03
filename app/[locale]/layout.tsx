@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { StructuredData } from '@/components/layout/structured-data'
 import { Providers } from '../providers'
 import { Analytics } from '@vercel/analytics/react'
@@ -7,13 +6,10 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import '../globals.css'
 import { cn } from '@/lib/utils'
 
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-heading' })
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' })
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-})
+// Fallback system fonts to bypass next/font/google build issues in some environments
+const fontHeading = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+const fontSans = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+const fontMono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 
 export const metadata: Metadata = {
   title: {
@@ -59,7 +55,12 @@ export default async function RootLayout({
       lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${spaceGrotesk.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+      style={{
+        // @ts-ignore
+        '--font-heading': fontHeading,
+        '--font-sans': fontSans,
+        '--font-mono': fontMono,
+      } as React.CSSProperties}
     >
       <head>
         <meta charSet="utf-8" />

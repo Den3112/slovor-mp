@@ -42,5 +42,28 @@
     "viewsOverTime": "Просмотры за время",
     "activityFeed": "Активность",
     "growth": "рост",
-    "savedSearches": "Сохраненные поиски"
+    "savedSearches": "Сохраненные поиски",
+    "wallet": {
+        "title": "Кошелек",
+        "addFunds": "Пополнить",
+        "refillBalance": "Пополнение баланса",
+        "addCreditsDescription": "Пополните ваш счет мгновенно.",
+        "amount": "Сумма",
+        "selectMethod": "Выберите способ",
+        "confirmPayment": "Подтвердить и оплатить",
+        "expenses": "Расходы",
+        "refill": "Пополнение",
+        "promotion_top": "Поднятие в топ",
+        "promotion_highlight": "Премиум выделение",
+        "subscription": "Подписка"
+    },
+    "promote": {
+        "title": "Продвижение",
+        "subtitle": "Ускорьте продажу вашего товара",
+        "selectListing": "Выберите объявление",
+        "selectPlan": "Выберите тариф",
+        "confirmPromote": "Подтвердить продвижение",
+        "success": "Объявление успешно продвинуто!",
+        "error": "Ошибка при настройке продвижения"
+    }
 }

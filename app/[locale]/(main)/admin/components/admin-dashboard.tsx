@@ -102,10 +102,10 @@ export function AdminDashboard({ userEmail }: AdminDashboardProps) {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((card, i) => (
-          <div key={i} className="bg-card/50 border border-border/50 rounded-3xl p-6 shadow-xl shadow-black/5 hover:bg-card transition-colors group">
+          <div key={i} className="bg-card border border-border rounded-xl p-6 shadow-sm hover:border-primary/30 transition-colors group">
             <div className="flex items-center justify-between mb-4">
               <div className={cn(
-                "p-3 rounded-2xl transition-transform group-hover:scale-110",
+                "p-3 rounded-xl transition-all",
                 colorStyles[card.color as keyof typeof colorStyles]
               )}>
                 <card.icon className="h-6 w-6" />
@@ -127,7 +127,7 @@ export function AdminDashboard({ userEmail }: AdminDashboardProps) {
       {/* Main Content Area */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Activity Chart Area */}
-        <div className="lg:col-span-8 bg-card/50 border border-border/50 rounded-5xl p-8 min-h-[400px]">
+        <div className="lg:col-span-8 bg-card border border-border rounded-xl p-8 min-h-[400px]">
           <div className="flex items-center justify-between mb-8">
             <h3 className="text-xl font-black tracking-tight flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-primary" />
@@ -146,7 +146,7 @@ export function AdminDashboard({ userEmail }: AdminDashboardProps) {
 
         {/* Action Center */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-card/50 border border-border/50 rounded-5xl p-8">
+          <div className="bg-card border border-border rounded-xl p-8">
             <h3 className="text-xl font-black tracking-tight mb-6 flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-orange-500" />
               {t('admin.actionCenter')}
@@ -154,7 +154,7 @@ export function AdminDashboard({ userEmail }: AdminDashboardProps) {
 
             <div className="space-y-4">
               <Link href="/admin/listings" className="block">
-                <div className="flex items-center justify-between p-4 bg-orange-500/5 border border-orange-500/10 rounded-2xl group cursor-pointer hover:bg-orange-500/10 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-muted border border-border rounded-xl group cursor-pointer hover:border-primary/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-500 font-bold">
                       {stats.pendingModeration}
@@ -169,7 +169,7 @@ export function AdminDashboard({ userEmail }: AdminDashboardProps) {
               </Link>
 
               <Link href="/admin/reports" className="block">
-                <div className="flex items-center justify-between p-4 bg-blue-500/5 border border-blue-500/10 rounded-2xl group cursor-pointer hover:bg-blue-500/10 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-muted border border-border rounded-xl group cursor-pointer hover:border-primary/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-500 font-bold">
                       {stats.recentReports}
@@ -185,7 +185,7 @@ export function AdminDashboard({ userEmail }: AdminDashboardProps) {
             </div>
           </div>
 
-          <div className="bg-primary rounded-5xl p-8 text-primary-foreground relative overflow-hidden group">
+          <div className="bg-primary rounded-xl p-8 text-primary-foreground relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
               <ShieldCheck className="h-32 w-32" />
             </div>
