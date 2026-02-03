@@ -9,7 +9,7 @@
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-03
-> **Status**: 🚀 Начинаем MASTERPLAN V2. Фаза 1: Homepage & Navigation.
+> **Status**: 🚀 Фаза 2 Masterplan V2 — Типы и тесты починены. Actions исправлены.
 
 ---
 
@@ -24,12 +24,9 @@
 - **Current User Intent**: Реализация Фазы 1 Masterplan V2 (Главная страница, Навигация, Mega Menu).
 - **Active Errors / Blockers**: Нет.
 - **Current Focus**: [Masterplan V2] - Phase 2: Product & Search Experience
-- **Current Branch**: `feature/masterplan-phase1-homepage` (Will merge to dev soon)
-- **Focus**: Phase 2: Listing & Dashboard Refinement (Masterplan V2)
-- **Status**: Database migration for Phase 2 created. ListingCard refined with premium aesthetic. Types updated.
-- **Next Up**: Search page sidebar improvements and Dashboard Wallet integration.
-- **Latest Achievement**: Completed Phase 1 (Homepage & Navigation). Started Phase 2.
-- **Детальный статус**: См. `.agent/plans/implementation_plan_v2_phase2.md`
+- **Current Branch**: `feature/phase2-listing-dashboard-dynamic-filters`
+- **Latest Achievement**: Исправлены типы транзакций (добавлены `refill`, `promotion_top/highlight`), починены тесты фильтров и CI Verification (`npm run verify` проходит).
+- **Детальный статус**: Фаза 2 активна. См. `.agent/plans/implementation_plan_v2_phase2.md`
 
 ---
 
