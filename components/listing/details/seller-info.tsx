@@ -34,7 +34,7 @@ export function SellerInfoCard({ seller }: SellerInfoCardProps) {
           </span>
           {seller.verified && (
             <>
-              <span className="bg-border h-1 w-1 rounded-full" />
+              <span className="bg-border h-1 w-1 rounded-sm" />
               <div className="flex items-center gap-1 font-medium text-emerald-600">
                 <ShieldCheck className="h-3 w-3" />
                 {t('trust.verified')}

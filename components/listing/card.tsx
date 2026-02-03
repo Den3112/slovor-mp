@@ -164,13 +164,13 @@ export function ListingCard({
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary/90 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide text-white uppercase shadow-sm md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-primary px-2.5 py-1 text-[9px] font-black tracking-wide text-white uppercase shadow-sm rounded-lg md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-background text-foreground flex items-center gap-1 px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-sm rounded-lg md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest border border-border/40">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
               {t('new')}
             </div>
@@ -183,9 +183,8 @@ export function ListingCard({
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[9px] font-bold text-white md:bottom-3 md:left-3 md:px-2 md:text-[10px]">
-
-            {listing.images.length} PHOTOS
+          <div className="absolute bottom-3 left-3 rounded-lg bg-black/70 px-2.5 py-1 text-[9px] font-black text-white md:bottom-3 md:left-3 md:px-2 md:text-[10px] tracking-widest border border-white/10 uppercase">
+            {listing.images.length} {t('photos') || 'PHOTOS'}
           </div>
         )}
       </div>
