@@ -27,7 +27,7 @@ export function LocationSwitcher() {
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
-                    "bg-muted/20 hover:bg-muted/40 border-border/40 group flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all active:scale-95",
+                    "bg-muted/20 hover:bg-muted/40 border-border/40 group flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-bold transition-all active:scale-95",
                     isOpen && "border-primary/50 bg-background shadow-lg"
                 )}
             >
@@ -53,7 +53,7 @@ export function LocationSwitcher() {
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                            className="border-border/40 bg-background/95 absolute right-0 top-full z-50 mt-2 min-w-[200px] gap-1 overflow-hidden rounded-2xl border p-2 shadow-2xl backdrop-blur-xl"
+                            className="border-border/40 bg-background/95 absolute right-0 top-full z-50 mt-2 min-w-[200px] gap-1 overflow-hidden rounded-xl border p-2 shadow-2xl"
                         >
                             <div className="mb-2 px-3 py-1 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
                                 {t('common.location')}

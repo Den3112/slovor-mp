@@ -35,12 +35,12 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
               {t('categoriesTitle')}
             </h2>
             <p className="text-muted-foreground max-w-md text-base font-medium opacity-70 md:max-w-lg md:text-xl">
-              {t('categories.subtitle')}
+              {t('categoriesSubtitle')}
             </p>
           </div>
           <Link
             href="/categories"
-            className="group border-border/50 bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 text-xs font-black tracking-widest uppercase transition-all md:gap-3 md:px-8 md:py-4 md:text-sm"
+            className="group border-border/50 bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary inline-flex w-fit items-center gap-2 rounded-xl border px-5 py-3 text-xs font-black tracking-widest uppercase transition-all md:gap-3 md:px-8 md:py-4 md:text-sm"
           >
             {t('common:viewAll')}
             <ArrowRight className="text-primary h-4 w-4 transition-transform group-hover:translate-x-1 md:h-5 md:w-5" />
@@ -60,7 +60,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
                 href={`/categories/${category.slug}`}
                 className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-6 text-center shadow-sm transition-all hover:border-primary/50 hover:shadow-md active:scale-[0.98]"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <CategoryIcon
                     slug={category.slug}
                     className="h-6 w-6"

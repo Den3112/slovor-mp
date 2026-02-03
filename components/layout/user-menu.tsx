@@ -37,8 +37,8 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
         aria-expanded={showUserMenu}
         className="group relative flex items-center gap-2"
       >
-        <div className="from-primary shadow-primary/10 h-9 w-9 rounded-full bg-linear-to-tr via-violet-500 to-indigo-500 p-[1.5px] shadow-lg transition-transform group-hover:scale-105">
-          <div className="border-primary/10 bg-card text-primary relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border font-black">
+        <div className="from-primary shadow-primary/10 h-9 w-9 rounded-xl bg-linear-to-tr via-violet-500 to-indigo-500 p-[1.5px] shadow-lg transition-transform group-hover:scale-105">
+          <div className="border-primary/10 bg-card text-primary relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl border font-black">
             {user.user_metadata?.avatar_url ? (
               <Image
                 src={user.user_metadata.avatar_url}
@@ -52,7 +52,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
           </div>
         </div>
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white ring-2 ring-background">
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-md bg-primary text-[10px] font-black text-white ring-2 ring-background">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -63,7 +63,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="shadow-premium border-border bg-card/95 absolute right-0 z-50 mt-3 w-60 overflow-hidden rounded-2xl border backdrop-blur-2xl"
+            className="shadow-premium border-border bg-card/95 absolute right-0 z-50 mt-3 w-60 overflow-hidden rounded-xl border"
           >
             <div className="border-border/50 bg-muted/30 border-b px-5 py-4">
               <p className="text-primary mb-1 text-[10px] font-black tracking-[0.2em] uppercase">
