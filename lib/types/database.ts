@@ -123,14 +123,47 @@ export interface SavedListing {
   listing?: Listing
 }
 
+export interface Wallet {
+  id: string
+  user_id: string
+  balance: number
+  currency: string
+  created_at: string
+  updated_at: string
+}
+
 export interface Transaction {
   id: string
   user_id: string
+  wallet_id?: string
   amount: number
   currency: string
-  type: 'promotion_top' | 'promotion_highlight' | 'subscription' | 'refill'
+  type: 'deposit' | 'withdrawal' | 'promotion' | 'subscription' | 'payout' | 'refill' | 'promotion_top' | 'promotion_highlight'
   status: 'pending' | 'completed' | 'failed' | 'refunded'
+  description?: string | null
   metadata: Record<string, any>
+  created_at: string
+}
+
+export interface Promotion {
+  id: string
+  listing_id: string
+  user_id: string
+  type: 'highlight' | 'top_search' | 'urgent' | 'homepage_featured'
+  starts_at: string
+  ends_at: string
+  cost: number
+  status: 'active' | 'expired' | 'cancelled'
+  created_at: string
+}
+
+export interface UserSubscription {
+  id: string
+  user_id: string
+  plan_type: 'free' | 'pro' | 'business'
+  status: string
+  current_period_end: string | null
+  cancel_at_period_end: boolean
   created_at: string
 }
 
@@ -175,6 +208,15 @@ export interface UserVerification {
   document_data: Record<string, any>
   status: 'pending' | 'verified' | 'rejected'
   verified_at: string | null
+  created_at: string
+}
+
+export interface ActivityLog {
+  id: string
+  user_id: string | null
+  action: string
+  metadata: Record<string, any>
+  ip_address: string | null
   created_at: string
 }
 

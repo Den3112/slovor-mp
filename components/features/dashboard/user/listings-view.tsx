@@ -6,6 +6,7 @@ import { Plus, Package, Eye, Heart, Search, Filter } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
@@ -153,59 +154,75 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                         <TableBody>
                             {filteredListings.length > 0 ? (
                                 filteredListings.map((listing) => (
-                                    <TableRow key={listing.id} className="hover:bg-accent/40 transition-colors group">
-                                        <TableCell className="px-6 py-4">
-                                            <div className="flex items-center gap-4">
-                                                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border/10 bg-muted">
+                                    <TableRow key={listing.id} className="hover:bg-accent/40 border-b border-border/40 transition-colors group">
+                                        <TableCell className="px-4 py-3 sm:px-6">
+                                            <div className="flex items-center gap-3 sm:gap-4">
+                                                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border/10 bg-muted shadow-sm">
                                                     {listing.images?.[0] ? (
                                                         <Image
                                                             src={listing.images[0]}
                                                             alt={listing.title}
                                                             fill
-                                                            className="object-cover transition-transform group-hover:scale-110"
+                                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
                                                             unoptimized
                                                         />
                                                     ) : (
-                                                        <div className="flex h-full w-full items-center justify-center text-muted-foreground/40">
-                                                            <Package className="h-5 w-5" />
+                                                        <div className="flex h-full w-full items-center justify-center text-muted-foreground/30">
+                                                            <Package className="h-6 w-6" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="min-w-0">
+                                                <div className="min-w-0 space-y-0.5">
                                                     <Link
                                                         href={`/listings/${listing.id}`}
-                                                        className="block truncate font-bold text-sm hover:text-primary transition-colors max-w-[200px] sm:max-w-md"
+                                                        className="block truncate font-bold text-sm hover:text-primary transition-colors max-w-[180px] sm:max-w-xs md:max-w-md"
                                                     >
                                                         {listing.title}
                                                     </Link>
-                                                    <p className="text-[10px] text-muted-foreground mt-0.5 uppercase tracking-wider font-medium">#{listing.id.split('-')[0]}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        {listing.category?.name && (
+                                                            <span className="text-[9px] font-black uppercase tracking-widest text-primary/60">
+                                                                {listing.category.name}
+                                                            </span>
+                                                        )}
+                                                        <span className="text-[9px] text-muted-foreground/40 font-black uppercase tracking-widest">#{listing.id.split('-')[0]}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="font-heading text-base font-black tracking-tight">{listing.price} {listing.currency}</span>
+                                        <TableCell className="px-4 py-3 sm:px-6">
+                                            <span className="font-heading text-base font-black tracking-tight whitespace-nowrap">
+                                                {listing.price.toLocaleString()} {listing.currency}
+                                            </span>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
+                                        <TableCell className="px-4 py-3 sm:px-6">
                                             <Badge
-                                                variant={listing.status === 'active' ? 'success' : 'secondary'}
-                                                className="rounded-md px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest"
+                                                variant={listing.status === 'active' ? 'success' : listing.status === 'sold' ? 'secondary' : 'outline'}
+                                                className={cn(
+                                                    "rounded-lg px-2.5 py-1 text-[9px] font-black uppercase tracking-widest shadow-sm",
+                                                    listing.status === 'active' ? "bg-success/10 text-success border-success/20" :
+                                                        listing.status === 'sold' ? "bg-muted/50 text-muted-foreground border-border/60" :
+                                                            "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                                                )}
                                             >
-                                                {listing.status}
+                                                {listing.status || 'unknown'}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
+                                        <TableCell className="px-4 py-3 sm:px-6">
                                             <div className="flex items-center gap-4 text-[11px] font-bold text-muted-foreground/70">
-                                                <span className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-help">
-                                                    <Eye className="h-3.5 w-3.5" /> {listing.views_count || 0}
-                                                </span>
-                                                <span className="flex items-center gap-1.5 hover:text-pink-500 transition-colors cursor-help">
-                                                    <Heart className="h-3.5 w-3.5" /> {listing.favorites_count || 0}
-                                                </span>
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-help">
+                                                        <Eye className="h-3 w-3" /> {listing.views_count || 0}
+                                                    </span>
+                                                    <span className="flex items-center gap-1.5 hover:text-pink-500 transition-colors cursor-help">
+                                                        <Heart className="h-3 w-3" /> {listing.favorites_count || 0}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="text-muted-foreground font-medium text-xs whitespace-nowrap">
-                                                {new Date(listing.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
+                                        <TableCell className="px-4 py-3 sm:px-6">
+                                            <span className="text-muted-foreground/60 font-bold text-[10px] uppercase tracking-widest whitespace-nowrap">
+                                                {new Date(listing.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}
                                             </span>
                                         </TableCell>
                                         <TableCell className="px-6 py-4 text-right">

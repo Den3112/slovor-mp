@@ -1,7 +1,7 @@
 // All Listings Page - Server Component
 // Shows all listings with search and filters
 
-import { listingsApi } from '@/lib/api'
+import { listingsApi, categoriesApi } from '@/lib/api'
 import { ListingsView } from '@/components/listing/view'
 
 export const revalidate = 60
@@ -9,7 +9,7 @@ export const revalidate = 60
 const ITEMS_PER_PAGE = 12
 
 interface Props {
-  searchParams: Promise<{
+  searchParams: {
     search?: string
     category?: string
     priceMin?: string
@@ -17,11 +17,11 @@ interface Props {
     condition?: string
     location?: string
     sort?: string
-  }>
+  }
 }
 
 export default async function ListingsPage({ searchParams }: Props) {
-  const params = await searchParams
+  const params = searchParams
 
   const filterOptions = {
     search: params.search,
@@ -33,17 +33,19 @@ export default async function ListingsPage({ searchParams }: Props) {
     sort: params.sort,
   }
 
-  // Fetch first page and total count in parallel
-  const [listingsResult, countResult] = await Promise.all([
+  // Fetch listings, total count and categories in parallel
+  const [listingsResult, countResult, categoriesResult] = await Promise.all([
     listingsApi.getAll({ ...filterOptions, limit: ITEMS_PER_PAGE }),
     listingsApi.getCount(filterOptions),
+    categoriesApi.getAll(),
   ])
 
   return (
     <ListingsView
       initialListings={listingsResult.data || []}
       totalCount={countResult.data || 0}
-      error={listingsResult.error}
+      categories={categoriesResult.data || []}
+      error={listingsResult.error || categoriesResult.error}
       searchQuery={params.search}
       filters={filterOptions}
     />
