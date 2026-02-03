@@ -13,10 +13,7 @@
     "title": "Find what you need",
     "subtitle": "Thousands of listings every day"
   },
-  "categories": {
-    "title": "Browse Categories",
-    "subtitle": "Explore our popular categories"
-  },
+  "categoriesSubtitle": "Explore our popular categories",
   "featured": {
     "title": "Featured Listings",
     "subtitle": "Best deals of the week"

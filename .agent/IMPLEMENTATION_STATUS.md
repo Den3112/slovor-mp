@@ -35,9 +35,11 @@
 - ✅ Report System
 
 ### Фаза 7: Монетизация ✅ ЗАВЕРШЕНО
-- ✅ Promotion Page (`/dashboard/promote`)
-- ✅ Transaction History в Wallet
+- ✅ Promotion Page UI (`/dashboard/promote`)
+- ✅ Transaction History Logic & UI
+- ✅ Integration with i18n
 - ✅ Styling standardized to "Solid, Clean, Data-Dense"
+- ✅ **Infrastructure Upgrade**: Updated to Next.js 16, replaced `middleware.ts` with `proxy.ts`.
 
 ---
 

@@ -24,11 +24,11 @@ export function ThemeToggle({ className }: { className?: string }) {
           maxHeight: '40px',
         }}
         className={cn(
-          'border-border/40 bg-muted/20 flex items-center justify-center rounded-full border',
+          'border-border/40 bg-muted/20 flex items-center justify-center rounded-xl border',
           className
         )}
       >
-        <div className="bg-muted h-4 w-4 animate-pulse rounded-full" />
+        <div className="bg-muted h-4 w-4 animate-pulse rounded-md" />
       </button>
     )
   }
@@ -45,7 +45,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         maxHeight: '40px',
       }}
       className={cn(
-        'group border-border/40 hover:border-primary/50 relative flex shrink-0 items-center justify-center rounded-full border transition-all',
+        'group border-border/40 hover:border-primary/50 relative flex shrink-0 items-center justify-center rounded-xl border transition-all',
         isDark
           ? 'bg-muted/20 hover:bg-muted/40'
           : 'bg-primary/10 hover:bg-primary/20',

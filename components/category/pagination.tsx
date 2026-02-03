@@ -127,8 +127,8 @@ export function Pagination({ totalItems, itemsPerPage = 20 }: PaginationProps) {
               variant={isActive ? 'default' : 'outline'}
               className={
                 isActive
-                  ? 'bg-primary text-primary-foreground shadow-primary/25 ring-primary hover:bg-primary/90 h-10 w-10 rounded-full shadow-lg ring-2 ring-offset-2'
-                  : 'border-border/50 bg-card text-muted-foreground hover:bg-muted hover:text-foreground h-10 w-10 rounded-full'
+                  ? 'bg-primary text-primary-foreground shadow-primary/25 ring-primary hover:bg-primary/90 h-10 w-10 rounded-xl shadow-lg ring-2 ring-offset-2'
+                  : 'border-border/50 bg-card text-muted-foreground hover:bg-muted hover:text-foreground h-10 w-10 rounded-xl'
               }
             >
               {pageNum}

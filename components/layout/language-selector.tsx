@@ -36,7 +36,7 @@ export function LanguageSelector() {
         onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
         aria-label="Select language"
         aria-expanded={showLangMenu}
-        className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-full border px-3 py-2.5 text-[10px] font-black tracking-widest uppercase transition-all"
+        className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-xl border px-3 py-2.5 text-[10px] font-black tracking-widest uppercase transition-all"
       >
         <div className="bg-muted flex h-4 w-5 items-center justify-center overflow-hidden rounded-sm shadow-sm">
           <div className="h-full w-full scale-125 transform saturate-[1.2]">
@@ -57,7 +57,7 @@ export function LanguageSelector() {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="shadow-premium border-border bg-card/90 absolute right-0 z-50 mt-3 w-44 overflow-hidden rounded-2xl border p-2 backdrop-blur-2xl"
+            className="shadow-premium border-border bg-card/95 absolute right-0 z-50 mt-3 w-44 overflow-hidden rounded-xl border p-2"
           >
             {SUPPORTED_LOCALES.map((lang) => (
               <button
@@ -77,7 +77,7 @@ export function LanguageSelector() {
                 </div>
                 <span className="flex-1 text-left">{lang.name}</span>
                 {locale === lang.code && (
-                  <div className="shadow-glow h-1.5 w-1.5 rounded-full bg-white" />
+                  <div className="shadow-glow h-1.5 w-1.5 rounded-sm bg-white" />
                 )}
               </button>
             ))}
@@ -117,7 +117,7 @@ export function MobileLanguageSelector({
             key={lang.code}
             onClick={() => setLocale(lang.code)}
             className={cn(
-              'flex flex-col items-center gap-2 rounded-2xl border py-4 font-bold transition-all',
+              'flex flex-col items-center gap-2 rounded-xl border py-4 font-bold transition-all',
               locale === lang.code
                 ? 'border-primary bg-primary/10 text-primary shadow-sm'
                 : 'border-border/50 bg-muted/30 text-muted-foreground'

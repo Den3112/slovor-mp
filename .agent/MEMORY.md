@@ -9,7 +9,14 @@
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-03
-> **Status**: ✅ Phase 7 Complete. UI Primitives (Avatar, Dialog, Dropdown) refactored to Solid.
+> **Status**: ✅ Phase 7 Complete. 🛠 Infrastructure updated (Next.js 16, proxy.ts). UI Primitives (Avatar, Dialog, Dropdown) refactored to Solid.
+
+---
+
+## ⚡️ Framework Invariants (Next.js 16+)
+- **Middleware is Deprecated**: Use `proxy.ts` (root) instead of `middleware.ts`.
+- **Proxy Function**: The entry point in `proxy.ts` must be `export async function proxy(request: NextRequest)`.
+- **Middleware Convention**: `middleware.ts` is now `proxy.ts` for routing, redirects, and header manipulation.
 
 ---
 

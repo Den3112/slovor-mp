@@ -43,7 +43,7 @@ export function HomeView({
         <Container>
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="max-w-xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-3 py-1 text-[10px] font-black tracking-widest text-orange-600 uppercase">
+              <span className="mb-4 inline-flex items-center gap-2 rounded-lg bg-orange-500/10 px-3 py-1 text-[10px] font-black tracking-widest text-orange-600 uppercase">
                 <Flame className="h-3.5 w-3.5 fill-orange-600/20" />
                 Trending Now
               </span>
