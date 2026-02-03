@@ -11,7 +11,7 @@ interface SellerInfoCardProps {
 }
 
 export function SellerInfoCard({ seller }: SellerInfoCardProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['listing', 'seller', 'trust', 'common'])
 
   return (
     <Link

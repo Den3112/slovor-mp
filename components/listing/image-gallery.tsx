@@ -130,14 +130,14 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
+              className="absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
+              className="absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />
@@ -147,7 +147,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
         {/* Image Counter */}
         {validImages.length > 1 && (
-          <div className="absolute right-4 bottom-4 z-20 rounded-md bg-black/70 px-2 py-1 text-xs font-medium text-white">
+          <div className="absolute right-4 bottom-4 z-20 rounded-lg bg-black/70 px-2 py-1 text-xs font-medium text-white">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}

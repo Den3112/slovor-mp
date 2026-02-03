@@ -118,7 +118,7 @@ export function BlogManager() {
             <div className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-300 shadow-sm">
                 <div className="flex items-center justify-between">
                     <h3 className="text-xl font-black italic">{editingPost.id ? t('admin.editPost') : t('admin.newPost')}</h3>
-                    <Button variant="ghost" size="sm" onClick={handleCancel} className="rounded-full">
+                    <Button variant="ghost" size="sm" onClick={handleCancel} className="rounded-xl">
                         <X className="h-4 w-4" />
                     </Button>
                 </div>
@@ -188,7 +188,7 @@ export function BlogManager() {
                             value={editingPost.content || ''}
                             onChange={e => setEditingPost({ ...editingPost, content: e.target.value })}
                             placeholder={t('admin.contentMarkdown')}
-                            className="w-full min-h-[300px] p-4 rounded-2xl bg-muted/50 border border-border/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all font-mono text-sm"
+                            className="w-full min-h-[300px] p-4 rounded-xl bg-muted/50 border border-border/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all font-mono text-sm"
                             required
                         />
                     </div>

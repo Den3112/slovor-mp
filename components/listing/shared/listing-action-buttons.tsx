@@ -23,7 +23,7 @@ export function ListingActionButtons({
   onCall,
   className,
 }: ListingActionButtonsProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['listing', 'common'])
 
   return (
     <div className={cn('space-y-4', className)}>

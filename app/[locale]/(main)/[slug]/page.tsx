@@ -33,7 +33,7 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
             <Container className="pt-32 md:pt-40">
                 <div className="mx-auto max-w-4xl">
                     <div className="mb-8 flex items-center gap-4 animate-in fade-in slide-in-from-top-4 duration-700">
-                        <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-2xl">
+                        <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-xl">
                             <FileText className="text-primary h-6 w-6" />
                         </div>
                         <div className="flex-1">
@@ -52,7 +52,7 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
                         </div>
                     </div>
 
-                    <div className="shadow-premium border-border/50 bg-card/40 max-w-none rounded-5xl border p-8 backdrop-blur-md md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+                    <div className="shadow-premium border-border/50 bg-card max-w-none rounded-xl border p-8 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
                         {/*
                             Content rendering:
                             Since we use premium design, we ensure the content is styled.

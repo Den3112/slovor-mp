@@ -21,7 +21,7 @@ export function AuthSocial({
       <Button
         type="button"
         variant="outline"
-        className="group border-border/40 bg-background/50 hover:bg-muted/50 h-14 w-full rounded-2xl text-base font-bold transition-all hover:scale-[1.02] hover:border-indigo-500/30 active:scale-95"
+        className="group border-border/40 bg-background/50 hover:bg-muted/50 h-14 w-full rounded-xl text-base font-bold transition-all hover:scale-[1.02] hover:border-indigo-500/30 active:scale-95"
         onClick={onGoogleLogin}
         disabled={googleLoading || loading}
       >
@@ -58,7 +58,7 @@ export function AuthSocial({
           <span className="w-full border-t border-white/10" />
         </div>
         <div className="relative flex justify-center text-[10px] tracking-widest uppercase">
-          <span className="bg-background/80 text-muted-foreground px-2 backdrop-blur">
+          <span className="bg-background/80 text-muted-foreground px-2">
             {t('orContinueWith')}
           </span>
         </div>

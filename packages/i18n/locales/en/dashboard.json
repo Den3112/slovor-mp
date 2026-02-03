@@ -43,6 +43,10 @@
   "activityFeed": "Activity",
   "growth": "growth",
   "savedSearches": "Saved Searches",
+  "promoteListings": "Promote Listings",
+  "thisWeek": "This week",
+  "quickActions": "Quick Actions",
+  "status": "Status",
   "wallet": {
     "title": "Wallet",
     "addFunds": "Add Funds",

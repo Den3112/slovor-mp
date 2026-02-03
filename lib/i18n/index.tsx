@@ -27,11 +27,6 @@ const LOCALE_COOKIE_KEY = 'slovor-locale'
 export function I18nProvider({ children, lang }: { children: ReactNode; lang?: string }) {
   const { t, i18n } = useI18nextTranslation()
 
-  // Important: Sync language immediately for SSR and first client render
-  // This ensures the t() function inside the provider uses the correct locale
-  if (lang && i18n.language !== lang && ['en', 'sk', 'cs', 'ru'].includes(lang)) {
-    i18n.changeLanguage(lang)
-  }
 
   const initialLocale = (lang as Locale) || (i18n.language as Locale) || 'en'
   const [locale, setLocaleState] = useState<Locale>(initialLocale)

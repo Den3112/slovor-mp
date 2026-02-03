@@ -37,7 +37,7 @@ export function SellerProfileView({
   listings,
   variant = 'public',
 }: SellerProfileViewProps) {
-  const { t, locale } = useTranslation()
+  const { t, locale } = useTranslation(['seller', 'common', 'listing', 'trust'])
   const { user } = useAuth()
   const router = useRouter()
   const [isContacting, setIsContacting] = useState(false)
@@ -208,7 +208,7 @@ export function SellerProfileView({
                       <div className="text-muted-foreground flex items-center justify-center gap-2 pt-2">
                         <Calendar className="h-3.5 w-3.5" />
                         <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
-                          Joined {memberSince}
+                          {t('seller.memberSince')} {memberSince}
                         </span>
                       </div>
                     </div>
