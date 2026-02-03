@@ -30,7 +30,7 @@ const LOCATIONS = [
 
 export function ListingFilters() {
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['filters', 'common'])
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
 

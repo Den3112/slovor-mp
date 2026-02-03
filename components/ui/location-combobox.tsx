@@ -100,7 +100,7 @@ export function LocationCombobox({
         if (highlightedIndex >= 0 && suggestions[highlightedIndex]) {
           handleSelectCity(suggestions[highlightedIndex])
         } else if (suggestions.length > 0) {
-          if(suggestions[0]) handleSelectCity(suggestions[0])
+          if (suggestions[0]) handleSelectCity(suggestions[0])
         }
         break
       case 'Escape':
@@ -124,7 +124,7 @@ export function LocationCombobox({
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           className={cn(
-            'placeholder:text-muted-foreground/30 h-14 w-full rounded-2xl border bg-white/5 pr-12 pl-14 font-medium transition-all outline-none',
+            'placeholder:text-muted-foreground/30 h-14 w-full rounded-xl border bg-white/5 pr-12 pl-14 font-medium transition-all outline-none',
             'focus:border-primary focus:ring-primary/10 focus:bg-white/10 focus:ring-4',
             error
               ? 'border-destructive/50 bg-destructive/5'
@@ -157,7 +157,7 @@ export function LocationCombobox({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.98 }}
             transition={{ duration: 0.12 }}
-            className="border-border/50 bg-card/95 absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-2xl backdrop-blur-xl"
+            className="border-border/50 bg-card absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-2xl"
           >
             <div className="max-h-64 overflow-y-auto p-1">
               {suggestions.map((city, index) => (
@@ -199,7 +199,7 @@ export function LocationCombobox({
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
-            className="border-border/50 bg-card/95 text-muted-foreground absolute top-full left-0 z-50 mt-2 w-full rounded-xl border p-4 text-center text-sm shadow-xl backdrop-blur-xl"
+            className="border-border/50 bg-card text-muted-foreground absolute top-full left-0 z-50 mt-2 w-full rounded-xl border p-4 text-center text-sm shadow-xl"
           >
             No cities found for &quot;{searchQuery}&quot;
           </motion.div>

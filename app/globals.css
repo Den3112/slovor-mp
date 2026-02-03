@@ -469,7 +469,7 @@
 }
 
 [vaul-overlay] {
-  @apply fixed inset-0 z-40 bg-black/50 backdrop-blur-sm;
+  @apply fixed inset-0 z-40 bg-black/50;
 }
 
 /* Hide Next.js dev indicators in dashboard */

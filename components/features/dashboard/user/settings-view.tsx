@@ -176,7 +176,7 @@ export function SettingsView() {
                                             </div>
                                         )}
                                         {isUploading && (
-                                            <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs">
+                                            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
                                                 <Loader2 className="h-6 w-6 animate-spin text-white" />
                                             </div>
                                         )}
@@ -184,7 +184,7 @@ export function SettingsView() {
                                     <button
                                         type="button"
                                         onClick={() => document.getElementById('avatar-input')?.click()}
-                                        className="absolute bottom-0 right-0 p-2 rounded-full bg-primary text-primary-foreground shadow-md hover:scale-105 transition-transform"
+                                        className="absolute bottom-0 right-0 p-2 rounded-xl bg-primary text-primary-foreground shadow-md hover:scale-105 transition-transform"
                                         title={t('profile.uploadAvatar')}
                                     >
                                         <Camera className="h-4 w-4" />

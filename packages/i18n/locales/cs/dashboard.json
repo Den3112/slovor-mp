@@ -1,7 +1,7 @@
 {
   "myListings": "Moje inzeráty",
-  "manageListings": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátů a konceptů.",
-  "inventoryDescription": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátů a konceptů.",
+  "manageListings": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátov a konceptov.",
+  "inventoryDescription": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátov a konceptov.",
   "searchPlaceholder": "Hledat v mých inzerátech...",
   "noListings": "Nenalezeny žádné inzeráty.",
   "noListingsDescription": "Zatím jste nevytvořili žádné inzeráty.",
@@ -36,11 +36,38 @@
   "startSelling": "Začněte prodávat ještě dnes a oslovte tisíce kupujících.",
   "new": "Nové",
   "recentConversations": "Nedávné konverzace",
-  "openInbox": "Otevřít doručené",
+  "openInbox": "Otvoriť doručené",
   "performance": "Výkonnost",
   "pastDays": "Posledních 7 dní",
   "viewsOverTime": "Vývoj zobrazení",
   "activityFeed": "Aktivita",
   "growth": "růst",
-  "savedSearches": "Uložená hledání"
+  "savedSearches": "Uložená hledání",
+  "promoteListings": "Propagovat inzeráty",
+  "thisWeek": "Tento týden",
+  "quickActions": "Rychlé akce",
+  "status": "Stav",
+  "wallet": {
+    "title": "Peněženka",
+    "addFunds": "Přidat prostředky",
+    "refillBalance": "Dobít zůstatek",
+    "addCreditsDescription": "Přidejte si kredity na účet okamžitě.",
+    "amount": "Částka",
+    "selectMethod": "Vybrat metodu",
+    "confirmPayment": "Potvrdit a zaplatit",
+    "expenses": "Výdaje",
+    "refill": "Dobití",
+    "promotion_top": "Topování",
+    "promotion_highlight": "Prémiové zvýraznění",
+    "subscription": "Předplatné"
+  },
+  "promote": {
+    "title": "Propagace",
+    "subtitle": "Zvyšte viditelnost svého inzerátu",
+    "selectListing": "Vybrat inzerát",
+    "selectPlan": "Vybrat balíček",
+    "confirmPromote": "Potvrdit propagaci",
+    "success": "Inzerát byl úspěšně propagován!",
+    "error": "Chyba při nastavování propagace"
+  }
 }

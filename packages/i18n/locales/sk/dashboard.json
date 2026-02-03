@@ -42,5 +42,32 @@
   "viewsOverTime": "Vývoj zobrazení",
   "activityFeed": "Aktivita",
   "growth": "rast",
-  "savedSearches": "Uložené hľadania"
+  "savedSearches": "Uložené hľadania",
+  "promoteListings": "Propagovať inzeráty",
+  "thisWeek": "Tento týždeň",
+  "quickActions": "Rýchle akcie",
+  "status": "Stav",
+  "wallet": {
+    "title": "Peňaženka",
+    "addFunds": "Pridať prostriedky",
+    "refillBalance": "Dobiť zostatok",
+    "addCreditsDescription": "Pridajte si kredity na účet okamžite.",
+    "amount": "Suma",
+    "selectMethod": "Vybrať metódu",
+    "confirmPayment": "Potvrdiť a zaplatiť",
+    "expenses": "Výdavky",
+    "refill": "Dobitie",
+    "promotion_top": "Topovanie",
+    "promotion_highlight": "Prémiové zvýraznenie",
+    "subscription": "Predplatné"
+  },
+  "promote": {
+    "title": "Propagácia",
+    "subtitle": "Zvýšte viditeľnosť svojho inzerátu",
+    "selectListing": "Vybrať inzerát",
+    "selectPlan": "Vybrať balík",
+    "confirmPromote": "Potvrdiť propagáciu",
+    "success": "Inzerát bol úspešne propagovaný!",
+    "error": "Chyba pri nastavovaní propagácie"
+  }
 }

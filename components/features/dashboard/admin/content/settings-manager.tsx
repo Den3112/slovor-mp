@@ -152,12 +152,12 @@ export function SettingsManager() {
                             <div
                                 onClick={() => setSettings({ ...settings, maintenanceMode: !settings.maintenanceMode })}
                                 className={cn(
-                                    "w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-300",
+                                    "w-12 h-6 rounded-xl relative cursor-pointer transition-colors duration-300",
                                     settings.maintenanceMode ? "bg-amber-500" : "bg-emerald-500"
                                 )}
                             >
                                 <div className={cn(
-                                    "absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300",
+                                    "absolute top-1 left-1 w-4 h-4 bg-white rounded-lg transition-transform duration-300",
                                     settings.maintenanceMode && "translate-x-6"
                                 )} />
                             </div>

@@ -102,7 +102,7 @@ export function PagesManager() {
             <div className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-300 shadow-sm">
                 <div className="flex items-center justify-between">
                     <h3 className="text-xl font-black italic">{editingPage.id ? t('admin:editPage') : t('admin:newPage')}</h3>
-                    <Button variant="ghost" size="sm" onClick={handleCancel} className="rounded-full">
+                    <Button variant="ghost" size="sm" onClick={handleCancel} className="rounded-xl">
                         <X className="h-4 w-4" />
                     </Button>
                 </div>
@@ -137,7 +137,7 @@ export function PagesManager() {
                             value={editingPage.content || ''}
                             onChange={e => setEditingPage({ ...editingPage, content: e.target.value })}
                             placeholder={t('admin:pageContent')}
-                            className="w-full min-h-[400px] p-4 rounded-2xl bg-muted/50 border border-border/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all font-mono text-sm leading-relaxed"
+                            className="w-full min-h-[400px] p-4 rounded-xl bg-muted/50 border border-border/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all font-mono text-sm leading-relaxed"
                             required
                         />
                     </div>
