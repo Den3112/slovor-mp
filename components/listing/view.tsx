@@ -191,7 +191,7 @@ export function ListingsView({
                   <SlidersHorizontal className="text-primary h-5 w-5" />
                   <span>{t('filters.title')}</span>
                 </div>
-                <div className="bg-primary/10 text-primary flex h-6 w-6 items-center justify-center rounded-full text-xs">
+                <div className="bg-primary/20 text-primary flex h-6 w-6 items-center justify-center rounded-lg text-xs font-black">
                   +
                 </div>
               </button>
@@ -200,7 +200,7 @@ export function ListingsView({
               <Drawer.Overlay className="fixed inset-0 z-50 bg-black/60" />
               <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-xl border-t outline-none">
                 <div className="bg-background border-border/40 shrink-0 rounded-t-xl border-b p-4">
-                  <div className="bg-muted-foreground/30 mx-auto mb-6 h-1.5 w-12 shrink-0 rounded-full" />
+                  <div className="bg-border/60 mx-auto mb-6 h-1.5 w-12 shrink-0 rounded-lg" />
                   <div className="flex items-center justify-between px-2">
                     <Drawer.Title className="text-xl font-black tracking-tight italic">
                       {t('filters.title')}
@@ -266,8 +266,8 @@ export function ListingsView({
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="border-border/60 bg-muted/20 flex flex-col items-center justify-center rounded-xl border border-dashed p-8 py-32 text-center"
                 >
-                  <div className="bg-muted/50 mb-6 flex h-20 w-20 items-center justify-center rounded-full">
-                    <PackageSearch className="text-muted-foreground h-10 w-10" />
+                  <div className="bg-muted flex h-20 w-20 items-center justify-center rounded-xl border border-border/50">
+                    <PackageSearch className="text-muted-foreground/40 h-10 w-10" />
                   </div>
                   <p className="font-heading text-foreground mb-3 text-2xl font-black italic">
                     {t('common.noResults')}
@@ -305,8 +305,8 @@ export function ListingsView({
                     className="flex justify-center py-8"
                   >
                     {loading && (
-                      <div className="bg-muted/50 text-muted-foreground flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                      <div className="bg-card text-muted-foreground flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-xs font-black uppercase tracking-widest shadow-sm">
+                        <Loader2 className="h-3 w-3 animate-spin" />
                         {t('common.loading') || 'Loading more...'}
                       </div>
                     )}

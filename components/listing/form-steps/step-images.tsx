@@ -141,7 +141,7 @@ export function StepImages({
                 {Math.round((uploadProgress.current / uploadProgress.total) * 100)}%
               </span>
             </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+            <div className="h-2 w-full overflow-hidden rounded-lg bg-muted">
               <motion.div
                 className="bg-primary h-full"
                 initial={{ width: 0 }}
@@ -211,16 +211,14 @@ export function StepImages({
                       key="cover-badge"
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-sm shadow-primary/20"
-
+                      className="absolute top-3 left-3 rounded-lg bg-primary px-3 py-1 text-[9px] font-black tracking-widest text-white uppercase shadow-sm"
                     >
                       Cover
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-[10px] font-bold text-white md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-
+                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-lg bg-black/70 text-[10px] font-black text-white md:opacity-0 md:group-hover:opacity-100 transition-all border border-white/10 uppercase">
                   {idx + 1}
                 </div>
               </Reorder.Item>

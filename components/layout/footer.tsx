@@ -234,7 +234,7 @@ export function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm transition-colors duration-500 md:mb-16 md:gap-8 md:p-8 lg:mb-20 lg:flex-row lg:p-10">
+        <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-xl border border-border bg-card p-6 shadow-sm transition-colors duration-500 md:mb-16 md:gap-8 md:p-8 lg:mb-20 lg:flex-row lg:p-10">
           <div className="w-full text-center lg:max-w-md lg:text-left">
             <h3 className="mb-2 text-xl font-bold text-foreground md:text-2xl">
               {t('footer.newsletterTitle')}
@@ -265,8 +265,8 @@ export function Footer() {
               © {new Date().getFullYear()} Slovor Marketplace. {t('footer.rights')}.
             </p>
             <div className="flex items-center gap-6">
-              <span className="flex h-6 items-center gap-2 rounded-full bg-muted px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="flex h-6 items-center gap-2 rounded-lg bg-muted px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider border border-border/50">
+                <div className="h-1.5 w-1.5 rounded-sm bg-emerald-500" />
                 {mounted && !isLoading
                   ? `${geoLocation?.country || 'Slovakia'} / ${CURRENCIES[currency]?.code || 'EUR'}`
                   : '...'}

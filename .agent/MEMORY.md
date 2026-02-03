@@ -9,7 +9,7 @@
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-03
-> **Status**: ✅ Phase 7 Complete. Финализация: PR dev -> main.
+> **Status**: ✅ Phase 7 Complete. UI Primitives (Avatar, Dialog, Dropdown) refactored to Solid.
 
 ---
 

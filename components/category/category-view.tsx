@@ -53,8 +53,8 @@ export function CategoryView({
               {categoryName}
             </h1>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 px-4 py-1.5 text-xs font-black tracking-widest text-indigo-600 uppercase dark:text-indigo-400">
-                <div className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />
+              <div className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-black tracking-widest text-primary uppercase">
+                <div className="h-2 w-2 animate-pulse rounded-sm bg-primary" />
                 {totalCount} {t('common.listings')} {t('common.found')}
               </div>
             </div>
