@@ -126,7 +126,7 @@ export function WalletView() {
                 {[
                     { label: 'Spending', value: formatPrice(transactions.filter(t => t.type !== 'refill').reduce((s, t) => s + t.amount, 0), currency), icon: CreditCardIcon },
                     { label: 'Revenue', value: formatPrice(0, currency), icon: ShoppingBag },
-                    { label: 'Active Promos', value: transactions.filter(t => t.type.startsWith('promotion') && t.status === 'completed').length, icon: Zap },
+                    { label: 'Active Promos', value: transactions.filter(t => (t.type === 'promotion_top' || t.type === 'promotion_highlight') && t.status === 'completed').length, icon: Zap },
                     { label: 'Transactions', value: transactions.length, icon: History },
                 ].map((stat, i) => (
                     <div key={i} className="border-border/60 bg-card rounded-xl border p-5 shadow-sm">

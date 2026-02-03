@@ -25,9 +25,11 @@
 - **Active Errors / Blockers**: Нет.
 - **Current Focus**: [Masterplan V2] - Phase 2: Product & Search Experience
 - **Current Branch**: `feature/masterplan-phase1-homepage` (Will merge to dev soon)
-- **Latest Achievement**: Completed homepage & navigation rework (Mega Menu, Categories Grid, Mobile Drawer).
-- **Next**: Mega Menu & Categories Grid.
-- **Детальный статус**: См. `.agent/plans/implementation_plan_v2_phase1.md`
+- **Focus**: Phase 2: Listing & Dashboard Refinement (Masterplan V2)
+- **Status**: Database migration for Phase 2 created. ListingCard refined with premium aesthetic. Types updated.
+- **Next Up**: Search page sidebar improvements and Dashboard Wallet integration.
+- **Latest Achievement**: Completed Phase 1 (Homepage & Navigation). Started Phase 2.
+- **Детальный статус**: См. `.agent/plans/implementation_plan_v2_phase2.md`
 
 ---
 

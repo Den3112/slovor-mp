@@ -10,6 +10,8 @@ export interface DashboardStats {
   savedSearches: number
   reviews: number
   recentConversations?: Conversation[]
+  walletBalance?: number
+  walletCurrency?: string
 }
 
 
@@ -27,6 +29,7 @@ export async function getDashboardStats(
       savedSearchesRes,
       reviewsRes,
       conversationsRes,
+      walletRes,
     ] = await Promise.all([
       supabase
         .from('listings')
@@ -78,6 +81,11 @@ export async function getDashboardStats(
         .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
         .order('updated_at', { ascending: false })
         .limit(3),
+      supabase
+        .from('wallets')
+        .select('*')
+        .eq('user_id', userId)
+        .single(),
     ])
 
     // Process Listings Data
@@ -138,6 +146,8 @@ export async function getDashboardStats(
       savedSearches,
       reviews: totalReviews,
       recentConversations,
+      walletBalance: walletRes.data?.balance || 0,
+      walletCurrency: walletRes.data?.currency || 'EUR',
     }
   } catch (error) {
     console.error('Error fetching dashboard stats:', error)

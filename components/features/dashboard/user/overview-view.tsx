@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Plus, ArrowRight, MessageCircle, Package, Heart, Eye, TrendingUp } from 'lucide-react'
+import { Plus, ArrowRight, MessageCircle, Package, Heart, Eye, TrendingUp, CreditCard } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -81,7 +81,7 @@ export function UserOverviewView({
             </motion.div>
 
             {/* Stats Row */}
-            <motion.div variants={item} className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+            <motion.div variants={item} className="grid grid-cols-2 gap-4 lg:grid-cols-5 lg:gap-6">
                 <Link href="/dashboard/listings">
                     <StatsCard
                         label={t('dashboard:active')}
@@ -99,13 +99,22 @@ export function UserOverviewView({
                         delay={0.2}
                     />
                 </Link>
+                <Link href="/dashboard/wallet">
+                    <StatsCard
+                        label={t('dashboard:wallet')}
+                        value={`${(stats.walletBalance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })} ${stats.walletCurrency || 'EUR'}`}
+                        icon={CreditCard}
+                        description={t('dashboard:availableBalance')}
+                        className="bg-primary/3 border-primary/20"
+                        delay={0.3}
+                    />
+                </Link>
                 <Link href="/favorites">
                     <StatsCard
                         label={t('dashboard:favorites')}
                         value={stats.favorites.toLocaleString()}
                         icon={Heart}
-                        trend={{ value: 5, direction: 'up', label: 'Last 7 days' }}
-                        delay={0.3}
+                        delay={0.4}
                     />
                 </Link>
                 <Link href="/messages">
@@ -113,7 +122,7 @@ export function UserOverviewView({
                         label={t('profile:inbox')}
                         value={stats.messages.toLocaleString()}
                         icon={MessageCircle}
-                        delay={0.4}
+                        delay={0.5}
                     />
                 </Link>
             </motion.div>
@@ -246,7 +255,7 @@ export function UserOverviewView({
                                                 </TableCell>
                                                 <TableCell className="px-6 py-4 text-right">
                                                     <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-lg hover:bg-primary/10 hover:text-primary transition-all">
-                                                        <Link href={`/dashboard/listings/edit/${listing.id}`}>
+                                                        <Link href={`/post?edit=${listing.id}`}>
                                                             <ArrowRight className="h-4 w-4" />
                                                         </Link>
                                                     </Button>
