@@ -47,8 +47,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       className={cn(
         'group border-border/40 hover:border-primary/50 relative flex shrink-0 items-center justify-center rounded-xl border transition-all',
         isDark
-          ? 'bg-muted/20 hover:bg-muted/40'
-          : 'bg-primary/10 hover:bg-primary/20',
+          ? 'bg-muted/40 hover:bg-muted/60 text-primary-foreground'
+          : 'bg-muted/50 hover:bg-muted/80 text-primary',
         className
       )}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}

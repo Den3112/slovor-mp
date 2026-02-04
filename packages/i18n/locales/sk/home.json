@@ -41,6 +41,11 @@
     "title": "Kategórie",
     "viewAll": "Zobraziť všetky kategórie"
   },
+  "promo": {
+    "title": "PRIPRAVENÝ PREDÁVAŤ RÝCHLO?",
+    "subtitle": "Prejdite na VIP a získajte 10x viac videní ešte dnes."
+  },
+  "popularNow": "POPULÁRNE REGIÓNY",
   "regions": {
     "bratislava": "Bratislava",
     "kosice": "Košice",

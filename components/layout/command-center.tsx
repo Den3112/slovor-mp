@@ -17,7 +17,7 @@ interface CommandCenterProps {
 }
 
 export function CommandCenter({ locale, onClose }: CommandCenterProps) {
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['common', 'nav'])
     const router = useRouter()
 
     // Use shared search hook
@@ -87,7 +87,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                 )} />
                 <input
                     type="text"
-                    placeholder={t('common.searchPlaceholder')}
+                    placeholder={t('common:searchPlaceholder')}
                     className="w-full bg-transparent px-3 py-3.5 text-sm font-medium focus:outline-hidden"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -123,7 +123,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                             <div className="mb-6">
                                 <div className="mb-3 flex items-center gap-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
                                     <TrendingUp className="h-3 w-3" />
-                                    {t('common.marketTrends')}
+                                    {t('common:marketTrends')}
                                 </div>
                                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                                     {quickCategories.map((cat) => (
@@ -151,13 +151,13 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                 {isSearching ? (
                                     <div className="py-8 text-center">
                                         <div className="mx-auto h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                                        <p className="mt-2 text-xs text-muted-foreground">{t('common.loading')}</p>
+                                        <p className="mt-2 text-xs text-muted-foreground">{t('common:loading')}</p>
                                     </div>
                                 ) : query.length >= 2 ? (
                                     // Real results
                                     <>
                                         <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
-                                            {t('common.searchResultsFor')} &quot;{query}&quot;
+                                            {t('common:searchResultsFor')} &quot;{query}&quot;
                                         </div>
                                         {results.length > 0 ? results.map((item) => (
                                             <button
@@ -192,7 +192,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                             </button>
                                         )) : (
                                             <div className="py-4 text-center text-sm text-muted-foreground">
-                                                {t('common.noResults')}
+                                                {t('common:noResults')}
                                             </div>
                                         )}
                                     </>
@@ -200,7 +200,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                     // Default suggestions
                                     <>
                                         <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
-                                            {t('common.quickSuggestions')}
+                                            {t('common:quickSuggestions') || 'QUICK SUGGESTIONS'}
                                         </div>
                                         {[
                                             { label: "iPhone 15 Pro Max", icon: Smartphone },
@@ -234,7 +234,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                 onClick={() => setIsOpen(false)}
                                 className="text-primary text-[10px] font-bold hover:underline"
                             >
-                                {t('common.advancedSearch')}
+                                {t('common:advancedSearch') || 'Advanced Search'}
                             </button>
                         </div>
                     </motion.div>

@@ -105,7 +105,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                     <div className="relative overflow-hidden rounded-2xl bg-slate-950 p-6 text-white border border-white/5 group shadow-xl">
                                         <div className="relative z-10 space-y-4">
                                             <Badge className="bg-primary/20 text-primary border-primary/20 text-[9px] font-black tracking-widest uppercase rounded-md h-5">
-                                                Featured
+                                                {t('common:featured')}
                                             </Badge>
                                             <h4 className="text-base font-black tracking-tight leading-tight italic">
                                                 {t('home:promo.title') || 'READY TO SELL FAST?'}
@@ -128,14 +128,14 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                             {t('home:popularNow') || 'POPULAR REGIONS'}
                                         </h5>
                                         <div className="grid grid-cols-2 gap-2">
-                                            {['Bratislava', 'Košice', 'Žilina', 'Nitra'].map((city) => (
+                                            {['bratislava', 'kosice', 'zilina', 'nitra'].map((cityKey) => (
                                                 <Link
-                                                    key={city}
-                                                    href={`/${locale}/listings?location=${city}`}
+                                                    key={cityKey}
+                                                    href={`/${locale}/listings?location=${cityKey}`}
                                                     onClick={onClose}
                                                     className="text-[9px] font-black uppercase tracking-widest text-center px-2 py-2 rounded-lg border border-border/60 hover:border-primary/50 hover:bg-primary/5 transition-all"
                                                 >
-                                                    {city}
+                                                    {t(`home:regions.${cityKey}`)}
                                                 </Link>
                                             ))}
                                         </div>
