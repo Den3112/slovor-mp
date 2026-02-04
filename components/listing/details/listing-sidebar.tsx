@@ -16,6 +16,7 @@ import { useAuth } from '@/components/providers/auth-provider'
 import { messagesApi } from '@/lib/api/messages'
 import type { Listing } from '@/lib/types/database'
 import { getLocalizedTitle } from '@/lib/utils/listing-utils'
+import { CheckoutDialog } from '@/components/features/checkout/checkout-dialog'
 
 interface ListingSidebarProps {
     listing: Listing
@@ -33,6 +34,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
     const [isContacting, setIsContacting] = useState(false)
     const [showPhone, setShowPhone] = useState(false)
     const [showReportModal, setShowReportModal] = useState(false)
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
     const handleContact = async () => {
         if (!user) {
@@ -73,6 +75,20 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
         }
         setShowPhone(true)
         window.location.href = `tel:${seller.phone}`
+    }
+
+    const handleBuy = () => {
+        if (!user) {
+            router.push(`/auth/login?redirect=/listings/${listing.id}`)
+            return
+        }
+
+        if (user.id === listing.user_id) {
+            toast.error('You cannot buy your own listing')
+            return
+        }
+
+        setIsCheckoutOpen(true)
     }
 
     return (
@@ -131,6 +147,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                         showPhone={showPhone}
                         onContact={handleContact}
                         onCall={handleCall}
+                        onBuy={handleBuy}
                     />
                 )}
             </div>
@@ -176,6 +193,12 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                     userId={listing.user_id}
                     isOpen={showReportModal}
                     onClose={() => setShowReportModal(false)}
+                />
+
+                <CheckoutDialog
+                    listing={listing}
+                    isOpen={isCheckoutOpen}
+                    onClose={() => setIsCheckoutOpen(false)}
                 />
             </div>
         </div>

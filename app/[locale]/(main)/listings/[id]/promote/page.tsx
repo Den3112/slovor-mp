@@ -3,7 +3,9 @@
 import { useState, use } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
-import { transactionsApi, listingsApi } from '@/lib/api'
+import { listingsApi } from '@/lib/api'
+import { useTranslation } from '@/lib/i18n'
+import { toast } from 'sonner'
 import {
     Zap,
     TrendingUp,
@@ -15,8 +17,8 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { toast } from 'sonner'
 import { Container } from '@/components/ui/container'
+import { formatPrice } from '@/lib/utils/formatting'
 
 interface Props {
     params: Promise<{
@@ -25,30 +27,41 @@ interface Props {
 }
 
 export default function PromoteListingPage({ params }: Props) {
+    const { t } = useTranslation(['dashboard', 'common'])
     const { id } = use(params)
     const { user } = useAuth()
     const router = useRouter()
-    const [selectedPlan, setSelectedPlan] = useState<'top' | 'highlight' | null>(null)
+    const [selectedPlan, setSelectedPlan] = useState<'free' | 'top' | 'highlight' | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const plans = [
         {
+            id: 'free',
+            title: t('dashboard:promote.plans.free.title'),
+            subtitle: t('dashboard:promote.plans.free.subtitle'),
+            price: 0,
+            icon: ShieldCheck,
+            features: t('dashboard:promote.plans.free.features', { returnObjects: true }) as string[],
+            color: 'zinc',
+            type: 'free' as const,
+        },
+        {
             id: 'top',
-            title: 'Top Position',
-            subtitle: 'Boost to top of search',
+            title: t('dashboard:promote.plans.standard.title'),
+            subtitle: t('dashboard:promote.plans.standard.subtitle'),
             price: 4.99,
             icon: TrendingUp,
-            features: ['Visible to more buyers', 'Avg. 3x more views', 'Valid for 7 days'],
+            features: t('dashboard:promote.plans.standard.features', { returnObjects: true }) as string[],
             color: 'blue',
             type: 'promotion_top' as const,
         },
         {
             id: 'highlight',
-            title: 'Premium Highlight',
-            subtitle: 'Visual edge over others',
+            title: t('dashboard:promote.plans.premium.title'),
+            subtitle: t('dashboard:promote.plans.premium.subtitle'),
             price: 9.99,
             icon: Zap,
-            features: ['Golden visual border', 'Priority in categories', 'Valid for 14 days'],
+            features: t('dashboard:promote.plans.premium.features', { returnObjects: true }) as string[],
             color: 'amber',
             type: 'promotion_highlight' as const,
         },
@@ -56,36 +69,26 @@ export default function PromoteListingPage({ params }: Props) {
 
     const handlePromote = async () => {
         if (!user || !selectedPlan) return
+        if (selectedPlan === 'free') {
+            router.push(`/listings/${id}`)
+            return
+        }
 
         setIsSubmitting(true)
         const plan = plans.find(p => p.id === selectedPlan)!
 
         try {
-            const { error } = await transactionsApi.create({
-                user_id: user.id,
-                amount: plan.price,
-                currency: 'EUR',
-                type: plan.type,
-                status: 'completed',
-                metadata: {
-                    listing_id: id,
-                    plan_name: plan.title,
-                }
-            })
+            const duration = plan.id === 'top' ? 7 : 14
+            const { error: promoteError } = await listingsApi.promote(id, plan.type as any, duration, plan.price)
 
-            if (error) throw new Error(error)
+            if (promoteError) throw new Error(promoteError)
 
-            // Update the listing to be promoted
-            await listingsApi.update(id, {
-                is_highlighted: true,
-                promoted_until: new Date(Date.now() + (plan.id === 'top' ? 7 : 14) * 24 * 60 * 60 * 1000).toISOString(),
-            })
-
-            toast.success('Listing promoted successfully!')
+            toast.success(t('dashboard:promote.success'))
             router.push(`/listings/${id}`)
+            router.refresh()
         } catch (error) {
             console.error('Promotion failed:', error)
-            toast.error('Failed to process promotion')
+            toast.error(t('dashboard:promote.error'))
         } finally {
             setIsSubmitting(false)
         }
@@ -94,29 +97,28 @@ export default function PromoteListingPage({ params }: Props) {
     return (
         <div className="min-h-screen bg-background pb-20">
             <Container className="pt-24 md:pt-32">
-                <div className="mx-auto max-w-4xl space-y-12">
+                <div className="mx-auto max-w-5xl space-y-12">
                     {/* Header */}
                     <div className="text-center space-y-4">
                         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
                             <Rocket className="h-8 w-8" />
                         </div>
-                        <h1 className="font-heading text-4xl font-black tracking-tight md:text-5xl uppercase text-foreground">
-                            {/* NOTE: Keep hardcoded text for now or verify keys later. Sticking to structure. */}
-                            Promote your <span className="text-primary">Listing</span>
+                        <h1 className="font-heading text-4xl font-black tracking-tight md:text-5xl uppercase text-foreground italic">
+                            {t('dashboard:promote.title')}
                         </h1>
                         <p className="text-muted-foreground mx-auto max-w-xl text-lg font-medium leading-relaxed">
-                            Reach more buyers and sell up to 5x faster with our premium promotion tools.
+                            {t('dashboard:promote.subtitle')}
                         </p>
                     </div>
 
                     {/* Plan Grid */}
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                         {plans.map((plan) => (
                             <div
                                 key={plan.id}
                                 onClick={() => setSelectedPlan(plan.id as any)}
                                 className={cn(
-                                    "group relative cursor-pointer overflow-hidden rounded-xl border-2 p-8 transition-all hover:bg-accent/50",
+                                    "group relative cursor-pointer overflow-hidden rounded-xl border-2 p-8 transition-all",
                                     selectedPlan === plan.id
                                         ? "border-primary bg-primary/5"
                                         : "border-border bg-card hover:border-primary/50"
@@ -137,22 +139,23 @@ export default function PromoteListingPage({ params }: Props) {
                                         "flex h-14 w-14 items-center justify-center rounded-xl border",
                                         plan.color === 'blue'
                                             ? "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-900"
-                                            : "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-900"
+                                            : plan.color === 'amber'
+                                                ? "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-900"
+                                                : "bg-zinc-500/10 text-zinc-600 border-zinc-200 dark:border-zinc-900"
                                     )}>
                                         <plan.icon className="h-7 w-7" />
                                     </div>
 
                                     <div className="space-y-1">
                                         <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">{plan.title}</h3>
-                                        <p className="text-muted-foreground text-sm font-bold uppercase tracking-widest">{plan.subtitle}</p>
+                                        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">{plan.subtitle}</p>
                                     </div>
 
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl font-black text-foreground">{plan.price}</span>
-                                        <span className="text-muted-foreground font-black tracking-widest uppercase text-sm">EUR</span>
+                                        <span className="text-4xl font-black text-foreground">{formatPrice(plan.price, 'EUR')}</span>
                                     </div>
 
-                                    <div className="h-px w-full bg-border" />
+                                    <div className="h-px w-full bg-border/60" />
 
                                     <ul className="space-y-3">
                                         {plan.features.map((f, i) => (
@@ -168,7 +171,7 @@ export default function PromoteListingPage({ params }: Props) {
 
                                 {plan.id === 'highlight' && (
                                     <div className="absolute top-0 right-0 bg-amber-500 px-6 py-1 text-[10px] font-black uppercase tracking-widest text-white transform rotate-45 translate-x-[30px] translate-y-[15px] shadow-sm">
-                                        Best Value
+                                        {t('dashboard:promote.bestValue')}
                                     </div>
                                 )}
                             </div>
@@ -176,18 +179,18 @@ export default function PromoteListingPage({ params }: Props) {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-col items-center gap-6 pt-4 border-t border-border">
+                    <div className="flex flex-col items-center gap-6 pt-4 border-t border-border/60">
                         <Button
                             size="lg"
                             disabled={!selectedPlan || isSubmitting}
                             onClick={handlePromote}
-                            className="h-14 w-full max-w-sm rounded-xl text-sm font-black uppercase tracking-widest transition-all hover:scale-[1.02] shadow-sm active:scale-[0.98]"
+                            className="h-14 w-full max-w-sm rounded-xl text-xs font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm bg-primary text-primary-foreground"
                         >
                             {isSubmitting ? (
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             ) : (
                                 <>
-                                    Confirm and Pay
+                                    {t('dashboard:promote.confirmPay')}
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </>
                             )}
@@ -195,7 +198,7 @@ export default function PromoteListingPage({ params }: Props) {
 
                         <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
                             <ShieldCheck className="h-4 w-4" />
-                            Secure Checkout • Satisfaction Guaranteed
+                            {t('dashboard:promote.secureCheckout')}
                         </div>
                     </div>
                 </div>

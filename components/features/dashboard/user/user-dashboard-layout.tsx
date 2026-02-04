@@ -16,6 +16,10 @@ import {
     ShieldCheck,
     Settings,
     Zap,
+    Bell,
+    Activity,
+    Rocket,
+    Search,
 } from 'lucide-react'
 
 interface UserDashboardLayoutProps {
@@ -53,11 +57,15 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
                         label: t('profile:subscription'),
                         icon: Zap,
                     },
-
+                    {
+                        href: '/dashboard/promote',
+                        label: t('dashboard:promoteListings'),
+                        icon: Rocket,
+                    },
                 ]
             },
             {
-                title: t('dashboard:activity') || 'Activity',
+                title: t('common:activityHistory') || 'Activity History',
                 items: [
                     {
                         href: '/dashboard/orders',
@@ -70,6 +78,16 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
                         label: t('profile:reviews'),
                         icon: Star,
                         badgeCount: stats?.reviews,
+                    },
+                    {
+                        href: '/dashboard/notifications',
+                        label: t('common:notifications') || 'Notifications',
+                        icon: Bell,
+                    },
+                    {
+                        href: '/dashboard/activity',
+                        label: t('common:activityHistory') || 'Activity History',
+                        icon: Activity,
                     },
                 ]
             },
@@ -87,6 +105,11 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
                         label: t('profile:favorites'),
                         icon: Heart,
                         badgeCount: stats?.favorites,
+                    },
+                    {
+                        href: '/dashboard/saved-searches',
+                        label: t('profile:savedSearches'),
+                        icon: Search,
                     },
                 ]
             },

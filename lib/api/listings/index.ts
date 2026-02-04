@@ -271,4 +271,25 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+
+  async promote(
+    id: string,
+    type: string,
+    duration: number,
+    cost: number
+  ): Promise<ApiResponse<void>> {
+    try {
+      const { error } = await supabase.rpc('promote_listing', {
+        p_listing_id: id,
+        p_promo_type: type,
+        p_duration_days: duration,
+        p_cost: cost,
+      })
+      if (error) throw error
+      return { data: undefined, error: null }
+    } catch (error) {
+      logError('listingsApi.promote', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }

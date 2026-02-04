@@ -29,11 +29,18 @@ export const adminApi = {
                 supabase.from('listings').select('id', { count: 'exact', head: true }),
                 supabase.from('listings').select('id', { count: 'exact', head: true }).eq('status', 'active'),
                 supabase.from('listings').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-                supabase.from('transactions').select('amount'),
+                supabase.from('transactions').select('amount, type'),
                 supabase.from('listing_reports').select('id', { count: 'exact', head: true }).eq('status', 'pending')
             ])
 
-            const totalRevenue = transactionsRes.data?.reduce((sum, t) => sum + Number(t.amount), 0) || 0
+            // Calculate actual revenue (spending on promotions and subscriptions)
+            const revenueTypes = ['promotion', 'subscription']
+            const totalRevenue = transactionsRes.data?.reduce((sum, t) => {
+                if (revenueTypes.includes(t.type)) {
+                    return sum + Math.abs(Number(t.amount))
+                }
+                return sum
+            }, 0) || 0
 
             return {
                 data: {
@@ -75,6 +82,23 @@ export const adminApi = {
             return { data: null, error: null }
         } catch (error) {
             logError('adminApi.logAction', error)
+            return { data: null, error: (error as Error).message }
+        }
+    },
+
+    async getActivityLogs(limit = 50): Promise<ApiResponse<any[]>> {
+        const supabase = createClient()
+        try {
+            const { data, error } = await supabase
+                .from('activity_logs')
+                .select('*, profiles(display_name, avatar_url)')
+                .order('created_at', { ascending: false })
+                .limit(limit)
+
+            if (error) throw error
+            return { data: data || [], error: null }
+        } catch (error) {
+            logError('adminApi.getActivityLogs', error)
             return { data: null, error: (error as Error).message }
         }
     }

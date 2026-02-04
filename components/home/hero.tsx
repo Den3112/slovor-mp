@@ -69,7 +69,7 @@ export function Hero() {
           >
             <div className="group relative">
               {/* Clean Search Box - Solid Style */}
-              <div className="bg-background relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-2xl shadow-primary/5 transition-all duration-300 hover:border-primary/40 sm:flex-row sm:items-center sm:focus-within:ring-4 ring-primary/10">
+              <div className="bg-background relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border/60 p-2 transition-all duration-300 hover:border-primary/40 sm:flex-row sm:items-center sm:focus-within:ring-4 ring-primary/10">
                 <div className="flex flex-1 items-center px-4 py-2 sm:pl-6">
                   <label htmlFor="hero-search" className="sr-only">
                     Search

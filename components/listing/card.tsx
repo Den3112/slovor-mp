@@ -122,15 +122,15 @@ export function ListingCard({
     <Link
       href={`/listings/${listing.id}`}
       className={cn(
-        'group relative block overflow-hidden rounded-xl border transition-all duration-500 hover:shadow-2xl hover:border-primary/50',
+        'group relative block overflow-hidden rounded-xl border transition-all duration-300 hover:ring-4 hover:ring-primary/5 hover:border-primary/50',
         listing.is_highlighted || featured
-          ? 'border-primary/40 bg-primary/3 shadow-lg shadow-primary/5'
+          ? 'border-primary/40 bg-primary/3'
           : 'border-border bg-card'
       )}
     >
-      {/* Premium Glow for Highlighted */}
+      {/* Premium Border for Highlighted */}
       {(listing.is_highlighted || featured) && (
-        <div className="absolute inset-x-0 -top-px h-[2px] bg-linear-to-r from-transparent via-primary to-transparent opacity-50" />
+        <div className="absolute inset-x-0 -top-px h-[2px] bg-primary" />
       )}
       {/* Image Container */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
@@ -168,14 +168,14 @@ export function ListingCard({
         {/* Badges - Floating Style */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[10px] font-black tracking-widest text-white uppercase shadow-lg shadow-primary/20">
+            <div className="bg-primary flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[10px] font-black tracking-widest text-white uppercase">
               <Sparkles className="h-3 w-3 fill-white" />
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-background/90 text-foreground flex items-center gap-1.5 rounded-lg border border-border/40 px-2.5 py-1.5 text-[10px] font-black tracking-widest uppercase backdrop-blur-sm">
+            <div className="bg-background text-foreground flex items-center gap-1.5 rounded-lg border border-border/60 px-2.5 py-1.5 text-[10px] font-black tracking-widest uppercase">
               <div className="bg-emerald-500 h-1.5 w-1.5 rounded-full" />
               {t('new')}
             </div>
@@ -189,7 +189,7 @@ export function ListingCard({
 
         {/* Photos Count Overlay */}
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg bg-black/60 px-2 py-1 text-[10px] font-black text-white border border-white/10 backdrop-blur-sm">
+          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg bg-black/80 px-2 py-1 text-[10px] font-black text-white border border-white/20">
             <span className="opacity-70">{listing.images.length}</span>
             <span className="tracking-widest uppercase text-[8px]">{t('photos') || 'Photos'}</span>
           </div>

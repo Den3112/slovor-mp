@@ -1,6 +1,6 @@
 'use client'
 
-import { Phone, MessageCircle, Loader2 } from 'lucide-react'
+import { Phone, MessageCircle, Loader2, ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/types/database'
@@ -12,6 +12,7 @@ interface ListingActionButtonsProps {
   showPhone: boolean
   onContact: () => void
   onCall: () => void
+  onBuy?: () => void
   className?: string
 }
 
@@ -21,16 +22,33 @@ export function ListingActionButtons({
   showPhone,
   onContact,
   onCall,
+  onBuy,
   className,
 }: ListingActionButtonsProps) {
   const { t } = useTranslation(['listing', 'common'])
 
   return (
     <div className={cn('space-y-4', className)}>
-      {/* Primary Action: Chat/Message */}
+      {/* Prime Action: Buy Now (if available) */}
+      {onBuy && (
+        <Button
+          size="lg"
+          className="bg-primary text-primary-foreground h-16 w-full rounded-xl text-lg font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20 active:scale-[0.98]"
+          onClick={onBuy}
+        >
+          <ShoppingCart className="mr-2 h-6 w-6" />
+          {t('listing:buyNow')}
+        </Button>
+      )}
+
+      {/* Secondary Action: Chat/Message */}
       <Button
+        variant={onBuy ? "outline" : "default"}
         size="lg"
-        className="bg-primary text-primary-foreground h-16 w-full rounded-xl text-lg font-black uppercase tracking-widest transition-all active:scale-[0.98]"
+        className={cn(
+          "h-16 w-full rounded-xl text-lg font-black uppercase tracking-widest transition-all active:scale-[0.98]",
+          onBuy ? "border-border/60 hover:bg-muted/40" : "bg-primary text-primary-foreground shadow-xl shadow-primary/20"
+        )}
         onClick={onContact}
         disabled={isContacting}
       >
@@ -42,7 +60,7 @@ export function ListingActionButtons({
         {t('listing.contactSeller')}
       </Button>
 
-      {/* Secondary Action: Call/Phone */}
+      {/* Tertiary Action: Call/Phone */}
       {!showPhone ? (
         <Button
           variant="outline"

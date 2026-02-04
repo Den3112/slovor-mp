@@ -57,6 +57,9 @@
   "explore": "Explore",
   "blog": "Blog",
   "messages": "Messages",
+  "notifications": "Notifications",
+  "activityHistory": "Activity History",
+  "viewDetails": "View Details",
   "trust": {
     "verified": "Verified Listing"
   },

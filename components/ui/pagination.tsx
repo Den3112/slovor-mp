@@ -10,20 +10,30 @@ interface PaginationProps {
   currentPage: number
   totalPages: number
   totalItems: number
+  onPageChange?: (page: number) => void
+  itemsPerPage?: number
 }
 
 export function Pagination({
   currentPage,
   totalPages,
   totalItems,
+  onPageChange,
+  itemsPerPage = 50,
 }: PaginationProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const goToPage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('page', page.toString())
-    router.push(`?${params.toString()}`)
+    if (page < 1 || page > totalPages) return
+
+    if (onPageChange) {
+      onPageChange(page)
+    } else {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('page', page.toString())
+      router.push(`?${params.toString()}`)
+    }
   }
 
   if (totalPages <= 1) return null
@@ -65,11 +75,11 @@ export function Pagination({
       <div className="text-muted-foreground text-sm">
         Showing{' '}
         <span className="text-foreground font-semibold">
-          {(currentPage - 1) * 50 + 1}
+          {(currentPage - 1) * itemsPerPage + 1}
         </span>{' '}
         to{' '}
         <span className="text-foreground font-semibold">
-          {Math.min(currentPage * 50, totalItems)}
+          {Math.min(currentPage * itemsPerPage, totalItems)}
         </span>{' '}
         of <span className="text-foreground font-semibold">{totalItems}</span>{' '}
         results
@@ -89,11 +99,10 @@ export function Pagination({
             <button
               key={index}
               onClick={() => goToPage(page)}
-              className={`rounded-xl px-4 py-2 font-medium transition-colors ${
-                currentPage === page
-                  ? 'bg-primary text-primary-foreground'
-                  : 'border-border bg-card hover:bg-accent border'
-              }`}
+              className={`rounded-xl px-4 py-2 font-medium transition-colors ${currentPage === page
+                ? 'bg-primary text-primary-foreground'
+                : 'border-border bg-card hover:bg-accent border'
+                }`}
             >
               {page}
             </button>

@@ -172,6 +172,74 @@ export function SearchFilters() {
           }}
         />
       </div>
+
+      {/* Dynamic Category Filters */}
+      {(() => {
+        const category = searchParams.get('category')
+        if (!category) return null
+
+        const categoryFilters: Record<string, Array<{ key: string; label: string; type: 'select' | 'text' | 'range'; options?: string[] }>> = {
+          electronics: [
+            { key: 'brand', label: 'Brand', type: 'select', options: ['Apple', 'Samsung', 'Sony', 'Dell', 'LG'] },
+            { key: 'storage', label: 'Storage', type: 'select', options: ['128GB', '256GB', '512GB', '1TB'] },
+          ],
+          vehicles: [
+            { key: 'year', label: 'Year', type: 'range' },
+            { key: 'mileage', label: 'Max Mileage', type: 'text' },
+          ],
+          furniture: [
+            { key: 'material', label: 'Material', type: 'select', options: ['Wood', 'Metal', 'Plastic', 'Glass'] },
+          ]
+        }
+
+        const filters = categoryFilters[category]
+        if (!filters) return null
+
+        return (
+          <div className="space-y-6 pt-4 border-t border-border/40">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
+              {category.toUpperCase()} {t('filters.additional')}
+            </h3>
+            {filters.map((f) => (
+              <div key={f.key} className="space-y-3">
+                <Label className="text-xs font-bold uppercase tracking-widest opacity-60">{f.label}</Label>
+                {f.type === 'select' ? (
+                  <select
+                    className="w-full h-10 rounded-xl border border-border/60 bg-background px-3 text-sm font-medium focus:border-primary/40 focus:ring-4 focus:ring-primary/10 outline-none transition-all"
+                    onChange={(e) => updateFilters({ [`attr_${f.key}`]: e.target.value || null })}
+                    value={searchParams.get(`attr_${f.key}`) || ''}
+                  >
+                    <option value="">{t('common.all')}</option>
+                    {f.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                ) : (
+                  <Input
+                    placeholder={`${f.label}...`}
+                    defaultValue={searchParams.get(`attr_${f.key}`) || ''}
+                    onBlur={(e) => updateFilters({ [`attr_${f.key}`]: e.target.value || null })}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        )
+      })()}
+
+      {/* Sorting in Sidebar */}
+      <div className="space-y-4 pt-4 border-t border-border/40">
+        <h3 className="text-foreground font-bold">{t('common.sort')}</h3>
+        <select
+          className="w-full h-10 rounded-xl border border-border/60 bg-background px-3 text-sm font-medium focus:border-primary/40 focus:ring-4 focus:ring-primary/10 outline-none transition-all"
+          onChange={(e) => updateFilters({ sort: e.target.value || null })}
+          value={searchParams.get('sort') || 'newest'}
+        >
+          <option value="newest">{t('common.sortNewest') || 'Newest'}</option>
+          <option value="oldest">{t('common.sortOldest') || 'Oldest'}</option>
+          <option value="price-low">{t('common.sortPriceLow') || 'Price: Low'}</option>
+          <option value="price-high">{t('common.sortPriceHigh') || 'Price: High'}</option>
+          <option value="views">{t('common.sortViews') || 'Most Viewed'}</option>
+        </select>
+      </div>
     </div>
   )
 }

@@ -101,10 +101,10 @@ export function UserOverviewView({
                 </Link>
                 <Link href="/dashboard/wallet">
                     <StatsCard
-                        label={t('dashboard:wallet')}
+                        label={t('profile:wallet')}
                         value={`${(stats.walletBalance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })} ${stats.walletCurrency || 'EUR'}`}
                         icon={CreditCard}
-                        description={t('dashboard:availableBalance')}
+                        description={t('dashboard:walletDetails.availableBalance')}
                         className="bg-primary/3 border-primary/20"
                         delay={0.3}
                     />

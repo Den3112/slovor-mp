@@ -4,11 +4,12 @@ import { X } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { Badge } from '@/components/ui/badge'
+import { CATEGORY_ATTRIBUTES, getAttributeLabel } from '@/lib/constants/category-attributes'
 
 export function ActiveFilters() {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const { t } = useTranslation(['filters', 'common'])
+    const { t, i18n } = useTranslation(['filters', 'common'])
 
     const activeFilters: Array<{ key: string; label: string; value: string }> = []
 
@@ -23,6 +24,26 @@ export function ActiveFilters() {
         else if (key === 'condition') label = t(`filters:${value}`)
         else if (key === 'location') label = value
         else if (key === 'category') label = `${t('common:category')}: ${value}`
+        else if (key.startsWith('attr_')) {
+            const attrKey = key.replace('attr_', '').replace('_min', '').replace('_max', '')
+            // Find attribute definition across all categories
+            let attrDef: any = null
+            for (const categoryAttrs of Object.values(CATEGORY_ATTRIBUTES)) {
+                const found = categoryAttrs.find(a => a.id === attrKey)
+                if (found) {
+                    attrDef = found
+                    break
+                }
+            }
+
+            if (attrDef) {
+                const attrLabel = getAttributeLabel(attrDef, i18n.language)
+                const suffix = key.endsWith('_min') ? ' (Min)' : key.endsWith('_max') ? ' (Max)' : ''
+                label = `${attrLabel}${suffix}: ${value}`
+            } else {
+                label = `${attrKey}: ${value}`
+            }
+        }
         else label = `${key}: ${value}`
 
         activeFilters.push({ key, label, value })

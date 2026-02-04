@@ -23,5 +23,11 @@
   "postedOn": "Posted On",
   "itemDescription": "Description",
   "callRecommendation": "Click to call seller directly",
-  "whatsapp": "Open in WhatsApp"
+  "whatsapp": "Open in WhatsApp",
+  "buyNow": "Buy Now",
+  "purchaseTitle": "Purchase Listing",
+  "purchaseDescription": "You are about to purchase this item. The amount will be deducted from your wallet balance.",
+  "confirmPurchase": "Confirm Purchase",
+  "insufficientBalance": "Insufficient balance. Please top up your wallet.",
+  "purchaseSuccess": "Purchase successful! Your order has been created."
 }

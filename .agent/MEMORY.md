@@ -9,7 +9,7 @@
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-03
-> **Status**: 🚀 Фаза 2 Masterplan V2 — Типы и тесты починены. Actions исправлены.
+> **Status**: 🚀 Тесты починены (84/84 passing). Настроен Husky pre-push hook.
 
 ---
 
@@ -25,7 +25,7 @@
 - **Active Errors / Blockers**: Нет.
 - **Current Focus**: [Masterplan V2] - Phase 2: Product & Search Experience
 - **Current Branch**: `feature/phase2-listing-dashboard-dynamic-filters`
-- **Latest Achievement**: Исправлены типы транзакций (добавлены `refill`, `promotion_top/highlight`), починены тесты фильтров и CI Verification (`npm run verify` проходит).
+- **Latest Achievement**: Починены Playwright тесты, исправлены моки Supabase и ResizeObserver, настроена автоматическая верификация перед push.
 - **Детальный статус**: Фаза 2 активна. См. `.agent/plans/implementation_plan_v2_phase2.md`
 
 ---

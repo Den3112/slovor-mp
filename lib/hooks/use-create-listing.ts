@@ -65,6 +65,7 @@ export function useCreateListing() {
             condition: (l.condition as 'new' | 'used') ?? 'new',
             location: l.location || '',
             images: l.images || [],
+            attributes: l.attributes || {},
           })
           setIsDirty(false)
           setFieldErrors({})

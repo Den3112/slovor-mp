@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect, useRef } from 'react'
 import { Tag, PackageCheck, TrendingUp, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
+import { CATEGORY_ATTRIBUTES, getAttributeLabel } from '@/lib/constants/category-attributes'
 
 const LOCATIONS = [
   { value: '', label: 'allLocations' },
@@ -49,6 +50,37 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
   const [location, setLocation] = useState(searchParams.get('location') || '')
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest')
 
+  // Dynamic attributes state
+  const [dynamicAttrs, setDynamicAttrs] = useState<Record<string, any>>(() => {
+    const attrs: Record<string, any> = {}
+    searchParams.forEach((value, key) => {
+      if (key.startsWith('attr_')) {
+        const attrKey = key.replace('attr_', '')
+        if (attrKey.endsWith('_min')) {
+          const coreKey = attrKey.replace('_min', '')
+          attrs[coreKey] = { ...attrs[coreKey], min: value }
+        } else if (attrKey.endsWith('_max')) {
+          const coreKey = attrKey.replace('_max', '')
+          attrs[coreKey] = { ...attrs[coreKey], max: value }
+        } else {
+          attrs[attrKey] = value
+        }
+      }
+    })
+    return attrs
+  })
+
+  const currentCategoryAttributes = category ? CATEGORY_ATTRIBUTES[category] : []
+  const initialCategoryRef = useRef(searchParams.get('category') || '')
+
+  // Reset dynamic attributes when category changes (if it wasn't the initial category)
+  useEffect(() => {
+    if (category !== initialCategoryRef.current) {
+      setDynamicAttrs({})
+      initialCategoryRef.current = category
+    }
+  }, [category])
+
   const applyFilters = () => {
     startTransition(() => {
       const params = new URLSearchParams()
@@ -59,6 +91,16 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
       if (location && location !== 'all') params.set('location', location)
       if (category && category !== 'all') params.set('category', category)
       if (sort) params.set('sort', sort)
+
+      // Add dynamic attributes
+      Object.entries(dynamicAttrs).forEach(([key, value]) => {
+        if (typeof value === 'object') {
+          if (value.min) params.set(`attr_${key}_min`, value.min)
+          if (value.max) params.set(`attr_${key}_max`, value.max)
+        } else if (value) {
+          params.set(`attr_${key}`, value)
+        }
+      })
 
       router.push(`?${params.toString()}`)
     })
@@ -72,6 +114,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
     setCondition('')
     setLocation('')
     setSort('newest')
+    setDynamicAttrs({})
     router.push(window.location.pathname)
   }
 
@@ -207,6 +250,90 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
             </SelectContent>
           </Select>
         </div>
+
+        {/* Dynamic Attributes */}
+        {currentCategoryAttributes && currentCategoryAttributes.length > 0 && (
+          <>
+            <div className="bg-border/40 my-2 h-px w-full" />
+            <div className="space-y-6">
+              {currentCategoryAttributes.map((attr) => (
+                <div key={attr.id} className="space-y-3">
+                  <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+                    {getAttributeLabel(attr, locale)}
+                    {attr.unit && <span className="lowercase opacity-60">({attr.unit})</span>}
+                  </label>
+
+                  {attr.type === 'select' && (
+                    <Select
+                      value={dynamicAttrs[attr.id] || 'all'}
+                      onValueChange={(v) =>
+                        setDynamicAttrs((prev) => ({
+                          ...prev,
+                          [attr.id]: v === 'all' ? '' : v,
+                        }))
+                      }
+                    >
+                      <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
+                        <SelectValue placeholder={t('common.all')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">{t('common.all')}</SelectItem>
+                        {attr.options?.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label[locale] || opt.label['en']}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+
+                  {attr.type === 'range' && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="number"
+                        value={dynamicAttrs[attr.id]?.min || ''}
+                        onChange={(e) =>
+                          setDynamicAttrs((prev) => ({
+                            ...prev,
+                            [attr.id]: { ...prev[attr.id], min: e.target.value },
+                          }))
+                        }
+                        placeholder={t('filters.min') || 'Min'}
+                        className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-xl border py-2.5 px-3 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+                      />
+                      <input
+                        type="number"
+                        value={dynamicAttrs[attr.id]?.max || ''}
+                        onChange={(e) =>
+                          setDynamicAttrs((prev) => ({
+                            ...prev,
+                            [attr.id]: { ...prev[attr.id], max: e.target.value },
+                          }))
+                        }
+                        placeholder={t('filters.max') || 'Max'}
+                        className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-xl border py-2.5 px-3 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+                      />
+                    </div>
+                  )}
+
+                  {attr.type === 'text' && (
+                    <input
+                      type="text"
+                      value={dynamicAttrs[attr.id] || ''}
+                      onChange={(e) =>
+                        setDynamicAttrs((prev) => ({
+                          ...prev,
+                          [attr.id]: e.target.value,
+                        }))
+                      }
+                      className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 h-11 w-full rounded-xl border px-4 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Action Buttons */}

@@ -220,6 +220,25 @@ export interface ActivityLog {
   created_at: string
 }
 
+export interface Order {
+  id: string
+  buyer_id: string
+  seller_id: string
+  listing_id: string
+  amount: number
+  currency: string
+  status: 'pending' | 'completed' | 'cancelled' | 'refunded'
+  payment_method: 'wallet' | 'stripe' | 'paypal'
+  metadata: Record<string, any>
+  created_at: string
+  updated_at: string
+
+  // Relations
+  listing?: Listing
+  buyer?: Profile
+  seller?: Profile
+}
+
 // API Response types (Principle #5: Errors are part of design)
 export type ApiResponse<T> =
   | { data: T; error: null }
