@@ -75,3 +75,5 @@
 2. Check existing PR #30 before pushing new changes.
 3. If continuing to Phase 9, ensure and maintain the "Solid" aesthetic.
 4. Run `npm run verify` religiously.
+
+[Masterplan V2]: /home/creator/slovor-mp/.agent/plans/MASTERPLAN_V2_PRODUCT_READY.md
