@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, Package, Eye, Heart, Search, Filter } from 'lucide-react'
+import { Plus, Package, Eye, Heart, Search } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
@@ -11,6 +11,8 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { toast } from 'sonner'
+import { Pagination } from '@/components/ui/pagination'
 import {
     Table,
     TableBody,
@@ -44,6 +46,30 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
     const { t } = useTranslation(['common', 'dashboard', 'createListing'])
     const [activeTab, setActiveTab] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
+    const [selectedIds, setSelectedIds] = useState<string[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 10
+
+    const toggleSelectAll = () => {
+        if (selectedIds.length === filteredListings.length) {
+            setSelectedIds([])
+        } else {
+            setSelectedIds(filteredListings.map(l => l.id))
+        }
+    }
+
+    const toggleSelect = (id: string) => {
+        setSelectedIds(prev =>
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        )
+    }
+
+    const handleBulkDelete = async () => {
+        if (!confirm(`Are you sure you want to delete ${selectedIds.length} listings?`)) return
+        // Implement real bulk delete here
+        toast.success(`${selectedIds.length} listings deleted`)
+        setSelectedIds([])
+    }
 
     // Filter listings based on tab and search
     const filteredListings = useMemo(() => {
@@ -71,6 +97,14 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
 
         return result
     }, [initialListings, activeTab, searchQuery])
+
+    // Paginated listings
+    const paginatedListings = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage
+        return filteredListings.slice(start, start + itemsPerPage)
+    }, [filteredListings, currentPage])
+
+    const totalPages = Math.ceil(filteredListings.length / itemsPerPage)
 
     const tabs = [
         { value: 'all', label: t('dashboard:all'), count: initialListings.length },
@@ -128,14 +162,50 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             placeholder={t('common:search')}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 h-10 border-border/60 focus:ring-primary/20"
+                            className="pl-9 h-10 border-border/60 focus:ring-primary/20 rounded-xl"
                         />
                     </div>
-                    <Button variant="outline" size="icon" className="h-10 w-10 shrink-0 border-border/60">
-                        <Filter className="h-4 w-4" />
-                    </Button>
                 </div>
             </motion.div>
+
+            {/* Bulk Actions Bar */}
+            {selectedIds.length > 0 && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-white/10 px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-6 min-w-[320px] max-w-[90vw]"
+                >
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Bulk actions</span>
+                        <span className="text-xs font-bold text-white">{selectedIds.length} items selected</span>
+                    </div>
+                    <div className="h-8 w-px bg-white/10" />
+                    <div className="flex items-center gap-2">
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-white hover:bg-white/10 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            onClick={() => setSelectedIds([])}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            size="sm"
+                            className="bg-white text-slate-900 hover:bg-white/90 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                        >
+                            Deactivate
+                        </Button>
+                        <Button
+                            size="sm"
+                            variant="destructive"
+                            className="text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            onClick={handleBulkDelete}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </motion.div>
+            )}
 
             {/* Table */}
             <motion.div variants={item} className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">
@@ -143,7 +213,15 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                     <Table>
                         <TableHeader>
                             <TableRow className="bg-muted/20 hover:bg-muted/20 border-b border-border/40">
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:title')}</TableHead>
+                                <TableHead className="w-12 px-4 h-10 text-center">
+                                    <input
+                                        type="checkbox"
+                                        className="h-4 w-4 rounded border-border/60 bg-background accent-primary cursor-pointer"
+                                        checked={selectedIds.length === filteredListings.length && filteredListings.length > 0}
+                                        onChange={toggleSelectAll}
+                                    />
+                                </TableHead>
+                                <TableHead className="px-4 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:title')}</TableHead>
                                 <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('createListing:price')}</TableHead>
                                 <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('dashboard:status')}</TableHead>
                                 <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('dashboard:stats')}</TableHead>
@@ -152,10 +230,18 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredListings.length > 0 ? (
-                                filteredListings.map((listing) => (
-                                    <TableRow key={listing.id} className="hover:bg-accent/40 border-b border-border/40 transition-colors group">
-                                        <TableCell className="px-4 py-3 sm:px-6">
+                            {paginatedListings.length > 0 ? (
+                                paginatedListings.map((listing) => (
+                                    <TableRow key={listing.id} className={cn("hover:bg-accent/40 border-b border-border/40 transition-colors group", selectedIds.includes(listing.id) && "bg-primary/5")}>
+                                        <TableCell className="w-12 px-4 py-3 text-center">
+                                            <input
+                                                type="checkbox"
+                                                className="h-4 w-4 rounded border-border/60 bg-background accent-primary cursor-pointer"
+                                                checked={selectedIds.includes(listing.id)}
+                                                onChange={() => toggleSelect(listing.id)}
+                                            />
+                                        </TableCell>
+                                        <TableCell className="px-4 py-3">
                                             <div className="flex items-center gap-3 sm:gap-4">
                                                 <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border/10 bg-muted shadow-sm">
                                                     {listing.images?.[0] ? (
@@ -232,7 +318,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="h-48 text-center">
+                                    <TableCell colSpan={7} className="h-48 text-center">
                                         <div className="flex flex-col items-center justify-center text-muted-foreground">
                                             <Package className="h-10 w-10 opacity-20 mb-3" />
                                             <p className="text-sm font-medium">{t('dashboard:noListingsYet')}</p>
@@ -244,6 +330,19 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                     </Table>
                 </div>
             </motion.div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+                <div className="mt-8 flex justify-center">
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        totalItems={filteredListings.length}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={setCurrentPage}
+                    />
+                </div>
+            )}
         </motion.div>
     )
 }

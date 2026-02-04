@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
     UserPlus,
     Package,
-    AlertCircle,
-    CheckCircle2,
-    MessageSquare,
-    Zap
+    Activity,
+    User,
+    Clock,
 } from 'lucide-react'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 interface Event {
@@ -30,10 +30,10 @@ const INITIAL_EVENTS: Event[] = [
 const EVENT_CONFIG = {
     user: { icon: UserPlus, color: 'text-blue-500', bg: 'bg-blue-500/10' },
     listing: { icon: Package, color: 'text-primary', bg: 'bg-primary/10' },
-    report: { icon: AlertCircle, color: 'text-destructive', bg: 'bg-destructive/10' },
-    approved: { icon: CheckCircle2, color: 'text-success', bg: 'bg-emerald-500/10' },
-    message: { icon: MessageSquare, color: 'text-amber-500', bg: 'bg-amber-500/10' },
-    system: { icon: Zap, color: 'text-purple-500', bg: 'bg-purple-500/10' },
+    report: { icon: Activity, color: 'text-destructive', bg: 'bg-destructive/10' },
+    approved: { icon: User, color: 'text-success', bg: 'bg-emerald-500/10' },
+    message: { icon: Clock, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+    system: { icon: Clock, color: 'text-purple-500', bg: 'bg-purple-500/10' },
 }
 
 export function LiveMonitor() {
@@ -120,9 +120,11 @@ export function LiveMonitor() {
             </div>
 
             <div className="pt-2">
-                <button className="w-full py-2 rounded-lg border border-border/60 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 hover:text-primary hover:border-primary/40 hover:bg-muted/50 transition-all">
-                    View Full Audit Log
-                </button>
+                <Link href="/admin/activity">
+                    <button className="w-full py-2 rounded-lg border border-border/60 text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 hover:text-primary hover:border-primary/40 hover:bg-muted/50 transition-all cursor-pointer">
+                        View Full Audit Log
+                    </button>
+                </Link>
             </div>
         </div>
     )

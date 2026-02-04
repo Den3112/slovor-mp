@@ -163,5 +163,16 @@
     "publishChanges": "Publish Changes",
     "maintenance": "Maintenance",
     "maintenanceOn": "Storefront is hidden. Only admins can access the site.",
-    "maintenanceOff": "Marketplace is live and accepting transactions."
+    "maintenanceOff": "Marketplace is live and accepting transactions.",
+    "activityLog": "Лог активности",
+    "auditSystemActions": "Аудит системных событий и действий пользователей",
+    "marketplaceTransactions": "Транзакции маркета",
+    "manageAllOrders": "Мониторинг и управление всеми продажами и покупками.",
+    "searchOrders": "Поиск заказов, покупателей или продавцов...",
+    "orderStatusUpdated": "Статус заказа обновлен",
+    "tableAmount": "Сумма",
+    "totalVolume": "Общий объем",
+    "avgOrderValue": "Средний чек",
+    "proSeller": "Pro Продавец",
+    "member": "Участник"
 }

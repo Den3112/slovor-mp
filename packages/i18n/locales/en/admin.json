@@ -163,5 +163,16 @@
     "publishChanges": "Publish Changes",
     "maintenance": "Maintenance",
     "maintenanceOn": "Storefront is hidden. Only admins can access the site.",
-    "maintenanceOff": "Marketplace is live and accepting transactions."
+    "maintenanceOff": "Marketplace is live and accepting transactions.",
+    "activityLog": "Activity Log",
+    "auditSystemActions": "Audit system events and user actions",
+    "marketplaceTransactions": "Marketplace Transactions",
+    "manageAllOrders": "Monitor and manage all marketplace sales and purchases.",
+    "searchOrders": "Search orders, buyers or sellers...",
+    "orderStatusUpdated": "Order status updated",
+    "tableAmount": "Amount",
+    "totalVolume": "Total Volume",
+    "avgOrderValue": "Avg. Order Value",
+    "proSeller": "Pro Seller",
+    "member": "Member"
 }

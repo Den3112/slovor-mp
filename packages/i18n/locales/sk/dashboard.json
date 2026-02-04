@@ -47,7 +47,10 @@
   "thisWeek": "Tento týždeň",
   "quickActions": "Rýchle akcie",
   "status": "Stav",
-  "wallet": {
+  "main": "Hlavné",
+  "account": "Účet",
+  "quickAccess": "Rýchly prístup",
+  "walletDetails": {
     "title": "Peňaženka",
     "addFunds": "Pridať prostriedky",
     "refillBalance": "Dobiť zostatok",
@@ -59,7 +62,22 @@
     "refill": "Dobitie",
     "promotion_top": "Topovanie",
     "promotion_highlight": "Prémiové zvýraznenie",
-    "subscription": "Predplatné"
+    "subscription": "Predplatné",
+    "availableBalance": "Dostupný zostatok",
+    "refillSuccess": "Peňaženka bola úspešne dobitá!"
+  },
+  "notifications": {
+    "title": "Upozornenia",
+    "subtitle": "Majte prehľad o svojich najnovších aktivitách",
+    "markAllRead": "Označiť všetko ako prečítané",
+    "markedAllRead": "Všetky upozornenia boli označené ako prečítané",
+    "deleted": "Upozornenie bolo vymazané",
+    "emptyTitle": "Zatiaľ je tu ticho",
+    "emptyDesc": "Všetko ste si už pozreli! Nové upozornenia sa zobrazia tu."
+  },
+  "activityLog": {
+    "title": "Záznam aktivity",
+    "subtitle": "Prehľad všetkých vašich dôležitých akcií a udalostí účtu"
   },
   "promote": {
     "title": "Propagácia",

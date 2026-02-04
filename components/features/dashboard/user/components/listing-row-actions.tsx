@@ -39,12 +39,15 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
         <div className="flex items-center gap-2">
             {listing.status === 'active' && (
                 <Button
+                    asChild
                     variant="outline"
                     size="sm"
                     className="hidden sm:flex h-8 px-3 rounded-lg border-primary/20 bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all text-[10px] font-black uppercase tracking-widest gap-2"
                 >
-                    <TrendingUp className="h-3.5 w-3.5" />
-                    {t('dashboard:promote') || 'Promote'}
+                    <Link href={`/listings/${listing.id}/promote`}>
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        {t('dashboard:promote.title') || 'Promote'}
+                    </Link>
                 </Button>
             )}
 
@@ -73,9 +76,11 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
                     </DropdownMenuItem>
 
                     {listing.status === 'active' && (
-                        <DropdownMenuItem className="rounded-lg h-10 px-3 cursor-pointer text-primary bg-primary/5 focus:bg-primary focus:text-white">
-                            <TrendingUp className="mr-2 h-4 w-4" />
-                            <span className="text-[11px] font-black uppercase tracking-widest">{t('dashboard:promote') || 'Promote'}</span>
+                        <DropdownMenuItem asChild className="rounded-lg h-10 px-3 cursor-pointer text-primary bg-primary/5 focus:bg-primary focus:text-white">
+                            <Link href={`/listings/${listing.id}/promote`}>
+                                <TrendingUp className="mr-2 h-4 w-4" />
+                                <span className="text-[11px] font-black uppercase tracking-widest">{t('dashboard:promote.title') || 'Promote'}</span>
+                            </Link>
                         </DropdownMenuItem>
                     )}
 

@@ -18,37 +18,64 @@ export function RegionsSection() {
     const { t, locale } = useTranslation(['home', 'common'])
 
     return (
-        <section className="bg-muted/30 py-16 md:py-24">
-            <Container>
-                <div className="mb-12 text-center">
-                    <h2 className="font-heading mb-4 text-3xl font-black italic tracking-tight md:text-5xl">
-                        {t('home:regionsTitle')}
-                    </h2>
+        <section className="bg-muted/30 py-24 md:py-32 overflow-hidden relative">
+            {/* Background elements */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-y-1/2" />
+
+            <Container className="relative">
+                <div className="mb-16 text-center space-y-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="font-heading text-4xl font-black italic tracking-tighter md:text-6xl text-foreground uppercase">
+                            {t('home:regionsTitle')}
+                        </h2>
+                        <div className="mt-4 flex items-center justify-center gap-2">
+                            <div className="h-1 w-12 bg-primary rounded-full" />
+                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+                                {t('home:exploreSlovakia')}
+                            </p>
+                            <div className="h-1 w-12 bg-primary rounded-full" />
+                        </div>
+                    </motion.div>
                 </div>
 
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     {REGIONS.map((region, idx) => (
                         <motion.div
                             key={region.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.3, delay: idx * 0.1 }}
+                            transition={{ duration: 0.4, delay: idx * 0.05 }}
                         >
                             <Link
                                 href={`/${locale}/listings?location=${region.id}`}
-                                className="group flex flex-col items-center gap-2 rounded-2xl bg-background border border-border px-8 py-6 transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg active:scale-95"
+                                className="group block relative rounded-2xl bg-card border border-border/60 p-6 transition-all hover:-translate-y-2 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 active:scale-95"
                             >
-                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                                    <MapPin className="h-6 w-6" />
+                                <div className="space-y-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-primary/10">
+                                        <MapPin className="h-6 w-6" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-black tracking-tight text-foreground uppercase italic group-hover:text-primary transition-colors">
+                                            {t(region.nameKey)}
+                                        </h3>
+                                        <div className="mt-2 flex items-center gap-2">
+                                            <span className="h-0.5 w-4 bg-border group-hover:bg-primary/50 transition-all" />
+                                            <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">
+                                                {region.count.toLocaleString()} {t('home:popularInRegion')}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="text-center">
-                                    <h3 className="text-sm font-bold tracking-tight">
-                                        {t(region.nameKey)}
-                                    </h3>
-                                    <p className="text-2xs font-bold text-muted-foreground uppercase tracking-widest">
-                                        {region.count.toLocaleString()} {t('home:popularInRegion')}
-                                    </p>
+
+                                {/* Abstract accent */}
+                                <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-10 transition-opacity">
+                                    <MapPin className="h-12 w-12 text-primary" />
                                 </div>
                             </Link>
                         </motion.div>

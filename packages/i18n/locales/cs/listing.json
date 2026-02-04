@@ -23,5 +23,11 @@
   "postedOn": "Zveřejněno",
   "itemDescription": "Popis produktu",
   "callRecommendation": "Kliknutím zavoláte přímo prodejci",
-  "whatsapp": "Otvírat ve WhatsApp"
+  "whatsapp": "Otvírat ve WhatsApp",
+  "buyNow": "Koupit nyní",
+  "purchaseTitle": "Nákup položky",
+  "purchaseDescription": "Chystáte se koupit tuto položku. Částka bude odečtena z vašeho zůstatku v peněžence.",
+  "confirmPurchase": "Potvrdit nákup",
+  "insufficientBalance": "Nedostatečný zůstatek. Prosím, dobijte si peněženku.",
+  "purchaseSuccess": "Nákup byl úspěšný! Vaše objednávka byla vytvořena."
 }

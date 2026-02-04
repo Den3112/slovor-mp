@@ -15,7 +15,6 @@ import { LanguageSelector } from './language-selector'
 import { UserMenu } from './user-menu'
 import { MobileDrawer } from './mobile-drawer'
 import { CommandCenter } from './command-center'
-import { LocationSwitcher } from './location-switcher'
 import { MobileSearchOverlay } from './mobile-search-overlay'
 import { Logo } from '@/components/ui/logo'
 import { Heart, MessageCircle, ChevronDown } from 'lucide-react'
@@ -53,102 +52,106 @@ export function Header() {
     <>
       <header
         className={cn(
-          'sticky top-0 z-50 w-full h-16 bg-background border-b border-border transition-none',
+          'sticky top-0 z-50 w-full h-16 bg-background/95 backdrop-blur-md border-b border-border/40 antialiased transition-all duration-300',
         )}
       >
         <Container>
-          <div className="flex h-16 items-center justify-between gap-4">
-            {/* Logo Area */}
-            <div className="flex shrink-0 items-center gap-6">
+          <div className="flex h-16 items-center justify-between gap-8">
+            {/* Logo area with Category Trigger */}
+            <div className="flex shrink-0 items-center gap-8">
               <Logo locale={locale} />
 
-              {/* Trigger for Mega Menu - Desktop */}
               <button
                 className={cn(
-                  "hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold transition-all hover:bg-muted active:scale-95",
-                  isMegaMenuOpen ? "bg-muted text-primary" : "text-muted-foreground"
+                  "hidden lg:flex items-center gap-2.5 px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-[0.98]",
+                  isMegaMenuOpen
+                    ? "bg-primary text-white shadow-lg shadow-primary/20"
+                    : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/40"
                 )}
                 onMouseEnter={() => setIsMegaMenuOpen(true)}
                 onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
               >
-                <LayoutGrid className="w-4 h-4" />
+                <LayoutGrid className={cn("w-4 h-4 transition-transform", isMegaMenuOpen && "scale-110")} />
                 <span>{t('nav:categories')}</span>
-                <ChevronDown className={cn("w-4 h-4 transition-transform", isMegaMenuOpen && "rotate-180")} />
+                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-300", isMegaMenuOpen && "rotate-180")} />
               </button>
             </div>
 
-            {/* Search & Location - Desktop */}
-            <div className="hidden flex-1 max-w-2xl items-center justify-center gap-3 md:flex">
-              <CommandCenter locale={locale} />
-              <LocationSwitcher />
+            {/* Central Expressive Search - Desktop */}
+            <div className="hidden flex-1 max-w-xl items-center justify-center md:flex">
+              <div className="w-full relative group">
+                <CommandCenter locale={locale} />
+                {/* Visual indicator of center focus */}
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary transition-all duration-500 group-focus-within:w-1/2 opacity-50" />
+              </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex shrink-0 items-center gap-2">
-              {/* Desktop Actions */}
-              <div className="hidden items-center gap-2 lg:flex">
-                <LanguageSelector />
-                <ThemeToggle />
+            {/* Premium Actions Area */}
+            <div className="flex shrink-0 items-center gap-3">
+              <div className="hidden items-center gap-3 lg:flex">
+                {/* Secondary Actions */}
+                <div className="flex items-center gap-1.5 pr-2 border-r border-border/40">
+                  <LanguageSelector />
+                  <ThemeToggle />
+                </div>
 
-                <div className="mx-2 h-6 w-px bg-border/60" />
+                {/* Engagement Icons */}
+                <div className="flex items-center gap-1">
+                  <Button variant="ghost" size="icon" asChild className="h-10 w-10 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                    <Link href={`/${locale}/favorites`}>
+                      <Heart className="h-5 w-5" />
+                    </Link>
+                  </Button>
 
-                {/* Favorites */}
-                <Button variant="ghost" size="icon" asChild className="h-9 w-9 text-muted-foreground hover:text-primary transition-colors">
-                  <Link href={`/${locale}/favorites`}>
-                    <Heart className="h-5 w-5" />
-                  </Link>
-                </Button>
+                  <Button variant="ghost" size="icon" asChild className="relative h-10 w-10 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                    <Link href={`/${locale}/messages`}>
+                      <MessageCircle className="h-5 w-5" />
+                      {unreadCount > 0 && (
+                        <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-black text-white ring-2 ring-background">
+                          {unreadCount > 9 ? '9+' : unreadCount}
+                        </span>
+                      )}
+                    </Link>
+                  </Button>
+                </div>
 
-                {/* Messages */}
-                <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 text-muted-foreground hover:text-primary transition-colors">
-                  <Link href={`/${locale}/messages`}>
-                    <MessageCircle className="h-5 w-5" />
-                    {unreadCount > 0 && (
-                      <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-md bg-primary text-[10px] font-black text-white ring-2 ring-background">
-                        {unreadCount > 9 ? '9+' : unreadCount}
-                      </span>
-                    )}
-                  </Link>
-                </Button>
-
-                <div className="mx-2 h-6 w-px bg-border/60" />
+                <div className="mx-1 h-8 w-px bg-border/40" />
 
                 {user ? (
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
                     href={`/${locale}/auth/login`}
-                    className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80 hover:text-primary transition-colors px-2"
+                    className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/80 hover:text-primary transition-colors px-3 py-2"
                   >
                     {t('common:signIn')}
                   </Link>
                 )}
 
-                {/* Post Ad CTA */}
-                <Button asChild className="gap-2 font-bold uppercase tracking-widest ml-2 shadow-md shadow-primary/20">
+                {/* Primary CTA - Post Ad */}
+                <Button asChild className="h-10 rounded-xl px-5 gap-2.5 font-black text-[10px] uppercase tracking-[0.15em] ml-2 bg-primary hover:bg-primary/90 text-white border-0 shadow-lg shadow-primary/15 transition-all hover:-translate-y-0.5 active:translate-y-0">
                   <Link href={`/${locale}/post`} data-testid="header-post-ad-btn">
-                    <Plus className="h-4 w-4" strokeWidth={2.5} />
+                    <Plus className="h-4 w-4" strokeWidth={3} />
                     <span>{t('nav:postAd')}</span>
                   </Link>
                 </Button>
               </div>
 
-              {/* Mobile Actions */}
+              {/* Mobile Interaction Trigger */}
               <div className="flex items-center gap-2 lg:hidden">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSearchOverlayOpen(true)}
-                  className="h-9 w-9"
+                  className="h-10 w-10 rounded-xl bg-muted/40"
                 >
                   <Search className="h-5 w-5" />
                 </Button>
-                <ThemeToggle />
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="h-9 w-9"
+                  className="h-10 w-10 rounded-xl bg-muted/40"
                   aria-label="Open menu"
                 >
                   <Menu className="h-5 w-5" />

@@ -64,5 +64,30 @@ export const serverListingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+
+  /**
+   * Fetches recent listings
+   */
+  async getRecent(limit = 8): Promise<ApiResponse<Listing[]>> {
+    try {
+      const supabase = await createClient()
+
+      let query = supabase
+        .from('listings')
+        .select('*, category:categories(*)')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(limit)
+
+      const { data, error } = await query
+
+      if (error) throw error
+
+      return { data: data || [], error: null }
+    } catch (error) {
+      logError('serverListingsApi.getRecent', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }
 

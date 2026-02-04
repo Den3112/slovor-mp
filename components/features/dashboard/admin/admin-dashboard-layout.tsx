@@ -10,6 +10,7 @@ import {
     AlertTriangle,
     FileCheck,
     FileText,
+    ShoppingBag,
 } from 'lucide-react'
 
 
@@ -35,6 +36,7 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
                     { href: '/admin/listings', label: t('admin:moderation'), icon: ShieldCheck },
                     { href: '/admin/users', label: t('admin:users'), icon: Users },
                     { href: '/admin/verifications', label: t('admin:verifications'), icon: FileCheck },
+                    { href: '/admin/orders', label: t('admin:marketplaceTransactions') || 'Orders', icon: ShoppingBag },
                 ]
             },
             {

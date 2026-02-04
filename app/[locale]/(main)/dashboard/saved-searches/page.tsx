@@ -16,7 +16,9 @@ import {
   ExternalLink,
   MapPin,
   Tag,
+  Calendar,
 } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 export default function SavedSearchesPage() {
@@ -97,124 +99,121 @@ export default function SavedSearchesPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-20 md:pt-32">
-      <Container>
-        <div className="relative overflow-hidden rounded-xl border border-border bg-card p-8 shadow-sm md:p-10">
-          <div className="relative z-10 space-y-1">
-            <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
-              {t('dashboard:savedSearches')}
-            </h1>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              {t('profile:savedSearchesDescription')}
-            </p>
-          </div>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">
+            {t('dashboard:savedSearches')}
+          </h1>
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
+            {t('profile:savedSearchesDescription')}
+          </p>
         </div>
+      </div>
 
-        {isLoading ? (
-          <div className="space-y-4">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="bg-muted/40 animate-pulse rounded-xl border border-border/40 p-6 h-32"
-              />
-            ))}
-          </div>
-        ) : searches.length === 0 ? (
-          <div className="rounded-xl border border-border bg-card p-8 shadow-sm md:p-12">
-            <EmptyState
-              icon={Search}
-              title={t('profile:noSavedSearches')}
-              description={t('profile:noSavedSearchesDesc')}
+      {isLoading ? (
+        <div className="space-y-4">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="bg-muted/40 animate-pulse rounded-2xl border border-border/40 p-6 h-32"
             />
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {searches.map((search) => (
-              <div
-                key={search.id}
-                className="border-border bg-card hover:border-primary/30 rounded-xl border p-6 transition-all shadow-sm"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
+          ))}
+        </div>
+      ) : searches.length === 0 ? (
+        <EmptyState
+          icon={Search}
+          title={t('profile:noSavedSearches')}
+          description={t('profile:noSavedSearchesDesc')}
+        />
+      ) : (
+        <div className="grid gap-4">
+          {searches.map((search) => (
+            <div
+              key={search.id}
+              className="group relative overflow-hidden rounded-2xl border border-border/40 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-sm"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-base font-black uppercase tracking-tight text-foreground truncate">{search.name}</h3>
-
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {search.query && (
-                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
-                          <Search className="h-2.5 w-2.5" />
-                          {search.query}
-                        </span>
-                      )}
-                      {search.category?.name && (
-                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
-                          <Tag className="h-2.5 w-2.5" />
-                          {search.category.name}
-                        </span>
-                      )}
-                      {search.location && (
-                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
-                          <MapPin className="h-2.5 w-2.5" />
-                          {search.location}
-                        </span>
-                      )}
-                      {(search.min_price || search.max_price) && (
-                        <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">
-                          €{search.min_price || 0} - €{search.max_price || '∞'}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="text-muted-foreground/50 mt-4 flex items-center gap-4 text-[9px] font-bold uppercase tracking-widest">
-                      <span className="inline-flex items-center gap-1 text-primary/70">
-                        <Bell className="h-2.5 w-2.5" />
-                        {search.frequency} {t('profile:notifications')}
-                      </span>
-                      <span>
-                        {t('profile:created')} {new Date(search.created_at).toLocaleDateString()}
-                      </span>
-                    </div>
+                    <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-border/60">
+                      {search.frequency}
+                    </Badge>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleToggleNotifications(search)}
-                      className={cn(
-                        'rounded-xl',
-                        search.notify_email
-                          ? 'text-primary'
-                          : 'text-muted-foreground'
-                      )}
-                    >
-                      {search.notify_email ? (
-                        <Bell className="h-5 w-5" />
-                      ) : (
-                        <BellOff className="h-5 w-5" />
-                      )}
-                    </Button>
+                  <div className="flex flex-wrap gap-2">
+                    {search.query && (
+                      <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest">
+                        <Search className="h-3 w-3" />
+                        {search.query}
+                      </span>
+                    )}
+                    {search.category?.name && (
+                      <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest">
+                        <Tag className="h-3 w-3" />
+                        {search.category.name}
+                      </span>
+                    )}
+                    {search.location && (
+                      <span className="bg-muted/40 text-muted-foreground border border-border/40 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest">
+                        <MapPin className="h-3 w-3" />
+                        {search.location}
+                      </span>
+                    )}
+                  </div>
 
-                    <Link href={buildSearchUrl(search)}>
-                      <Button variant="ghost" size="sm" className="rounded-xl">
-                        <ExternalLink className="h-5 w-5" />
-                      </Button>
-                    </Link>
-
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(search.id)}
-                      className="text-destructive hover:bg-destructive/10 rounded-xl"
-                    >
-                      <Trash2 className="h-5 w-5" />
-                    </Button>
+                  <div className="flex items-center gap-4 mt-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
+                    <span className="flex items-center gap-1.5">
+                      <Bell className="h-3 w-3" />
+                      {search.notify_email ? 'Email ON' : 'Email OFF'}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="h-3 w-3 text-muted-foreground/20" />
+                      {new Date(search.created_at).toLocaleDateString()}
+                    </span>
                   </div>
                 </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleToggleNotifications(search)}
+                    className={cn(
+                      'h-10 w-10 rounded-xl transition-colors',
+                      search.notify_email
+                        ? 'bg-primary/5 text-primary hover:bg-primary/10'
+                        : 'bg-muted/40 text-muted-foreground hover:bg-muted/60'
+                    )}
+                  >
+                    {search.notify_email ? (
+                      <Bell className="h-4 w-4" />
+                    ) : (
+                      <BellOff className="h-4 w-4" />
+                    )}
+                  </Button>
+
+                  <Button variant="ghost" size="icon" asChild className="h-10 w-10 rounded-xl bg-muted/40 hover:bg-primary/10 hover:text-primary transition-all">
+                    <Link href={buildSearchUrl(search)}>
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleDelete(search.id)}
+                    className="h-10 w-10 rounded-xl hover:bg-destructive/10 hover:text-destructive text-muted-foreground/40 transition-all"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            ))}
-          </div>
-        )}
-      </Container>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

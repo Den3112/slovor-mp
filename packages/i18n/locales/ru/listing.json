@@ -23,5 +23,11 @@
     "postedOn": "Опубликовано",
     "itemDescription": "Описание",
     "callRecommendation": "Нажмите, чтобы позвонить продавцу",
-    "whatsapp": "Открыть в WhatsApp"
+    "whatsapp": "Открыть в WhatsApp",
+    "buyNow": "Купить сейчас",
+    "purchaseTitle": "Покупка товара",
+    "purchaseDescription": "Вы собираетесь купить этот товар. Сумма будет списана с вашего баланса.",
+    "confirmPurchase": "Подтвердить покупку",
+    "insufficientBalance": "Недостаточно средств. Пополните кошелек.",
+    "purchaseSuccess": "Покупка прошла успешно! Ваш заказ создан."
 }

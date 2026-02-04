@@ -31,6 +31,18 @@ vi.mock('next/image', () => ({
 
 // Mock Supabase client
 vi.mock('@/lib/supabase/client', () => ({
+  createClient: () => ({
+    auth: {
+      getSession: vi.fn().mockResolvedValue({ data: { session: null }, error: null }),
+      getUser: vi.fn().mockResolvedValue({ data: { user: null }, error: null }),
+    },
+    from: vi.fn(() => ({
+      select: vi.fn().mockReturnThis(),
+      maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
+      eq: vi.fn().mockReturnThis(),
+      update: vi.fn().mockReturnThis(),
+    })),
+  }),
   supabase: {
     auth: {
       getSession: vi
@@ -71,8 +83,10 @@ vi.mock('@/lib/supabase/client', () => ({
 }))
 
 // Mock ResizeObserver
-global.ResizeObserver = class ResizeObserver {
-  observe() { }
-  unobserve() { }
-  disconnect() { }
+if (typeof globalThis !== 'undefined') {
+  (globalThis as any).ResizeObserver = class ResizeObserver {
+    observe() { }
+    unobserve() { }
+    disconnect() { }
+  }
 }
