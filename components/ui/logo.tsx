@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 interface LogoProps {
@@ -40,10 +41,12 @@ export function Logo({ locale, className, showText = true, size = 'md' }: LogoPr
             data-testid="logo"
         >
             <div className={cn("relative transition-transform duration-500 group-hover:scale-105 overflow-hidden rounded-xl", currentSize.box)}>
-                <img
+                <Image
                     src="/logo.png"
                     alt="Slovor Logo"
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    priority
                 />
             </div>
             {showText && (
