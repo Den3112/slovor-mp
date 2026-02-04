@@ -44,7 +44,7 @@ export function Logo({ locale, className, size = 'md' }: LogoProps) {
                     src="/logo.png"
                     alt="Slovor Logo"
                     fill
-                    className="object-cover"
+                    className="object-contain object-top scale-125"
                     priority
                 />
             </div>
