@@ -60,6 +60,8 @@
   "notifications": "Notifications",
   "activityHistory": "Activity History",
   "viewDetails": "View Details",
+  "quickSuggestions": "Quick Suggestions",
+  "advancedSearch": "Advanced Search",
   "trust": {
     "verified": "Verified Listing"
   },
