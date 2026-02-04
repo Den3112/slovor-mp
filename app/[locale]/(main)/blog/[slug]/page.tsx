@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                                 <div className="flex items-center gap-3">
                                     <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-border">
                                         {post.author.avatar_url ? (
-                                            <Image src={post.author.avatar_url} alt={post.author.display_name || ''} fill className="object-cover" />
+                                            <Image src={post.author.avatar_url} alt={post.author.display_name || ''} fill sizes="40px" className="object-cover" />
                                         ) : (
                                             <div className="flex h-full w-full items-center justify-center bg-background">
                                                 <User className="h-5 w-5 text-muted-foreground" />
@@ -83,6 +83,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                                         src={post.cover_image}
                                         alt={post.title}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, 850px"
                                         className="object-cover"
                                         priority
                                     />

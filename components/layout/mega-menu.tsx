@@ -102,7 +102,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
 
                                 {/* Promotional Side Rail */}
                                 <div className="lg:col-span-1 space-y-8 border-l border-border/60 pl-10 hidden lg:block">
-                                    <div className="relative overflow-hidden rounded-2xl bg-slate-950 p-6 text-white border border-white/5 group shadow-xl">
+                                    <div className="relative overflow-hidden rounded-2xl bg-muted/50 dark:bg-slate-950 p-6 text-foreground dark:text-white border border-border/50 dark:border-white/10 group shadow-xl">
                                         <div className="relative z-10 space-y-4">
                                             <Badge className="bg-primary/20 text-primary border-primary/20 text-[9px] font-black tracking-widest uppercase rounded-md h-5">
                                                 {t('common:featured')}
@@ -110,7 +110,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                             <h4 className="text-base font-black tracking-tight leading-tight italic">
                                                 {t('home:promo.title') || 'READY TO SELL FAST?'}
                                             </h4>
-                                            <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                                            <p className="text-xs text-muted-foreground dark:text-slate-400 leading-relaxed font-medium">
                                                 {t('home:promo.subtitle') || 'Upgrade to VIP and get 10x more views today.'}
                                             </p>
                                             <Button asChild size="sm" className="w-full font-black uppercase tracking-widest text-[9px] h-9 rounded-lg bg-primary hover:bg-primary/90 border-0 group-hover:scale-[1.02] transition-transform">
