@@ -22,7 +22,8 @@ import {
     ShieldCheck,
     CheckCheck,
     Phone,
-    Video
+    Video,
+    Loader2
 } from 'lucide-react'
 import Link from 'next/link'
 import { format } from 'date-fns'
@@ -242,7 +243,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
                         <Link href={`/listings/${listing.id}`} className="hidden md:flex items-center gap-3 rounded-lg border border-border/50 bg-card p-1.5 pr-3 hover:bg-muted/50 hover:border-primary/20 transition-all group">
                             <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded bg-muted">
                                 {listing.images?.[0] ? (
-                                    <Image src={listing.images[0]} alt={listing.title} fill className="object-cover transition-transform group-hover:scale-110" unoptimized />
+                                    <Image src={listing.images[0]} alt={listing.title} fill sizes="32px" className="object-cover transition-transform group-hover:scale-110" unoptimized />
                                 ) : (
                                     <div className="h-full w-full bg-muted" />
                                 )}
@@ -313,22 +314,22 @@ export function ChatView({ conversationId }: ChatViewProps) {
 
                                     <div
                                         className={cn(
-                                            "relative px-4 py-2.5 max-w-[75%] shadow-sm text-sm group",
+                                            "relative px-4 py-2 max-w-[80%] shadow-sm text-sm group",
                                             isMe
-                                                ? "bg-primary text-primary-foreground rounded-2xl rounded-tr-sm"
-                                                : "bg-card text-card-foreground border border-border/60 rounded-2xl rounded-tl-sm",
-                                            isSequential && (isMe ? "rounded-tr-2xl" : "rounded-tl-2xl")
+                                                ? "bg-primary text-primary-foreground rounded-xl rounded-tr-sm"
+                                                : "bg-card text-card-foreground border border-border/60 rounded-xl rounded-tl-sm",
+                                            isSequential && (isMe ? "rounded-tr-xl" : "rounded-tl-xl")
                                         )}
                                     >
-                                        <p className="whitespace-pre-wrap break-all leading-relaxed">{msg.content}</p>
+                                        <p className="whitespace-pre-wrap break-all leading-relaxed font-medium">{msg.content}</p>
                                         <div className={cn(
-                                            "flex items-center gap-1 mt-1 select-none",
+                                            "flex items-center gap-1 mt-0.5 select-none",
                                             isMe ? "justify-end text-primary-foreground/70" : "justify-start text-muted-foreground/60"
                                         )}>
-                                            <span className="text-[9px] font-bold uppercase tracking-widest opacity-80">
+                                            <span className="text-[8px] font-black uppercase tracking-widest opacity-80">
                                                 {format(new Date(msg.created_at), 'HH:mm')}
                                             </span>
-                                            {isMe && <CheckCheck className={cn("h-3 w-3", msg.is_read ? "opacity-100" : "opacity-40")} />}
+                                            {isMe && <CheckCheck className={cn("h-2.5 w-2.5", msg.is_read ? "opacity-100" : "opacity-40")} />}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -383,21 +384,4 @@ export function ChatView({ conversationId }: ChatViewProps) {
     )
 }
 
-function Loader2({ className }: { className?: string }) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={cn("animate-spin", className)}
-        >
-            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-        </svg>
-    )
-}
+

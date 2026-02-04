@@ -13,7 +13,21 @@ description: 8 coding principles - mandatory for all code changes
 **You must NOT wait for the USER to remind you of the rules.**
 Before starting any task, you **MUST** read all files in `.agent/workflows/` (especially `coding-rules.md`, `git-workflow.md`, and `language-policy.md`) to align with the latest project standards. You are responsible for maintaining project consistency autonomously.
 
-### 00. Zero User Burden & Mandatory Self-Check (CRITICAL)
+### 0.5. Server Availability (PRE-CONDITION)
+
+ **The local server MUST be running.**
+ Before starting ANY task, you **MUST** verify that the local development server (e.g., `npm run dev`) is active. If it is stopped, you must notify the user and request permission to start it or ask the user to start it manually. Use `curl` or check terminal output to confirm.
+
+ ### 0.6. Zero-Error Submission (POST-CONDITION)
+
+ **No task is finished without multi-layer verification.**
+ Before finishing ANY task, you **MUST**:
+ 1. Run `npm run verify` (Lint + Type-check + Build).
+ 2. Verify there are no **runtime errors** in the terminal where the server is running.
+ 3. Verify there are no **browser console errors** or **Next.js error overlays** on the affected pages.
+ You are strictly prohibited from saying "everything works" if there are any errors at ANY stage (Static or Runtime). If you cannot fix an error, you must explicitly list it in the report.
+
+ ### 00. Zero User Burden & Mandatory Self-Check (CRITICAL)
 
 **Your goal is to save the USER's time.**
 - **MANDATORY:** You MUST run `npm run verify` (Lint + Type-check + Build) BEFORE writing your final report or notifying the user that the task is finished.
@@ -146,6 +160,7 @@ After completing the task, you **MUST** provide a clear, **visually rich** repor
 - [ ] **Communication in Russian, code in English?**
 - [ ] **Unclear points clarified with the user?**
 - [ ] **Global changes confirmed?**
+- [ ] **Local server is verified to be running?**
 - [ ] **Verified via automated scripts (`./scripts/docker.sh verify`)?**
 - [ ] **Zero lint/type errors remaining?**
 - [ ] **Report is visually rich (icons, bold, structure)?**

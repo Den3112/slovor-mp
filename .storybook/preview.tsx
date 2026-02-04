@@ -1,6 +1,7 @@
 import '../app/globals.css'
 import type { Preview } from '@storybook/nextjs'
 import { ThemeProvider } from '../components/providers/theme-provider'
+import { CurrencyProvider } from '../components/providers/currency-provider'
 import React from 'react'
 
 const preview: Preview = {
@@ -15,7 +16,9 @@ const preview: Preview = {
     decorators: [
         (Story) => (
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-                <Story />
+                <CurrencyProvider>
+                    <Story />
+                </CurrencyProvider>
             </ThemeProvider>
         ),
     ],

@@ -107,7 +107,10 @@ export interface Review {
 
   rating: number
   comment: string | null
+  seller_reply?: string | null
+  seller_reply_at?: string | null
   created_at: string
+  updated_at?: string
 
   // Joined fields
   author?: User
@@ -123,14 +126,47 @@ export interface SavedListing {
   listing?: Listing
 }
 
+export interface Wallet {
+  id: string
+  user_id: string
+  balance: number
+  currency: string
+  created_at: string
+  updated_at: string
+}
+
 export interface Transaction {
   id: string
   user_id: string
+  wallet_id: string
   amount: number
   currency: string
-  type: 'promotion_top' | 'promotion_highlight' | 'subscription' | 'refill'
+  type: 'deposit' | 'withdrawal' | 'promotion' | 'promotion_top' | 'promotion_highlight' | 'subscription' | 'payout' | 'refill' | 'purchase'
   status: 'pending' | 'completed' | 'failed' | 'refunded'
+  description?: string | null
   metadata: Record<string, any>
+  created_at: string
+}
+
+export interface Promotion {
+  id: string
+  listing_id: string
+  user_id: string
+  type: 'highlight' | 'top_search' | 'urgent' | 'homepage_featured' | 'promotion_top' | 'promotion_highlight'
+  starts_at: string
+  ends_at: string
+  cost: number
+  status: 'active' | 'expired' | 'cancelled'
+  created_at: string
+}
+
+export interface UserSubscription {
+  id: string
+  user_id: string
+  plan_type: 'free' | 'pro' | 'business'
+  status: string
+  current_period_end: string | null
+  cancel_at_period_end: boolean
   created_at: string
 }
 
@@ -161,21 +197,57 @@ export interface ListingReport {
   id: string
   listing_id: string | null
   reported_user_id: string | null
-  reporter_id: string
+  reporter_id: string | null
   reason: string
   description: string | null
-  status: 'pending' | 'resolved' | 'dismissed'
+  status: 'pending' | 'investigating' | 'resolved' | 'dismissed'
+  admin_notes?: string | null
   created_at: string
+  resolved_at?: string | null
 }
 
 export interface UserVerification {
   id: string
   user_id: string
-  document_type: string
-  document_data: Record<string, any>
-  status: 'pending' | 'verified' | 'rejected'
+  type: 'email' | 'phone' | 'id_document' | 'address' | 'business'
+  document_url?: string
+  status: 'pending' | 'approved' | 'rejected'
+  admin_notes?: string | null
   verified_at: string | null
   created_at: string
+  updated_at?: string
+
+  // Relations
+  user?: User
+  profile?: User // Often used interchangeably
+}
+
+export interface ActivityLog {
+  id: string
+  user_id: string | null
+  action: string
+  metadata: Record<string, any>
+  ip_address: string | null
+  created_at: string
+}
+
+export interface Order {
+  id: string
+  buyer_id: string
+  seller_id: string
+  listing_id: string
+  amount: number
+  currency: string
+  status: 'pending' | 'completed' | 'cancelled' | 'refunded'
+  payment_method: 'wallet' | 'stripe' | 'paypal'
+  metadata: Record<string, any>
+  created_at: string
+  updated_at: string
+
+  // Relations
+  listing?: Listing
+  buyer?: Profile
+  seller?: Profile
 }
 
 // API Response types (Principle #5: Errors are part of design)

@@ -9,6 +9,7 @@ import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 
 interface CategoriesGridProps {
     categories: Category[]
@@ -49,31 +50,36 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                     {mainCategories.map((category, idx) => (
                         <motion.div
                             key={category.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: idx * 0.05 }}
+                            transition={{ duration: 0.5, delay: idx * 0.05 }}
                         >
                             <Link
                                 href={`/categories/${category.slug}`}
-                                className="group flex flex-col items-center justify-center gap-4 rounded-xl border border-border bg-card p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl active:scale-[0.98]"
+                                className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-border/60 bg-card p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 active:scale-[0.98]"
                             >
                                 <div className={cn(
-                                    "flex h-16 w-16 items-center justify-center rounded-2xl bg-muted transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
-                                    category.color // Use category color if available, though bg-muted is safer default
+                                    "flex h-20 w-20 items-center justify-center rounded-4xl transition-all duration-300 group-hover:rounded-2xl group-hover:bg-primary group-hover:text-primary-foreground shadow-sm ring-4 ring-muted/50",
+                                    category.color || "bg-muted"
                                 )}>
                                     <CategoryIcon
                                         slug={category.slug}
-                                        className="h-8 w-8"
+                                        className="h-10 w-10 transition-transform duration-300 group-hover:scale-110"
                                     />
                                 </div>
-                                <div className="space-y-1">
-                                    <h3 className="text-sm font-bold tracking-tight">
+                                <div className="space-y-1.5 px-2">
+                                    <h3 className="text-sm font-black tracking-tight uppercase group-hover:text-primary transition-colors">
                                         {getLocalizedCategoryName(category, locale, t)}
                                     </h3>
-                                    <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest">
-                                        {category.listing_count || 0} {t('common:listings')}
-                                    </p>
+                                    <div className="flex items-center justify-center gap-2">
+                                        <Badge variant="secondary" className="bg-muted text-[10px] font-black tracking-widest uppercase border-0 h-5 px-2">
+                                            {category.listing_count || 0}
+                                        </Badge>
+                                        <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
+                                            Ads
+                                        </span>
+                                    </div>
                                 </div>
                             </Link>
                         </motion.div>
@@ -81,24 +87,24 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
 
                     {/* "View All" Card */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.5 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
                     >
                         <Link
                             href="/categories"
-                            className="group flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/50 hover:bg-muted/40 active:scale-[0.98]"
+                            className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/50 hover:bg-primary/10 active:scale-[0.98]"
                         >
-                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                                <LayoutGrid className="h-8 w-8" />
+                            <div className="flex h-20 w-20 items-center justify-center rounded-4xl bg-primary text-white transition-all duration-300 group-hover:rounded-2xl shadow-lg shadow-primary/20">
+                                <LayoutGrid className="h-10 w-10" />
                             </div>
-                            <div className="space-y-1">
-                                <h3 className="text-sm font-bold tracking-tight">
+                            <div className="space-y-1.5 px-2">
+                                <h3 className="text-sm font-black tracking-tight uppercase text-primary">
                                     {t('common:viewAll')}
                                 </h3>
-                                <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest">
-                                    +20 {t('home:megaMenu.title')}
+                                <p className="text-[10px] font-black text-primary/60 uppercase tracking-widest">
+                                    +20 {t('home:categoriesGrid')}
                                 </p>
                             </div>
                         </Link>

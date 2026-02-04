@@ -4,6 +4,7 @@
 import { supabase } from '@/lib/supabase/client'
 import type { ApiResponse } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export interface SavedSearch {
   id: string
@@ -43,16 +44,17 @@ export const savedSearchesApi = {
   /**
    * Get all saved searches for current user
    */
-  async getAll(): Promise<ApiResponse<SavedSearch[]>> {
+  async getAll(client?: SupabaseClient): Promise<ApiResponse<SavedSearch[]>> {
     try {
+      const supabaseClient = client || supabase
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await supabaseClient.auth.getUser()
       if (!user) {
         return { data: null, error: 'Not authenticated' }
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('saved_searches')
         .select(
           `
@@ -76,17 +78,19 @@ export const savedSearchesApi = {
    * Create a new saved search
    */
   async create(
-    input: CreateSavedSearchInput
+    input: CreateSavedSearchInput,
+    client?: SupabaseClient
   ): Promise<ApiResponse<SavedSearch>> {
     try {
+      const supabaseClient = client || supabase
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await supabaseClient.auth.getUser()
       if (!user) {
         return { data: null, error: 'Not authenticated' }
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('saved_searches')
         .insert({
           user_id: user.id,

@@ -163,5 +163,7 @@
     "publishChanges": "Publish Changes",
     "maintenance": "Maintenance",
     "maintenanceOn": "Storefront is hidden. Only admins can access the site.",
-    "maintenanceOff": "Marketplace is live and accepting transactions."
+    "maintenanceOff": "Marketplace is live and accepting transactions.",
+    "activityLog": "Záznam aktivity",
+    "auditSystemActions": "Audit systémových udalostí a akcií používateľov"
 }

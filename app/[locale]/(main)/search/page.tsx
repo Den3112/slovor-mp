@@ -13,9 +13,17 @@ async function SearchResults({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) {
-  const { q, category, minPrice, maxPrice, condition, location, sort, page } =
+  const { q, category, minPrice, maxPrice, condition, location, sort, page, ...rest } =
     searchParams
   const itemsPerPage = 12
+
+  // Extract dynamic attributes (prefixed with attr_)
+  const attributes: Record<string, string> = {}
+  Object.entries(rest).forEach(([key, value]) => {
+    if (key.startsWith('attr_') && typeof value === 'string') {
+      attributes[key.replace('attr_', '')] = value
+    }
+  })
 
   const filterOptions = {
     page: Number(page) || 1,
@@ -27,6 +35,7 @@ async function SearchResults({
     condition: condition as 'new' | 'used',
     location,
     sort,
+    attributes: Object.keys(attributes).length > 0 ? attributes : undefined,
   }
 
   const [{ data: listings }, { data: total }] = await Promise.all([

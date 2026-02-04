@@ -6,6 +6,7 @@ import { StepDetails } from '@/components/listing/form-steps/step-details'
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
     t: (key: string) => key,
+    i18n: { language: 'en' },
   }),
 }))
 
@@ -30,9 +31,11 @@ describe('StepDetails', () => {
       location: '',
       category_id: '1',
       condition: 'new',
+      attributes: {},
     } as any,
     fieldErrors: {},
     updateField: vi.fn(),
+    categories: [],
   }
 
   it('renders all form fields', () => {

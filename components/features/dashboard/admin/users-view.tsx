@@ -54,7 +54,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         if (error) {
             toast.error(error)
         } else {
-            toast.success(newStatus ? t('admin:userVerified') : t('admin:verificationRemoved'))
+            toast.success(newStatus ? t('admin.userVerified') : t('admin.verificationRemoved'))
             setUsers(prev => prev.map(u => u.id === user.id ? { ...u, is_verified: newStatus } : u))
             if (newStatus) {
                 adminApi.logAction({
@@ -74,7 +74,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         if (error) {
             toast.error(error)
         } else {
-            toast.success(isBanned ? t('admin:userUnbanned') : t('admin:userBanned'))
+            toast.success(isBanned ? t('admin.userUnbanned') : t('admin.userBanned'))
             setUsers(prev => prev.map(u => u.id === user.id ? { ...u, status: newStatus } : u))
             if (newStatus === 'banned') {
                 adminApi.logAction({
@@ -92,7 +92,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         if (error) {
             toast.error(error)
         } else {
-            toast.success(`${t('admin:roleUpdated')} ${newRole}`)
+            toast.success(`${t('admin.roleUpdated')} ${newRole}`)
             setUsers(prev => prev.map(u => u.id === user.id ? { ...u, role: newRole } : u))
         }
     }
@@ -135,14 +135,14 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     const columns: Column<User>[] = [
         {
             key: 'display_name',
-            header: t('admin:tableMember'),
+            header: t('admin.tableMember'),
             sortable: true,
             className: "min-w-[250px]",
             cell: (row) => (
                 <div className="flex items-center gap-3">
                     <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted border border-border">
                         {row.avatar_url ? (
-                            <Image src={row.avatar_url} alt={row.display_name || ''} fill className="object-cover" unoptimized />
+                            <Image src={row.avatar_url} alt={row.display_name || ''} fill sizes="40px" className="object-cover" unoptimized />
                         ) : (
                             <div className="flex h-full w-full items-center justify-center text-muted-foreground">
                                 <Users className="h-4 w-4" />
@@ -151,7 +151,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-sm font-black tracking-tight text-foreground truncate max-w-[150px] leading-none mb-1">
-                            {row.display_name || t('admin:anonymous')}
+                            {row.display_name || t('admin.anonymous')}
                         </span>
                         <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest leading-none">
                             ID: {row.id.split('-')[0]}
@@ -162,7 +162,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         },
         {
             key: 'created_at',
-            header: t('admin:tableJoined'),
+            header: t('admin.tableJoined'),
             sortable: true,
             cell: (row) => (
                 <span className="text-sm font-medium text-muted-foreground">
@@ -172,7 +172,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         },
         {
             key: 'role',
-            header: t('admin:tableRoleLevel'),
+            header: t('admin.tableRoleLevel'),
             sortable: true,
             cell: (row) => (
                 <div className="flex flex-col gap-1">
@@ -190,24 +190,24 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                             <DropdownMenuItem onClick={() => handleRoleChange(row, 'admin')}>Admin</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <span className="text-[10px] text-muted-foreground/60">Level: {row.verification_level || t('admin:none')}</span>
+                    <span className="text-[10px] text-muted-foreground/60">Level: {row.verification_level || t('admin.none')}</span>
                 </div>
             )
         },
         {
             key: 'status',
-            header: t('admin:tableStatus'),
+            header: t('admin.tableStatus'),
             sortable: true,
             cell: (row) => (
                 <div className="flex flex-wrap gap-2">
                     {row.is_verified && (
                         <Badge variant="outline" className="bg-success/10 text-success border-success/20 font-black text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-md">
-                            {t('admin:verified')}
+                            {t('admin.verified')}
                         </Badge>
                     )}
                     {row.status === 'banned' ? (
                         <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20 font-black text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-md">
-                            {t('admin:banned')}
+                            {t('admin.banned')}
                         </Badge>
                     ) : (
                         <Badge variant="outline" className="bg-muted text-muted-foreground/40 border-border/40 font-black text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-md">
@@ -219,7 +219,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         },
         {
             key: 'actions',
-            header: <span className="sr-only">{t('admin:tableActions')}</span>,
+            header: <span className="sr-only">{t('admin.tableActions')}</span>,
             className: "text-right",
             cell: (row) => (
                 <div className="flex justify-end">
@@ -235,19 +235,19 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                                 {row.is_verified ? (
                                     <>
                                         <ShieldAlert className="mr-2 h-4 w-4 text-amber-500" />
-                                        {t('admin:removeVerification')}
+                                        {t('admin.removeVerification')}
                                     </>
                                 ) : (
                                     <>
                                         <ShieldCheck className="mr-2 h-4 w-4 text-emerald-500" />
-                                        {t('admin:verifyUser')}
+                                        {t('admin.verifyUser')}
                                     </>
                                 )}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => handleToggleBan(row)} className="text-destructive focus:text-destructive">
                                 <Ban className="mr-2 h-4 w-4" />
-                                {row.status === 'banned' ? t('admin:unbanUser') : t('admin:banUser')}
+                                {row.status === 'banned' ? t('admin.unbanUser') : t('admin.banUser')}
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -263,10 +263,10 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 <div>
                     <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
                         <Users className="h-8 w-8 text-primary" />
-                        {t('admin:userManagement')}
+                        {t('admin.userManagement')}
                     </h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
-                        {t('admin:manageMembersTrust')}
+                        {t('admin.manageMembersTrust')}
                     </p>
                 </div>
             </div>
@@ -279,7 +279,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 sortDirection={sortDirection}
                 onSort={handleSort}
                 onSearch={setSearchQuery}
-                searchPlaceholder={t('admin:searchByNamesID')}
+                searchPlaceholder={t('admin.searchByNamesID')}
                 isLoading={isLoading}
                 emptyMessage="No users found."
             />

@@ -2,14 +2,17 @@
 
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, Package, Eye, Heart, Search, Filter } from 'lucide-react'
+import { Plus, Package, Eye, Heart, Search, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { toast } from 'sonner'
+import { Pagination } from '@/components/ui/pagination'
 import {
     Table,
     TableBody,
@@ -19,6 +22,18 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { ListingRowActions } from '@/components/features/dashboard/user/components/listing-row-actions'
+import { listingsApi } from '@/lib/api'
+import { useRouter } from 'next/navigation'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 
 interface UserListingsViewProps {
     initialListings: any[]
@@ -43,6 +58,51 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
     const { t } = useTranslation(['common', 'dashboard', 'createListing'])
     const [activeTab, setActiveTab] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
+    const [selectedIds, setSelectedIds] = useState<string[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [confirmAction, setConfirmAction] = useState<'delete' | 'deactivate' | null>(null)
+    const itemsPerPage = 10
+
+    const toggleSelectAll = () => {
+        if (selectedIds.length === filteredListings.length) {
+            setSelectedIds([])
+        } else {
+            setSelectedIds(filteredListings.map(l => l.id))
+        }
+    }
+
+    const toggleSelect = (id: string) => {
+        setSelectedIds(prev =>
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        )
+    }
+
+    const router = useRouter()
+
+    const handleBulkAction = async () => {
+        if (selectedIds.length === 0 || !confirmAction) return
+
+        setIsSubmitting(true)
+        try {
+            if (confirmAction === 'delete') {
+                const { error } = await listingsApi.bulkDelete(selectedIds)
+                if (error) throw new Error(error)
+                toast.success(t('dashboard:deleted') || 'Listings deleted')
+            } else if (confirmAction === 'deactivate') {
+                const { error } = await listingsApi.bulkUpdateStatus(selectedIds, 'sold')
+                if (error) throw new Error(error)
+                toast.success(t('dashboard:updated') || 'Listings deactivated')
+            }
+            setSelectedIds([])
+            router.refresh()
+        } catch (error) {
+            toast.error((error as Error).message)
+        } finally {
+            setIsSubmitting(false)
+            setConfirmAction(null)
+        }
+    }
 
     // Filter listings based on tab and search
     const filteredListings = useMemo(() => {
@@ -70,6 +130,14 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
 
         return result
     }, [initialListings, activeTab, searchQuery])
+
+    // Paginated listings
+    const paginatedListings = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage
+        return filteredListings.slice(start, start + itemsPerPage)
+    }, [filteredListings, currentPage])
+
+    const totalPages = Math.ceil(filteredListings.length / itemsPerPage)
 
     const tabs = [
         { value: 'all', label: t('dashboard:all'), count: initialListings.length },
@@ -127,14 +195,87 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             placeholder={t('common:search')}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 h-10 border-border/60 focus:ring-primary/20"
+                            className="pl-9 h-10 border-border/60 focus:ring-primary/20 rounded-xl"
                         />
                     </div>
-                    <Button variant="outline" size="icon" className="h-10 w-10 shrink-0 border-border/60">
-                        <Filter className="h-4 w-4" />
-                    </Button>
                 </div>
             </motion.div>
+
+            {/* Bulk Actions Bar */}
+            {selectedIds.length > 0 && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-white/10 px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-6 min-w-[320px] max-w-[90vw]"
+                >
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Bulk actions</span>
+                        <span className="text-xs font-bold text-white">{selectedIds.length} items selected</span>
+                    </div>
+                    <div className="h-8 w-px bg-white/10" />
+                    <div className="flex items-center gap-2">
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-white hover:bg-white/10 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            onClick={() => setSelectedIds([])}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            size="sm"
+                            className="bg-white text-slate-900 hover:bg-white/90 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            onClick={() => setConfirmAction('deactivate')}
+                            disabled={isSubmitting}
+                        >
+                            Deactivate
+                        </Button>
+                        <Button
+                            size="sm"
+                            variant="destructive"
+                            className="text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            onClick={() => setConfirmAction('delete')}
+                            disabled={isSubmitting}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </motion.div>
+            )}
+
+            {/* Confirmation Dialog */}
+            <AlertDialog open={!!confirmAction} onOpenChange={(open) => !open && setConfirmAction(null)}>
+                <AlertDialogContent className="rounded-xl border-border bg-card">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-xl font-black uppercase tracking-tight">
+                            {confirmAction === 'delete' ? 'Delete Listings' : 'Deactivate Listings'}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-muted-foreground font-medium">
+                            {confirmAction === 'delete'
+                                ? `Are you sure you want to permanently delete ${selectedIds.length} listings? This action cannot be undone.`
+                                : `Are you sure you want to deactivate ${selectedIds.length} listings? They will be marked as sold and hidden from search.`}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="gap-2">
+                        <AlertDialogCancel className="rounded-xl font-black uppercase tracking-widest text-[10px]" disabled={isSubmitting}>
+                            {t('common:cancel')}
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={(e) => {
+                                e.preventDefault()
+                                handleBulkAction()
+                            }}
+                            className={cn(
+                                "rounded-xl font-black uppercase tracking-widest text-[10px]",
+                                confirmAction === 'delete' ? "bg-destructive text-destructive-foreground hover:bg-destructive/90" : "bg-primary text-primary-foreground hover:bg-primary/90"
+                            )}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : (confirmAction === 'delete' ? t('common:delete') : 'Deactivate')}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             {/* Table */}
             <motion.div variants={item} className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">
@@ -142,7 +283,15 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                     <Table>
                         <TableHeader>
                             <TableRow className="bg-muted/20 hover:bg-muted/20 border-b border-border/40">
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:title')}</TableHead>
+                                <TableHead className="w-12 px-4 h-10 text-center">
+                                    <input
+                                        type="checkbox"
+                                        className="h-4 w-4 rounded border-border/60 bg-background accent-primary cursor-pointer"
+                                        checked={selectedIds.length === filteredListings.length && filteredListings.length > 0}
+                                        onChange={toggleSelectAll}
+                                    />
+                                </TableHead>
+                                <TableHead className="px-4 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:title')}</TableHead>
                                 <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('createListing:price')}</TableHead>
                                 <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('dashboard:status')}</TableHead>
                                 <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('dashboard:stats')}</TableHead>
@@ -151,61 +300,85 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredListings.length > 0 ? (
-                                filteredListings.map((listing) => (
-                                    <TableRow key={listing.id} className="hover:bg-accent/40 transition-colors group">
-                                        <TableCell className="px-6 py-4">
-                                            <div className="flex items-center gap-4">
-                                                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border/10 bg-muted">
+                            {paginatedListings.length > 0 ? (
+                                paginatedListings.map((listing) => (
+                                    <TableRow key={listing.id} className={cn("hover:bg-accent/40 border-b border-border/40 transition-colors group", selectedIds.includes(listing.id) && "bg-primary/5")}>
+                                        <TableCell className="w-12 px-4 py-3 text-center">
+                                            <input
+                                                type="checkbox"
+                                                className="h-4 w-4 rounded border-border/60 bg-background accent-primary cursor-pointer"
+                                                checked={selectedIds.includes(listing.id)}
+                                                onChange={() => toggleSelect(listing.id)}
+                                            />
+                                        </TableCell>
+                                        <TableCell className="px-4 py-3">
+                                            <div className="flex items-center gap-3 sm:gap-4">
+                                                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border/10 bg-muted shadow-sm">
                                                     {listing.images?.[0] ? (
                                                         <Image
                                                             src={listing.images[0]}
                                                             alt={listing.title}
                                                             fill
-                                                            className="object-cover transition-transform group-hover:scale-110"
+                                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
                                                             unoptimized
                                                         />
                                                     ) : (
-                                                        <div className="flex h-full w-full items-center justify-center text-muted-foreground/40">
-                                                            <Package className="h-5 w-5" />
+                                                        <div className="flex h-full w-full items-center justify-center text-muted-foreground/30">
+                                                            <Package className="h-6 w-6" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="min-w-0">
+                                                <div className="min-w-0 space-y-0.5">
                                                     <Link
                                                         href={`/listings/${listing.id}`}
-                                                        className="block truncate font-bold text-sm hover:text-primary transition-colors max-w-[200px] sm:max-w-md"
+                                                        className="block truncate font-bold text-sm hover:text-primary transition-colors max-w-[180px] sm:max-w-xs md:max-w-md"
                                                     >
                                                         {listing.title}
                                                     </Link>
-                                                    <p className="text-[10px] text-muted-foreground mt-0.5 uppercase tracking-wider font-medium">#{listing.id.split('-')[0]}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        {listing.category?.name && (
+                                                            <span className="text-[9px] font-black uppercase tracking-widest text-primary/60">
+                                                                {listing.category.name}
+                                                            </span>
+                                                        )}
+                                                        <span className="text-[9px] text-muted-foreground/40 font-black uppercase tracking-widest">#{listing.id.split('-')[0]}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="font-heading text-base font-black tracking-tight">{listing.price} {listing.currency}</span>
+                                        <TableCell className="px-4 py-3 sm:px-6">
+                                            <span className="font-heading text-base font-black tracking-tight whitespace-nowrap">
+                                                {listing.price.toLocaleString()} {listing.currency}
+                                            </span>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
+                                        <TableCell className="px-4 py-3 sm:px-6">
                                             <Badge
-                                                variant={listing.status === 'active' ? 'success' : 'secondary'}
-                                                className="rounded-md px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest"
+                                                variant={listing.status === 'active' ? 'success' : listing.status === 'sold' ? 'secondary' : 'outline'}
+                                                className={cn(
+                                                    "rounded-lg px-2.5 py-1 text-[9px] font-black uppercase tracking-widest shadow-sm",
+                                                    listing.status === 'active' ? "bg-success/10 text-success border-success/20" :
+                                                        listing.status === 'sold' ? "bg-muted/50 text-muted-foreground border-border/60" :
+                                                            "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                                                )}
                                             >
-                                                {listing.status}
+                                                {listing.status || 'unknown'}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
+                                        <TableCell className="px-4 py-3 sm:px-6">
                                             <div className="flex items-center gap-4 text-[11px] font-bold text-muted-foreground/70">
-                                                <span className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-help">
-                                                    <Eye className="h-3.5 w-3.5" /> {listing.views_count || 0}
-                                                </span>
-                                                <span className="flex items-center gap-1.5 hover:text-pink-500 transition-colors cursor-help">
-                                                    <Heart className="h-3.5 w-3.5" /> {listing.favorites_count || 0}
-                                                </span>
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-help">
+                                                        <Eye className="h-3 w-3" /> {listing.views_count || 0}
+                                                    </span>
+                                                    <span className="flex items-center gap-1.5 hover:text-pink-500 transition-colors cursor-help">
+                                                        <Heart className="h-3 w-3" /> {listing.favorites_count || 0}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="text-muted-foreground font-medium text-xs whitespace-nowrap">
-                                                {new Date(listing.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
+                                        <TableCell className="px-4 py-3 sm:px-6">
+                                            <span className="text-muted-foreground/60 font-bold text-[10px] uppercase tracking-widest whitespace-nowrap">
+                                                {new Date(listing.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}
                                             </span>
                                         </TableCell>
                                         <TableCell className="px-6 py-4 text-right">
@@ -215,7 +388,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="h-48 text-center">
+                                    <TableCell colSpan={7} className="h-48 text-center">
                                         <div className="flex flex-col items-center justify-center text-muted-foreground">
                                             <Package className="h-10 w-10 opacity-20 mb-3" />
                                             <p className="text-sm font-medium">{t('dashboard:noListingsYet')}</p>
@@ -227,6 +400,19 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                     </Table>
                 </div>
             </motion.div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+                <div className="mt-8 flex justify-center">
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        totalItems={filteredListings.length}
+                        itemsPerPage={itemsPerPage}
+                        onPageChange={setCurrentPage}
+                    />
+                </div>
+            )}
         </motion.div>
     )
 }

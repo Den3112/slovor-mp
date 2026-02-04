@@ -11,6 +11,7 @@ export interface ListingFormData {
   condition: ListingCondition
   location: string
   images: string[]
+  attributes: Record<string, any>
 }
 
 export interface ListingFormErrors {
@@ -31,6 +32,7 @@ export const DEFAULT_LISTING_FORM: ListingFormData = {
   condition: 'new',
   location: '',
   images: [],
+  attributes: {},
 }
 
 export function validateListingForm(
