@@ -44,6 +44,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
                 src={user.user_metadata.avatar_url}
                 alt="User avatar"
                 fill
+                sizes="36px"
                 className="object-cover"
               />
             ) : (

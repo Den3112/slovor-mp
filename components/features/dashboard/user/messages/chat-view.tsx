@@ -242,7 +242,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
                         <Link href={`/listings/${listing.id}`} className="hidden md:flex items-center gap-3 rounded-lg border border-border/50 bg-card p-1.5 pr-3 hover:bg-muted/50 hover:border-primary/20 transition-all group">
                             <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded bg-muted">
                                 {listing.images?.[0] ? (
-                                    <Image src={listing.images[0]} alt={listing.title} fill className="object-cover transition-transform group-hover:scale-110" unoptimized />
+                                    <Image src={listing.images[0]} alt={listing.title} fill sizes="32px" className="object-cover transition-transform group-hover:scale-110" unoptimized />
                                 ) : (
                                     <div className="h-full w-full bg-muted" />
                                 )}
