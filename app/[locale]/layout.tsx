@@ -12,7 +12,7 @@ const fontSans = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robo
 const fontMono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 
 export const viewport: Viewport = {
-  themeColor: '#4f46e5',
+  themeColor: '#3B82F6',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     'The modern marketplace for Slovakia. Buy and sell electronics, cars, real estate, and more locally.',
   metadataBase: new URL('https://slovor.sk'),
   manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/logo-icon.png',
+    apple: '/apple-touch-icon.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
