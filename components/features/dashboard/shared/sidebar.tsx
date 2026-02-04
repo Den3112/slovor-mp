@@ -80,8 +80,7 @@ export function UnifiedSidebar({
                 "flex items-center h-20 px-6 border-b border-border/40",
                 isCollapsed ? "justify-center" : "justify-between"
             )}>
-                {!isCollapsed && <Logo size="sm" />}
-                {isCollapsed && <Logo size="sm" showText={false} />}
+                <Logo size="sm" />
 
                 {!isMobile && onToggleCollapse && (
                     <Button

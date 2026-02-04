@@ -7,11 +7,10 @@ import { cn } from '@/lib/utils'
 interface LogoProps {
     locale?: string
     className?: string
-    showText?: boolean
     size?: 'sm' | 'md' | 'lg'
 }
 
-export function Logo({ locale, className, showText = true, size = 'md' }: LogoProps) {
+export function Logo({ locale, className, size = 'md' }: LogoProps) {
     const href = locale ? `/${locale}` : '/'
 
     const sizes = {
@@ -37,7 +36,7 @@ export function Logo({ locale, className, showText = true, size = 'md' }: LogoPr
     return (
         <Link
             href={href}
-            className={cn("group relative z-10 flex items-center gap-2 md:gap-3", className)}
+            className={cn("group relative z-10 flex items-center", className)}
             data-testid="logo"
         >
             <div className={cn("relative transition-transform duration-500 group-hover:scale-105 overflow-hidden rounded-xl", currentSize.box)}>
@@ -49,15 +48,6 @@ export function Logo({ locale, className, showText = true, size = 'md' }: LogoPr
                     priority
                 />
             </div>
-            {showText && (
-                <span className={cn(
-                    "font-heading text-foreground group-hover:text-primary flex items-baseline font-black tracking-tighter transition-colors",
-                    currentSize.text
-                )}>
-                    Slovor
-                    <span className="text-primary group-hover:animate-bounce-subtle">.</span>
-                </span>
-            )}
         </Link>
     )
 }
