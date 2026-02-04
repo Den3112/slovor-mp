@@ -39,11 +39,12 @@ export function Logo({ locale, className, showText = true, size = 'md' }: LogoPr
             className={cn("group relative z-10 flex items-center gap-2 md:gap-3", className)}
             data-testid="logo"
         >
-            <div className={cn("relative transition-transform duration-500 group-hover:scale-105", currentSize.box)}>
-                <div className="absolute inset-0 rotate-6 rounded-xl bg-primary shadow-lg shadow-primary/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
-                <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/20 bg-primary font-black text-white">
-                    <span className={currentSize.icon}>S</span>
-                </div>
+            <div className={cn("relative transition-transform duration-500 group-hover:scale-105 overflow-hidden rounded-xl", currentSize.box)}>
+                <img
+                    src="/logo.png"
+                    alt="Slovor Logo"
+                    className="h-full w-full object-cover"
+                />
             </div>
             {showText && (
                 <span className={cn(
