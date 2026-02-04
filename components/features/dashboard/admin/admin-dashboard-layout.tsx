@@ -10,6 +10,10 @@ import {
     AlertTriangle,
     FileCheck,
     FileText,
+    ShoppingBag,
+    Layers,
+    LifeBuoy,
+    BarChart3,
 } from 'lucide-react'
 
 
@@ -27,6 +31,7 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
                 title: t('admin:overview') || 'Overview',
                 items: [
                     { href: '/admin', label: t('admin:dashboard'), icon: LayoutDashboard },
+                    { href: '/admin/analytics', label: t('admin:analytics') || 'Analytics', icon: BarChart3 },
                 ]
             },
             {
@@ -34,13 +39,16 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
                 items: [
                     { href: '/admin/listings', label: t('admin:moderation'), icon: ShieldCheck },
                     { href: '/admin/users', label: t('admin:users'), icon: Users },
+                    { href: '/admin/categories', label: t('admin:categories') || 'Categories', icon: Layers },
                     { href: '/admin/verifications', label: t('admin:verifications'), icon: FileCheck },
+                    { href: '/admin/orders', label: t('admin:marketplaceTransactions') || 'Orders', icon: ShoppingBag },
                 ]
             },
             {
                 title: t('admin:reports') || 'Reports & Content',
                 items: [
                     { href: '/admin/reports', label: t('admin:reports'), icon: AlertTriangle },
+                    { href: '/admin/support', label: t('admin:supportTickets') || 'Support', icon: LifeBuoy },
                     { href: '/admin/content', label: t('admin:content'), icon: FileText },
                 ]
             }

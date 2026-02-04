@@ -11,32 +11,47 @@ export function HomeCTA() {
   const { t } = useTranslation(['home', 'common'])
 
   return (
-    <section className="py-24">
+    <section className="py-32 relative overflow-hidden">
+      {/* Background patterns */}
+      <div className="absolute inset-0 bg-muted/20" />
+      <div className="absolute top-0 left-0 w-full h-px bg-border/40" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-border/40" />
+
       <Container>
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-center text-primary-foreground md:px-12 md:py-20"
+          transition={{ duration: 1, ease: "circOut" }}
+          className="relative overflow-hidden rounded-2xl bg-slate-950 px-6 py-20 text-center text-white md:px-16 md:py-32 border border-white/5"
         >
-          <div className="relative z-10 mx-auto max-w-4xl">
-            <motion.h2
+          {/* Animated decorative elements */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
+          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px]" />
+
+          <div className="absolute inset-0 bg-white/2" />
+
+          <div className="relative z-10 mx-auto max-w-4xl space-y-8">
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-heading mb-6 text-3xl font-bold tracking-tight md:text-5xl"
             >
-              {t('ctaTitle')}
-            </motion.h2>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6">
+                {t('common:getStarted')}
+              </span>
+              <h2 className="font-heading text-4xl font-black tracking-tight md:text-7xl leading-[1.1] uppercase italic">
+                {t('ctaTitle')}
+              </h2>
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="mx-auto mb-10 max-w-2xl text-lg font-medium text-primary-foreground/90 md:text-xl"
+              className="mx-auto max-w-2xl text-lg font-medium text-slate-400 md:text-xl leading-relaxed"
             >
               {t('ctaSubtitle')}
             </motion.p>
@@ -46,15 +61,15 @@ export function HomeCTA() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.8 }}
+              className="pt-4"
             >
               <Button
                 asChild
                 size="lg"
-                variant="secondary"
-                className="h-14 rounded-xl px-8 text-lg font-semibold shadow-sm transition-transform hover:scale-105"
+                className="h-16 rounded-2xl px-12 text-lg font-black uppercase tracking-widest shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90 border-0"
               >
                 <Link href="/post">
-                  <Plus className="mr-2 h-5 w-5" />
+                  <Plus className="mr-3 h-6 w-6" />
                   {t('common:postAd')}
                 </Link>
               </Button>

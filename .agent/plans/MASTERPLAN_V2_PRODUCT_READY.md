@@ -115,7 +115,7 @@
 
 ### 1.2 Mega Menu Component
 
-**Файл**: `/components/layout/mega-menu.tsx` [НОВЫЙ]
+**Файл**: `/components/layout/mega-menu.tsx` \[НОВЫЙ\]
 
 ```tsx
 // СТРУКТУРА:
@@ -128,7 +128,7 @@
 
 ### 1.3 Categories Grid Component
 
-**Файл**: `/components/home/categories-grid.tsx` [НОВЫЙ]
+**Файл**: `/components/home/categories-grid.tsx` \[НОВЫЙ\]
 
 ```tsx
 // ФУНКЦИОНАЛ:
@@ -163,7 +163,7 @@ MOBILE (≤768px):
 
 ### 2.2 Mobile Drawer Menu
 
-**Файл**: `/components/layout/mobile-drawer.tsx` [НОВЫЙ]
+**Файл**: `/components/layout/mobile-drawer.tsx` \[НОВЫЙ\]
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐

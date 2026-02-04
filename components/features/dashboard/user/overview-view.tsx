@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Plus, ArrowRight, MessageCircle, Package, Heart, Eye, TrendingUp } from 'lucide-react'
+import { cn } from '@/lib/utils/cn'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -20,6 +21,7 @@ import { AnalyticsChart } from '@/components/seller-profile/analytics-chart'
 import { ActivityFeed } from '@/components/seller-profile/activity-feed'
 import { StatsCard } from '@/components/features/dashboard/shared/stats-card'
 import type { DashboardStats } from '@/lib/api/dashboard-stats'
+import { WalletCard } from './components/wallet-card'
 
 interface UserOverviewViewProps {
     user: any
@@ -80,43 +82,51 @@ export function UserOverviewView({
                 </div>
             </motion.div>
 
-            {/* Stats Row */}
-            <motion.div variants={item} className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-                <Link href="/dashboard/listings">
-                    <StatsCard
-                        label={t('dashboard:active')}
-                        value={stats.activeListings.toLocaleString()}
-                        icon={Package}
-                        delay={0.1}
+            {/* Top Row: Stats + Wallet */}
+            <div className="grid gap-6 lg:grid-cols-12">
+                <motion.div variants={item} className="lg:col-span-8 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6 h-fit">
+                    <Link href="/dashboard/listings">
+                        <StatsCard
+                            label={t('dashboard:active')}
+                            value={stats.activeListings.toLocaleString()}
+                            icon={Package}
+                            delay={0.1}
+                        />
+                    </Link>
+                    <Link href="/dashboard/listings">
+                        <StatsCard
+                            label={t('dashboard:views')}
+                            value={stats.totalViews.toLocaleString()}
+                            icon={Eye}
+                            trend={{ value: 12, direction: 'up', label: t('dashboard:thisWeek') }}
+                            delay={0.2}
+                        />
+                    </Link>
+                    <Link href="/favorites">
+                        <StatsCard
+                            label={t('dashboard:favorites')}
+                            value={stats.favorites.toLocaleString()}
+                            icon={Heart}
+                            delay={0.3}
+                        />
+                    </Link>
+                    <Link href="/messages">
+                        <StatsCard
+                            label={t('profile:inbox')}
+                            value={stats.messages.toLocaleString()}
+                            icon={MessageCircle}
+                            delay={0.4}
+                        />
+                    </Link>
+                </motion.div>
+
+                <motion.div variants={item} className="lg:col-span-4">
+                    <WalletCard
+                        balance={stats.walletBalance || 0}
+                        currency={stats.walletCurrency || 'EUR'}
                     />
-                </Link>
-                <Link href="/dashboard/listings">
-                    <StatsCard
-                        label={t('dashboard:views')}
-                        value={stats.totalViews.toLocaleString()}
-                        icon={Eye}
-                        trend={{ value: 12, direction: 'up', label: t('dashboard:thisWeek') }}
-                        delay={0.2}
-                    />
-                </Link>
-                <Link href="/favorites">
-                    <StatsCard
-                        label={t('dashboard:favorites')}
-                        value={stats.favorites.toLocaleString()}
-                        icon={Heart}
-                        trend={{ value: 5, direction: 'up', label: 'Last 7 days' }}
-                        delay={0.3}
-                    />
-                </Link>
-                <Link href="/messages">
-                    <StatsCard
-                        label={t('profile:inbox')}
-                        value={stats.messages.toLocaleString()}
-                        icon={MessageCircle}
-                        delay={0.4}
-                    />
-                </Link>
-            </motion.div>
+                </motion.div>
+            </div>
 
             {/* Content Row: Chart (2/3) + Activity (1/3) */}
             <div className="grid gap-8 lg:grid-cols-3">
@@ -210,7 +220,7 @@ export function UserOverviewView({
                                     </TableHeader>
                                     <TableBody>
                                         {userListings.slice(0, 5).map((listing) => (
-                                            <TableRow key={listing.id} className="hover:bg-accent/40 transition-colors group">
+                                            <TableRow key={listing.id} className="hover:bg-accent/40 transition-colors group border-b border-border/10">
                                                 <TableCell className="px-6 py-4">
                                                     <div className="flex items-center gap-4">
                                                         <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-muted border border-border/10">
@@ -220,36 +230,49 @@ export function UserOverviewView({
                                                                     alt={listing.title}
                                                                     fill
                                                                     className="object-cover"
+                                                                    sizes="48px"
                                                                     unoptimized
                                                                 />
                                                             ) : (
                                                                 <Package className="m-auto h-6 w-6 text-muted-foreground/40" />
                                                             )}
                                                         </div>
-                                                        <Link href={`/listings/${listing.id}`} className="font-bold text-sm hover:text-primary transition-colors truncate max-w-[240px]">
-                                                            {listing.title}
-                                                        </Link>
+                                                        <div className="flex flex-col min-w-0">
+                                                            <Link href={`/listings/${listing.id}`} className="font-bold text-sm hover:text-primary transition-colors truncate max-w-[240px]">
+                                                                {listing.title}
+                                                            </Link>
+                                                            <span className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-widest">{new Date(listing.created_at).toLocaleDateString()}</span>
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell className="px-6 py-4">
-                                                    <span className="font-heading text-base font-black tracking-tight">
-                                                        {listing.price} {listing.currency}
-                                                    </span>
+                                                    <div className="flex flex-col">
+                                                        <span className="font-heading text-base font-black tracking-tight">{listing.price} {listing.currency}</span>
+                                                        <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">{t('createListing:price')}</span>
+                                                    </div>
                                                 </TableCell>
                                                 <TableCell className="px-6 py-4">
-                                                    <Badge
-                                                        variant={listing.is_active ? 'success' : 'secondary'}
-                                                        className="rounded-md px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest"
-                                                    >
-                                                        {listing.is_active ? t('dashboard:active') : t('dashboard:inactive')}
-                                                    </Badge>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className={cn(
+                                                            "h-1.5 w-1.5 rounded-full animate-pulse",
+                                                            listing.is_active ? "bg-emerald-500" : "bg-zinc-500"
+                                                        )} />
+                                                        <span className="text-[10px] font-bold uppercase tracking-widest">
+                                                            {listing.is_active ? t('dashboard:active') : t('dashboard:inactive')}
+                                                        </span>
+                                                    </div>
                                                 </TableCell>
                                                 <TableCell className="px-6 py-4 text-right">
-                                                    <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-lg hover:bg-primary/10 hover:text-primary transition-all">
-                                                        <Link href={`/dashboard/listings/edit/${listing.id}`}>
-                                                            <ArrowRight className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
+                                                    <div className="flex items-center justify-end gap-2">
+                                                        <Button variant="outline" size="sm" asChild className="h-8 rounded-lg text-[9px] font-black uppercase tracking-widest border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20">
+                                                            <Link href={`/post?edit=${listing.id}`}>Edit</Link>
+                                                        </Button>
+                                                        <Button variant="ghost" size="icon" asChild className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary">
+                                                            <Link href={`/listings/${listing.id}`}>
+                                                                <ArrowRight className="h-4 w-4" />
+                                                            </Link>
+                                                        </Button>
+                                                    </div>
                                                 </TableCell>
                                             </TableRow>
                                         ))}

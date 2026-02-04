@@ -14,6 +14,13 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 - **Persistent Alignment**: You **MUST** read `.agent/workflows/memory-protocol.md` and `.agent/MEMORY.md` at the start of **EVERY** session.
 - **Adaptive Reasoning**: Use `ULTRATHINK` for complex tasks. For simple tasks, use "Mental Rule Check". **Escalate** to Ultrathink if a "simple" fix fails verification.
 - **Live Memory (RAM)**: Treat `.agent/MEMORY.md` as your working memory. Update the "Active RAM" section **DURING** your work.
+- **Server Verification**: Before performing **ANY** task, you **MUST** ensure the local development server (e.g., `npm run dev`) is running. If it's not, you must inform the user and ask if you should start it.
+- **Mandatory Final Verification**: Before concluding **ANY** task and submitting the final report, you **MUST**:
+    1. Run `npm run verify` (lint, type-check, build).
+    2. Check the **local server output** (terminal) for any runtime errors or warnings.
+    3. Check the **browser console** (if applicable) for any frontend errors.
+    4. Ensure no **Turborepo/Next.js error overlays** are visible.
+  You are strictly forbidden from handing over a task with active errors on ANY level (Zero-Error Policy).
 - **Correction Protocol**: If the user corrects you for missing a rule (e.g. "You forgot Russian", "You broke the build"), you **MUST** log this failure in `.agent/MEMORY.md` under `📚 Knowledge Base`. This ensures you learn from mistakes.
 - **Memory Maintenance**: You **MUST** update `.agent/MEMORY.md` at the end of every task/session.
 
@@ -40,7 +47,7 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 ## 5. Debugging & Tools
 
 - **Temporary Debug Files**: You are **authorized** to create temporary debugging files (e.g., `temp-debug.js`, `repro.test.ts`) to analyze complex issues. You **MUST** ensure these files are completely deleted after the analysis is finished.
-- **Server-First Browser Use**: Before launching the browser subagent ("Antigravity Eye") or running automated visual tests, you **MUST** verify that the local development server (e.g., `npm run dev`) is running and actually responding (e.g., via `curl` or checking terminal output).
+- **Server-First Browser Use**: Before launching the browser subagent ("Antigravity Eye") or running automated visual tests, you **MUST** verify that the local development server is not only running but actually responding (e.g., via `curl` or checking terminal output).
 
 ---
 
@@ -50,5 +57,6 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 - [ ] Communication in Russian, Code in English?
 - [ ] All Lint/Type errors fixed (Zero-Error Policy)?
 - [ ] PR created for merge to `main`?
+- [ ] Local server is running?
 - [ ] `.agent/MEMORY.md` updated with latest status?
 - [ ] Final report is visually rich and informative?

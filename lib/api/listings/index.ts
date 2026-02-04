@@ -271,4 +271,51 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+
+  async promote(
+    id: string,
+    type: string,
+    duration: number,
+    cost: number
+  ): Promise<ApiResponse<void>> {
+    try {
+      const { error } = await supabase.rpc('promote_listing', {
+        p_listing_id: id,
+        p_promo_type: type,
+        p_duration_days: duration,
+        p_cost: cost,
+      })
+      if (error) throw error
+      return { data: undefined, error: null }
+    } catch (error) {
+      logError('listingsApi.promote', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+  async bulkDelete(ids: string[]): Promise<ApiResponse<null>> {
+    try {
+      const { error } = await supabase.from('listings').delete().in('id', ids)
+      if (error) throw error
+      return { data: null, error: null }
+    } catch (error) {
+      logError('listingsApi.bulkDelete', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+  async bulkUpdateStatus(
+    ids: string[],
+    status: Listing['status']
+  ): Promise<ApiResponse<null>> {
+    try {
+      const { error } = await supabase
+        .from('listings')
+        .update({ status, updated_at: new Date().toISOString() })
+        .in('id', ids)
+      if (error) throw error
+      return { data: null, error: null }
+    } catch (error) {
+      logError('listingsApi.bulkUpdateStatus', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }

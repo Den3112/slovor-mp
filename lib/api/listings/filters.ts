@@ -14,6 +14,7 @@ export interface ListingFilterOptions {
   location?: string
   sort?: string
   isFeatured?: boolean
+  attributes?: Record<string, any>
 }
 
 /**
@@ -58,6 +59,25 @@ export function applyListingFilters(
 
   if (options.isFeatured !== undefined) {
     query = query.eq('is_highlighted', options.isFeatured)
+  }
+
+  // Handle dynamic attributes
+  if (options.attributes) {
+    Object.entries(options.attributes).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        // Handle range if value is object with min/max
+        if (typeof value === 'object' && ('min' in value || 'max' in value)) {
+          if (value.min !== undefined && value.min !== '') {
+            query = query.gte(`attributes->>${key}`, value.min)
+          }
+          if (value.max !== undefined && value.max !== '') {
+            query = query.lte(`attributes->>${key}`, value.max)
+          }
+        } else {
+          query = query.eq(`attributes->>${key}`, value)
+        }
+      }
+    })
   }
 
   return query

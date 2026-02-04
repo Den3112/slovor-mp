@@ -10,6 +10,8 @@ export interface DashboardStats {
   savedSearches: number
   reviews: number
   recentConversations?: Conversation[]
+  walletBalance?: number
+  walletCurrency?: string
 }
 
 
@@ -27,10 +29,12 @@ export async function getDashboardStats(
       savedSearchesRes,
       reviewsRes,
       conversationsRes,
+      walletRes,
+      ordersRes,
     ] = await Promise.all([
       supabase
         .from('listings')
-        .select('id, is_active, views', { count: 'exact' })
+        .select('id, status, views_count', { count: 'exact' })
         .eq('user_id', userId),
       supabase
         .from('favorites')
@@ -43,7 +47,7 @@ export async function getDashboardStats(
       supabase
         .from('reviews')
         .select('id', { count: 'exact' })
-        .eq('seller_id', userId),
+        .eq('recipient_id', userId),
       // Fetch full conversation data directly here instead of just IDs
       supabase
         .from('conversations')
@@ -78,17 +82,27 @@ export async function getDashboardStats(
         .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
         .order('updated_at', { ascending: false })
         .limit(3),
+      supabase
+        .from('wallets')
+        .select('*')
+        .eq('user_id', userId)
+        .single(),
+      supabase
+        .from('orders')
+        .select('id', { count: 'exact' })
+        .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`),
     ])
 
     // Process Listings Data
     const listings = listingsRes.data || []
-    const activeListings = listings.filter((l) => l.is_active).length
-    const totalViews = listings.reduce((acc, curr) => acc + (curr.views || 0), 0)
+    const activeListings = listings.filter((l) => l.status === 'active').length
+    const totalViews = listings.reduce((acc, curr) => acc + (curr.views_count || 0), 0)
 
     // Process Favorites & Others
     const favorites = favoritesRes.count || 0
     const savedSearches = savedSearchesRes.count || 0
     const totalReviews = reviewsRes.count || 0
+    const totalOrders = ordersRes.count || 0
 
     // Process Conversations
     const recentConversations = (conversationsRes.data || []).map((c) => ({
@@ -127,17 +141,17 @@ export async function getDashboardStats(
       }
     })
 
-    const orders = 0
-
     return {
       activeListings,
       totalViews,
       favorites,
-      orders,
+      orders: totalOrders,
       messages: unreadMessages,
       savedSearches,
       reviews: totalReviews,
       recentConversations,
+      walletBalance: walletRes.data?.balance || 0,
+      walletCurrency: walletRes.data?.currency || 'EUR',
     }
   } catch (error) {
     console.error('Error fetching dashboard stats:', error)

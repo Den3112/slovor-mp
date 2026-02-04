@@ -87,6 +87,7 @@
 4. **Solid backgrounds** only
 5. **Touch targets** min 44x44px on mobile
 6. Run `npm run verify` after every change
+7. **Verify local server is running** before starting any task
 
 ---
 

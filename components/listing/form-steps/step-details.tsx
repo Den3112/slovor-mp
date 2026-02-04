@@ -8,6 +8,15 @@ import type {
 } from '@/lib/utils/listing-form-schema'
 import { LocationCombobox } from '@/components/ui/location-combobox'
 import { FormField } from '@/components/ui/form-field'
+import type { Category } from '@/lib/types/database'
+import { CATEGORY_ATTRIBUTES, getAttributeLabel } from '@/lib/constants/category-attributes'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 interface StepDetailsProps {
   formData: ListingFormData
@@ -16,14 +25,20 @@ interface StepDetailsProps {
     field: K,
     value: ListingFormData[K]
   ) => void
+  categories: Category[]
 }
 
 export function StepDetails({
   formData,
   fieldErrors,
   updateField,
+  categories,
 }: StepDetailsProps) {
-  const { t } = useTranslation(['createListing', 'common', 'filters'])
+  const { t, i18n } = useTranslation(['createListing', 'common', 'filters'])
+  const locale = i18n.language
+
+  const currentCategory = categories.find(c => c.id === formData.category_id)
+  const categoryAttributes = currentCategory ? CATEGORY_ATTRIBUTES[currentCategory.slug] : []
 
   const inputClasses = (hasError: boolean) =>
     cn(
@@ -105,6 +120,66 @@ export function StepDetails({
           placeholder={t('locationPlaceholder')}
         />
       </FormField>
+
+      {/* Dynamic Category Attributes */}
+      {categoryAttributes && categoryAttributes.length > 0 && (
+        <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 rounded-2xl border border-primary/10 bg-primary/3 p-6 duration-700">
+          <h3 className="text-primary text-[10px] font-black tracking-[0.2em] uppercase">
+            {t('additionalDetails') || 'Additional Details'}
+          </h3>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {categoryAttributes.map((attr) => (
+              <FormField
+                key={attr.id}
+                label={getAttributeLabel(attr, locale)}
+              >
+                {attr.type === 'select' ? (
+                  <Select
+                    value={formData.attributes[attr.id] || ''}
+                    onValueChange={(value) =>
+                      updateField('attributes', {
+                        ...formData.attributes,
+                        [attr.id]: value,
+                      })
+                    }
+                  >
+                    <SelectTrigger className={cn(inputClasses(false), 'h-14 px-6 font-bold')}>
+                      <SelectValue placeholder={t('common.select')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {attr.options?.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label[locale] || opt.label['en']}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <div className="relative">
+                    <input
+                      type={attr.type === 'range' || attr.type === 'number' ? 'number' : 'text'}
+                      value={formData.attributes[attr.id] || ''}
+                      onChange={(e) =>
+                        updateField('attributes', {
+                          ...formData.attributes,
+                          [attr.id]: e.target.value,
+                        })
+                      }
+                      className={cn(inputClasses(false), 'h-14 px-6 font-bold')}
+                      placeholder={attr.unit ? `0 ${attr.unit}` : ''}
+                    />
+                    {attr.unit && (
+                      <span className="text-muted-foreground/40 absolute right-6 top-1/2 -translate-y-1/2 text-xs font-black uppercase">
+                        {attr.unit}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </FormField>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

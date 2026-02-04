@@ -41,6 +41,11 @@
     "title": "Categories",
     "viewAll": "View all categories"
   },
+  "promo": {
+    "title": "READY TO SELL FAST?",
+    "subtitle": "Upgrade to VIP and get 10x more views today."
+  },
+  "popularNow": "POPULAR REGIONS",
   "regions": {
     "bratislava": "Bratislava",
     "kosice": "Košice",

@@ -3,12 +3,13 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { ListingCard } from './card'
 import { ListingFilters } from './filters'
+import { ActiveFilters } from './active-filters'
 import { SaveSearchButton } from './save-search-button'
-import type { Listing } from '@/lib/api'
 import { listingsApi, type ListingFilterOptions } from '@/lib/api/listings'
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
+import type { Listing, Category } from '@/lib/types/database'
 
 import {
   Search,
@@ -26,6 +27,7 @@ const ITEMS_PER_PAGE = 12
 interface Props {
   initialListings: Listing[]
   totalCount: number
+  categories: Category[]
   error: string | null
   searchQuery?: string
   filters?: ListingFilterOptions
@@ -34,6 +36,7 @@ interface Props {
 export function ListingsView({
   initialListings,
   totalCount,
+  categories,
   error,
   searchQuery,
   filters,
@@ -213,7 +216,7 @@ export function ListingsView({
                   </div>
                 </div>
                 <div className="flex-1 overflow-y-auto p-6">
-                  <ListingFilters />
+                  <ListingFilters categories={categories} />
                 </div>
                 <div className="border-border/40 safe-bottom border-t p-4">
                   <Button
@@ -239,13 +242,14 @@ export function ListingsView({
                 </h2>
               </div>
               <div className="border-border bg-card rounded-xl border p-6 shadow-sm">
-                <ListingFilters />
+                <ListingFilters categories={categories} />
               </div>
             </div>
           </aside>
 
           {/* Listings Grid */}
           <main className="lg:col-span-9">
+            <ActiveFilters />
             <AnimatePresence mode="wait">
               {error ? (
                 <motion.div

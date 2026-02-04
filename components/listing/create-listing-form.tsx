@@ -173,6 +173,7 @@ function CreateListingFormContent() {
                   formData={formData}
                   fieldErrors={fieldErrors}
                   updateField={updateField}
+                  categories={categories}
                 />
               )}
 

@@ -6,6 +6,7 @@
 
 import { HomeView } from '@/components/home/home-view'
 import { FeaturedListings } from '@/components/listing/featured'
+import { RecentListings } from '@/components/listing/recent'
 import { createClient } from '@/lib/supabase/server'
 import { Metadata } from 'next'
 import { categoriesApi } from '@/lib/api/categories'
@@ -55,6 +56,7 @@ export default async function HomePage() {
     <HomeView
       categories={categories || []}
       categoriesError={error || null}
+      recentListings={<RecentListings />}
     >
       <FeaturedListings />
     </HomeView>

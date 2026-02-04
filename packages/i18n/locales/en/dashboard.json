@@ -1,4 +1,7 @@
 {
+  "main": "Main",
+  "account": "Account",
+  "quickAccess": "Quick Access",
   "myListings": "My Listings",
   "manageListings": "Manage your listings.",
   "inventoryDescription": "Manage your inventory and track performance across all your active and draft items.",
@@ -47,7 +50,7 @@
   "thisWeek": "This week",
   "quickActions": "Quick Actions",
   "status": "Status",
-  "wallet": {
+  "walletDetails": {
     "title": "Wallet",
     "addFunds": "Add Funds",
     "refillBalance": "Refill Balance",
@@ -59,15 +62,75 @@
     "refill": "Refill",
     "promotion_top": "Top Position",
     "promotion_highlight": "Premium Highlight",
-    "subscription": "Subscription"
+    "subscription": "Subscription",
+    "availableBalance": "Available Balance",
+    "refillSuccess": "Wallet refilled successfully!"
   },
   "promote": {
-    "title": "Promotion",
-    "subtitle": "Boost your item's visibility",
+    "title": "Promote your Listing",
+    "subtitle": "Reach more buyers and sell up to 5x faster with our premium promotion tools.",
     "selectListing": "Select Listing",
     "selectPlan": "Select Plan",
-    "confirmPromote": "Confirm Promotion",
+    "confirmPay": "Confirm and Pay",
+    "secureCheckout": "Secure Checkout • Satisfaction Guaranteed",
+    "bestValue": "Best Value",
     "success": "Listing promoted successfully!",
-    "error": "Error setting up promotion"
+    "error": "Error setting up promotion",
+    "plans": {
+      "free": {
+        "title": "Free",
+        "subtitle": "Basic visibility",
+        "features": [
+          "Standard search placement",
+          "Valid forever"
+        ]
+      },
+      "standard": {
+        "title": "Standard",
+        "subtitle": "Boost to top of search",
+        "features": [
+          "Visible to more buyers",
+          "Avg. 3x more views",
+          "Valid for 7 days"
+        ]
+      },
+      "premium": {
+        "title": "Premium",
+        "subtitle": "Visual edge over others",
+        "features": [
+          "Golden visual border",
+          "Priority in categories",
+          "Valid for 14 days"
+        ]
+      }
+    }
+  },
+  "wallet": {
+    "spending": "Spending",
+    "revenue": "Revenue",
+    "activePromos": "Active Promos",
+    "transactions": "Transactions",
+    "securePayment": "Payment secured by Slovor Pay. No credit card details are stored on our servers.",
+    "other": "Other",
+    "processing": "Processing..."
+  },
+  "orders": "Orders",
+  "purchases": "Purchases",
+  "sales": "Sales",
+  "manageTransactions": "Manage your transactions and purchases",
+  "viewOrder": "View Order",
+  "noOrders": "No orders found",
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Stay updated with your latest alerts and activities",
+    "markAllRead": "Mark all as read",
+    "markedAllRead": "All notifications marked as read",
+    "deleted": "Notification deleted",
+    "emptyTitle": "Quiet for now",
+    "emptyDesc": "You're all caught up! New alerts will appear here."
+  },
+  "activityLog": {
+    "title": "Activity Log",
+    "subtitle": "Audit track of all your major actions and account events"
   }
 }

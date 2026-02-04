@@ -13,6 +13,11 @@ export function BottomTabBar() {
     const { user } = useAuth()
     const pathname = usePathname()
     const unreadCount = useUnreadMessages()
+    const isDashboard = pathname?.includes('/admin') || pathname?.includes('/dashboard') || pathname?.includes('/messages') || pathname?.includes('/favorites')
+
+    if (isDashboard) {
+        return null
+    }
 
     const isActive = (href: string) => {
         if (href === '/') {
@@ -47,20 +52,17 @@ export function BottomTabBar() {
                             )}
                         >
                             {tab.primary ? (
-                                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground shadow-lg -mt-4 transition-transform active:scale-95">
-                                    <Icon className="h-6 w-6" strokeWidth={2.5} />
+                                <div className="relative -mt-8 flex items-center justify-center">
+                                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl animate-pulse" />
+                                    <div className="relative flex items-center justify-center h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-2xl shadow-primary/40 ring-4 ring-background transition-all active:scale-90 group-hover:scale-110 border-0">
+                                        <Icon className="h-7 w-7" strokeWidth={3} />
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="relative">
-                                    <Icon className={cn("h-5 w-5", active && "stroke-[2.5px]")} />
-                                    {tab.href === '/favorites' && unreadCount > 0 && (
-                                        // Note: unreadCount usually for messages, but blueprint might have badge on user or messages.
-                                        // The requirement for messages was a separate top-level route.
-                                        // Let's check where the badge should go.
-                                        null
-                                    )}
+                                    <Icon className={cn("h-5 w-5 transition-all", active && "scale-110")} strokeWidth={active ? 2.5 : 2} />
                                     {tab.href === (user ? '/dashboard' : '/auth/login') && unreadCount > 0 && (
-                                        <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold text-white">
+                                        <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-black text-white ring-2 ring-background shadow-sm">
                                             {unreadCount > 9 ? '9+' : unreadCount}
                                         </span>
                                     )}

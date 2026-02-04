@@ -53,8 +53,8 @@ export function HowItWorks() {
                                 <div className="absolute left-[60%] top-12 hidden h-px w-[80%] bg-border md:block" />
                             )}
 
-                            <div className="relative mb-6 flex h-24 w-24 items-center justify-center rounded-3xl bg-background border-2 border-border shadow-xl ring-8 ring-muted/20">
-                                <div className={`flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-lg ${step.color}`}>
+                            <div className="relative mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-background border-2 border-border ring-8 ring-muted/20">
+                                <div className={`flex h-16 w-16 items-center justify-center rounded-xl text-white ${step.color}`}>
                                     {step.icon}
                                 </div>
                                 <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background font-black text-sm">
