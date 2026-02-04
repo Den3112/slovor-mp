@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { StructuredData } from '@/components/layout/structured-data'
 import { Providers } from '../providers'
 import { Analytics } from '@vercel/analytics/react'
@@ -11,6 +11,14 @@ const fontHeading = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', R
 const fontSans = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
 const fontMono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 
+export const viewport: Viewport = {
+  themeColor: '#4f46e5',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+}
+
 export const metadata: Metadata = {
   title: {
     default: 'Slovor Marketplace - Slovakia Classifieds',
@@ -19,6 +27,15 @@ export const metadata: Metadata = {
   description:
     'The modern marketplace for Slovakia. Buy and sell electronics, cars, real estate, and more locally.',
   metadataBase: new URL('https://slovor.sk'),
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Slovor',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
     locale: 'sk_SK',
@@ -64,16 +81,6 @@ export default async function RootLayout({
     >
       <head>
         <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
-        />
-        <meta name="theme-color" content="#3B82F6" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
-        <meta name="format-detection" content="telephone=no" />
       </head>
       <body
         suppressHydrationWarning

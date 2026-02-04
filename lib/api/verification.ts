@@ -26,7 +26,7 @@ export const verificationApi = {
 
             // Fetch latest document verification request
             const { data: latestVerification, error: verificationError } = await supabase
-                .from('user_verifications')
+                .from('verifications')
                 .select('status')
                 .eq('user_id', userId)
                 .order('created_at', { ascending: false })
@@ -57,11 +57,11 @@ export const verificationApi = {
         try {
             // 1. Create verification request
             const { error: insertError } = await supabase
-                .from('user_verifications')
+                .from('verifications')
                 .insert({
                     user_id: userId,
-                    document_type: 'id_card',
-                    document_data: { urls: documentUrls },
+                    type: 'id_document', // Changed document_type to type
+                    document_url: documentUrls[0] || '',
                     status: 'pending'
                 })
 
@@ -93,8 +93,8 @@ export const verificationApi = {
         try {
             // 1. Update verification request status
             const { error: verifError } = await supabase
-                .from('user_verifications')
-                .update({ status: 'verified', verified_at: new Date().toISOString() })
+                .from('verifications')
+                .update({ status: 'approved', reviewed_at: new Date().toISOString() }) // status verified -> approved, verified_at -> reviewed_at
                 .eq('id', verificationId)
 
             if (verifError) throw verifError
@@ -120,7 +120,7 @@ export const verificationApi = {
     async rejectVerification(verificationId: string): Promise<ApiResponse<boolean>> {
         try {
             const { error } = await supabase
-                .from('user_verifications')
+                .from('verifications')
                 .update({ status: 'rejected' })
                 .eq('id', verificationId)
 
@@ -138,7 +138,7 @@ export const verificationApi = {
     async getAdminAll(): Promise<ApiResponse<any[]>> {
         try {
             const { data, error } = await supabase
-                .from('user_verifications')
+                .from('verifications')
                 .select('*, profile:profiles(id, display_name, avatar_url, phone)')
                 .order('created_at', { ascending: false })
 

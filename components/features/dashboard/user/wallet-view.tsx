@@ -58,13 +58,14 @@ export function WalletView() {
     }, [user])
 
     const handleRefill = async () => {
-        if (!user) return
+        if (!user || !wallet) return
         setIsRefilling(true)
 
         // Simulate API call
         const amount = parseFloat(refillAmount)
         const { data } = await transactionsApi.create({
             user_id: user.id,
+            wallet_id: wallet.id,
             amount,
             currency: currency || 'EUR',
             type: 'refill',

@@ -13,7 +13,7 @@ export interface AttributeDefinition {
 }
 
 export const CATEGORY_ATTRIBUTES: Record<string, AttributeDefinition[]> = {
-    vehicles: [
+    transport: [
         {
             id: 'mileage',
             label: { en: 'Mileage', sk: 'Počet kilometrov', ru: 'Пробег' },

@@ -107,7 +107,10 @@ export interface Review {
 
   rating: number
   comment: string | null
+  seller_reply?: string | null
+  seller_reply_at?: string | null
   created_at: string
+  updated_at?: string
 
   // Joined fields
   author?: User
@@ -135,10 +138,10 @@ export interface Wallet {
 export interface Transaction {
   id: string
   user_id: string
-  wallet_id?: string
+  wallet_id: string
   amount: number
   currency: string
-  type: 'deposit' | 'withdrawal' | 'promotion' | 'subscription' | 'payout' | 'refill' | 'promotion_top' | 'promotion_highlight'
+  type: 'deposit' | 'withdrawal' | 'promotion' | 'promotion_top' | 'promotion_highlight' | 'subscription' | 'payout' | 'refill' | 'purchase'
   status: 'pending' | 'completed' | 'failed' | 'refunded'
   description?: string | null
   metadata: Record<string, any>
@@ -149,7 +152,7 @@ export interface Promotion {
   id: string
   listing_id: string
   user_id: string
-  type: 'highlight' | 'top_search' | 'urgent' | 'homepage_featured'
+  type: 'highlight' | 'top_search' | 'urgent' | 'homepage_featured' | 'promotion_top' | 'promotion_highlight'
   starts_at: string
   ends_at: string
   cost: number
@@ -194,21 +197,29 @@ export interface ListingReport {
   id: string
   listing_id: string | null
   reported_user_id: string | null
-  reporter_id: string
+  reporter_id: string | null
   reason: string
   description: string | null
-  status: 'pending' | 'resolved' | 'dismissed'
+  status: 'pending' | 'investigating' | 'resolved' | 'dismissed'
+  admin_notes?: string | null
   created_at: string
+  resolved_at?: string | null
 }
 
 export interface UserVerification {
   id: string
   user_id: string
-  document_type: string
-  document_data: Record<string, any>
-  status: 'pending' | 'verified' | 'rejected'
+  type: 'email' | 'phone' | 'id_document' | 'address' | 'business'
+  document_url?: string
+  status: 'pending' | 'approved' | 'rejected'
+  admin_notes?: string | null
   verified_at: string | null
   created_at: string
+  updated_at?: string
+
+  // Relations
+  user?: User
+  profile?: User // Often used interchangeably
 }
 
 export interface ActivityLog {

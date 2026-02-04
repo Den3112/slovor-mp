@@ -292,4 +292,30 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+  async bulkDelete(ids: string[]): Promise<ApiResponse<null>> {
+    try {
+      const { error } = await supabase.from('listings').delete().in('id', ids)
+      if (error) throw error
+      return { data: null, error: null }
+    } catch (error) {
+      logError('listingsApi.bulkDelete', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+  async bulkUpdateStatus(
+    ids: string[],
+    status: Listing['status']
+  ): Promise<ApiResponse<null>> {
+    try {
+      const { error } = await supabase
+        .from('listings')
+        .update({ status, updated_at: new Date().toISOString() })
+        .in('id', ids)
+      if (error) throw error
+      return { data: null, error: null }
+    } catch (error) {
+      logError('listingsApi.bulkUpdateStatus', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }

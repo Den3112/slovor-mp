@@ -13,6 +13,11 @@ export function BottomTabBar() {
     const { user } = useAuth()
     const pathname = usePathname()
     const unreadCount = useUnreadMessages()
+    const isDashboard = pathname?.includes('/admin') || pathname?.includes('/dashboard') || pathname?.includes('/messages') || pathname?.includes('/favorites')
+
+    if (isDashboard) {
+        return null
+    }
 
     const isActive = (href: string) => {
         if (href === '/') {

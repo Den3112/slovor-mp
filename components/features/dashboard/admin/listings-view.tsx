@@ -308,12 +308,12 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
                 <div className="flex flex-col sm:flex-row justify-between gap-6 items-start sm:items-center">
-                    <TabsList className="bg-muted/40 p-1 rounded-2xl h-auto flex-wrap border border-border/40">
+                    <TabsList className="bg-muted/40 p-1 rounded-xl h-auto flex-wrap border border-border/40">
                         {stats.map((tab) => (
                             <TabsTrigger
                                 key={tab.value}
                                 value={tab.value}
-                                className="rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-xl transition-all"
+                                className="rounded-lg px-5 py-2.5 text-[10px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all"
                             >
                                 {tab.label}
                                 <span className={cn(
@@ -333,14 +333,14 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                 {activeTab === 'pending' ? (
                     <div className="grid grid-cols-1 gap-6">
                         {isLoading ? (
-                            <div className="flex h-64 items-center justify-center rounded-3xl border-2 border-dashed border-border/40">
+                            <div className="flex h-64 items-center justify-center rounded-xl border-2 border-dashed border-border/40">
                                 <div className="flex flex-col items-center gap-3">
                                     <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" />
                                     <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Loading queue...</span>
                                 </div>
                             </div>
                         ) : filteredListings.length === 0 ? (
-                            <div className="flex h-64 flex-col items-center justify-center gap-4 rounded-3xl border-2 border-dashed border-border/40 bg-muted/5">
+                            <div className="flex h-64 flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-border/40 bg-muted/5">
                                 <CheckCircle2 className="h-12 w-12 text-muted-foreground/20" />
                                 <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Queue is clear! Well done.</span>
                             </div>
@@ -353,7 +353,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                                             key={listing.id}
                                             initial={{ opacity: 0, scale: 0.98 }}
                                             animate={{ opacity: 1, scale: 1 }}
-                                            className="group relative flex flex-col bg-card rounded-4xl border border-border/60 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-500"
+                                            className="group relative flex flex-col bg-card rounded-xl border border-border/60 overflow-hidden shadow-sm hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-500"
                                         >
                                             {/* Status Badge Overlays */}
                                             {issues.map((issue, idx) => (
@@ -469,7 +469,7 @@ export function AdminListingsView({ initialListings = [] }: AdminListingsViewPro
                         initial={{ opacity: 0, y: 100, x: '-50%' }}
                         animate={{ opacity: 1, y: 0, x: '-50%' }}
                         exit={{ opacity: 0, y: 100, x: '-50%' }}
-                        className="fixed bottom-12 left-1/2 z-50 bg-foreground text-background px-8 py-4 rounded-4xl shadow-2xl flex items-center gap-8 border border-white/10"
+                        className="fixed bottom-12 left-1/2 z-50 bg-foreground text-background px-8 py-4 rounded-xl shadow-lg flex items-center gap-8 border border-white/10"
                     >
                         <div className="flex items-center gap-4">
                             <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center text-sm font-black text-primary-foreground shadow-lg shadow-primary/20">

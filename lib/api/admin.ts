@@ -30,7 +30,7 @@ export const adminApi = {
                 supabase.from('listings').select('id', { count: 'exact', head: true }).eq('status', 'active'),
                 supabase.from('listings').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
                 supabase.from('transactions').select('amount, type'),
-                supabase.from('listing_reports').select('id', { count: 'exact', head: true }).eq('status', 'pending')
+                supabase.from('reports').select('id', { count: 'exact', head: true }).eq('status', 'pending')
             ])
 
             // Calculate actual revenue (spending on promotions and subscriptions)

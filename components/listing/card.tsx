@@ -11,6 +11,7 @@ import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import { cn } from '@/lib/utils/cn'
 import { FavoriteButton } from '@/components/listing/favorite-button'
 import { PriceDisplay } from '@/components/ui/price-display'
+import { CheckCircle2 } from 'lucide-react'
 
 interface ListingCardProps {
   listing: Listing
@@ -130,7 +131,7 @@ export function ListingCard({
     >
       {/* Premium Border for Highlighted */}
       {(listing.is_highlighted || featured) && (
-        <div className="absolute inset-x-0 -top-px h-[2px] bg-primary" />
+        <div className="absolute inset-x-0 -top-px h-[3px] bg-primary z-20" />
       )}
       {/* Image Container */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
@@ -166,17 +167,17 @@ export function ListingCard({
         )}
 
         {/* Badges - Floating Style */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 font-heading">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[10px] font-black tracking-widest text-white uppercase">
+            <div className="bg-primary flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[9px] font-black tracking-widest text-white uppercase shadow-lg shadow-primary/20">
               <Sparkles className="h-3 w-3 fill-white" />
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-background text-foreground flex items-center gap-1.5 rounded-lg border border-border/60 px-2.5 py-1.5 text-[10px] font-black tracking-widest uppercase">
-              <div className="bg-emerald-500 h-1.5 w-1.5 rounded-full" />
+            <div className="bg-background text-foreground flex items-center gap-1.5 rounded-md border border-border/40 px-2.5 py-1.5 text-[9px] font-black tracking-widest uppercase shadow-sm">
+              <div className="bg-emerald-500 h-1.5 w-1.5 rounded-full animate-pulse" />
               {t('new')}
             </div>
           )}
@@ -211,18 +212,23 @@ export function ListingCard({
             </div>
           </div>
 
-          <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-base font-bold transition-colors duration-300">
-            {localizedTitle}
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-base font-bold transition-colors duration-300">
+              {localizedTitle}
+            </h3>
+            {listing.user?.is_verified && (
+              <CheckCircle2 className="text-primary h-4 w-4 shrink-0 ml-2" />
+            )}
+          </div>
         </div>
 
-        {/* Dynamic Details Teaser (Attributes) */}
+        {/* Dynamic Details Teaser (Attributes) - Data Dense Style */}
         {listing.attributes && Object.keys(listing.attributes).length > 0 && (
-          <div className="flex flex-wrap gap-x-3 gap-y-1 opacity-60">
-            {Object.entries(listing.attributes).slice(0, 2).map(([key, value]) => (
-              <div key={key} className="flex items-center gap-1 text-[10px] font-bold">
-                <span className="text-muted-foreground uppercase tracking-tighter">{key}:</span>
-                <span className="text-foreground">{String(value)}</span>
+          <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+            {Object.entries(listing.attributes).slice(0, 3).map(([key, value]) => (
+              <div key={key} className="bg-muted/30 flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold border border-border/40">
+                <span className="text-muted-foreground uppercase tracking-tight opacity-60">{key}:</span>
+                <span className="text-foreground/80">{String(value)}</span>
               </div>
             ))}
           </div>

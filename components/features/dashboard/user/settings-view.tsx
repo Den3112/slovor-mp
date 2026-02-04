@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import {
     Loader2,
     Save,
@@ -305,11 +306,11 @@ export function SettingsView() {
                                     </label>
                                     <div className="relative">
                                         <AlignLeft className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
-                                        <textarea
+                                        <Textarea
                                             data-testid="profile-settings-bio"
-                                            className="flex min-h-[120px] w-full rounded-xl border border-input bg-background px-3 py-3 pl-9 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
+                                            className="min-h-[120px] pl-9 py-3 resize-y"
                                             value={formData.bio}
-                                            onChange={(e) =>
+                                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                                                 setFormData({ ...formData, bio: e.target.value })
                                             }
                                             placeholder={t('profile.bioPlaceholder')}
