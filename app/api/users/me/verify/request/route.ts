@@ -13,16 +13,16 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json()
-    const { document_type, document_data } = body
+    const { type, document_url } = body
     const {
       data: { user },
     } = await supabase.auth.getUser()
     if (!user) return createErrorResponse('Unauthorized', 401)
 
-    const { error } = await supabase.from('user_verifications').insert({
+    const { error } = await supabase.from('verifications').insert({
       user_id: user.id,
-      document_type,
-      document_data,
+      type,
+      document_url,
       status: 'pending',
     })
 

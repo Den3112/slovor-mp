@@ -2,22 +2,16 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ShoppingCart, Loader2, AlertCircle, CheckCircle2, Wallet } from 'lucide-react'
+import { Loader2, AlertCircle, CheckCircle2, Wallet } from 'lucide-react'
 import { toast } from 'sonner'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog'
 import { ordersApi } from '@/lib/api'
 import { supabase } from '@/lib/supabase/client'
 import type { Listing } from '@/lib/types/database'
 import { formatPrice } from '@/lib/utils/formatting'
+import Image from 'next/image'
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog'
 
 interface CheckoutDialogProps {
     listing: Listing
@@ -62,29 +56,25 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[425px] rounded-2xl border-border/60 shadow-2xl">
+        <ResponsiveDialog
+            open={isOpen}
+            onOpenChange={(val) => !val && onClose()}
+            title={t('listing:purchaseTitle')}
+            description={t('listing:purchaseDescription')}
+        >
+            <div className="space-y-6">
                 {!isSuccess ? (
                     <>
-                        <DialogHeader>
-                            <DialogTitle className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
-                                <ShoppingCart className="h-5 w-5 text-primary" />
-                                {t('listing:purchaseTitle')}
-                            </DialogTitle>
-                            <DialogDescription className="text-sm font-medium pt-2">
-                                {t('listing:purchaseDescription')}
-                            </DialogDescription>
-                        </DialogHeader>
-
-                        <div className="py-6 space-y-6">
+                        <div className="space-y-6">
                             {/* Listing Summary Card */}
                             <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 border border-border/40">
-                                <div className="h-16 w-16 rounded-lg bg-muted overflow-hidden shrink-0 border border-border/10">
+                                <div className="h-16 w-16 rounded-lg bg-muted overflow-hidden shrink-0 border border-border/10 relative">
                                     {listing.images?.[0] && (
-                                        <img
+                                        <Image
                                             src={listing.images[0]}
                                             alt={listing.title}
-                                            className="h-full w-full object-cover"
+                                            fill
+                                            className="object-cover"
                                         />
                                     )}
                                 </div>
@@ -113,12 +103,12 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
                             )}
                         </div>
 
-                        <DialogFooter className="gap-3 sm:gap-0">
+                        <div className="flex flex-col gap-3 sm:flex-row pt-4">
                             <Button
                                 variant="outline"
                                 onClick={onClose}
                                 disabled={isProcessing}
-                                className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 border-border/60"
+                                className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 border-border/60 flex-1"
                             >
                                 {t('common:back')}
                             </Button>
@@ -136,11 +126,11 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
                                     t('listing:confirmPurchase')
                                 )}
                             </Button>
-                        </DialogFooter>
+                        </div>
                     </>
                 ) : (
                     <div className="py-12 flex flex-col items-center justify-center text-center space-y-6">
-                        <div className="h-20 w-20 rounded-full bg-success/10 flex items-center justify-center text-success border border-success/20 animate-in zoom-in-50 duration-500">
+                        <div className="h-20 w-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600 border border-emerald-500/20 animate-in zoom-in-50 duration-500">
                             <CheckCircle2 className="h-10 w-10" />
                         </div>
                         <div className="space-y-2">
@@ -154,7 +144,7 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
                         </div>
                     </div>
                 )}
-            </DialogContent>
-        </Dialog>
+            </div>
+        </ResponsiveDialog>
     )
 }

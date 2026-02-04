@@ -117,5 +117,24 @@ export const notificationsApi = {
             logError('notificationsApi.delete', error)
             return { data: null, error: (error as Error).message }
         }
+    },
+
+    /**
+     * Creates a new notification
+     */
+    async create(notification: Omit<Notification, 'id' | 'created_at' | 'is_read'>): Promise<ApiResponse<Notification>> {
+        try {
+            const { data, error } = await supabase
+                .from('notifications')
+                .insert([{ ...notification, is_read: false }])
+                .select()
+                .single()
+
+            if (error) throw error
+            return { data, error: null }
+        } catch (error) {
+            logError('notificationsApi.create', error)
+            return { data: null, error: (error as Error).message }
+        }
     }
 }

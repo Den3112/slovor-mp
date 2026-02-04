@@ -198,4 +198,27 @@ export const reviewsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+  /**
+   * Adds or updates a seller reply to a review
+   */
+  async reply(reviewId: string, reply: string): Promise<ApiResponse<Review>> {
+    try {
+      const { data, error } = await supabase
+        .from('reviews')
+        .update({
+          seller_reply: reply,
+          seller_reply_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', reviewId)
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    } catch (error) {
+      logError('reviewsApi.reply', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
 }

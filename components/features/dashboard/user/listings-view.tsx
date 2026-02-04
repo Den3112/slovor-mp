@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, Package, Eye, Heart, Search } from 'lucide-react'
+import { Plus, Package, Eye, Heart, Search, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
@@ -22,6 +22,18 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { ListingRowActions } from '@/components/features/dashboard/user/components/listing-row-actions'
+import { listingsApi } from '@/lib/api'
+import { useRouter } from 'next/navigation'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 
 interface UserListingsViewProps {
     initialListings: any[]
@@ -48,6 +60,8 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedIds, setSelectedIds] = useState<string[]>([])
     const [currentPage, setCurrentPage] = useState(1)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [confirmAction, setConfirmAction] = useState<'delete' | 'deactivate' | null>(null)
     const itemsPerPage = 10
 
     const toggleSelectAll = () => {
@@ -64,11 +78,30 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
         )
     }
 
-    const handleBulkDelete = async () => {
-        if (!confirm(`Are you sure you want to delete ${selectedIds.length} listings?`)) return
-        // Implement real bulk delete here
-        toast.success(`${selectedIds.length} listings deleted`)
-        setSelectedIds([])
+    const router = useRouter()
+
+    const handleBulkAction = async () => {
+        if (selectedIds.length === 0 || !confirmAction) return
+
+        setIsSubmitting(true)
+        try {
+            if (confirmAction === 'delete') {
+                const { error } = await listingsApi.bulkDelete(selectedIds)
+                if (error) throw new Error(error)
+                toast.success(t('dashboard:deleted') || 'Listings deleted')
+            } else if (confirmAction === 'deactivate') {
+                const { error } = await listingsApi.bulkUpdateStatus(selectedIds, 'sold')
+                if (error) throw new Error(error)
+                toast.success(t('dashboard:updated') || 'Listings deactivated')
+            }
+            setSelectedIds([])
+            router.refresh()
+        } catch (error) {
+            toast.error((error as Error).message)
+        } finally {
+            setIsSubmitting(false)
+            setConfirmAction(null)
+        }
     }
 
     // Filter listings based on tab and search
@@ -192,6 +225,8 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                         <Button
                             size="sm"
                             className="bg-white text-slate-900 hover:bg-white/90 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            onClick={() => setConfirmAction('deactivate')}
+                            disabled={isSubmitting}
                         >
                             Deactivate
                         </Button>
@@ -199,13 +234,48 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             size="sm"
                             variant="destructive"
                             className="text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
-                            onClick={handleBulkDelete}
+                            onClick={() => setConfirmAction('delete')}
+                            disabled={isSubmitting}
                         >
                             Delete
                         </Button>
                     </div>
                 </motion.div>
             )}
+
+            {/* Confirmation Dialog */}
+            <AlertDialog open={!!confirmAction} onOpenChange={(open) => !open && setConfirmAction(null)}>
+                <AlertDialogContent className="rounded-xl border-border bg-card">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-xl font-black uppercase tracking-tight">
+                            {confirmAction === 'delete' ? 'Delete Listings' : 'Deactivate Listings'}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-muted-foreground font-medium">
+                            {confirmAction === 'delete'
+                                ? `Are you sure you want to permanently delete ${selectedIds.length} listings? This action cannot be undone.`
+                                : `Are you sure you want to deactivate ${selectedIds.length} listings? They will be marked as sold and hidden from search.`}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="gap-2">
+                        <AlertDialogCancel className="rounded-xl font-black uppercase tracking-widest text-[10px]" disabled={isSubmitting}>
+                            {t('common:cancel')}
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={(e) => {
+                                e.preventDefault()
+                                handleBulkAction()
+                            }}
+                            className={cn(
+                                "rounded-xl font-black uppercase tracking-widest text-[10px]",
+                                confirmAction === 'delete' ? "bg-destructive text-destructive-foreground hover:bg-destructive/90" : "bg-primary text-primary-foreground hover:bg-primary/90"
+                            )}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : (confirmAction === 'delete' ? t('common:delete') : 'Deactivate')}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             {/* Table */}
             <motion.div variants={item} className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">

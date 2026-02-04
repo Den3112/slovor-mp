@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { AlertTriangle, X } from 'lucide-react'
 import { reportsApi, type ReportReason } from '@/lib/api'
 import { useTranslation } from '@/lib/i18n'
 import { useAuth } from '@/components/providers/auth-provider'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog'
 
 interface ReportDialogProps {
   isOpen: boolean
@@ -41,8 +41,6 @@ export function ReportDialog({
   )
   const [errorMessage, setErrorMessage] = useState('')
 
-  if (!isOpen) return null
-
   const handleSubmit = async () => {
     if (!user || !reason) return
 
@@ -64,7 +62,6 @@ export function ReportDialog({
       setSubmitState('success')
       setTimeout(() => {
         onClose()
-        // Reset form
         setReason('')
         setDescription('')
         setSubmitState('idle')
@@ -84,33 +81,13 @@ export function ReportDialog({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop - Solid Dark */}
-      <div
-        className="absolute inset-0 bg-black/80"
-        onClick={handleClose}
-      />
-
-      {/* Dialog - Solid */}
-      <div className="bg-card border border-border relative z-10 w-full max-w-md rounded-xl p-6 shadow-sm">
-        {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-destructive/10 border border-destructive/20">
-              <AlertTriangle className="h-5 w-5 text-destructive" />
-            </div>
-            <h2 className="text-lg font-black uppercase tracking-tight">
-              {listingId ? t('reports.reportListing') : t('reports.reportUser')}
-            </h2>
-          </div>
-          <button
-            onClick={handleClose}
-            className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-xl p-2 transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
+    <ResponsiveDialog
+      open={isOpen}
+      onOpenChange={(val) => !val && handleClose()}
+      title={listingId ? t('reports.reportListing') : t('reports.reportUser')}
+      description={t('reports.description')}
+    >
+      <div className="space-y-6">
         {/* Success State */}
         {submitState === 'success' ? (
           <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-6 text-center">
@@ -127,7 +104,7 @@ export function ReportDialog({
             )}
 
             {/* Reason Select */}
-            <div className="mb-4 space-y-2">
+            <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                 {t('reports.reason')} *
               </label>
@@ -139,14 +116,14 @@ export function ReportDialog({
                 <option value="">—</option>
                 {REPORT_REASONS.map((r) => (
                   <option key={r} value={r}>
-                    {t('reports.reasons')[r]}
+                    {t(`reports.reasons.${r}`)}
                   </option>
                 ))}
               </select>
             </div>
 
             {/* Description */}
-            <div className="mb-6 space-y-2">
+            <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                 {t('reports.description')}
               </label>
@@ -160,7 +137,7 @@ export function ReportDialog({
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 onClick={handleSubmit}
                 disabled={!reason || isSubmitting || !user}
@@ -187,6 +164,6 @@ export function ReportDialog({
           </>
         )}
       </div>
-    </div>
+    </ResponsiveDialog>
   )
 }

@@ -31,7 +31,7 @@ export const reportsApi = {
     const supabase = createClient()
     try {
       let query = supabase
-        .from('listing_reports')
+        .from('reports')
         .select('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
         .order('created_at', { ascending: false })
 
@@ -59,7 +59,7 @@ export const reportsApi = {
     const supabase = createClient()
     try {
       const { data, error } = await supabase
-        .from('listing_reports')
+        .from('reports')
         .select('id')
         .eq('reporter_id', reporterId)
         .eq('listing_id', listingId)
@@ -77,7 +77,7 @@ export const reportsApi = {
     const supabase = createClient()
     try {
       const { data, error } = await supabase
-        .from('listing_reports')
+        .from('reports')
         .update({ status })
         .eq('id', id)
         .select()
@@ -105,7 +105,7 @@ export const reportsApi = {
 
     try {
       const { data, error } = await supabase
-        .from('listing_reports')
+        .from('reports')
         .insert([report])
         .select()
         .single()

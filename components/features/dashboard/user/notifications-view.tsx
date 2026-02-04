@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { notificationsApi, type Notification } from '@/lib/api/notifications'
 import { useAuth } from '@/components/providers/auth-provider'
 import { useTranslation } from '@/lib/i18n'
@@ -31,18 +31,17 @@ export function NotificationsView() {
     const [notifications, setNotifications] = useState<Notification[]>([])
     const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
-        if (user) {
-            loadNotifications()
-        }
-    }, [user])
-
-    const loadNotifications = async () => {
+    const loadNotifications = useCallback(async () => {
+        if (!user) return
         setIsLoading(true)
-        const { data } = await notificationsApi.getNotifications(user!.id)
+        const { data } = await notificationsApi.getNotifications(user.id)
         if (data) setNotifications(data)
         setIsLoading(false)
-    }
+    }, [user])
+
+    useEffect(() => {
+        loadNotifications()
+    }, [loadNotifications])
 
     const handleMarkAsRead = async (id: string) => {
         const { error } = await notificationsApi.markAsRead(id)

@@ -23,6 +23,23 @@ interface Props {
 export default async function ListingsPage({ searchParams }: Props) {
   const params = searchParams
 
+  // Extract and group dynamic attributes (attr_*)
+  const attributes: Record<string, any> = {}
+  Object.entries(params).forEach(([key, value]) => {
+    if (key.startsWith('attr_')) {
+      const attrKey = key.replace('attr_', '')
+      if (attrKey.endsWith('_min')) {
+        const coreKey = attrKey.replace('_min', '')
+        attributes[coreKey] = { ...attributes[coreKey], min: value }
+      } else if (attrKey.endsWith('_max')) {
+        const coreKey = attrKey.replace('_max', '')
+        attributes[coreKey] = { ...attributes[coreKey], max: value }
+      } else {
+        attributes[attrKey] = value
+      }
+    }
+  })
+
   const filterOptions = {
     search: params.search,
     categoryId: params.category,
@@ -31,6 +48,7 @@ export default async function ListingsPage({ searchParams }: Props) {
     condition: params.condition as 'new' | 'used' | undefined,
     location: params.location,
     sort: params.sort,
+    attributes,
   }
 
   // Fetch listings, total count and categories in parallel

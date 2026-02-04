@@ -9,6 +9,10 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/lib/i18n'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { toast } from 'sonner'
+import { CornerDownRight, Send } from 'lucide-react'
 
 export default function ReviewsPage() {
   const { t } = useTranslation(['common', 'reviews'])
@@ -17,6 +21,9 @@ export default function ReviewsPage() {
   const [givenReviews, setGivenReviews] = useState<Review[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'received' | 'given'>('received')
+  const [replyingTo, setReplyingTo] = useState<string | null>(null)
+  const [replyText, setReplyText] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     async function loadReviews() {
@@ -39,6 +46,33 @@ export default function ReviewsPage() {
 
     loadReviews()
   }, [user])
+
+  const handleReplySubmit = async (reviewId: string) => {
+    if (!replyText.trim()) return
+    setIsSubmitting(true)
+
+    try {
+      const { data, error } = await reviewsApi.reply(reviewId, replyText)
+      if (error) throw new Error(error)
+
+      if (data && ratingData) {
+        setRatingData({
+          ...ratingData,
+          reviews: ratingData.reviews.map(r =>
+            r.id === reviewId ? { ...r, seller_reply: data.seller_reply, seller_reply_at: data.seller_reply_at } : r
+          )
+        })
+      }
+
+      toast.success(t('reviews:replySent') || 'Reply sent successfully')
+      setReplyingTo(null)
+      setReplyText('')
+    } catch (error) {
+      toast.error((error as Error).message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   if (isLoading) {
     return (
@@ -205,6 +239,64 @@ export default function ReviewsPage() {
                             <p className="text-foreground/80 text-sm font-medium leading-relaxed italic">
                               &ldquo;{review.comment}&rdquo;
                             </p>
+                          </div>
+                        )}
+
+                        {/* Seller Reply */}
+                        {review.seller_reply && (
+                          <div className="mt-4 ml-6 flex gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10">
+                            <CornerDownRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Your Reply</p>
+                              <p className="text-sm text-foreground/80 font-medium italic">&ldquo;{review.seller_reply}&rdquo;</p>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Reply Action */}
+                        {activeTab === 'received' && !review.seller_reply && (
+                          <div className="mt-4 flex justify-end">
+                            {replyingTo === review.id ? (
+                              <div className="w-full space-y-3">
+                                <Textarea
+                                  value={replyText}
+                                  onChange={(e) => setReplyText(e.target.value)}
+                                  placeholder={t('reviews:writeReply')}
+                                  className="resize-none"
+                                />
+                                <div className="flex justify-end gap-2">
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => {
+                                      setReplyingTo(null)
+                                      setReplyText('')
+                                    }}
+                                    className="text-[10px] font-black uppercase tracking-widest rounded-xl"
+                                  >
+                                    Cancel
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    onClick={() => handleReplySubmit(review.id)}
+                                    disabled={isSubmitting || !replyText.trim()}
+                                    className="text-[10px] font-black uppercase tracking-widest rounded-xl"
+                                  >
+                                    {isSubmitting ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : <Send className="h-3 w-3 mr-2" />}
+                                    Send Reply
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setReplyingTo(review.id)}
+                                className="text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-primary/5 hover:text-primary transition-all"
+                              >
+                                {t('reviews:reply')}
+                              </Button>
+                            )}
                           </div>
                         )}
                       </div>

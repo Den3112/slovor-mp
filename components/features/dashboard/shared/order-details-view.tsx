@@ -4,7 +4,7 @@ import { useState } from 'react'
 import {
     ArrowLeft,
     Calendar,
-    User,
+    User as UserIcon,
     Package,
     ShieldCheck,
     AlertCircle,
@@ -23,6 +23,7 @@ import { formatPrice } from '@/lib/utils/formatting'
 import { ordersApi } from '@/lib/api'
 import { supabase } from '@/lib/supabase/client'
 import { toast } from 'sonner'
+import Image from 'next/image'
 
 interface OrderDetailsViewProps {
     order: any
@@ -126,12 +127,13 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                         </CardHeader>
                         <CardContent className="p-6">
                             <div className="flex flex-col sm:flex-row gap-6">
-                                <div className="h-32 w-32 rounded-xl bg-muted overflow-hidden shrink-0 border border-border/10">
+                                <div className="h-32 w-32 rounded-xl bg-muted overflow-hidden shrink-0 border border-border/10 relative">
                                     {order.listing?.images?.[0] ? (
-                                        <img
+                                        <Image
                                             src={order.listing.images[0]}
                                             alt={order.listing.title}
-                                            className="h-full w-full object-cover"
+                                            fill
+                                            className="object-cover"
                                         />
                                     ) : (
                                         <Package className="m-auto h-12 w-12 text-muted-foreground/20" />
@@ -209,7 +211,7 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Seller</p>
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
-                                        <User className="h-5 w-5 text-primary" />
+                                        <UserIcon className="h-5 w-5 text-primary" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="font-black text-sm truncate">{order.seller?.full_name || 'Anonymous User'}</p>
@@ -228,7 +230,7 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Buyer</p>
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0">
-                                        <User className="h-5 w-5 text-blue-500" />
+                                        <UserIcon className="h-5 w-5 text-blue-500" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="font-black text-sm truncate">{order.buyer?.full_name || 'Anonymous User'}</p>
