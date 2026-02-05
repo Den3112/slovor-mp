@@ -34,7 +34,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-1.5 text-xs font-black text-primary uppercase tracking-[0.2em] mb-8 border border-primary/20">
+            <span className="inline-flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-[0.2em] mb-8 border border-primary/20">
               <Sparkles className="h-3.5 w-3.5" />
               {t('heroTagline')}
             </span>
@@ -44,7 +44,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-foreground mb-6 text-4xl leading-tight font-black tracking-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl"
+            className="font-heading text-foreground mb-6 text-4xl leading-tight font-bold tracking-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl"
           >
             {t('heroTitleMain')} <br className="hidden sm:block" />
             <span className="text-primary">
@@ -97,8 +97,7 @@ export function Hero() {
 
                 <Button
                   onClick={handleSearch}
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 h-12 w-full shrink-0 rounded-xl text-base font-bold text-primary-foreground shadow-none transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:rounded-lg sm:px-8 md:px-10"
+                  className="bg-primary hover:bg-primary-hover h-12 w-full shrink-0 rounded-xl text-base font-bold text-primary-foreground shadow-primary transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:px-8 md:px-10"
                 >
                   {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5" />

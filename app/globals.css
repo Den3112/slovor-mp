@@ -14,6 +14,7 @@
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
   --color-primary: hsl(var(--primary));
+  --color-primary-hover: hsl(var(--primary-hover));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
@@ -35,131 +36,140 @@
   --font-size-2xs: 0.625rem;
   --font-size-3xs: 0.5625rem;
 
-  /* Border radius scale - CRM style: subtle, professional */
-  --radius-2xl: var(--radius);
-  --radius-xl: calc(var(--radius) - 2px);
-  --radius-lg: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 6px);
-  --radius-sm: calc(var(--radius) - 8px);
+  /* Border radius scale - ALIGNED WITH MASTERPLAN NAMING */
+  --radius-3xl: 24px;
+  /* Hero Cards */
+  --radius-2xl: 20px;
+  /* Standard Cards */
+  --radius-xl: 12px;
+  /* Buttons / Inputs / Large Avatars */
+  --radius-lg: 8px;
+  /* Medium items */
+  --radius-md: 6px;
+  /* Small items */
+  --radius-sm: 4px;
+  /* Badges */
 
-  /* Shadows - CRM style: crisp, not diffused */
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
-  --shadow-dropdown: 0 10px 40px -10px rgba(0, 0, 0, 0.2);
+  /* Shadows - EXACT FROM MASTERPLAN */
+  --shadow-card: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+  --shadow-primary: 0 4px 14px 0 rgba(99, 102, 241, 0.3);
+  --shadow-dropdown: 0 8px 40px 0 rgba(99, 102, 241, 0.15);
 
   /* Layout constants */
-  --sidebar-width: 256px;
+  --sidebar-width: 280px;
   --sidebar-collapsed-width: 72px;
-  --header-height: 64px;
+  --header-height: 80px;
   --mobile-header-height: 56px;
-  --bottom-nav-height: 64px;
+  --bottom-nav-height: 72px;
 }
 
 @layer base {
   :root {
     /* Background & Surface */
     --background: 210 40% 98%;
-    /* #F8FAFC - Page background */
+    /* #F8FAFC - Slate-50 */
     --foreground: 222 47% 11%;
-    /* #0F172A - Primary text */
+    /* #1E293B - Slate-800 */
 
     /* Card/Surface */
     --card: 0 0% 100%;
-    /* #FFFFFF - Cards, modals */
+    /* #FFFFFF - White */
     --card-foreground: 222 47% 11%;
+    /* #1E293B */
 
-    /* Primary Action Color */
-    --primary: 217 91% 60%;
-    /* #3B82F6 - Buttons, links, active */
+    /* Primary Action Color - INDIGO-500 */
+    --primary: 239 84% 67%;
+    /* #6366F1 - Indigo-500 */
+    --primary-hover: 243 75% 59%;
+    /* #4F46E5 - Indigo-600 */
     --primary-foreground: 0 0% 100%;
 
     /* Secondary/Muted */
-    --secondary: 214 32% 91%;
-    /* #E2E8F0 - Secondary buttons */
+    --secondary: 210 40% 96%;
+    /* #F1F5F9 - Slate-100 */
     --secondary-foreground: 222 47% 11%;
 
     /* Muted Text & Backgrounds */
     --muted: 210 40% 96%;
-    /* #F1F5F9 - Muted backgrounds */
+    /* #F1F5F9 - Slate-100 */
     --muted-foreground: 215 16% 47%;
-    /* #64748B - Muted text */
+    /* #64748B - Slate-500 */
 
-    /* Accent (for hover states) */
-    --accent: 214 95% 93%;
-    /* #EFF6FF - Hover bg, table headers */
+    /* Accent */
+    --accent: 210 40% 96%;
+    /* #F1F5F9 */
     --accent-foreground: 222 47% 11%;
 
     /* Borders */
     --border: 214 32% 91%;
-    /* #E2E8F0 - All borders */
+    /* #E2E8F0 - Slate-200 */
     --input: 214 32% 91%;
-    /* Same as border */
-    --ring: 217 91% 60%;
-    /* Primary for focus rings */
+    --ring: 239 84% 67%;
 
     /* Semantic Colors */
     --destructive: 0 84% 60%;
-    /* #EF4444 - Errors, delete */
+    /* #EF4444 - Red-500 */
     --destructive-foreground: 0 0% 100%;
-    --success: 142 76% 36%;
-    /* #22C55E - Success states */
+    --success: 142 70% 45%;
+    /* #10B981 - Emerald-500 */
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
-    /* #F59E0B - Warnings */
+    /* #F59E0B - Amber-500 */
     --warning-foreground: 0 0% 100%;
 
     /* Layout */
     --radius: 0.75rem;
-    /* 12px - Default border-radius */
-    --sidebar-width: 256px;
-    --header-height: 64px;
+    /* Base radius */
   }
 
   .dark {
     /* Background & Surface - DARK */
-    --background: 222 47% 3%;
-    /* #020617 - Deep navy */
+    --background: 222 47% 11%;
+    /* #0F172A - Slate-900 (using 11% for Slate-900) */
     --foreground: 210 40% 98%;
-    /* #F8FAFC - Light text */
+    /* #F8FAFC - Slate-50 */
 
     /* Card/Surface - DARK */
-    --card: 222 47% 6%;
-    /* #0F172A - Slate-900 */
+    --card: 222 47% 17%;
+    /* #1E293B - Slate-800 */
     --card-foreground: 210 40% 98%;
 
-    /* Primary stays same */
-    --primary: 217 91% 60%;
-    /* #3B82F6 */
+    /* Primary stays same hue, maybe lighter hover in CSS */
+    --primary: 239 84% 67%;
+    /* #6366F1 */
+    --primary-hover: 239 84% 75%;
+    /* Lighter for dark theme hover */
     --primary-foreground: 0 0% 100%;
 
     /* Secondary - DARK */
-    --secondary: 217 33% 17%;
-    /* #1E293B - Slate-800 */
+    --secondary: 217 33% 27%;
+    /* #334155 - Slate-700 */
     --secondary-foreground: 210 40% 98%;
 
     /* Muted - DARK */
-    --muted: 217 33% 17%;
-    /* #1E293B */
+    --muted: 217 33% 27%;
+    /* #334155 */
     --muted-foreground: 215 20% 65%;
-    /* #94A3B8 */
+    /* #94A3B8 - Slate-400 */
 
     /* Accent - DARK */
-    --accent: 217 33% 17%;
-    /* #1E293B */
+    --accent: 217 33% 27%;
     --accent-foreground: 210 40% 98%;
 
     /* Borders - DARK */
-    --border: 217 33% 17%;
-    /* #1E293B */
-    --input: 217 33% 17%;
-    --ring: 217 91% 60%;
+    --border: 217 33% 27%;
+    /* #334155 */
+    --input: 215 19% 35%;
+    /* #475569 - Slate-600 */
+    --ring: 239 84% 67%;
 
-    /* Semantic stay same */
+    /* Semantic stay same or adjust */
     --destructive: 0 84% 60%;
-    --success: 142 76% 36%;
+    --success: 142 70% 45%;
     --warning: 38 92% 50%;
   }
 }
+
 
 @layer base {
   * {

@@ -7,12 +7,12 @@ import '../globals.css'
 import { cn } from '@/lib/utils'
 
 // Fallback system fonts to bypass next/font/google build issues in some environments
-const fontHeading = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-const fontSans = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-const fontMono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+const fontHeading = "'Plus Jakarta Sans', 'Space Grotesk', system-ui, -apple-system, sans-serif"
+const fontSans = "'Plus Jakarta Sans', 'DM Sans', system-ui, -apple-system, sans-serif"
+const fontMono = "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
 
 export const viewport: Viewport = {
-  themeColor: '#3B82F6',
+  themeColor: '#6366F1',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,

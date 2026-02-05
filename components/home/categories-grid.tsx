@@ -30,7 +30,7 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
             <Container>
                 <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
                     <div className="max-w-2xl">
-                        <h2 className="font-heading mb-4 text-4xl font-black tracking-tight italic md:text-5xl">
+                        <h2 className="font-heading mb-4 text-4xl font-bold tracking-tight md:text-5xl">
                             {t('home:categoriesGrid')}
                         </h2>
                         <p className="text-muted-foreground text-lg font-medium opacity-70">
@@ -57,10 +57,10 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                         >
                             <Link
                                 href={`/categories/${category.slug}`}
-                                className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-border/60 bg-card p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 active:scale-[0.98]"
+                                className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-border bg-card p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/40 shadow-card active:scale-[0.98]"
                             >
                                 <div className={cn(
-                                    "flex h-20 w-20 items-center justify-center rounded-4xl transition-all duration-300 group-hover:rounded-2xl group-hover:bg-primary group-hover:text-primary-foreground shadow-sm ring-4 ring-muted/50",
+                                    "flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground shadow-sm ring-4 ring-muted/30",
                                     category.color || "bg-muted"
                                 )}>
                                     <CategoryIcon
@@ -69,11 +69,11 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                                     />
                                 </div>
                                 <div className="space-y-1.5 px-2">
-                                    <h3 className="text-sm font-black tracking-tight uppercase group-hover:text-primary transition-colors">
+                                    <h3 className="text-sm font-bold tracking-tight uppercase group-hover:text-primary transition-colors">
                                         {getLocalizedCategoryName(category, locale, t)}
                                     </h3>
                                     <div className="flex items-center justify-center gap-2">
-                                        <Badge variant="secondary" className="bg-muted text-[10px] font-black tracking-widest uppercase border-0 h-5 px-2">
+                                        <Badge variant="secondary" className="bg-muted text-[10px] font-bold tracking-widest uppercase border-0 h-5 px-2">
                                             {category.listing_count || 0}
                                         </Badge>
                                         <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
@@ -96,7 +96,7 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                             href="/categories"
                             className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/50 hover:bg-primary/10 active:scale-[0.98]"
                         >
-                            <div className="flex h-20 w-20 items-center justify-center rounded-4xl bg-primary text-white transition-all duration-300 group-hover:rounded-2xl shadow-lg shadow-primary/20">
+                            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary text-white transition-all duration-300 shadow-lg shadow-primary/20">
                                 <LayoutGrid className="h-10 w-10" />
                             </div>
                             <div className="space-y-1.5 px-2">
