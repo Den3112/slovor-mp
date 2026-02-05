@@ -30,12 +30,12 @@ export function RegionsSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="font-heading text-4xl font-black italic tracking-tighter md:text-6xl text-foreground uppercase">
+                        <h2 className="font-heading text-4xl font-bold tracking-tighter md:text-6xl text-foreground uppercase">
                             {t('home:regionsTitle')}
                         </h2>
                         <div className="mt-4 flex items-center justify-center gap-2">
                             <div className="h-1 w-12 bg-primary rounded-full" />
-                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
                                 {t('home:exploreSlovakia')}
                             </p>
                             <div className="h-1 w-12 bg-primary rounded-full" />
@@ -54,19 +54,19 @@ export function RegionsSection() {
                         >
                             <Link
                                 href={`/${locale}/listings?location=${region.id}`}
-                                className="group block relative rounded-2xl bg-card border border-border/60 p-6 transition-all hover:-translate-y-2 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 active:scale-95"
+                                className="group block relative rounded-2xl bg-card border border-border p-6 transition-all hover:-translate-y-2 hover:border-primary/40 shadow-card active:scale-95"
                             >
                                 <div className="space-y-4">
                                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-primary/10">
                                         <MapPin className="h-6 w-6" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-black tracking-tight text-foreground uppercase italic group-hover:text-primary transition-colors">
+                                        <h3 className="text-lg font-bold tracking-tight text-foreground uppercase group-hover:text-primary transition-colors">
                                             {t(region.nameKey)}
                                         </h3>
                                         <div className="mt-2 flex items-center gap-2">
                                             <span className="h-0.5 w-4 bg-border group-hover:bg-primary/50 transition-all" />
-                                            <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">
+                                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
                                                 {region.count.toLocaleString()} {t('home:popularInRegion')}
                                             </p>
                                         </div>

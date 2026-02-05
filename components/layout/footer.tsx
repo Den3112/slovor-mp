@@ -22,6 +22,8 @@ import { cn } from '@/lib/utils'
 import { useCurrency } from '@/components/providers/currency-provider'
 import { CURRENCIES } from '@/lib/types/currency'
 
+import { Logo } from '@/components/ui/logo'
+
 export function Footer() {
   const { t, i18n } = useTranslation(['common', 'footer'])
   const pathname = usePathname()
@@ -129,18 +131,7 @@ export function Footer() {
         <div className="mb-12 grid grid-cols-1 gap-8 md:mb-16 md:grid-cols-2 md:gap-12 lg:mb-20 lg:grid-cols-12 lg:gap-12">
           {/* Brand Info */}
           <div className="space-y-6 lg:col-span-4">
-            <Link
-              href={`/${locale}`}
-              className="group inline-flex items-center gap-3"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-xl font-bold text-white shadow-lg shadow-blue-200 transition-transform duration-500 group-hover:rotate-6 md:h-11 md:w-11 md:rounded-xl">
-                S
-              </div>
-              <span className="text-2xl font-black tracking-tight text-foreground md:text-3xl">
-                Slovor
-                <span className="text-primary group-hover:animate-pulse">.</span>
-              </span>
-            </Link>
+            <Logo size="lg" />
             <p className="max-w-xs text-base leading-relaxed font-medium text-muted-foreground">
               {t('footer.description')}
             </p>

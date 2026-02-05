@@ -52,11 +52,11 @@ export function Header() {
     <>
       <header
         className={cn(
-          'sticky top-0 z-50 w-full h-16 bg-background/95 backdrop-blur-md border-b border-border/40 antialiased transition-all duration-300',
+          'sticky top-0 z-50 w-full h-[80px] bg-background border-b border-border antialiased transition-all duration-300',
         )}
       >
-        <Container>
-          <div className="flex h-16 items-center justify-between gap-8">
+        <Container className="h-full">
+          <div className="flex h-full items-center justify-between gap-8">
             {/* Logo area with Category Trigger */}
             <div className="flex shrink-0 items-center gap-8">
               <Logo locale={locale} />
@@ -129,9 +129,9 @@ export function Header() {
                 )}
 
                 {/* Primary CTA - Post Ad */}
-                <Button asChild className="h-10 rounded-xl px-5 gap-2.5 font-black text-[10px] uppercase tracking-[0.15em] ml-2 bg-primary hover:bg-primary/90 text-white border-0 shadow-lg shadow-primary/15 transition-all hover:-translate-y-0.5 active:translate-y-0">
+                <Button asChild className="h-12 rounded-xl px-6 gap-2.5 font-semibold text-[15px] ml-2 bg-primary hover:bg-primary-hover text-white border-0 shadow-primary transition-all active:scale-[0.98]">
                   <Link href={`/${locale}/post`} data-testid="header-post-ad-btn">
-                    <Plus className="h-4 w-4" strokeWidth={3} />
+                    <Plus className="h-5 w-5" strokeWidth={2.5} />
                     <span>{t('nav:postAd')}</span>
                   </Link>
                 </Button>
