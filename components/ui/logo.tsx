@@ -9,9 +9,10 @@ interface LogoProps {
     className?: string
     showText?: boolean
     size?: 'sm' | 'md' | 'lg'
+    variant?: 'default' | 'white'
 }
 
-export function Logo({ locale, className, showText = true, size = 'md' }: LogoProps) {
+export function Logo({ locale, className, showText = true, size = 'md', variant = 'default' }: LogoProps) {
     const href = locale ? `/${locale}` : '/'
 
     const sizes = {
@@ -52,7 +53,8 @@ export function Logo({ locale, className, showText = true, size = 'md' }: LogoPr
             </div>
             {showText && (
                 <span className={cn(
-                    "font-heading text-foreground group-hover:text-primary flex items-baseline font-black tracking-tighter transition-colors",
+                    "font-heading flex items-baseline font-bold tracking-tighter transition-colors",
+                    variant === 'white' ? "text-white" : "text-foreground group-hover:text-primary",
                     currentSize.text
                 )}>
                     Slovor

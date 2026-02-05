@@ -53,7 +53,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                     <div className="safe-top flex h-full flex-col">
                         {/* Header */}
                         <div className="border-border/40 flex items-center gap-3 border-b p-4">
-                            <div className="bg-muted flex flex-1 items-center rounded-2xl px-3 py-2">
+                            <div className="bg-muted flex flex-1 items-center rounded-xl px-3 py-2">
                                 <Search className="text-muted-foreground h-5 w-5" />
                                 <form onSubmit={handleSearch} className="flex-1">
                                     <input
@@ -85,7 +85,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                             {!query && (
                                 <div className="space-y-8">
                                     <section>
-                                        <h3 className="mb-4 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                        <h3 className="mb-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                                             {t('common.marketTrends')}
                                         </h3>
                                         <div className="grid grid-cols-2 gap-3">
@@ -96,7 +96,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                                         router.push(`/${locale}${cat.href}`)
                                                         onClose()
                                                     }}
-                                                    className="flex items-center gap-3 rounded-2xl border border-border/40 p-3 text-left transition-active active:scale-95"
+                                                    className="flex items-center gap-3 rounded-xl border border-border/40 p-3 text-left transition-active active:scale-95"
                                                 >
                                                     <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl text-white", cat.color)}>
                                                         <cat.icon className="h-5 w-5" />
@@ -108,7 +108,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                     </section>
 
                                     <section>
-                                        <h3 className="mb-4 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                        <h3 className="mb-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                                             {t('common.quickSuggestions')}
                                         </h3>
                                         <div className="flex flex-wrap gap-2">

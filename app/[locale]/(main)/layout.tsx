@@ -2,6 +2,7 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { BottomTabBar } from '@/components/layout/bottom-tab-bar'
 import { Suspense } from 'react'
+import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 
 export default function MainLayout({
     children,
@@ -17,7 +18,11 @@ export default function MainLayout({
             >
                 <Header />
             </Suspense>
-            <main className="flex-1 pb-16 md:pb-0">{children}</main>
+            <main className="flex-1 pb-16 md:pb-0">
+                <PullToRefresh>
+                    {children}
+                </PullToRefresh>
+            </main>
             <BottomTabBar />
             <Footer />
         </div>

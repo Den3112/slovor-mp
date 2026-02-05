@@ -77,7 +77,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                 className={cn(
                     "relative flex items-center overflow-hidden rounded-2xl border transition-all duration-300",
                     isOpen
-                        ? "border-primary/50 bg-background shadow-2xl ring-4 ring-primary/10"
+                        ? "border-primary/50 bg-background shadow-lg ring-4 ring-primary/10"
                         : "border-border/40 bg-muted/20 hover:bg-muted/40 hover:border-border/60"
                 )}
             >
@@ -116,12 +116,12 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                         animate={{ opacity: 1, y: 4, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.98 }}
                         transition={{ duration: 0.2 }}
-                        className="border-border/40 bg-background/95 absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl"
+                        className="border-border/40 bg-background/95 absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg"
                     >
                         <div className="p-4">
                             {/* Popular Categories */}
                             <div className="mb-6">
-                                <div className="mb-3 flex items-center gap-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                <div className="mb-3 flex items-center gap-2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                                     <TrendingUp className="h-3 w-3" />
                                     {t('common:marketTrends')}
                                 </div>
@@ -156,7 +156,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                 ) : query.length >= 2 ? (
                                     // Real results
                                     <>
-                                        <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                        <div className="mb-2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                                             {t('common:searchResultsFor')} &quot;{query}&quot;
                                         </div>
                                         {results.length > 0 ? results.map((item) => (
@@ -199,7 +199,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                                 ) : (
                                     // Default suggestions
                                     <>
-                                        <div className="mb-2 px-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                                        <div className="mb-2 px-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                                             {t('common:quickSuggestions') || 'QUICK SUGGESTIONS'}
                                         </div>
                                         {[

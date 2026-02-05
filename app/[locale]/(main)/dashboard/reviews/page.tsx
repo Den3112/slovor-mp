@@ -90,7 +90,7 @@ export default function ReviewsPage() {
       <div className="relative overflow-hidden rounded-xl border border-border bg-card p-8 shadow-sm">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
-            <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
+            <h1 className="text-3xl font-bold uppercase tracking-tight text-foreground">
               {t('reviews:title')}
             </h1>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
@@ -110,7 +110,7 @@ export default function ReviewsPage() {
             <button
               onClick={() => setActiveTab('received')}
               className={cn(
-                "rounded-lg px-6 py-2 text-xs font-black uppercase tracking-widest transition-all",
+                "rounded px-6 py-2 text-xs font-bold uppercase tracking-widest transition-all",
                 activeTab === 'received'
                   ? "bg-background text-primary shadow-sm ring-1 ring-border/50"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
@@ -121,7 +121,7 @@ export default function ReviewsPage() {
             <button
               onClick={() => setActiveTab('given')}
               className={cn(
-                "rounded-lg px-6 py-2 text-xs font-black uppercase tracking-widest transition-all",
+                "rounded px-6 py-2 text-xs font-bold uppercase tracking-widest transition-all",
                 activeTab === 'given'
                   ? "bg-background text-primary shadow-sm ring-1 ring-border/50"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
@@ -139,10 +139,10 @@ export default function ReviewsPage() {
                     <Star className="h-5 w-5 text-amber-500 fill-amber-500/10" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
                       {t('reviews:rating')}
                     </p>
-                    <p className="text-xl font-black tabular-nums">
+                    <p className="text-xl font-bold tabular-nums">
                       {ratingData?.averageRating || 0}
                       <span className="text-muted-foreground text-xs font-bold ml-1">/5.0</span>
                     </p>
@@ -156,10 +156,10 @@ export default function ReviewsPage() {
                     <MessageCircle className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
                       {t('reviews:totalReviews')}
                     </p>
-                    <p className="text-xl font-black tabular-nums">
+                    <p className="text-xl font-bold tabular-nums">
                       {ratingData?.totalReviews || 0}
                     </p>
                   </div>
@@ -205,10 +205,10 @@ export default function ReviewsPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-3">
                           <div className="space-y-1">
-                            <p className="text-foreground font-black text-base leading-none">
+                            <p className="text-foreground font-bold text-base leading-none">
                               {userDisplay?.display_name || t('reviews:anonymous')}
                             </p>
-                            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
+                            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
                               <span>{new Date(review.created_at).toLocaleDateString()}</span>
                               {review.listing && (
                                 <>
@@ -236,7 +236,7 @@ export default function ReviewsPage() {
 
                         {review.comment && (
                           <div className="relative rounded-xl bg-muted/20 p-4 border border-border/30 group-hover:bg-muted/40 transition-all">
-                            <p className="text-foreground/80 text-sm font-medium leading-relaxed italic">
+                            <p className="text-foreground/80 text-sm font-medium leading-relaxed">
                               &ldquo;{review.comment}&rdquo;
                             </p>
                           </div>
@@ -247,8 +247,8 @@ export default function ReviewsPage() {
                           <div className="mt-4 ml-6 flex gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10">
                             <CornerDownRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                             <div className="space-y-1">
-                              <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Your Reply</p>
-                              <p className="text-sm text-foreground/80 font-medium italic">&ldquo;{review.seller_reply}&rdquo;</p>
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-primary/60">Your Reply</p>
+                              <p className="text-sm text-foreground/80 font-medium">&ldquo;{review.seller_reply}&rdquo;</p>
                             </div>
                           </div>
                         )}
@@ -272,7 +272,7 @@ export default function ReviewsPage() {
                                       setReplyingTo(null)
                                       setReplyText('')
                                     }}
-                                    className="text-[10px] font-black uppercase tracking-widest rounded-xl"
+                                    className="text-[10px] font-bold uppercase tracking-widest rounded-xl"
                                   >
                                     Cancel
                                   </Button>
@@ -280,7 +280,7 @@ export default function ReviewsPage() {
                                     size="sm"
                                     onClick={() => handleReplySubmit(review.id)}
                                     disabled={isSubmitting || !replyText.trim()}
-                                    className="text-[10px] font-black uppercase tracking-widest rounded-xl"
+                                    className="text-[10px] font-bold uppercase tracking-widest rounded-xl"
                                   >
                                     {isSubmitting ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : <Send className="h-3 w-3 mr-2" />}
                                     Send Reply
@@ -292,7 +292,7 @@ export default function ReviewsPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setReplyingTo(review.id)}
-                                className="text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-primary/5 hover:text-primary transition-all"
+                                className="text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-primary/5 hover:text-primary transition-all"
                               >
                                 {t('reviews:reply')}
                               </Button>

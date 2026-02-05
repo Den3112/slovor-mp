@@ -37,16 +37,16 @@ export function StatsCard({
             className="h-full"
         >
             <Card className={cn(
-                'h-full relative overflow-hidden group transition-all duration-300 border-border/60 hover:border-primary/40 shadow-sm',
+                'h-full relative overflow-hidden group transition-all duration-300 border-border hover:border-primary/40 shadow-card',
                 className
             )}>
-                <CardContent className="p-5 relative z-10">
+                <CardContent className="p-6 relative z-10">
                     <div className="flex items-center justify-between">
-                        <div className="space-y-1.5">
+                        <div className="space-y-1.5 min-w-0">
                             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none">
                                 {label}
                             </p>
-                            <p className="text-3xl font-black tracking-tighter leading-none">
+                            <p className="text-[28px] font-bold tracking-tight leading-none text-foreground">
                                 {value}
                             </p>
                             {(description || trend) && (

@@ -68,7 +68,7 @@ export function UnifiedSidebar({
     return (
         <div
             className={cn(
-                'flex flex-col h-full bg-card border-r border-border/60 transition-all duration-300',
+                'flex flex-col h-full bg-[#1E293B] border-r border-[#334155] transition-all duration-300',
                 isCollapsed ? 'w-20' : 'w-64',
                 !isMobile && 'sticky top-0 h-screen',
                 className
@@ -77,11 +77,11 @@ export function UnifiedSidebar({
         >
             {/* Header / Logo Area */}
             <div className={cn(
-                "flex items-center h-20 px-6 border-b border-border/40",
+                "flex items-center h-[80px] px-6 border-b border-[#334155]",
                 isCollapsed ? "justify-center" : "justify-between"
             )}>
-                {!isCollapsed && <Logo size="sm" />}
-                {isCollapsed && <Logo size="sm" showText={false} />}
+                {!isCollapsed && <Logo size="sm" variant="white" />}
+                {isCollapsed && <Logo size="sm" showText={false} variant="white" />}
 
                 {!isMobile && onToggleCollapse && (
                     <Button
@@ -116,10 +116,10 @@ export function UnifiedSidebar({
                                             href={link.href}
                                             onClick={onNavigate}
                                             className={cn(
-                                                'group flex items-center gap-3 px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all relative overflow-hidden',
+                                                'group flex items-center gap-3 px-4 py-3 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all relative overflow-hidden',
                                                 active
-                                                    ? 'bg-primary text-white shadow-md shadow-primary/20'
-                                                    : 'text-muted-foreground/70 hover:bg-primary/5 hover:text-primary',
+                                                    ? 'bg-primary/10 text-white shadow-primary/20'
+                                                    : 'text-slate-400 hover:bg-white/5 hover:text-white',
                                                 isCollapsed && 'justify-center px-0'
                                             )}
                                             title={isCollapsed ? link.label : undefined}
@@ -135,15 +135,15 @@ export function UnifiedSidebar({
                                             {/* Counter Badge */}
                                             {link.badgeCount !== undefined && link.badgeCount > 0 && !isCollapsed && (
                                                 <span className={cn(
-                                                    "ml-auto text-[9px] font-black px-2 py-0.5 rounded-md border transition-colors",
-                                                    active ? "bg-white/20 text-white border-white/30" : "bg-primary/10 text-primary border-primary/20"
+                                                    "ml-auto text-[9px] font-bold px-2 py-0.5 rounded-sm border transition-colors",
+                                                    active ? "bg-white/20 text-white border-white/30" : "bg-primary/5 text-primary border-primary/10"
                                                 )}>
                                                     {link.badgeCount}
                                                 </span>
                                             )}
 
                                             {active && !isCollapsed && (
-                                                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-white/40 rounded-full" />
+                                                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 bg-primary rounded-full" />
                                             )}
                                         </Link>
                                     )
@@ -155,11 +155,11 @@ export function UnifiedSidebar({
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t border-border/40 mt-auto bg-muted/5">
+            <div className="p-4 border-t border-border mt-auto bg-muted/5">
                 <button
                     onClick={handleSignOut}
                     className={cn(
-                        "group flex w-full items-center gap-3 px-3.5 py-3 rounded-xl text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive transition-all",
+                        "group flex w-full items-center gap-3 px-3.5 py-3 rounded-xl text-[11px] font-bold uppercase tracking-widest text-slate-400 hover:bg-destructive/10 hover:text-destructive transition-all",
                         isCollapsed && 'justify-center px-0'
                     )}
                     title={config.signOutLabel}

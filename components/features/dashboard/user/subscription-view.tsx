@@ -110,7 +110,7 @@ export function SubscriptionView({ currentSubscription: initialSubscription }: S
         <div className="space-y-8 animate-in fade-in duration-700">
             {/* Header Section */}
             <div className="flex flex-col gap-2 bg-card border border-border p-6 rounded-xl shadow-sm">
-                <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
+                <h1 className="text-3xl font-bold uppercase tracking-tight text-foreground">
                     {t('profile:subscription')}
                 </h1>
                 <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">
@@ -141,13 +141,13 @@ export function SubscriptionView({ currentSubscription: initialSubscription }: S
                         </p>
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
                             <p className={cn(
-                                "text-[10px] uppercase font-black tracking-widest",
+                                "text-[10px] uppercase font-bold tracking-widest",
                                 currentSub.plan_type === 'free' ? "text-blue-600 dark:text-blue-400" : "text-primary"
                             )}>
                                 Current: {currentSub.plan_type.toUpperCase()} PLAN
                             </p>
                             {currentSub.current_period_end && (
-                                <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">
+                                <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">
                                     Ends on: {new Date(currentSub.current_period_end).toLocaleDateString()}
                                 </p>
                             )}
@@ -184,25 +184,25 @@ export function SubscriptionView({ currentSubscription: initialSubscription }: S
                                         <plan.icon className="h-6 w-6" />
                                     </div>
                                     {isCurrent ? (
-                                        <Badge className="bg-emerald-500 text-white font-black uppercase tracking-widest text-[9px] rounded-lg">
+                                        <Badge className="bg-emerald-500 text-white font-bold uppercase tracking-widest text-[9px] rounded">
                                             Active
                                         </Badge>
                                     ) : plan.highlight && (
-                                        <Badge className="bg-primary text-primary-foreground font-black uppercase tracking-widest text-[9px] rounded-lg animate-pulse">
+                                        <Badge className="bg-primary text-primary-foreground font-bold uppercase tracking-widest text-[9px] rounded animate-pulse">
                                             Most Popular
                                         </Badge>
                                     )}
                                 </div>
 
                                 <div className="space-y-1">
-                                    <h3 className="text-xl font-black uppercase tracking-tight text-foreground">{plan.name}</h3>
+                                    <h3 className="text-xl font-bold uppercase tracking-tight text-foreground">{plan.name}</h3>
                                     <p className="text-muted-foreground text-xs font-bold leading-relaxed">{plan.description}</p>
                                 </div>
 
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-4xl font-black text-foreground">€{plan.price}</span>
+                                    <span className="text-4xl font-bold text-foreground">€{plan.price}</span>
                                     {plan.period && (
-                                        <span className="text-muted-foreground font-black tracking-widest uppercase text-sm">{plan.period}</span>
+                                        <span className="text-muted-foreground font-bold tracking-widest uppercase text-sm">{plan.period}</span>
                                     )}
                                 </div>
                             </div>
@@ -227,7 +227,7 @@ export function SubscriptionView({ currentSubscription: initialSubscription }: S
                                     onClick={() => handleUpgrade(plan.id)}
                                     disabled={isCurrent || (isSubmitting !== null)}
                                     className={cn(
-                                        "w-full h-12 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                                        "w-full h-12 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all",
                                         isCurrent
                                             ? "bg-muted text-muted-foreground border-border cursor-default hover:bg-muted"
                                             : plan.highlight
@@ -256,14 +256,14 @@ export function SubscriptionView({ currentSubscription: initialSubscription }: S
             {/* Comparison Table Footer Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 border-t border-border mt-12">
                 <div className="space-y-4">
-                    <h4 className="text-sm font-black uppercase tracking-widest text-foreground">Why upgrade?</h4>
+                    <h4 className="text-sm font-bold uppercase tracking-widest text-foreground">Why upgrade?</h4>
                     <p className="text-sm font-bold text-muted-foreground leading-relaxed">
                         Slovor Pro accounts give you professional tools to stand out from the crowd.
                         With boosted visibility and priority support, your listings sell on average 3x faster than basic accounts.
                     </p>
                 </div>
                 <div className="space-y-4">
-                    <h4 className="text-sm font-black uppercase tracking-widest text-foreground">Payment Safety</h4>
+                    <h4 className="text-sm font-bold uppercase tracking-widest text-foreground">Payment Safety</h4>
                     <p className="text-sm font-bold text-muted-foreground leading-relaxed">
                         All payments are handled securely via Slovor Pay. No credit card details are stored on our servers.
                         You can cancel your subscription at any time from your settings.
