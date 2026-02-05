@@ -33,7 +33,7 @@ export function HowItWorks() {
         <section className="bg-background py-16 md:py-24">
             <Container>
                 <div className="mb-16 text-center">
-                    <h2 className="font-heading mb-4 text-3xl font-black italic tracking-tight md:text-5xl">
+                    <h2 className="font-heading mb-4 text-3xl font-bold tracking-tight md:text-5xl">
                         {t('home:howItWorksTitle')}
                     </h2>
                 </div>
@@ -57,12 +57,12 @@ export function HowItWorks() {
                                 <div className={`flex h-16 w-16 items-center justify-center rounded-xl text-white ${step.color}`}>
                                     {step.icon}
                                 </div>
-                                <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background font-black text-sm">
+                                <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background font-bold text-sm">
                                     {idx + 1}
                                 </div>
                             </div>
 
-                            <h3 className="mb-3 text-xl font-black italic tracking-tight">
+                            <h3 className="mb-3 text-xl font-bold tracking-tight">
                                 {step.title}
                             </h3>
                             <p className="text-muted-foreground max-w-xs font-medium leading-relaxed">

@@ -89,7 +89,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-card border border-border p-6 rounded-xl shadow-sm">
                 <div className="space-y-1">
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase">
                         {t('dashboard:savedSearches')}
                     </h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -118,8 +118,8 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="text-base font-black uppercase tracking-tight text-foreground truncate">{search.name}</h3>
-                                        <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-border/60 bg-muted/20">
+                                        <h3 className="text-base font-bold uppercase tracking-tight text-foreground truncate">{search.name}</h3>
+                                        <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-widest border-border/60 bg-muted/20 rounded">
                                             {search.frequency}
                                         </Badge>
                                     </div>
@@ -152,7 +152,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
 
                                     <div className="flex items-center gap-4 mt-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
                                         <span className={cn(
-                                            "flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors",
+                                            "flex items-center gap-1.5 px-2 py-1 rounded transition-colors",
                                             search.notify_email ? "text-primary bg-primary/5" : "text-muted-foreground/40 bg-muted/40"
                                         )}>
                                             {search.notify_email ? <Bell className="h-3 w-3" /> : <BellOff className="h-3 w-3" />}
@@ -210,7 +210,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
             <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
                 <AlertDialogContent className="rounded-xl border-border bg-card">
                     <AlertDialogHeader>
-                        <AlertDialogTitle className="text-xl font-black uppercase tracking-tight">
+                        <AlertDialogTitle className="text-xl font-bold uppercase tracking-tight">
                             {t('profile:deleteSearchTitle') || 'Delete Saved Search'}
                         </AlertDialogTitle>
                         <AlertDialogDescription className="text-muted-foreground font-medium">
@@ -218,12 +218,12 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="gap-2">
-                        <AlertDialogCancel className="rounded-xl font-black uppercase tracking-widest text-[10px]">
+                        <AlertDialogCancel className="rounded-xl font-bold uppercase tracking-widest text-[10px]">
                             {t('common:cancel')}
                         </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
-                            className="rounded-xl bg-destructive text-destructive-foreground hover:bg-destructive/90 font-black uppercase tracking-widest text-[10px]"
+                            className="rounded-xl bg-destructive text-destructive-foreground hover:bg-destructive/90 font-bold uppercase tracking-widest text-[10px]"
                         >
                             {t('common:delete')}
                         </AlertDialogAction>

@@ -33,7 +33,8 @@ export function ListingActionButtons({
       {onBuy && (
         <Button
           size="lg"
-          className="bg-primary text-primary-foreground h-16 w-full rounded-xl text-lg font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20 active:scale-[0.98]"
+          data-action="buy"
+          className="bg-primary text-primary-foreground h-16 w-full rounded-xl text-lg font-bold uppercase tracking-widest transition-all shadow-xl shadow-primary/20 active:scale-[0.98]"
           onClick={onBuy}
         >
           <ShoppingCart className="mr-2 h-6 w-6" />
@@ -45,8 +46,9 @@ export function ListingActionButtons({
       <Button
         variant={onBuy ? "outline" : "default"}
         size="lg"
+        data-action="contact"
         className={cn(
-          "h-16 w-full rounded-xl text-lg font-black uppercase tracking-widest transition-all active:scale-[0.98]",
+          "h-16 w-full rounded-xl text-lg font-bold uppercase tracking-widest transition-all active:scale-[0.98]",
           onBuy ? "border-border/60 hover:bg-muted/40" : "bg-primary text-primary-foreground shadow-xl shadow-primary/20"
         )}
         onClick={onContact}
@@ -65,7 +67,8 @@ export function ListingActionButtons({
         <Button
           variant="outline"
           size="lg"
-          className="hover:border-primary/30 h-16 w-full gap-3 rounded-xl border-border bg-muted/40 font-black uppercase tracking-widest transition-all hover:bg-muted/60"
+          data-action="call"
+          className="hover:border-primary/30 h-16 w-full gap-3 rounded-xl border-border bg-muted/40 font-bold uppercase tracking-widest transition-all hover:bg-muted/60"
           onClick={onCall}
         >
           <Phone className="text-primary h-5 w-5" />
@@ -75,7 +78,7 @@ export function ListingActionButtons({
         <div className="animate-in fade-in slide-in-from-top-2 space-y-3 duration-300">
           <a
             href={`tel:${seller.phone}`}
-            className="flex h-16 w-full items-center justify-center gap-3 rounded-xl border-2 border-emerald-500/20 bg-emerald-500/10 text-xl font-black text-emerald-600 transition-all hover:bg-emerald-500/20 md:text-2xl"
+            className="flex h-16 w-full items-center justify-center gap-3 rounded-xl border-2 border-emerald-500/20 bg-emerald-500/10 text-xl font-bold text-emerald-600 transition-all hover:bg-emerald-500/20 md:text-2xl"
           >
             <Phone className="h-6 w-6 animate-pulse" />
             {seller.phone}

@@ -34,7 +34,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-[0.2em] mb-8 border border-primary/20">
+            <span className="inline-flex items-center gap-2 rounded bg-primary/10 px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-[0.2em] mb-8 border border-primary/20">
               <Sparkles className="h-3.5 w-3.5" />
               {t('heroTagline')}
             </span>
@@ -120,7 +120,7 @@ export function Hero() {
                 <Link
                   key={term}
                   href={`/${i18n.language || 'en'}/listings?search=${term}`}
-                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary rounded-lg border border-border px-4 py-1.5 text-sm font-semibold transition-colors"
+                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary rounded-xl border border-border px-4 py-1.5 text-sm font-semibold transition-colors"
                 >
                   {term}
                 </Link>

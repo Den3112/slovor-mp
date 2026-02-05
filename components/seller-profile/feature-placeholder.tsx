@@ -30,7 +30,7 @@ export function DashboardFeaturePlaceholder({
         </div>
       </div>
 
-      <h1 className="mb-4 max-w-lg text-center text-3xl font-black tracking-tight uppercase">
+      <h1 className="mb-4 max-w-lg text-center text-3xl font-bold tracking-tight uppercase">
         {title} <span className="text-primary">Coming Soon</span>
       </h1>
 
@@ -41,7 +41,7 @@ export function DashboardFeaturePlaceholder({
       <Link href={actionLink}>
         <Button
           size="lg"
-          className="h-12 rounded-xl px-8 text-sm font-black uppercase tracking-widest shadow-sm transition-all hover:scale-[1.02]"
+          className="h-12 rounded-xl px-8 text-sm font-bold uppercase tracking-widest shadow-sm transition-all hover:scale-[1.02]"
         >
           {actionLabel}
         </Button>

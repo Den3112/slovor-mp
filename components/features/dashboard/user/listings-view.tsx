@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Plus, Package, Eye, Heart, Search, Loader2 } from 'lucide-react'
+import { Plus, Package, Eye, Heart, Search, Loader2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from '@/lib/i18n'
@@ -21,7 +21,15 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { ListingRowActions } from '@/components/features/dashboard/user/components/listing-row-actions'
+const statusConfig = {
+    active: { className: 'bg-success/10 text-success border-success/20' },
+    sold: { className: 'bg-muted/50 text-muted-foreground border-border/60' },
+    draft: { className: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
+    pending: { className: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
+    rejected: { className: 'bg-destructive/10 text-destructive border-destructive/20' },
+    expired: { className: 'bg-muted text-muted-foreground' }
+}
+
 import { listingsApi } from '@/lib/api'
 import { useRouter } from 'next/navigation'
 import {
@@ -55,7 +63,8 @@ const item = {
 }
 
 export function UserListingsView({ initialListings = [] }: UserListingsViewProps) {
-    const { t } = useTranslation(['common', 'dashboard', 'createListing'])
+    const { t, i18n } = useTranslation(['common', 'dashboard', 'createListing', 'listings'])
+    const locale = i18n.language || 'en'
     const [activeTab, setActiveTab] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedIds, setSelectedIds] = useState<string[]>([])
@@ -158,8 +167,10 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
             {/* Header */}
             <motion.div variants={item} className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                 <div>
-                    <h1 className="text-3xl font-black uppercase tracking-tight">{t('dashboard:myListings')}</h1>
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{t('dashboard:inventoryDescription')}</p>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase">{t('dashboard:myListings')}</h1>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
+                        {t('dashboard:manageListings')} • <span className="text-primary">{initialListings.length} {t('common:listings')}</span>
+                    </p>
                 </div>
                 <Button asChild className="shadow-lg shadow-primary/20">
                     <Link href="/post">
@@ -177,10 +188,10 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                             <TabsTrigger
                                 key={tab.value}
                                 value={tab.value}
-                                className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all px-4 py-2 h-auto text-[9px] font-black uppercase tracking-widest"
+                                className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest"
                             >
                                 {tab.label}
-                                <Badge variant="secondary" className="ml-2 px-1.5 py-0 h-4 min-w-5 border-transparent bg-muted/80 text-[8px] font-black">
+                                <Badge variant="secondary" className="ml-2 px-1.5 py-0 h-4 min-w-5 border-transparent bg-muted/80 text-[8px] font-bold">
                                     {tab.count}
                                 </Badge>
                             </TabsTrigger>
@@ -209,7 +220,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                     className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-white/10 px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-6 min-w-[320px] max-w-[90vw]"
                 >
                     <div className="flex flex-col">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Bulk actions</span>
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Bulk actions</span>
                         <span className="text-xs font-bold text-white">{selectedIds.length} items selected</span>
                     </div>
                     <div className="h-8 w-px bg-white/10" />
@@ -217,14 +228,14 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                         <Button
                             size="sm"
                             variant="ghost"
-                            className="text-white hover:bg-white/10 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            className="text-white hover:bg-white/10 text-[10px] font-bold uppercase tracking-widest h-9 px-4 rounded-xl"
                             onClick={() => setSelectedIds([])}
                         >
                             Cancel
                         </Button>
                         <Button
                             size="sm"
-                            className="bg-white text-slate-900 hover:bg-white/90 text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            className="bg-white text-slate-900 hover:bg-white/90 text-[10px] font-bold uppercase tracking-widest h-9 px-4 rounded-xl"
                             onClick={() => setConfirmAction('deactivate')}
                             disabled={isSubmitting}
                         >
@@ -233,7 +244,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                         <Button
                             size="sm"
                             variant="destructive"
-                            className="text-[10px] font-black uppercase tracking-widest h-9 px-4 rounded-xl"
+                            className="text-[10px] font-bold uppercase tracking-widest h-9 px-4 rounded-xl"
                             onClick={() => setConfirmAction('delete')}
                             disabled={isSubmitting}
                         >
@@ -247,7 +258,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
             <AlertDialog open={!!confirmAction} onOpenChange={(open) => !open && setConfirmAction(null)}>
                 <AlertDialogContent className="rounded-xl border-border bg-card">
                     <AlertDialogHeader>
-                        <AlertDialogTitle className="text-xl font-black uppercase tracking-tight">
+                        <AlertDialogTitle className="text-xl font-bold uppercase tracking-tight">
                             {confirmAction === 'delete' ? 'Delete Listings' : 'Deactivate Listings'}
                         </AlertDialogTitle>
                         <AlertDialogDescription className="text-muted-foreground font-medium">
@@ -257,7 +268,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="gap-2">
-                        <AlertDialogCancel className="rounded-xl font-black uppercase tracking-widest text-[10px]" disabled={isSubmitting}>
+                        <AlertDialogCancel className="rounded-xl font-bold uppercase tracking-widest text-[10px]" disabled={isSubmitting}>
                             {t('common:cancel')}
                         </AlertDialogCancel>
                         <AlertDialogAction
@@ -266,7 +277,7 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                                 handleBulkAction()
                             }}
                             className={cn(
-                                "rounded-xl font-black uppercase tracking-widest text-[10px]",
+                                "rounded-xl font-bold uppercase tracking-widest text-[10px]",
                                 confirmAction === 'delete' ? "bg-destructive text-destructive-foreground hover:bg-destructive/90" : "bg-primary text-primary-foreground hover:bg-primary/90"
                             )}
                             disabled={isSubmitting}
@@ -312,77 +323,63 @@ export function UserListingsView({ initialListings = [] }: UserListingsViewProps
                                             />
                                         </TableCell>
                                         <TableCell className="px-4 py-3">
-                                            <div className="flex items-center gap-3 sm:gap-4">
-                                                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border/10 bg-muted shadow-sm">
+                                            <div className="flex items-center gap-3">
+                                                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[16px] bg-muted border border-border/10">
                                                     {listing.images?.[0] ? (
                                                         <Image
                                                             src={listing.images[0]}
                                                             alt={listing.title}
                                                             fill
-                                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                                            className="object-cover"
+                                                            sizes="48px"
                                                             unoptimized
                                                         />
                                                     ) : (
-                                                        <div className="flex h-full w-full items-center justify-center text-muted-foreground/30">
-                                                            <Package className="h-6 w-6" />
-                                                        </div>
+                                                        <Package className="m-auto h-6 w-6 text-muted-foreground/40" />
                                                     )}
                                                 </div>
-                                                <div className="min-w-0 space-y-0.5">
-                                                    <Link
-                                                        href={`/listings/${listing.id}`}
-                                                        className="block truncate font-bold text-sm hover:text-primary transition-colors max-w-[180px] sm:max-w-xs md:max-w-md"
-                                                    >
+                                                <div className="flex flex-col min-w-0">
+                                                    <Link href={`/listings/${listing.id}`} className="font-bold text-sm tracking-tight hover:text-primary transition-colors truncate max-w-[240px]">
                                                         {listing.title}
                                                     </Link>
-                                                    <div className="flex items-center gap-2">
-                                                        {listing.category?.name && (
-                                                            <span className="text-[9px] font-black uppercase tracking-widest text-primary/60">
-                                                                {listing.category.name}
-                                                            </span>
-                                                        )}
-                                                        <span className="text-[9px] text-muted-foreground/40 font-black uppercase tracking-widest">#{listing.id.split('-')[0]}</span>
-                                                    </div>
+                                                    <span className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-widest">{new Date(listing.created_at).toLocaleDateString()}</span>
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-4 py-3 sm:px-6">
-                                            <span className="font-heading text-base font-black tracking-tight whitespace-nowrap">
-                                                {listing.price.toLocaleString()} {listing.currency}
-                                            </span>
+                                        <TableCell className="px-6 py-4">
+                                            <div className="flex flex-col">
+                                                <span className="font-heading text-base font-bold tracking-tight">{listing.price} {listing.currency}</span>
+                                                <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">{t('createListing:price')}</span>
+                                            </div>
                                         </TableCell>
-                                        <TableCell className="px-4 py-3 sm:px-6">
-                                            <Badge
-                                                variant={listing.status === 'active' ? 'success' : listing.status === 'sold' ? 'secondary' : 'outline'}
-                                                className={cn(
-                                                    "rounded-lg px-2.5 py-1 text-[9px] font-black uppercase tracking-widest shadow-sm",
-                                                    listing.status === 'active' ? "bg-success/10 text-success border-success/20" :
-                                                        listing.status === 'sold' ? "bg-muted/50 text-muted-foreground border-border/60" :
-                                                            "bg-amber-500/10 text-amber-600 border-amber-500/20"
-                                                )}
-                                            >
-                                                {listing.status || 'unknown'}
+                                        <TableCell className="px-6 py-4">
+                                            <Badge className={cn("rounded-sm px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest border shadow-sm", statusConfig[listing.status as keyof typeof statusConfig]?.className)}>
+                                                {t(`listings:status.${listing.status}`)}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="px-4 py-3 sm:px-6">
-                                            <div className="flex items-center gap-4 text-[11px] font-bold text-muted-foreground/70">
-                                                <div className="flex flex-col gap-0.5">
-                                                    <span className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-help">
-                                                        <Eye className="h-3 w-3" /> {listing.views_count || 0}
-                                                    </span>
-                                                    <span className="flex items-center gap-1.5 hover:text-pink-500 transition-colors cursor-help">
-                                                        <Heart className="h-3 w-3" /> {listing.favorites_count || 0}
-                                                    </span>
+                                        <TableCell className="px-6 py-4 text-right">
+                                            <div className="flex items-center justify-end gap-2 text-muted-foreground">
+                                                <div className="flex items-center gap-1 min-w-[50px] justify-end">
+                                                    <Eye className="h-4 w-4 text-muted-foreground/40" />
+                                                    <span className="text-xs font-bold leading-none">{listing.views_count || 0}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1 min-w-[50px] justify-end">
+                                                    <Heart className="h-4 w-4 text-muted-foreground/40" />
+                                                    <span className="text-xs font-bold leading-none">{listing.favorites_count || 0}</span>
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-4 py-3 sm:px-6">
-                                            <span className="text-muted-foreground/60 font-bold text-[10px] uppercase tracking-widest whitespace-nowrap">
-                                                {new Date(listing.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}
-                                            </span>
-                                        </TableCell>
                                         <TableCell className="px-6 py-4 text-right">
-                                            <ListingRowActions listing={listing} />
+                                            <div className="flex items-center justify-end gap-2">
+                                                <Button variant="outline" size="sm" asChild className="h-8 rounded-xl text-[9px] font-bold uppercase tracking-widest border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20">
+                                                    <Link href={`/${locale}/post?edit=${listing.id}`}>{t('common:edit')}</Link>
+                                                </Button>
+                                                <Button variant="ghost" size="icon" asChild className="h-8 w-8 rounded-xl hover:bg-primary/10 hover:text-primary transition-all">
+                                                    <Link href={`/${locale}/listings/${listing.id}`}>
+                                                        <ArrowRight className="h-4 w-4" />
+                                                    </Link>
+                                                </Button>
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                 ))

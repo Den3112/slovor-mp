@@ -62,7 +62,7 @@ export function BottomTabBar() {
                                 <div className="relative">
                                     <Icon className={cn("h-5 w-5 transition-all", active && "scale-110")} strokeWidth={active ? 2.5 : 2} />
                                     {tab.href === (user ? '/dashboard' : '/auth/login') && unreadCount > 0 && (
-                                        <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-black text-white ring-2 ring-background shadow-sm">
+                                        <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-bold text-white ring-2 ring-background shadow-sm">
                                             {unreadCount > 9 ? '9+' : unreadCount}
                                         </span>
                                     )}

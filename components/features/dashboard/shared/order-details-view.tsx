@@ -70,9 +70,9 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                         </Link>
                     </Button>
                     <div>
-                        <h1 className="text-2xl font-black uppercase tracking-tight flex items-center gap-3">
+                        <h1 className="text-2xl font-bold uppercase tracking-tight flex items-center gap-3">
                             {t('dashboard:orderDetail') || 'Order Details'}
-                            <Badge className={cn("rounded-lg px-2.5 py-0.5 text-[10px] uppercase font-black tracking-widest border shadow-sm", statusColors[order.status as keyof typeof statusColors])}>
+                            <Badge className={cn("rounded-sm px-2.5 py-0.5 text-[10px] uppercase font-bold tracking-widest border shadow-sm", statusColors[order.status as keyof typeof statusColors])}>
                                 {order.status}
                             </Badge>
                         </h1>
@@ -86,7 +86,7 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                 </div>
 
                 <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="text-[10px] font-black uppercase tracking-widest rounded-xl border-border/60 h-10 px-6">
+                    <Button variant="outline" size="sm" className="text-[10px] font-bold uppercase tracking-widest rounded-xl border-border/60 h-10 px-6">
                         <Download className="h-4 w-4 mr-2" />
                         Invoice
                     </Button>
@@ -95,7 +95,7 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                             <Button
                                 size="sm"
                                 variant="default"
-                                className="bg-success hover:bg-success/90 text-[10px] font-black uppercase tracking-widest rounded-xl h-10 px-6"
+                                className="bg-success hover:bg-success/90 text-[10px] font-bold uppercase tracking-widest rounded-xl h-10 px-6"
                                 onClick={() => handleUpdateStatus('completed')}
                                 disabled={isUpdating}
                             >
@@ -105,7 +105,7 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                             <Button
                                 size="sm"
                                 variant="destructive"
-                                className="text-[10px] font-black uppercase tracking-widest rounded-xl h-10 px-6"
+                                className="text-[10px] font-bold uppercase tracking-widest rounded-xl h-10 px-6"
                                 onClick={() => handleUpdateStatus('cancelled')}
                                 disabled={isUpdating}
                             >
@@ -141,24 +141,24 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                                 </div>
                                 <div className="flex-1 space-y-4">
                                     <div>
-                                        <h3 className="text-xl font-black italic tracking-tight">{order.listing?.title}</h3>
+                                        <h3 className="text-xl font-bold italic tracking-tight">{order.listing?.title}</h3>
                                         <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mt-1">Listing ID: #{order.listing_id}</p>
                                     </div>
                                     <div className="flex flex-wrap gap-4">
                                         <div className="space-y-1">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Unit Price</p>
-                                            <p className="text-lg font-black tracking-tight">{formatPrice(order.amount, order.currency)}</p>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Unit Price</p>
+                                            <p className="text-lg font-bold tracking-tight">{formatPrice(order.amount, order.currency)}</p>
                                         </div>
                                         <div className="space-y-1">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Quantity</p>
-                                            <p className="text-lg font-black tracking-tight">1</p>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Quantity</p>
+                                            <p className="text-lg font-bold tracking-tight">1</p>
                                         </div>
                                         <div className="ml-auto text-right space-y-1">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Total</p>
-                                            <p className="text-2xl font-black tracking-tighter text-primary">{formatPrice(order.amount, order.currency)}</p>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Total</p>
+                                            <p className="text-2xl font-bold tracking-tighter text-primary">{formatPrice(order.amount, order.currency)}</p>
                                         </div>
                                     </div>
-                                    <Button variant="outline" size="sm" asChild className="rounded-lg h-8 text-[9px] font-black uppercase tracking-widest mt-2 border-border/60">
+                                    <Button variant="outline" size="sm" asChild className="rounded-xl h-8 text-[9px] font-bold uppercase tracking-widest mt-2 border-border/60">
                                         <Link href={`/listings/${order.listing_id}`}>View Listing <ArrowLeft className="h-3 w-3 ml-2 rotate-180" /></Link>
                                     </Button>
                                 </div>
@@ -208,16 +208,16 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                         <CardContent className="p-6 space-y-6">
                             {/* Seller */}
                             <div className="space-y-3">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Seller</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Seller</p>
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+                                    <div className="h-10 w-10 rounded-[16px] bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
                                         <UserIcon className="h-5 w-5 text-primary" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-black text-sm truncate">{order.seller?.full_name || 'Anonymous User'}</p>
+                                        <p className="font-bold text-sm truncate">{order.seller?.full_name || 'Anonymous User'}</p>
                                         <p className="text-[10px] font-bold text-muted-foreground truncate italic">@{order.seller?.id.split('-')[0]}</p>
                                     </div>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg" asChild>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-xl" asChild>
                                         <Link href={`/profile/${order.seller_id}`}><ArrowLeft className="h-4 w-4 rotate-180" /></Link>
                                     </Button>
                                 </div>
@@ -227,16 +227,16 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
 
                             {/* Buyer */}
                             <div className="space-y-3">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">Buyer</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Buyer</p>
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0">
+                                    <div className="h-10 w-10 rounded-[16px] bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0">
                                         <UserIcon className="h-5 w-5 text-blue-500" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-black text-sm truncate">{order.buyer?.full_name || 'Anonymous User'}</p>
+                                        <p className="font-bold text-sm truncate">{order.buyer?.full_name || 'Anonymous User'}</p>
                                         <p className="text-[10px] font-bold text-muted-foreground truncate italic">@{order.buyer?.id.split('-')[0]}</p>
                                     </div>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg" asChild>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-xl" asChild>
                                         <Link href={`/profile/${order.buyer_id}`}><ArrowLeft className="h-4 w-4 rotate-180" /></Link>
                                     </Button>
                                 </div>
@@ -252,7 +252,7 @@ export function OrderDetailsView({ order: initialOrder, isAdmin = false }: Order
                         </CardHeader>
                         <CardContent className="p-6 space-y-4">
                             <p className="text-[11px] font-bold text-white/60 leading-relaxed uppercase tracking-widest">Need help with this order or want to report a problem?</p>
-                            <Button className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl h-12 font-black uppercase tracking-widest text-[9px] border border-white/10">
+                            <Button className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl h-12 font-bold uppercase tracking-widest text-[9px] border border-white/10">
                                 Contact Resolution Center
                             </Button>
                         </CardContent>

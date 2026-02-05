@@ -20,7 +20,7 @@
   px-6                              /* padding: 12px 24px */
   py-3
   rounded-xl                        /* 12px border-radius */
-  shadow-[0_4px_14px_0_rgba(99,102,241,0.3)]
+  shadow-primary
   transition-all duration-200
   active:scale-[0.98]
   disabled:opacity-50
@@ -103,8 +103,8 @@
 <div className="
   bg-white dark:bg-[#1E293B]
   border border-[#E2E8F0] dark:border-[#334155]
-  rounded-[20px]                    /* 20px radius */
-  shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]
+  rounded-2xl                       /* 20px radius */
+  shadow-card
   p-6                               /* 24px padding */
 ">
   Card content
@@ -116,8 +116,8 @@
 <div className="
   bg-white dark:bg-[#1E293B]
   border border-[#E2E8F0] dark:border-[#334155]
-  rounded-[24px]                    /* 24px radius */
-  shadow-[0_4px_20px_0_rgba(0,0,0,0.04)]
+  rounded-3xl                       /* 24px radius */
+  shadow-card
   p-8                               /* 32px padding */
 ">
   Hero content
@@ -129,7 +129,7 @@
 <div className="
   bg-[rgba(99,102,241,0.04)]        /* Primary light bg */
   border border-[rgba(99,102,241,0.2)]
-  rounded-[20px]
+  rounded-2xl
   p-6
 ">
   Highlighted content
@@ -141,7 +141,7 @@
 <div className="
   bg-white dark:bg-[#1E293B]
   border border-[#E2E8F0] dark:border-[#334155]
-  rounded-[20px]
+  rounded-2xl
   p-6
   flex flex-col gap-3
 ">
@@ -347,7 +347,7 @@
 <div className="
   bg-white dark:bg-[#1E293B]
   border border-[#E2E8F0] dark:border-[#334155]
-  rounded-[20px]
+  rounded-2xl
   overflow-hidden
 ">
   <table className="w-full">
@@ -390,7 +390,7 @@
   fixed top-0 left-0 right-0
   h-[80px]
   bg-white/90 dark:bg-[#0F172A]/90
-  backdrop-blur-[8px]
+  backdrop-blur-sm
   border-b border-[#E2E8F0] dark:border-[#334155]
   shadow-[0_1px_3px_rgba(0,0,0,0.05)]
   z-50
@@ -487,7 +487,7 @@
   bg-[#6366F1]                      /* Primary */
   text-white
   px-4 py-3
-  rounded-[16px] rounded-br-[4px]   /* Tail effect */
+  rounded-[16px] rounded-br-sm      /* Tail effect */
   text-[15px]
 ">
   Sent message
@@ -501,7 +501,7 @@
   bg-[rgba(99,102,241,0.08)]        /* Primary light */
   text-[#1E293B] dark:text-[#F8FAFC]
   px-4 py-3
-  rounded-[16px] rounded-bl-[4px]
+  rounded-[16px] rounded-bl-sm
   text-[15px]
 ">
   Received message
@@ -623,7 +623,7 @@
 | Element | Radius | Class |
 |---------|--------|-------|
 | Buttons | 12px | `rounded-xl` |
-| Cards | 20px | `rounded-[20px]` |
+| Cards | 20px | `rounded-2xl` |
 | Hero Cards | 24px | `rounded-[24px]` |
 | Inputs | 12px | `rounded-xl` |
 | Badges | 4px | `rounded` |

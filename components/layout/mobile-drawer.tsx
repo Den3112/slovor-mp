@@ -54,8 +54,8 @@ export function MobileDrawer({
               {/* Header */}
               <div className="flex items-center justify-between px-8 py-6">
                 <div className="flex flex-col">
-                  <span className="font-heading text-2xl font-black italic tracking-tighter text-foreground">Slovor.</span>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">{t('nav:menu') || 'Navigation Menu'}</p>
+                  <span className="font-heading text-2xl font-bold tracking-tighter text-foreground">Slovor.</span>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">{t('nav:menu') || 'Navigation Menu'}</p>
                 </div>
                 <Drawer.Close asChild>
                   <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-muted-foreground active:scale-95 transition-all">
@@ -69,7 +69,7 @@ export function MobileDrawer({
 
                   {/* ГЛАВНОЕ / MAIN */}
                   <div className="space-y-4">
-                    <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                    <h3 className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">
                       {t('home:megaMenu.title') || 'MAIN MENU'}
                     </h3>
                     <div className="grid grid-cols-1 gap-1">
@@ -95,7 +95,7 @@ export function MobileDrawer({
                             </span>
                           </div>
                           {item.badge ? (
-                            <Badge className="bg-primary text-white border-0 font-black text-[9px] h-5 min-w-5 flex items-center justify-center rounded-md">
+                            <Badge className="bg-primary text-white border-0 font-bold text-[9px] h-5 min-w-5 flex items-center justify-center rounded-sm">
                               {item.badge}
                             </Badge>
                           ) : (
@@ -109,10 +109,10 @@ export function MobileDrawer({
                   {/* КАТЕГОРИИ / CATEGORIES */}
                   <div className="space-y-4">
                     <div className="flex items-center justify-between px-4">
-                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                      <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">
                         {t('nav:categories')}
                       </h3>
-                      <Link href={`/${locale}/categories`} onClick={() => onOpenChange(false)} className="text-[9px] font-black text-primary uppercase tracking-widest">
+                      <Link href={`/${locale}/categories`} onClick={() => onOpenChange(false)} className="text-[9px] font-bold text-primary uppercase tracking-widest">
                         {t('common:viewAll')} →
                       </Link>
                     </div>
@@ -125,7 +125,7 @@ export function MobileDrawer({
                           className="group flex items-center justify-between px-4 py-3.5 rounded-2xl hover:bg-muted/50 transition-all active:scale-[0.98]"
                         >
                           <div className="flex items-center gap-4">
-                            <div className={cn("flex h-8 w-8 items-center justify-center rounded-lg text-white shadow-sm ring-1 ring-white/10", cat.color)}>
+                            <div className={cn("flex h-8 w-8 items-center justify-center rounded-xl text-white shadow-sm ring-1 ring-white/10", cat.color)}>
                               <cat.icon className="h-4 w-4" />
                             </div>
                             <span className="text-sm font-bold tracking-tight text-foreground/80">{t(cat.label)}</span>
@@ -138,7 +138,7 @@ export function MobileDrawer({
 
                   {/* АККАУНТ / ACCOUNT */}
                   <div className="space-y-4">
-                    <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                    <h3 className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">
                       {t('common:account') || 'MY ACCOUNT'}
                     </h3>
                     <div className="grid grid-cols-1 gap-1">
@@ -195,14 +195,14 @@ export function MobileDrawer({
                           <Link
                             href={`/${locale}/auth/login`}
                             onClick={() => onOpenChange(false)}
-                            className="flex items-center justify-center rounded-xl bg-primary py-3 text-[10px] font-black uppercase tracking-widest text-primary-foreground shadow-lg shadow-primary/20 active:scale-95 transition-all"
+                            className="flex items-center justify-center rounded-xl bg-primary py-3 text-[10px] font-bold uppercase tracking-widest text-primary-foreground shadow-lg shadow-primary/20 active:scale-95 transition-all"
                           >
                             {t('common:signIn')}
                           </Link>
                           <Link
                             href={`/${locale}/auth/register`}
                             onClick={() => onOpenChange(false)}
-                            className="flex items-center justify-center rounded-xl bg-muted py-3 text-[10px] font-black uppercase tracking-widest text-foreground active:scale-95 transition-all border border-border/40"
+                            className="flex items-center justify-center rounded-xl bg-muted py-3 text-[10px] font-bold uppercase tracking-widest text-foreground active:scale-95 transition-all border border-border/40"
                           >
                             {t('common:register')}
                           </Link>
@@ -242,7 +242,7 @@ export function MobileDrawer({
 
               {/* Persistent Bottom CTA */}
               <div className="absolute inset-x-0 bottom-0 border-t border-border/40 bg-background/80 p-6 backdrop-blur-lg">
-                <Button asChild className="w-full h-14 rounded-2xl gap-3 font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 text-white border-0 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                <Button asChild className="w-full h-14 rounded-2xl gap-3 font-bold text-sm uppercase tracking-widest shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 text-white border-0 transition-all hover:scale-[1.02] active:scale-[0.98]">
                   <Link href={`/${locale}/post`} onClick={() => onOpenChange(false)}>
                     <Plus className="h-5 w-5" strokeWidth={3} />
                     {t('nav:postAd')}
