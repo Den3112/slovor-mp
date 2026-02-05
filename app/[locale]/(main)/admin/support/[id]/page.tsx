@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import {
     Send,
@@ -276,9 +277,9 @@ export default function TicketDetailPage() {
                         </CardHeader>
                         <CardContent className="p-6 space-y-4">
                             <div className="flex flex-col items-center text-center space-y-3 pb-4 border-b border-border/40">
-                                <div className="h-16 w-16 rounded-2xl bg-muted border-2 border-primary/10 flex items-center justify-center overflow-hidden">
+                                <div className="h-16 w-16 rounded-2xl bg-muted border-2 border-primary/10 flex items-center justify-center overflow-hidden relative">
                                     {ticket.user?.avatar_url ? (
-                                        <img src={ticket.user.avatar_url} alt="" className="h-full w-full object-cover" />
+                                        <Image src={ticket.user.avatar_url} alt="" fill className="object-cover" />
                                     ) : (
                                         <User className="h-8 w-8 text-muted-foreground/30" />
                                     )}

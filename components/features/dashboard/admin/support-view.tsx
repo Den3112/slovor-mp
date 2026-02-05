@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import Image from 'next/image'
 import {
     LifeBuoy,
     MessageSquare,
@@ -90,9 +91,9 @@ export function AdminSupportView() {
             header: 'Requested By',
             cell: (row) => (
                 <div className="flex items-center gap-2.5">
-                    <div className="h-7 w-7 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border/40">
+                    <div className="h-7 w-7 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border/40 relative">
                         {row.user?.avatar_url ? (
-                            <img src={row.user.avatar_url} alt="" className="h-full w-full object-cover" />
+                            <Image src={row.user.avatar_url} alt="" fill className="object-cover" />
                         ) : (
                             <User className="h-4 w-4 text-muted-foreground/40" />
                         )}
