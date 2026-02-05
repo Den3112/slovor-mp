@@ -63,7 +63,7 @@ export function Header() {
 
               <button
                 className={cn(
-                  "hidden lg:flex items-center gap-2.5 px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-[0.98]",
+                  "hidden lg:flex items-center gap-2.5 px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all active:scale-[0.98]",
                   isMegaMenuOpen
                     ? "bg-primary text-white shadow-lg shadow-primary/20"
                     : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/40"
@@ -107,7 +107,7 @@ export function Header() {
                     <Link href={`/${locale}/messages`}>
                       <MessageCircle className="h-5 w-5" />
                       {unreadCount > 0 && (
-                        <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-black text-white ring-2 ring-background">
+                        <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-bold text-white ring-2 ring-background">
                           {unreadCount > 9 ? '9+' : unreadCount}
                         </span>
                       )}
@@ -122,7 +122,7 @@ export function Header() {
                 ) : (
                   <Link
                     href={`/${locale}/auth/login`}
-                    className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/80 hover:text-primary transition-colors px-3 py-2"
+                    className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80 hover:text-primary transition-colors px-3 py-2"
                   >
                     {t('common:signIn')}
                   </Link>

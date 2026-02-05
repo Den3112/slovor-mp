@@ -165,7 +165,7 @@ shadow-[0_8px_40px_0_rgba(99,102,241,0.15)]
   fixed top-0 left-0 right-0 z-50
   h-[80px]
   bg-white/90 dark:bg-[#0F172A]/90
-  backdrop-blur-[8px]
+  backdrop-blur-sm
   border-b border-[#E2E8F0] dark:border-[#334155]
   shadow-[0_1px_3px_rgba(0,0,0,0.05)]
 ">

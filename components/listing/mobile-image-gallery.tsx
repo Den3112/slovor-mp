@@ -88,13 +88,13 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
             <>
               <button
                 onClick={scrollPrev}
-                className="absolute top-1/2 left-4 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white opacity-0 backdrop-blur-sm transition-all group-hover:opacity-100 hover:bg-black/50 md:flex"
+                className="absolute top-1/2 left-4 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-all group-hover:opacity-100 hover:bg-black/70 md:flex"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 onClick={scrollNext}
-                className="absolute top-1/2 right-4 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white opacity-0 backdrop-blur-sm transition-all group-hover:opacity-100 hover:bg-black/50 md:flex"
+                className="absolute top-1/2 right-4 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-all group-hover:opacity-100 hover:bg-black/70 md:flex"
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
@@ -104,7 +104,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
           {/* Fullscreen Button - Desktop only */}
           <button
             onClick={() => setFullscreen(true)}
-            className="glass absolute right-4 bottom-4 z-10 hidden h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110 md:flex"
+            className="absolute right-4 bottom-4 z-10 hidden h-10 w-10 items-center justify-center rounded-full bg-background/80 border border-border shadow-sm text-foreground transition-all hover:scale-110 md:flex"
           >
             <ZoomIn className="h-5 w-5" />
           </button>
@@ -129,7 +129,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
 
           {/* Image Counter - Mobile */}
           {images.length > 1 && (
-            <div className="glass text-foreground absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-black md:hidden">
+            <div className="bg-background/80 border border-border text-foreground absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-bold md:hidden">
               {selectedIndex + 1} / {images.length}
             </div>
           )}
@@ -178,7 +178,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
           >
             <button
               onClick={() => setFullscreen(false)}
-              className="absolute top-4 right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+              className="absolute top-4 right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
             >
               <X className="h-6 w-6" />
             </button>
@@ -199,13 +199,13 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
               <>
                 <button
                   onClick={scrollPrev}
-                  className="absolute top-1/2 left-4 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                  className="absolute top-1/2 left-4 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
                 >
                   <ChevronLeft className="h-8 w-8" />
                 </button>
                 <button
                   onClick={scrollNext}
-                  className="absolute top-1/2 right-4 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                  className="absolute top-1/2 right-4 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20"
                 >
                   <ChevronRight className="h-8 w-8" />
                 </button>

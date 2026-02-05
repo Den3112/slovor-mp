@@ -28,7 +28,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
                         <div className="bg-slate-900 p-2 rounded-lg border border-white/5">
                             <CreditCard className="h-5 w-5 text-primary" />
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 italic">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 italic">
                             Slovor Wallet
                         </span>
                     </div>
@@ -37,7 +37,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
                         <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                             {t('dashboard:walletDetails.availableBalance')}
                         </p>
-                        <h2 className="text-4xl font-black tracking-tighter italic">
+                        <h2 className="text-4xl font-bold tracking-tighter italic">
                             {formatPrice(balance, currency)}
                         </h2>
                     </div>

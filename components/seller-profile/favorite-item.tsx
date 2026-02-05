@@ -42,19 +42,19 @@ export function DashboardFavoriteItem({
           href={`/listings/${listing.id}`}
           className="inline-block group-hover:text-primary transition-colors max-w-full"
         >
-          <h3 className="font-black text-base truncate uppercase tracking-tight">
+          <h3 className="font-bold text-base truncate uppercase tracking-tight">
             {listing.title || 'Untitled Listing'}
           </h3>
         </Link>
 
         <div className="flex flex-wrap items-center gap-4">
-          <span className="text-primary text-lg font-black tracking-tight tabular-nums">
+          <span className="text-primary text-lg font-bold tracking-tight tabular-nums">
             {listing.price?.toLocaleString()} <span className="text-xs">{listing.currency}</span>
           </span>
           {listing.location && (
             <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-muted/50 border border-border/40">
               <MapPin className="h-3 w-3 text-muted-foreground" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/80">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80">
                 {listing.location}
               </span>
             </div>
@@ -68,7 +68,7 @@ export function DashboardFavoriteItem({
           <Button
             variant="ghost"
             size="sm"
-            className="w-full sm:w-auto rounded-lg text-xs font-black uppercase tracking-widest hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 transition-all"
+            className="w-full sm:w-auto rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 transition-all"
           >
             <ExternalLink className="mr-2 h-3.5 w-3.5" />
             View

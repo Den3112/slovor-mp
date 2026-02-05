@@ -53,7 +53,7 @@ export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
     return (
         <aside className={cn("flex flex-col h-fit overflow-hidden bg-card border-r border-border", className)}>
             <div className="flex h-16 items-center px-6 border-b border-border bg-card">
-                <span className="font-heading text-lg font-black tracking-tight text-foreground italic">
+                <span className="font-heading text-lg font-bold tracking-tight text-foreground">
                     {t('admin.panel')}
                 </span>
             </div>

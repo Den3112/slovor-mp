@@ -100,10 +100,10 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                                 <LayoutGrid className="h-10 w-10" />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <h3 className="text-sm font-black tracking-tight uppercase text-primary">
+                                <h3 className="text-sm font-bold tracking-tight uppercase text-primary">
                                     {t('common:viewAll')}
                                 </h3>
-                                <p className="text-[10px] font-black text-primary/60 uppercase tracking-widest">
+                                <p className="text-[10px] font-bold text-primary/60 uppercase tracking-widest">
                                     +20 {t('home:categoriesGrid')}
                                 </p>
                             </div>

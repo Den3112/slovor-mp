@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { UnifiedSidebar, type SidebarConfig } from '@/components/features/dashboard/shared/sidebar'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { cn } from '@/lib/utils'
+import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 
 interface DashboardShellProps {
     children: React.ReactNode
@@ -62,7 +63,7 @@ export function DashboardShell({
                         </div>
 
                         {title ? (
-                            <h1 className="text-sm font-black uppercase tracking-tight text-foreground/90 flex items-center gap-2">
+                            <h1 className="text-sm font-bold uppercase tracking-tight text-foreground/90 flex items-center gap-2">
                                 <LayoutDashboard className="h-4 w-4 text-primary opacity-50" />
                                 {title}
                             </h1>
@@ -82,9 +83,11 @@ export function DashboardShell({
 
                 {/* Content Area */}
                 <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8 bg-muted/5 scrollbar-hide">
-                    <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        {children}
-                    </div>
+                    <PullToRefresh>
+                        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                            {children}
+                        </div>
+                    </PullToRefresh>
                 </div>
             </main>
         </div>

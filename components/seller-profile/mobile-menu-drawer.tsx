@@ -151,13 +151,13 @@ export function MobileMenuDrawer({
     <Drawer.Root open={open} onOpenChange={setOpenAction}>
       <Drawer.Trigger asChild>{children}</Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
+        <Drawer.Overlay className="fixed inset-0 z-50 bg-black/40" />
         <Drawer.Content
-          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-4xl border-t border-border outline-none"
+          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-xl border-t border-border outline-none"
           aria-describedby={undefined}
         >
           {/* Handle Indicator */}
-          <div className="bg-background shrink-0 rounded-t-4xl p-4">
+          <div className="bg-background shrink-0 rounded-t-xl p-4">
             <div className="bg-muted-foreground/30 mx-auto mb-8 h-1.5 w-12 shrink-0 rounded-full" />
             <Drawer.Title className="sr-only">Mobile Menu</Drawer.Title>
             <Drawer.Description className="sr-only">
@@ -168,7 +168,7 @@ export function MobileMenuDrawer({
           <div className="flex-1 overflow-y-auto p-4 pt-0">
             {/* User Header */}
             {user && (
-              <div className="bg-muted/40 mb-8 flex items-center gap-4 rounded-2xl border border-white/5 p-4">
+              <div className="bg-muted/40 mb-8 flex items-center gap-4 rounded-xl border border-white/5 p-4">
                 <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                   <UserCircle className="h-6 w-6" />
                 </div>
@@ -187,7 +187,7 @@ export function MobileMenuDrawer({
             <div className="space-y-6 pb-20">
               {sections.map((section, idx) => (
                 <div key={idx}>
-                  <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-black tracking-widest uppercase">
+                  <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-bold tracking-widest uppercase">
                     {section.title}
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -210,7 +210,7 @@ export function MobileMenuDrawer({
                           href={item.href}
                           onClick={() => setOpenAction?.(false)}
                           className={cn(
-                            'relative flex flex-col gap-2 overflow-hidden rounded-2xl border p-4 transition-all active:scale-95',
+                            'relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all active:scale-95',
                             isActive
                               ? 'bg-primary text-primary-foreground border-primary shadow-primary/25 shadow-lg'
                               : 'bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground border-transparent'
@@ -221,7 +221,7 @@ export function MobileMenuDrawer({
                             {count > 0 && (
                               <span
                                 className={cn(
-                                  'flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10px] font-black',
+                                  'flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10px] font-bold',
                                   isActive
                                     ? 'text-primary bg-white'
                                     : 'bg-primary text-white'
@@ -243,7 +243,7 @@ export function MobileMenuDrawer({
 
               {/* Language Selector */}
               <div className="mb-6">
-                <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-black tracking-widest uppercase">
+                <h3 className="text-muted-foreground/70 mb-3 px-2 text-xs font-bold tracking-widest uppercase">
                   {t('profile:language')}
                 </h3>
                 <div className="grid grid-cols-3 gap-3">
@@ -255,7 +255,7 @@ export function MobileMenuDrawer({
                         setOpenAction?.(false)
                       }}
                       className={cn(
-                        'flex flex-col items-center gap-2 rounded-2xl border py-4 font-bold transition-all active:scale-95',
+                        'flex flex-col items-center gap-2 rounded-xl border py-4 font-bold transition-all active:scale-95',
                         locale === lang.code
                           ? 'border-primary bg-primary/10 text-primary shadow-sm'
                           : 'bg-muted/30 text-muted-foreground hover:bg-muted border-transparent'
@@ -275,7 +275,7 @@ export function MobileMenuDrawer({
               <div className="border-border/50 border-t pt-6">
                 <Button
                   variant="destructive"
-                  className="shadow-destructive/10 h-12 w-full rounded-2xl font-bold shadow-lg"
+                  className="shadow-destructive/10 h-12 w-full rounded-xl font-bold shadow-lg"
                   onClick={handleSignOut}
                 >
                   <LogOut className="mr-2 h-4 w-4" />

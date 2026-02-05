@@ -17,7 +17,7 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Premium Header */}
             <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
+                <h1 className="text-3xl font-bold uppercase tracking-tight text-foreground">
                     {t('dashboard:favorites')}
                 </h1>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">

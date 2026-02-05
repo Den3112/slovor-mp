@@ -152,13 +152,13 @@ export function SellerProfileView({
 
                     {/* Name & Badge */}
                     <div className="space-y-3">
-                      <h1 className="text-2xl font-black tracking-tight text-foreground uppercase italic leading-tight">
+                      <h1 className="text-2xl font-bold tracking-tight text-foreground uppercase leading-tight">
                         {seller.display_name ?? seller.username}
                       </h1>
                       {seller.verified && (
                         <div className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-1">
                           <ShieldCheck className="h-3 w-3 text-blue-500" />
-                          <span className="text-[10px] font-black tracking-widest text-blue-500 uppercase">
+                          <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
                             {t('trust.verified')}
                           </span>
                         </div>
@@ -167,7 +167,7 @@ export function SellerProfileView({
 
                     {/* Bio */}
                     {seller.bio && (
-                      <p className="text-muted-foreground mt-6 text-sm font-medium leading-relaxed italic">
+                      <p className="text-muted-foreground mt-6 text-sm font-medium leading-relaxed">
                         {seller.bio}
                       </p>
                     )}
@@ -175,21 +175,21 @@ export function SellerProfileView({
                     {/* Stats - Solid Row */}
                     <div className="grid w-full grid-cols-2 gap-4 pt-8 mt-8 border-t border-border">
                       <div className="text-center p-4 bg-muted/30 rounded-xl border border-border/50">
-                        <p className="text-2xl font-black text-foreground">
+                        <p className="text-2xl font-bold text-foreground">
                           {listings.length}
                         </p>
-                        <p className="text-muted-foreground mt-1 text-[9px] font-black tracking-widest uppercase opacity-60">
+                        <p className="text-muted-foreground mt-1 text-[9px] font-bold tracking-widest uppercase opacity-60">
                           {t('seller.activeListings')}
                         </p>
                       </div>
                       <div className="text-center p-4 bg-muted/30 rounded-xl border border-border/50">
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-2xl font-black text-foreground">
+                          <span className="text-2xl font-bold text-foreground">
                             {ratingData?.averageRating || '—'}
                           </span>
                           <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
                         </div>
-                        <p className="text-muted-foreground mt-1 text-[9px] font-black tracking-widest uppercase opacity-60">
+                        <p className="text-muted-foreground mt-1 text-[9px] font-bold tracking-widest uppercase opacity-60">
                           {t('seller.rating')}
                         </p>
                       </div>
@@ -207,7 +207,7 @@ export function SellerProfileView({
                       )}
                       <div className="text-muted-foreground flex items-center justify-center gap-2 pt-2">
                         <Calendar className="h-3.5 w-3.5" />
-                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
+                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">
                           {t('seller.memberSince')} {memberSince}
                         </span>
                       </div>
@@ -220,7 +220,7 @@ export function SellerProfileView({
               {variant === 'public' ? (
                 <Button
                   size="xl"
-                  className="w-full rounded-xl font-black uppercase tracking-widest shadow-lg shadow-primary/20"
+                  className="w-full rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
                   onClick={handleContact}
                   disabled={isContacting}
                 >
@@ -236,7 +236,7 @@ export function SellerProfileView({
                   <Button
                     variant="outline"
                     size="xl"
-                    className="w-full rounded-xl border border-border font-black uppercase tracking-widest hover:bg-muted"
+                    className="w-full rounded-xl border border-border font-bold uppercase tracking-widest hover:bg-muted"
                   >
                     Edit Profile
                   </Button>
@@ -251,7 +251,7 @@ export function SellerProfileView({
                       <ShieldCheck className="text-primary h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-foreground text-sm font-black uppercase tracking-tight italic">
+                      <p className="text-foreground text-sm font-bold uppercase tracking-tight">
                         {t('trust.safetyTitle')}
                       </p>
                       <p className="text-muted-foreground mt-2 text-xs font-medium leading-relaxed">
@@ -271,10 +271,10 @@ export function SellerProfileView({
           {variant === 'public' && (
             <div className="space-y-10 lg:col-span-8">
               <div className="flex items-center justify-between border-b border-border pb-6">
-                <h2 className="text-2xl font-black tracking-tight italic uppercase">
+                <h2 className="text-2xl font-bold tracking-tight uppercase">
                   {t('seller.listings')}
                 </h2>
-                <span className="bg-muted text-muted-foreground rounded-lg px-3 py-1 text-[10px] font-black tracking-widest uppercase border border-border">
+                <span className="bg-muted text-muted-foreground rounded-lg px-3 py-1 text-[10px] font-bold tracking-widest uppercase border border-border">
                   {listings.length} items
                 </span>
               </div>
