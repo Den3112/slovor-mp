@@ -129,7 +129,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
     <div className="space-y-8">
       {/* Category Selection */}
       <div className="space-y-3">
-        <label className="text-primary flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+        <label className="text-primary flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
           <Tag className="h-4 w-4" />
           {t('common:category')}
         </label>
@@ -154,7 +154,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
       <div className="space-y-6">
         {/* Location */}
         <div className="space-y-3">
-          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
             <MapPin className="h-3.5 w-3.5" />
             {t('filters:location')}
           </label>
@@ -175,13 +175,13 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
 
         {/* Price Range */}
         <div className="space-y-3">
-          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
             <Tag className="h-3.5 w-3.5" />
             {t('common:price')}
           </label>
           <div className="grid grid-cols-2 gap-2">
             <div className="relative">
-              <span className="text-muted-foreground/40 absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-black">€</span>
+              <span className="text-muted-foreground/40 absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold">€</span>
               <input
                 type="number"
                 value={priceMin}
@@ -191,7 +191,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
               />
             </div>
             <div className="relative">
-              <span className="text-muted-foreground/40 absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-black">€</span>
+              <span className="text-muted-foreground/40 absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold">€</span>
               <input
                 type="number"
                 value={priceMax}
@@ -205,7 +205,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
 
         {/* Condition */}
         <div className="space-y-3">
-          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
             <PackageCheck className="h-3.5 w-3.5" />
             {t('filters:condition')}
           </label>
@@ -219,7 +219,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
                 key={c.value}
                 onClick={() => setCondition(c.value)}
                 className={cn(
-                  'flex-1 rounded-lg py-2 text-[10px] font-black tracking-widest uppercase transition-all',
+                  'flex-1 rounded-lg py-2 text-[10px] font-bold tracking-widest uppercase transition-all',
                   condition === c.value
                     ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
@@ -233,7 +233,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
 
         {/* Sort */}
         <div className="space-y-3">
-          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+          <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
             <TrendingUp className="h-3.5 w-3.5" />
             {t('filters:sort')}
           </label>
@@ -258,7 +258,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
             <div className="space-y-6">
               {currentCategoryAttributes.map((attr) => (
                 <div key={attr.id} className="space-y-3">
-                  <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+                  <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
                     {getAttributeLabel(attr, locale)}
                     {attr.unit && <span className="lowercase opacity-60">({attr.unit})</span>}
                   </label>
@@ -341,7 +341,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="h-11 w-full rounded-xl text-[10px] font-black tracking-widest uppercase shadow-lg shadow-primary/20"
+          className="h-11 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-primary/20"
         >
           {isPending ? t('common.loading') : t('filters.apply')}
         </Button>
@@ -349,7 +349,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
           variant="ghost"
           onClick={resetFilters}
           disabled={isPending}
-          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-xl text-[10px] font-black tracking-widest uppercase transition-colors"
+          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase transition-colors"
         >
           {t('common:reset')}
         </Button>

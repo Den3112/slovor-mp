@@ -129,7 +129,7 @@ export function SellerRating({
               />
             ))}
           </div>
-          <span className="text-2xl font-black">
+          <span className="text-2xl font-bold">
             {ratingData.averageRating}
           </span>
           <span className="text-muted-foreground text-sm">

@@ -89,7 +89,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
             {/* Header */}
             <motion.div variants={item} className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
                 <div>
-                    <h1 className="text-3xl font-black uppercase tracking-tight">{t('dashboard:orders') || 'Orders'}</h1>
+                    <h1 className="text-3xl font-bold uppercase tracking-tight">{t('dashboard:orders') || 'Orders'}</h1>
                     <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Manage your transactions and purchases</p>
                 </div>
             </motion.div>
@@ -98,9 +98,9 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
             <motion.div variants={item} className="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center bg-card p-4 rounded-xl border border-border/60 shadow-sm">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full lg:w-auto">
                     <TabsList className="bg-muted/50 p-1 rounded-lg h-auto flex-wrap justify-start border border-border/20">
-                        <TabsTrigger value="all" className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-black uppercase tracking-widest">All Orders</TabsTrigger>
-                        <TabsTrigger value="buying" className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-black uppercase tracking-widest">Purchases</TabsTrigger>
-                        <TabsTrigger value="selling" className="rounded-md data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-black uppercase tracking-widest">Sales</TabsTrigger>
+                        <TabsTrigger value="all" className="rounded data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest">All Orders</TabsTrigger>
+                        <TabsTrigger value="buying" className="rounded data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest">Purchases</TabsTrigger>
+                        <TabsTrigger value="selling" className="rounded data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest">Sales</TabsTrigger>
                     </TabsList>
                 </Tabs>
 
@@ -138,11 +138,11 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                                         <TableCell className="px-6 py-4">
                                             <div className="space-y-0.5">
                                                 <p className="font-bold text-sm truncate max-w-[200px]">{order.listing?.title || 'Unknown Listing'}</p>
-                                                <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">#{order.id.split('-')[0]}</p>
+                                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">#{order.id.split('-')[0]}</p>
                                             </div>
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
-                                            <span className="font-heading text-base font-black tracking-tight whitespace-nowrap">
+                                            <span className="font-heading text-base font-bold tracking-tight whitespace-nowrap">
                                                 {formatPrice(order.amount, order.currency)}
                                             </span>
                                         </TableCell>
@@ -150,7 +150,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                                             <Badge
                                                 variant={order.status === 'completed' ? 'success' : 'outline'}
                                                 className={cn(
-                                                    "rounded-lg px-2.5 py-1 text-[9px] font-black uppercase tracking-widest shadow-sm",
+                                                    "rounded-sm px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest shadow-sm",
                                                     order.status === 'completed' ? "bg-success/10 text-success border-success/20" :
                                                         order.status === 'cancelled' ? "bg-destructive/10 text-destructive border-destructive/20" :
                                                             "bg-amber-500/10 text-amber-600 border-amber-500/20"
@@ -162,11 +162,11 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                                         <TableCell className="px-6 py-4">
                                             <div className="flex items-center gap-2">
                                                 {order.is_seller ? (
-                                                    <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[8px] font-black uppercase tracking-widest pl-1">
+                                                    <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[8px] font-bold uppercase tracking-widest pl-1">
                                                         <ArrowUpRight className="h-3 w-3 mr-1" /> Selling
                                                     </Badge>
                                                 ) : (
-                                                    <Badge variant="outline" className="bg-emerald-500/5 text-emerald-600 border-emerald-500/20 text-[8px] font-black uppercase tracking-widest pl-1">
+                                                    <Badge variant="outline" className="bg-emerald-500/5 text-emerald-600 border-emerald-500/20 text-[8px] font-bold uppercase tracking-widest pl-1">
                                                         <ArrowDownLeft className="h-3 w-3 mr-1" /> Buying
                                                     </Badge>
                                                 )}
@@ -178,7 +178,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                                             </span>
                                         </TableCell>
                                         <TableCell className="px-6 py-4 text-right">
-                                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg" asChild>
+                                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-[10px]" asChild>
                                                 <Link href={`/dashboard/orders/${order.id}`}>
                                                     <Eye className="h-4 w-4" />
                                                 </Link>

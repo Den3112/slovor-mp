@@ -113,11 +113,11 @@ export function WalletView() {
             <div className="relative overflow-hidden rounded-xl border border-border bg-slate-950 p-8 text-white shadow-sm md:p-12">
                 <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                     <div className="space-y-1">
-                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40 italic">
+                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40">
                             {t('dashboard:walletDetails.title')} {t('common:balance')}
                         </span>
                         <div className="flex items-baseline gap-2">
-                            <h2 className="text-5xl font-black tracking-tighter md:text-6xl italic">
+                            <h2 className="text-5xl font-bold tracking-tighter md:text-6xl">
                                 {formatPrice(balance, currency)}
                             </h2>
                         </div>
@@ -144,8 +144,8 @@ export function WalletView() {
                 ].map((stat, i) => (
                     <div key={i} className="border-border/60 bg-card rounded-xl border p-5 shadow-sm">
                         <stat.icon className="mb-3 h-5 w-5 text-muted-foreground/40" />
-                        <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground/60 uppercase">{stat.label}</p>
-                        <p className="text-xl font-black text-foreground italic">{stat.value}</p>
+                        <p className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground/60 uppercase">{stat.label}</p>
+                        <p className="text-xl font-bold text-foreground">{stat.value}</p>
                     </div>
                 ))}
             </div>
@@ -153,7 +153,7 @@ export function WalletView() {
             {/* Transaction History */}
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 flex items-center gap-2">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60 flex items-center gap-2">
                         <History className="h-4 w-4" />
                         {t('dashboard:wallet.transactions')}
                     </h3>
@@ -184,13 +184,13 @@ export function WalletView() {
                                     </div>
                                     <div className="text-right">
                                         <p className={cn(
-                                            "text-lg font-black tracking-tight italic",
+                                            "text-lg font-bold tracking-tight",
                                             transaction.type === 'refill' ? "text-emerald-500" : "text-foreground"
                                         )}>
                                             {transaction.type === 'refill' ? '+' : '-'}{formatPrice(transaction.amount, transaction.currency)}
                                         </p>
                                         <span className={cn(
-                                            "text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md border",
+                                            "text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border",
                                             transaction.status === 'completed'
                                                 ? "text-emerald-500 border-emerald-500/20 bg-emerald-500/5"
                                                 : "text-amber-500 border-amber-500/20 bg-amber-500/5"
@@ -224,7 +224,7 @@ export function WalletView() {
                         <div className="p-8 space-y-8">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <h2 className="text-2xl font-black uppercase tracking-tight">{t('dashboard:walletDetails.refillBalance')}</h2>
+                                    <h2 className="text-2xl font-bold uppercase tracking-tight">{t('dashboard:walletDetails.refillBalance')}</h2>
                                     <p className="text-muted-foreground/60 text-[10px] font-bold uppercase tracking-[0.2em]">{t('dashboard:walletDetails.addCreditsDescription')}</p>
                                 </div>
                                 <button
@@ -243,7 +243,7 @@ export function WalletView() {
                                             key={amt}
                                             onClick={() => setRefillAmount(amt)}
                                             className={cn(
-                                                "rounded-xl border-2 py-3 text-sm font-black transition-all",
+                                                "rounded-xl border-2 py-3 text-sm font-bold transition-all",
                                                 refillAmount === amt
                                                     ? "bg-primary border-primary text-primary-foreground shadow-md shadow-primary/20"
                                                     : "bg-muted/40 border-transparent text-foreground hover:border-border/40"
@@ -258,9 +258,9 @@ export function WalletView() {
                                             placeholder="Other"
                                             value={refillAmount}
                                             onChange={(e) => setRefillAmount(e.target.value)}
-                                            className="bg-muted/40 w-full rounded-xl border-2 border-transparent py-3 pl-6 text-center text-sm font-black outline-none focus:border-primary/50"
+                                            className="bg-muted/40 w-full rounded-xl border-2 border-transparent py-3 pl-6 text-center text-sm font-bold outline-none focus:border-primary/50"
                                         />
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-black text-xs">€</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-bold text-xs">€</span>
                                     </div>
                                 </div>
                             </div>

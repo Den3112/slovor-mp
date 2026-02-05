@@ -130,7 +130,7 @@ export function SettingsView() {
                 {/* Header - Solid */}
                 <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between bg-card border border-border p-6 rounded-xl shadow-sm">
                     <div className="space-y-1">
-                        <h1 className="text-3xl font-black uppercase tracking-tight flex items-center gap-2">
+                        <h1 className="text-3xl font-bold uppercase tracking-tight flex items-center gap-2">
                             {t('profile.settings')}
                         </h1>
                         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{t('profile.settingsDescription')}</p>
@@ -209,7 +209,7 @@ export function SettingsView() {
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                 {/* Full Name */}
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('profile.fullName')}</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('profile.fullName')}</label>
                                     <div className="relative">
                                         <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -228,7 +228,7 @@ export function SettingsView() {
 
                                 {/* Location */}
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('profile.location')}</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('profile.location')}</label>
                                     <div className="relative">
                                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                         <Input
@@ -244,7 +244,7 @@ export function SettingsView() {
 
                                 {/* Phone */}
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                                         {t('profile.phoneNumber')}
                                     </label>
                                     <div className="relative">
@@ -262,7 +262,7 @@ export function SettingsView() {
 
                                 {/* Currency */}
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                                         {t('profile.preferredCurrency')}
                                     </label>
                                     <div className="relative">
@@ -285,7 +285,7 @@ export function SettingsView() {
 
                                 {/* Email (Full Width) */}
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                                         {t('profile.emailReadonly')}
                                     </label>
                                     <div className="relative">
@@ -301,7 +301,7 @@ export function SettingsView() {
 
                                 {/* Bio (Full Width) */}
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                                         {t('profile.bio')}
                                     </label>
                                     <div className="relative">
@@ -324,7 +324,7 @@ export function SettingsView() {
                                     type="submit"
                                     data-testid="profile-settings-save"
                                     disabled={isLoading || isUploading}
-                                    className="min-w-[140px] rounded-xl font-black uppercase tracking-widest"
+                                    className="min-w-[140px] rounded-xl font-bold uppercase tracking-widest"
                                 >
                                     {isLoading ? (
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

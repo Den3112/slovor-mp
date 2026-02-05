@@ -38,10 +38,10 @@ export function HomeCTA() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6">
+              <span className="inline-block px-4 py-1.5 rounded bg-primary/10 border border-primary/20 text-[10px] font-bold uppercase tracking-[0.3em] text-primary mb-6">
                 {t('common:getStarted')}
               </span>
-              <h2 className="font-heading text-4xl font-black tracking-tight md:text-7xl leading-[1.1] uppercase italic">
+              <h2 className="font-heading text-4xl font-bold tracking-tight md:text-7xl leading-[1.1] uppercase">
                 {t('ctaTitle')}
               </h2>
             </motion.div>
@@ -66,7 +66,7 @@ export function HomeCTA() {
               <Button
                 asChild
                 size="lg"
-                className="h-16 rounded-2xl px-12 text-lg font-black uppercase tracking-widest shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90 border-0"
+                className="h-16 rounded-xl px-12 text-lg font-bold uppercase tracking-widest shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90 border-0"
               >
                 <Link href="/post">
                   <Plus className="mr-3 h-6 w-6" />

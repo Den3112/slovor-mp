@@ -94,7 +94,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
     return (
         <div className="sticky top-28 space-y-8 rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
             <div className="space-y-3 border-b border-border pb-6">
-                <span className="text-primary/80 text-[10px] font-black tracking-[0.2em] uppercase">
+                <span className="text-primary/80 text-[10px] font-bold tracking-[0.2em] uppercase">
                     {t('price')}
                 </span>
 
@@ -113,7 +113,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                 <PriceDisplay
                     amount={listing.price}
                     baseCurrency={listing.currency}
-                    className="text-foreground block text-5xl font-black tracking-tighter md:text-6xl"
+                    className="text-foreground block text-5xl font-bold tracking-tighter md:text-6xl"
                     showOriginal
                 />
             </div>
@@ -121,7 +121,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
             {seller && <SellerInfoCard seller={seller} />}
 
             <div className="space-y-4 pt-2">
-                <h3 className="font-heading text-xl font-black italic">
+                <h3 className="font-heading text-xl font-bold">
                     {displayTitle}
                 </h3>
                 <div className="text-muted-foreground flex items-center gap-4 text-xs font-bold">
@@ -156,21 +156,21 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                 <ListingOwnerActions
                     listingId={listing.id}
                     ownerId={listing.user_id}
-                    className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50 h-14 w-full gap-2 rounded-xl border-2 font-black uppercase tracking-widest text-xs"
+                    className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50 h-14 w-full gap-2 rounded-xl border-2 font-bold uppercase tracking-widest text-xs"
                 />
 
                 <div className="grid grid-cols-2 gap-3">
                     <Button
                         variant="ghost"
                         size="lg"
-                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-black uppercase tracking-widest text-[10px]"
+                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold uppercase tracking-widest text-[10px]"
                     >
                         <Heart className="h-5 w-5" /> {t('listing.saveListing')}
                     </Button>
                     <Button
                         variant="ghost"
                         size="lg"
-                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-black uppercase tracking-widest text-[10px]"
+                        className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold uppercase tracking-widest text-[10px]"
                     >
                         <Share2 className="h-5 w-5" /> {t('listing.shareListing')}
                     </Button>

@@ -31,7 +31,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px]"
+                        className="fixed inset-0 z-40 bg-black/20"
                     />
 
                     {/* Menu Panel */}
@@ -40,7 +40,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                        className="absolute inset-x-0 top-16 z-50 border-b border-border bg-background shadow-2xl"
+                        className="absolute inset-x-0 top-16 z-50 border-b border-border bg-background shadow-lg"
                         onMouseLeave={onClose}
                     >
                         <Container className="py-12">
@@ -63,7 +63,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                                         <Icon className="h-5 w-5" />
                                                     </div>
                                                     <div className="flex flex-col">
-                                                        <h3 className="text-sm font-black tracking-tight uppercase leading-none">
+                                                        <h3 className="text-sm font-bold tracking-tight uppercase leading-none">
                                                             {t(category.label)}
                                                         </h3>
                                                         <span className="text-[10px] font-bold text-muted-foreground/40 mt-1 uppercase tracking-widest group-hover:text-primary transition-colors">
@@ -89,7 +89,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                                         <Link
                                                             href={`/${locale}/categories/${category.id}`}
                                                             onClick={onClose}
-                                                            className="text-[10px] font-black uppercase tracking-widest text-primary/60 hover:text-primary mt-2 inline-block transition-colors"
+                                                            className="text-[10px] font-bold uppercase tracking-widest text-primary/60 hover:text-primary mt-2 inline-block transition-colors"
                                                         >
                                                             {t('common:viewAll')} →
                                                         </Link>
@@ -104,16 +104,16 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                 <div className="lg:col-span-1 space-y-8 border-l border-border/60 pl-10 hidden lg:block">
                                     <div className="relative overflow-hidden rounded-2xl bg-muted/50 dark:bg-slate-950 p-6 text-foreground dark:text-white border border-border/50 dark:border-white/10 group shadow-xl">
                                         <div className="relative z-10 space-y-4">
-                                            <Badge className="bg-primary/20 text-primary border-primary/20 text-[9px] font-black tracking-widest uppercase rounded-md h-5">
+                                            <Badge className="bg-primary/20 text-primary border-primary/20 text-[9px] font-bold tracking-widest uppercase rounded-sm h-5">
                                                 {t('common:featured')}
                                             </Badge>
-                                            <h4 className="text-base font-black tracking-tight leading-tight italic">
+                                            <h4 className="text-base font-bold tracking-tight leading-tight">
                                                 {t('home:promo.title') || 'READY TO SELL FAST?'}
                                             </h4>
                                             <p className="text-xs text-muted-foreground dark:text-slate-400 leading-relaxed font-medium">
                                                 {t('home:promo.subtitle') || 'Upgrade to VIP and get 10x more views today.'}
                                             </p>
-                                            <Button asChild size="sm" className="w-full font-black uppercase tracking-widest text-[9px] h-9 rounded-lg bg-primary hover:bg-primary/90 border-0 group-hover:scale-[1.02] transition-transform">
+                                            <Button asChild size="sm" className="w-full font-bold uppercase tracking-widest text-[9px] h-9 rounded-xl bg-primary hover:bg-primary/90 border-0 group-hover:scale-[1.02] transition-transform">
                                                 <Link href={`/${locale}/post`}>
                                                     {t('nav:postAd')}
                                                 </Link>
@@ -124,7 +124,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                     </div>
 
                                     <div className="space-y-5">
-                                        <h5 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 text-center">
+                                        <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 text-center">
                                             {t('home:popularNow') || 'POPULAR REGIONS'}
                                         </h5>
                                         <div className="grid grid-cols-2 gap-2">
@@ -133,7 +133,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                                     key={cityKey}
                                                     href={`/${locale}/listings?location=${cityKey}`}
                                                     onClick={onClose}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-center px-2 py-2 rounded-lg border border-border/60 hover:border-primary/50 hover:bg-primary/5 transition-all"
+                                                    className="text-[9px] font-bold uppercase tracking-widest text-center px-2 py-2 rounded-xl border border-border/60 hover:border-primary/50 hover:bg-primary/5 transition-all"
                                                 >
                                                     {t(`home:regions.${cityKey}`)}
                                                 </Link>
@@ -153,7 +153,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                                 <Link
                                     href={`/${locale}/categories`}
                                     onClick={onClose}
-                                    className="group inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-primary transition-all hover:opacity-80"
+                                    className="group inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-primary transition-all hover:opacity-80"
                                 >
                                     <LayoutGrid className="h-4 w-4" />
                                     {t('home:megaMenu.viewAll') || 'VIEW ALL CATEGORIES'}

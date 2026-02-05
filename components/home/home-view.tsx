@@ -48,10 +48,10 @@ export function HomeView({
         <Container>
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8 lg:mb-20">
             <div className="max-w-2xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-[10px] font-black tracking-[0.3em] text-primary uppercase border border-primary/20">
+              <span className="mb-4 inline-flex items-center gap-2 rounded bg-primary/10 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-primary uppercase border border-primary/20">
                 VIP / Featured
               </span>
-              <h2 className="font-heading text-4xl font-black italic tracking-tight md:text-5xl lg:text-6xl">
+              <h2 className="font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
                 {t('home:featuredListings')}
               </h2>
             </div>
@@ -80,10 +80,10 @@ export function HomeView({
         <Container>
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8 lg:mb-20">
             <div className="max-w-2xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-muted/40 px-4 py-1.5 text-[10px] font-black tracking-[0.3em] text-muted-foreground uppercase border border-border">
+              <span className="mb-4 inline-flex items-center gap-2 rounded bg-muted/40 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-muted-foreground uppercase border border-border">
                 {t('home:recent.badge') || 'Fresh Arrivals'}
               </span>
-              <h2 className="font-heading text-4xl font-black italic tracking-tight md:text-5xl lg:text-6xl">
+              <h2 className="font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
                 {t('home:recent.title') || 'Latest Listings'}
               </h2>
             </div>

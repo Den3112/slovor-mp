@@ -64,7 +64,7 @@ export function UserOverviewView({
             {/* Header */}
             <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('common:dashboard')}</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase">{t('common:dashboard')}</h1>
                     <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
                         {t('dashboard:welcomeBack')}, <span className="text-foreground">{user.user_metadata.full_name || user.email?.split('@')[0]}</span>
                     </p>
@@ -140,7 +140,7 @@ export function UserOverviewView({
                                     </CardTitle>
                                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 mt-1">{t('dashboard:viewsOverTime')}</p>
                                 </div>
-                                <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest border-border/60">
+                                <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-widest border-border/60 rounded-sm">
                                     Last 7 Days
                                 </Badge>
                             </div>
@@ -223,7 +223,7 @@ export function UserOverviewView({
                                             <TableRow key={listing.id} className="hover:bg-accent/40 transition-colors group border-b border-border/10">
                                                 <TableCell className="px-6 py-4">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-muted border border-border/10">
+                                                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[16px] bg-muted border border-border/10">
                                                             {listing.images?.[0] ? (
                                                                 <Image
                                                                     src={listing.images[0]}
@@ -247,7 +247,7 @@ export function UserOverviewView({
                                                 </TableCell>
                                                 <TableCell className="px-6 py-4">
                                                     <div className="flex flex-col">
-                                                        <span className="font-heading text-base font-black tracking-tight">{listing.price} {listing.currency}</span>
+                                                        <span className="font-heading text-base font-bold tracking-tight">{listing.price} {listing.currency}</span>
                                                         <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">{t('createListing:price')}</span>
                                                     </div>
                                                 </TableCell>
@@ -264,10 +264,10 @@ export function UserOverviewView({
                                                 </TableCell>
                                                 <TableCell className="px-6 py-4 text-right">
                                                     <div className="flex items-center justify-end gap-2">
-                                                        <Button variant="outline" size="sm" asChild className="h-8 rounded-lg text-[9px] font-black uppercase tracking-widest border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20">
+                                                        <Button variant="outline" size="sm" asChild className="h-8 rounded-xl text-[9px] font-bold uppercase tracking-widest border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20">
                                                             <Link href={`/post?edit=${listing.id}`}>Edit</Link>
                                                         </Button>
-                                                        <Button variant="ghost" size="icon" asChild className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary">
+                                                        <Button variant="ghost" size="icon" asChild className="h-8 w-8 rounded-xl hover:bg-primary/10 hover:text-primary">
                                                             <Link href={`/listings/${listing.id}`}>
                                                                 <ArrowRight className="h-4 w-4" />
                                                             </Link>

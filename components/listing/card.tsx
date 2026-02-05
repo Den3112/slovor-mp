@@ -72,7 +72,7 @@ export function ListingCard({
 
           {/* Condition Badge */}
           {listing.condition === 'new' && (
-            <div className="bg-background/90 text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[8px] font-black uppercase shadow-sm">
+            <div className="bg-background/90 text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-sm px-1.5 py-0.5 text-[8px] font-bold uppercase shadow-sm">
               <Sparkles className="fill-primary h-2.5 w-2.5" />
               {t('new')}
             </div>
@@ -96,7 +96,7 @@ export function ListingCard({
             <PriceDisplay
               amount={listing.price}
               baseCurrency={listing.currency}
-              className="text-foreground text-lg font-black tracking-tight sm:text-xl"
+              className="text-foreground text-lg font-bold tracking-tight sm:text-xl"
             />
 
             {listing.location && (
@@ -160,7 +160,7 @@ export function ListingCard({
         ) : (
           <div className="bg-muted/50 text-muted-foreground/30 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-10 w-10 stroke-1" />
-            <span className="text-[10px] font-black tracking-widest uppercase">
+            <span className="text-[10px] font-bold tracking-widest uppercase">
               {t('noImage')}
             </span>
           </div>
@@ -169,14 +169,14 @@ export function ListingCard({
         {/* Badges - Floating Style */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 font-heading">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[9px] font-black tracking-widest text-white uppercase shadow-lg shadow-primary/20">
+            <div className="bg-primary flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-[9px] font-bold tracking-widest text-white uppercase shadow-lg shadow-primary/20">
               <Sparkles className="h-3 w-3 fill-white" />
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-background text-foreground flex items-center gap-1.5 rounded-md border border-border/40 px-2.5 py-1.5 text-[9px] font-black tracking-widest uppercase shadow-sm">
+            <div className="bg-background text-foreground flex items-center gap-1.5 rounded-sm border border-border/40 px-2.5 py-1.5 text-[9px] font-bold tracking-widest uppercase shadow-sm">
               <div className="bg-emerald-500 h-1.5 w-1.5 rounded-full animate-pulse" />
               {t('new')}
             </div>
@@ -190,7 +190,7 @@ export function ListingCard({
 
         {/* Photos Count Overlay */}
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg bg-black/80 px-2 py-1 text-[10px] font-black text-white border border-white/20">
+          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg bg-black/80 px-2 py-1 text-[10px] font-bold text-white border border-white/20">
             <span className="opacity-70">{listing.images.length}</span>
             <span className="tracking-widest uppercase text-[8px]">{t('photos') || 'Photos'}</span>
           </div>
@@ -202,7 +202,7 @@ export function ListingCard({
         <div className="space-y-1">
           <div className="flex items-center justify-between">
             {listing.category && (
-              <span className="text-primary text-[10px] font-black tracking-widest uppercase opacity-80">
+              <span className="text-primary text-[10px] font-bold tracking-widest uppercase opacity-80">
                 {categoryName}
               </span>
             )}
@@ -236,13 +236,13 @@ export function ListingCard({
 
         <div className="mt-1 flex items-center justify-between border-t border-border/40 pt-3">
           <div className="flex flex-col">
-            <span className="text-muted-foreground text-[9px] font-black tracking-widest uppercase opacity-40 leading-none mb-1">
+            <span className="text-muted-foreground text-[9px] font-bold tracking-widest uppercase opacity-40 leading-none mb-1">
               {t('common:price') || 'Price'}
             </span>
             <PriceDisplay
               amount={listing.price}
               baseCurrency={listing.currency}
-              className="font-heading text-foreground text-xl font-black tracking-tighter"
+              className="font-heading text-foreground text-xl font-bold tracking-tighter"
             />
           </div>
 
