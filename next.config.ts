@@ -54,6 +54,20 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
+      // Static files - prevent locale prefix issues
+      {
+        source: '/:lang(en|sk|cs|ru)/manifest.json',
+        destination: '/manifest.json',
+      },
+      {
+        source: '/:lang(en|sk|cs|ru)/favicon.ico',
+        destination: '/favicon.ico',
+      },
+      {
+        source: '/:lang(en|sk|cs|ru)/logo.png',
+        destination: '/logo.png',
+      },
+      // Auth rewrites
       {
         source: '/:lang(en|sk|cs|ru)/login',
         destination: '/:lang/auth/login',

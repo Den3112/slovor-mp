@@ -45,6 +45,7 @@ export function Logo({ locale, className, showText = true, size = 'md' }: LogoPr
                     src="/logo.png"
                     alt="Slovor Logo"
                     fill
+                    sizes="(max-width: 768px) 36px, 44px"
                     className="object-contain"
                     priority
                 />
