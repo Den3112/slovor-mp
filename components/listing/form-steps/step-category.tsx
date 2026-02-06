@@ -87,7 +87,7 @@ export function StepCategory({
                   : 'text-muted-foreground hover:bg-background/50 hover:text-foreground'
               )}
             >
-              {c === 'new' ? t('filters.new') : t('filters.used')}
+              {c === 'new' ? t('filters:new') : t('filters:used')}
             </button>
           ))}
         </div>

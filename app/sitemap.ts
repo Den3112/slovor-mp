@@ -26,16 +26,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
 
     // Dynamic routes: Categories
-    const { data: categories } = await categoriesApi.getAll(supabase)
-
-    const categoryRoutes = (categories || []).flatMap(category =>
-        languages.map(lang => ({
-            url: `${baseUrl}/${lang}/categories/${category.slug}`,
-            lastModified: new Date(),
-            changeFrequency: 'daily' as const,
-            priority: 0.8,
-        }))
-    )
+    let categoryRoutes: any[] = []
+    try {
+        const { data: categories } = await categoriesApi.getAll(supabase)
+        categoryRoutes = (categories || []).flatMap(category =>
+            languages.map(lang => ({
+                url: `${baseUrl}/${lang}/categories/${category.slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'daily' as const,
+                priority: 0.8,
+            }))
+        )
+    } catch (error) {
+        console.error('Failed to fetch categories for sitemap:', error)
+    }
 
     return [...routes, ...categoryRoutes]
 }

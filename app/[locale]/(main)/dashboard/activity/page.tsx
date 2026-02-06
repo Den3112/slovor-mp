@@ -1,7 +1,23 @@
-'use client'
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import { Loader2 } from 'lucide-react'
 
-import { ActivityLogView } from '@/components/features/dashboard/user/activity-log-view'
+const ActivityLogView = dynamic(() => import('@/components/features/dashboard/user/activity-log-view').then(mod => mod.ActivityLogView), {
+    loading: () => (
+        <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+    )
+})
 
-export default function ActivityPage() {
+export default async function ActivityPage() {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect('/')
+    }
+
     return <ActivityLogView />
 }

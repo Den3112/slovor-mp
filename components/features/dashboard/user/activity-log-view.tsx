@@ -60,7 +60,7 @@ export function ActivityLogView() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-black tracking-tight text-foreground uppercase italic flex items-center gap-3">
+                <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase  flex items-center gap-3">
                     <Activity className="h-8 w-8 text-primary" />
                     {t('dashboard:activityLog.title') || 'Activity Log'}
                 </h1>
@@ -90,7 +90,7 @@ export function ActivityLogView() {
 
                                             <div className="flex-1 min-w-0 space-y-1">
                                                 <div className="flex flex-wrap items-center gap-3">
-                                                    <Badge variant="outline" className="bg-muted text-muted-foreground border-border/40 font-black text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-md">
+                                                    <Badge variant="outline" className="bg-muted text-muted-foreground border-border/40 font-bold text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-md">
                                                         {log.action.replace('_', ' ')}
                                                     </Badge>
                                                     <span className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">

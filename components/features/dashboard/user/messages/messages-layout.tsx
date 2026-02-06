@@ -32,7 +32,7 @@ interface MessagesLayoutProps {
 }
 
 export function MessagesLayout({ children }: MessagesLayoutProps) {
-    const { t } = useTranslation(['messages', 'common'])
+    const { t, locale } = useTranslation(['messages', 'common'])
     const { user } = useAuth()
     const activeId = useParams().id as string
     const router = useRouter()
@@ -66,7 +66,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
             await messagesApi.cleanupAllData(user.id)
             setConversations([])
             toast.success(t('messages:clearSuccess'))
-            router.push('/messages')
+            router.push(`/${locale}/messages`)
         } catch {
             toast.error(t('messages:clearError'))
         } finally {
@@ -97,7 +97,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                 {/* Header */}
                 <div className="p-4 border-b border-border space-y-4 bg-background">
                     <div className="flex items-center justify-between">
-                        <h2 className="font-black text-lg uppercase tracking-tight">{t('messages:title')}</h2>
+                        <h2 className="font-bold text-lg uppercase tracking-tight">{t('messages:title')}</h2>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
                                 <Button
@@ -167,7 +167,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                                             transition={{ delay: index * 0.05 }}
                                         >
                                             <Link
-                                                href={`/messages/${conv.id}`}
+                                                href={`/${locale}/messages/${conv.id}`}
                                                 className={cn(
                                                     "group relative flex gap-3 rounded-xl p-3 transition-all duration-200 text-left border border-transparent",
                                                     isActive

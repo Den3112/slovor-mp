@@ -36,7 +36,7 @@ export function LanguageSelector() {
         onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
         aria-label="Select language"
         aria-expanded={showLangMenu}
-        className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-xl border px-3 py-2.5 text-[10px] font-black tracking-widest uppercase transition-all"
+        className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-xl border px-3 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"
       >
         <div className="bg-muted flex h-4 w-5 items-center justify-center overflow-hidden rounded-sm shadow-sm">
           <div className="h-full w-full scale-125 transform saturate-[1.2]">
@@ -108,7 +108,7 @@ export function MobileLanguageSelector({
 
   return (
     <div className="mt-8">
-      <p className="text-muted-foreground mb-4 text-[10px] font-black tracking-[0.2em] uppercase">
+      <p className="text-muted-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
         Language
       </p>
       <div className="grid grid-cols-3 gap-2">

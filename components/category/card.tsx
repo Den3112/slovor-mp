@@ -5,12 +5,15 @@
 import Link from 'next/link'
 import type { Category } from '@/lib/api'
 import * as LucideIcons from 'lucide-react'
+import { useParams } from 'next/navigation'
 
 interface CategoryCardProps {
   category: Category
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
+  const params = useParams()
+  const locale = params?.locale as string || 'en'
   // Get Lucide icon by name with proper type handling
   const getIconComponent = (
     iconName?: string | null
@@ -27,12 +30,12 @@ export function CategoryCard({ category }: CategoryCardProps) {
 
   return (
     <Link
-      href={`/categories/${category.slug}`}
+      href={`/${locale}/categories/${category.slug}`}
       className="group border-border bg-card block rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
     >
       <div className="flex items-center gap-4">
         {/* Icon */}
-        <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-colors">
+        <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors">
           <IconComponent className="text-primary h-6 w-6" />
         </div>
 

@@ -35,7 +35,7 @@ export function CategoryView({
     <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pt-24 pb-12 md:pt-32">
       <Breadcrumbs
         items={[
-          { label: t('common.categories'), href: '/listings' },
+          { label: t('common:categories'), href: '/listings' },
           { label: categoryName },
         ]}
       />
@@ -49,13 +49,13 @@ export function CategoryView({
             />
           </div>
           <div className="space-y-3">
-            <h1 className="font-heading text-foreground text-4xl font-black tracking-tighter italic md:text-7xl">
+            <h1 className="font-heading text-foreground text-4xl font-bold tracking-tighter  md:text-7xl">
               {categoryName}
             </h1>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-black tracking-widest text-primary uppercase">
+              <div className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-1.5 text-[10px] font-bold tracking-widest text-primary uppercase">
                 <div className="h-2 w-2 animate-pulse rounded-sm bg-primary" />
-                {totalCount} {t('common.listings')} {t('common.found')}
+                {totalCount} {t('common:listings')} {t('common:found')}
               </div>
             </div>
           </div>
@@ -71,10 +71,10 @@ export function CategoryView({
       ) : listings.length === 0 ? (
         <div className="py-16 text-center">
           <p className="text-muted-foreground mb-4 text-xl">
-            {t('common.noListings') || 'No listings found'}
+            {t('common:noListings') || 'No listings found'}
           </p>
           <p className="text-muted-foreground">
-            {t('common.tryDifferentFilters') || 'Try adjusting your filters'}
+            {t('common:tryDifferentFilters') || 'Try adjusting your filters'}
           </p>
         </div>
       ) : (

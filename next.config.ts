@@ -4,8 +4,6 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
   output: 'standalone',
 
-
-
   // Ignore TypeScript errors during build (they're checked in CI separately)
   typescript: {
     ignoreBuildErrors: true,
@@ -14,7 +12,24 @@ const nextConfig: NextConfig = {
   // Experimental features for performance
   experimental: {
     // Optimize package imports for faster builds
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      'sonner',
+      'date-fns',
+      '@radix-ui/react-icons',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-scroll-area',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-avatar',
+      '@radix-ui/react-popover',
+      '@radix-ui/react-label',
+      '@radix-ui/react-checkbox',
+      '@radix-ui/react-switch',
+      '@radix-ui/react-slider'
+    ],
   },
 
   images: {
@@ -67,7 +82,7 @@ const nextConfig: NextConfig = {
         source: '/:lang(en|sk|cs|ru)/logo.png',
         destination: '/logo.png',
       },
-      // Auth rewrites
+      // Auth rewrites - cleaner URLs
       {
         source: '/:lang(en|sk|cs|ru)/login',
         destination: '/:lang/auth/login',
@@ -75,14 +90,6 @@ const nextConfig: NextConfig = {
       {
         source: '/:lang(en|sk|cs|ru)/register',
         destination: '/:lang/auth/register',
-      },
-      {
-        source: '/login',
-        destination: '/auth/login',
-      },
-      {
-        source: '/register',
-        destination: '/auth/register',
       },
     ]
   },
@@ -124,34 +131,107 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // Base redirects to default locale (en)
       {
-        source: '/profile/:path*',
-        destination: '/dashboard/:path*',
+        source: '/login',
+        destination: '/en/login',
         permanent: true,
       },
       {
-        source: '/:lang/profile/:path*',
+        source: '/register',
+        destination: '/en/register',
+        permanent: true,
+      },
+      {
+        source: '/admin/:path*',
+        destination: '/en/admin/:path*',
+        permanent: true,
+      },
+      {
+        source: '/dashboard/:path*',
+        destination: '/en/dashboard/:path*',
+        permanent: true,
+      },
+      {
+        source: '/messages/:path*',
+        destination: '/en/messages/:path*',
+        permanent: true,
+      },
+      {
+        source: '/favorites/:path*',
+        destination: '/en/favorites/:path*',
+        permanent: true,
+      },
+      {
+        source: '/post',
+        destination: '/en/post',
+        permanent: true,
+      },
+
+      // Profile to Dashboard unification
+      {
+        source: '/profile',
+        destination: '/en/dashboard',
+        permanent: true,
+      },
+      {
+        source: '/:lang(en|sk|cs|ru)/profile',
+        destination: '/:lang/dashboard',
+        permanent: true,
+      },
+      {
+        source: '/:lang(en|sk|cs|ru)/profile/:path*',
         destination: '/:lang/dashboard/:path*',
         permanent: true,
       },
       {
-        source: '/dashboard/messages/:path*',
-        destination: '/messages/:path*',
+        source: '/profile/:path*',
+        destination: '/en/dashboard/:path*',
         permanent: true,
       },
+
+      // Navigation cleanup (top-level routing)
       {
-        source: '/:lang/dashboard/messages/:path*',
+        source: '/:lang(en|sk|cs|ru)/dashboard/messages/:path*',
         destination: '/:lang/messages/:path*',
         permanent: true,
       },
       {
-        source: '/dashboard/favorites/:path*',
-        destination: '/favorites/:path*',
+        source: '/:lang(en|sk|cs|ru)/dashboard/favorites/:path*',
+        destination: '/:lang/favorites/:path*',
+        permanent: true,
+      },
+
+      // Legacy paths
+      {
+        source: '/:lang(en|sk|cs|ru)/create-ad',
+        destination: '/:lang/post',
         permanent: true,
       },
       {
-        source: '/:lang/dashboard/favorites/:path*',
-        destination: '/:lang/favorites/:path*',
+        source: '/create-ad',
+        destination: '/en/post',
+        permanent: true,
+      },
+      {
+        source: '/:lang(en|sk|cs|ru)/dashboard/purchases/:path*',
+        destination: '/:lang/dashboard/orders/:path*',
+        permanent: true,
+      },
+      {
+        source: '/dashboard/purchases/:path*',
+        destination: '/en/dashboard/orders/:path*',
+        permanent: true,
+      },
+      // Dashboard profile cleanup
+      {
+        source: '/:lang(en|sk|cs|ru)/dashboard/profile',
+        destination: '/:lang/dashboard/settings',
+        permanent: true,
+      },
+      {
+        source: '/dashboard/profile',
+        destination: '/en/dashboard/settings',
         permanent: true,
       },
     ]

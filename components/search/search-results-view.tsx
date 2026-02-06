@@ -25,10 +25,10 @@ export function SearchResultsView({
           <span className="text-4xl">🔍</span>
         </div>
         <h2 className="mb-2 text-xl font-bold">
-          {t('common.noResults') || 'No results found'}
+          {t('common:noResults') || 'No results found'}
         </h2>
         <p className="text-muted-foreground">
-          {t('common.tryDifferentFilters') ||
+          {t('common:tryDifferentFilters') ||
             'Try adjusting your filters or search terms.'}
         </p>
       </div>
@@ -118,7 +118,7 @@ export function SearchResultsView({
       <div className="mb-6 flex items-center justify-between">
         <span className="text-muted-foreground font-medium">
           {/* "Showing results" */}
-          {t('common.showingResults') || 'Showing results'}
+          {t('common:showingResults') || 'Showing results'}
         </span>
         {/* SortSelect is already a component, likely client? Let's check imports in page.tsx.
             It was imported from '@/components/search/sort-select'.

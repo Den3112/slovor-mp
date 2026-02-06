@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export function AdminVerificationsView() {
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['common', 'admin'])
     const [requests, setRequests] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [searchQuery, setSearchQuery] = useState('')
@@ -52,7 +52,7 @@ export function AdminVerificationsView() {
             }
 
             if (result.error) throw new Error(result.error)
-            toast.success(status === 'approved' ? t('admin.verificationApproved') : t('admin.verificationRejected'))
+            toast.success(status === 'approved' ? t('admin:verificationApproved') : t('admin:verificationRejected'))
             setRequests(prev => prev.map(r => r.id === id ? { ...r, status } : r))
 
             // Log action
@@ -98,7 +98,7 @@ export function AdminVerificationsView() {
     const columns: Column<any>[] = [
         {
             key: 'user_id',
-            header: t('admin.tableUser'),
+            header: t('admin:tableUser'),
             cell: (row) => (
                 <div className="flex items-center gap-4">
                     <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-muted">
@@ -109,7 +109,7 @@ export function AdminVerificationsView() {
                         )}
                     </div>
                     <div className="min-w-0 flex-1 space-y-0.5">
-                        <p className="font-bold text-foreground text-sm">{row.profile?.display_name || t('admin.anonymous')}</p>
+                        <p className="font-bold text-foreground text-sm">{row.profile?.display_name || t('admin:anonymous')}</p>
                         <p className="text-[10px] text-muted-foreground truncate max-w-[120px]">{row.user_id}</p>
                     </div>
                 </div>
@@ -117,12 +117,12 @@ export function AdminVerificationsView() {
         },
         {
             key: 'type',
-            header: t('admin.tableDocuments'),
+            header: t('admin:tableDocuments'),
             cell: (row) => (
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2 text-indigo-500">
                         <FileText className="h-4 w-4" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">{row.type.replace('_', ' ')}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest">{row.type.replace('_', ' ')}</span>
                     </div>
                     <div className="flex gap-1 overflow-x-auto max-w-[200px]">
                         {row.document_url && (
@@ -143,7 +143,7 @@ export function AdminVerificationsView() {
         },
         {
             key: 'created_at',
-            header: t('admin.tableRequested'),
+            header: t('admin:tableRequested'),
             sortable: true,
             cell: (row) => (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -154,10 +154,10 @@ export function AdminVerificationsView() {
         },
         {
             key: 'status',
-            header: t('admin.tableStatus'),
+            header: t('admin:tableStatus'),
             cell: (row) => (
                 <Badge variant="outline" className={cn(
-                    "px-2.5 py-0.5 border font-black text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6",
+                    "px-2.5 py-0.5 border font-bold text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6",
                     row.status === 'pending' ? 'bg-warning/10 text-warning border-warning/20' :
                         row.status === 'approved' ? 'bg-success/10 text-success border-success/20' :
                             'bg-destructive/10 text-destructive border-destructive/20'
@@ -168,13 +168,13 @@ export function AdminVerificationsView() {
                             row.status === 'approved' ? 'bg-success' :
                                 'bg-destructive'
                     )} />
-                    {t(`admin.${row.status}`)}
+                    {t(`admin:${row.status}`)}
                 </Badge>
             )
         },
         {
             key: 'actions',
-            header: t('admin.tableActions'),
+            header: t('admin:tableActions'),
             className: "text-right",
             cell: (row) => (
                 <div className="flex items-center justify-end gap-2">
@@ -184,8 +184,8 @@ export function AdminVerificationsView() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleAction(row.id, row.user_id, 'approved')}
-                                className="h-8 px-3 text-[10px] font-black uppercase tracking-widest bg-background hover:bg-success/5 hover:text-success hover:border-success/30 border-border/60 transition-all gap-1.5 rounded-lg"
-                                title={t('admin.approve')}
+                                className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest bg-background hover:bg-success/5 hover:text-success hover:border-success/30 border-border/60 transition-all gap-1.5 rounded-lg"
+                                title={t('admin:approve')}
                             >
                                 <CheckCircle2 className="h-4 w-4" />
                             </Button>
@@ -193,8 +193,8 @@ export function AdminVerificationsView() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleAction(row.id, row.user_id, 'rejected')}
-                                className="h-8 px-3 text-[10px] font-black uppercase tracking-widest bg-background hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 border-border/60 transition-all gap-1.5 rounded-lg"
-                                title={t('admin.reject')}
+                                className="h-8 px-3 text-[10px] font-bold uppercase tracking-widest bg-background hover:bg-destructive/5 hover:text-destructive hover:border-destructive/30 border-border/60 transition-all gap-1.5 rounded-lg"
+                                title={t('admin:reject')}
                             >
                                 <XCircle className="h-4 w-4" />
                             </Button>
@@ -209,12 +209,12 @@ export function AdminVerificationsView() {
         <div className="space-y-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase flex items-center gap-3">
                         <FileText className="h-8 w-8 text-primary" />
-                        {t('admin.identityChecks')}
+                        {t('admin:identityChecks')}
                     </h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
-                        {t('admin.reviewVerifyDocs')}
+                        {t('admin:reviewVerifyDocs')}
                     </p>
                 </div>
             </div>
@@ -226,9 +226,9 @@ export function AdminVerificationsView() {
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="rounded-lg px-4 py-2 text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[9px] font-bold uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
-                                {tab === 'all' ? t('common:all') : t(`admin.${tab}`)}
+                                {tab === 'all' ? t('common:all') : t(`admin:${tab}`)}
                             </TabsTrigger>
                         ))}
                     </TabsList>
@@ -255,7 +255,7 @@ export function AdminVerificationsView() {
                             setSortDirection('desc')
                         }
                     }}
-                    searchPlaceholder={t('admin.users')}
+                    searchPlaceholder={t('admin:users')}
                 />
             </motion.div>
         </div>

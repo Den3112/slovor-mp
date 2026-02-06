@@ -38,7 +38,7 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                         </p>
                     </div>
                     <Link
-                        href="/categories"
+                        href={`/${locale}/categories`}
                         className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary transition-all hover:opacity-80"
                     >
                         {t('common:viewAll')}
@@ -56,8 +56,8 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                             transition={{ duration: 0.5, delay: idx * 0.05 }}
                         >
                             <Link
-                                href={`/categories/${category.slug}`}
-                                className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-border bg-card p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/40 shadow-card active:scale-[0.98]"
+                                href={`/${locale}/categories/${category.slug}`}
+                                className="group flex flex-col items-center justify-center gap-4 rounded-2xl border border-border bg-card p-6 md:p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/40 shadow-card active:scale-[0.98]"
                             >
                                 <div className={cn(
                                     "flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground shadow-sm ring-4 ring-muted/30",
@@ -93,7 +93,7 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
                         <Link
-                            href="/categories"
+                            href={`/${locale}/categories`}
                             className="group flex flex-col items-center justify-center gap-6 rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center transition-all hover:-translate-y-1 hover:border-primary/50 hover:bg-primary/10 active:scale-[0.98]"
                         >
                             <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary text-white transition-all duration-300 shadow-lg shadow-primary/20">

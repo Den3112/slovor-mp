@@ -231,6 +231,16 @@ export interface ActivityLog {
   created_at: string
 }
 
+export interface AdminAction {
+  id: string
+  admin_id: string
+  target_id: string
+  target_type: 'listing' | 'user' | 'review'
+  action_type: 'approve' | 'reject' | 'ban' | 'verify'
+  reason: string | null
+  created_at: string
+}
+
 export interface Order {
   id: string
   buyer_id: string

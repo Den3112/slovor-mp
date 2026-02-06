@@ -53,7 +53,7 @@ export function SellerProfileView({
 
   // Calculate member since date
   const memberSince = new Date(seller.created_at).toLocaleDateString(
-    locale === 'sk' ? 'sk-SK' : locale === 'cs' ? 'cs-CZ' : 'en-US',
+    locale === 'sk' ? 'sk-SK' : locale === 'cs' ? 'cs-CZ' : locale === 'ru' ? 'ru-RU' : 'en-US',
     {
       month: 'long',
       year: 'numeric',
@@ -65,7 +65,7 @@ export function SellerProfileView({
 
   const handleContact = async () => {
     if (!user) {
-      router.push(`/auth/login?redirect=/seller/${seller.id}`)
+      router.push(`/${locale}/auth/login?redirect=/seller/${seller.id}`)
       return
     }
 
@@ -93,7 +93,7 @@ export function SellerProfileView({
       if (error) throw new Error(error)
 
       if (data) {
-        router.push(`/messages/${data.id}`)
+        router.push(`/${locale}/messages/${data.id}`)
       }
     } catch (error) {
       console.error('Failed to start conversation:', error)
@@ -109,11 +109,11 @@ export function SellerProfileView({
       {variant === 'public' && (
         <Container className="py-6 pt-24 md:pt-32">
           <Link
-            href="/listings"
+            href={`/${locale}/listings`}
             className="group text-muted-foreground hover:text-primary inline-flex items-center gap-2 text-sm font-bold transition-all"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            {t('common.backToSearch')}
+            {t('common:backToSearch')}
           </Link>
         </Container>
       )}
@@ -159,7 +159,7 @@ export function SellerProfileView({
                         <div className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-1">
                           <ShieldCheck className="h-3 w-3 text-blue-500" />
                           <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase">
-                            {t('trust.verified')}
+                            {t('trust:verified')}
                           </span>
                         </div>
                       )}
@@ -179,7 +179,7 @@ export function SellerProfileView({
                           {listings.length}
                         </p>
                         <p className="text-muted-foreground mt-1 text-[9px] font-bold tracking-widest uppercase opacity-60">
-                          {t('seller.activeListings')}
+                          {t('seller:activeListings')}
                         </p>
                       </div>
                       <div className="text-center p-4 bg-muted/30 rounded-xl border border-border/50">
@@ -190,7 +190,7 @@ export function SellerProfileView({
                           <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
                         </div>
                         <p className="text-muted-foreground mt-1 text-[9px] font-bold tracking-widest uppercase opacity-60">
-                          {t('seller.rating')}
+                          {t('seller:rating')}
                         </p>
                       </div>
                     </div>
@@ -208,7 +208,7 @@ export function SellerProfileView({
                       <div className="text-muted-foreground flex items-center justify-center gap-2 pt-2">
                         <Calendar className="h-3.5 w-3.5" />
                         <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">
-                          {t('seller.memberSince')} {memberSince}
+                          {t('seller:memberSince')} {memberSince}
                         </span>
                       </div>
                     </div>
@@ -229,10 +229,10 @@ export function SellerProfileView({
                   ) : (
                     <MessageCircle className="mr-2 h-5 w-5" />
                   )}
-                  {t('seller.contactSeller')}
+                  {t('seller:contactSeller')}
                 </Button>
               ) : (
-                <Link href="/dashboard/settings" className="block">
+                <Link href={`/${locale}/dashboard/settings`} className="block">
                   <Button
                     variant="outline"
                     size="xl"
@@ -252,10 +252,10 @@ export function SellerProfileView({
                     </div>
                     <div>
                       <p className="text-foreground text-sm font-bold uppercase tracking-tight">
-                        {t('trust.safetyTitle')}
+                        {t('trust:safetyTitle')}
                       </p>
                       <p className="text-muted-foreground mt-2 text-xs font-medium leading-relaxed">
-                        {t('trust.safetyTip1')}
+                        {t('trust:safetyTip1')}
                       </p>
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export function SellerProfileView({
             <div className="space-y-10 lg:col-span-8">
               <div className="flex items-center justify-between border-b border-border pb-6">
                 <h2 className="text-2xl font-bold tracking-tight uppercase">
-                  {t('seller.listings')}
+                  {t('seller:listings')}
                 </h2>
                 <span className="bg-muted text-muted-foreground rounded-lg px-3 py-1 text-[10px] font-bold tracking-widest uppercase border border-border">
                   {listings.length} items
@@ -288,8 +288,8 @@ export function SellerProfileView({
               ) : (
                 <EmptyState
                   icon="📦"
-                  title={t('seller.noListings')}
-                  description={t('seller.noListingsDescription')}
+                  title={t('seller:noListings')}
+                  description={t('seller:noListingsDescription')}
                 />
               )}
             </div>

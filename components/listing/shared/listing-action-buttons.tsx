@@ -59,7 +59,7 @@ export function ListingActionButtons({
         ) : (
           <MessageCircle className="mr-2 h-6 w-6" />
         )}
-        {t('listing.contactSeller')}
+        {t('listing:contactSeller')}
       </Button>
 
       {/* Tertiary Action: Call/Phone */}
@@ -72,7 +72,7 @@ export function ListingActionButtons({
           onClick={onCall}
         >
           <Phone className="text-primary h-5 w-5" />
-          {t('listing.callNow')}
+          {t('listing:callNow')}
         </Button>
       ) : (
         <div className="animate-in fade-in slide-in-from-top-2 space-y-3 duration-300">
@@ -94,10 +94,10 @@ export function ListingActionButtons({
             }
           >
             <MessageCircle className="mr-2 h-4 w-4" />
-            {t('listing.whatsapp')}
+            {t('listing:whatsapp')}
           </Button>
           <p className="text-muted-foreground mt-2 text-center text-[10px] font-bold tracking-widest uppercase opacity-60">
-            {t('listing.callRecommendation')}
+            {t('listing:callRecommendation')}
           </p>
         </div>
       )}

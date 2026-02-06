@@ -106,9 +106,9 @@ export function useCreateListing() {
   // Auth Check
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/auth/login')
+      router.push(`/${locale}/auth/login`)
     }
-  }, [user, authLoading, router])
+  }, [user, authLoading, router, locale])
 
   const updateField = <K extends keyof ListingFormData>(
     field: K,
@@ -214,9 +214,9 @@ export function useCreateListing() {
       setIsDirty(false)
 
       if (isEditing) {
-        router.push('/dashboard/listings')
+        router.push(`/${locale}/dashboard/listings`)
       } else {
-        router.push(`/listings/${res.data.id}`)
+        router.push(`/${locale}/listings/${res.data.id}`)
       }
       router.refresh()
     } catch (err) {
@@ -314,5 +314,6 @@ export function useCreateListing() {
     },
     t,
     router,
+    locale,
   }
 }

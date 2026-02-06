@@ -2,17 +2,18 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { getGeoByIp } from '@/lib/geo'
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/profile'
+  const next = searchParams.get('next') ?? `/${locale}/dashboard`
 
   if (code) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseAnonKey) {
-      return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+      return NextResponse.redirect(`${origin}/${locale}/auth/auth-code-error`)
     }
 
     const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
@@ -53,10 +54,15 @@ export async function GET(request: NextRequest) {
         console.error('Failed to log access during callback:', err)
       }
 
-      return NextResponse.redirect(`${origin}${next}`)
+      // Ensure next path is localized if it's an internal path
+      const redirectUrl = next.startsWith('/') && !next.startsWith(`/${locale}`)
+        ? `${origin}/${locale}${next === '/' ? '' : next}`
+        : `${origin}${next}`
+
+      return NextResponse.redirect(redirectUrl)
     }
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+  return NextResponse.redirect(`${origin}/${locale}/auth/auth-code-error`)
 }

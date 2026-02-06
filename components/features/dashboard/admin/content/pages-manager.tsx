@@ -101,7 +101,7 @@ export function PagesManager() {
         return (
             <div className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-300 shadow-sm">
                 <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-black italic">{editingPage.id ? t('admin:editPage') : t('admin:newPage')}</h3>
+                    <h3 className="text-xl font-bold ">{editingPage.id ? t('admin:editPage') : t('admin:newPage')}</h3>
                     <Button variant="ghost" size="sm" onClick={handleCancel} className="rounded-xl">
                         <X className="h-4 w-4" />
                     </Button>
@@ -110,7 +110,7 @@ export function PagesManager() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('admin:pageTitle')}</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('admin:pageTitle')}</label>
                             <Input
                                 value={editingPage.title || ''}
                                 onChange={e => setEditingPage({ ...editingPage, title: e.target.value })}
@@ -120,7 +120,7 @@ export function PagesManager() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('admin:urlSlug')}</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('admin:urlSlug')}</label>
                             <Input
                                 value={editingPage.slug || ''}
                                 onChange={e => setEditingPage({ ...editingPage, slug: e.target.value })}
@@ -132,7 +132,7 @@ export function PagesManager() {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('admin:pageContent')}</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('admin:pageContent')}</label>
                         <textarea
                             value={editingPage.content || ''}
                             onChange={e => setEditingPage({ ...editingPage, content: e.target.value })}
@@ -143,10 +143,10 @@ export function PagesManager() {
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4 border-t border-border/40">
-                        <Button variant="outline" type="button" onClick={handleCancel} className="rounded-xl px-6 h-11 text-[10px] font-black uppercase tracking-widest">
+                        <Button variant="outline" type="button" onClick={handleCancel} className="rounded-xl px-6 h-11 text-[10px] font-bold uppercase tracking-widest">
                             {t('common:cancel')}
                         </Button>
-                        <Button disabled={isSubmitting} className="rounded-xl px-8 h-11 font-black uppercase tracking-widest text-[10px] shadow-sm">
+                        <Button disabled={isSubmitting} className="rounded-xl px-8 h-11 font-bold uppercase tracking-widest text-[10px] shadow-sm">
                             {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
                             {editingPage.id ? t('admin:pageUpdated') : t('admin:pageCreated')}
                         </Button>
@@ -168,7 +168,7 @@ export function PagesManager() {
                         className="pl-12 h-11 rounded-xl bg-card border-border transition-all font-bold text-xs uppercase tracking-widest"
                     />
                 </div>
-                <Button onClick={handleCreate} className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 px-6">
+                <Button onClick={handleCreate} className="rounded-xl font-bold uppercase tracking-widest text-[10px] h-11 px-6">
                     <Plus className="mr-2 h-4 w-4" /> {t('admin:newPage')}
                 </Button>
             </div>
@@ -178,10 +178,10 @@ export function PagesManager() {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="bg-muted/10 border-b border-border/40">
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tablePageName')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:inputSlug')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableLastUpdated')}</th>
-                                <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableActions')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tablePageName')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:inputSlug')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tableLastUpdated')}</th>
+                                <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tableActions')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">

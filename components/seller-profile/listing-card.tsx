@@ -15,7 +15,7 @@ import type { Listing } from '@/lib/types/database'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { PriceDisplay } from '@/components/ui/price-display'
 
 interface DashboardListingCardProps {
@@ -90,6 +90,8 @@ export function DashboardListingCard({
   priority = false,
 }: DashboardListingCardProps) {
   const router = useRouter()
+  const params = useParams()
+  const locale = params?.locale as string || 'en'
   const [isDeleting, setIsDeleting] = useState(false)
   const [isToggling, setIsToggling] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -133,7 +135,7 @@ export function DashboardListingCard({
       <div className="group relative flex flex-col items-start gap-4 rounded-xl border border-border bg-card p-3 shadow-sm transition-all duration-300 hover:border-primary/50 hover:bg-accent/5 md:flex-row md:items-center md:gap-6 md:p-4">
         {/* Clickable Image Thumbnail */}
         <Link
-          href={`/listings/${listing.id}`}
+          href={`/${locale}/listings/${listing.id}`}
           className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-xl shadow-inner md:h-32 md:w-32"
         >
           {listing.images?.[0] ? (
@@ -156,13 +158,13 @@ export function DashboardListingCard({
 
         {/* Clickable Info */}
         <Link
-          href={`/listings/${listing.id}`}
+          href={`/${locale}/listings/${listing.id}`}
           className="w-full min-w-0 flex-1 space-y-2 px-1 py-1 md:px-0"
         >
           <div className="flex items-center gap-3">
             <span
               className={cn(
-                'rounded-full border px-3 py-1 text-[10px] font-black tracking-widest uppercase shadow-sm',
+                'rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase shadow-sm',
                 listing.status === 'active'
                   ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
                   : 'border-amber-500/20 bg-amber-500/10 text-amber-500'
@@ -177,11 +179,11 @@ export function DashboardListingCard({
           </div>
 
           <div>
-            <h3 className="font-heading text-foreground group-hover:text-primary mb-1 truncate text-xl leading-tight font-black transition-colors duration-300 md:text-2xl">
+            <h3 className="font-heading text-foreground group-hover:text-primary mb-1 truncate text-xl leading-tight font-bold transition-colors duration-300 md:text-2xl">
               {listing.title || 'Untitled Listing'}
             </h3>
             {listing.category?.name && (
-              <p className="text-primary/60 text-[10px] font-black tracking-widest uppercase">
+              <p className="text-primary/60 text-[10px] font-bold tracking-widest uppercase">
                 {listing.category.name}
               </p>
             )}
@@ -191,7 +193,7 @@ export function DashboardListingCard({
             <PriceDisplay
               amount={listing.price}
               baseCurrency={listing.currency}
-              className="text-foreground text-xl font-black tracking-tighter md:text-2xl"
+              className="text-foreground text-xl font-bold tracking-tighter md:text-2xl"
             />
             <div className="text-muted-foreground/70 flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] font-bold">
               <Eye className="h-3 w-3" />
@@ -203,7 +205,7 @@ export function DashboardListingCard({
         {/* Actions - Modern Pill Group */}
         <div className="mt-2 flex w-full items-center gap-2 rounded-xl border border-border/40 bg-muted/30 p-1 md:mt-0 md:w-auto md:border-none md:bg-transparent md:pl-4">
           <Link
-            href={`/post?edit=${listing.id}`}
+            href={`/${locale}/post?edit=${listing.id}`}
             title="Edit"
             className="flex-1 md:flex-none"
           >

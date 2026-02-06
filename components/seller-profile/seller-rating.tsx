@@ -18,7 +18,7 @@ export function SellerRating({
   sellerId,
   showReviewForm = true,
 }: SellerRatingProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'reviews'])
   const { user } = useAuth()
   const [ratingData, setRatingData] = useState<SellerRatingData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -74,7 +74,7 @@ export function SellerRating({
     if (error) {
       setSubmitMessage({ type: 'error', text: error })
     } else {
-      setSubmitMessage({ type: 'success', text: t('reviews.thankYou') })
+      setSubmitMessage({ type: 'success', text: t('reviews:thankYou') })
       setShowForm(false)
       setNewRating(0)
       setComment('')
@@ -100,7 +100,7 @@ export function SellerRating({
     <div className="border-border/60 bg-card space-y-6 rounded-xl border p-6 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold">{t('reviews.title')}</h3>
+        <h3 className="text-lg font-bold">{t('reviews:title')}</h3>
         {canReview && showReviewForm && !showForm && (
           <Button
             size="sm"
@@ -108,7 +108,7 @@ export function SellerRating({
             onClick={() => setShowForm(true)}
             className="rounded-xl"
           >
-            {t('reviews.writeReview')}
+            {t('reviews:writeReview')}
           </Button>
         )}
       </div>
@@ -133,12 +133,12 @@ export function SellerRating({
             {ratingData.averageRating}
           </span>
           <span className="text-muted-foreground text-sm">
-            {t('reviews.basedOn')} {ratingData.totalReviews}{' '}
-            {t('reviews.reviewsCount')}
+            {t('reviews:basedOn')} {ratingData.totalReviews}{' '}
+            {t('reviews:reviewsCount')}
           </span>
         </div>
       ) : (
-        <p className="text-muted-foreground text-sm">{t('reviews.noReviews')}</p>
+        <p className="text-muted-foreground text-sm">{t('reviews:noReviews')}</p>
       )}
 
       {/* Submit Message */}
@@ -160,7 +160,7 @@ export function SellerRating({
         <div className="bg-muted/20 space-y-4 rounded-xl p-4">
           <div>
             <label className="mb-2 block text-sm font-medium">
-              {t('reviews.yourRating')}
+              {t('reviews:yourRating')}
             </label>
             <div className="flex gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
@@ -187,7 +187,7 @@ export function SellerRating({
 
           <div>
             <label className="mb-2 block text-sm font-medium">
-              {t('reviews.yourComment')}
+              {t('reviews:yourComment')}
             </label>
             <textarea
               value={comment}
@@ -204,14 +204,14 @@ export function SellerRating({
               disabled={newRating === 0 || isSubmitting}
               className="rounded-xl"
             >
-              {isSubmitting ? '...' : t('reviews.submitReview')}
+              {isSubmitting ? '...' : t('reviews:submitReview')}
             </Button>
             <Button
               variant="ghost"
               onClick={() => setShowForm(false)}
               className="rounded-xl"
             >
-              {t('common.back')}
+              {t('common:back')}
             </Button>
           </div>
         </div>
@@ -220,7 +220,7 @@ export function SellerRating({
       {/* Already reviewed message */}
       {hasReviewed && !showForm && (
         <p className="text-muted-foreground text-sm">
-          {t('reviews.alreadyReviewed')}
+          {t('reviews:alreadyReviewed')}
         </p>
       )}
 

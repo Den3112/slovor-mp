@@ -91,7 +91,7 @@ export function LocaleWelcomeModal() {
               <Globe className="text-primary h-8 w-8" />
             </div>
             <div className="text-center">
-              <DialogTitle className="text-foreground mb-2 text-3xl font-black">
+              <DialogTitle className="text-foreground mb-2 text-3xl font-bold">
                 Welcome to Slovor! {PARTY}
               </DialogTitle>
               <DialogDescription className="text-muted-foreground text-base">

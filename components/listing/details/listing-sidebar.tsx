@@ -38,7 +38,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
 
     const handleContact = async () => {
         if (!user) {
-            router.push(`/auth/login?redirect=/listings/${listing.id}`)
+            router.push(`/${locale}/auth/login?redirect=/listings/${listing.id}`)
             return
         }
 
@@ -58,7 +58,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
             if (error) throw new Error(error)
 
             if (data) {
-                router.push(`/messages/${data.id}`)
+                router.push(`/${locale}/messages/${data.id}`)
             }
         } catch (error) {
             console.error('Failed to start conversation:', error)
@@ -79,7 +79,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
 
     const handleBuy = () => {
         if (!user) {
-            router.push(`/auth/login?redirect=/listings/${listing.id}`)
+            router.push(`/${locale}/auth/login?redirect=/listings/${listing.id}`)
             return
         }
 
@@ -133,7 +133,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                     {listing.user?.verified && (
                         <div className="flex items-center gap-1.5">
                             <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                            {t('trust.verified')}
+                            {t('trust:verified')}
                         </div>
                     )}
                 </div>
@@ -165,14 +165,14 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                         size="lg"
                         className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold uppercase tracking-widest text-[10px]"
                     >
-                        <Heart className="h-5 w-5" /> {t('listing.saveListing')}
+                        <Heart className="h-5 w-5" /> {t('listing:saveListing')}
                     </Button>
                     <Button
                         variant="ghost"
                         size="lg"
                         className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl font-bold uppercase tracking-widest text-[10px]"
                     >
-                        <Share2 className="h-5 w-5" /> {t('listing.shareListing')}
+                        <Share2 className="h-5 w-5" /> {t('listing:shareListing')}
                     </Button>
                 </div>
 
@@ -184,7 +184,7 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
                         className="text-destructive hover:text-destructive hover:bg-destructive/10 gap-2"
                     >
                         <Flag className="h-4 w-4" />
-                        {t('listing.reportListing')}
+                        {t('listing:reportListing')}
                     </Button>
                 </div>
 

@@ -19,7 +19,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
-import { ActivityChart } from '@/app/[locale]/(main)/admin/components/activity-chart'
+import { ActivityChart } from './activity-chart'
 
 export function AdminAnalyticsView() {
     const { t } = useTranslation(['common', 'admin'])
@@ -52,7 +52,7 @@ export function AdminAnalyticsView() {
             {/* Header */}
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase flex items-center gap-3">
                         <BarChart3 className="h-8 w-8 text-primary" />
                         {t('admin:analytics') || 'Analytics Dashboard'}
                     </h1>
@@ -66,7 +66,7 @@ export function AdminAnalyticsView() {
                             key={range}
                             onClick={() => setTimeRange(range)}
                             className={cn(
-                                "px-4 py-1.5 text-[10px] font-black uppercase tracking-widest transition-all rounded-lg",
+                                "px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all rounded-lg",
                                 timeRange === range
                                     ? "bg-background text-primary shadow-sm border border-border/40"
                                     : "text-muted-foreground hover:text-foreground"
@@ -91,15 +91,15 @@ export function AdminAnalyticsView() {
                                 <stat.icon className="h-4 w-4 text-primary" />
                             </div>
                             <Badge variant="outline" className={cn(
-                                "text-[9px] font-black uppercase tracking-widest rounded-md py-0.5",
+                                "text-[9px] font-bold uppercase tracking-widest rounded-md py-0.5",
                                 stat.positive ? "bg-success/10 text-success border-success/20" : "bg-destructive/10 text-destructive border-destructive/20"
                             )}>
                                 {stat.trend}
                             </Badge>
                         </div>
                         <div>
-                            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
-                            <h3 className="text-2xl font-black tracking-tight mt-1">{stat.value}</h3>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
+                            <h3 className="text-2xl font-bold tracking-tight mt-1">{stat.value}</h3>
                         </div>
                     </Card>
                 ))}
@@ -111,7 +111,7 @@ export function AdminAnalyticsView() {
                 <Card className="lg:col-span-2 border-border/60 shadow-sm rounded-xl overflow-hidden flex flex-col min-h-[400px]">
                     <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
                         <div className="flex items-center justify-between">
-                            <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                 <Zap className="h-4 w-4 text-primary" />
                                 User Traffic & Listings
                             </CardTitle>
@@ -126,7 +126,7 @@ export function AdminAnalyticsView() {
                 {/* Category Performance */}
                 <Card className="border-border/60 shadow-sm rounded-xl overflow-hidden flex flex-col">
                     <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
-                        <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                        <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                             <Layers className="h-4 w-4 text-primary" />
                             Category Performance
                         </CardTitle>
@@ -134,7 +134,7 @@ export function AdminAnalyticsView() {
                     <CardContent className="p-6 space-y-6">
                         {categoryPerformance.map((cat, idx) => (
                             <div key={idx} className="space-y-2">
-                                <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-widest">
+                                <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest">
                                     <span className="text-foreground">{cat.name}</span>
                                     <span className="text-muted-foreground">{cat.listings.toLocaleString()} Items</span>
                                 </div>
@@ -160,7 +160,7 @@ export function AdminAnalyticsView() {
                 {/* Geographical Distribution */}
                 <Card className="border-border/60 shadow-sm rounded-xl overflow-hidden">
                     <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
-                        <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                        <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                             <Map className="h-4 w-4 text-primary" />
                             Regional Insights
                         </CardTitle>
@@ -169,13 +169,13 @@ export function AdminAnalyticsView() {
                         {topRegions.map((region, idx) => (
                             <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-muted/20 border border-border/40">
                                 <div className="flex items-center gap-3">
-                                    <div className="h-8 w-8 rounded-lg bg-background flex items-center justify-center text-[10px] font-black border border-border/60 text-primary">
+                                    <div className="h-8 w-8 rounded-lg bg-background flex items-center justify-center text-[10px] font-bold border border-border/60 text-primary">
                                         {idx + 1}
                                     </div>
-                                    <span className="text-xs font-black uppercase tracking-tight">{region.name}</span>
+                                    <span className="text-xs font-bold uppercase tracking-tight">{region.name}</span>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-sm font-black">{region.value}</p>
+                                    <p className="text-sm font-bold">{region.value}</p>
                                     <p className="text-[9px] font-bold text-muted-foreground/60 uppercase">{region.share}% Share</p>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@ export function AdminAnalyticsView() {
                 {/* System Efficiency */}
                 <Card className="lg:col-span-2 border-border/60 shadow-sm rounded-xl overflow-hidden bg-slate-950 text-white border-none">
                     <CardHeader className="border-b border-white/5 bg-white/5 px-6 py-4">
-                        <CardTitle className="text-[10px] font-black uppercase tracking-widest text-white/40 flex items-center gap-2">
+                        <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-white/40 flex items-center gap-2">
                             <Zap className="h-4 w-4 text-success" />
                             Platform Infrastructure Health
                         </CardTitle>
@@ -195,8 +195,8 @@ export function AdminAnalyticsView() {
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                             <div className="space-y-4">
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-white/30">API Latency</span>
-                                    <span className="text-3xl font-black text-white italic">24ms</span>
+                                    <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">API Latency</span>
+                                    <span className="text-3xl font-bold text-white ">24ms</span>
                                 </div>
                                 <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                                     <div className="h-full w-[85%] bg-success" />
@@ -205,8 +205,8 @@ export function AdminAnalyticsView() {
                             </div>
                             <div className="space-y-4">
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-white/30">Server Load</span>
-                                    <span className="text-3xl font-black text-white italic">12.4%</span>
+                                    <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">Server Load</span>
+                                    <span className="text-3xl font-bold text-white ">12.4%</span>
                                 </div>
                                 <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                                     <div className="h-full w-[12%] bg-blue-400" />
@@ -215,8 +215,8 @@ export function AdminAnalyticsView() {
                             </div>
                             <div className="space-y-4">
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-white/30">Error Rate</span>
-                                    <span className="text-3xl font-black text-white italic">0.02%</span>
+                                    <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">Error Rate</span>
+                                    <span className="text-3xl font-bold text-white ">0.02%</span>
                                 </div>
                                 <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                                     <div className="h-full w-[2%] bg-emerald-400" />

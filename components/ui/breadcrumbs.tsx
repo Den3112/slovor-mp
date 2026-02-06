@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronRight, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n'
 
 export interface BreadcrumbsProps {
   items?: { label: string; href?: string }[]
@@ -13,6 +14,7 @@ export interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   const pathname = usePathname()
+  const { locale } = useTranslation()
 
   // if no items provided, auto-generate from pathname
   const breadcrumbs = items || pathname
@@ -32,7 +34,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb" className={cn("flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-muted-foreground/60", className)}>
       <Link
-        href="/"
+        href={`/${locale}/`}
         className="flex items-center hover:text-primary transition-colors duration-300"
       >
         <Home className="h-3.5 w-3.5" />
@@ -47,7 +49,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
 
             {isLast || !item.href ? (
               <span className={cn(
-                "font-black italic",
+                "font-bold ",
                 isLast ? "text-primary" : "text-muted-foreground"
               )}>
                 {item.label}

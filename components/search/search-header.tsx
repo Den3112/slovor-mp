@@ -13,10 +13,10 @@ export function SearchHeader({ query }: SearchHeaderProps) {
   return (
     <div className="bg-card border-b py-8">
       <Container>
-        <h1 className="text-foreground mb-2 text-3xl font-black">
+        <h1 className="text-foreground mb-2 text-3xl font-bold">
           {query
-            ? `${t('common.searchResultsFor')} "${query}"`
-            : t('common.allListings')}
+            ? `${t('common:searchResultsFor')} "${query}"`
+            : t('common:allListings')}
         </h1>
       </Container>
     </div>

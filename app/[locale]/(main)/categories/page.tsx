@@ -26,7 +26,7 @@ export default async function CategoriesPage() {
     <main className="min-h-screen bg-background pb-20 md:pb-32">
       <Container className="pt-24 md:pt-32">
         <div className="mx-auto mb-10 max-w-4xl text-center md:mb-20">
-          <h1 className="font-heading text-foreground mb-4 text-4xl leading-[1.05] font-black tracking-tight md:mb-8 md:text-8xl italic uppercase">
+          <h1 className="font-heading text-foreground mb-4 text-4xl leading-[1.05] font-bold tracking-tight md:mb-8 md:text-8xl  uppercase">
             {t('categories:pageTitle')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed font-medium md:text-2xl">

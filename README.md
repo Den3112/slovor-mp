@@ -59,20 +59,20 @@ cd slovor-mp
 git checkout dev
 
 # Install dependencies
-npm install
+pnpm install
 
 # Setup environment
 cp .env.example .env.local
 # Edit .env.local with your Supabase credentials
 
 # Run development server
-npm run dev
+pnpm dev
 
 # Run verification (Lint, Types, Build)
-npm run verify
+pnpm verify
 
 # Run Tests
-npm test
+pnpm test
 ```
 
 Open [http://localhost:3000](http://localhost:3000)

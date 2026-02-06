@@ -69,35 +69,35 @@ export function VerificationView() {
     const steps = [
         {
             id: 'email',
-            title: t('verification.emailTitle'),
-            description: t('verification.emailDesc'),
+            title: t('verification:emailTitle'),
+            description: t('verification:emailDesc'),
             icon: Mail,
             isVerified: status?.email,
-            statusLabel: status?.email ? t('verification.verified') : t('verification.notVerified'),
+            statusLabel: status?.email ? t('verification:verified') : t('verification:notVerified'),
             color: 'blue',
         },
         {
             id: 'phone',
-            title: t('verification.phoneTitle'),
-            description: t('verification.phoneDesc'),
+            title: t('verification:phoneTitle'),
+            description: t('verification:phoneDesc'),
             icon: Phone,
             isVerified: status?.phone,
-            statusLabel: status?.phone ? t('verification.verified') : t('verification.notVerified'),
+            statusLabel: status?.phone ? t('verification:verified') : t('verification:notVerified'),
             color: 'emerald',
         },
         {
             id: 'documents',
-            title: t('verification.idTitle'),
-            description: t('verification.idDesc'),
+            title: t('verification:idTitle'),
+            description: t('verification:idDesc'),
             icon: FileText,
             isVerified: status?.documents === 'verified',
             isPending: status?.documents === 'pending',
             isRejected: status?.documents === 'rejected',
             statusLabel:
-                status?.documents === 'verified' ? t('verification.verified') :
-                    status?.documents === 'pending' ? t('verification.pending') :
-                        status?.documents === 'rejected' ? t('verification.rejected') :
-                            t('verification.notVerified'),
+                status?.documents === 'verified' ? t('verification:verified') :
+                    status?.documents === 'pending' ? t('verification:pending') :
+                        status?.documents === 'rejected' ? t('verification:rejected') :
+                            t('verification:notVerified'),
             color: 'indigo',
         },
     ]
@@ -107,11 +107,11 @@ export function VerificationView() {
             {/* Premium Header - Solid */}
             <div className="group relative flex flex-col gap-4 overflow-hidden rounded-xl border border-border bg-card p-6 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
                 <div className="relative z-10 space-y-1">
-                    <h1 className="text-3xl font-black uppercase tracking-tight text-foreground">
-                        {t('verification.title')}
+                    <h1 className="text-3xl font-bold uppercase tracking-tight text-foreground">
+                        {t('verification:title')}
                     </h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        {t('verification.subtitle')}
+                        {t('verification:subtitle')}
                     </p>
                 </div>
                 <div className="relative z-10">
@@ -154,18 +154,18 @@ export function VerificationView() {
                                 <div className="flex items-center gap-3">
                                     <h3 className="text-xl font-bold text-foreground">{step.title}</h3>
                                     {step.isVerified && (
-                                        <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-black tracking-widest text-emerald-500 uppercase">
-                                            {t('verification.verified')}
+                                        <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold tracking-widest text-emerald-500 uppercase">
+                                            {t('verification:verified')}
                                         </span>
                                     )}
                                     {step.isPending && (
-                                        <span className="flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-black tracking-widest text-amber-500 uppercase">
-                                            {t('verification.pending')}
+                                        <span className="flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold tracking-widest text-amber-500 uppercase">
+                                            {t('verification:pending')}
                                         </span>
                                     )}
                                     {step.isRejected && (
-                                        <span className="flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-black tracking-widest text-destructive uppercase">
-                                            {t('verification.rejected')}
+                                        <span className="flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-bold tracking-widest text-destructive uppercase">
+                                            {t('verification:rejected')}
                                         </span>
                                     )}
                                 </div>
@@ -179,18 +179,18 @@ export function VerificationView() {
                                 {step.isVerified ? (
                                     <div className="flex items-center gap-2 text-emerald-500">
                                         <CheckCircle2 className="h-6 w-6" />
-                                        <span className="font-bold">{t('verification.verified')}</span>
+                                        <span className="font-bold">{t('verification:verified')}</span>
                                     </div>
                                 ) : step.isPending ? (
                                     <div className="flex items-center gap-2 text-amber-500">
                                         <Clock className="h-6 w-6" />
-                                        <span className="font-bold">{t('verification.pending')}</span>
+                                        <span className="font-bold">{t('verification:pending')}</span>
                                     </div>
                                 ) : step.isRejected ? (
                                     <Button
                                         onClick={() => setShowingUploadModal(true)}
                                         variant="destructive"
-                                        className="rounded-xl px-6 font-black uppercase tracking-widest shadow-sm"
+                                        className="rounded-xl px-6 font-bold uppercase tracking-widest shadow-sm"
                                     >
                                         {t('common:tryAgain')}
                                         <ChevronRight className="ml-2 h-4 w-4" />
@@ -199,9 +199,9 @@ export function VerificationView() {
                                     <Button
                                         onClick={step.id === 'documents' ? () => setShowingUploadModal(true) : undefined}
                                         disabled={isSubmitting}
-                                        className="rounded-xl px-6 font-black uppercase tracking-widest shadow-sm"
+                                        className="rounded-xl px-6 font-bold uppercase tracking-widest shadow-sm"
                                     >
-                                        {t('verification.start')}
+                                        {t('verification:start')}
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 )}
@@ -216,9 +216,9 @@ export function VerificationView() {
                 <div className="flex gap-4">
                     <AlertCircle className="h-6 w-6 shrink-0 text-blue-500" />
                     <div className="space-y-2">
-                        <h4 className="text-lg font-bold text-foreground">{t('verification.whyVerify')}</h4>
+                        <h4 className="text-lg font-bold text-foreground">{t('verification:whyVerify')}</h4>
                         <p className="text-muted-foreground text-sm font-medium leading-relaxed">
-                            {t('verification.whyVerifyDesc')}
+                            {t('verification:whyVerifyDesc')}
                         </p>
                     </div>
                 </div>
@@ -234,7 +234,7 @@ export function VerificationView() {
                     >
                         <div className="p-8 space-y-6">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-2xl font-black italic tracking-tight">{t('verification.idTitle')}</h2>
+                                <h2 className="text-2xl font-bold  tracking-tight">{t('verification:idTitle')}</h2>
                                 <Button variant="ghost" size="icon" onClick={() => setShowingUploadModal(false)} className="rounded-lg">
                                     <ChevronRight className="rotate-90" />
                                 </Button>
@@ -281,7 +281,7 @@ export function VerificationView() {
                                     Cancel
                                 </Button>
                                 <Button
-                                    className="flex-1 rounded-xl h-12 font-black tracking-widest uppercase text-xs"
+                                    className="flex-1 rounded-xl h-12 font-bold tracking-widest uppercase text-xs"
                                     onClick={handleSubmitDocs}
                                     disabled={isSubmitting}
                                 >

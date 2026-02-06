@@ -22,7 +22,7 @@ interface ListingRowActionsProps {
 
 export function ListingRowActions({ listing }: ListingRowActionsProps) {
     const router = useRouter()
-    const { t } = useTranslation(['common', 'dashboard'])
+    const { t, locale } = useTranslation(['common', 'dashboard'])
 
     const handleDelete = async () => {
         try {
@@ -42,9 +42,9 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
                     asChild
                     variant="outline"
                     size="sm"
-                    className="hidden sm:flex h-8 px-3 rounded-lg border-primary/20 bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all text-[10px] font-black uppercase tracking-widest gap-2"
+                    className="hidden sm:flex h-8 px-3 rounded-lg border-primary/20 bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all text-[10px] font-bold uppercase tracking-widest gap-2"
                 >
-                    <Link href={`/listings/${listing.id}/promote`}>
+                    <Link href={`/${locale}/listings/${listing.id}/promote`}>
                         <TrendingUp className="h-3.5 w-3.5" />
                         {t('dashboard:promote.title') || 'Promote'}
                     </Link>
@@ -63,13 +63,13 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[180px] p-1.5 rounded-xl border-border/60 shadow-xl">
                     <DropdownMenuItem asChild className="rounded-lg h-10 px-3 cursor-pointer">
-                        <Link href={`/listings/${listing.id}`} target="_blank">
+                        <Link href={`/${locale}/listings/${listing.id}`} target="_blank">
                             <Eye className="mr-2 h-4 w-4 text-muted-foreground" />
                             <span className="text-[11px] font-bold uppercase tracking-wider">{t('common:view')}</span>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild className="rounded-lg h-10 px-3 cursor-pointer">
-                        <Link href={`/post?edit=${listing.id}`}>
+                        <Link href={`/${locale}/post?edit=${listing.id}`}>
                             <SquarePen className="mr-2 h-4 w-4 text-muted-foreground" />
                             <span className="text-[11px] font-bold uppercase tracking-wider">{t('common:edit')}</span>
                         </Link>
@@ -77,9 +77,9 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
 
                     {listing.status === 'active' && (
                         <DropdownMenuItem asChild className="rounded-lg h-10 px-3 cursor-pointer text-primary bg-primary/5 focus:bg-primary focus:text-white">
-                            <Link href={`/listings/${listing.id}/promote`}>
+                            <Link href={`/${locale}/listings/${listing.id}/promote`}>
                                 <TrendingUp className="mr-2 h-4 w-4" />
-                                <span className="text-[11px] font-black uppercase tracking-widest">{t('dashboard:promote.title') || 'Promote'}</span>
+                                <span className="text-[11px] font-bold uppercase tracking-widest">{t('dashboard:promote.title') || 'Promote'}</span>
                             </Link>
                         </DropdownMenuItem>
                     )}

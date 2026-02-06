@@ -7,9 +7,12 @@ import Link from 'next/link'
 import { formatPrice } from '@/lib/utils'
 import { History } from 'lucide-react'
 import { Container } from '@/components/ui/container'
+import { useParams } from 'next/navigation'
 
 export function RecentlyViewed() {
   const { items } = useRecentlyViewed()
+  const params = useParams()
+  const locale = params?.locale as string || 'en'
 
   if (items.length === 0) return null
 
@@ -25,7 +28,7 @@ export function RecentlyViewed() {
           {items.map((item) => (
             <Link
               key={item.id}
-              href={`/listings/${item.id}`}
+              href={`/${locale}/listings/${item.id}`}
               className="group w-[200px] flex-none snap-start"
             >
               <Card className="border-border/50 bg-card hover:border-primary/20 h-full overflow-hidden transition-all hover:shadow-md">

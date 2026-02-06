@@ -56,7 +56,7 @@ export function Footer() {
 
   const navGroups = [
     {
-      title: t('footer.popular'),
+      title: t('footer:popular'),
       links: topCategories.map((cat) => ({
         label: getLocalizedCategoryName(cat, locale, t),
         href: `/${locale}/categories/${cat.slug}`,
@@ -73,16 +73,16 @@ export function Footer() {
         ],
     },
     {
-      title: t('footer.info'),
+      title: t('footer:info'),
       links: [
-        { label: t('footer.about'), href: `/${locale}/about` },
+        { label: t('footer:about'), href: `/${locale}/about` },
         ...dynamicPages.filter(p => !['about', 'terms', 'privacy', 'faq'].includes(p.slug)).map(p => ({
           label: p.title,
           href: `/${locale}/${p.slug}`
         })),
-        { label: t('footer.faq'), href: `/${locale}/faq` },
-        { label: t('footer.terms'), href: `/${locale}/terms` },
-        { label: t('footer.privacy'), href: `/${locale}/privacy` },
+        { label: t('footer:faq'), href: `/${locale}/faq` },
+        { label: t('footer:terms'), href: `/${locale}/terms` },
+        { label: t('footer:privacy'), href: `/${locale}/privacy` },
       ],
     },
   ]
@@ -97,11 +97,11 @@ export function Footer() {
 
   if (isDashboard) {
     return (
-      <footer className="border-t border-border bg-background pt-8 pb-20 md:py-8 text-muted-foreground">
+      <footer className="border-t border-border bg-background pt-8 pb-32 md:pb-8 text-muted-foreground">
         <Container>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-xs font-bold tracking-wider text-muted-foreground uppercase">
-              © {new Date().getFullYear()} Slovor Marketplace. {t('footer.rights')}.
+              © {new Date().getFullYear()} Slovor Marketplace. {t('footer:rights')}.
             </p>
             <div className="flex gap-4">
               <Link
@@ -109,14 +109,14 @@ export function Footer() {
                 className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase hover:text-primary"
                 data-testid="footer-dashboard-terms"
               >
-                {t('footer.transparency') || 'Transparency'}
+                {t('footer:transparency') || 'Transparency'}
               </Link>
               <Link
                 href={`/${locale}/privacy`}
                 className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase hover:text-primary"
                 data-testid="footer-dashboard-privacy"
               >
-                {t('footer.privacyPolicy') || 'Privacy Policy'}
+                {t('footer:privacyPolicy') || 'Privacy Policy'}
               </Link>
             </div>
           </div>
@@ -126,14 +126,14 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border bg-muted/30 pt-16 pb-20 text-muted-foreground md:pt-20 md:pb-12">
+    <footer className="border-t border-border bg-muted/30 pt-16 pb-32 text-muted-foreground md:pt-20 md:pb-12">
       <Container>
         <div className="mb-12 grid grid-cols-1 gap-8 md:mb-16 md:grid-cols-2 md:gap-12 lg:mb-20 lg:grid-cols-12 lg:gap-12">
           {/* Brand Info */}
           <div className="space-y-6 lg:col-span-4">
             <Logo size="lg" />
             <p className="max-w-xs text-base leading-relaxed font-medium text-muted-foreground">
-              {t('footer.description')}
+              {t('footer:description')}
             </p>
             <div className="flex gap-3">
               {[
@@ -228,10 +228,10 @@ export function Footer() {
         <div className="group mb-12 flex flex-col items-center justify-between gap-6 rounded-xl border border-border bg-card p-6 shadow-sm transition-colors duration-500 md:mb-16 md:gap-8 md:p-8 lg:mb-20 lg:flex-row lg:p-10">
           <div className="w-full text-center lg:max-w-md lg:text-left">
             <h3 className="mb-2 text-xl font-bold text-foreground md:text-2xl">
-              {t('footer.newsletterTitle')}
+              {t('footer:newsletterTitle')}
             </h3>
             <p className="text-base font-medium text-muted-foreground">
-              {t('footer.newsletterSubtitle')}
+              {t('footer:newsletterSubtitle')}
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 lg:max-w-md lg:flex-row">
@@ -239,12 +239,12 @@ export function Footer() {
               <Mail className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="email"
-                placeholder={t('footer.newsletterPlaceholder')}
+                placeholder={t('footer:newsletterPlaceholder')}
                 className="w-full rounded-xl border border-input bg-background/50 py-3.5 pr-4 pl-11 text-base font-medium text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
               />
             </div>
             <button className="bg-primary hover:bg-primary/90 h-12 w-full shrink-0 rounded-xl px-6 text-base font-bold text-primary-foreground shadow-md transition-all active:scale-95 lg:w-auto">
-              {t('footer.subscribe')}
+              {t('footer:subscribe')}
             </button>
           </div>
         </div>
@@ -253,7 +253,7 @@ export function Footer() {
         <div className="border-t border-border pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-xs font-bold tracking-wider text-muted-foreground uppercase">
-              © {new Date().getFullYear()} Slovor Marketplace. {t('footer.rights')}.
+              © {new Date().getFullYear()} Slovor Marketplace. {t('footer:rights')}.
             </p>
             <div className="flex items-center gap-6">
               <span className="flex h-6 items-center gap-2 rounded-lg bg-muted px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider border border-border/50">
@@ -268,14 +268,14 @@ export function Footer() {
                   className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase hover:text-primary"
                   data-testid="footer-terms-link"
                 >
-                  {t('footer.transparency') || 'Transparency'}
+                  {t('footer:transparency') || 'Transparency'}
                 </Link>
                 <Link
                   href={`/${locale}/privacy`}
                   className="text-[10px] font-bold tracking-wider text-muted-foreground uppercase hover:text-primary"
                   data-testid="footer-privacy-link"
                 >
-                  {t('footer.privacyPolicy') || 'Privacy Policy'}
+                  {t('footer:privacyPolicy') || 'Privacy Policy'}
                 </Link>
               </div>
             </div>

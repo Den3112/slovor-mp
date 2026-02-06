@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from '@/lib/i18n'
 
 interface FavoriteButtonProps {
   listingId: string
@@ -34,6 +35,7 @@ export function FavoriteButton({
 }: FavoriteButtonProps) {
   const [isFavorited, setIsFavorited] = useState(initialIsFavorited)
   const [isLoading, setIsLoading] = useState(false)
+  const { locale } = useTranslation()
   const router = useRouter()
   const supabase = createClient()
 
@@ -73,7 +75,7 @@ export function FavoriteButton({
     if (!user) {
       setIsFavorited(previousState)
       setIsLoading(false)
-      router.push('/auth/login')
+      router.push(`/${locale}/auth/login`)
       return
     }
 

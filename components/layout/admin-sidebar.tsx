@@ -26,15 +26,15 @@ interface AdminSidebarProps {
 export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
     const pathname = usePathname()
     const router = useRouter()
-    const { t } = useTranslation('common')
+    const { t, locale } = useTranslation('common')
 
     const links = [
-        { href: '/admin', label: t('admin.dashboard'), icon: LayoutDashboard },
-        { href: '/admin/listings', label: t('admin.moderation'), icon: ShieldCheck },
-        { href: '/admin/users', label: t('admin.users'), icon: Users },
-        { href: '/admin/reports', label: t('admin.reports'), icon: AlertTriangle },
-        { href: '/admin/verifications', label: t('admin.verifications'), icon: FileCheck },
-        { href: '/admin/content', label: t('admin.content'), icon: FileText },
+        { href: '/admin', label: t('admin:dashboard'), icon: LayoutDashboard },
+        { href: '/admin/listings', label: t('admin:moderation'), icon: ShieldCheck },
+        { href: '/admin/users', label: t('admin:users'), icon: Users },
+        { href: '/admin/reports', label: t('admin:reports'), icon: AlertTriangle },
+        { href: '/admin/verifications', label: t('admin:verifications'), icon: FileCheck },
+        { href: '/admin/content', label: t('admin:content'), icon: FileText },
     ]
 
     const isActive = (href: string) => {
@@ -46,7 +46,7 @@ export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
     const handleSignOut = async () => {
         const supabase = createClient()
         await supabase.auth.signOut()
-        router.push('/')
+        router.push(`/${locale}/`)
         onNavigate?.()
     }
 
@@ -54,7 +54,7 @@ export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
         <aside className={cn("flex flex-col h-fit overflow-hidden bg-card border-r border-border", className)}>
             <div className="flex h-16 items-center px-6 border-b border-border bg-card">
                 <span className="font-heading text-lg font-bold tracking-tight text-foreground">
-                    {t('admin.panel')}
+                    {t('admin:panel')}
                 </span>
             </div>
 
@@ -67,7 +67,7 @@ export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
                         return (
                             <Link
                                 key={index}
-                                href={link.href}
+                                href={`/${locale}${link.href}`}
                                 className={cn(
                                     'group relative flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-bold transition-all duration-200 border border-transparent',
                                     active
@@ -93,7 +93,7 @@ export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
                     className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-bold text-rose-600 transition-all duration-200 hover:bg-rose-50"
                 >
                     <LogOut className="h-4 w-4" />
-                    {t('admin.signOut')}
+                    {t('admin:signOut')}
                 </button>
             </div>
         </aside >

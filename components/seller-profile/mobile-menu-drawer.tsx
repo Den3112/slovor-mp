@@ -72,7 +72,7 @@ export function MobileMenuDrawer({
   const handleSignOut = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push('/')
+    router.push(`/${locale}/`)
     router.refresh()
   }
 
@@ -207,7 +207,7 @@ export function MobileMenuDrawer({
                       return (
                         <Link
                           key={item.href}
-                          href={item.href}
+                          href={`/${locale}${item.href}`}
                           onClick={() => setOpenAction?.(false)}
                           className={cn(
                             'relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all active:scale-95',

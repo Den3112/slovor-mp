@@ -1,7 +1,23 @@
-'use client'
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import { Loader2 } from 'lucide-react'
 
-import { SettingsView } from '@/components/features/dashboard/user/settings-view'
+const SettingsView = dynamic(() => import('@/components/features/dashboard/user/settings-view').then(mod => mod.SettingsView), {
+  loading: () => (
+    <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
+  )
+})
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/')
+  }
+
   return <SettingsView />
 }

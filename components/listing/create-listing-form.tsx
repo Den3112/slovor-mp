@@ -21,7 +21,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
 
 function CreateListingFormContent() {
-  const { state, actions, flags, t } = useCreateListing()
+  const { state, actions, flags, t, locale } = useCreateListing()
   const router = useRouter()
   const { user, isLoading: authLoading } = useAuth()
   console.log('CreateListingForm: RENDER', { user: !!user, authLoading });
@@ -73,7 +73,7 @@ function CreateListingFormContent() {
           variant="ghost"
           size="icon"
           onClick={() =>
-            step > 1 && !showPreview ? prevStep() : router.push('/')
+            step > 1 && !showPreview ? prevStep() : router.push(`/${locale}/`)
           }
           className="rounded-full"
         >
@@ -269,7 +269,7 @@ function CreateListingFormContent() {
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                  t('createListing.publish')
+                  t('createListing:publish')
                 )}
               </Button>
             </div>

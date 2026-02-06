@@ -64,7 +64,7 @@ export function ActiveFilters() {
 
     return (
         <div className="flex flex-wrap items-center gap-2 mb-6">
-            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mr-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mr-1">
                 {t('filters:activeFilters') || 'Active'}:
             </span>
 
@@ -73,7 +73,7 @@ export function ActiveFilters() {
                     key={filter.key}
                     className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 py-1.5 px-3 rounded-lg flex items-center gap-2 group cursor-default transition-all"
                 >
-                    <span className="text-[10px] font-black uppercase tracking-tight">
+                    <span className="text-[10px] font-bold uppercase tracking-tight">
                         {filter.label}
                     </span>
                     <button
@@ -88,7 +88,7 @@ export function ActiveFilters() {
 
             <button
                 onClick={clearAll}
-                className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-destructive transition-colors ml-2"
+                className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-destructive transition-colors ml-2"
             >
                 {t('common:clearAll')}
             </button>

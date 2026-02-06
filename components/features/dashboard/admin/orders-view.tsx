@@ -18,7 +18,7 @@ interface AdminOrdersViewProps {
 }
 
 export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
-    const { t } = useTranslation(['common', 'admin'])
+    const { t, locale } = useTranslation(['common', 'admin'])
     const [orders, setOrders] = useState(initialOrders)
     const [searchQuery, setSearchQuery] = useState('')
 
@@ -46,7 +46,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
             key: 'id',
             header: 'Order ID',
             cell: (row: any) => (
-                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                     #{row.id.split('-')[0]}
                 </span>
             )
@@ -57,7 +57,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
             cell: (row: any) => (
                 <div className="flex flex-col">
                     <span className="font-bold text-sm truncate max-w-[150px]">{row.listing?.title || 'Unknown'}</span>
-                    <span className="text-[9px] text-muted-foreground font-black uppercase tracking-widest">ID: #{row.listing_id.split('-')[0]}</span>
+                    <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest">ID: #{row.listing_id.split('-')[0]}</span>
                 </div>
             )
         },
@@ -85,7 +85,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
             key: 'amount',
             header: 'Amount',
             cell: (row: any) => (
-                <span className="font-black text-sm tracking-tight text-primary">
+                <span className="font-bold text-sm tracking-tight text-primary">
                     {formatPrice(row.amount, row.currency)}
                 </span>
             )
@@ -111,7 +111,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
                     <Badge
                         variant="outline"
                         className={cn(
-                            "px-2.5 py-0.5 border font-black text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6",
+                            "px-2.5 py-0.5 border font-bold text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6",
                             statusStyles[row.status as keyof typeof statusStyles] || "bg-muted text-muted-foreground border-border/40"
                         )}
                     >
@@ -158,7 +158,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
                         </>
                     )}
                     <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg bg-background hover:bg-muted" asChild>
-                        <Link href={`/admin/orders/${row.id}`}>
+                        <Link href={`/${locale}/admin/orders/${row.id}`}>
                             <Eye className="h-4 w-4" />
                         </Link>
                     </Button>
@@ -171,7 +171,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3">
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase flex items-center gap-3">
                         <Package className="h-8 w-8 text-primary" />
                         {t('admin:marketplaceTransactions') || 'Marketplace Transactions'}
                     </h1>

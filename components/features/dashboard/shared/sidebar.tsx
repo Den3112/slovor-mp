@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { LogOut, ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { Logo } from '@/components/ui/logo'
 
 // --- Types ---
@@ -48,6 +48,8 @@ export function UnifiedSidebar({
 }: UnifiedSidebarProps) {
     const pathname = usePathname()
     const router = useRouter()
+    const params = useParams()
+    const locale = params?.locale as string || 'en'
 
 
     const isActiveLink = (href: string) => {
@@ -61,7 +63,7 @@ export function UnifiedSidebar({
     const handleSignOut = async () => {
         const supabase = createClient()
         await supabase.auth.signOut()
-        router.push('/')
+        router.push(`/${locale}/`)
         router.refresh()
     }
 
@@ -109,11 +111,14 @@ export function UnifiedSidebar({
                                 {section.items.map((link) => {
                                     const Icon = link.icon
                                     const active = isActiveLink(link.href)
+                                    const localizedHref = link.href.startsWith('http') || link.external
+                                        ? link.href
+                                        : `/${locale}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 
                                     return (
                                         <Link
                                             key={link.href}
-                                            href={link.href}
+                                            href={localizedHref}
                                             onClick={onNavigate}
                                             className={cn(
                                                 'group flex items-center gap-3 px-4 py-3 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all relative overflow-hidden',

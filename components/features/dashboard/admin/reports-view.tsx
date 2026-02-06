@@ -21,7 +21,7 @@ import { motion } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export function AdminReportsView() {
-    const { t } = useTranslation('common')
+    const { t, locale } = useTranslation(['common', 'admin'])
     const [reports, setReports] = useState<ReportWithDetails[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [searchQuery, setSearchQuery] = useState('')
@@ -98,7 +98,7 @@ export function AdminReportsView() {
                             {row.listing?.title || t('admin:unknownListing')}
                         </p>
                         <Link
-                            href={`/listings/${row.listing_id}`}
+                            href={`/${locale}/listings/${row.listing_id}`}
                             target="_blank"
                             className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1.5 hover:text-primary/80 transition-colors"
                         >
@@ -113,7 +113,7 @@ export function AdminReportsView() {
             header: t('admin:tableReason'),
             cell: (row) => (
                 <div className="space-y-1.5 max-w-[320px]">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-destructive/80 leading-none">{row.reason}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-destructive/80 leading-none">{row.reason}</p>
                     <p className="text-xs font-medium text-muted-foreground/80 line-clamp-2 leading-relaxed">{row.description}</p>
                 </div>
             )
@@ -151,7 +151,7 @@ export function AdminReportsView() {
                 const currentStatus = row.status as keyof typeof statusStyles
 
                 return (
-                    <Badge variant="outline" className={cn("px-2.5 py-0.5 border font-black text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6", statusStyles[currentStatus] || statusStyles.dismissed)}>
+                    <Badge variant="outline" className={cn("px-2.5 py-0.5 border font-bold text-[9px] uppercase tracking-widest rounded-md gap-1.5 flex items-center w-fit h-6", statusStyles[currentStatus] || statusStyles.dismissed)}>
                         <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", dotStyles[currentStatus] || dotStyles.dismissed)} />
                         {t(`admin:${row.status}`)}
                     </Badge>
@@ -195,7 +195,7 @@ export function AdminReportsView() {
         <div className="space-y-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div className="space-y-1">
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin:reportsTitle')}</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase">{t('admin:reportsTitle')}</h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                         <AlertTriangle className="h-3.5 w-3.5 text-destructive" />
                         {t('admin:reviewResolveComplaints')}
@@ -210,7 +210,7 @@ export function AdminReportsView() {
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="rounded-lg px-4 py-2 text-[9px] font-black uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
+                                className="rounded-lg px-4 py-2 text-[9px] font-bold uppercase tracking-widest data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
                             >
                                 {tab === 'all' ? t('common:all') : t(`admin:${tab}`)}
                             </TabsTrigger>

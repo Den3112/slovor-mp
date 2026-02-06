@@ -71,7 +71,7 @@ export function StepDetails({
           className="flex-1"
         >
           <div className="relative">
-            <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-black">
+            <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-bold">
               €
             </span>
             <input
@@ -80,7 +80,7 @@ export function StepDetails({
               onChange={(e) => updateField('price', e.target.value)}
               className={cn(
                 inputClasses(!!fieldErrors.price),
-                'h-16 pr-6 pl-12 text-2xl font-black tracking-tight'
+                'h-16 pr-6 pl-12 text-2xl font-bold tracking-tight'
               )}
               placeholder="0"
             />
@@ -88,10 +88,10 @@ export function StepDetails({
         </FormField>
 
         <div className="pointer-events-none w-full space-y-2.5 opacity-50 grayscale md:w-32">
-          <label className="text-muted-foreground/80 ml-1 text-[10px] font-black tracking-[0.2em] uppercase">
+          <label className="text-muted-foreground/80 ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('currency')}
           </label>
-          <div className="text-muted-foreground flex h-16 items-center justify-center rounded-xl border border-border bg-muted/50 font-black">
+          <div className="text-muted-foreground flex h-16 items-center justify-center rounded-xl border border-border bg-muted/50 font-bold">
             EUR
           </div>
         </div>
@@ -124,7 +124,7 @@ export function StepDetails({
       {/* Dynamic Category Attributes */}
       {categoryAttributes && categoryAttributes.length > 0 && (
         <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 rounded-2xl border border-primary/10 bg-primary/3 p-6 duration-700">
-          <h3 className="text-primary text-[10px] font-black tracking-[0.2em] uppercase">
+          <h3 className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('additionalDetails') || 'Additional Details'}
           </h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -144,7 +144,7 @@ export function StepDetails({
                     }
                   >
                     <SelectTrigger className={cn(inputClasses(false), 'h-14 px-6 font-bold')}>
-                      <SelectValue placeholder={t('common.select')} />
+                      <SelectValue placeholder={t('common:select')} />
                     </SelectTrigger>
                     <SelectContent>
                       {attr.options?.map((opt) => (
@@ -169,7 +169,7 @@ export function StepDetails({
                       placeholder={attr.unit ? `0 ${attr.unit}` : ''}
                     />
                     {attr.unit && (
-                      <span className="text-muted-foreground/40 absolute right-6 top-1/2 -translate-y-1/2 text-xs font-black uppercase">
+                      <span className="text-muted-foreground/40 absolute right-6 top-1/2 -translate-y-1/2 text-xs font-bold uppercase">
                         {attr.unit}
                       </span>
                     )}

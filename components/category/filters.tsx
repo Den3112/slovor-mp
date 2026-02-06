@@ -66,15 +66,15 @@ export function Filters() {
   }, [pathname, router])
 
   const sortOptions = [
-    { value: 'newest', label: t('filters.newest') },
-    { value: 'oldest', label: t('filters.oldest') },
-    { value: 'price-low', label: t('filters.priceLow') },
-    { value: 'price-high', label: t('filters.priceHigh') },
-    { value: 'views', label: t('filters.popular') },
+    { value: 'newest', label: t('filters:newest') },
+    { value: 'oldest', label: t('filters:oldest') },
+    { value: 'price-low', label: t('filters:priceLow') },
+    { value: 'price-high', label: t('filters:priceHigh') },
+    { value: 'views', label: t('filters:popular') },
   ]
 
   const locationOptions = [
-    { value: 'all', label: t('filters.allLocations') },
+    { value: 'all', label: t('filters:allLocations') },
     { value: 'bratislava', label: 'Bratislava' },
     { value: 'košice', label: 'Košice' },
     { value: 'prešov', label: 'Prešov' },
@@ -93,7 +93,7 @@ export function Filters() {
         <div className="space-y-3">
           <label className="text-muted-foreground flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
             <ArrowUpDown className="h-3 w-3" />
-            {t('filters.sort')}
+            {t('filters:sort')}
           </label>
           <Select value={sort} onValueChange={setSort}>
             <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
@@ -113,14 +113,14 @@ export function Filters() {
         <div className="col-span-1 space-y-3 md:col-span-2 lg:col-span-1">
           <label className="text-muted-foreground flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
             <DollarSign className="h-3 w-3" />
-            {t('common.price') || 'Price'}
+            {t('common:price') || 'Price'}
           </label>
           <div className="flex items-center gap-2">
             <input
               type="number"
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
-              placeholder={t('filters.priceMin')}
+              placeholder={t('filters:priceMin')}
               className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-xl border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
             />
             <div className="bg-border h-px w-4" />
@@ -128,7 +128,7 @@ export function Filters() {
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
-              placeholder={t('filters.priceMax')}
+              placeholder={t('filters:priceMax')}
               className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-xl border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
             />
           </div>
@@ -138,7 +138,7 @@ export function Filters() {
         <div className="space-y-3 lg:col-span-1">
           <label className="text-muted-foreground flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
             <MapPin className="h-3 w-3" />
-            {t('filters.location')}
+            {t('filters:location')}
           </label>
           <Select value={location} onValueChange={setLocation}>
             <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold uppercase">
@@ -160,7 +160,7 @@ export function Filters() {
             onClick={applyFilters}
             className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-xl font-bold shadow-lg"
           >
-            {t('filters.apply')}
+            {t('filters:apply')}
           </Button>
           <Button
             onClick={resetFilters}
