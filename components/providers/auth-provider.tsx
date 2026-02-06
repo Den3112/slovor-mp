@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
   isLoading: true,
-  signOut: async () => { },
+  signOut: async () => {},
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -24,14 +24,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const params = useParams()
-  const locale = params?.locale as string || 'en'
-  console.log('AuthProvider: RENDER. URL:', process.env.NEXT_PUBLIC_SUPABASE_URL, 'Key length:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.length);
+  const locale = (params?.locale as string) || 'en'
 
   useEffect(() => {
-    console.log('AuthProvider: Initializing...');
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('AuthProvider: Session retrieved', !!session);
       setSession(session)
       setIsLoading(false)
     })
@@ -49,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     return () => subscription.unsubscribe()
-  }, [router])
+  }, [router, locale])
 
   // Heartbeat: Update last_seen every 5 minutes
   useEffect(() => {

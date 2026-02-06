@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-label',
       '@radix-ui/react-checkbox',
       '@radix-ui/react-switch',
-      '@radix-ui/react-slider'
+      '@radix-ui/react-slider',
     ],
   },
 
@@ -223,17 +223,7 @@ const nextConfig: NextConfig = {
         destination: '/en/dashboard/orders/:path*',
         permanent: true,
       },
-      // Dashboard profile cleanup
-      {
-        source: '/:lang(en|sk|cs|ru)/dashboard/profile',
-        destination: '/:lang/dashboard/settings',
-        permanent: true,
-      },
-      {
-        source: '/dashboard/profile',
-        destination: '/en/dashboard/settings',
-        permanent: true,
-      },
+      // Dashboard profile cleanup - REMOVED redundant redirects to allow /dashboard/profile preview
     ]
   },
 
