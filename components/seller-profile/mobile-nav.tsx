@@ -17,7 +17,7 @@ interface MobileBottomNavProps {
 export function MobileBottomNav({ stats }: MobileBottomNavProps) {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
-  const { t } = useTranslation(['common', 'profile', 'dashboard'])
+  const { t, locale } = useTranslation(['common', 'profile', 'dashboard'])
 
   const isActive = (href: string) => {
     const cleanPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/')
@@ -35,7 +35,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
       >
         {/* 1. Dashboard */}
         <Link
-          href="/dashboard"
+          href={`/${locale}/dashboard`}
           data-testid="profile-mobile-nav-home"
           className={cn(
             'flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95',
@@ -55,7 +55,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
 
         {/* 2. My Listings - Show Badge */}
         <Link
-          href="/dashboard/listings"
+          href={`/${locale}/dashboard/listings`}
           data-testid="profile-mobile-nav-listings"
           className={cn(
             'relative flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95',
@@ -82,7 +82,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
 
         {/* 3. CORE ACTION: POST AD */}
         <div className="relative -top-6">
-          <Link href="/post" data-testid="profile-mobile-nav-post">
+          <Link href={`/${locale}/post`} data-testid="profile-mobile-nav-post">
             <div className="bg-primary shadow-primary/40 border-background flex h-14 w-14 items-center justify-center rounded-full border-[3px] text-white shadow-lg transition-transform active:scale-95">
               <Plus className="h-7 w-7 stroke-3" />
             </div>
@@ -91,7 +91,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
 
         {/* 4. Inbox - Show Badge */}
         <Link
-          href="/messages"
+          href={`/${locale}/messages`}
           data-testid="profile-mobile-nav-messages"
           className={cn(
             'flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95',

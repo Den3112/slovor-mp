@@ -110,7 +110,7 @@ export default function TicketDetailPage() {
         )
     }
 
-    if (!ticket) return <div className="p-12 text-center font-black uppercase text-muted-foreground">Ticket not found</div>
+    if (!ticket) return <div className="p-12 text-center font-bold uppercase text-muted-foreground">Ticket not found</div>
 
     return (
         <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
@@ -127,9 +127,9 @@ export default function TicketDetailPage() {
                     </Button>
                     <div>
                         <div className="flex items-center gap-3">
-                            <h1 className="text-2xl font-black tracking-tight text-foreground line-clamp-1">{ticket.subject}</h1>
+                            <h1 className="text-2xl font-bold tracking-tight text-foreground line-clamp-1">{ticket.subject}</h1>
                             <Badge variant="outline" className={cn(
-                                "px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest rounded-md",
+                                "px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-md",
                                 ticket.status === 'open' ? "bg-destructive/10 text-destructive border-destructive/20" :
                                     ticket.status === 'in_progress' ? "bg-amber-500/10 text-amber-600 border-amber-500/20" :
                                         "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
@@ -150,7 +150,7 @@ export default function TicketDetailPage() {
                 <div className="flex gap-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="rounded-xl h-11 px-4 font-black uppercase tracking-widest text-[10px] border-border/60">
+                            <Button variant="outline" className="rounded-xl h-11 px-4 font-bold uppercase tracking-widest text-[10px] border-border/60">
                                 <MoreVertical className="h-4 w-4 mr-2" />
                                 Actions
                             </Button>
@@ -180,7 +180,7 @@ export default function TicketDetailPage() {
                 <div className="lg:col-span-3 space-y-6">
                     <Card className="border-border/60 shadow-sm overflow-hidden flex flex-col h-[600px] rounded-2xl">
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4 flex-none">
-                            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <MessageSquare className="h-4 w-4 text-primary" />
                                 Communication Thread
                             </CardTitle>
@@ -193,7 +193,7 @@ export default function TicketDetailPage() {
                                 </div>
                                 <div className="flex-1 space-y-2">
                                     <div className="flex items-center gap-3">
-                                        <span className="text-xs font-black uppercase tracking-widest">{ticket.user?.display_name}</span>
+                                        <span className="text-xs font-bold uppercase tracking-widest">{ticket.user?.display_name}</span>
                                         <span className="text-[9px] font-bold text-muted-foreground/40">{new Date(ticket.created_at).toLocaleString()}</span>
                                     </div>
                                     <div className="p-4 rounded-2xl bg-card border border-border/60 text-sm font-medium leading-relaxed shadow-sm">
@@ -206,7 +206,7 @@ export default function TicketDetailPage() {
                                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
                                     <div className="w-full border-t border-border/40"></div>
                                 </div>
-                                <div className="relative flex justify-center text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 bg-transparent">
+                                <div className="relative flex justify-center text-[8px] font-bold uppercase tracking-[0.3em] text-muted-foreground/40 bg-transparent">
                                     <span className="bg-muted px-4 py-1 rounded-full border border-border/20">Discussion History</span>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@ export default function TicketDetailPage() {
                                     </div>
                                     <div className={cn("flex-1 space-y-2", msg.is_admin && "text-right")}>
                                         <div className={cn("flex items-center gap-3", msg.is_admin && "flex-row-reverse")}>
-                                            <span className="text-xs font-black uppercase tracking-widest">
+                                            <span className="text-xs font-bold uppercase tracking-widest">
                                                 {msg.is_admin ? 'Support Agent' : ticket.user?.display_name}
                                             </span>
                                             <span className="text-[9px] font-bold text-muted-foreground/40">{new Date(msg.created_at).toLocaleString()}</span>
@@ -259,7 +259,7 @@ export default function TicketDetailPage() {
                                 <Button
                                     type="submit"
                                     disabled={!reply.trim() || isSending || ticket.status === 'closed' || ticket.status === 'resolved'}
-                                    className="rounded-xl h-12 px-6 font-black uppercase tracking-widest shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
+                                    className="rounded-xl h-12 px-6 font-bold uppercase tracking-widest shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
                                 >
                                     {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4 mr-2" />}
                                     Send
@@ -273,7 +273,7 @@ export default function TicketDetailPage() {
                 <div className="space-y-6">
                     <Card className="border-border/60 shadow-sm rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
-                            <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">User Details</CardTitle>
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">User Details</CardTitle>
                         </CardHeader>
                         <CardContent className="p-6 space-y-4">
                             <div className="flex flex-col items-center text-center space-y-3 pb-4 border-b border-border/40">
@@ -285,26 +285,26 @@ export default function TicketDetailPage() {
                                     )}
                                 </div>
                                 <div>
-                                    <h4 className="font-black text-foreground uppercase tracking-tight">{ticket.user?.display_name}</h4>
+                                    <h4 className="font-bold text-foreground uppercase tracking-tight">{ticket.user?.display_name}</h4>
                                     <p className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest mt-0.5">{ticket.user?.email}</p>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 gap-4 pt-2">
                                 <div className="space-y-1">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Category</p>
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">Category</p>
                                     <p className="text-xs font-bold text-foreground uppercase">{ticket.category}</p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">Priority</p>
-                                    <Badge variant="outline" className="text-[9px] font-black uppercase tracking-widest rounded-md border-primary/20 bg-primary/5 text-primary">
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">Priority</p>
+                                    <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-widest rounded-md border-primary/20 bg-primary/5 text-primary">
                                         {ticket.priority}
                                     </Badge>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">SLA Status</p>
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">SLA Status</p>
                                     <div className="flex items-center gap-2">
                                         <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                        <span className="text-[10px] font-black uppercase text-emerald-600">Within Limit</span>
+                                        <span className="text-[10px] font-bold uppercase text-emerald-600">Within Limit</span>
                                     </div>
                                 </div>
                             </div>
@@ -313,13 +313,13 @@ export default function TicketDetailPage() {
 
                     <Card className="border-border/60 shadow-sm rounded-2xl overflow-hidden bg-slate-950 text-white selection:bg-primary/30">
                         <CardHeader className="border-b border-white/5 bg-white/5 px-6 py-4">
-                            <CardTitle className="text-[10px] font-black uppercase tracking-widest text-white/40">Admin Tools</CardTitle>
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-white/40">Admin Tools</CardTitle>
                         </CardHeader>
                         <CardContent className="p-6 space-y-4">
-                            <Button variant="outline" className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl border-white/10 h-10 text-[9px] font-black uppercase tracking-widest">
+                            <Button variant="outline" className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl border-white/10 h-10 text-[9px] font-bold uppercase tracking-widest">
                                 View User Profile
                             </Button>
-                            <Button variant="outline" className="w-full bg-white/5 hover:bg-white/10 rounded-xl border-white/10 h-10 text-[9px] font-black uppercase tracking-widest text-destructive hover:text-destructive">
+                            <Button variant="outline" className="w-full bg-white/5 hover:bg-white/10 rounded-xl border-white/10 h-10 text-[9px] font-bold uppercase tracking-widest text-destructive hover:text-destructive">
                                 Block User
                             </Button>
                         </CardContent>

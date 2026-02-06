@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export function Hero() {
-  const { t, locale, i18n } = useTranslation(['home', 'common'])
+  const { t, locale } = useTranslation(['home', 'common'])
   const router = useRouter()
   const [query, setQuery] = useState('')
 
@@ -119,7 +119,7 @@ export function Hero() {
               {popularSearches.map((term) => (
                 <Link
                   key={term}
-                  href={`/${i18n.language || 'en'}/listings?search=${term}`}
+                  href={`/${locale}/listings?search=${term}`}
                   className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary rounded-xl border border-border px-4 py-1.5 text-sm font-semibold transition-colors"
                 >
                   {term}

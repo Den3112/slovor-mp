@@ -25,7 +25,7 @@ export function HomeView({
   children,
   recentListings,
 }: HomeViewProps) {
-  const { t } = useTranslation(['home', 'common'])
+  const { t, locale } = useTranslation(['home', 'common'])
 
   return (
     <div className="flex flex-col scroll-smooth">
@@ -56,7 +56,7 @@ export function HomeView({
               </h2>
             </div>
             <Link
-              href="/listings?isFeatured=true"
+              href={`/${locale}/listings?isFeatured=true`}
               className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary transition-all hover:opacity-80"
             >
               {t('common:viewAll')}
@@ -88,7 +88,7 @@ export function HomeView({
               </h2>
             </div>
             <Link
-              href="/listings"
+              href={`/${locale}/listings`}
               className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary transition-all hover:opacity-80"
             >
               {t('common:viewAll')}

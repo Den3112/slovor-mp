@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dialog'
 import { BookmarkPlus, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { useTranslation } from '@/lib/i18n'
 import type { ListingFilterOptions } from '@/lib/api/listings'
 
 interface Props {
@@ -29,6 +30,7 @@ interface Props {
 export function SaveSearchButton({ filters, searchQuery }: Props) {
   const { user } = useAuth()
   const router = useRouter()
+  const { locale } = useTranslation()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState('')
@@ -36,7 +38,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
 
   const handleSave = async () => {
     if (!user) {
-      router.push('/auth/login')
+      router.push(`/${locale}/auth/login`)
       return
     }
 
@@ -74,7 +76,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
         variant="outline"
         size="sm"
         className="gap-2 rounded-xl"
-        onClick={() => router.push('/auth/login')}
+        onClick={() => router.push(`/${locale}/auth/login`)}
       >
         <BookmarkPlus className="h-4 w-4" />
         Save Search

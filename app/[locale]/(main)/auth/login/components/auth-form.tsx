@@ -28,7 +28,7 @@ export function AuthForm({
     <>
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-3">
-          <label className="ml-1 text-[11px] font-black tracking-[0.2em] text-indigo-500/80 uppercase">
+          <label className="ml-1 text-[11px] font-bold tracking-[0.2em] text-indigo-500/80 uppercase">
             {t('email')}
           </label>
           <input
@@ -43,7 +43,7 @@ export function AuthForm({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="ml-1 text-[11px] font-black tracking-[0.2em] text-indigo-500/80 uppercase">
+            <label className="ml-1 text-[11px] font-bold tracking-[0.2em] text-indigo-500/80 uppercase">
               {t('password')}
             </label>
             {!isRegistering && (
@@ -82,7 +82,7 @@ export function AuthForm({
 
         <Button
           type="submit"
-          className="mt-4 h-15 w-full rounded-2xl text-lg font-black shadow-xl shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:shadow-indigo-500/40 active:scale-95"
+          className="mt-4 h-15 w-full rounded-2xl text-lg font-bold shadow-xl shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:shadow-indigo-500/40 active:scale-95"
           disabled={loading || googleLoading}
           data-testid="auth-submit-btn"
         >

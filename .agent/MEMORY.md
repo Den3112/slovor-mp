@@ -8,12 +8,13 @@
 5. **Unsure?**: ASK the user. Do not guess.
 6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
-> **Last Updated**: 2026-02-05
-> **Status**: ✅ REDESIGN PHASE 5.3 COMPLETED. Mega Menu polished, global typography normalized (font-black -> font-bold), forbidden styles (backdrop-blur, shadow-2xl) removed. Project in "Solid, Clean, Data-Dense" state.
+> **Last Updated**: 2026-02-06
+> **Status**: ✅ REDESIGN PHASE 5.4 COMPLETED. Build optimization via dynamic imports implemented for all major dashboards. Production build verified. Database Refinement (Phase 6) started.
 
 ---
 
 ## ⚡️ Framework Invariants (Next.js 16+)
+- **Next.js 16+ Build Optimization**: Use `next/dynamic` for heavy dashboard view components to keep initial bundles small.
 - **Middleware is Deprecated**: Use `proxy.ts` (root) instead of `middleware.ts`.
 - **Proxy Function**: The entry point in `proxy.ts` must be `export async function proxy(request: NextRequest)`.
 - **Middleware Convention**: `middleware.ts` is now `proxy.ts` for routing, redirects, and header manipulation.
@@ -21,16 +22,11 @@
 ---
 
 ## 📌 Current State
-### Последние достижения
-- ✅ Реализован Центр поддержки администратора (тикеты, чат, уведомления).
-- ✅ Управление категориями (Bulk actions, Drag-n-drop симуляция).
-- ✅ **Admin & User Dashboard Refinement** (Unified Sidebar, Stats-cards, Data-grids alignment).
-- ✅ **Component-wide Design Alignment** (Buttons, Badges, Inputs, Avatars, Cards) - 1:1 CRM Copy.
-- ✅ **Normalize Typography & Radii** (font-black -> font-bold, rounded-xl/sm across all dashboard views).
-- ✅ **Verification (Lint, Type-check, Build) - PASSED.**
-
-### Текущий фокус
-- **Фаза 5: Mobile Optimization** (Адаптивность, Touch-friendly элементы, PWA).
+### Current Status
+- **Phase 5.4 (Optimization)**: ✅ COMPLETED. Dynamic imports applied to all dashboards. Build sizes reduced.
+- **Phase 6 (Database Refinement)**: ✅ COMPLETED. Master Initialization script applied via SQL Editor.
+- **Phase 7 (Mobile Audit)**: ✅ COMPLETED. Footer spacing, localization, and grid padding fixed.
+- **Next Focus**: Phase 8 (Final Polish: Animations, Loading states, E2E Verification).
 
 ---
 
@@ -50,7 +46,7 @@
     - [x] Phase 5.1: PWA Integration (Manifest, Icons, Metadata).
     - [x] Phase 5.2: Responsive Dialogs (Modal to Bottom Sheet switching).
     - [x] Phase 5.3: Mobile Optimization, Mega Menu Polish & Typography Normalization (Solid, Clean, Data-Dense).
-    - [ ] Phase 5.4: Production Build Optimization.
+    - [x] Phase 5.4: Production Build Optimization (Dynamic Imports implementation).
 9. ✅ SEO: `StructuredData` component.
 
 ---

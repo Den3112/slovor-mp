@@ -99,8 +99,8 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         ) : (
           <div className="bg-muted/50 text-muted-foreground/40 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-8 w-8 stroke-[1.5] md:mb-3 md:h-12 md:w-12" />
-            <span className="text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
-              {t('common.noImage')}
+            <span className="text-[9px] font-bold tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
+              {t('common:noImage')}
             </span>
           </div>
         )}
@@ -108,15 +108,15 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
           {listing.condition === 'new' && (
-            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-lg px-2.5 py-1 text-[9px] font-black tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-lg px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
-              {t('common.new')}
+              {t('common:new')}
             </div>
           )}
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="bg-black/60 text-white absolute bottom-3 left-3 rounded-lg border border-white/20 px-2.5 py-1 text-[9px] font-black md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="bg-black/60 text-white absolute bottom-3 left-3 rounded-lg border border-white/20 px-2.5 py-1 text-[9px] font-bold md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
             {listing.images.length} PHOTOS
           </div>
         )}
@@ -127,7 +127,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         <div>
           <div className="mb-1.5 flex items-center justify-between md:mb-2">
             {listing.category && (
-              <span className="text-primary text-[9px] font-black tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
+              <span className="text-primary text-[9px] font-bold tracking-widest uppercase md:text-[10px] md:tracking-[0.2em]">
                 {categoryName}
               </span>
             )}
@@ -148,12 +148,12 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         )}
 
         <div className="flex items-end justify-between pt-1 md:pt-2">
-          <div className="font-heading text-foreground text-xl font-black tracking-tighter md:text-3xl">
+          <div className="font-heading text-foreground text-xl font-bold tracking-tighter md:text-3xl">
             {formatPrice(parseFloat(formData.price) || 0, formData.currency)}
           </div>
 
           {formData.location && (
-            <div className="text-muted-foreground mb-0.5 flex items-center gap-1 text-[9px] font-black tracking-wide uppercase opacity-80 md:mb-1 md:text-[10px] md:tracking-widest">
+            <div className="text-muted-foreground mb-0.5 flex items-center gap-1 text-[9px] font-bold tracking-wide uppercase opacity-80 md:mb-1 md:text-[10px] md:tracking-widest">
               <MapPin className="text-primary h-3 w-3" />
               <span className="max-w-[80px] truncate md:max-w-[100px]">
                 {formData.location}

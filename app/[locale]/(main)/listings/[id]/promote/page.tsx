@@ -23,12 +23,13 @@ import { formatPrice } from '@/lib/utils/formatting'
 interface Props {
     params: Promise<{
         id: string
+        locale: string
     }>
 }
 
 export default function PromoteListingPage({ params }: Props) {
     const { t } = useTranslation(['dashboard', 'common'])
-    const { id } = use(params)
+    const { id, locale } = use(params)
     const { user } = useAuth()
     const router = useRouter()
     const [selectedPlan, setSelectedPlan] = useState<'free' | 'top' | 'highlight' | null>(null)
@@ -70,7 +71,7 @@ export default function PromoteListingPage({ params }: Props) {
     const handlePromote = async () => {
         if (!user || !selectedPlan) return
         if (selectedPlan === 'free') {
-            router.push(`/listings/${id}`)
+            router.push(`/${locale}/listings/${id}`)
             return
         }
 
@@ -84,7 +85,7 @@ export default function PromoteListingPage({ params }: Props) {
             if (promoteError) throw new Error(promoteError)
 
             toast.success(t('dashboard:promote.success'))
-            router.push(`/listings/${id}`)
+            router.push(`/${locale}/listings/${id}`)
             router.refresh()
         } catch (error) {
             console.error('Promotion failed:', error)
@@ -103,7 +104,7 @@ export default function PromoteListingPage({ params }: Props) {
                         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
                             <Rocket className="h-8 w-8" />
                         </div>
-                        <h1 className="font-heading text-4xl font-black tracking-tight md:text-5xl uppercase text-foreground italic">
+                        <h1 className="font-heading text-4xl font-bold tracking-tight md:text-5xl uppercase text-foreground ">
                             {t('dashboard:promote.title')}
                         </h1>
                         <p className="text-muted-foreground mx-auto max-w-xl text-lg font-medium leading-relaxed">
@@ -147,12 +148,12 @@ export default function PromoteListingPage({ params }: Props) {
                                     </div>
 
                                     <div className="space-y-1">
-                                        <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">{plan.title}</h3>
+                                        <h3 className="text-2xl font-bold uppercase tracking-tight text-foreground">{plan.title}</h3>
                                         <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">{plan.subtitle}</p>
                                     </div>
 
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl font-black text-foreground">{formatPrice(plan.price, 'EUR')}</span>
+                                        <span className="text-4xl font-bold text-foreground">{formatPrice(plan.price, 'EUR')}</span>
                                     </div>
 
                                     <div className="h-px w-full bg-border/60" />
@@ -170,7 +171,7 @@ export default function PromoteListingPage({ params }: Props) {
                                 </div>
 
                                 {plan.id === 'highlight' && (
-                                    <div className="absolute top-0 right-0 bg-amber-500 px-6 py-1 text-[10px] font-black uppercase tracking-widest text-white transform rotate-45 translate-x-[30px] translate-y-[15px] shadow-sm">
+                                    <div className="absolute top-0 right-0 bg-amber-500 px-6 py-1 text-[10px] font-bold uppercase tracking-widest text-white transform rotate-45 translate-x-[30px] translate-y-[15px] shadow-sm">
                                         {t('dashboard:promote.bestValue')}
                                     </div>
                                 )}
@@ -184,7 +185,7 @@ export default function PromoteListingPage({ params }: Props) {
                             size="lg"
                             disabled={!selectedPlan || isSubmitting}
                             onClick={handlePromote}
-                            className="h-14 w-full max-w-sm rounded-xl text-xs font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm bg-primary text-primary-foreground"
+                            className="h-14 w-full max-w-sm rounded-xl text-xs font-bold uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] shadow-sm bg-primary text-primary-foreground"
                         >
                             {isSubmitting ? (
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />

@@ -60,7 +60,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'flex h-10 items-center gap-2 rounded-full px-4 text-[10px] font-black tracking-widest uppercase transition-all',
+          'flex h-10 items-center gap-2 rounded-full px-4 text-[10px] font-bold tracking-widest uppercase transition-all',
           isOpen
             ? 'bg-primary text-primary-foreground shadow-primary/20 shadow-lg'
             : 'text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -92,11 +92,11 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
               {/* Left Side: Category Grid */}
               <div className="flex-1 p-6 lg:p-8">
                 <div className="mb-6 flex items-center justify-between">
-                  <h3 className="text-sm font-black tracking-[0.2em] text-muted-foreground uppercase">
-                    {t('cat.title') || 'Marketplace Categories'}
+                  <h3 className="text-sm font-bold tracking-[0.2em] text-muted-foreground uppercase">
+                    {t('cat:title') || 'Marketplace Categories'}
                   </h3>
                   <Link
-                    href="/categories"
+                    href={`/${locale}/categories`}
                     onClick={() => setIsOpen(false)}
                     className="text-primary hover:text-primary/80 flex items-center gap-1.5 text-xs font-bold transition-colors"
                   >
@@ -111,7 +111,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                     return (
                       <Link
                         key={category.id}
-                        href={`/categories/${category.slug}`}
+                        href={`/${locale}/categories/${category.slug}`}
                         onClick={() => setIsOpen(false)}
                         className="group flex items-center gap-4 rounded-xl p-2.5 transition-all hover:bg-muted/50 active:scale-95"
                       >
@@ -139,13 +139,13 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 text-primary">
                       <Sparkles className="h-4 w-4" />
-                      <span className="text-[10px] font-black tracking-widest uppercase">
+                      <span className="text-[10px] font-bold tracking-widest uppercase">
                         {t('featured')}
                       </span>
                     </div>
                     <div className="group/item relative overflow-hidden rounded-xl bg-primary/10 p-4 transition-all hover:bg-primary/20">
                       <p className="relative z-10 text-xs font-bold leading-relaxed text-foreground">
-                        {t('home.heroSubtitle').split('.')[0]}
+                        {t('home:heroSubtitle').split(':')[0]}
                       </p>
                       <div className="absolute -right-4 -bottom-4 opacity-10 transition-transform group-hover/item:scale-110">
                         <TrendingUp className="h-16 w-16 rotate-12" />
@@ -155,12 +155,12 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
 
                   {/* Hot Categories? */}
                   <div className="space-y-4">
-                    <h4 className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                    <h4 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
                       Quick Start
                     </h4>
                     <nav className="flex flex-col gap-3">
                       <Link
-                        href="/post"
+                        href={`/${locale}/post`}
                         onClick={() => setIsOpen(false)}
                         className="text-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-colors"
                       >
@@ -168,7 +168,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                         {t('postAd')}
                       </Link>
                       <Link
-                        href="/listings?sort=newest"
+                        href={`/${locale}/listings?sort=newest`}
                         onClick={() => setIsOpen(false)}
                         className="text-foreground hover:text-primary flex items-center gap-2 text-xs font-bold transition-colors"
                       >
@@ -184,7 +184,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
             {/* Bottom Bar */}
             <div className="bg-muted/10 border-border/50 border-t p-4 px-8">
               <p className="text-center text-[10px] font-medium text-muted-foreground/50">
-                {t('footer.description')}
+                {t('footer:description')}
               </p>
             </div>
           </motion.div>

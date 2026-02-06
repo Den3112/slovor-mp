@@ -121,7 +121,7 @@ export function ListingCard({
   // Default variant
   return (
     <Link
-      href={`/listings/${listing.id}`}
+      href={`/${locale}/listings/${listing.id}`}
       className={cn(
         'group relative block overflow-hidden rounded-xl border transition-all duration-300 hover:ring-4 hover:ring-primary/5 hover:border-primary/50',
         listing.is_highlighted || featured

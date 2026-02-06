@@ -12,7 +12,7 @@ import { useTranslation } from '@/lib/i18n'
 export function SearchFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { t } = useTranslation()
+  const { t, locale } = useTranslation(['common', 'filters'])
 
   // Helper to update URL params
   const updateFilters = (updates: Record<string, string | null>) => {
@@ -29,7 +29,7 @@ export function SearchFilters() {
     // Reset page on filter change
     params.delete('page')
 
-    router.push(`/search?${params.toString()}`)
+    router.push(`/${locale}/search?${params.toString()}`)
   }
 
   // Price State
@@ -60,22 +60,22 @@ export function SearchFilters() {
       {searchParams.toString().length > 0 && (
         <div className="flex items-center justify-between">
           <h3 className="text-muted-foreground text-sm font-bold uppercase">
-            {t('filters.title')}
+            {t('filters:title')}
           </h3>
           <Button
             variant="ghost"
             size="sm"
             className="text-destructive hover:text-destructive/80 h-auto p-0"
-            onClick={() => router.push('/search')}
+            onClick={() => router.push(`/${locale}/search`)}
           >
-            {t('filters.clearAll')}
+            {t('filters:clearAll')}
           </Button>
         </div>
       )}
 
       {/* Price Range */}
       <div className="space-y-4">
-        <h3 className="text-foreground font-bold">{t('common.price')}</h3>
+        <h3 className="text-foreground font-bold">{t('common:price')}</h3>
         <Slider
           defaultValue={[0, 5000]}
           value={priceRange}
@@ -132,7 +132,7 @@ export function SearchFilters() {
 
       {/* Condition */}
       <div className="space-y-4">
-        <h3 className="text-foreground font-bold">{t('filters.condition')}</h3>
+        <h3 className="text-foreground font-bold">{t('filters:condition')}</h3>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -142,7 +142,7 @@ export function SearchFilters() {
                 updateFilters({ condition: checked ? 'new' : null })
               }
             />
-            <Label htmlFor="new">{t('filters.new')}</Label>
+            <Label htmlFor="new">{t('filters:new')}</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -152,16 +152,16 @@ export function SearchFilters() {
                 updateFilters({ condition: checked ? 'used' : null })
               }
             />
-            <Label htmlFor="used">{t('filters.used')}</Label>
+            <Label htmlFor="used">{t('filters:used')}</Label>
           </div>
         </div>
       </div>
 
       {/* Location */}
       <div className="space-y-4">
-        <h3 className="text-foreground font-bold">{t('filters.location')}</h3>
+        <h3 className="text-foreground font-bold">{t('filters:location')}</h3>
         <Input
-          placeholder={t('filters.cityPlaceholder')}
+          placeholder={t('filters:cityPlaceholder')}
           defaultValue={searchParams.get('location') || ''}
           onBlur={(e) => updateFilters({ location: e.target.value || null })}
           onKeyDown={(e) => {
@@ -197,8 +197,8 @@ export function SearchFilters() {
 
         return (
           <div className="space-y-6 pt-4 border-t border-border/40">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
-              {category.toUpperCase()} {t('filters.additional')}
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+              {category.toUpperCase()} {t('filters:additional')}
             </h3>
             {filters.map((f) => (
               <div key={f.key} className="space-y-3">
@@ -209,7 +209,7 @@ export function SearchFilters() {
                     onChange={(e) => updateFilters({ [`attr_${f.key}`]: e.target.value || null })}
                     value={searchParams.get(`attr_${f.key}`) || ''}
                   >
-                    <option value="">{t('common.all')}</option>
+                    <option value="">{t('common:all')}</option>
                     {f.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                   </select>
                 ) : (
@@ -227,17 +227,17 @@ export function SearchFilters() {
 
       {/* Sorting in Sidebar */}
       <div className="space-y-4 pt-4 border-t border-border/40">
-        <h3 className="text-foreground font-bold">{t('common.sort')}</h3>
+        <h3 className="text-foreground font-bold">{t('common:sort')}</h3>
         <select
           className="w-full h-10 rounded-xl border border-border/60 bg-background px-3 text-sm font-medium focus:border-primary/40 focus:ring-4 focus:ring-primary/10 outline-none transition-all"
           onChange={(e) => updateFilters({ sort: e.target.value || null })}
           value={searchParams.get('sort') || 'newest'}
         >
-          <option value="newest">{t('common.sortNewest') || 'Newest'}</option>
-          <option value="oldest">{t('common.sortOldest') || 'Oldest'}</option>
-          <option value="price-low">{t('common.sortPriceLow') || 'Price: Low'}</option>
-          <option value="price-high">{t('common.sortPriceHigh') || 'Price: High'}</option>
-          <option value="views">{t('common.sortViews') || 'Most Viewed'}</option>
+          <option value="newest">{t('filters:newest')}</option>
+          <option value="oldest">{t('filters:oldest')}</option>
+          <option value="price-low">{t('filters:priceLow')}</option>
+          <option value="price-high">{t('filters:priceHigh')}</option>
+          <option value="views">{t('filters:popular')}</option>
         </select>
       </div>
     </div>

@@ -41,7 +41,7 @@ const item = {
 }
 
 export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
-    const { t } = useTranslation(['common', 'dashboard'])
+    const { t, locale } = useTranslation(['common', 'dashboard'])
     const [activeTab, setActiveTab] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
@@ -179,7 +179,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                                         </TableCell>
                                         <TableCell className="px-6 py-4 text-right">
                                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-[10px]" asChild>
-                                                <Link href={`/dashboard/orders/${order.id}`}>
+                                                <Link href={`/${locale}/dashboard/orders/${order.id}`}>
                                                     <Eye className="h-4 w-4" />
                                                 </Link>
                                             </Button>

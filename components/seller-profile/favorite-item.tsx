@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Trash2, Heart, MapPin, ExternalLink } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/types/database'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
@@ -14,11 +15,12 @@ export function DashboardFavoriteItem({
 }: {
   listing: Listing & { category?: { name: string } | null }
 }) {
+  const { locale } = useTranslation()
   return (
     <div className="group relative flex flex-col sm:flex-row items-center gap-4 rounded-xl border border-border/50 bg-card p-3 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
       {/* Image Thumbnail */}
       <Link
-        href={`/listings/${listing.id}`}
+        href={`/${locale}/listings/${listing.id}`}
         className="relative h-48 w-full shrink-0 overflow-hidden rounded-lg bg-muted border border-border/40 sm:h-24 sm:w-24 group-hover:shadow-md transition-all duration-300"
       >
         {listing.images?.[0] ? (
@@ -39,7 +41,7 @@ export function DashboardFavoriteItem({
       {/* Info */}
       <div className="flex-1 min-w-0 w-full space-y-2">
         <Link
-          href={`/listings/${listing.id}`}
+          href={`/${locale}/listings/${listing.id}`}
           className="inline-block group-hover:text-primary transition-colors max-w-full"
         >
           <h3 className="font-bold text-base truncate uppercase tracking-tight">
@@ -64,7 +66,7 @@ export function DashboardFavoriteItem({
 
       {/* Actions */}
       <div className="flex items-center gap-2 w-full sm:w-auto border-t border-border/40 pt-3 sm:border-0 sm:pt-0">
-        <Link href={`/listings/${listing.id}`} className="flex-1 sm:flex-none">
+        <Link href={`/${locale}/listings/${listing.id}`} className="flex-1 sm:flex-none">
           <Button
             variant="ghost"
             size="sm"

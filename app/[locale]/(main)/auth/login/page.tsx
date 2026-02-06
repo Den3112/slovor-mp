@@ -10,7 +10,7 @@ import { AuthForm } from './components/auth-form'
 import { useTranslation } from '@/lib/i18n'
 
 function LoginContent() {
-  const { t } = useTranslation(['auth', 'common'])
+  const { t, locale } = useTranslation(['auth', 'common'])
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
@@ -74,7 +74,7 @@ function LoginContent() {
         // Fire and forget log access
         fetch('/api/auth/log-access', { method: 'POST' }).catch(console.error)
 
-        router.push('/dashboard')
+        router.push(`/${locale}/dashboard`)
         router.refresh()
       }
     } catch (err) {
@@ -102,7 +102,7 @@ function LoginContent() {
     <div className="bg-card relative z-10 w-full max-w-md rounded-xl border border-border p-6 shadow-sm md:p-8">
       <div className="mb-6">
         <Link
-          href="/"
+          href={`/${locale}/`}
           className="text-muted-foreground hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />

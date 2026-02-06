@@ -90,7 +90,7 @@ export function NotificationsView() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('dashboard:notifications.title') || 'Notifications'}</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase">{t('dashboard:notifications.title') || 'Notifications'}</h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
                         {t('dashboard:notifications.subtitle') || 'Stay updated with your latest alerts and activities'}
                     </p>
@@ -100,7 +100,7 @@ export function NotificationsView() {
                         variant="outline"
                         size="sm"
                         onClick={handleMarkAllAsRead}
-                        className="text-[10px] font-black uppercase tracking-widest rounded-xl border-border/60 h-10 px-6"
+                        className="text-[10px] font-bold uppercase tracking-widest rounded-xl border-border/60 h-10 px-6"
                     >
                         <Check className="h-4 w-4 mr-2" />
                         {t('dashboard:notifications.markAllRead') || 'Mark all read'}
@@ -143,7 +143,7 @@ export function NotificationsView() {
                                                 )}>
                                                     {notification.title}
                                                 </h3>
-                                                <Badge variant="outline" className="hidden sm:flex rounded-md px-2 py-0.5 text-[9px] font-black uppercase tracking-widest border-border/60">
+                                                <Badge variant="outline" className="hidden sm:flex rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest border-border/60">
                                                     {notification.type}
                                                 </Badge>
                                             </div>
@@ -160,7 +160,7 @@ export function NotificationsView() {
                                                 {notification.link && (
                                                     <Link
                                                         href={notification.link}
-                                                        className="text-[10px] font-black uppercase tracking-widest text-primary hover:underline flex items-center gap-1"
+                                                        className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline flex items-center gap-1"
                                                     >
                                                         {t('common:viewDetails')}
                                                         <ArrowRight className="h-3 w-3" />

@@ -59,7 +59,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                     <input
                                         autoFocus
                                         type="text"
-                                        placeholder={t('common.searchPlaceholder')}
+                                        placeholder={t('common:searchPlaceholder')}
                                         className="w-full bg-transparent px-3 py-1 text-base focus:outline-hidden"
                                         value={query}
                                         onChange={(e) => setQuery(e.target.value)}
@@ -75,7 +75,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                 onClick={onClose}
                                 className="text-sm font-bold text-primary"
                             >
-                                {t('common.cancel')}
+                                {t('common:cancel')}
                             </button>
                         </div>
 
@@ -86,7 +86,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                 <div className="space-y-8">
                                     <section>
                                         <h3 className="mb-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
-                                            {t('common.marketTrends')}
+                                            {t('common:marketTrends')}
                                         </h3>
                                         <div className="grid grid-cols-2 gap-3">
                                             {NAV_LINKS.categories.slice(0, 4).map((cat) => (
@@ -109,7 +109,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
 
                                     <section>
                                         <h3 className="mb-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
-                                            {t('common.quickSuggestions')}
+                                            {t('common:quickSuggestions')}
                                         </h3>
                                         <div className="flex flex-wrap gap-2">
                                             {["iPhone", "BMW", "Apartment", "Kitchen", "Table", "Jobs"].map((tag) => (
@@ -134,13 +134,13 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3 text-muted-foreground">
                                         <TrendingUp className="h-4 w-4" />
-                                        <span className="text-sm">{t('common.searchingFor')} &quot;{query}&quot;...</span>
+                                        <span className="text-sm">{t('common:searchingFor')} &quot;{query}&quot;...</span>
                                     </div>
                                     {/* Real live results */}
                                     {isSearching ? (
                                         <div className="flex items-center gap-2 py-4">
                                             <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                                            <span className="text-sm text-muted-foreground">{t('common.loading')}</span>
+                                            <span className="text-sm text-muted-foreground">{t('common:loading')}</span>
                                         </div>
                                     ) : results.length > 0 ? (
                                         results.map((item) => (
@@ -180,7 +180,7 @@ export function MobileSearchOverlay({ isOpen, onClose }: MobileSearchOverlayProp
                                         ))
                                     ) : (
                                         <div className="py-4 text-sm text-muted-foreground">
-                                            {t('common.noResults')}
+                                            {t('common:noResults')}
                                         </div>
                                     )}
                                 </div>

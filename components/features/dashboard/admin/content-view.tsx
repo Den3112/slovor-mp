@@ -22,10 +22,10 @@ export function AdminContentView() {
     const [activeTab, setActiveTab] = useState<ContentTab>('categories')
 
     const tabs = [
-        { id: 'categories', label: t('admin.tabCategories'), icon: FolderTree },
-        { id: 'blog', label: t('admin.tabBlog'), icon: FileText },
-        { id: 'pages', label: t('admin.tabPages'), icon: Layout },
-        { id: 'settings', label: t('admin.tabSettings'), icon: Settings2 },
+        { id: 'categories', label: t('admin:tabCategories'), icon: FolderTree },
+        { id: 'blog', label: t('admin:tabBlog'), icon: FileText },
+        { id: 'pages', label: t('admin:tabPages'), icon: Layout },
+        { id: 'settings', label: t('admin:tabSettings'), icon: Settings2 },
     ] as const
 
     return (
@@ -33,7 +33,7 @@ export function AdminContentView() {
             {/* Header */}
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase">{t('admin:contentHub')}</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase">{t('admin:contentHub')}</h1>
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
                         {t('admin:contentHubDesc')}
                     </p>
@@ -50,7 +50,7 @@ export function AdminContentView() {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={cn(
-                                "flex items-center gap-2 px-6 py-4 text-sm font-black uppercase tracking-widest transition-all relative group",
+                                "flex items-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-widest transition-all relative group",
                                 isActive
                                     ? "text-primary"
                                     : "text-muted-foreground hover:text-foreground"

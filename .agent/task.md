@@ -16,15 +16,17 @@
 - [x] Pricing Plans (Simplified/Embedded)
 - [x] Styling standardized to Solid aesthetic
 ### Фаза 8: Финальная верификация ✅ ГОТОВО
-- [x] **Phase 7: Final Verification & Build Optimization** (COMPLETE)
-    - [x] Run `npm run verify` to catch any remaining issues.
-    - [x] Final visual audit of all standardized components.
-    - [x] Verify Russian translations for all modified UI elements.
-- [x] **Phase 8: PR & Documentation** (COMPLETE)
-    - [x] Commit and push dev branch.
-    - [x] Create/Update Pull Request.
-    - [x] Final update to `.agent/MEMORY.md`.
-    - [x] Final report for the USER.
+- [x] Phase 5.4: Production Build Optimization
+    - [x] Move all remaining dashboard view components to dynamic imports
+    - [x] Extract heavy views into `components/features/dashboard`
+    - [x] Verify production build (`npm run build`)
+- [x] Phase 6: Database Refinement
+    - [x] Review existing migrations & audit schema
+    - [x] Prepare migration file for RLS security refinements (`20260206000000_phase6_rls_refinements.sql`)
+    - [x] Prepare seed data for categories and platform settings (`supabase/seed.sql`)
+    - [x] Audit database state via script
+- [x] Final update to `.agent/MEMORY.md`.
+- [x] Final report for the USER.
 ---
 ## 🎯 СЛЕДУЮЩИЕ ШАГИ
 1. Пользователь должен выполнить `git push origin dev` (из-за сетевых проблем агента).

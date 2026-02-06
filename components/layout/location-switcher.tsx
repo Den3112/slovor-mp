@@ -55,8 +55,8 @@ export function LocationSwitcher() {
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
                             className="border-border/40 bg-background/95 absolute right-0 top-full z-50 mt-2 min-w-[200px] gap-1 overflow-hidden rounded-xl border p-2 shadow-2xl"
                         >
-                            <div className="mb-2 px-3 py-1 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
-                                {t('common.location')}
+                            <div className="mb-2 px-3 py-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+                                {t('common:location')}
                             </div>
                             <div className="space-y-1">
                                 {CITIES.map((city) => (

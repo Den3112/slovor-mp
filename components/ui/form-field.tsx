@@ -25,7 +25,7 @@ export function FormField({
     return (
         <div className={cn('space-y-2.5', className)}>
             <div className="flex items-center justify-between px-1">
-                <Label className="text-muted-foreground/80 text-[10px] font-black tracking-[0.2em] uppercase">
+                <Label className="text-muted-foreground/80 text-[10px] font-bold tracking-[0.2em] uppercase">
                     {label}
                     {required && <span className="text-primary ml-1">*</span>}
                 </Label>

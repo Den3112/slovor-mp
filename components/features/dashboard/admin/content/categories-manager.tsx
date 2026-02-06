@@ -35,7 +35,7 @@ export function CategoriesManager() {
         setIsLoading(true)
         const { data, error } = await categoriesApi.getAll()
         if (data) setCategories(data)
-        if (error) toast.error(t('admin.failedToLoadCategories'))
+        if (error) toast.error(t('admin:failedToLoadCategories'))
         setIsLoading(false)
     }, [t])
 
@@ -72,31 +72,31 @@ export function CategoriesManager() {
                 if (editingId === 'new') {
                     const { error } = await categoriesApi.create(formData)
                     if (error) throw new Error(error)
-                    toast.success(t('admin.categoryCreated'))
+                    toast.success(t('admin:categoryCreated'))
                 } else {
                     const { error } = await categoriesApi.update(editingId, formData)
                     if (error) throw new Error(error)
-                    toast.success(t('admin.categoryUpdated'))
+                    toast.success(t('admin:categoryUpdated'))
                 }
                 setEditingId(null)
                 loadCategories()
             }
         } catch (error: any) {
-            toast.error(error.message || t('admin.failedToDeleteCategory'))
+            toast.error(error.message || t('admin:failedToDeleteCategory'))
         } finally {
             setIsSubmitting(false)
         }
     }
 
     const handleDelete = async (id: string) => {
-        if (!confirm(t('admin.confirmDeleteCategory'))) return
+        if (!confirm(t('admin:confirmDeleteCategory'))) return
 
         const { error } = await categoriesApi.delete(id)
         if (!error) {
-            toast.success(t('admin.categoryDeleted'))
+            toast.success(t('admin:categoryDeleted'))
             loadCategories()
         } else {
-            toast.error(t('admin.failedToDeleteCategory'))
+            toast.error(t('admin:failedToDeleteCategory'))
         }
     }
 
@@ -127,7 +127,7 @@ export function CategoriesManager() {
                             description: '', icon: '', color: ''
                         })
                     }}
-                    className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 px-6"
+                    className="rounded-xl font-bold uppercase tracking-widest text-[10px] h-11 px-6"
                 >
                     <Plus className="mr-2 h-4 w-4" /> {t('admin:addCategory')}
                 </Button>
@@ -138,10 +138,10 @@ export function CategoriesManager() {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="bg-muted/10 border-b border-border/40">
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableListing')} / {t('admin:inputSlug')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableTranslations')}</th>
-                                <th className="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableIconOrder')}</th>
-                                <th className="px-6 py-4 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('admin:tableActions')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tableListing')} / {t('admin:inputSlug')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tableTranslations')}</th>
+                                <th className="px-6 py-4 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tableIconOrder')}</th>
+                                <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:tableActions')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border/50">
@@ -154,7 +154,7 @@ export function CategoriesManager() {
                             ) : filteredCategories.length === 0 && editingId !== 'new' ? (
                                 <tr>
                                     <td colSpan={4} className="px-6 py-12 text-center">
-                                        <p className="text-muted-foreground font-medium">{t('admin.noCategoriesFound')}</p>
+                                        <p className="text-muted-foreground font-medium">{t('admin:noCategoriesFound')}</p>
                                     </td>
                                 </tr>
                             ) : (
@@ -163,8 +163,8 @@ export function CategoriesManager() {
                                         <tr className="bg-primary/5">
                                             <td className="px-6 py-4">
                                                 <div className="space-y-2">
-                                                    <Input size={30} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} placeholder={t('admin.inputName')} className="h-9 text-sm rounded-lg" />
-                                                    <Input value={formData.slug} onChange={e => setFormData({ ...formData, slug: e.target.value })} placeholder={t('admin.inputSlug')} className="h-9 text-sm rounded-lg" />
+                                                    <Input size={30} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} placeholder={t('admin:inputName')} className="h-9 text-sm rounded-lg" />
+                                                    <Input value={formData.slug} onChange={e => setFormData({ ...formData, slug: e.target.value })} placeholder={t('admin:inputSlug')} className="h-9 text-sm rounded-lg" />
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
@@ -176,7 +176,7 @@ export function CategoriesManager() {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="flex gap-2">
-                                                    <Input value={formData.icon_name} onChange={e => setFormData({ ...formData, icon_name: e.target.value })} placeholder={t('admin.icon')} className="h-9 text-sm rounded-lg" />
+                                                    <Input value={formData.icon_name} onChange={e => setFormData({ ...formData, icon_name: e.target.value })} placeholder={t('admin:icon')} className="h-9 text-sm rounded-lg" />
                                                     <Input type="number" value={formData.order_index} onChange={e => setFormData({ ...formData, order_index: parseInt(e.target.value) })} className="h-9 text-sm rounded-lg w-20" />
                                                 </div>
                                             </td>
@@ -200,13 +200,13 @@ export function CategoriesManager() {
                                                         <Input
                                                             value={formData.name}
                                                             onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                                            placeholder={t('admin.displayName')}
+                                                            placeholder={t('admin:displayName')}
                                                             className="h-9 text-sm rounded-lg"
                                                         />
                                                         <Input
                                                             value={formData.slug}
                                                             onChange={e => setFormData({ ...formData, slug: e.target.value })}
-                                                            placeholder={t('admin.inputSlug')}
+                                                            placeholder={t('admin:inputSlug')}
                                                             className="h-9 text-sm rounded-lg"
                                                         />
                                                     </div>
@@ -226,16 +226,16 @@ export function CategoriesManager() {
                                                     </div>
                                                 ) : (
                                                     <div className="flex flex-wrap gap-1.5">
-                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">{category.name_sk || 'SK'}</span>
-                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">{category.name_cs || 'CS'}</span>
-                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider">{category.name_en || 'EN'}</span>
+                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">{category.name_sk || 'SK'}</span>
+                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">{category.name_cs || 'CS'}</span>
+                                                        <span className="bg-muted/40 text-muted-foreground border border-border/40 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">{category.name_en || 'EN'}</span>
                                                     </div>
                                                 )}
                                             </td>
                                             <td className="px-6 py-4">
                                                 {editingId === category.id ? (
                                                     <div className="flex gap-2 max-w-[150px]">
-                                                        <Input value={formData.icon_name} onChange={e => setFormData({ ...formData, icon_name: e.target.value })} placeholder={t('admin.icon')} className="h-9 text-sm rounded-lg" />
+                                                        <Input value={formData.icon_name} onChange={e => setFormData({ ...formData, icon_name: e.target.value })} placeholder={t('admin:icon')} className="h-9 text-sm rounded-lg" />
                                                         <Input type="number" value={formData.order_index} onChange={e => setFormData({ ...formData, order_index: parseInt(e.target.value) })} className="h-9 text-sm rounded-lg w-20" />
                                                     </div>
                                                 ) : (
@@ -243,7 +243,7 @@ export function CategoriesManager() {
                                                         <div className="bg-primary/10 p-2 rounded-lg text-primary">
                                                             <FolderOpen className="h-4 w-4" />
                                                         </div>
-                                                        <span className="text-xs font-bold text-muted-foreground">{t('admin.tableOrder')}: {category.order_index}</span>
+                                                        <span className="text-xs font-bold text-muted-foreground">{t('admin:tableOrder')}: {category.order_index}</span>
                                                     </div>
                                                 )}
                                             </td>

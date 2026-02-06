@@ -40,7 +40,7 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
                             <Breadcrumbs
                                 items={[{ label: page.title }]}
                             />
-                            <h1 className="font-heading text-foreground text-4xl font-black tracking-tight italic md:text-5xl">
+                            <h1 className="font-heading text-foreground text-4xl font-bold tracking-tight  md:text-5xl">
                                 {page.title}
                             </h1>
                             {page.updated_at && (
@@ -61,7 +61,7 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
                         */}
                         <div
                             className="prose prose-zinc dark:prose-invert max-w-none
-                            prose-headings:font-black prose-headings:italic prose-headings:tracking-tight
+                            prose-headings:font-bold prose-headings: prose-headings:tracking-tight
                             prose-p:text-lg prose-p:leading-relaxed prose-p:text-zinc-600 dark:prose-p:text-zinc-400
                             prose-strong:text-foreground prose-a:text-primary hover:prose-a:underline"
                             dangerouslySetInnerHTML={{ __html: page.content }}

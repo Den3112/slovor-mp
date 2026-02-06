@@ -8,7 +8,7 @@ import { useTranslation } from '@/lib/i18n'
 import Link from 'next/link'
 
 export function HomeCTA() {
-  const { t } = useTranslation(['home', 'common'])
+  const { t, locale } = useTranslation(['home', 'common'])
 
   return (
     <section className="py-32 relative overflow-hidden">
@@ -68,7 +68,7 @@ export function HomeCTA() {
                 size="lg"
                 className="h-16 rounded-xl px-12 text-lg font-bold uppercase tracking-widest shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90 border-0"
               >
-                <Link href="/post">
+                <Link href={`/${locale}/post`}>
                   <Plus className="mr-3 h-6 w-6" />
                   {t('common:postAd')}
                 </Link>

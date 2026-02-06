@@ -1,7 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
-import { AdminListingsView } from '@/components/features/dashboard/admin/listings-view'
+import dynamic from 'next/dynamic'
 import { config } from '@/lib/config'
 import { redirect } from 'next/navigation'
+import { Loader2 } from 'lucide-react'
+
+const AdminListingsView = dynamic(() => import('@/components/features/dashboard/admin/listings-view').then(mod => mod.AdminListingsView), {
+    loading: () => (
+        <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+    )
+})
 
 export default async function AdminModerationPage() {
     const supabase = await createClient()

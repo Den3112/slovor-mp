@@ -7,6 +7,7 @@
 
 import Link from 'next/link'
 import { getCategoryIcon } from '@/lib/constants/category-icons'
+import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/api'
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export function CategoryShowcase({ categories }: Props) {
+  const { locale } = useTranslation()
   const featured = categories.slice(0, 8)
 
   return (
@@ -28,7 +30,7 @@ export function CategoryShowcase({ categories }: Props) {
           </p>
         </div>
         <Link
-          href="/categories"
+          href={`/${locale}/categories`}
           className="text-primary hover:text-primary/80 flex items-center gap-2 font-semibold"
         >
           View All →
@@ -42,7 +44,7 @@ export function CategoryShowcase({ categories }: Props) {
           return (
             <Link
               key={category.id}
-              href={`/categories/${category.slug}`}
+              href={`/${locale}/categories/${category.slug}`}
               className="group border-border bg-card rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
             >
               <div className="flex flex-col items-center text-center">

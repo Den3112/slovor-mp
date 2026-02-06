@@ -1,8 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
-import { SellerProfileView } from '@/components/seller-profile/seller-profile-view'
+import dynamic from 'next/dynamic'
 import { redirect } from 'next/navigation'
-import { Eye, ExternalLink } from 'lucide-react'
+import { Eye, ExternalLink, Loader2 } from 'lucide-react'
 import { getTranslationServer } from '@/lib/i18n/server'
+
+const SellerProfileView = dynamic(() => import('@/components/seller-profile/seller-profile-view').then(mod => mod.SellerProfileView), {
+  loading: () => (
+    <div className="flex h-96 items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
+  )
+})
 
 export default async function DashboardProfilePage() {
   const supabase = await createClient()
@@ -10,8 +18,10 @@ export default async function DashboardProfilePage() {
     data: { user },
   } = await supabase.auth.getUser()
 
+  const { locale, t } = await getTranslationServer();
+
   if (!user) {
-    redirect('/auth/login')
+    redirect(`/${locale}/auth/login`)
   }
 
   // Fetch own profile
@@ -30,10 +40,9 @@ export default async function DashboardProfilePage() {
 
   if (profileError || !seller) {
     // Fallback or handle error - for now redirect to settings to complete profile
-    redirect('/dashboard/settings')
+    redirect(`/${locale}/dashboard/settings`)
   }
 
-  const { t } = await getTranslationServer()
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 duration-700">
@@ -45,21 +54,21 @@ export default async function DashboardProfilePage() {
           </div>
           <div>
             <h1 className="text-muted-foreground/80 text-[10px] font-bold tracking-[0.2em] uppercase">
-              {t('profile_preview.title')}
+              {t('profile_preview:title')}
             </h1>
             <p className="text-foreground text-sm font-bold">
-              {t('profile_preview.description')}
+              {t('profile_preview:description')}
             </p>
           </div>
         </div>
 
         <a
-          href={`/seller/${user.id}`}
+          href={`/${locale}/seller/${user.id}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black uppercase tracking-widest transition-all active:scale-95 shadow-sm"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold uppercase tracking-widest transition-all active:scale-95 shadow-sm"
         >
-          {t('profile_preview.viewStore')}
+          {t('profile_preview:viewStore')}
           <ExternalLink className="h-4 w-4" />
         </a>
       </div>

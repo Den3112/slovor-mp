@@ -125,7 +125,6 @@ export function UserDashboardLayout({ children, stats }: UserDashboardLayoutProp
                         href: '/dashboard/profile',
                         label: t('profile:publicProfile'),
                         icon: Eye,
-                        external: true,
                     },
                     {
                         href: '/dashboard/verification',

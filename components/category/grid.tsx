@@ -33,7 +33,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
         >
           <div className="group flex h-full flex-col gap-4">
             <Link
-              href={`/categories/${category.slug}`}
+              href={`/${locale}/categories/${category.slug}`}
               className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-5xl border p-10 shadow-sm transition-all duration-500"
             >
               {/* Decorative Pattern */}
@@ -49,13 +49,13 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                 </div>
               )}
 
-              <h3 className="text-foreground group-hover/card:text-primary text-center text-xl font-black tracking-tight transition-colors">
+              <h3 className="text-foreground group-hover/card:text-primary text-center text-xl font-bold tracking-tight transition-colors">
                 {getLocalizedCategoryName(category, locale, t)}
               </h3>
 
               {category.listing_count !== undefined && (
-                <span className="bg-muted/50 text-muted-foreground group-hover/card:bg-primary/10 group-hover/card:text-primary mt-3 rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all">
-                  {category.listing_count} {t('common.listings')}
+                <span className="bg-muted/50 text-muted-foreground group-hover/card:bg-primary/10 group-hover/card:text-primary mt-3 rounded-full px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all">
+                  {category.listing_count} {t('common:listings')}
                 </span>
               )}
             </Link>
@@ -66,15 +66,15 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                 {category.subcategories.slice(0, 4).map((sub) => (
                   <Link
                     key={sub.id}
-                    href={`/categories/${sub.slug}`}
-                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl border px-3 py-1.5 text-[10px] font-black tracking-widest uppercase transition-all"
+                    href={`/${locale}/categories/${sub.slug}`}
+                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
                   >
                     {getLocalizedCategoryName(sub, locale, t)}
                   </Link>
                 ))}
                 {category.subcategories.length > 4 && (
                   <Link
-                    href={`/categories/${category.slug}`}
+                    href={`/${locale}/categories/${category.slug}`}
                     className="text-primary px-2 py-1.5 text-[10px] font-bold tracking-widest uppercase hover:underline"
                   >
                     +{category.subcategories.length - 4} More

@@ -16,9 +16,6 @@ ENV NPM_CONFIG_AUDIT=false
 # ===========================================
 FROM base AS deps
 
-# libc6-compat is needed for Alpine compatibility
-RUN apk add --no-cache libc6-compat
-
 WORKDIR /app
 
 # Copy package files
@@ -72,12 +69,6 @@ RUN addgroup --system --gid 1001 nodejs && \
 # Copy public assets
 COPY --from=builder /app/public ./public
 
-# Install curl for health checks
-RUN apk add --no-cache curl
-
-# Create .next directory and set permissions
-RUN mkdir .next && chown nextjs:nodejs .next
-
 # Copy standalone build output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
@@ -91,10 +82,6 @@ EXPOSE 3000
 # Set environment variables for runtime
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-
-# Health check using curl
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/api/health || exit 1
 
 # Start the server
 CMD ["node", "server.js"]

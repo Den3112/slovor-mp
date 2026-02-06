@@ -21,11 +21,11 @@ export default async function FAQPage() {
     <main className="relative min-h-screen bg-background pb-24">
       <Container className="pt-32 md:pt-40">
         <div className="mx-auto mb-20 max-w-4xl text-center animate-in fade-in slide-in-from-top-4 duration-700">
-          <div className="bg-primary/10 text-primary mx-auto mb-6 inline-flex items-center gap-2 rounded-xl border border-primary/20 px-3 py-1 text-[10px] font-black tracking-[0.2em] uppercase">
+          <div className="bg-primary/10 text-primary mx-auto mb-6 inline-flex items-center gap-2 rounded-xl border border-primary/20 px-3 py-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             <HelpCircle className="h-3.5 w-3.5" />
             {t('common:help')}
           </div>
-          <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-black tracking-tight md:text-8xl italic uppercase">
+          <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-bold tracking-tight md:text-8xl  uppercase">
             {t('faq:title')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
@@ -44,7 +44,7 @@ export default async function FAQPage() {
                   <ChevronRight className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="text-foreground mb-3 text-xl font-black tracking-tight uppercase italic">
+                  <h3 className="text-foreground mb-3 text-xl font-bold tracking-tight uppercase ">
                     {faq.q}
                   </h3>
                   <p className="text-muted-foreground text-lg leading-relaxed font-medium">

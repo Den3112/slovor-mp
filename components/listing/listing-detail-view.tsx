@@ -44,7 +44,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
         <div className="mb-6 md:mb-8">
           <Breadcrumbs
             items={[
-              { label: t('allListings'), href: '/listings' },
+              { label: t('allListings'), href: `/${locale}/listings` },
               ...(listing.category
                 ? [
                   {
@@ -53,7 +53,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                       locale,
                       t
                     ),
-                    href: `/categories/${listing.category.slug}`,
+                    href: `/${locale}/categories/${listing.category.slug}`,
                   },
                 ]
                 : []),

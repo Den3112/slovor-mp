@@ -84,15 +84,15 @@ export function ReportDialog({
     <ResponsiveDialog
       open={isOpen}
       onOpenChange={(val) => !val && handleClose()}
-      title={listingId ? t('reports.reportListing') : t('reports.reportUser')}
-      description={t('reports.description')}
+      title={listingId ? t('reports:reportListing') : t('reports:reportUser')}
+      description={t('reports:description')}
     >
       <div className="space-y-6">
         {/* Success State */}
         {submitState === 'success' ? (
           <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-6 text-center">
             <div className="mb-2 text-4xl">✓</div>
-            <p className="font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-500">{t('reports.thankYou')}</p>
+            <p className="font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-500">{t('reports:thankYou')}</p>
           </div>
         ) : (
           <>
@@ -105,8 +105,8 @@ export function ReportDialog({
 
             {/* Reason Select */}
             <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
-                {t('reports.reason')} *
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                {t('reports:reason')} *
               </label>
               <select
                 value={reason}
@@ -124,8 +124,8 @@ export function ReportDialog({
 
             {/* Description */}
             <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">
-                {t('reports.description')}
+              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                {t('reports:description')}
               </label>
               <textarea
                 value={description}
@@ -141,24 +141,24 @@ export function ReportDialog({
               <Button
                 onClick={handleSubmit}
                 disabled={!reason || isSubmitting || !user}
-                className={cn('flex-1 rounded-xl font-black uppercase tracking-widest', !user && 'opacity-50')}
+                className={cn('flex-1 rounded-xl font-bold uppercase tracking-widest', !user && 'opacity-50')}
               >
-                {isSubmitting ? '...' : t('reports.submit')}
+                {isSubmitting ? '...' : t('reports:submit')}
               </Button>
               <Button
                 variant="outline"
                 onClick={handleClose}
                 disabled={isSubmitting}
-                className="rounded-xl font-black uppercase tracking-widest"
+                className="rounded-xl font-bold uppercase tracking-widest"
               >
-                {t('common.back')}
+                {t('common:back')}
               </Button>
             </div>
 
             {/* Login hint */}
             {!user && (
               <p className="text-muted-foreground mt-4 text-center text-[10px] font-bold uppercase tracking-widest">
-                {t('auth.signIn')} required
+                {t('auth:signIn')} required
               </p>
             )}
           </>

@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import type { Session, User } from '@supabase/supabase-js'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 
 interface AuthContextType {
   session: Session | null
@@ -23,6 +23,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const params = useParams()
+  const locale = params?.locale as string || 'en'
   console.log('AuthProvider: RENDER. URL:', process.env.NEXT_PUBLIC_SUPABASE_URL, 'Key length:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.length);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession(session)
       setIsLoading(false)
       if (_event === 'SIGNED_OUT') {
-        router.push('/')
+        router.push(`/${locale}/`)
         router.refresh()
       }
     })

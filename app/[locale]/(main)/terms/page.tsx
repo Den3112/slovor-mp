@@ -15,9 +15,9 @@ export default async function TermsPage() {
             </div>
             <div className="flex-1">
               <Breadcrumbs
-                items={[{ label: t('footer.terms') || 'Terms of Service' }]}
+                items={[{ label: t('footer:terms') || 'Terms of Service' }]}
               />
-              <h1 className="font-heading text-foreground text-4xl font-black tracking-tight italic md:text-6xl uppercase">
+              <h1 className="font-heading text-foreground text-4xl font-bold tracking-tight  md:text-6xl uppercase">
                 Terms of Service
               </h1>
               <div className="text-muted-foreground mt-2 flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
@@ -29,7 +29,7 @@ export default async function TermsPage() {
 
           <div className="bg-card border border-border prose prose-invert prose-zinc max-w-none rounded-xl p-8 md:p-12 shadow-sm">
             <section className="mb-12">
-              <h2 className="mb-4 text-[10px] font-black tracking-[0.2em] text-foreground uppercase">
+              <h2 className="mb-4 text-[10px] font-bold tracking-[0.2em] text-foreground uppercase">
                 1. Acceptance of Terms
               </h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
@@ -40,7 +40,7 @@ export default async function TermsPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="mb-4 text-[10px] font-black tracking-[0.2em] text-foreground uppercase">
+              <h2 className="mb-4 text-[10px] font-bold tracking-[0.2em] text-foreground uppercase">
                 2. Use of Platform
               </h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
@@ -51,7 +51,7 @@ export default async function TermsPage() {
             </section>
 
             <section>
-              <h2 className="mb-4 text-[10px] font-black tracking-[0.2em] text-foreground uppercase">
+              <h2 className="mb-4 text-[10px] font-bold tracking-[0.2em] text-foreground uppercase">
                 3. Listings
               </h2>
               <p className="text-lg leading-relaxed text-muted-foreground">

@@ -12,7 +12,7 @@ services:
       dockerfile: Dockerfile
       # Build-time arguments with fallback defaults from .env.example
       args:
-        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-https://hnkhwvhjwygolvwvonor.supabase.co}
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-https://hnkhwvhjwygolvwvxnor.supabase.co}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
         NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME:-dfxvqhdck}
     image: slovor-mp-web:latest

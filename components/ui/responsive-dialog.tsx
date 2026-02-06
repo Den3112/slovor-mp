@@ -57,7 +57,7 @@ export function ResponsiveDialog({
                 <VaulDrawer.Content className="fixed inset-x-0 bottom-0 z-50 flex h-auto flex-col rounded-t-3xl border bg-background outline-hidden">
                     <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
                     <div className="p-6">
-                        <VaulDrawer.Title className="text-lg font-black tracking-tight italic">
+                        <VaulDrawer.Title className="text-lg font-bold tracking-tight ">
                             {title}
                         </VaulDrawer.Title>
                         {description && (

@@ -98,14 +98,14 @@ export function SettingsManager() {
                 {/* Left: Basic Info */}
                 <div className="lg:col-span-2 space-y-6">
                     <div className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-6 shadow-sm">
-                        <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-3">
+                        <h3 className="text-xl font-bold uppercase tracking-tight flex items-center gap-3">
                             <Globe className="h-5 w-5 text-primary" />
                             {t('admin:generalBranding')}
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('admin:siteName')}</label>
+                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('admin:siteName')}</label>
                                 <Input
                                     value={general.siteName}
                                     onChange={e => setGeneral({ ...general, siteName: e.target.value })}
@@ -113,7 +113,7 @@ export function SettingsManager() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('admin:supportEmail')}</label>
+                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('admin:supportEmail')}</label>
                                 <div className="relative">
                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                     <Input
@@ -126,7 +126,7 @@ export function SettingsManager() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t('admin:footerDescription')}</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{t('admin:footerDescription')}</label>
                             <textarea
                                 value={general.footerDescription}
                                 onChange={e => setGeneral({ ...general, footerDescription: e.target.value })}
@@ -136,14 +136,14 @@ export function SettingsManager() {
                     </div>
 
                     <div className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-6 shadow-sm">
-                        <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-3">
+                        <h3 className="text-xl font-bold uppercase tracking-tight flex items-center gap-3">
                             <Share2 className="h-5 w-5 text-primary" />
                             {t('admin:socialMedia')}
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                     <Facebook className="h-3 w-3" /> {t('admin:facebook')}
                                 </label>
                                 <Input
@@ -153,7 +153,7 @@ export function SettingsManager() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                     <Instagram className="h-3 w-3" /> {t('admin:instagram')}
                                 </label>
                                 <Input
@@ -163,7 +163,7 @@ export function SettingsManager() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                     <Twitter className="h-3 w-3" /> {t('admin:twitter')}
                                 </label>
                                 <Input
@@ -179,14 +179,14 @@ export function SettingsManager() {
                 {/* Right: Status & Actions */}
                 <div className="space-y-6">
                     <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 space-y-6 shadow-sm">
-                        <h3 className="text-lg font-black uppercase tracking-tight">{t('admin:systemAction')}</h3>
+                        <h3 className="text-lg font-bold uppercase tracking-tight">{t('admin:systemAction')}</h3>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground leading-relaxed">
                             {t('admin:systemActionDesc')}
                         </p>
                         <Button
                             onClick={handleSave}
                             disabled={isLoading}
-                            className="w-full h-14 rounded-xl font-black uppercase tracking-widest text-xs shadow-sm bg-primary hover:bg-primary/90 transition-all active:scale-95"
+                            className="w-full h-14 rounded-xl font-bold uppercase tracking-widest text-xs shadow-sm bg-primary hover:bg-primary/90 transition-all active:scale-95"
                         >
                             {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Save className="h-5 w-5 mr-2" />}
                             {t('admin:publishChanges')}
@@ -200,7 +200,7 @@ export function SettingsManager() {
                             : "bg-emerald-500/10 border-emerald-500/30"
                     )}>
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-black uppercase tracking-tight">{t('admin:maintenance')}</h3>
+                            <h3 className="font-bold uppercase tracking-tight">{t('admin:maintenance')}</h3>
                             <div
                                 onClick={() => setSystem({ ...system, maintenanceMode: !system.maintenanceMode })}
                                 className={cn(

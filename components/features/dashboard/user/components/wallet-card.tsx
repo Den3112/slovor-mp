@@ -14,7 +14,7 @@ interface WalletCardProps {
 }
 
 export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
-    const { t } = useTranslation()
+    const { t, locale } = useTranslation()
 
     return (
         <Card className="overflow-hidden border-border/80 bg-slate-950 text-white shadow-lg rounded-xl relative group">
@@ -28,7 +28,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
                         <div className="bg-slate-900 p-2 rounded-lg border border-white/5">
                             <CreditCard className="h-5 w-5 text-primary" />
                         </div>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 italic">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ">
                             Slovor Wallet
                         </span>
                     </div>
@@ -37,7 +37,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
                         <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                             {t('dashboard:walletDetails.availableBalance')}
                         </p>
-                        <h2 className="text-4xl font-bold tracking-tighter italic">
+                        <h2 className="text-4xl font-bold tracking-tighter ">
                             {formatPrice(balance, currency)}
                         </h2>
                     </div>
@@ -58,7 +58,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
                         asChild
                         className="bg-slate-900 border-white/10 hover:bg-slate-800 text-white rounded-xl font-bold text-[10px] uppercase tracking-widest h-10 px-4"
                     >
-                        <Link href="/dashboard/wallet">
+                        <Link href={`/${locale}/dashboard/wallet`}>
                             <ArrowUpRight className="h-4 w-4" />
                         </Link>
                     </Button>

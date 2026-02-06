@@ -1,16 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 
 export function SearchBar() {
   const [search, setSearch] = useState('')
   const router = useRouter()
+  const params = useParams()
+  const locale = params?.locale as string || 'en'
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (search.trim()) {
-      router.push(`/listings?search=${encodeURIComponent(search.trim())}`)
+      router.push(`/${locale}/listings?search=${encodeURIComponent(search.trim())}`)
     }
   }
 

@@ -10,7 +10,7 @@ export function MessagesPlaceholder() {
             <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 border border-primary/20 shadow-lg shadow-primary/5">
                 <MessageSquarePlus className="h-10 w-10 text-primary" />
             </div>
-            <h3 className="mb-2 text-xl font-black tracking-tight text-foreground uppercase">
+            <h3 className="mb-2 text-xl font-bold tracking-tight text-foreground uppercase">
                 {t('messages:selectConversation')}
             </h3>
             <p className="mx-auto max-w-xs text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">

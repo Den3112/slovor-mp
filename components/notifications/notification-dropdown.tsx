@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 
 export function NotificationDropdown() {
-    const { t } = useTranslation()
+    const { t, locale } = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const { notifications, unreadCount, isLoading, markAsRead, markAllAsRead } = useNotifications()
     const dropdownRef = useRef<HTMLDivElement>(null)
@@ -41,7 +41,7 @@ export function NotificationDropdown() {
                 )} />
 
                 {unreadCount > 0 && (
-                    <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-black text-white ring-2 ring-background animate-in zoom-in-50 duration-300">
+                    <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white ring-2 ring-background animate-in zoom-in-50 duration-300">
                         {unreadCount > 9 ? '9+' : unreadCount}
                     </span>
                 )}
@@ -53,12 +53,12 @@ export function NotificationDropdown() {
                         initial={{ opacity: 0, y: 15, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                        className="absolute right-0 mt-3 w-80 md:w-96 bg-card/95 border border-white/10 rounded-3xl shadow-2xl backdrop-blur-2xl z-50 overflow-hidden origin-top-right"
+                        className="absolute right-0 mt-3 w-80 md:w-96 bg-card/95 border border-white/10 rounded-3xl shadow-lg backdrop-blur-2xl z-50 overflow-hidden origin-top-right"
                     >
                         {/* Header */}
                         <div className="p-5 border-b border-white/5 flex items-center justify-between">
                             <div>
-                                <h3 className="text-lg font-black tracking-tight">{t('common.notifications') || 'Notifications'}</h3>
+                                <h3 className="text-lg font-bold tracking-tight">{t('common:notifications') || 'Notifications'}</h3>
                                 <p className="text-xs text-muted-foreground font-medium">
                                     {unreadCount > 0
                                         ? `You have ${unreadCount} unread messages`
@@ -70,7 +70,7 @@ export function NotificationDropdown() {
                                     variant="ghost"
                                     size="sm"
                                     onClick={markAllAsRead}
-                                    className="text-[10px] font-black tracking-widest uppercase hover:bg-primary/10 hover:text-primary rounded-xl"
+                                    className="text-[10px] font-bold tracking-widest uppercase hover:bg-primary/10 hover:text-primary rounded-xl"
                                 >
                                     Mark all as read
                                 </Button>
@@ -140,8 +140,8 @@ export function NotificationDropdown() {
                                                         </span>
                                                         {notif.link && (
                                                             <Link
-                                                                href={notif.link}
-                                                                className="text-[10px] text-primary font-black uppercase tracking-widest flex items-center gap-1 hover:underline"
+                                                                href={notif.link?.startsWith('/') ? `/${locale}${notif.link}` : notif.link}
+                                                                className="text-[10px] text-primary font-bold uppercase tracking-widest flex items-center gap-1 hover:underline"
                                                                 onClick={() => setIsOpen(false)}
                                                             >
                                                                 View <ExternalLink className="h-2.5 w-2.5" />
@@ -158,7 +158,7 @@ export function NotificationDropdown() {
 
                         {/* Footer */}
                         <div className="p-3 bg-muted/30 border-t border-white/5">
-                            <Link href="/dashboard/notifications">
+                            <Link href={`/${locale}/dashboard/notifications`}>
                                 <Button variant="ghost" className="w-full rounded-xl text-xs font-bold text-muted-foreground hover:text-foreground">
                                     View full history
                                 </Button>

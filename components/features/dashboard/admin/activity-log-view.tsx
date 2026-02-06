@@ -62,7 +62,7 @@ export function AdminActivityLogView() {
             cell: (row) => (
                 <div className="flex items-center gap-2">
                     <Badge variant="outline" className={cn(
-                        "px-2 py-0.5 border font-black text-[9px] uppercase tracking-widest rounded flex items-center gap-1.5 h-5",
+                        "px-2 py-0.5 border font-bold text-[9px] uppercase tracking-widest rounded flex items-center gap-1.5 h-5",
                         row.action.includes('error') ? 'bg-destructive/10 text-destructive border-destructive/20' :
                             row.action.includes('login') ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' :
                                 row.action.includes('create') ? 'bg-success/10 text-success border-success/20' :
@@ -107,7 +107,7 @@ export function AdminActivityLogView() {
         <div className="space-y-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight text-foreground uppercase flex items-center gap-3 italic">
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground uppercase flex items-center gap-3 ">
                         <Activity className="h-8 w-8 text-primary" />
                         {t('admin:activityLog') || 'Activity Log'}
                     </h1>

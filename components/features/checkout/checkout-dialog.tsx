@@ -20,7 +20,7 @@ interface CheckoutDialogProps {
 }
 
 export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps) {
-    const { t } = useTranslation(['listing', 'common'])
+    const { t, locale } = useTranslation(['listing', 'common'])
     const router = useRouter()
     const [isProcessing, setIsProcessing] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
@@ -43,7 +43,7 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
 
             // Redirect to order details after a short delay
             setTimeout(() => {
-                router.push(`/dashboard/orders/${orderId}`)
+                router.push(`/${locale}/dashboard/orders/${orderId}`)
                 onClose()
             }, 2000)
         } catch (err: any) {
@@ -80,7 +80,7 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h4 className="font-bold text-sm truncate">{listing.title}</h4>
-                                    <p className="font-heading text-lg font-black tracking-tight text-primary">
+                                    <p className="font-heading text-lg font-bold tracking-tight text-primary">
                                         {formatPrice(listing.price, listing.currency)}
                                     </p>
                                 </div>
@@ -88,11 +88,11 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
 
                             {/* Wallet Info Badge */}
                             <div className="flex items-center justify-between p-3 rounded-lg border border-primary/20 bg-primary/5">
-                                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary">
+                                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary">
                                     <Wallet className="h-3.5 w-3.5" />
                                     Payment Method
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary">Internal Wallet</span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Internal Wallet</span>
                             </div>
 
                             {error && (
@@ -108,14 +108,14 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
                                 variant="outline"
                                 onClick={onClose}
                                 disabled={isProcessing}
-                                className="rounded-xl font-black uppercase tracking-widest text-[10px] h-11 border-border/60 flex-1"
+                                className="rounded-xl font-bold uppercase tracking-widest text-[10px] h-11 border-border/60 flex-1"
                             >
                                 {t('common:back')}
                             </Button>
                             <Button
                                 onClick={handlePurchase}
                                 disabled={isProcessing}
-                                className="flex-1 rounded-xl font-black uppercase tracking-widest text-[10px] h-11 shadow-lg shadow-primary/20"
+                                className="flex-1 rounded-xl font-bold uppercase tracking-widest text-[10px] h-11 shadow-lg shadow-primary/20"
                             >
                                 {isProcessing ? (
                                     <>
@@ -134,12 +134,12 @@ export function CheckoutDialog({ listing, isOpen, onClose }: CheckoutDialogProps
                             <CheckCircle2 className="h-10 w-10" />
                         </div>
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-black uppercase tracking-tight">Success!</h3>
+                            <h3 className="text-2xl font-bold uppercase tracking-tight">Success!</h3>
                             <p className="text-sm font-medium text-muted-foreground max-w-[280px]">
                                 {t('listing:purchaseSuccess')}
                             </p>
                         </div>
-                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 animate-pulse">
+                        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 animate-pulse">
                             Redirecting to order details...
                         </div>
                     </div>
