@@ -80,12 +80,7 @@ export const profilesApi = {
   async update(id: string, updates: Partial<User>): Promise<ApiResponse<User>> {
     try {
       // Remove sensitive or read-only fields
-      const {
-        id: _,
-        created_at: __,
-        updated_at: ___,
-        ...safeUpdates
-      } = updates
+      const { id: _, created_at: __, updated_at: ___, ...safeUpdates } = updates
 
       // Use upsert to create profile if it doesn't exist
       const { data, error } = await supabase
@@ -198,4 +193,3 @@ export const profilesApi = {
     }
   },
 }
-export const usersApi = profilesApi
