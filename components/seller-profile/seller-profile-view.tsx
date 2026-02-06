@@ -41,7 +41,10 @@ export function SellerProfileView({
   const { user } = useAuth()
   const router = useRouter()
   const [isContacting, setIsContacting] = useState(false)
-  const [ratingData, setRatingData] = useState<{ averageRating: number; totalReviews: number } | null>(null)
+  const [ratingData, setRatingData] = useState<{
+    averageRating: number
+    totalReviews: number
+  } | null>(null)
 
   useEffect(() => {
     import('@/lib/api').then(({ reviewsApi }) => {
@@ -53,7 +56,13 @@ export function SellerProfileView({
 
   // Calculate member since date
   const memberSince = new Date(seller.created_at).toLocaleDateString(
-    locale === 'sk' ? 'sk-SK' : locale === 'cs' ? 'cs-CZ' : locale === 'ru' ? 'ru-RU' : 'en-US',
+    locale === 'sk'
+      ? 'sk-SK'
+      : locale === 'cs'
+        ? 'cs-CZ'
+        : locale === 'ru'
+          ? 'ru-RU'
+          : 'en-US',
     {
       month: 'long',
       year: 'numeric',
@@ -104,7 +113,11 @@ export function SellerProfileView({
   }
 
   return (
-    <div className={variant === 'public' ? 'min-h-screen bg-background pb-20' : 'pb-12'}>
+    <div
+      className={
+        variant === 'public' ? 'bg-background min-h-screen pb-20' : 'pb-12'
+      }
+    >
       {/* Breadcrumbs / Back button - Only for public */}
       {variant === 'public' && (
         <Container className="py-6 pt-24 md:pt-32">
@@ -122,10 +135,14 @@ export function SellerProfileView({
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Seller Profile Card (Left) */}
           <div className="lg:col-span-4">
-            <div className={variant === 'public' ? 'sticky top-32 space-y-6' : 'space-y-6'}>
+            <div
+              className={
+                variant === 'public' ? 'sticky top-32 space-y-6' : 'space-y-6'
+              }
+            >
               {/* Main Profile Card - Solid Redesign */}
-              <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-                <div className="p-8 space-y-8">
+              <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
+                <div className="space-y-8 p-8">
                   {/* Avatar */}
                   <div className="flex flex-col items-center text-center">
                     <div className="relative mb-6">
@@ -133,14 +150,14 @@ export function SellerProfileView({
                         <Image
                           src={seller.avatar_url}
                           alt={seller.display_name ?? seller.username ?? ''}
-                          width={120}
-                          height={120}
+                          width={112}
+                          height={112}
                           unoptimized
-                          className="h-28 w-28 rounded-xl border border-border object-cover shadow-sm"
+                          className="border-border h-24 w-24 rounded-xl border object-cover shadow-sm sm:h-28 sm:w-28"
                         />
                       ) : (
-                        <div className="bg-muted flex h-28 w-28 items-center justify-center rounded-xl border border-border">
-                          <User className="text-muted-foreground/30 h-10 w-10" />
+                        <div className="bg-muted border-border flex h-24 w-24 items-center justify-center rounded-xl border sm:h-28 sm:w-28">
+                          <User className="text-muted-foreground/30 h-8 w-8 sm:h-10 sm:w-10" />
                         </div>
                       )}
                       {seller.verified && (
@@ -152,7 +169,7 @@ export function SellerProfileView({
 
                     {/* Name & Badge */}
                     <div className="space-y-3">
-                      <h1 className="text-2xl font-bold tracking-tight text-foreground uppercase leading-tight">
+                      <h1 className="text-foreground text-xl leading-tight font-bold tracking-tight uppercase sm:text-2xl">
                         {seller.display_name ?? seller.username}
                       </h1>
                       {seller.verified && (
@@ -167,24 +184,24 @@ export function SellerProfileView({
 
                     {/* Bio */}
                     {seller.bio && (
-                      <p className="text-muted-foreground mt-6 text-sm font-medium leading-relaxed">
+                      <p className="text-muted-foreground mt-6 text-sm leading-relaxed font-medium">
                         {seller.bio}
                       </p>
                     )}
 
                     {/* Stats - Solid Row */}
-                    <div className="grid w-full grid-cols-2 gap-4 pt-8 mt-8 border-t border-border">
-                      <div className="text-center p-4 bg-muted/30 rounded-xl border border-border/50">
-                        <p className="text-2xl font-bold text-foreground">
+                    <div className="border-border mt-8 grid w-full grid-cols-2 gap-4 border-t pt-8">
+                      <div className="bg-muted/30 border-border/50 rounded-xl border p-4 text-center">
+                        <p className="text-foreground text-2xl font-bold">
                           {listings.length}
                         </p>
                         <p className="text-muted-foreground mt-1 text-[9px] font-bold tracking-widest uppercase opacity-60">
                           {t('seller:activeListings')}
                         </p>
                       </div>
-                      <div className="text-center p-4 bg-muted/30 rounded-xl border border-border/50">
+                      <div className="bg-muted/30 border-border/50 rounded-xl border p-4 text-center">
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-2xl font-bold text-foreground">
+                          <span className="text-foreground text-2xl font-bold">
                             {ratingData?.averageRating || '—'}
                           </span>
                           <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
@@ -198,7 +215,7 @@ export function SellerProfileView({
                     {/* Meta Info */}
                     <div className="w-full space-y-3 pt-6">
                       {seller.location && (
-                        <div className="text-muted-foreground flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest bg-muted/20 py-3 rounded-lg border border-border/40">
+                        <div className="text-muted-foreground bg-muted/20 border-border/40 flex items-center justify-center gap-2 rounded-lg border py-3 text-xs font-bold tracking-widest uppercase">
                           <MapPin className="text-primary h-3.5 w-3.5" />
                           <span className="text-foreground">
                             {seller.location}
@@ -207,7 +224,7 @@ export function SellerProfileView({
                       )}
                       <div className="text-muted-foreground flex items-center justify-center gap-2 pt-2">
                         <Calendar className="h-3.5 w-3.5" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        <span className="text-[10px] font-bold tracking-widest uppercase opacity-60">
                           {t('seller:memberSince')} {memberSince}
                         </span>
                       </div>
@@ -220,7 +237,7 @@ export function SellerProfileView({
               {variant === 'public' ? (
                 <Button
                   size="xl"
-                  className="w-full rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
+                  className="shadow-primary/20 w-full rounded-xl font-bold tracking-widest uppercase shadow-lg"
                   onClick={handleContact}
                   disabled={isContacting}
                 >
@@ -236,7 +253,7 @@ export function SellerProfileView({
                   <Button
                     variant="outline"
                     size="xl"
-                    className="w-full rounded-xl border border-border font-bold uppercase tracking-widest hover:bg-muted"
+                    className="border-border hover:bg-muted w-full rounded-xl border font-bold tracking-widest uppercase"
                   >
                     Edit Profile
                   </Button>
@@ -245,16 +262,16 @@ export function SellerProfileView({
 
               {/* Safety info - Solid style */}
               {variant === 'public' && (
-                <div className="bg-card border border-border rounded-xl p-8 shadow-sm">
+                <div className="bg-card border-border rounded-xl border p-8 shadow-sm">
                   <div className="flex gap-4">
-                    <div className="bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20">
+                    <div className="bg-primary/10 border-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">
                       <ShieldCheck className="text-primary h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-foreground text-sm font-bold uppercase tracking-tight">
+                      <p className="text-foreground text-sm font-bold tracking-tight uppercase">
                         {t('trust:safetyTitle')}
                       </p>
-                      <p className="text-muted-foreground mt-2 text-xs font-medium leading-relaxed">
+                      <p className="text-muted-foreground mt-2 text-xs leading-relaxed font-medium">
                         {t('trust:safetyTip1')}
                       </p>
                     </div>
@@ -270,11 +287,11 @@ export function SellerProfileView({
           {/* Seller Listings (Right) - Only show in public mode */}
           {variant === 'public' && (
             <div className="space-y-10 lg:col-span-8">
-              <div className="flex items-center justify-between border-b border-border pb-6">
+              <div className="border-border flex items-center justify-between border-b pb-6">
                 <h2 className="text-2xl font-bold tracking-tight uppercase">
                   {t('seller:listings')}
                 </h2>
-                <span className="bg-muted text-muted-foreground rounded-lg px-3 py-1 text-[10px] font-bold tracking-widest uppercase border border-border">
+                <span className="bg-muted text-muted-foreground border-border rounded-lg border px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
                   {listings.length} items
                 </span>
               </div>
