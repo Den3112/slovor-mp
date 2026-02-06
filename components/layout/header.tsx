@@ -41,18 +41,13 @@ export function Header() {
 
   if (!mounted) return null
 
-  // Hide header on dashboard routes
-  const isDashboard = pathname?.includes('/admin') || pathname?.includes('/dashboard') || pathname?.includes('/messages') || pathname?.includes('/favorites')
-
-  if (isDashboard) {
-    return null
-  }
+  // Ensure header is visible everywhere as per user request
 
   return (
     <>
       <header
         className={cn(
-          'sticky top-0 z-50 w-full h-[80px] bg-background border-b border-border antialiased transition-all duration-300',
+          'bg-background border-border sticky top-0 z-50 h-[80px] w-full border-b antialiased transition-all duration-300'
         )}
       >
         <Container className="h-full">
@@ -63,26 +58,36 @@ export function Header() {
 
               <button
                 className={cn(
-                  "hidden lg:flex items-center gap-2.5 px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all active:scale-[0.98]",
+                  'hidden items-center gap-2.5 rounded-xl px-4 py-2 text-[11px] font-bold tracking-widest uppercase transition-all active:scale-[0.98] lg:flex',
                   isMegaMenuOpen
-                    ? "bg-primary text-white shadow-lg shadow-primary/20"
-                    : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/40"
+                    ? 'bg-primary shadow-primary/20 text-white shadow-lg'
+                    : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border-border/40 border'
                 )}
                 onMouseEnter={() => setIsMegaMenuOpen(true)}
                 onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
               >
-                <LayoutGrid className={cn("w-4 h-4 transition-transform", isMegaMenuOpen && "scale-110")} />
+                <LayoutGrid
+                  className={cn(
+                    'h-4 w-4 transition-transform',
+                    isMegaMenuOpen && 'scale-110'
+                  )}
+                />
                 <span>{t('nav:categories')}</span>
-                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-300", isMegaMenuOpen && "rotate-180")} />
+                <ChevronDown
+                  className={cn(
+                    'h-3.5 w-3.5 transition-transform duration-300',
+                    isMegaMenuOpen && 'rotate-180'
+                  )}
+                />
               </button>
             </div>
 
             {/* Central Expressive Search - Desktop */}
-            <div className="hidden flex-1 max-w-xl items-center justify-center md:flex">
-              <div className="w-full relative group">
+            <div className="hidden max-w-xl flex-1 items-center justify-center md:flex">
+              <div className="group relative w-full">
                 <CommandCenter locale={locale} />
                 {/* Visual indicator of center focus */}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary transition-all duration-500 group-focus-within:w-1/2 opacity-50" />
+                <div className="bg-primary absolute -bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 opacity-50 transition-all duration-500 group-focus-within:w-1/2" />
               </div>
             </div>
 
@@ -90,24 +95,34 @@ export function Header() {
             <div className="flex shrink-0 items-center gap-3">
               <div className="hidden items-center gap-3 lg:flex">
                 {/* Secondary Actions */}
-                <div className="flex items-center gap-1.5 pr-2 border-r border-border/40">
+                <div className="border-border/40 flex items-center gap-1.5 border-r pr-2">
                   <LanguageSelector />
                   <ThemeToggle />
                 </div>
 
                 {/* Engagement Icons */}
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" asChild className="h-10 w-10 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 h-10 w-10 rounded-xl transition-all"
+                  >
                     <Link href={`/${locale}/favorites`}>
                       <Heart className="h-5 w-5" />
                     </Link>
                   </Button>
 
-                  <Button variant="ghost" size="icon" asChild className="relative h-10 w-10 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 relative h-10 w-10 rounded-xl transition-all"
+                  >
                     <Link href={`/${locale}/messages`}>
                       <MessageCircle className="h-5 w-5" />
                       {unreadCount > 0 && (
-                        <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg bg-primary text-[9px] font-bold text-white ring-2 ring-background">
+                        <span className="bg-primary ring-background absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg text-[9px] font-bold text-white ring-2">
                           {unreadCount > 9 ? '9+' : unreadCount}
                         </span>
                       )}
@@ -115,22 +130,28 @@ export function Header() {
                   </Button>
                 </div>
 
-                <div className="mx-1 h-8 w-px bg-border/40" />
+                <div className="bg-border/40 mx-1 h-8 w-px" />
 
                 {user ? (
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
                     href={`/${locale}/auth/login`}
-                    className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80 hover:text-primary transition-colors px-3 py-2"
+                    className="text-muted-foreground/80 hover:text-primary px-3 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
                   >
                     {t('common:signIn')}
                   </Link>
                 )}
 
                 {/* Primary CTA - Post Ad */}
-                <Button asChild className="h-12 rounded-xl px-6 gap-2.5 font-semibold text-[15px] ml-2 bg-primary hover:bg-primary-hover text-white border-0 shadow-primary transition-all active:scale-[0.98]">
-                  <Link href={`/${locale}/post`} data-testid="header-post-ad-btn">
+                <Button
+                  asChild
+                  className="bg-primary hover:bg-primary-hover shadow-primary ml-2 h-12 gap-2.5 rounded-xl border-0 px-6 text-[15px] font-semibold text-white transition-all active:scale-[0.98]"
+                >
+                  <Link
+                    href={`/${locale}/post`}
+                    data-testid="header-post-ad-btn"
+                  >
                     <Plus className="h-5 w-5" strokeWidth={2.5} />
                     <span>{t('nav:postAd')}</span>
                   </Link>
@@ -143,7 +164,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSearchOverlayOpen(true)}
-                  className="h-10 w-10 rounded-xl bg-muted/40"
+                  className="bg-muted/40 h-10 w-10 rounded-xl"
                 >
                   <Search className="h-5 w-5" />
                 </Button>
@@ -151,7 +172,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="h-10 w-10 rounded-xl bg-muted/40"
+                  className="bg-muted/40 h-10 w-10 rounded-xl"
                   aria-label="Open menu"
                 >
                   <Menu className="h-5 w-5" />
@@ -174,7 +195,6 @@ export function Header() {
         user={user}
         signOut={signOut}
       />
-
 
       <MobileSearchOverlay
         isOpen={isSearchOverlayOpen}

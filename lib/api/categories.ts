@@ -62,7 +62,10 @@ export const categoriesApi = {
         .from('categories')
         .select('*')
         .eq('slug', slug)
-        .single()
+        .single() // Reverting to single() as maybeSingle() might hide duplicates, but actually the error "Cannot coerce" implies issues with single().
+        // Better approach for debugging: use limit(1).single() or just maybeSingle()
+        .limit(1)
+        .maybeSingle()
 
       if (error) {
         throw error
@@ -90,7 +93,9 @@ export const categoriesApi = {
   /**
    * Creates a new category
    */
-  async create(category: Omit<Category, 'id' | 'created_at'>): Promise<ApiResponse<Category>> {
+  async create(
+    category: Omit<Category, 'id' | 'created_at'>
+  ): Promise<ApiResponse<Category>> {
     try {
       const { data, error } = await supabase
         .from('categories')
@@ -108,7 +113,10 @@ export const categoriesApi = {
   /**
    * Updates an existing category
    */
-  async update(id: string, updates: Partial<Category>): Promise<ApiResponse<Category>> {
+  async update(
+    id: string,
+    updates: Partial<Category>
+  ): Promise<ApiResponse<Category>> {
     try {
       const { data, error } = await supabase
         .from('categories')
@@ -129,10 +137,7 @@ export const categoriesApi = {
    */
   async delete(id: string): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase
-        .from('categories')
-        .delete()
-        .eq('id', id)
+      const { error } = await supabase.from('categories').delete().eq('id', id)
 
       if (error) throw error
       return { data: undefined, error: null }

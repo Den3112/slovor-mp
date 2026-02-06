@@ -138,49 +138,12 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
-      // Base redirects to default locale (en)
-      {
-        source: '/login',
-        destination: '/en/login',
-        permanent: true,
-      },
-      {
-        source: '/register',
-        destination: '/en/register',
-        permanent: true,
-      },
-      {
-        source: '/admin/:path*',
-        destination: '/en/admin/:path*',
-        permanent: true,
-      },
-      {
-        source: '/dashboard/:path*',
-        destination: '/en/dashboard/:path*',
-        permanent: true,
-      },
-      {
-        source: '/messages/:path*',
-        destination: '/en/messages/:path*',
-        permanent: true,
-      },
-      {
-        source: '/favorites/:path*',
-        destination: '/en/favorites/:path*',
-        permanent: true,
-      },
-      {
-        source: '/post',
-        destination: '/en/post',
-        permanent: true,
-      },
+      // Removed hardcoded locale redirects to handle them dynamically in middleware
+
 
       // Profile to Dashboard unification
-      {
-        source: '/profile',
-        destination: '/en/dashboard',
-        permanent: true,
-      },
+      // Redirects handled in middleware
+
       {
         source: '/:lang(en|sk|cs|ru)/profile',
         destination: '/:lang/dashboard',
@@ -191,11 +154,8 @@ const nextConfig: NextConfig = {
         destination: '/:lang/dashboard/:path*',
         permanent: true,
       },
-      {
-        source: '/profile/:path*',
-        destination: '/en/dashboard/:path*',
-        permanent: true,
-      },
+      // Redirects handled in middleware
+
 
       // Navigation cleanup (top-level routing)
       {
@@ -215,21 +175,15 @@ const nextConfig: NextConfig = {
         destination: '/:lang/post',
         permanent: true,
       },
-      {
-        source: '/create-ad',
-        destination: '/en/post',
-        permanent: true,
-      },
+      // Redirects handled in middleware
+
       {
         source: '/:lang(en|sk|cs|ru)/dashboard/purchases/:path*',
         destination: '/:lang/dashboard/orders/:path*',
         permanent: true,
       },
-      {
-        source: '/dashboard/purchases/:path*',
-        destination: '/en/dashboard/orders/:path*',
-        permanent: true,
-      },
+      // Redirects handled in middleware
+
       // Dashboard profile cleanup - REMOVED redundant redirects to allow /dashboard/profile preview
     ]
   },

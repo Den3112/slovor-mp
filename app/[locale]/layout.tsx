@@ -7,9 +7,10 @@ import '../globals.css'
 import { cn } from '@/lib/utils'
 
 // Fallback system fonts to bypass next/font/google build issues in some environments
-const fontHeading = "'Plus Jakarta Sans', 'Space Grotesk', system-ui, -apple-system, sans-serif"
-const fontSans = "'Plus Jakarta Sans', 'DM Sans', system-ui, -apple-system, sans-serif"
-const fontMono = "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+const fontHeading = "'Inter', 'Inter var', system-ui, -apple-system, sans-serif"
+const fontSans = "'Inter', 'Inter var', system-ui, -apple-system, sans-serif"
+const fontMono =
+  "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
 
 export const viewport: Viewport = {
   themeColor: '#6366F1',
@@ -77,12 +78,14 @@ export default async function RootLayout({
       lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      style={{
-        // @ts-ignore
-        '--font-heading': fontHeading,
-        '--font-sans': fontSans,
-        '--font-mono': fontMono,
-      } as React.CSSProperties}
+      style={
+        {
+          // @ts-ignore
+          '--font-heading': fontHeading,
+          '--font-sans': fontSans,
+          '--font-mono': fontMono,
+        } as React.CSSProperties
+      }
     >
       <head>
         <meta charSet="utf-8" />

@@ -81,7 +81,7 @@ export function UnifiedSidebar({
       className={cn(
         'bg-card border-border flex h-full flex-col border-r transition-all duration-300',
         isCollapsed ? 'w-20' : 'w-64',
-        !isMobile && 'sticky top-0 h-screen',
+        !isMobile && 'h-full',
         className
       )}
       data-testid="dashboard-sidebar"
@@ -129,8 +129,8 @@ export function UnifiedSidebar({
                   const localePrefix = `/${locale}`
                   const localizedHref =
                     link.href.startsWith('http') ||
-                    link.external ||
-                    link.href.startsWith(localePrefix)
+                      link.external ||
+                      link.href.startsWith(localePrefix)
                       ? link.href
                       : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 

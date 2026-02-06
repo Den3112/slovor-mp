@@ -4,92 +4,96 @@ import { useState } from 'react'
 import { Menu, LayoutDashboard } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { UnifiedSidebar, type SidebarConfig } from '@/components/features/dashboard/shared/sidebar'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
+import {
+  UnifiedSidebar,
+  type SidebarConfig,
+} from '@/components/features/dashboard/shared/sidebar'
+
 import { cn } from '@/lib/utils'
 import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 
 interface DashboardShellProps {
-    children: React.ReactNode
-    config: SidebarConfig
-    headerContent?: React.ReactNode
-    title?: string
+  children: React.ReactNode
+  config: SidebarConfig
+  headerContent?: React.ReactNode
+  title?: string
 }
 
 export function DashboardShell({
-    children,
-    config,
-    headerContent,
-    title,
+  children,
+  config,
+  headerContent,
+  title,
 }: DashboardShellProps) {
-    const [isCollapsed, setIsCollapsed] = useState(false)
-    const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
 
-    return (
-        <div className="flex h-screen overflow-hidden bg-background">
-            {/* Sidebar - Desktop */}
-            <aside className={cn(
-                "hidden md:flex shrink-0 transition-all duration-300 ease-in-out border-r border-border/60 bg-card",
-                isCollapsed ? "w-20" : "w-64"
-            )}>
-                <UnifiedSidebar
+  return (
+    <div className="bg-background flex min-h-screen">
+      {/* Sidebar - Desktop - Sticky under the 80px main Header */}
+      <aside
+        className={cn(
+          'border-border/60 bg-card sticky top-[80px] hidden h-[calc(100vh-80px)] shrink-0 border-r transition-all duration-300 ease-in-out md:flex',
+          isCollapsed ? 'w-20' : 'w-64'
+        )}
+      >
+        <UnifiedSidebar
+          config={config}
+          isCollapsed={isCollapsed}
+          onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
+        />
+      </aside>
+
+      {/* Main Content Area */}
+      <div className="flex min-h-[calc(100vh-80px)] min-w-0 flex-1 flex-col">
+        {/* Secondary Page Header - Integrated into page flow */}
+        <div className="border-border/40 bg-muted/5 mx-4 mt-4 flex h-12 shrink-0 items-center justify-between rounded-xl border-b px-6 py-2">
+          <div className="flex items-center gap-4">
+            <div className="md:hidden">
+              <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:bg-muted/80 h-8 w-8 rounded-lg"
+                  >
+                    <Menu className="text-muted-foreground h-4 w-4" />
+                    <span className="sr-only">Open menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent
+                  side="left"
+                  className="border-border/80 w-72 border-r p-0"
+                >
+                  <UnifiedSidebar
                     config={config}
-                    isCollapsed={isCollapsed}
-                    onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
-                />
-            </aside>
+                    isMobile
+                    onNavigate={() => setIsMobileOpen(false)}
+                  />
+                </SheetContent>
+              </Sheet>
+            </div>
 
-            {/* Main Content */}
-            <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-                {/* Top Bar - Solid */}
-                <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-border/60 bg-background px-6 shadow-sm">
-                    <div className="flex items-center gap-4">
-                        <div className="md:hidden">
-                            <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
-                                <SheetTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg hover:bg-muted/80">
-                                        <Menu className="h-5 w-5 text-muted-foreground" />
-                                        <span className="sr-only">Open menu</span>
-                                    </Button>
-                                </SheetTrigger>
-                                <SheetContent side="left" className="w-72 p-0 border-r border-border/80">
-                                    <UnifiedSidebar
-                                        config={config}
-                                        isMobile
-                                        onNavigate={() => setIsMobileOpen(false)}
-                                    />
-                                </SheetContent>
-                            </Sheet>
-                        </div>
+            {title && (
+              <h1 className="text-muted-foreground/90 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <LayoutDashboard className="text-primary h-3 w-3 opacity-50" />
+                {title}
+              </h1>
+            )}
+          </div>
 
-                        {title ? (
-                            <h1 className="text-sm font-bold uppercase tracking-tight text-foreground/90 flex items-center gap-2">
-                                <LayoutDashboard className="h-4 w-4 text-primary opacity-50" />
-                                {title}
-                            </h1>
-                        ) : (
-                            <div className="h-4 w-32 bg-muted/40 animate-pulse rounded" />
-                        )}
-                    </div>
-
-                    <div className="flex items-center gap-2 sm:gap-4">
-                        <div className="hidden sm:flex items-center gap-2">
-                            {headerContent}
-                        </div>
-                        <div className="h-8 w-px bg-border/40 mx-2 hidden sm:block" />
-                        <ThemeToggle />
-                    </div>
-                </header>
-
-                {/* Content Area */}
-                <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8 bg-muted/5 scrollbar-hide">
-                    <PullToRefresh>
-                        <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                            {children}
-                        </div>
-                    </PullToRefresh>
-                </div>
-            </main>
+          <div className="flex items-center gap-4">{headerContent}</div>
         </div>
-    )
+
+        {/* Content */}
+        <div className="bg-background scrollbar-hide flex-1 p-4 sm:p-6 lg:p-8">
+          <PullToRefresh>
+            <div className="animate-in fade-in slide-in-from-bottom-2 mx-auto max-w-7xl space-y-8 duration-500">
+              {children}
+            </div>
+          </PullToRefresh>
+        </div>
+      </div>
+    </div>
+  )
 }

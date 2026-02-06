@@ -93,7 +93,7 @@ export function AdminAnalyticsView() {
         <div>
           <h1 className="text-foreground flex items-center gap-3 text-3xl font-bold tracking-tight uppercase">
             <BarChart3 className="text-primary h-8 w-8" />
-            {t('admin:analytics') || 'Analytics Dashboard'}
+            {t('admin:analyticsDashboard')}
           </h1>
           <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('admin:deepDivePerformance')}
@@ -192,7 +192,7 @@ export function AdminAnalyticsView() {
                 <div className="flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
                   <span className="text-foreground">{cat.name}</span>
                   <span className="text-muted-foreground">
-                    {cat.listings.toLocaleString()} Items
+                    {cat.listings.toLocaleString()} {t('admin:items')}
                   </span>
                 </div>
                 <div className="bg-muted border-border/40 relative h-2 w-full overflow-hidden rounded-full border">
@@ -206,7 +206,8 @@ export function AdminAnalyticsView() {
                   />
                 </div>
                 <div className="text-success flex items-center gap-1 text-[9px] font-bold uppercase">
-                  <ArrowUpRight className="h-3 w-3" /> {cat.growth} Growth
+                  <ArrowUpRight className="h-3 w-3" /> {cat.growth}{' '}
+                  {t('admin:growth')}
                 </div>
               </div>
             ))}
@@ -221,7 +222,7 @@ export function AdminAnalyticsView() {
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
               <Map className="text-primary h-4 w-4" />
-              Regional Insights
+              {t('admin:regionalInsights')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 p-6">
@@ -241,7 +242,7 @@ export function AdminAnalyticsView() {
                 <div className="text-right">
                   <p className="text-sm font-bold">{region.value}</p>
                   <p className="text-muted-foreground/60 text-[9px] font-bold uppercase">
-                    {region.share}% Share
+                    {region.share}% {t('admin:share')}
                   </p>
                 </div>
               </div>
@@ -254,7 +255,7 @@ export function AdminAnalyticsView() {
           <CardHeader className="border-b border-white/5 bg-white/5 px-6 py-4">
             <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-white/40 uppercase">
               <Zap className="text-success h-4 w-4" />
-              Platform Infrastructure Health
+              {t('admin:platformHealth')}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-8">
@@ -262,7 +263,7 @@ export function AdminAnalyticsView() {
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
                   <span className="text-[9px] font-bold tracking-widest text-white/30 uppercase">
-                    API Latency
+                    {t('admin:apiLatency')}
                   </span>
                   <span className="text-3xl font-bold text-white">24ms</span>
                 </div>
@@ -270,13 +271,13 @@ export function AdminAnalyticsView() {
                   <div className="bg-success h-full w-[85%]" />
                 </div>
                 <p className="text-success text-[10px] font-bold tracking-widest uppercase">
-                  Optimized
+                  {t('admin:optimized')}
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
                   <span className="text-[9px] font-bold tracking-widest text-white/30 uppercase">
-                    Server Load
+                    {t('admin:serverLoad')}
                   </span>
                   <span className="text-3xl font-bold text-white">12.4%</span>
                 </div>
@@ -284,13 +285,13 @@ export function AdminAnalyticsView() {
                   <div className="h-full w-[12%] bg-blue-400" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-blue-400 uppercase">
-                  Stable
+                  {t('admin:stable')}
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
                   <span className="text-[9px] font-bold tracking-widest text-white/30 uppercase">
-                    Error Rate
+                    {t('admin:errorRate')}
                   </span>
                   <span className="text-3xl font-bold text-white">0.02%</span>
                 </div>
@@ -298,7 +299,7 @@ export function AdminAnalyticsView() {
                   <div className="h-full w-[2%] bg-emerald-400" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-emerald-400 uppercase">
-                  Normal
+                  {t('admin:normal')}
                 </p>
               </div>
             </div>
