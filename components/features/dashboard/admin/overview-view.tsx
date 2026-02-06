@@ -155,7 +155,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
           trend={{
             value: stats.pendingModeration > 0 ? 15 : 0,
             direction: 'neutral',
-            label: 'Current backlog',
+            label: t('admin:currentBacklog') || 'Current backlog',
           }}
           delay={0.4}
           className={
@@ -240,7 +240,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
             <CardHeader className="border-b border-white/5 bg-white/5 px-6 py-4">
               <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
                 <ShieldCheck className="text-success h-4 w-4" />
-                System Health
+                {t('admin:systemHealth') || 'System Health'}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 p-6">
@@ -251,11 +251,11 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                       <Database className="h-4 w-4 text-blue-400" />
                     </div>
                     <span className="text-[11px] font-bold tracking-widest text-white/40 uppercase">
-                      Database
+                      {t('admin:database') || 'Database'}
                     </span>
                   </div>
                   <span className="text-success border-success/20 bg-success/5 rounded-sm border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-                    Operational
+                    {t('admin:operational') || 'Operational'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -264,7 +264,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                       <Activity className="h-4 w-4 text-emerald-400" />
                     </div>
                     <span className="text-[11px] font-bold tracking-widest text-white/40 uppercase">
-                      API Latency
+                      {t('admin:apiLatency') || 'API Latency'}
                     </span>
                   </div>
                   <span className="text-[10px] font-bold tracking-widest text-white uppercase">
@@ -277,11 +277,11 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                       <Lock className="h-4 w-4 text-amber-400" />
                     </div>
                     <span className="text-[11px] font-bold tracking-widest text-white/40 uppercase">
-                      SSL Status
+                      {t('admin:sslStatus') || 'SSL Status'}
                     </span>
                   </div>
                   <span className="text-success border-success/20 bg-success/5 rounded-sm border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-                    Secure
+                    {t('admin:secure') || 'Secure'}
                   </span>
                 </div>
               </div>
@@ -292,7 +292,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                   className="h-11 w-full rounded-xl border-0 bg-white/5 text-[9px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white/10 active:scale-95"
                 >
                   <RefreshCcw className="mr-2 h-3 w-3" />
-                  Full System Report
+                  {t('admin:fullSystemReport') || 'Full System Report'}
                 </Button>
               </div>
             </CardContent>

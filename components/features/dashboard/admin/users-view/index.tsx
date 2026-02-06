@@ -65,7 +65,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     if (error) {
       toast.error(error)
     } else {
-      toast.success(newStatus ? 'User verified' : 'Verification removed')
+      toast.success(newStatus ? t('admin:userVerified') : t('admin:verificationRemoved'))
       setUsers((prev) =>
         prev.map((u) =>
           u.id === user.id ? { ...u, is_verified: newStatus } : u
@@ -91,7 +91,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     if (error) {
       toast.error(error)
     } else {
-      toast.success(isBanned ? 'User unbanned' : 'User banned')
+      toast.success(isBanned ? t('admin:userUnbanned') : t('admin:userBanned'))
       setUsers((prev) =>
         prev.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u))
       )
@@ -114,7 +114,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     if (error) {
       toast.error(error)
     } else {
-      toast.success(`Role updated to ${newRole}`)
+      toast.success(`${t('admin:roleUpdated')} ${newRole}`)
       setUsers((prev) =>
         prev.map((u) => (u.id === user.id ? { ...u, role: newRole } : u))
       )
@@ -164,7 +164,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
   const columns: Column<User>[] = [
     {
       key: 'display_name',
-      header: t('admin:tableMember') || 'Member',
+      header: t('admin:tableMember'),
       sortable: true,
       className: 'min-w-[250px]',
       cell: (row) => (
@@ -187,7 +187,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
           </div>
           <div className="flex flex-col">
             <span className="text-foreground mb-1 max-w-[150px] truncate text-sm leading-none font-bold tracking-tight">
-              {row.display_name || 'Anonymous'}
+              {row.display_name || t('admin:anonymous')}
             </span>
             <span className="text-muted-foreground/40 text-[10px] leading-none font-bold tracking-widest uppercase">
               ID: {row.id.split('-')[0]}
@@ -198,19 +198,19 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     },
     {
       key: 'created_at',
-      header: t('admin:tableJoined') || 'Joined',
+      header: t('admin:tableJoined'),
       sortable: true,
       cell: (row) => (
         <span className="text-muted-foreground text-sm font-medium">
           {row.created_at
             ? new Date(row.created_at).toLocaleDateString()
-            : 'N/A'}
+            : t('admin:na')}
         </span>
       ),
     },
     {
       key: 'role',
-      header: t('admin:tableRole') || 'Role',
+      header: t('admin:tableRole'),
       sortable: true,
       cell: (row) => (
         <div className="flex flex-col gap-1">
@@ -224,18 +224,18 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuLabel>Change Role</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('admin:changeRole')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => handleRoleChange(row, 'user')}>
-                User
+                {t('admin:roleUser')}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleRoleChange(row, 'moderator')}
               >
-                Moderator
+                {t('admin:roleModerator')}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleRoleChange(row, 'admin')}>
-                Admin
+                {t('admin:roleAdmin')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -247,7 +247,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     },
     {
       key: 'status',
-      header: t('admin:tableStatus') || 'Status',
+      header: t('admin:tableStatus'),
       sortable: true,
       cell: (row) => (
         <div className="flex flex-wrap gap-2">
@@ -256,7 +256,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               variant="outline"
               className="bg-success/10 text-success border-success/20 rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
-              Verified
+              {t('admin:userVerified')}
             </Badge>
           )}
           {row.status === 'banned' ? (
@@ -264,14 +264,14 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               variant="outline"
               className="bg-destructive/10 text-destructive border-destructive/20 rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
-              Banned
+              {t('admin:userBanned')}
             </Badge>
           ) : (
             <Badge
               variant="outline"
               className="bg-muted text-muted-foreground/40 border-border/40 rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
-              Active
+              {t('admin:statusActive')}
             </Badge>
           )}
         </div>
@@ -294,17 +294,17 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('admin:actions')}</DropdownMenuLabel>
               <DropdownMenuItem onClick={() => handleToggleVerification(row)}>
                 {row.is_verified ? (
                   <>
                     <ShieldAlert className="mr-2 h-4 w-4 text-amber-500" />
-                    Remove Verification
+                    {t('admin:removeVerification')}
                   </>
                 ) : (
                   <>
                     <ShieldCheck className="mr-2 h-4 w-4 text-emerald-500" />
-                    Verify User
+                    {t('admin:verifyUser')}
                   </>
                 )}
               </DropdownMenuItem>
@@ -314,7 +314,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 className="text-destructive focus:text-destructive"
               >
                 <Ban className="mr-2 h-4 w-4" />
-                {row.status === 'banned' ? 'Unban User' : 'Ban User'}
+                {row.status === 'banned' ? t('admin:unbanUser') : t('admin:banUser')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -334,9 +334,9 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         sortDirection={sortDirection}
         onSort={handleSort}
         onSearch={setSearchQuery}
-        searchPlaceholder="Search users..."
+        searchPlaceholder={t('admin:searchUsers')}
         isLoading={isLoading}
-        emptyMessage="No users found."
+        emptyMessage={t('admin:noUsersFound')}
       />
     </div>
   )
