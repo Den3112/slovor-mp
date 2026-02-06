@@ -1,5 +1,8 @@
 import type { NextConfig } from 'next'
 
+// Validate environment variables at build-time
+import './lib/env.mjs'
+
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
   output: 'standalone',
@@ -30,6 +33,10 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-switch',
       '@radix-ui/react-slider',
     ],
+    // Server Actions limitations for security
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
 
   images: {
