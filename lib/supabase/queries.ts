@@ -1,2 +1,2 @@
-import { listingsApi, categoriesApi, favoritesApi, usersApi } from '../api'
-export { listingsApi, categoriesApi, favoritesApi, usersApi }
+import { listingsApi, categoriesApi, favoritesApi, profilesApi } from '../api'
+export { listingsApi, categoriesApi, favoritesApi, profilesApi }

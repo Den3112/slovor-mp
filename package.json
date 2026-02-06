@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "clean": "rimraf .next node_modules",
-    "lint": "eslint . --cache",
+    "lint": "cross-env NODE_ENV=development eslint . --cache",
     "lint:fix": "eslint . --fix --cache",
     "type-check": "tsc --noEmit",
     "format": "prettier --write . --cache",
@@ -26,17 +26,12 @@
     "test:visual": "playwright test e2e/visual.spec.ts",
     "test:visual:update": "playwright test e2e/visual.spec.ts --update-snapshots",
     "verify": "npm-run-all --parallel lint type-check check:circular && npm run build",
+    "fix": "npm-run-all format lint:fix",
+    "validate": "npm-run-all --parallel lint type-check check:circular",
+    "knip": "knip",
+    "analyze": "cross-env ANALYZE=true npm run build",
     "precommit": "lint-staged",
     "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --cache",
-      "prettier --write --cache"
-    ],
-    "*.json": [
-      "prettier --write --cache"
-    ]
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.8.0",
@@ -79,6 +74,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
+    "@next/bundle-analyzer": "^16.1.6",
     "@playwright/test": "^1.58.1",
     "@storybook/addon-a11y": "^10.2.3",
     "@storybook/addon-vitest": "^10.2.3",
@@ -98,12 +94,14 @@
     "@vitest/coverage-istanbul": "4.0.18",
     "@vitest/coverage-v8": "4.0.18",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^10.1.0",
     "eslint": "8.57.1",
     "eslint-config-next": "^15.1.6",
     "eslint-plugin-storybook": "^10.2.3",
     "happy-dom": "20.3.7",
     "husky": "9.1.7",
     "jsdom": "27.4.0",
+    "knip": "^5.83.0",
     "lint-staged": "^16.2.7",
     "madge": "^8.0.0",
     "next": "^16.1.6",
