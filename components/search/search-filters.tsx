@@ -92,7 +92,7 @@ export function SearchFilters() {
             </span>
             <Input
               type="number"
-              className="pl-7"
+              placeholder={t('filters:priceMin')}
               value={priceRange[0]}
               onChange={(e) =>
                 setPriceRange([Number(e.target.value), priceRange[1]])
@@ -113,7 +113,7 @@ export function SearchFilters() {
             </span>
             <Input
               type="number"
-              className="pl-7"
+              placeholder={t('filters:priceMax')}
               value={priceRange[1]}
               onChange={(e) =>
                 setPriceRange([priceRange[0], Number(e.target.value)])

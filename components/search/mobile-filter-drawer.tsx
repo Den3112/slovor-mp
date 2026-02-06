@@ -168,7 +168,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                     </span>
                     <Input
                       type="number"
-                      className="h-12 pl-9 text-base"
+                      placeholder={t('filters:priceMin')}
                       value={priceRange[0]}
                       onChange={(e) =>
                         setPriceRange([Number(e.target.value), priceRange[1]])
@@ -182,7 +182,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                     </span>
                     <Input
                       type="number"
-                      className="h-12 pl-9 text-base"
+                      placeholder={t('filters:priceMax')}
                       value={priceRange[1]}
                       onChange={(e) =>
                         setPriceRange([priceRange[0], Number(e.target.value)])
