@@ -51,8 +51,8 @@ export function Features() {
             <span className="text-primary mb-4 block text-[10px] font-bold tracking-[0.3em] uppercase">
               Our Excellence
             </span>
-            <h2 className="font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl mb-6">
-              <span className="block text-foreground">
+            <h2 className="font-heading mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+              <span className="text-foreground block">
                 <span className="text-primary">
                   {t('home:features.reimagined')}
                 </span>{' '}
@@ -87,7 +87,7 @@ export function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group rounded-xl border border-border bg-card p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-primary/50"
+                className="group border-border bg-card hover:border-primary/50 rounded-lg border p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
               >
                 <div
                   className={cn(
@@ -100,7 +100,7 @@ export function Features() {
                 <h3 className="text-foreground mb-3 text-xl font-bold tracking-tight">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {feature.desc}
                 </p>
               </motion.div>

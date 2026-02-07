@@ -64,7 +64,7 @@ export function CategorySelector({
         id="category"
         value={selectedCategoryId}
         onChange={(e) => onSelect(e.target.value)}
-        className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full rounded-xl border px-4 py-2 transition-all focus:ring-1 focus:outline-none"
+        className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full rounded-lg border px-4 py-2 transition-all focus:ring-1 focus:outline-none"
       >
         <option value="">{t('selectCategory')}</option>
         {categories.map((category) => (

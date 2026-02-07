@@ -12,7 +12,7 @@ import { useTranslation } from '@/lib/i18n'
 export function SearchFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { t, locale } = useTranslation(['common', 'filters'])
+  const { t, locale } = useTranslation(['common', 'filters', 'categories'])
 
   // Helper to update URL params
   const updateFilters = (updates: Record<string, string | null>) => {
@@ -55,7 +55,7 @@ export function SearchFilters() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-32 md:pb-0">
       {/* Active Filters / Clear All */}
       {searchParams.toString().length > 0 && (
         <div className="flex items-center justify-between">
@@ -87,11 +87,12 @@ export function SearchFilters() {
         />
         <div className="flex items-center gap-4">
           <div className="relative flex-1">
-            <span className="text-muted-foreground absolute top-2.5 left-3">
-              €
+            <span className="text-muted-foreground absolute top-2.5 left-3 text-xs font-medium">
+              {t('common:currencySymbol', { defaultValue: '€' })}
             </span>
             <Input
               type="number"
+              className="pl-7"
               placeholder={t('filters:priceMin')}
               value={priceRange[0]}
               onChange={(e) =>
@@ -108,11 +109,12 @@ export function SearchFilters() {
           </div>
           <span className="text-muted-foreground">-</span>
           <div className="relative flex-1">
-            <span className="text-muted-foreground absolute top-2.5 left-3">
-              €
+            <span className="text-muted-foreground absolute top-2.5 left-3 text-xs font-medium">
+              {t('common:currencySymbol', { defaultValue: '€' })}
             </span>
             <Input
               type="number"
+              className="pl-7"
               placeholder={t('filters:priceMax')}
               value={priceRange[1]}
               onChange={(e) =>
@@ -133,10 +135,11 @@ export function SearchFilters() {
       {/* Condition */}
       <div className="space-y-4">
         <h3 className="text-foreground font-bold">{t('filters:condition')}</h3>
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="flex items-center space-x-2">
             <Checkbox
               id="new"
+              className="rounded-lg"
               checked={searchParams.get('condition') === 'new'}
               onCheckedChange={(checked) =>
                 updateFilters({ condition: checked ? 'new' : null })
@@ -147,6 +150,7 @@ export function SearchFilters() {
           <div className="flex items-center space-x-2">
             <Checkbox
               id="used"
+              className="rounded-lg"
               checked={searchParams.get('condition') === 'used'}
               onCheckedChange={(checked) =>
                 updateFilters({ condition: checked ? 'used' : null })
@@ -178,45 +182,85 @@ export function SearchFilters() {
         const category = searchParams.get('category')
         if (!category) return null
 
-        const categoryFilters: Record<string, Array<{ key: string; label: string; type: 'select' | 'text' | 'range'; options?: string[] }>> = {
+        const categoryFilters: Record<
+          string,
+          Array<{
+            key: string
+            label: string
+            type: 'select' | 'text' | 'range'
+            options?: string[]
+          }>
+        > = {
           electronics: [
-            { key: 'brand', label: 'Brand', type: 'select', options: ['Apple', 'Samsung', 'Sony', 'Dell', 'LG'] },
-            { key: 'storage', label: 'Storage', type: 'select', options: ['128GB', '256GB', '512GB', '1TB'] },
+            {
+              key: 'brand',
+              label: 'Brand',
+              type: 'select',
+              options: ['Apple', 'Samsung', 'Sony', 'Dell', 'LG'],
+            },
+            {
+              key: 'storage',
+              label: 'Storage',
+              type: 'select',
+              options: ['128GB', '256GB', '512GB', '1TB'],
+            },
           ],
           vehicles: [
             { key: 'year', label: 'Year', type: 'range' },
             { key: 'mileage', label: 'Max Mileage', type: 'text' },
           ],
           furniture: [
-            { key: 'material', label: 'Material', type: 'select', options: ['Wood', 'Metal', 'Plastic', 'Glass'] },
-          ]
+            {
+              key: 'material',
+              label: 'Material',
+              type: 'select',
+              options: ['Wood', 'Metal', 'Plastic', 'Glass'],
+            },
+          ],
         }
 
         const filters = categoryFilters[category]
         if (!filters) return null
 
         return (
-          <div className="space-y-6 pt-4 border-t border-border/40">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
-              {category.toUpperCase()} {t('filters:additional')}
+          <div className="border-border/40 space-y-6 border-t pt-4">
+            <h3 className="text-muted-foreground/60 text-[10px] font-bold tracking-[0.2em] uppercase">
+              {t(`categories:${category}`, {
+                defaultValue: category.toUpperCase(),
+              })}{' '}
+              {t('filters:additional')}
             </h3>
             {filters.map((f) => (
               <div key={f.key} className="space-y-3">
-                <Label className="text-xs font-bold uppercase tracking-widest opacity-60">{f.label}</Label>
+                <Label className="text-xs font-bold tracking-widest uppercase opacity-60">
+                  {f.label}
+                </Label>
                 {f.type === 'select' ? (
                   <select
-                    className="w-full h-10 rounded-xl border border-border/60 bg-background px-3 text-sm font-medium focus:border-primary/40 focus:ring-4 focus:ring-primary/10 outline-none transition-all"
-                    onChange={(e) => updateFilters({ [`attr_${f.key}`]: e.target.value || null })}
+                    className="border-border/60 bg-background focus:border-primary/40 focus:ring-primary/10 h-10 w-full rounded-lg border px-3 text-sm font-medium transition-all outline-none focus:ring-4"
+                    onChange={(e) =>
+                      updateFilters({
+                        [`attr_${f.key}`]: e.target.value || null,
+                      })
+                    }
                     value={searchParams.get(`attr_${f.key}`) || ''}
                   >
                     <option value="">{t('common:all')}</option>
-                    {f.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                    {f.options?.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
                   </select>
                 ) : (
                   <Input
                     placeholder={`${f.label}...`}
                     defaultValue={searchParams.get(`attr_${f.key}`) || ''}
-                    onBlur={(e) => updateFilters({ [`attr_${f.key}`]: e.target.value || null })}
+                    onBlur={(e) =>
+                      updateFilters({
+                        [`attr_${f.key}`]: e.target.value || null,
+                      })
+                    }
                   />
                 )}
               </div>
@@ -226,10 +270,10 @@ export function SearchFilters() {
       })()}
 
       {/* Sorting in Sidebar */}
-      <div className="space-y-4 pt-4 border-t border-border/40">
+      <div className="border-border/40 space-y-4 border-t pt-4">
         <h3 className="text-foreground font-bold">{t('common:sort')}</h3>
         <select
-          className="w-full h-10 rounded-xl border border-border/60 bg-background px-3 text-sm font-medium focus:border-primary/40 focus:ring-4 focus:ring-primary/10 outline-none transition-all"
+          className="border-border/60 bg-background focus:border-primary/40 focus:ring-primary/10 h-10 w-full rounded-lg border px-3 text-sm font-medium transition-all outline-none focus:ring-4"
           onChange={(e) => updateFilters({ sort: e.target.value || null })}
           value={searchParams.get('sort') || 'newest'}
         >

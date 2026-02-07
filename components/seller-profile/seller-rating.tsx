@@ -89,7 +89,7 @@ export function SellerRating({
 
   if (isLoading) {
     return (
-      <div className="bg-muted/30 animate-pulse space-y-4 rounded-xl p-6">
+      <div className="bg-muted/30 animate-pulse space-y-4 rounded-lg p-6">
         <div className="bg-muted h-6 w-32 rounded" />
         <div className="bg-muted h-4 w-48 rounded" />
       </div>
@@ -97,7 +97,7 @@ export function SellerRating({
   }
 
   return (
-    <div className="border-border/60 bg-card space-y-6 rounded-xl border p-6 shadow-sm">
+    <div className="border-border/60 bg-card space-y-6 rounded-lg border p-6 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">{t('reviews:title')}</h3>
@@ -106,7 +106,7 @@ export function SellerRating({
             size="sm"
             variant="outline"
             onClick={() => setShowForm(true)}
-            className="rounded-xl"
+            className="rounded-lg"
           >
             {t('reviews:writeReview')}
           </Button>
@@ -129,23 +129,23 @@ export function SellerRating({
               />
             ))}
           </div>
-          <span className="text-2xl font-bold">
-            {ratingData.averageRating}
-          </span>
+          <span className="text-2xl font-bold">{ratingData.averageRating}</span>
           <span className="text-muted-foreground text-sm">
             {t('reviews:basedOn')} {ratingData.totalReviews}{' '}
             {t('reviews:reviewsCount')}
           </span>
         </div>
       ) : (
-        <p className="text-muted-foreground text-sm">{t('reviews:noReviews')}</p>
+        <p className="text-muted-foreground text-sm">
+          {t('reviews:noReviews')}
+        </p>
       )}
 
       {/* Submit Message */}
       {submitMessage && (
         <div
           className={cn(
-            'rounded-xl px-4 py-2 text-sm font-medium',
+            'rounded-lg px-4 py-2 text-sm font-medium',
             submitMessage.type === 'success'
               ? 'bg-emerald-50 text-emerald-600'
               : 'bg-destructive/10 text-destructive'
@@ -157,7 +157,7 @@ export function SellerRating({
 
       {/* Review Form */}
       {showForm && (
-        <div className="bg-muted/20 space-y-4 rounded-xl p-4">
+        <div className="bg-muted/20 space-y-4 rounded-lg p-4">
           <div>
             <label className="mb-2 block text-sm font-medium">
               {t('reviews:yourRating')}
@@ -193,7 +193,7 @@ export function SellerRating({
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="..."
-              className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full resize-none rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-1"
+              className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full resize-none rounded-lg border px-4 py-3 text-sm transition-all outline-none focus:ring-1"
               rows={3}
             />
           </div>
@@ -202,14 +202,14 @@ export function SellerRating({
             <Button
               onClick={handleSubmitReview}
               disabled={newRating === 0 || isSubmitting}
-              className="rounded-xl"
+              className="rounded-lg"
             >
               {isSubmitting ? '...' : t('reviews:submitReview')}
             </Button>
             <Button
               variant="ghost"
               onClick={() => setShowForm(false)}
-              className="rounded-xl"
+              className="rounded-lg"
             >
               {t('common:back')}
             </Button>
@@ -266,10 +266,7 @@ export function SellerRating({
                     {review.comment}
                   </p>
                 )}
-                <p
-                  className="text-muted-foreground/60 mt-1 text-xs"
-                  suppressHydrationWarning
-                >
+                <p className="text-muted-foreground/60 mt-1 text-xs">
                   {new Date(review.created_at).toLocaleDateString()}
                 </p>
               </div>

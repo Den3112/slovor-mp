@@ -1,88 +1,105 @@
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
-import { useTranslation } from '@/lib/i18n';
-import { CATEGORY_ATTRIBUTES, getAttributeLabel } from '@/lib/constants/category-attributes';
-import { DynamicAttributesProps } from './types';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useTranslation } from '@/lib/i18n'
+import {
+  CATEGORY_ATTRIBUTES,
+  getAttributeLabel,
+} from '@/lib/constants/category-attributes'
+import { DynamicAttributesProps } from './types'
 
-export function DynamicAttributes({ category, dynamicAttrs, onAttrChange, locale }: DynamicAttributesProps) {
-    const { t } = useTranslation(['filters', 'common']);
-    const currentCategoryAttributes = category ? CATEGORY_ATTRIBUTES[category] : [];
+export function DynamicAttributes({
+  category,
+  dynamicAttrs,
+  onAttrChange,
+  locale,
+}: DynamicAttributesProps) {
+  const { t } = useTranslation(['filters', 'common'])
+  const currentCategoryAttributes = category
+    ? CATEGORY_ATTRIBUTES[category]
+    : []
 
-    if (!currentCategoryAttributes || currentCategoryAttributes.length === 0) return null;
+  if (!currentCategoryAttributes || currentCategoryAttributes.length === 0)
+    return null
 
-    return (
-        <>
-            <div className="bg-border/40 my-2 h-px w-full" />
-            <div className="space-y-6">
-                {currentCategoryAttributes.map((attr) => (
-                    <div key={attr.id} className="space-y-3">
-                        <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
-                            {getAttributeLabel(attr, locale)}
-                            {attr.unit && <span className="lowercase opacity-60">({attr.unit})</span>}
-                        </label>
+  return (
+    <>
+      <div className="bg-border/40 my-2 h-px w-full" />
+      <div className="space-y-6">
+        {currentCategoryAttributes.map((attr) => (
+          <div key={attr.id} className="space-y-3">
+            <label className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
+              {getAttributeLabel(attr, locale)}
+              {attr.unit && (
+                <span className="lowercase opacity-60">({attr.unit})</span>
+              )}
+            </label>
 
-                        {attr.type === 'select' && (
-                            <Select
-                                value={dynamicAttrs[attr.id] || 'all'}
-                                onValueChange={(v) =>
-                                    onAttrChange(attr.id, v === 'all' ? '' : v)
-                                }
-                            >
-                                <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
-                                    <SelectValue placeholder={t('common:all')} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="all">{t('common:all')}</SelectItem>
-                                    {attr.options?.map((opt) => (
-                                        <SelectItem key={opt.value} value={opt.value}>
-                                            {opt.label[locale] || opt.label['en']}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        )}
+            {attr.type === 'select' && (
+              <Select
+                value={dynamicAttrs[attr.id] || 'all'}
+                onValueChange={(v) =>
+                  onAttrChange(attr.id, v === 'all' ? '' : v)
+                }
+              >
+                <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-lg font-bold">
+                  <SelectValue placeholder={t('common:all')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t('common:all')}</SelectItem>
+                  {attr.options?.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label[locale] || opt.label['en']}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
 
-                        {attr.type === 'range' && (
-                            <div className="grid grid-cols-2 gap-2">
-                                <input
-                                    type="number"
-                                    value={dynamicAttrs[attr.id]?.min || ''}
-                                    onChange={(e) =>
-                                        onAttrChange(attr.id, { ...dynamicAttrs[attr.id], min: e.target.value })
-                                    }
-                                    placeholder={t('filters:min') || 'Min'}
-                                    className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-xl border py-2.5 px-3 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
-                                />
-                                <input
-                                    type="number"
-                                    value={dynamicAttrs[attr.id]?.max || ''}
-                                    onChange={(e) =>
-                                        onAttrChange(attr.id, { ...dynamicAttrs[attr.id], max: e.target.value })
-                                    }
-                                    placeholder={t('filters:max') || 'Max'}
-                                    className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-xl border py-2.5 px-3 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
-                                />
-                            </div>
-                        )}
+            {attr.type === 'range' && (
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  type="number"
+                  value={dynamicAttrs[attr.id]?.min || ''}
+                  onChange={(e) =>
+                    onAttrChange(attr.id, {
+                      ...dynamicAttrs[attr.id],
+                      min: e.target.value,
+                    })
+                  }
+                  placeholder={t('filters:min') || 'Min'}
+                  className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-lg border px-3 py-2.5 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+                />
+                <input
+                  type="number"
+                  value={dynamicAttrs[attr.id]?.max || ''}
+                  onChange={(e) =>
+                    onAttrChange(attr.id, {
+                      ...dynamicAttrs[attr.id],
+                      max: e.target.value,
+                    })
+                  }
+                  placeholder={t('filters:max') || 'Max'}
+                  className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-lg border px-3 py-2.5 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+                />
+              </div>
+            )}
 
-                        {attr.type === 'text' && (
-                            <input
-                                type="text"
-                                value={dynamicAttrs[attr.id] || ''}
-                                onChange={(e) =>
-                                    onAttrChange(attr.id, e.target.value)
-                                }
-                                className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 h-11 w-full rounded-xl border px-4 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
-                            />
-                        )}
-                    </div>
-                ))}
-            </div>
-        </>
-    );
+            {attr.type === 'text' && (
+              <input
+                type="text"
+                value={dynamicAttrs[attr.id] || ''}
+                onChange={(e) => onAttrChange(attr.id, e.target.value)}
+                className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 h-11 w-full rounded-lg border px-4 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </>
+  )
 }

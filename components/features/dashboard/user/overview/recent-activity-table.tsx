@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Package, ArrowRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -23,6 +24,11 @@ const item = {
 
 export function RecentActivityTable({ listings }: RecentActivityTableProps) {
   const { t, locale } = useTranslation(['common', 'dashboard', 'createListing'])
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -67,7 +73,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
 
   return (
     <motion.div variants={item}>
-      <Card className="border-border/40 bg-card overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md">
+      <Card className="border-border/40 bg-card overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
         <CardHeader className="border-border/10 bg-muted/5 flex flex-row items-center justify-between space-y-0 border-b px-6 py-4">
           <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('dashboard:recentActivity')}
@@ -89,7 +95,78 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
         <CardContent className="p-0">
           {listings && listings.length > 0 ? (
             <div className="overflow-x-auto">
-              <Table>
+              {/* Mobile View (Cards) */}
+              <div className="md:hidden space-y-4 p-4">
+                {listings.slice(0, 5).map((listing) => (
+                  <div key={listing.id} className="bg-card border-border/40 rounded-lg border p-4 space-y-3 shadow-sm">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border">
+                          {listing.images?.[0] ? (
+                            <Image
+                              src={listing.images[0]}
+                              alt={listing.title}
+                              fill
+                              className="object-cover"
+                              sizes="48px"
+                              unoptimized
+                            />
+                          ) : (
+                            <Package className="text-muted-foreground/60 m-auto h-6 w-6" />
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-bold text-sm truncate leading-tight mb-0.5">
+                            <Link href={`/${locale}/listings/${listing.id}`} className="hover:text-primary transition-colors">
+                              {listing.title}
+                            </Link>
+                          </h4>
+                          <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
+                            {isMounted ? new Date(listing.created_at).toLocaleDateString() : '...'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="shrink-0">
+                        {getStatusBadge(
+                          listing.status ||
+                          (listing.is_active ? 'active' : 'inactive')
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between border-t border-border/40 pt-3 mt-3">
+                      <span className="font-heading text-lg font-bold tracking-tight">
+                        {listing.price} {listing.currency}
+                      </span>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          asChild
+                          className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-lg px-3 text-[10px] font-bold tracking-widest uppercase"
+                        >
+                          <Link href={`/${locale}/post?edit=${listing.id}`}>
+                            {t('common:edit')}
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          asChild
+                          className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg"
+                        >
+                          <Link href={`/${locale}/listings/${listing.id}`}>
+                            <ArrowRight className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop View (Table) */}
+              <Table className="hidden md:table">
                 <TableHeader>
                   <TableRow className="bg-muted/5 border-border/10 border-b hover:bg-transparent">
                     <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-widest uppercase">
@@ -141,7 +218,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                       </TableCell>
                       <TableCell className="px-6 py-4">
                         <span className="text-muted-foreground/70 text-[11px] font-bold tracking-widest uppercase">
-                          {new Date(listing.created_at).toLocaleDateString()}
+                          {isMounted ? new Date(listing.created_at).toLocaleDateString() : '...'}
                         </span>
                       </TableCell>
                       <TableCell className="px-6 py-4">
@@ -196,7 +273,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                 variant="outline"
                 size="sm"
                 asChild
-                className="border-border/60 rounded-xl text-[10px] font-bold tracking-widest uppercase"
+                className="border-border/60 rounded-lg text-[10px] font-bold tracking-widest uppercase"
               >
                 <Link href={`/${locale}/post`}>
                   {t('createListing:publish')}

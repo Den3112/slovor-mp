@@ -16,7 +16,7 @@ import {
   PriceRange,
   ConditionToggle,
   SortSelect,
-  DynamicAttributes
+  DynamicAttributes,
 } from './filters/index'
 
 export function ListingFilters({ categories }: ListingFiltersProps) {
@@ -129,10 +129,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
       <div className="bg-border/40 h-px w-full" />
 
       <div className="space-y-6">
-        <LocationSelect
-          value={location}
-          onChange={setLocation}
-        />
+        <LocationSelect value={location} onChange={setLocation} />
 
         <PriceRange
           min={priceMin}
@@ -141,16 +138,9 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
           onMaxChange={setPriceMax}
         />
 
-        <ConditionToggle
-          value={condition}
-          onChange={setCondition}
-        />
+        <ConditionToggle value={condition} onChange={setCondition} />
 
-        <SortSelect
-          value={sort}
-          onChange={setSort}
-          options={sortOptions}
-        />
+        <SortSelect value={sort} onChange={setSort} options={sortOptions} />
 
         <DynamicAttributes
           category={category}
@@ -164,7 +154,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="h-11 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-primary/20"
+          className="shadow-primary/20 h-11 w-full rounded-lg text-[10px] font-bold tracking-widest uppercase shadow-lg"
         >
           {isPending ? t('common:loading') : t('filters:apply')}
         </Button>
@@ -172,7 +162,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
           variant="ghost"
           onClick={resetFilters}
           disabled={isPending}
-          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase transition-colors"
+          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-lg text-[10px] font-bold tracking-widest uppercase transition-colors"
         >
           {t('common:reset')}
         </Button>

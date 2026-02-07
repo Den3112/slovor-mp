@@ -24,7 +24,7 @@ function CreateListingFormContent() {
   const { state, actions, flags, t, locale } = useCreateListing()
   const router = useRouter()
   const { user, isLoading: authLoading } = useAuth()
-  console.log('CreateListingForm: RENDER', { user: !!user, authLoading });
+  console.log('CreateListingForm: RENDER', { user: !!user, authLoading })
 
   const {
     step,
@@ -81,9 +81,7 @@ function CreateListingFormContent() {
         </Button>
         <div className="flex flex-col items-center">
           <span className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
-            {showPreview
-              ? t('preview')
-              : t('step', { step })}
+            {showPreview ? t('preview') : t('step', { step })}
           </span>
           {!showPreview && (
             <div className="mt-1 flex gap-1">
@@ -104,7 +102,7 @@ function CreateListingFormContent() {
 
       <div
         className={cn(
-          'bg-card relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-xl md:border md:border-border md:p-10 md:shadow-sm',
+          'bg-card md:border-border relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-lg md:border md:p-10 md:shadow-sm',
           containerWidth,
           'min-h-[calc(100dvh-60px)] md:min-h-0'
         )}
@@ -123,9 +121,7 @@ function CreateListingFormContent() {
             {showPreview ? t('preview') : t('title')}
           </h1>
           <p className="text-muted-foreground">
-            {showPreview
-              ? t('previewDescription')
-              : t('step', { step })}
+            {showPreview ? t('previewDescription') : t('step', { step })}
           </p>
         </div>
 
@@ -149,7 +145,7 @@ function CreateListingFormContent() {
         </div>
 
         {error && (
-          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-xl border p-4 font-medium md:mx-0">
+          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-lg border p-4 font-medium md:mx-0">
             <AlertCircle className="h-5 w-5" /> {error}
           </div>
         )}
@@ -200,8 +196,7 @@ function CreateListingFormContent() {
                   type="button"
                   variant="ghost"
                   onClick={prevStep}
-                  className="text-muted-foreground hidden rounded-xl font-bold hover:bg-secondary md:flex"
-
+                  className="text-muted-foreground hover:bg-secondary hidden rounded-lg font-bold md:flex"
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t('back')}
                 </Button>
@@ -226,19 +221,16 @@ function CreateListingFormContent() {
                 <Button
                   type="button"
                   onClick={goToNextStep}
-                  className="rounded-xl px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
-
+                  className="rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
                 >
-                  {t('nextStep')}{' '}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  {t('nextStep')} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
                 <Button
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-xl px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
-
+                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -263,8 +255,7 @@ function CreateListingFormContent() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-primary flex-1 rounded-xl px-8 py-4 font-bold"
-
+                className="bg-primary flex-1 rounded-lg px-8 py-4 font-bold"
               >
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />

@@ -39,10 +39,9 @@ export function StepCategory({
               type="button"
               onClick={() => updateField('category_id', cat.id)}
               className={cn(
-                'group relative flex flex-col items-center gap-3 rounded-xl border p-4 transition-all active:scale-95 md:p-6',
+                'group relative flex flex-col items-center gap-3 rounded-lg border p-4 transition-all active:scale-95 md:p-6',
                 formData.category_id === cat.id
                   ? 'border-primary bg-primary/10 ring-primary/10 ring-2'
-
                   : 'border-border bg-card hover:border-primary/50 hover:bg-accent/50'
               )}
             >
@@ -51,11 +50,13 @@ export function StepCategory({
                   'flex h-12 w-12 items-center justify-center rounded-lg transition-transform group-hover:scale-110 md:h-16 md:w-16',
                   formData.category_id === cat.id
                     ? 'bg-primary text-primary-foreground shadow-sm'
-
                     : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary'
                 )}
               >
-                <CategoryIcon slug={cat.slug} className="h-6 w-6 md:h-8 md:w-8" />
+                <CategoryIcon
+                  slug={cat.slug}
+                  className="h-6 w-6 md:h-8 md:w-8"
+                />
               </div>
               <span
                 className={cn(
@@ -73,14 +74,14 @@ export function StepCategory({
       </FormField>
 
       <FormField label={t('condition')} error={fieldErrors.condition}>
-        <div className="bg-muted/50 flex gap-2 rounded-xl border border-border p-1">
+        <div className="bg-muted/50 border-border flex gap-2 rounded-lg border p-1">
           {(['new', 'used'] as const).map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => updateField('condition', c)}
               className={cn(
-                'flex-1 rounded-xl py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
+                'flex-1 rounded-lg py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
 
                 formData.condition === c
                   ? 'bg-background text-foreground shadow-sm'
@@ -95,4 +96,3 @@ export function StepCategory({
     </div>
   )
 }
-

@@ -17,6 +17,7 @@ import {
   MessageCircle,
   User,
   Loader2,
+  Package,
 } from 'lucide-react'
 import type { Profile } from '@/lib/types/database'
 import type { Listing } from '@/lib/api'
@@ -141,7 +142,7 @@ export function SellerProfileView({
               }
             >
               {/* Main Profile Card - Solid Redesign */}
-              <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
+              <div className="group bg-card border-border hover:border-primary/20 relative flex flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-xl dark:shadow-none">
                 <div className="space-y-8 p-8">
                   {/* Avatar */}
                   <div className="flex flex-col items-center text-center">
@@ -153,10 +154,10 @@ export function SellerProfileView({
                           width={112}
                           height={112}
                           unoptimized
-                          className="border-border h-24 w-24 rounded-xl border object-cover shadow-sm sm:h-28 sm:w-28"
+                          className="border-border h-24 w-24 rounded-2xl border object-cover shadow-sm sm:h-28 sm:w-28"
                         />
                       ) : (
-                        <div className="bg-muted border-border flex h-24 w-24 items-center justify-center rounded-xl border sm:h-28 sm:w-28">
+                        <div className="bg-muted border-border flex h-24 w-24 items-center justify-center rounded-2xl border sm:h-28 sm:w-28">
                           <User className="text-muted-foreground/30 h-8 w-8 sm:h-10 sm:w-10" />
                         </div>
                       )}
@@ -191,7 +192,7 @@ export function SellerProfileView({
 
                     {/* Stats - Solid Row */}
                     <div className="border-border mt-8 grid w-full grid-cols-2 gap-4 border-t pt-8">
-                      <div className="bg-muted/30 border-border/50 rounded-xl border p-4 text-center">
+                      <div className="bg-muted/30 border-border/50 rounded-2xl border p-4 text-center">
                         <p className="text-foreground text-2xl font-bold">
                           {listings.length}
                         </p>
@@ -199,12 +200,12 @@ export function SellerProfileView({
                           {t('seller:activeListings')}
                         </p>
                       </div>
-                      <div className="bg-muted/30 border-border/50 rounded-xl border p-4 text-center">
-                        <div className="flex items-center justify-center gap-1">
-                          <span className="text-foreground text-2xl font-bold">
+                      <div className="bg-muted/30 border-border/50 rounded-2xl border p-4 text-center">
+                        <div className="flex items-center justify-center gap-1.5">
+                          <span className="text-foreground text-2xl leading-none font-bold">
                             {ratingData?.averageRating || '—'}
                           </span>
-                          <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
+                          <Star className="mb-0.5 h-4 w-4 fill-amber-500 text-amber-500" />
                         </div>
                         <p className="text-muted-foreground mt-1 text-[9px] font-bold tracking-widest uppercase opacity-60">
                           {t('seller:rating')}
@@ -237,7 +238,7 @@ export function SellerProfileView({
               {variant === 'public' ? (
                 <Button
                   size="xl"
-                  className="shadow-primary/20 w-full rounded-xl font-bold tracking-widest uppercase shadow-lg"
+                  className="shadow-primary/20 w-full rounded-lg font-bold tracking-widest uppercase shadow-lg"
                   onClick={handleContact}
                   disabled={isContacting}
                 >
@@ -253,18 +254,18 @@ export function SellerProfileView({
                   <Button
                     variant="outline"
                     size="xl"
-                    className="border-border hover:bg-muted w-full rounded-xl border font-bold tracking-widest uppercase"
+                    className="border-border hover:bg-muted w-full rounded-lg border font-bold tracking-widest uppercase"
                   >
-                    Edit Profile
+                    {t('profile:settings')}
                   </Button>
                 </Link>
               )}
 
               {/* Safety info - Solid style */}
               {variant === 'public' && (
-                <div className="bg-card border-border rounded-xl border p-8 shadow-sm">
+                <div className="bg-card border-border rounded-2xl border p-8 shadow-sm">
                   <div className="flex gap-4">
-                    <div className="bg-primary/10 border-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">
+                    <div className="bg-primary/10 border-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border">
                       <ShieldCheck className="text-primary h-5 w-5" />
                     </div>
                     <div>
@@ -304,7 +305,7 @@ export function SellerProfileView({
                 </div>
               ) : (
                 <EmptyState
-                  icon="📦"
+                  icon={Package}
                   title={t('seller:noListings')}
                   description={t('seller:noListingsDescription')}
                 />

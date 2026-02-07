@@ -105,8 +105,16 @@ export function MobileMenuDrawer({
           label: t('profile:myListings'),
           icon: Store,
         },
-        { href: '/dashboard/orders', label: t('profile:orders'), icon: Package },
-        { href: '/dashboard/wallet', label: t('profile:wallet'), icon: ShoppingBag },
+        {
+          href: '/dashboard/orders',
+          label: t('profile:orders'),
+          icon: Package,
+        },
+        {
+          href: '/dashboard/wallet',
+          label: t('profile:wallet'),
+          icon: ShoppingBag,
+        },
       ],
     },
     {
@@ -135,8 +143,16 @@ export function MobileMenuDrawer({
     {
       title: t('profile:account'),
       items: [
-        { href: '/dashboard/profile', label: t('profile:publicProfile'), icon: Eye },
-        { href: '/dashboard/settings', label: t('profile:settings'), icon: Settings },
+        {
+          href: '/dashboard/profile',
+          label: t('profile:publicProfile'),
+          icon: Eye,
+        },
+        {
+          href: '/dashboard/settings',
+          label: t('profile:settings'),
+          icon: Settings,
+        },
         {
           href: '/admin',
           label: t('adminPanel'),
@@ -153,7 +169,7 @@ export function MobileMenuDrawer({
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-50 bg-black/40" />
         <Drawer.Content
-          className="bg-background fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-xl border-t border-border outline-none"
+          className="bg-background border-border fixed right-0 bottom-0 left-0 z-50 mt-24 flex h-[85vh] flex-col rounded-t-xl border-t outline-none"
           aria-describedby={undefined}
         >
           {/* Handle Indicator */}
@@ -168,7 +184,7 @@ export function MobileMenuDrawer({
           <div className="flex-1 overflow-y-auto p-4 pt-0">
             {/* User Header */}
             {user && (
-              <div className="bg-muted/40 mb-8 flex items-center gap-4 rounded-xl border border-white/5 p-4">
+              <div className="bg-muted/40 mb-8 flex items-center gap-4 rounded-lg border border-white/5 p-4">
                 <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                   <UserCircle className="h-6 w-6" />
                 </div>
@@ -200,8 +216,13 @@ export function MobileMenuDrawer({
                         return null
                       }
                       const Icon = item.icon
-                      const cleanPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/')
-                      const isActive = cleanPathname === item.href || cleanPathname.startsWith(item.href + '/')
+                      const cleanPathname = pathname.replace(
+                        /^\/[a-z]{2}(\/|$)/,
+                        '/'
+                      )
+                      const isActive =
+                        cleanPathname === item.href ||
+                        cleanPathname.startsWith(item.href + '/')
                       const count = getBadgeCount(item.href)
 
                       return (
@@ -210,7 +231,7 @@ export function MobileMenuDrawer({
                           href={`/${locale}${item.href}`}
                           onClick={() => setOpenAction?.(false)}
                           className={cn(
-                            'relative flex flex-col gap-2 overflow-hidden rounded-xl border p-4 transition-all active:scale-95',
+                            'relative flex flex-col gap-2 overflow-hidden rounded-lg border p-4 transition-all active:scale-95',
                             isActive
                               ? 'bg-primary text-primary-foreground border-primary shadow-primary/25 shadow-lg'
                               : 'bg-muted/30 hover:bg-muted text-muted-foreground hover:text-foreground border-transparent'
@@ -255,7 +276,7 @@ export function MobileMenuDrawer({
                         setOpenAction?.(false)
                       }}
                       className={cn(
-                        'flex flex-col items-center gap-2 rounded-xl border py-4 font-bold transition-all active:scale-95',
+                        'flex flex-col items-center gap-2 rounded-lg border py-4 font-bold transition-all active:scale-95',
                         locale === lang.code
                           ? 'border-primary bg-primary/10 text-primary shadow-sm'
                           : 'bg-muted/30 text-muted-foreground hover:bg-muted border-transparent'
@@ -275,7 +296,7 @@ export function MobileMenuDrawer({
               <div className="border-border/50 border-t pt-6">
                 <Button
                   variant="destructive"
-                  className="shadow-destructive/10 h-12 w-full rounded-xl font-bold shadow-lg"
+                  className="shadow-destructive/10 h-12 w-full rounded-lg font-bold shadow-lg"
                   onClick={handleSignOut}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
@@ -289,5 +310,3 @@ export function MobileMenuDrawer({
     </Drawer.Root>
   )
 }
-
-

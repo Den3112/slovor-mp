@@ -11,23 +11,23 @@ export function HomeCTA() {
   const { t, locale } = useTranslation(['home', 'common'])
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section className="relative overflow-hidden py-32">
       {/* Background patterns */}
-      <div className="absolute inset-0 bg-muted/20" />
-      <div className="absolute top-0 left-0 w-full h-px bg-border/40" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-border/40" />
+      <div className="bg-muted/20 absolute inset-0" />
+      <div className="bg-border/40 absolute top-0 left-0 h-px w-full" />
+      <div className="bg-border/40 absolute bottom-0 left-0 h-px w-full" />
 
       <Container>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "circOut" }}
-          className="relative overflow-hidden rounded-2xl bg-slate-950 px-6 py-20 text-center text-white md:px-16 md:py-32 border border-white/5"
+          transition={{ duration: 1, ease: 'circOut' }}
+          className="relative overflow-hidden rounded-2xl border border-white/5 bg-slate-950 px-6 py-20 text-center text-white md:px-16 md:py-32"
         >
           {/* Animated decorative elements */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
-          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px]" />
+          <div className="bg-primary/10 absolute -top-24 -right-24 h-64 w-64 rounded-full blur-[100px]" />
+          <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/10 blur-[100px]" />
 
           <div className="absolute inset-0 bg-white/2" />
 
@@ -38,10 +38,10 @@ export function HomeCTA() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <span className="inline-block px-4 py-1.5 rounded bg-primary/10 border border-primary/20 text-[10px] font-bold uppercase tracking-[0.3em] text-primary mb-6">
+              <span className="bg-primary/10 border-primary/20 text-primary mb-6 inline-block rounded border px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] uppercase">
                 {t('common:getStarted')}
               </span>
-              <h2 className="font-heading text-4xl font-bold tracking-tight md:text-7xl leading-[1.1] uppercase">
+              <h2 className="font-heading text-4xl leading-[1.1] font-bold tracking-tight uppercase md:text-7xl">
                 {t('ctaTitle')}
               </h2>
             </motion.div>
@@ -51,7 +51,7 @@ export function HomeCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="mx-auto max-w-2xl text-lg font-medium text-slate-400 md:text-xl leading-relaxed"
+              className="mx-auto max-w-2xl text-lg leading-relaxed font-medium text-slate-400 md:text-xl"
             >
               {t('ctaSubtitle')}
             </motion.p>
@@ -66,7 +66,7 @@ export function HomeCTA() {
               <Button
                 asChild
                 size="lg"
-                className="h-16 rounded-xl px-12 text-lg font-bold uppercase tracking-widest shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90 border-0"
+                className="shadow-primary/20 bg-primary hover:bg-primary/90 h-16 rounded-lg border-0 px-12 text-lg font-bold tracking-widest uppercase shadow-xl transition-all hover:scale-105 active:scale-95"
               >
                 <Link href={`/${locale}/post`}>
                   <Plus className="mr-3 h-6 w-6" />

@@ -1,9 +1,11 @@
 'use client'
 
+import { Search } from 'lucide-react'
 import { ListingCard } from '@/components/listing/card'
 import { Pagination } from '@/components/category/pagination'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/api'
+import { SortSelect } from '@/components/search/sort-select'
 
 interface SearchResultsViewProps {
   listings: Listing[]
@@ -21,8 +23,8 @@ export function SearchResultsView({
   if (listings.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="bg-muted mb-4 rounded-full p-6">
-          <span className="text-4xl">🔍</span>
+        <div className="bg-muted text-primary mb-4 rounded-full p-6">
+          <Search className="h-10 w-10 opacity-50" />
         </div>
         <h2 className="mb-2 text-xl font-bold">
           {t('common:noResults') || 'No results found'}
@@ -115,17 +117,13 @@ export function SearchResultsView({
           So first, `SearchResultsView.tsx`.
       */}
 
-      <div className="mb-6 flex items-center justify-between">
-        <span className="text-muted-foreground font-medium">
-          {/* "Showing results" */}
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <span className="text-muted-foreground translate-y-px font-medium">
           {t('common:showingResults') || 'Showing results'}
         </span>
-        {/* SortSelect is already a component, likely client? Let's check imports in page.tsx.
-            It was imported from '@/components/search/sort-select'.
-            I'll assume it's good or I'll check it later.
-            I need to include it here.
-        */}
-        <SortSelectWrapper />
+        <div className="w-full sm:w-auto">
+          <SortSelect />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -137,12 +135,4 @@ export function SearchResultsView({
       <Pagination totalItems={totalCount} itemsPerPage={itemsPerPage} />
     </div>
   )
-}
-
-// I need SortSelect.
-// I'll assume SortSelect is a client component since it handles interaction.
-import { SortSelect } from '@/components/search/sort-select'
-
-function SortSelectWrapper() {
-  return <SortSelect />
 }

@@ -47,15 +47,15 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               { label: t('allListings'), href: `/${locale}/listings` },
               ...(listing.category
                 ? [
-                  {
-                    label: getLocalizedCategoryName(
-                      listing.category,
-                      locale,
-                      t
-                    ),
-                    href: `/${locale}/categories/${listing.category.slug}`,
-                  },
-                ]
+                    {
+                      label: getLocalizedCategoryName(
+                        listing.category,
+                        locale,
+                        t
+                      ),
+                      href: `/${locale}/categories/${listing.category.slug}`,
+                    },
+                  ]
                 : []),
               { label: displayTitle },
             ]}
@@ -67,7 +67,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
           <div className="space-y-8 lg:col-span-8">
             {/* Image Gallery */}
             <div className="hidden md:block">
-              <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
+              <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
                 <ImageGallery
                   images={listing.images || []}
                   title={displayTitle}
@@ -106,7 +106,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
         <div className="bg-background/80 border-border border-t p-4 backdrop-blur-xl">
           <div className="mx-auto flex max-w-lg items-center justify-between gap-4">
             <div className="flex flex-col">
-              <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+              <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
                 {t('common:price')}
               </span>
               <PriceDisplay
@@ -116,9 +116,11 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               />
             </div>
             <Button
-              className="h-14 flex-1 rounded-xl text-lg font-bold shadow-lg shadow-primary/20"
+              className="shadow-primary/20 h-14 flex-1 rounded-lg text-lg font-bold shadow-lg"
               onClick={() => {
-                const sidebarButton = document.querySelector('[data-action="contact"]') as HTMLButtonElement
+                const sidebarButton = document.querySelector(
+                  '[data-action="contact"]'
+                ) as HTMLButtonElement
                 if (sidebarButton) sidebarButton.click()
               }}
             >

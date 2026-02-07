@@ -14,18 +14,19 @@ export default function NotFound() {
           {t('404:title') || 'Page Not Found'}
         </h2>
         <p className="text-muted-foreground mx-auto mb-8 max-w-md text-xl">
-          {t('404:description') || "Sorry, we couldn't find the page you're looking for."}
+          {t('404:description') ||
+            "Sorry, we couldn't find the page you're looking for."}
         </p>
         <div className="flex justify-center gap-4">
           <Link
             href={`/${locale}/`}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6 py-3 font-semibold transition-colors"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-semibold transition-colors"
           >
             {t('404:goHome') || 'Go Home'}
           </Link>
           <Link
             href={`/${locale}/listings`}
-            className="border-border text-muted-foreground hover:bg-accent rounded-xl border-2 px-6 py-3 font-semibold transition-colors"
+            className="border-border text-muted-foreground hover:bg-accent rounded-lg border-2 px-6 py-3 font-semibold transition-colors"
           >
             {t('404:browse') || 'Browse Listings'}
           </Link>

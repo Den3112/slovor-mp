@@ -77,7 +77,11 @@ export function useCreateListing() {
 
     const draft = loadListingDraft(user?.id)
     if (draft) {
-      setFormData(draft)
+      setFormData({
+        ...DEFAULT_LISTING_FORM,
+        ...draft,
+        attributes: draft.attributes || {},
+      })
       setIsDirty(true)
     }
   }, [editId, user?.id])
@@ -236,7 +240,9 @@ export function useCreateListing() {
     updateField('images', newImages)
 
     // 2. If it's a Supabase URL, try to delete it from storage
-    if (imageUrl.includes('supabase.co/storage/v1/object/public/listings-images/')) {
+    if (
+      imageUrl.includes('supabase.co/storage/v1/object/public/listings-images/')
+    ) {
       const path = imageUrl.split('listings-images/')[1]
       if (path) {
         // We don't await this to keep UI fast, but it's good practice to try
@@ -267,7 +273,8 @@ export function useCreateListing() {
     const result = await storageApi.uploadImages(
       fileArray,
       user.id,
-      (current, total, fileName) => setUploadProgress({ current, total, fileName })
+      (current, total, fileName) =>
+        setUploadProgress({ current, total, fileName })
     )
 
     if (result.error || !result.data) {
@@ -283,7 +290,6 @@ export function useCreateListing() {
     setIsUploading(false)
     setUploadProgress(null)
   }
-
 
   return {
     state: {

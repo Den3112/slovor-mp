@@ -26,6 +26,11 @@ interface UserReviewsViewProps {
 
 export function UserReviewsView({ userId }: UserReviewsViewProps) {
   const { t } = useTranslation(['common', 'reviews', 'dashboard'])
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
   const [ratingData, setRatingData] = useState<SellerRating | null>(null)
   const [givenReviews, setGivenReviews] = useState<Review[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -70,10 +75,10 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
           reviews: ratingData.reviews.map((r) =>
             r.id === reviewId
               ? {
-                  ...r,
-                  seller_reply: data.seller_reply,
-                  seller_reply_at: data.seller_reply_at,
-                }
+                ...r,
+                seller_reply: data.seller_reply,
+                seller_reply_at: data.seller_reply_at,
+              }
               : r
           ),
         })
@@ -103,7 +108,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 duration-700">
       {/* Premium Header */}
-      <div className="border-border bg-card relative overflow-hidden rounded-xl border p-8 shadow-sm">
+      <div className="border-border bg-card relative overflow-hidden rounded-lg border p-8 shadow-sm">
         <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
           <div className="space-y-1">
             <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
@@ -113,7 +118,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
               {t('reviews:manageReputation')}
             </p>
           </div>
-          <div className="bg-primary/10 text-primary border-primary/20 flex h-12 w-12 items-center justify-center rounded-xl border">
+          <div className="bg-primary/10 text-primary border-primary/20 flex h-12 w-12 items-center justify-center rounded-lg border">
             <Award className="h-6 w-6" />
           </div>
         </div>
@@ -122,7 +127,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
       <div className="flex flex-col gap-6">
         {/* Tabs and Summary Row */}
         <div className="flex flex-col gap-6 lg:flex-row">
-          <div className="bg-muted/30 border-border/50 flex h-fit w-fit items-center gap-1.5 rounded-xl border p-1">
+          <div className="bg-muted/30 border-border/50 flex h-fit w-fit items-center gap-1.5 rounded-lg border p-1">
             <button
               onClick={() => setActiveTab('received')}
               className={cn(
@@ -149,7 +154,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
 
           {activeTab === 'received' && (
             <div className="flex flex-1 flex-wrap gap-4">
-              <div className="border-border/50 bg-muted/20 hover:bg-muted/30 min-w-[200px] flex-1 rounded-xl border p-4 transition-all">
+              <div className="border-border/50 bg-muted/20 hover:bg-muted/30 min-w-[200px] flex-1 rounded-lg border p-4 transition-all">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/10 ring-1 ring-amber-500/20">
                     <Star className="h-5 w-5 fill-amber-500/10 text-amber-500" />
@@ -168,7 +173,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                 </div>
               </div>
 
-              <div className="border-border/50 bg-muted/20 hover:bg-muted/30 min-w-[200px] flex-1 rounded-xl border p-4 transition-all">
+              <div className="border-border/50 bg-muted/20 hover:bg-muted/30 min-w-[200px] flex-1 rounded-lg border p-4 transition-all">
                 <div className="flex items-center gap-3">
                   <div className="bg-primary/10 ring-primary/20 flex h-10 w-10 items-center justify-center rounded-lg ring-1">
                     <MessageCircle className="text-primary h-5 w-5" />
@@ -205,10 +210,10 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                 return (
                   <div
                     key={review.id}
-                    className="group border-border bg-card hover:border-primary/30 relative rounded-xl border p-5 transition-all"
+                    className="group border-border bg-card hover:border-primary/30 relative rounded-lg border p-5 transition-all"
                   >
                     <div className="flex flex-col gap-5 sm:flex-row">
-                      <div className="border-border/40 bg-muted/50 relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105">
+                      <div className="border-border/40 bg-muted/50 relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border transition-transform duration-300 group-hover:scale-105">
                         {userDisplay?.avatar_url ? (
                           <Image
                             src={userDisplay.avatar_url}
@@ -232,9 +237,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                             </p>
                             <div className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
                               <span>
-                                {new Date(
-                                  review.created_at
-                                ).toLocaleDateString()}
+                                {isMounted ? new Date(review.created_at).toLocaleDateString() : '...'}
                               </span>
                               {review.listing && (
                                 <>
@@ -263,7 +266,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                         </div>
 
                         {review.comment && (
-                          <div className="bg-muted/20 border-border/30 group-hover:bg-muted/40 relative rounded-xl border p-4 transition-all">
+                          <div className="bg-muted/20 border-border/30 group-hover:bg-muted/40 relative rounded-lg border p-4 transition-all">
                             <p className="text-foreground/80 text-sm leading-relaxed font-medium">
                               &ldquo;{review.comment}&rdquo;
                             </p>
@@ -272,7 +275,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
 
                         {/* Seller Reply */}
                         {review.seller_reply && (
-                          <div className="bg-primary/5 border-primary/10 mt-4 ml-6 flex gap-3 rounded-xl border p-4">
+                          <div className="bg-primary/5 border-primary/10 mt-4 ml-6 flex gap-3 rounded-lg border p-4">
                             <CornerDownRight className="text-primary mt-0.5 h-4 w-4 shrink-0" />
                             <div className="space-y-1">
                               <p className="text-primary/60 text-[10px] font-bold tracking-widest uppercase">
@@ -304,7 +307,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                                       setReplyingTo(null)
                                       setReplyText('')
                                     }}
-                                    className="rounded-xl text-[10px] font-bold tracking-widest uppercase"
+                                    className="rounded-lg text-[10px] font-bold tracking-widest uppercase"
                                   >
                                     {t('common:cancel')}
                                   </Button>
@@ -312,7 +315,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                                     size="sm"
                                     onClick={() => handleReplySubmit(review.id)}
                                     disabled={isSubmitting || !replyText.trim()}
-                                    className="rounded-xl text-[10px] font-bold tracking-widest uppercase"
+                                    className="rounded-lg text-[10px] font-bold tracking-widest uppercase"
                                   >
                                     {isSubmitting ? (
                                       <Loader2 className="mr-2 h-3 w-3 animate-spin" />
@@ -328,7 +331,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setReplyingTo(review.id)}
-                                className="hover:bg-primary/5 hover:text-primary rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all"
+                                className="hover:bg-primary/5 hover:text-primary rounded-lg text-[10px] font-bold tracking-widest uppercase transition-all"
                               >
                                 {t('reviews:reply')}
                               </Button>
@@ -345,7 +348,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="border-border/50 bg-card flex flex-col items-center justify-center rounded-xl border p-12 text-center shadow-sm"
+              className="border-border/50 bg-card flex flex-col items-center justify-center rounded-lg border p-12 text-center shadow-sm"
             >
               <EmptyState
                 icon={Star}

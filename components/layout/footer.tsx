@@ -73,8 +73,9 @@ export function Footer() {
       title: t('footer:info'),
       links: [
         { label: t('footer:about'), href: `/${locale}/about` },
+        { label: t('footer:contact') || 'Contact Us', href: `/${locale}/contact` },
         ...dynamicPages
-          .filter((p) => !['about', 'terms', 'privacy', 'faq'].includes(p.slug))
+          .filter((p) => !['about', 'contact', 'terms', 'privacy', 'faq'].includes(p.slug))
           .map((p) => ({
             label: p.title,
             href: `/${locale}/${p.slug}`,
@@ -208,7 +209,7 @@ export function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="group border-border bg-card mb-12 flex flex-col items-center justify-between gap-6 rounded-xl border p-6 shadow-sm transition-colors duration-500 md:mb-16 md:gap-8 md:p-8 lg:mb-20 lg:flex-row lg:p-10">
+        <div className="group border-border bg-card mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border p-6 shadow-sm transition-colors duration-500 md:mb-16 md:gap-8 md:p-8 lg:mb-20 lg:flex-row lg:p-10">
           <div className="w-full text-center lg:max-w-md lg:text-left">
             <h3 className="text-foreground mb-2 text-xl font-bold md:text-2xl">
               {t('footer:newsletterTitle')}
@@ -223,10 +224,10 @@ export function Footer() {
               <input
                 type="email"
                 placeholder={t('footer:newsletterPlaceholder')}
-                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary w-full rounded-xl border py-3.5 pr-4 pl-11 text-base font-medium focus:ring-1 focus:outline-none"
+                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary w-full rounded-lg border py-3.5 pr-4 pl-11 text-base font-medium focus:ring-1 focus:outline-none"
               />
             </div>
-            <button className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-xl px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto">
+            <button className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-lg px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto">
               {t('footer:subscribe')}
             </button>
           </div>
