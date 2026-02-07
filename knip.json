@@ -3,10 +3,11 @@
   "entry": [
     "app/[locale]/**/page.tsx",
     "app/[locale]/**/layout.tsx",
-    "app/api/**/route.ts",
-    "middleware.ts"
+    "app/api/**/route.ts"
   ],
-  "project": ["**/*.{ts,tsx}"],
+  "project": [
+    "**/*.{ts,tsx}"
+  ],
   "ignore": [
     "node_modules",
     ".next",
@@ -17,13 +18,5 @@
     "components/ui/v0/**",
     "lib/types/database.ts"
   ],
-  "ignoreDependencies": [
-    "lucide-react",
-    "framer-motion",
-    "sonner",
-    "npm-run-all",
-    "cross-env",
-    "@next/bundle-analyzer",
-    "knip"
-  ]
+  "ignoreDependencies": []
 }

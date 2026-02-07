@@ -62,8 +62,6 @@ export const categoriesApi = {
         .from('categories')
         .select('*')
         .eq('slug', slug)
-        .single() // Reverting to single() as maybeSingle() might hide duplicates, but actually the error "Cannot coerce" implies issues with single().
-        // Better approach for debugging: use limit(1).single() or just maybeSingle()
         .limit(1)
         .maybeSingle()
 

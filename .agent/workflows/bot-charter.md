@@ -12,6 +12,7 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 - **Ask Before Acting**: If a requirement is silent or ambiguous — **ASK the USER**. Never assume.
 - **Confirmation on Global Changes**: Before any high-impact operation (e.g. massive refactoring, repository rename, deleting large directories), you **MUST** obtain explicit confirmation.
 - **Persistent Alignment**: You **MUST** read `.agent/workflows/memory-protocol.md` and `.agent/MEMORY.md` at the start of **EVERY** session.
+- **Cost Awareness**: You **MUST** follow `.agent/workflows/cost-protection.md`. Avoid infinite loops and redundant file reads.
 - **Adaptive Reasoning**: Use `ULTRATHINK` for complex tasks. For simple tasks, use "Mental Rule Check". **Escalate** to Ultrathink if a "simple" fix fails verification.
 - **Live Memory (RAM)**: Treat `.agent/MEMORY.md` as your working memory. Update the "Active RAM" section **DURING** your work.
 - **Server Verification**: Before performing **ANY** task, you **MUST** ensure the local development server (e.g., `npm run dev`) is running. If it's not, you must inform the user and ask if you should start it.
