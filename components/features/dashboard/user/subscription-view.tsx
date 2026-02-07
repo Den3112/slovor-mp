@@ -112,7 +112,7 @@ export function SubscriptionView({
   return (
     <div className="animate-in fade-in space-y-8 duration-700">
       {/* Header Section */}
-      <div className="bg-card border-border flex flex-col gap-2 rounded-xl border p-6 shadow-sm">
+      <div className="bg-card border-border flex flex-col gap-2 rounded-lg border p-6 shadow-sm">
         <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
           {t('profile:subscription')}
         </h1>
@@ -124,7 +124,7 @@ export function SubscriptionView({
       {/* Current Plan Indicator */}
       <div
         className={cn(
-          'rounded-xl border p-4 transition-all',
+          'rounded-lg border p-4 transition-all',
           currentSub.plan_type === 'free'
             ? 'border-blue-200 bg-blue-500/5 dark:border-blue-900/50'
             : 'border-primary bg-primary/5 shadow-sm'
@@ -189,7 +189,7 @@ export function SubscriptionView({
             <div
               key={plan.id}
               className={cn(
-                'relative flex flex-col overflow-hidden rounded-xl border transition-all duration-300',
+                'relative flex flex-col overflow-hidden rounded-lg border transition-all duration-300',
                 plan.highlight && !isCurrent
                   ? 'border-primary bg-primary/5 shadow-primary/5 scale-[1.02] shadow-lg'
                   : isCurrent
@@ -202,7 +202,7 @@ export function SubscriptionView({
                 <div className="flex items-center justify-between">
                   <div
                     className={cn(
-                      'flex h-12 w-12 items-center justify-center rounded-xl border',
+                      'flex h-12 w-12 items-center justify-center rounded-lg border',
                       plan.color === 'blue'
                         ? 'border-blue-200 bg-blue-500/10 text-blue-600 dark:border-blue-900'
                         : plan.color === 'amber'
@@ -269,7 +269,7 @@ export function SubscriptionView({
                   onClick={() => handleUpgrade(plan.id)}
                   disabled={isCurrent || isSubmitting !== null}
                   className={cn(
-                    'h-12 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all',
+                    'h-12 w-full rounded-lg text-[10px] font-bold tracking-widest uppercase transition-all',
                     isCurrent
                       ? 'bg-muted text-muted-foreground border-border hover:bg-muted cursor-default'
                       : plan.highlight

@@ -34,7 +34,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           <div className="group flex h-full flex-col gap-4">
             <Link
               href={`/${locale}/categories/${category.slug}`}
-              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-5xl border p-10 shadow-sm transition-all duration-500"
+              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-2xl border p-10 shadow-sm transition-all duration-500"
             >
               {/* Decorative Pattern */}
               <div className="bg-primary/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl transition-transform duration-700 group-hover/card:scale-150" />
@@ -44,7 +44,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
               </div>
 
               {category.icon_name && (
-                <div className="bg-muted/50 group-hover/card:bg-primary group-hover/card:text-primary-foreground mb-6 rounded-3xl p-6 transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotate-6">
+                <div className="bg-muted/50 group-hover/card:bg-primary group-hover/card:text-primary-foreground mb-6 rounded-2xl p-6 transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotate-6">
                   <CategoryIcon slug={category.slug} className="h-12 w-12" />
                 </div>
               )}
@@ -67,7 +67,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                   <Link
                     key={sub.id}
                     href={`/${locale}/categories/${sub.slug}`}
-                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
+                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-lg border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
                   >
                     {getLocalizedCategoryName(sub, locale, t)}
                   </Link>

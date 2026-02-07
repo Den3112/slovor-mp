@@ -96,25 +96,32 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
           <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
             {t('admin:overview')}
           </h1>
-          <p className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
-            <ShieldCheck className="text-success h-3.5 w-3.5" />
-            {t('admin:systemsOperational')} •{' '}
-            <span className="text-foreground/40">{t('admin:loggedInAs')}</span>{' '}
-            <span className="text-foreground">{userEmail}</span>
+          <p className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-bold tracking-[0.2em] uppercase">
+            <span className="flex items-center gap-2">
+              <ShieldCheck className="text-success h-3.5 w-3.5" />
+              {t('admin:systemsOperational')}
+            </span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center gap-1 min-w-0">
+              <span className="text-foreground/70 shrink-0">{t('admin:loggedInAs')}</span>{' '}
+              <span className="text-foreground truncate max-w-[150px] sm:max-w-none hover:whitespace-normal hover:break-all transition-all duration-300">
+                {userEmail}
+              </span>
+            </span>
           </p>
         </div>
         <div className="flex gap-2">
           <Button
             variant="outline"
             size="sm"
-            className="border-border/60 hover:bg-muted h-9 rounded-xl px-4 text-[10px] font-bold tracking-widest uppercase transition-all"
+            className="border-border/60 hover:bg-muted h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase transition-all"
           >
             <Download className="mr-2 h-3.5 w-3.5" />
             {t('common:export')}
           </Button>
           <Button
             size="sm"
-            className="bg-primary hover:bg-primary/90 h-9 rounded-xl px-4 text-[10px] font-bold tracking-widest uppercase shadow-sm transition-all active:scale-95"
+            className="bg-primary hover:bg-primary/90 h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase shadow-sm transition-all active:scale-95"
           >
             <Zap className="mr-2 h-3.5 w-3.5" />
             {t('admin:runAudit')}
@@ -170,7 +177,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Main Chart */}
         <motion.div variants={item} className="lg:col-span-8">
-          <Card className="border-border/60 flex h-full min-h-[480px] flex-col overflow-hidden rounded-xl shadow-sm">
+          <Card className="border-border/60 flex h-full min-h-[480px] flex-col overflow-hidden rounded-lg shadow-sm">
             <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -178,7 +185,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     <BarChart3 className="text-primary h-4 w-4" />
                     {t('admin:activityMetrics')}
                   </CardTitle>
-                  <p className="text-muted-foreground/40 mt-1 text-[10px] font-bold tracking-widest uppercase">
+                  <p className="text-muted-foreground/60 mt-1 text-[10px] font-bold tracking-widest uppercase">
                     {t('admin:activityMetricsDesc')}
                   </p>
                 </div>
@@ -200,7 +207,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
 
         {/* side monitoring column */}
         <motion.div variants={item} className="space-y-8 lg:col-span-4">
-          <Card className="border-border/60 bg-card overflow-hidden rounded-xl shadow-sm">
+          <Card className="border-border/60 bg-card overflow-hidden rounded-lg shadow-sm">
             <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
               <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
                 <Zap className="text-primary h-4 w-4" />
@@ -212,7 +219,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href={`/${locale}/admin/listings`}
-                  className="bg-muted/30 border-border/40 hover:border-primary/40 hover:bg-primary/5 group flex flex-col items-center justify-center gap-2 rounded-xl border p-4 text-center transition-all"
+                  className="bg-muted/30 border-border/40 hover:border-primary/40 hover:bg-primary/5 group flex flex-col items-center justify-center gap-2 rounded-lg border p-4 text-center transition-all"
                 >
                   <Layers className="text-primary h-5 w-5 transition-transform group-hover:scale-110" />
                   <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
@@ -221,7 +228,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                 </Link>
                 <Link
                   href={`/${locale}/admin/reports`}
-                  className="bg-muted/30 border-border/40 hover:border-destructive/40 hover:bg-destructive/5 group flex flex-col items-center justify-center gap-2 rounded-xl border p-4 text-center transition-all"
+                  className="bg-muted/30 border-border/40 hover:border-destructive/40 hover:bg-destructive/5 group flex flex-col items-center justify-center gap-2 rounded-lg border p-4 text-center transition-all"
                 >
                   <AlertCircle className="text-destructive h-5 w-5 transition-transform group-hover:scale-110" />
                   <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
@@ -235,7 +242,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
           </Card>
 
           {/* System Health Panel */}
-          <Card className="border-border selection:bg-primary/30 overflow-hidden rounded-xl bg-card text-foreground shadow-sm">
+          <Card className="border-border selection:bg-primary/30 overflow-hidden rounded-lg bg-card text-foreground shadow-sm">
             <CardHeader className="border-b border-border/10 bg-muted/20 px-6 py-4">
               <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
                 <ShieldCheck className="text-success h-4 w-4" />
@@ -249,7 +256,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/10 bg-muted/30">
                       <Database className="h-4 w-4 text-blue-500" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
+                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase">
                       {t('admin:database')}
                     </span>
                   </div>
@@ -262,7 +269,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/10 bg-muted/30">
                       <Activity className="h-4 w-4 text-emerald-500" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
+                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase">
                       {t('admin:apiLatency')}
                     </span>
                   </div>
@@ -275,7 +282,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/10 bg-muted/30">
                       <Lock className="h-4 w-4 text-amber-500" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
+                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase">
                       {t('admin:sslStatus')}
                     </span>
                   </div>
@@ -289,7 +296,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-11 w-full rounded-xl border-border/60 bg-muted/10 text-[9px] font-bold tracking-widest text-muted-foreground uppercase transition-all hover:bg-muted/30 active:scale-95"
+                  className="h-11 w-full rounded-lg border-border/60 bg-muted/10 text-[9px] font-bold tracking-widest text-muted-foreground uppercase transition-all hover:bg-muted/30 active:scale-95"
                 >
                   <RefreshCcw className="mr-2 h-3 w-3" />
                   {t('admin:fullSystemReport')}

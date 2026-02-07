@@ -37,7 +37,7 @@ export function ModerationCard({
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="group bg-card border-border/60 hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all duration-500 hover:shadow-lg"
+      className="group bg-card border-border/60 hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col overflow-hidden rounded-lg border shadow-sm transition-all duration-500 hover:shadow-lg"
     >
       {/* Status Badge Overlays */}
       {issues.map((issue, idx) => (
@@ -77,7 +77,7 @@ export function ModerationCard({
               <span className="text-primary text-sm font-bold uppercase">
                 {formatPrice(listing.price)} {listing.currency}
               </span>
-              <span className="text-muted-foreground/40 text-[10px] font-bold tracking-widest uppercase">
+              <span className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
                 ({listing.category_id})
               </span>
             </div>

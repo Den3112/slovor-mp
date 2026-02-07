@@ -1,5 +1,6 @@
 'use client'
 
+import { useId } from 'react'
 import { Button } from '@/components/ui/button'
 import { Loader2, Eye, EyeOff } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
@@ -24,14 +25,21 @@ export function AuthForm({
   setIsRegistering,
 }: AuthFormProps) {
   const { t } = useTranslation('auth')
+  const emailId = useId()
+  const passwordId = useId()
+
   return (
     <>
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-3">
-          <label className="ml-1 text-[11px] font-bold tracking-[0.2em] text-indigo-500/80 uppercase">
+          <label
+            htmlFor={emailId}
+            className="ml-1 text-[11px] font-bold tracking-[0.2em] text-indigo-500/80 uppercase"
+          >
             {t('email')}
           </label>
           <input
+            id={emailId}
             name="email"
             type="email"
             placeholder="name@example.com"
@@ -43,7 +51,10 @@ export function AuthForm({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="ml-1 text-[11px] font-bold tracking-[0.2em] text-indigo-500/80 uppercase">
+            <label
+              htmlFor={passwordId}
+              className="ml-1 text-[11px] font-bold tracking-[0.2em] text-indigo-500/80 uppercase"
+            >
               {t('password')}
             </label>
             {!isRegistering && (
@@ -57,6 +68,7 @@ export function AuthForm({
           </div>
           <div className="relative">
             <input
+              id={passwordId}
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
@@ -69,7 +81,7 @@ export function AuthForm({
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? t('hidePassword') : t('showPassword')}
-              className="text-muted-foreground z-10 absolute top-1/2 right-5 -translate-y-1/2 p-2 transition-colors hover:text-indigo-500"
+              className="text-muted-foreground absolute top-1/2 right-5 z-10 -translate-y-1/2 p-2 transition-colors hover:text-indigo-500"
             >
               {showPassword ? (
                 <EyeOff className="h-5 w-5" />
@@ -98,9 +110,7 @@ export function AuthForm({
 
       <div className="mt-8 text-center text-sm">
         <span className="text-muted-foreground">
-          {isRegistering
-            ? t('alreadyHaveAccount')
-            : t('dontHaveAccount')}
+          {isRegistering ? t('alreadyHaveAccount') : t('dontHaveAccount')}
         </span>{' '}
         <button
           onClick={() => setIsRegistering(!isRegistering)}

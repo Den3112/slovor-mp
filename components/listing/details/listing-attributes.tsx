@@ -14,8 +14,7 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
 
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
-      <div className="rounded-xl border border-border bg-card p-5">
-
+      <div className="border-border bg-card rounded-lg border p-5">
         <p className="text-muted-foreground mb-2 text-[10px] font-bold tracking-widest uppercase">
           {t('common:condition')}
         </p>
@@ -33,8 +32,7 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
           )}
         </div>
       </div>
-      <div className="rounded-xl border border-border bg-card p-5">
-
+      <div className="border-border bg-card rounded-lg border p-5">
         <p className="text-muted-foreground mb-2 text-[10px] font-bold tracking-widest uppercase">
           {t('common:location')}
         </p>
@@ -43,8 +41,7 @@ export function ListingDetailsGrid({ listing }: ListingDetailsGridProps) {
           <span className="truncate">{listing.location}</span>
         </div>
       </div>
-      <div className="col-span-2 rounded-xl border border-border bg-card p-5 md:col-span-1">
-
+      <div className="border-border bg-card col-span-2 rounded-lg border p-5 md:col-span-1">
         <p className="text-muted-foreground mb-2 text-[10px] font-bold tracking-widest uppercase">
           {t('common:published')}
         </p>

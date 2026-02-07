@@ -153,7 +153,7 @@ export function AdminCategoriesView() {
       className: 'min-w-[200px]',
       cell: (row) => (
         <div className="flex items-center gap-3">
-          <div className="bg-primary/5 border-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-xl border">
+          <div className="bg-primary/5 border-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-lg border">
             {row.icon ? (
               <span className="text-xl">{row.icon}</span>
             ) : (

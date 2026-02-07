@@ -1,5 +1,6 @@
 'use client'
 
+import { useId } from 'react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import type {
@@ -9,7 +10,10 @@ import type {
 import { LocationCombobox } from '@/components/ui/location-combobox'
 import { FormField } from '@/components/ui/form-field'
 import type { Category } from '@/lib/types/database'
-import { CATEGORY_ATTRIBUTES, getAttributeLabel } from '@/lib/constants/category-attributes'
+import {
+  CATEGORY_ATTRIBUTES,
+  getAttributeLabel,
+} from '@/lib/constants/category-attributes'
 import {
   Select,
   SelectContent,
@@ -37,12 +41,19 @@ export function StepDetails({
   const { t, i18n } = useTranslation(['createListing', 'common', 'filters'])
   const locale = i18n.language
 
-  const currentCategory = categories.find(c => c.id === formData.category_id)
-  const categoryAttributes = currentCategory ? CATEGORY_ATTRIBUTES[currentCategory.slug] : []
+  const titleId = useId()
+  const priceId = useId()
+  const descriptionId = useId()
+  const locationId = useId()
+
+  const currentCategory = categories.find((c) => c.id === formData.category_id)
+  const categoryAttributes = currentCategory
+    ? CATEGORY_ATTRIBUTES[currentCategory.slug]
+    : []
 
   const inputClasses = (hasError: boolean) =>
     cn(
-      'placeholder:text-muted-foreground/30 w-full rounded-xl border bg-card transition-all outline-none',
+      'placeholder:text-muted-foreground/30 w-full rounded-lg border bg-card transition-all outline-none',
       'focus:border-primary focus:ring-primary/10 focus:bg-accent/5 focus:ring-4',
       hasError
         ? 'border-destructive/50 bg-destructive/5'
@@ -55,11 +66,16 @@ export function StepDetails({
         label={t('itemTitle')}
         error={fieldErrors.title}
         description="Write a clear, descriptive title for your item"
+        inputId={titleId}
       >
         <input
+          id={titleId}
           value={formData.title}
           onChange={(e) => updateField('title', e.target.value)}
-          className={cn(inputClasses(!!fieldErrors.title), 'h-16 px-6 text-xl font-bold')}
+          className={cn(
+            inputClasses(!!fieldErrors.title),
+            'h-16 px-6 text-xl font-bold'
+          )}
           placeholder={t('titlePlaceholder')}
         />
       </FormField>
@@ -69,12 +85,14 @@ export function StepDetails({
           label={t('price')}
           error={fieldErrors.price}
           className="flex-1"
+          inputId={priceId}
         >
           <div className="relative">
             <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-bold">
               €
             </span>
             <input
+              id={priceId}
               type="number"
               value={formData.price}
               onChange={(e) => updateField('price', e.target.value)}
@@ -91,7 +109,7 @@ export function StepDetails({
           <label className="text-muted-foreground/80 ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('currency')}
           </label>
-          <div className="text-muted-foreground flex h-16 items-center justify-center rounded-xl border border-border bg-muted/50 font-bold">
+          <div className="text-muted-foreground border-border bg-muted/50 flex h-16 items-center justify-center rounded-lg border font-bold">
             EUR
           </div>
         </div>
@@ -100,8 +118,10 @@ export function StepDetails({
       <FormField
         label={t('description')}
         error={fieldErrors.description}
+        inputId={descriptionId}
       >
         <textarea
+          id={descriptionId}
           value={formData.description}
           onChange={(e) => updateField('description', e.target.value)}
           className={cn(
@@ -112,8 +132,13 @@ export function StepDetails({
         />
       </FormField>
 
-      <FormField label={t('location')} error={fieldErrors.location}>
+      <FormField
+        label={t('location')}
+        error={fieldErrors.location}
+        inputId={locationId}
+      >
         <LocationCombobox
+          id={locationId}
           value={formData.location}
           onChange={(value) => updateField('location', value)}
           error={fieldErrors.location}
@@ -123,7 +148,7 @@ export function StepDetails({
 
       {/* Dynamic Category Attributes */}
       {categoryAttributes && categoryAttributes.length > 0 && (
-        <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 rounded-2xl border border-primary/10 bg-primary/3 p-6 duration-700">
+        <div className="animate-in fade-in slide-in-from-bottom-4 border-primary/10 bg-primary/3 space-y-6 rounded-2xl border p-6 duration-700">
           <h3 className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('additionalDetails') || 'Additional Details'}
           </h3>
@@ -132,20 +157,31 @@ export function StepDetails({
               <FormField
                 key={attr.id}
                 label={getAttributeLabel(attr, locale)}
+                inputId={`attr-${attr.id}`}
               >
                 {attr.type === 'select' ? (
                   <Select
-                    value={formData.attributes[attr.id] || ''}
+                    value={
+                      (formData.attributes && formData.attributes[attr.id]) ||
+                      ''
+                    }
                     onValueChange={(value) =>
                       updateField('attributes', {
-                        ...formData.attributes,
+                        ...(formData.attributes || {}),
                         [attr.id]: value,
                       })
                     }
                   >
-                    <SelectTrigger className={cn(inputClasses(false), 'h-14 px-6 font-bold')}>
+                    <SelectTrigger
+                      id={`attr-${attr.id}`}
+                      className={cn(
+                        inputClasses(false),
+                        'bg-background/60 h-14 px-6 font-bold backdrop-blur-md'
+                      )}
+                    >
                       <SelectValue placeholder={t('common:select')} />
                     </SelectTrigger>
+
                     <SelectContent>
                       {attr.options?.map((opt) => (
                         <SelectItem key={opt.value} value={opt.value}>
@@ -157,11 +193,19 @@ export function StepDetails({
                 ) : (
                   <div className="relative">
                     <input
-                      type={attr.type === 'range' || attr.type === 'number' ? 'number' : 'text'}
-                      value={formData.attributes[attr.id] || ''}
+                      id={`attr-${attr.id}`}
+                      type={
+                        attr.type === 'range' || attr.type === 'number'
+                          ? 'number'
+                          : 'text'
+                      }
+                      value={
+                        (formData.attributes && formData.attributes[attr.id]) ||
+                        ''
+                      }
                       onChange={(e) =>
                         updateField('attributes', {
-                          ...formData.attributes,
+                          ...(formData.attributes || {}),
                           [attr.id]: e.target.value,
                         })
                       }
@@ -169,7 +213,7 @@ export function StepDetails({
                       placeholder={attr.unit ? `0 ${attr.unit}` : ''}
                     />
                     {attr.unit && (
-                      <span className="text-muted-foreground/40 absolute right-6 top-1/2 -translate-y-1/2 text-xs font-bold uppercase">
+                      <span className="text-muted-foreground/40 absolute top-1/2 right-6 -translate-y-1/2 text-xs font-bold uppercase">
                         {attr.unit}
                       </span>
                     )}

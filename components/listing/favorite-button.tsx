@@ -108,11 +108,11 @@ export function FavoriteButton({
       whileTap={{ scale: 0.9 }}
       onClick={toggleFavorite}
       className={cn(
-        'group relative flex items-center justify-center rounded-xl transition-all duration-300 border border-white/20',
+        'group relative flex items-center justify-center rounded-lg border border-white/20 transition-all duration-300',
         sizeClasses[size],
         isFavorited
-          ? 'bg-red-500 text-white shadow-md shadow-red-500/20 border-red-400'
-          : 'bg-black/40 text-white backdrop-blur-none hover:bg-white hover:text-red-500 hover:border-white shadow-sm',
+          ? 'border-red-400 bg-red-500 text-white shadow-md shadow-red-500/20'
+          : 'bg-black/40 text-white shadow-sm backdrop-blur-none hover:border-white hover:bg-white hover:text-red-500',
         className
       )}
       aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
@@ -137,4 +137,3 @@ export function FavoriteButton({
     </motion.button>
   )
 }
-

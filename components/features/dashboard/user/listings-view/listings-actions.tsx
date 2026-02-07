@@ -53,14 +53,14 @@ export function BulkActionsBar({
         <Button
           size="sm"
           variant="ghost"
-          className="dark:text-foreground dark:hover:bg-accent h-9 rounded-xl px-4 text-[10px] font-bold tracking-widest text-white uppercase hover:bg-white/10"
+          className="dark:text-foreground dark:hover:bg-accent h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest text-white uppercase hover:bg-white/10"
           onClick={onCancel}
         >
           {t('dashboard:bulkActions.cancel')}
         </Button>
         <Button
           size="sm"
-          className="h-9 rounded-xl border border-transparent bg-white px-4 text-[10px] font-bold tracking-widest text-slate-900 uppercase hover:bg-white/90"
+          className="h-9 rounded-lg border border-transparent bg-white px-4 text-[10px] font-bold tracking-widest text-slate-900 uppercase hover:bg-white/90"
           onClick={onDeactivate}
           disabled={isSubmitting}
         >
@@ -69,7 +69,7 @@ export function BulkActionsBar({
         <Button
           size="sm"
           variant="destructive"
-          className="h-9 rounded-xl px-4 text-[10px] font-bold tracking-widest uppercase"
+          className="h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase"
           onClick={onDelete}
           disabled={isSubmitting}
         >
@@ -99,7 +99,7 @@ export function BulkConfirmDialog({
 
   return (
     <AlertDialog open={!!action} onOpenChange={(open) => !open && onClose()}>
-      <AlertDialogContent className="border-border bg-card rounded-xl">
+      <AlertDialogContent className="border-border bg-card rounded-lg">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-xl font-bold tracking-tight uppercase">
             {action === 'delete'
@@ -118,7 +118,7 @@ export function BulkConfirmDialog({
         </AlertDialogHeader>
         <AlertDialogFooter className="gap-2">
           <AlertDialogCancel
-            className="rounded-xl text-[10px] font-bold tracking-widest uppercase"
+            className="rounded-lg text-[10px] font-bold tracking-widest uppercase"
             disabled={isSubmitting}
           >
             {t('common:cancel')}
@@ -129,7 +129,7 @@ export function BulkConfirmDialog({
               onConfirm()
             }}
             className={cn(
-              'rounded-xl text-[10px] font-bold tracking-widest uppercase',
+              'rounded-lg text-[10px] font-bold tracking-widest uppercase',
               action === 'delete'
                 ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90'
                 : 'bg-primary text-primary-foreground hover:bg-primary/90'

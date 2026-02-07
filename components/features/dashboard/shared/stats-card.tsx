@@ -38,7 +38,7 @@ export function StatsCard({
     >
       <Card
         className={cn(
-          'group border-border hover:border-primary/40 shadow-card relative h-full overflow-hidden transition-all duration-300',
+          'group border-border hover:border-primary/40 shadow-card bg-background/60 backdrop-blur-md relative h-full overflow-hidden transition-all duration-300',
           className
         )}
       >
@@ -90,7 +90,7 @@ export function StatsCard({
               )}
             </div>
             {Icon && (
-              <div className="from-primary/10 to-primary/5 text-primary rounded-xl bg-linear-to-br p-2.5 transition-transform duration-300 group-hover:scale-110">
+              <div className="from-primary/10 to-primary/5 text-primary rounded-lg bg-linear-to-br p-2.5 transition-transform duration-300 group-hover:scale-110">
                 <Icon className="h-5 w-5" />
               </div>
             )}

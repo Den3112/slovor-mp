@@ -41,10 +41,10 @@ export function ListingCard({
     return (
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="group border-border/60 bg-card active:bg-muted/50 md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-0.5 md:hover:shadow-md"
+        className="group border-border/60 bg-card active:bg-muted/50 md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-2xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-0.5 md:hover:shadow-md"
       >
         {/* Compact Image */}
-        <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
+        <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-28">
           {hasValidImage ? (
             <>
               <Image
@@ -123,7 +123,7 @@ export function ListingCard({
     <Link
       href={`/${locale}/listings/${listing.id}`}
       className={cn(
-        'group relative block overflow-hidden rounded-xl border transition-all duration-300 hover:ring-4 hover:ring-primary/5 hover:border-primary/50',
+        'group hover:ring-primary/5 hover:border-primary/50 relative block overflow-hidden rounded-2xl border transition-all duration-300 hover:ring-4',
         listing.is_highlighted || featured
           ? 'border-primary/40 bg-primary/3'
           : 'border-border bg-card'
@@ -131,7 +131,7 @@ export function ListingCard({
     >
       {/* Premium Border for Highlighted */}
       {(listing.is_highlighted || featured) && (
-        <div className="absolute inset-x-0 -top-px h-[3px] bg-primary z-20" />
+        <div className="bg-primary absolute inset-x-0 -top-px z-20 h-[3px]" />
       )}
       {/* Image Container */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
@@ -167,17 +167,17 @@ export function ListingCard({
         )}
 
         {/* Badges - Floating Style */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 font-heading">
+        <div className="font-heading absolute top-3 left-3 flex flex-wrap gap-1.5">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-[9px] font-bold tracking-widest text-white uppercase shadow-lg shadow-primary/20">
+            <div className="bg-primary shadow-primary/20 flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-[9px] font-bold tracking-widest text-white uppercase shadow-lg">
               <Sparkles className="h-3 w-3 fill-white" />
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-background text-foreground flex items-center gap-1.5 rounded-sm border border-border/40 px-2.5 py-1.5 text-[9px] font-bold tracking-widest uppercase shadow-sm">
-              <div className="bg-emerald-500 h-1.5 w-1.5 rounded-full animate-pulse" />
+            <div className="bg-background text-foreground border-border/40 flex items-center gap-1.5 rounded-sm border px-2.5 py-1.5 text-[9px] font-bold tracking-widest uppercase shadow-sm">
+              <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               {t('new')}
             </div>
           )}
@@ -190,9 +190,11 @@ export function ListingCard({
 
         {/* Photos Count Overlay */}
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg bg-black/80 px-2 py-1 text-[10px] font-bold text-white border border-white/20">
+          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg border border-white/20 bg-black/80 px-2 py-1 text-[10px] font-bold text-white">
             <span className="opacity-70">{listing.images.length}</span>
-            <span className="tracking-widest uppercase text-[8px]">{t('photos') || 'Photos'}</span>
+            <span className="text-[8px] tracking-widest uppercase">
+              {t('photos') || 'Photos'}
+            </span>
           </div>
         )}
       </div>
@@ -217,7 +219,7 @@ export function ListingCard({
               {localizedTitle}
             </h3>
             {listing.user?.is_verified && (
-              <CheckCircle2 className="text-primary h-4 w-4 shrink-0 ml-2" />
+              <CheckCircle2 className="text-primary ml-2 h-4 w-4 shrink-0" />
             )}
           </div>
         </div>
@@ -225,18 +227,25 @@ export function ListingCard({
         {/* Dynamic Details Teaser (Attributes) - Data Dense Style */}
         {listing.attributes && Object.keys(listing.attributes).length > 0 && (
           <div className="flex flex-wrap gap-x-3 gap-y-1.5">
-            {Object.entries(listing.attributes).slice(0, 3).map(([key, value]) => (
-              <div key={key} className="bg-muted/30 flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold border border-border/40">
-                <span className="text-muted-foreground uppercase tracking-tight opacity-60">{key}:</span>
-                <span className="text-foreground/80">{String(value)}</span>
-              </div>
-            ))}
+            {Object.entries(listing.attributes)
+              .slice(0, 3)
+              .map(([key, value]) => (
+                <div
+                  key={key}
+                  className="bg-muted/30 border-border/40 flex items-center gap-1 rounded border px-1.5 py-0.5 text-[9px] font-bold"
+                >
+                  <span className="text-muted-foreground tracking-tight uppercase opacity-60">
+                    {key}:
+                  </span>
+                  <span className="text-foreground/80">{String(value)}</span>
+                </div>
+              ))}
           </div>
         )}
 
-        <div className="mt-1 flex items-center justify-between border-t border-border/40 pt-3">
+        <div className="border-border/40 mt-1 flex items-center justify-between border-t pt-3">
           <div className="flex flex-col">
-            <span className="text-muted-foreground text-[9px] font-bold tracking-widest uppercase opacity-40 leading-none mb-1">
+            <span className="text-muted-foreground mb-1 text-[9px] leading-none font-bold tracking-widest uppercase opacity-40">
               {t('common:price') || 'Price'}
             </span>
             <PriceDisplay
@@ -247,9 +256,9 @@ export function ListingCard({
           </div>
 
           {listing.location && (
-            <div className="bg-muted/30 flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-muted-foreground">
+            <div className="bg-muted/30 text-muted-foreground flex items-center gap-1.5 rounded-lg px-2 py-1.5">
               <MapPin className="text-primary h-3 w-3" />
-              <span className="max-w-[80px] truncate text-[10px] font-bold uppercase tracking-wide">
+              <span className="max-w-[80px] truncate text-[10px] font-bold tracking-wide uppercase">
                 {listing.location.split(',')[0]}
               </span>
             </div>

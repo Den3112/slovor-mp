@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { formatPrice } from '@/lib/utils/formatting'
+import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { EmptyState } from '@/components/ui/empty-state'
 import { TransactionListProps } from './types'
@@ -42,6 +43,11 @@ export function TransactionList({
   onAddFunds,
 }: TransactionListProps) {
   const { t } = useTranslation()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   return (
     <div className="space-y-6">
@@ -53,7 +59,7 @@ export function TransactionList({
       </div>
 
       {transactions.length > 0 ? (
-        <div className="divide-border/40 border-border/60 bg-card divide-y overflow-hidden rounded-xl border shadow-sm">
+        <div className="divide-border/40 border-border/60 bg-card divide-y overflow-hidden rounded-lg border shadow-sm">
           {transactions.map((transaction) => {
             const info = getTransactionIcon(transaction.type)
             return (
@@ -63,7 +69,7 @@ export function TransactionList({
               >
                 <div
                   className={cn(
-                    'border-border/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-105',
+                    'border-border/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border transition-transform group-hover:scale-105',
                     info.bg,
                     info.color
                   )}
@@ -74,10 +80,10 @@ export function TransactionList({
                   <p className="text-foreground text-sm font-bold tracking-tight uppercase">
                     {t(`dashboard:walletDetails.${transaction.type}`)}
                   </p>
-                  <div className="text-muted-foreground/40 flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
+                  <div className="text-muted-foreground/60 flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
                     <span className="flex items-center gap-1">
                       <Calendar className="h-3 w-3" />
-                      {new Date(transaction.created_at).toLocaleDateString()}
+                      {isMounted ? new Date(transaction.created_at).toLocaleDateString() : '...'}
                     </span>
                     {transaction.id && (
                       <span className="hidden sm:inline">
