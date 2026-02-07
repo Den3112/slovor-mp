@@ -65,7 +65,12 @@
     "promotion_highlight": "Премиум выделение",
     "subscription": "Подписка",
     "availableBalance": "Доступный баланс",
-    "refillSuccess": "Кошелек успешно пополнен!"
+    "refillSuccess": "Кошелек успешно пополнен!",
+    "other": "Другой",
+    "card": "Кредитная / Дебетовая карта",
+    "applePay": "Apple Pay",
+    "googlePay": "Google Pay",
+    "walletRefillVia": "Пополнение кошелька через {method}"
   },
   "promote": {
     "title": "Продвижение объявления",
@@ -139,5 +144,26 @@
   },
   "reviews": {
     "yourReply": "Ваш ответ"
+  },
+  "noListingsDesc": "Вы еще не создали ни одного объявления. Начните продавать сегодня!",
+  "notificationsEnabled": "Уведомления включены",
+  "notificationsDisabled": "Уведомления выключены",
+  "emailStatusOn": "Email: ВКЛ",
+  "emailStatusOff": "Email: ВЫКЛ",
+  "enableNotifications": "Включить уведомления",
+  "disableNotifications": "Выключить уведомления",
+  "deleted": "Успешно удалено",
+  "allOrders": "Все заказы",
+  "order": "Заказ",
+  "amount": "Сумма",
+  "type": "Тип",
+  "buying": "Покупка",
+  "selling": "Продажа",
+  "unknownListing": "Неизвестное объявление",
+  "orderStatuses": {
+    "completed": "Завершен",
+    "pending": "В ожидании",
+    "cancelled": "Отменен",
+    "processing": "В обработке"
   }
 }

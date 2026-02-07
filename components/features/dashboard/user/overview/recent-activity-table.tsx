@@ -152,7 +152,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                       <TableCell className="px-6 py-4">
                         {getStatusBadge(
                           listing.status ||
-                            (listing.is_active ? 'active' : 'inactive')
+                          (listing.is_active ? 'active' : 'inactive')
                         )}
                       </TableCell>
                       <TableCell className="px-6 py-4 text-right">
@@ -164,7 +164,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                             className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-7 rounded-lg px-3 text-[9px] font-bold tracking-widest uppercase"
                           >
                             <Link href={`/${locale}/post?edit=${listing.id}`}>
-                              Edit
+                              {t('common:edit')}
                             </Link>
                           </Button>
                           <Button

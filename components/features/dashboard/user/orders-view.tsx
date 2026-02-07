@@ -2,7 +2,13 @@
 
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { ShoppingBag, Eye, Search, ArrowUpRight, ArrowDownLeft } from 'lucide-react'
+import {
+  ShoppingBag,
+  Eye,
+  Search,
+  ArrowUpRight,
+  ArrowDownLeft,
+} from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -11,208 +17,278 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table'
 import { Pagination } from '@/components/ui/pagination'
 import { formatPrice } from '@/lib/utils/formatting'
 
 interface UserOrdersViewProps {
-    initialOrders: any[]
+  initialOrders: any[]
 }
 
 const container = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.05
-        }
-    }
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
 }
 
 const item = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
 }
 
 export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
-    const { t, locale } = useTranslation(['common', 'dashboard'])
-    const [activeTab, setActiveTab] = useState('all')
-    const [searchQuery, setSearchQuery] = useState('')
-    const [currentPage, setCurrentPage] = useState(1)
-    const itemsPerPage = 10
+  const { t, locale } = useTranslation(['common', 'dashboard'])
+  const [activeTab, setActiveTab] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
-    // Filter orders based on tab and search
-    const filteredOrders = useMemo(() => {
-        let result = initialOrders
+  // Filter orders based on tab and search
+  const filteredOrders = useMemo(() => {
+    let result = initialOrders
 
-        // Tab Filter (Buying vs Selling)
-        if (activeTab === 'buying') {
-            // In a real app we'd compare with user.id
-            // For now let's assume filtering is done by API or we have types
-        } else if (activeTab === 'selling') {
-            // same here
-        }
+    // Tab Filter (Buying vs Selling)
+    if (activeTab === 'buying') {
+      // In a real app we'd compare with user.id
+      // For now let's assume filtering is done by API or we have types
+    } else if (activeTab === 'selling') {
+      // same here
+    }
 
-        // Search Filter
-        if (searchQuery) {
-            const q = searchQuery.toLowerCase()
-            result = result.filter(o =>
-                o.listing?.title?.toLowerCase().includes(q) ||
-                o.id.toLowerCase().includes(q)
-            )
-        }
+    // Search Filter
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase()
+      result = result.filter(
+        (o) =>
+          o.listing?.title?.toLowerCase().includes(q) ||
+          o.id.toLowerCase().includes(q)
+      )
+    }
 
-        return result
-    }, [initialOrders, activeTab, searchQuery])
+    return result
+  }, [initialOrders, activeTab, searchQuery])
 
-    // Paginated orders
-    const paginatedOrders = useMemo(() => {
-        const start = (currentPage - 1) * itemsPerPage
-        return filteredOrders.slice(start, start + itemsPerPage)
-    }, [filteredOrders, currentPage])
+  // Paginated orders
+  const paginatedOrders = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage
+    return filteredOrders.slice(start, start + itemsPerPage)
+  }, [filteredOrders, currentPage])
 
-    const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)
 
-    return (
-        <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="space-y-8"
+  return (
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="space-y-8"
+    >
+      {/* Header */}
+      <motion.div
+        variants={item}
+        className="flex flex-col justify-between gap-4 md:flex-row md:items-end"
+      >
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight uppercase">
+            {t('dashboard:orders')}
+          </h1>
+          <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
+            {t('dashboard:manageTransactions')}
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Controls */}
+      <motion.div
+        variants={item}
+        className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-xl border p-4 shadow-sm lg:flex-row lg:items-center"
+      >
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="w-full lg:w-auto"
         >
-            {/* Header */}
-            <motion.div variants={item} className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-                <div>
-                    <h1 className="text-3xl font-bold uppercase tracking-tight">{t('dashboard:orders') || 'Orders'}</h1>
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Manage your transactions and purchases</p>
-                </div>
-            </motion.div>
+          <TabsList className="bg-muted/50 border-border/20 h-auto flex-wrap justify-start rounded-lg border p-1">
+            <TabsTrigger
+              value="all"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded px-4 py-2 text-[9px] font-bold tracking-widest uppercase"
+            >
+              {t('dashboard:allOrders')}
+            </TabsTrigger>
+            <TabsTrigger
+              value="buying"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded px-4 py-2 text-[9px] font-bold tracking-widest uppercase"
+            >
+              {t('dashboard:purchases')}
+            </TabsTrigger>
+            <TabsTrigger
+              value="selling"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded px-4 py-2 text-[9px] font-bold tracking-widest uppercase"
+            >
+              {t('dashboard:sales')}
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
 
-            {/* Controls */}
-            <motion.div variants={item} className="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center bg-card p-4 rounded-xl border border-border/60 shadow-sm">
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full lg:w-auto">
-                    <TabsList className="bg-muted/50 p-1 rounded-lg h-auto flex-wrap justify-start border border-border/20">
-                        <TabsTrigger value="all" className="rounded data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest">All Orders</TabsTrigger>
-                        <TabsTrigger value="buying" className="rounded data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest">Purchases</TabsTrigger>
-                        <TabsTrigger value="selling" className="rounded data-[state=active]:bg-background data-[state=active]:text-primary px-4 py-2 h-auto text-[9px] font-bold uppercase tracking-widest">Sales</TabsTrigger>
-                    </TabsList>
-                </Tabs>
+        <div className="flex w-full gap-2 lg:w-auto">
+          <div className="relative flex-1 lg:w-72">
+            <Search className="text-muted-foreground/60 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+            <Input
+              placeholder={t('common:search')}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="border-border/60 focus:ring-primary/20 h-10 rounded-xl pl-9"
+            />
+          </div>
+        </div>
+      </motion.div>
 
-                <div className="flex gap-2 w-full lg:w-auto">
-                    <div className="relative flex-1 lg:w-72">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
-                        <Input
-                            placeholder={t('common:search')}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 h-10 border-border/60 focus:ring-primary/20 rounded-xl"
-                        />
+      {/* Table */}
+      <motion.div
+        variants={item}
+        className="border-border/60 bg-card overflow-hidden rounded-xl border text-left shadow-sm"
+      >
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/20 hover:bg-muted/20 border-border/40 border-b">
+                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  {t('dashboard:order')}
+                </TableHead>
+                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  {t('dashboard:amount')}
+                </TableHead>
+                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  {t('dashboard:status')}
+                </TableHead>
+                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  {t('dashboard:type')}
+                </TableHead>
+                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  {t('common:date')}
+                </TableHead>
+                <TableHead className="h-10 px-6 text-right"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedOrders.length > 0 ? (
+                paginatedOrders.map((order) => (
+                  <TableRow
+                    key={order.id}
+                    className="hover:bg-accent/40 border-border/40 group border-b transition-colors"
+                  >
+                    <TableCell className="px-6 py-4">
+                      <div className="space-y-0.5">
+                        <p className="max-w-[200px] truncate text-sm font-bold">
+                          {order.listing?.title ||
+                            t('dashboard:unknownListing')}
+                        </p>
+                        <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+                          #{order.id.split('-')[0]}
+                        </p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-6 py-4">
+                      <span className="font-heading text-base font-bold tracking-tight whitespace-nowrap">
+                        {formatPrice(order.amount, order.currency)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="px-6 py-4">
+                      <Badge
+                        variant={
+                          order.status === 'completed' ? 'success' : 'outline'
+                        }
+                        className={cn(
+                          'rounded-sm px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase shadow-sm',
+                          order.status === 'completed'
+                            ? 'bg-success/10 text-success border-success/20'
+                            : order.status === 'cancelled'
+                              ? 'bg-destructive/10 text-destructive border-destructive/20'
+                              : 'border-amber-500/20 bg-amber-500/10 text-amber-600'
+                        )}
+                      >
+                        {t(`dashboard:orderStatuses.${order.status}`)}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        {order.is_seller ? (
+                          <Badge
+                            variant="outline"
+                            className="bg-primary/5 text-primary border-primary/20 pl-1 text-[8px] font-bold tracking-widest uppercase"
+                          >
+                            <ArrowUpRight className="mr-1 h-3 w-3" />{' '}
+                            {t('dashboard:selling')}
+                          </Badge>
+                        ) : (
+                          <Badge
+                            variant="outline"
+                            className="border-emerald-500/20 bg-emerald-500/5 pl-1 text-[8px] font-bold tracking-widest text-emerald-600 uppercase"
+                          >
+                            <ArrowDownLeft className="mr-1 h-3 w-3" />{' '}
+                            {t('dashboard:buying')}
+                          </Badge>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-6 py-4">
+                      <span className="text-muted-foreground/60 text-[10px] font-bold tracking-widest whitespace-nowrap uppercase">
+                        {new Date(order.created_at).toLocaleDateString()}
+                      </span>
+                    </TableCell>
+                    <TableCell className="px-6 py-4 text-right">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 rounded-[10px]"
+                        asChild
+                      >
+                        <Link href={`/${locale}/dashboard/orders/${order.id}`}>
+                          <Eye className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={6} className="h-48 text-center">
+                    <div className="text-muted-foreground flex flex-col items-center justify-center">
+                      <ShoppingBag className="mb-3 h-10 w-10 opacity-20" />
+                      <p className="text-sm font-medium">
+                        {t('dashboard:noOrders')}
+                      </p>
                     </div>
-                </div>
-            </motion.div>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </motion.div>
 
-            {/* Table */}
-            <motion.div variants={item} className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden text-left">
-                <div className="overflow-x-auto">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="bg-muted/20 hover:bg-muted/20 border-b border-border/40">
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Order</TableHead>
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Amount</TableHead>
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Status</TableHead>
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Type</TableHead>
-                                <TableHead className="px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">{t('common:date')}</TableHead>
-                                <TableHead className="px-6 h-10 text-right"></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {paginatedOrders.length > 0 ? (
-                                paginatedOrders.map((order) => (
-                                    <TableRow key={order.id} className="hover:bg-accent/40 border-b border-border/40 transition-colors group">
-                                        <TableCell className="px-6 py-4">
-                                            <div className="space-y-0.5">
-                                                <p className="font-bold text-sm truncate max-w-[200px]">{order.listing?.title || 'Unknown Listing'}</p>
-                                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">#{order.id.split('-')[0]}</p>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="font-heading text-base font-bold tracking-tight whitespace-nowrap">
-                                                {formatPrice(order.amount, order.currency)}
-                                            </span>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <Badge
-                                                variant={order.status === 'completed' ? 'success' : 'outline'}
-                                                className={cn(
-                                                    "rounded-sm px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest shadow-sm",
-                                                    order.status === 'completed' ? "bg-success/10 text-success border-success/20" :
-                                                        order.status === 'cancelled' ? "bg-destructive/10 text-destructive border-destructive/20" :
-                                                            "bg-amber-500/10 text-amber-600 border-amber-500/20"
-                                                )}
-                                            >
-                                                {order.status}
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
-                                                {order.is_seller ? (
-                                                    <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[8px] font-bold uppercase tracking-widest pl-1">
-                                                        <ArrowUpRight className="h-3 w-3 mr-1" /> Selling
-                                                    </Badge>
-                                                ) : (
-                                                    <Badge variant="outline" className="bg-emerald-500/5 text-emerald-600 border-emerald-500/20 text-[8px] font-bold uppercase tracking-widest pl-1">
-                                                        <ArrowDownLeft className="h-3 w-3 mr-1" /> Buying
-                                                    </Badge>
-                                                )}
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="text-muted-foreground/60 font-bold text-[10px] uppercase tracking-widest whitespace-nowrap">
-                                                {new Date(order.created_at).toLocaleDateString()}
-                                            </span>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4 text-right">
-                                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-[10px]" asChild>
-                                                <Link href={`/${locale}/dashboard/orders/${order.id}`}>
-                                                    <Eye className="h-4 w-4" />
-                                                </Link>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={6} className="h-48 text-center">
-                                        <div className="flex flex-col items-center justify-center text-muted-foreground">
-                                            <ShoppingBag className="h-10 w-10 opacity-20 mb-3" />
-                                            <p className="text-sm font-medium">No orders found</p>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
-            </motion.div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-                <div className="mt-8 flex justify-center">
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        totalItems={filteredOrders.length}
-                        onPageChange={setCurrentPage}
-                        itemsPerPage={itemsPerPage}
-                    />
-                </div>
-            )}
-        </motion.div>
-    )
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-8 flex justify-center">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={filteredOrders.length}
+            onPageChange={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+          />
+        </div>
+      )}
+    </motion.div>
+  )
 }
