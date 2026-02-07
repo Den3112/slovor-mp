@@ -23,8 +23,9 @@ All high-level project context must be stored in `.agent/MEMORY.md`. This file i
 
 ### 🟢 AT THE START of Every Session:
 1.  **READ `.agent/MEMORY.md`**: This is your absolute first priority.
-2.  **Load RAM**: specific attention to "⚡ Active RAM" — this is your immediate context.
-3.  **Check Knowledge Base**: Look at "📚 Knowledge Base" to avoid repeating past mistakes.
+2.  **MANDATORY**: Check `/home/creator/.agents/skills/` for specialized skills relevant to your task.
+3.  **Load RAM**: specific attention to "⚡ Active RAM" — this is your immediate context.
+4.  **Check Knowledge Base**: Look at "📚 Knowledge Base" to avoid repeating past mistakes.
 
 ### 🟡 DURING the Session (Live RAM Updates):
 **You MUST update `.agent/MEMORY.md` in real-time when:**
