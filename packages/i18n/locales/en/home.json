@@ -52,5 +52,9 @@
     "zilina": "Žilina",
     "nitra": "Nitra",
     "banskaBystrica": "Banská Bystrica"
+  },
+  "recent": {
+    "title": "Latest Listings",
+    "badge": "Fresh Arrivals"
   }
 }
