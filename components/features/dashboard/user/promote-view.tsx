@@ -26,7 +26,7 @@ interface PromoteViewProps {
 }
 
 export function PromoteView({ userId }: PromoteViewProps) {
-  const { t, locale } = useTranslation()
+  const { t, locale } = useTranslation(['dashboard', 'common'])
   const { currency } = useCurrency()
   const router = useRouter()
   const [listings, setListings] = useState<Listing[]>([])

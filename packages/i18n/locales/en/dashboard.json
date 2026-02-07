@@ -46,6 +46,18 @@
   "activityFeed": "Activity",
   "growth": "growth",
   "savedSearches": "Saved Searches",
+  "savedSearchesDetails": {
+    "title": "Save this search",
+    "description": "Get notified when new listings match your criteria.",
+    "nameLabel": "Name",
+    "namePlaceholder": "e.g. iPhone 15 Pro Max",
+    "emailNotifications": "Email Notifications",
+    "emailNotificationsDesc": "Receive daily updates about new items",
+    "saveButton": "Save Search",
+    "saving": "Saving...",
+    "success": "Search saved successfully",
+    "error": "Failed to save search"
+  },
   "promoteListings": "Promote Listings",
   "thisWeek": "This week",
   "quickActions": "Quick Actions",
@@ -161,7 +173,19 @@
     "completed": "Completed",
     "pending": "Pending",
     "cancelled": "Cancelled",
-    "processing": "Processing"
+    "processing": "Processing",
+    "failed": "Failed"
+  },
+  "bulkActions": {
+    "title": "Bulk actions",
+    "selectedItems": "{count} items selected",
+    "cancel": "Cancel",
+    "deactivate": "Deactivate",
+    "delete": "Delete",
+    "deleteTitle": "Delete Listings",
+    "deactivateTitle": "Deactivate Listings",
+    "deleteConfirm": "Are you sure you want to permanently delete {count} listings? This action cannot be undone.",
+    "deactivateConfirm": "Are you sure you want to deactivate {count} listings? They will be marked as sold and hidden from search."
   },
   "activityLog": {
     "title": "Activity Log",

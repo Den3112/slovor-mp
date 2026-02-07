@@ -8,11 +8,13 @@ import { formatPrice } from '@/lib/utils'
 import { History } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { useParams } from 'next/navigation'
+import { useTranslation } from '@/lib/i18n'
 
 export function RecentlyViewed() {
   const { items } = useRecentlyViewed()
+  const { t } = useTranslation(['listing'])
   const params = useParams()
-  const locale = params?.locale as string || 'en'
+  const locale = (params?.locale as string) || 'en'
 
   if (items.length === 0) return null
 
@@ -21,7 +23,7 @@ export function RecentlyViewed() {
       <Container>
         <div className="text-muted-foreground mb-6 flex items-center gap-2">
           <History className="h-5 w-5" />
-          <h2 className="text-xl font-bold">Recently Viewed</h2>
+          <h2 className="text-xl font-bold">{t('listing:recentlyViewed')}</h2>
         </div>
 
         <div className="scrollbar-hide -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-4">
@@ -42,7 +44,7 @@ export function RecentlyViewed() {
                     />
                   ) : (
                     <div className="text-muted-foreground flex h-full items-center justify-center text-xs">
-                      No Image
+                      {t('listing:noImage')}
                     </div>
                   )}
                 </div>

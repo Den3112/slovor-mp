@@ -44,6 +44,18 @@
   "activityFeed": "Активность",
   "growth": "рост",
   "savedSearches": "Сохраненные поиски",
+  "savedSearchesDetails": {
+    "title": "Сохранить поиск",
+    "description": "Получайте уведомления о новых объявлениях по вашим критериям.",
+    "nameLabel": "Название",
+    "namePlaceholder": "например, iPhone 15 Pro Max",
+    "emailNotifications": "Email уведомления",
+    "emailNotificationsDesc": "Получать ежедневные обновления о новых товарах",
+    "saveButton": "Сохранить поиск",
+    "saving": "Сохранение...",
+    "success": "Поиск успешно сохранен",
+    "error": "Не удалось сохранить поиск"
+  },
   "promoteListings": "Продвигать объявления",
   "thisWeek": "На этой неделе",
   "quickActions": "Быстрые действия",
@@ -162,7 +174,19 @@
     "completed": "Завершен",
     "pending": "В ожидании",
     "cancelled": "Отменен",
-    "processing": "В обработке"
+    "processing": "В обработке",
+    "failed": "Ошибка"
+  },
+  "bulkActions": {
+    "title": "Массовые действия",
+    "selectedItems": "Выбрано: {count}",
+    "cancel": "Отмена",
+    "deactivate": "Деактивировать",
+    "delete": "Удалить",
+    "deleteTitle": "Удалить объявления",
+    "deactivateTitle": "Деактивировать объявления",
+    "deleteConfirm": "Вы уверены, что хотите навсегда удалить {count} объявлений? Это действие нельзя будет отменить.",
+    "deactivateConfirm": "Вы уверены, что хотите деактивировать {count} объявлений? Они будут помечены как проданные и скрыты из поиска."
   },
   "activityLog": {
     "title": "Журнал действий",
