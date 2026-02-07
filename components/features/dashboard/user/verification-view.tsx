@@ -274,7 +274,7 @@ export function VerificationView() {
 
               <div className="space-y-4">
                 <p className="text-muted-foreground text-sm font-medium">
-                  Select the type of document you want to upload:
+                  {t('verification:selectDocType')}
                 </p>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {['id_card', 'passport', 'drivers_license'].map((type) => (
@@ -289,9 +289,7 @@ export function VerificationView() {
                       )}
                     >
                       <FileText className="h-6 w-6" />
-                      <span className="text-xs font-bold tracking-wider uppercase">
-                        {type.replace('_', ' ')}
-                      </span>
+                      {t(`verification:${type}`)}
                     </button>
                   ))}
                 </div>
@@ -307,9 +305,11 @@ export function VerificationView() {
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <p className="text-sm font-bold">Drop your documents here</p>
+                  <p className="text-sm font-bold">
+                    {t('verification:dropDocs')}
+                  </p>
                   <p className="text-muted-foreground text-xs font-medium">
-                    JPEG, PNG or PDF up to 10MB
+                    {t('verification:uploadFormats')}
                   </p>
                 </div>
               </div>
@@ -321,14 +321,16 @@ export function VerificationView() {
                   onClick={() => setShowingUploadModal(false)}
                   disabled={isSubmitting}
                 >
-                  Cancel
+                  {t('common:cancel')}
                 </Button>
                 <Button
                   className="h-12 flex-1 rounded-xl text-xs font-bold tracking-widest uppercase"
                   onClick={handleSubmitDocs}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit for Review'}
+                  {isSubmitting
+                    ? t('verification:submitting')
+                    : t('verification:submitForReview')}
                 </Button>
               </div>
             </div>

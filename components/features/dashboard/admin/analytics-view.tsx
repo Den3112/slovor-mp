@@ -59,31 +59,31 @@ export function AdminAnalyticsView() {
 
   const categoryPerformance = [
     {
-      name: 'Vehicle & Parts',
+      name: t('admin:catVehicles'),
       listings: 1240,
       growth: '+15%',
       color: 'bg-blue-500',
     },
     {
-      name: 'Electronics',
+      name: t('admin:catElectronics'),
       listings: 850,
       growth: '+8%',
       color: 'bg-emerald-500',
     },
     {
-      name: 'Real Estate',
+      name: t('admin:catRealEstate'),
       listings: 620,
       growth: '+22%',
       color: 'bg-amber-500',
     },
-    { name: 'Services', listings: 430, growth: '-2%', color: 'bg-rose-500' },
+    { name: t('admin:catServices'), listings: 430, growth: '-2%', color: 'bg-rose-500' },
   ]
 
   const topRegions = [
-    { name: 'North Region', share: 45, value: '€45k' },
-    { name: 'South Region', share: 22, value: '€22k' },
-    { name: 'East Region', share: 18, value: '€18k' },
-    { name: 'West Region', share: 15, value: '€15k' },
+    { name: t('admin:regionNorth'), share: 45, value: '€45k' },
+    { name: t('admin:regionSouth'), share: 22, value: '€22k' },
+    { name: t('admin:regionEast'), share: 18, value: '€18k' },
+    { name: t('admin:regionWest'), share: 15, value: '€15k' },
   ]
 
   return (
