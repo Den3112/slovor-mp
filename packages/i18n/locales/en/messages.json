@@ -24,5 +24,7 @@
   "typing": "typing...",
   "online": "Online",
   "offline": "Offline",
-  "startChat": "Say hello to start the deal!"
+  "startChat": "Say hello to start the deal!",
+  "sendError": "Failed to send message",
+  "unknownUser": "User"
 }

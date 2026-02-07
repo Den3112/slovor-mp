@@ -64,7 +64,12 @@
     "promotion_highlight": "Premium Highlight",
     "subscription": "Subscription",
     "availableBalance": "Available Balance",
-    "refillSuccess": "Wallet refilled successfully!"
+    "refillSuccess": "Wallet refilled successfully!",
+    "other": "Other",
+    "card": "Credit / Debit Card",
+    "applePay": "Apple Pay",
+    "googlePay": "Google Pay",
+    "walletRefillVia": "Wallet refill via {method}"
   },
   "promote": {
     "title": "Promote your Listing",
@@ -138,5 +143,26 @@
   },
   "reviews": {
     "yourReply": "Your Reply"
+  },
+  "noListingsDesc": "You haven't created any listings yet. Start selling today!",
+  "notificationsEnabled": "Notifications enabled",
+  "notificationsDisabled": "Notifications disabled",
+  "emailStatusOn": "Email: ON",
+  "emailStatusOff": "Email: OFF",
+  "enableNotifications": "Enable notifications",
+  "disableNotifications": "Disable notifications",
+  "deleted": "Deleted successfully",
+  "allOrders": "All Orders",
+  "order": "Order",
+  "amount": "Amount",
+  "type": "Type",
+  "buying": "Buying",
+  "selling": "Selling",
+  "unknownListing": "Unknown Listing",
+  "orderStatuses": {
+    "completed": "Completed",
+    "pending": "Pending",
+    "cancelled": "Cancelled",
+    "processing": "Processing"
   }
 }

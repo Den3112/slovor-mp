@@ -53,7 +53,7 @@ export function ChatHeader({
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">
             <h3 className="text-sm leading-none font-bold tracking-tight">
-              {otherUser?.display_name || 'User'}
+              {otherUser?.display_name || t('messages:unknownUser')}
             </h3>
             {otherUser?.is_verified && (
               <ShieldCheck className="text-primary fill-primary/10 h-3.5 w-3.5" />
