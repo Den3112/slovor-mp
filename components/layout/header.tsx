@@ -47,7 +47,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          'bg-background border-border sticky top-0 z-50 h-[80px] w-full border-b antialiased transition-all duration-300'
+          'bg-background/80 border-border sticky top-0 z-50 h-[var(--header-height)] w-full border-b backdrop-blur-md antialiased transition-all duration-300'
         )}
       >
         <Container className="h-full">

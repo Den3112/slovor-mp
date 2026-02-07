@@ -31,7 +31,6 @@ export async function generateMetadata({
   }
 }
 
-
 /**
  * ISR for category pages
  *
@@ -110,7 +109,7 @@ export default async function CategoryPage({
 
   // Build filter options
   const filterOptions = {
-    categoryId: categoryRes.data.id,
+    categoryId: categoryRes.data?.id,
     sort: query.sort,
     priceMin: query.priceMin ? parseInt(query.priceMin) : undefined,
     priceMax: query.priceMax ? parseInt(query.priceMax) : undefined,

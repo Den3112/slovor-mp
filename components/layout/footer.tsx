@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
 import { categoriesApi, blogApi, pagesApi } from '@/lib/api'
@@ -61,14 +60,14 @@ export function Footer() {
       links:
         latestPosts.length > 0
           ? latestPosts.map((post) => ({
-              label: post.title,
-              href: `/${locale}/blog/${post.slug}`,
-            }))
+            label: post.title,
+            href: `/${locale}/blog/${post.slug}`,
+          }))
           : [
-              { label: 'Selling Tips', href: `/${locale}/blog` },
-              { label: 'Safety Guide', href: `/${locale}/blog` },
-              { label: 'Market Trends', href: `/${locale}/blog` },
-            ],
+            { label: 'Selling Tips', href: `/${locale}/blog` },
+            { label: 'Safety Guide', href: `/${locale}/blog` },
+            { label: 'Market Trends', href: `/${locale}/blog` },
+          ],
     },
     {
       title: t('footer:info'),
