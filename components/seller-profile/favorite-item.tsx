@@ -9,7 +9,6 @@ import type { Listing } from '@/lib/types/database'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
-
 export function DashboardFavoriteItem({
   listing,
 }: {
@@ -17,11 +16,11 @@ export function DashboardFavoriteItem({
 }) {
   const { locale } = useTranslation()
   return (
-    <div className="group relative flex flex-col sm:flex-row items-center gap-4 rounded-xl border border-border/50 bg-card p-3 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+    <div className="group border-border/50 bg-card hover:border-primary/30 hover:shadow-primary/5 relative flex flex-col items-center gap-4 rounded-lg border p-3 transition-all duration-300 hover:shadow-lg sm:flex-row">
       {/* Image Thumbnail */}
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="relative h-48 w-full shrink-0 overflow-hidden rounded-lg bg-muted border border-border/40 sm:h-24 sm:w-24 group-hover:shadow-md transition-all duration-300"
+        className="bg-muted border-border/40 relative h-48 w-full shrink-0 overflow-hidden rounded-lg border transition-all duration-300 group-hover:shadow-md sm:h-24 sm:w-24"
       >
         {listing.images?.[0] ? (
           <Image
@@ -32,31 +31,32 @@ export function DashboardFavoriteItem({
             unoptimized
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-muted/50">
-            <Heart className="h-8 w-8 text-muted-foreground/20" />
+          <div className="bg-muted/50 flex h-full w-full items-center justify-center">
+            <Heart className="text-muted-foreground/20 h-8 w-8" />
           </div>
         )}
       </Link>
 
       {/* Info */}
-      <div className="flex-1 min-w-0 w-full space-y-2">
+      <div className="w-full min-w-0 flex-1 space-y-2">
         <Link
           href={`/${locale}/listings/${listing.id}`}
-          className="inline-block group-hover:text-primary transition-colors max-w-full"
+          className="group-hover:text-primary inline-block max-w-full transition-colors"
         >
-          <h3 className="font-bold text-base truncate uppercase tracking-tight">
+          <h3 className="truncate text-base font-bold tracking-tight uppercase">
             {listing.title || 'Untitled Listing'}
           </h3>
         </Link>
 
         <div className="flex flex-wrap items-center gap-4">
           <span className="text-primary text-lg font-bold tracking-tight tabular-nums">
-            {listing.price?.toLocaleString()} <span className="text-xs">{listing.currency}</span>
+            {listing.price?.toLocaleString()}{' '}
+            <span className="text-xs">{listing.currency}</span>
           </span>
           {listing.location && (
-            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-muted/50 border border-border/40">
-              <MapPin className="h-3 w-3 text-muted-foreground" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80">
+            <div className="bg-muted/50 border-border/40 flex items-center gap-1.5 rounded-md border px-2 py-0.5">
+              <MapPin className="text-muted-foreground h-3 w-3" />
+              <span className="text-muted-foreground/80 text-[10px] font-bold tracking-widest uppercase">
                 {listing.location}
               </span>
             </div>
@@ -65,12 +65,15 @@ export function DashboardFavoriteItem({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-2 w-full sm:w-auto border-t border-border/40 pt-3 sm:border-0 sm:pt-0">
-        <Link href={`/${locale}/listings/${listing.id}`} className="flex-1 sm:flex-none">
+      <div className="border-border/40 flex w-full items-center gap-2 border-t pt-3 sm:w-auto sm:border-0 sm:pt-0">
+        <Link
+          href={`/${locale}/listings/${listing.id}`}
+          className="flex-1 sm:flex-none"
+        >
           <Button
             variant="ghost"
             size="sm"
-            className="w-full sm:w-auto rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/20 transition-all"
+            className="hover:bg-primary/10 hover:text-primary hover:border-primary/20 w-full rounded-lg border border-transparent text-xs font-bold tracking-widest uppercase transition-all sm:w-auto"
           >
             <ExternalLink className="mr-2 h-3.5 w-3.5" />
             View
@@ -105,7 +108,7 @@ function RemoveFavoriteButton({ listingId }: { listingId: string }) {
       size="icon"
       variant="ghost"
       onClick={handleRemove}
-      className="h-9 w-9 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 border border-transparent hover:border-destructive/20 transition-all"
+      className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 hover:border-destructive/20 h-9 w-9 rounded-lg border border-transparent transition-all"
     >
       <Trash2 className="h-4 w-4" />
     </Button>

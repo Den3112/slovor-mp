@@ -13,10 +13,10 @@ export default async function ContactPage() {
   const { t } = await getTranslationServer(['common', 'contact'])
 
   return (
-    <main className="relative min-h-screen bg-background pb-24">
+    <main className="bg-background relative min-h-screen pb-24">
       <Container className="relative z-10 pt-32 md:pt-40">
-        <div className="mx-auto mb-20 max-w-4xl text-center animate-in fade-in slide-in-from-top-4 duration-700">
-          <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-bold tracking-tight md:text-8xl  uppercase">
+        <div className="animate-in fade-in slide-in-from-top-4 mx-auto mb-20 max-w-4xl text-center duration-700">
+          <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-bold tracking-tight uppercase md:text-8xl">
             {t('contact:title')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed font-medium md:text-2xl">
@@ -51,9 +51,9 @@ export default async function ContactPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="group border border-border bg-card hover:border-primary/30 rounded-xl p-8 transition-all shadow-sm"
+                className="group border-border bg-card hover:border-primary/30 rounded-2xl border p-8 shadow-sm transition-all"
               >
-                <div className="bg-muted border border-border mb-6 flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="bg-muted border-border group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-lg border transition-all duration-300">
                   {item.icon}
                 </div>
                 <h3 className="text-muted-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -62,13 +62,13 @@ export default async function ContactPage() {
                 {item.values.map((v, j) => (
                   <p
                     key={j}
-                    className="text-foreground text-lg leading-relaxed font-bold uppercase "
+                    className="text-foreground text-lg leading-relaxed font-bold uppercase"
                   >
                     {v}
                   </p>
                 ))}
                 {item.extra && (
-                  <p className="text-muted-foreground mt-2 text-sm font-bold uppercase tracking-widest opacity-60">
+                  <p className="text-muted-foreground mt-2 text-sm font-bold tracking-widest uppercase opacity-60">
                     {item.extra}
                   </p>
                 )}
@@ -78,8 +78,8 @@ export default async function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-7">
-            <div className="bg-card border border-border h-full rounded-xl p-10 md:p-12 shadow-sm">
-              <h2 className="font-heading mb-8 text-3xl font-bold tracking-tight text-foreground  uppercase">
+            <div className="bg-card border-border h-full rounded-2xl border p-10 shadow-sm md:p-12">
+              <h2 className="font-heading text-foreground mb-8 text-3xl font-bold tracking-tight uppercase">
                 {t('contact:sendMessage')}
               </h2>
 
@@ -91,7 +91,7 @@ export default async function ContactPage() {
                     </label>
                     <input
                       type="text"
-                      className="border border-border bg-muted text-foreground focus:border-primary w-full rounded-xl px-6 py-4 font-bold transition-all focus:outline-none focus:ring-4 focus:ring-primary/5"
+                      className="border-border bg-muted text-foreground focus:border-primary focus:ring-primary/5 w-full rounded-lg border px-6 py-4 font-bold transition-all focus:ring-4 focus:outline-none"
                       placeholder={t('contact:placeholderName')}
                     />
                   </div>
@@ -101,7 +101,7 @@ export default async function ContactPage() {
                     </label>
                     <input
                       type="email"
-                      className="border border-border bg-muted text-foreground focus:border-primary w-full rounded-xl px-6 py-4 font-bold transition-all focus:outline-none focus:ring-4 focus:ring-primary/5"
+                      className="border-border bg-muted text-foreground focus:border-primary focus:ring-primary/5 w-full rounded-lg border px-6 py-4 font-bold transition-all focus:ring-4 focus:outline-none"
                       placeholder={t('contact:placeholderEmail')}
                     />
                   </div>
@@ -113,14 +113,14 @@ export default async function ContactPage() {
                   </label>
                   <textarea
                     rows={5}
-                    className="border border-border bg-muted text-foreground focus:border-primary w-full resize-none rounded-xl px-6 py-4 font-bold transition-all focus:outline-none focus:ring-4 focus:ring-primary/5"
+                    className="border-border bg-muted text-foreground focus:border-primary focus:ring-primary/5 w-full resize-none rounded-lg border px-6 py-4 font-bold transition-all focus:ring-4 focus:outline-none"
                     placeholder={t('contact:placeholderMessage')}
                   />
                 </div>
 
                 <Button
                   size="xl"
-                  className="w-full rounded-xl font-bold uppercase tracking-widest shadow-sm"
+                  className="w-full rounded-lg font-bold tracking-widest uppercase shadow-sm"
                 >
                   {t('contact:send')}
                   <Send className="ml-2 h-5 w-5" />

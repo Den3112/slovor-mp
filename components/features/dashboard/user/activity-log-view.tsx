@@ -98,7 +98,7 @@ export function ActivityLogView() {
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
                       <div
                         className={cn(
-                          'border-border/10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border',
+                          'border-border/10 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border',
                           bg,
                           color
                         )}
@@ -114,14 +114,14 @@ export function ActivityLogView() {
                           >
                             {log.action.replace('_', ' ')}
                           </Badge>
-                          <span className="text-muted-foreground/40 flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase">
+                          <span className="text-muted-foreground/60 flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase">
                             <Clock className="h-3 w-3" />
                             {new Date(log.created_at).toLocaleString()}
                           </span>
                         </div>
 
                         <div className="flex flex-col gap-2 pt-1">
-                          <div className="bg-muted/20 border-border/40 flex items-start gap-2 rounded-xl border p-3">
+                          <div className="bg-muted/20 border-border/40 flex items-start gap-2 rounded-lg border p-3">
                             <Terminal className="text-muted-foreground/60 mt-0.5 h-3.5 w-3.5 shrink-0" />
                             <div className="text-muted-foreground font-mono text-[11px] font-medium break-all">
                               {JSON.stringify(log.metadata)}

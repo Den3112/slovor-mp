@@ -73,7 +73,7 @@ export function AdminSupportView() {
         <div className="flex items-center gap-4">
           <div
             className={cn(
-              'flex h-10 w-10 items-center justify-center rounded-xl border shadow-sm transition-transform group-hover:scale-110',
+              'flex h-10 w-10 items-center justify-center rounded-lg border shadow-sm transition-transform group-hover:scale-110',
               row.status === 'open'
                 ? 'bg-destructive/10 text-destructive border-destructive/20'
                 : row.status === 'in_progress'
@@ -94,7 +94,7 @@ export function AdminSupportView() {
               >
                 {row.category}
               </Badge>
-              <span className="text-muted-foreground/40 text-[10px] font-bold tracking-widest uppercase">
+              <span className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
                 #{row.id.split('-')[0]}
               </span>
             </div>
@@ -116,7 +116,7 @@ export function AdminSupportView() {
                 className="object-cover"
               />
             ) : (
-              <User className="text-muted-foreground/40 h-4 w-4" />
+              <User className="text-muted-foreground/60 h-4 w-4" />
             )}
           </div>
           <div className="flex flex-col">
@@ -227,7 +227,7 @@ export function AdminSupportView() {
         <div className="flex gap-2">
           <Badge
             variant="outline"
-            className="bg-destructive/5 text-destructive border-destructive/20 flex h-9 items-center gap-2 rounded-xl px-4 text-[10px] font-bold tracking-widest uppercase"
+            className="bg-destructive/5 text-destructive border-destructive/20 flex h-9 items-center gap-2 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase"
           >
             <Clock className="h-3.5 w-3.5" />
             {t('admin:avgResponseTime', { time: '4h' })}
@@ -237,7 +237,7 @@ export function AdminSupportView() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-xl border p-1">
+          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-lg border p-1">
             {['all', 'open', 'in_progress', 'resolved', 'closed'].map((tab) => (
               <TabsTrigger
                 key={tab}

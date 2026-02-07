@@ -1,5 +1,6 @@
 {
   "home": "Home",
+  "currencySymbol": "€",
   "allListings": "All Listings",
   "searchPlaceholder": "What are you looking for?",
   "login": "Login",
@@ -27,6 +28,7 @@
   "used": "Used",
   "all": "All",
   "filter": "Filter",
+  "filters": "Filters",
   "sort": "Sort",
   "newest": "Newest",
   "oldest": "Oldest",

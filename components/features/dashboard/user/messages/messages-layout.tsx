@@ -86,7 +86,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
   })
 
   return (
-    <div className="bg-card lg:border-border flex h-[calc(100vh-140px)] flex-col overflow-hidden rounded-xl shadow-sm lg:flex-row lg:border">
+    <div className="bg-card lg:border-border flex h-[calc(100vh-140px)] flex-col overflow-hidden rounded-lg shadow-sm lg:flex-row lg:border">
       {/* Sidebar / List */}
       <div
         className={cn(
@@ -179,7 +179,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                       <Link
                         href={`/${locale}/messages/${conv.id}`}
                         className={cn(
-                          'group relative flex gap-3 rounded-xl border border-transparent p-3 text-left transition-all duration-200',
+                          'group relative flex gap-3 rounded-lg border border-transparent p-3 text-left transition-all duration-200',
                           isActive
                             ? 'bg-primary/5 border-primary/10 shadow-sm'
                             : 'hover:bg-muted/60 hover:border-border/50'

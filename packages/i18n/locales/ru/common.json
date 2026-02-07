@@ -1,5 +1,6 @@
 {
   "allListings": "Все объявления",
+  "currencySymbol": "€",
   "searchPlaceholder": "Что вы ищете?",
   "login": "Вход",
   "register": "Регистрация",
@@ -24,6 +25,7 @@
   "used": "Б/у",
   "all": "Все",
   "filter": "Фильтр",
+  "filters": "Фильтры",
   "sort": "Сортировка",
   "newest": "Сначала новые",
   "oldest": "Сначала старые",

@@ -17,7 +17,7 @@ export function QuickActionsAndActivity() {
   return (
     <motion.div variants={item} className="space-y-6">
       {/* Quick Actions */}
-      <Card className="border-border/40 bg-card overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md">
+      <Card className="border-border/40 bg-card overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
         <CardHeader className="border-border/10 bg-muted/5 flex-row items-center justify-between space-y-0 border-b px-6 py-4">
           <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('dashboard:quickActions')}
@@ -26,7 +26,7 @@ export function QuickActionsAndActivity() {
         <CardContent className="grid gap-2 p-3">
           <Button
             variant="outline"
-            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/30 group/btn h-11 justify-start gap-3 rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all"
+            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/30 group/btn h-11 justify-start gap-3 rounded-lg text-[10px] font-bold tracking-widest uppercase transition-all"
             asChild
           >
             <Link href={`/${locale}/post`}>
@@ -38,7 +38,7 @@ export function QuickActionsAndActivity() {
           </Button>
           <Button
             variant="outline"
-            className="border-border/60 hover:bg-success/5 hover:text-success hover:border-success/30 group/btn h-11 justify-start gap-3 rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all"
+            className="border-border/60 hover:bg-success/5 hover:text-success hover:border-success/30 group/btn h-11 justify-start gap-3 rounded-lg text-[10px] font-bold tracking-widest uppercase transition-all"
             asChild
           >
             <Link href={`/${locale}/dashboard/promote`}>
@@ -51,7 +51,7 @@ export function QuickActionsAndActivity() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/40 bg-card flex h-full flex-col overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md">
+      <Card className="border-border/40 bg-card flex h-full flex-col overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
         <CardHeader className="border-border/10 bg-muted/5 flex-row items-center justify-between space-y-0 border-b px-6 py-4">
           <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('dashboard:activityFeed')}

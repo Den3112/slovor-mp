@@ -13,7 +13,7 @@ interface CategoryCardProps {
 
 export function CategoryCard({ category }: CategoryCardProps) {
   const params = useParams()
-  const locale = params?.locale as string || 'en'
+  const locale = (params?.locale as string) || 'en'
   // Get Lucide icon by name with proper type handling
   const getIconComponent = (
     iconName?: string | null
@@ -31,11 +31,11 @@ export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link
       href={`/${locale}/categories/${category.slug}`}
-      className="group border-border bg-card block rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
+      className="group border-border bg-card block rounded-lg border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
     >
       <div className="flex items-center gap-4">
         {/* Icon */}
-        <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors">
+        <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-colors">
           <IconComponent className="text-primary h-6 w-6" />
         </div>
 

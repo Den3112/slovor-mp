@@ -24,7 +24,7 @@ export function ModerationQueue({
   const { t } = useTranslation(['admin'])
   if (isLoading) {
     return (
-      <div className="border-border/40 flex h-64 items-center justify-center rounded-xl border-2 border-dashed">
+      <div className="border-border/40 flex h-64 items-center justify-center rounded-lg border-2 border-dashed">
         <div className="flex flex-col items-center gap-3">
           <div className="border-primary h-8 w-8 animate-spin rounded-full border-b-2" />
           <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
@@ -37,7 +37,7 @@ export function ModerationQueue({
 
   if (listings.length === 0) {
     return (
-      <div className="border-border/40 bg-muted/5 flex h-64 flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed">
+      <div className="border-border/40 bg-muted/5 flex h-64 flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed">
         <CheckCircle2 className="text-muted-foreground/20 h-12 w-12" />
         <span className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
           {t('admin:queueClear')}

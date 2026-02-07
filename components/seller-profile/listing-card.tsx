@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Edit, Trash2, Clock, Power, AlertTriangle, Eye } from 'lucide-react'
+import { Edit, Trash2, Power, AlertTriangle, Eye, Calendar } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -13,7 +14,7 @@ import {
 } from '@/components/ui/dialog'
 import type { Listing } from '@/lib/types/database'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import { useTranslation } from '@/lib/i18n'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useParams } from 'next/navigation'
 import { PriceDisplay } from '@/components/ui/price-display'
@@ -37,6 +38,7 @@ function DeleteConfirmModal({
   title: string
   isLoading: boolean
 }) {
+  const { t } = useTranslation(['dashboard', 'common'])
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md">
@@ -45,18 +47,14 @@ function DeleteConfirmModal({
             <AlertTriangle className="text-destructive h-6 w-6" />
           </div>
           <DialogTitle className="text-xl font-bold">
-            Delete Listing?
+            {t('dashboard:deleteListingTitle')}
           </DialogTitle>
           <DialogDescription asChild>
             <div className="space-y-3">
-              <p>
-                Are you sure you want to delete{' '}
-                <strong className="text-foreground">&quot;{title}&quot;</strong>
-                ?
-              </p>
-              <p className="bg-destructive/5 text-destructive rounded-xl p-3 text-sm">
-                ⚠️ This action cannot be undone. The listing will be permanently
-                removed.
+              <p>{t('dashboard:deleteListingConfirm', { title })}</p>
+              <p className="bg-destructive/5 text-destructive flex items-center gap-2 rounded-lg p-3 text-sm">
+                <AlertTriangle className="h-4 w-4" />
+                {t('dashboard:deleteListingWarning')}
               </p>
             </div>
           </DialogDescription>
@@ -69,7 +67,7 @@ function DeleteConfirmModal({
             onClick={onClose}
             disabled={isLoading}
           >
-            Cancel
+            {t('common:cancel')}
           </Button>
           <Button
             variant="destructive"
@@ -77,7 +75,7 @@ function DeleteConfirmModal({
             onClick={onConfirm}
             disabled={isLoading}
           >
-            {isLoading ? 'Deleting...' : 'Delete Forever'}
+            {isLoading ? t('dashboard:deleting') : t('dashboard:deleteForever')}
           </Button>
         </div>
       </DialogContent>
@@ -91,10 +89,16 @@ export function DashboardListingCard({
 }: DashboardListingCardProps) {
   const router = useRouter()
   const params = useParams()
-  const locale = params?.locale as string || 'en'
+  const locale = (params?.locale as string) || 'en'
+  const { t } = useTranslation(['dashboard', 'common'])
   const [isDeleting, setIsDeleting] = useState(false)
   const [isToggling, setIsToggling] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Toggle active/inactive status
   const handleToggleActive = async () => {
@@ -132,11 +136,11 @@ export function DashboardListingCard({
 
   return (
     <>
-      <div className="group relative flex flex-col items-start gap-4 rounded-xl border border-border bg-card p-3 shadow-sm transition-all duration-300 hover:border-primary/50 hover:bg-accent/5 md:flex-row md:items-center md:gap-6 md:p-4">
+      <div className="group border-border bg-card shadow-card hover:border-primary/50 hover:bg-accent/5 relative flex flex-col items-start gap-4 rounded-2xl border p-3 transition-all duration-300 md:flex-row md:items-center md:gap-6 md:p-4">
         {/* Clickable Image Thumbnail */}
         <Link
           href={`/${locale}/listings/${listing.id}`}
-          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-xl shadow-inner md:h-32 md:w-32"
+          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-lg shadow-inner md:h-32 md:w-32"
         >
           {listing.images?.[0] ? (
             <>
@@ -170,17 +174,21 @@ export function DashboardListingCard({
                   : 'border-amber-500/20 bg-amber-500/10 text-amber-500'
               )}
             >
-              {listing.status === 'active' ? 'Active' : listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
+              {listing.status === 'active'
+                ? t('dashboard:activeStatus')
+                : t('dashboard:draftStatus')}
             </span>
-            <span className="text-muted-foreground flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase opacity-60">
-              <Clock className="h-3 w-3" />
-              {new Date(listing.created_at).toLocaleDateString()}
+            <span className="text-muted-foreground/60 flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase">
+              <Calendar className="h-3 w-3" />
+              {isMounted
+                ? new Date(listing.created_at).toLocaleDateString()
+                : '...'}
             </span>
           </div>
 
           <div>
             <h3 className="font-heading text-foreground group-hover:text-primary mb-1 truncate text-xl leading-tight font-bold transition-colors duration-300 md:text-2xl">
-              {listing.title || 'Untitled Listing'}
+              {listing.title || t('dashboard:unknownListing')}
             </h3>
             {listing.category?.name && (
               <p className="text-primary/60 text-[10px] font-bold tracking-widest uppercase">
@@ -203,7 +211,7 @@ export function DashboardListingCard({
         </Link>
 
         {/* Actions - Modern Pill Group */}
-        <div className="mt-2 flex w-full items-center gap-2 rounded-xl border border-border/40 bg-muted/30 p-1 md:mt-0 md:w-auto md:border-none md:bg-transparent md:pl-4">
+        <div className="border-border/40 bg-muted/30 mt-2 flex w-full items-center gap-2 rounded-lg border p-1 md:mt-0 md:w-auto md:border-none md:bg-transparent md:pl-4">
           <Link
             href={`/${locale}/post?edit=${listing.id}`}
             title="Edit"
@@ -212,10 +220,10 @@ export function DashboardListingCard({
             <Button
               size="icon"
               variant="ghost"
-              className="hover:bg-primary/20 hover:text-primary text-muted-foreground h-12 w-full rounded-xl transition-all md:w-12"
+              className="hover:bg-primary/20 hover:text-primary text-muted-foreground h-12 w-full rounded-lg transition-all md:w-12"
             >
               <Edit className="h-5 w-5" />
-              <span className="sr-only">Edit</span>
+              <span className="sr-only">{t('dashboard:edit')}</span>
             </Button>
           </Link>
 
@@ -224,7 +232,7 @@ export function DashboardListingCard({
             size="icon"
             variant="ghost"
             className={cn(
-              'h-12 w-full flex-1 rounded-xl transition-all md:w-12 md:flex-none',
+              'h-12 w-full flex-1 rounded-lg transition-all md:w-12 md:flex-none',
               listing.status === 'active'
                 ? 'text-muted-foreground hover:bg-amber-500/20 hover:text-amber-500'
                 : 'text-muted-foreground hover:bg-emerald-500/20 hover:text-emerald-500'
@@ -243,13 +251,13 @@ export function DashboardListingCard({
           <Button
             size="icon"
             variant="ghost"
-            className="text-muted-foreground hover:bg-destructive/20 hover:text-destructive h-12 w-full flex-1 rounded-xl transition-all md:w-12 md:flex-none"
+            className="text-muted-foreground hover:bg-destructive/20 hover:text-destructive h-12 w-full flex-1 rounded-lg transition-all md:w-12 md:flex-none"
             onClick={() => setShowDeleteModal(true)}
             disabled={isDeleting}
             title="Delete"
           >
             <Trash2 className="h-5 w-5" />
-            <span className="sr-only">Delete</span>
+            <span className="sr-only">{t('dashboard:delete')}</span>
           </Button>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 interface DataPoint {
   date: string
@@ -185,9 +186,12 @@ export function AnalyticsChart({ data }: AnalyticsChartProps) {
         {data.map((d, i) => (
           <div
             key={i}
-            className="flex-1 text-center first:text-left last:text-right"
+            className={cn(
+              "flex-1 text-center first:text-left last:text-right",
+              i % 2 !== 0 && "hidden sm:block" // Hide interleaved labels on mobile
+            )}
           >
-            <span className="text-[9px] leading-none font-bold tracking-widest uppercase">
+            <span className="text-[9px] leading-none font-bold tracking-widest uppercase truncate max-w-[40px] block mx-auto sm:max-w-none">
               {d.date}
             </span>
           </div>

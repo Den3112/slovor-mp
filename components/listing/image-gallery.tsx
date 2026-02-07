@@ -25,7 +25,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   if (validImages.length === 0) {
     return (
-      <div className="bg-muted flex aspect-4/3 w-full flex-col items-center justify-center gap-3 rounded-xl border border-border">
+      <div className="bg-muted border-border flex aspect-4/3 w-full flex-col items-center justify-center gap-3 rounded-lg border">
         <ImageOff className="text-muted-foreground h-16 w-16" />
         <span className="text-muted-foreground text-lg font-medium">
           No images available
@@ -113,8 +113,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           src={validImages[currentIndex] || '/images/placeholder.jpg'}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
-          className={`object-cover transition-opacity duration-300 ${loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
-            }`}
+          className={`object-cover transition-opacity duration-300 ${
+            loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
+          }`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
           priority={currentIndex === 0}
           onError={() => {
@@ -130,14 +131,14 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           <>
             <button
               onClick={goToPrevious}
-              className="absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
+              className="absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
+              className="absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />
@@ -155,7 +156,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
       {/* Thumbnails */}
       {validImages.length > 1 && (
-        <div className="scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent flex gap-2 overflow-x-auto pb-2 px-1">
+        <div className="scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent flex gap-2 overflow-x-auto px-1 pb-2">
           {validImages.map((image, index) => {
             const originalIndex = images.indexOf(image)
             return (
@@ -165,11 +166,11 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${index === currentIndex
-                  ? 'border-primary ring-offset-1 ring-primary/10 ring-2'
-
-                  : 'border-transparent hover:border-border'
-                  }`}
+                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                  index === currentIndex
+                    ? 'border-primary ring-primary/10 ring-2 ring-offset-1'
+                    : 'hover:border-border border-transparent'
+                }`}
                 aria-label={`View image ${index + 1}`}
               >
                 {loadingImages.has(index) && (

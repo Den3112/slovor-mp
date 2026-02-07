@@ -18,6 +18,7 @@ import {
 } from '@/components/features/dashboard/shared/data-grid'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
+import { cn } from '@/lib/utils'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -189,7 +190,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
             <span className="text-foreground mb-1 max-w-[150px] truncate text-sm leading-none font-bold tracking-tight">
               {row.display_name || t('admin:anonymous')}
             </span>
-            <span className="text-muted-foreground/40 text-[10px] leading-none font-bold tracking-widest uppercase">
+            <span className="text-muted-foreground font-mono text-[10px] leading-none font-bold tracking-tighter uppercase opacity-80">
               ID: {row.id.split('-')[0]}
             </span>
           </div>
@@ -200,6 +201,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
       key: 'created_at',
       header: t('admin:tableJoined'),
       sortable: true,
+      className: 'hidden md:table-cell',
       cell: (row) => (
         <span className="text-muted-foreground text-sm font-medium">
           {row.created_at
@@ -207,6 +209,26 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
             : t('admin:na')}
         </span>
       ),
+    },
+    {
+      key: 'status',
+      header: t('users:status'),
+      cell: (row: any) => {
+        const status = row.status || 'active'
+        const variants: Record<string, string> = {
+          active: 'badge-success',
+          pending: 'badge-warning',
+          suspended: 'badge-destructive',
+        }
+        return (
+          <div className={cn(
+            "inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+            variants[status] || 'bg-muted text-muted-foreground'
+          )}>
+            {status}
+          </div>
+        )
+      },
     },
     {
       key: 'role',
@@ -239,7 +261,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <span className="text-muted-foreground/60 text-[10px]">
+          <span className="text-muted-foreground/80 text-[10px] font-medium">
             {t('admin:verificationLevel')}: {row.verification_level || t('admin:none')}
           </span>
         </div>
@@ -254,7 +276,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
           {row.is_verified && (
             <Badge
               variant="outline"
-              className="bg-success/10 text-success border-success/20 rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
+              className="bg-success/10 text-success border-success/20 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
               {t('admin:userVerified')}
             </Badge>
@@ -262,14 +284,14 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
           {row.status === 'banned' ? (
             <Badge
               variant="outline"
-              className="bg-destructive/10 text-destructive border-destructive/20 rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
+              className="bg-destructive/10 text-destructive border-destructive/20 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
               {t('admin:userBanned')}
             </Badge>
           ) : (
             <Badge
               variant="outline"
-              className="bg-muted text-muted-foreground/40 border-border/40 rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
+              className="bg-muted text-muted-foreground/60 border-border/40 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
               {t('admin:statusActive')}
             </Badge>

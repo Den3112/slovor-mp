@@ -126,7 +126,7 @@ export function NotificationsView() {
             variant="outline"
             size="sm"
             onClick={handleMarkAllAsRead}
-            className="border-border/60 h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
+            className="border-border/60 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
           >
             <Check className="mr-2 h-4 w-4" />
             {t('dashboard:notifications.markAllRead')}
@@ -158,7 +158,7 @@ export function NotificationsView() {
                   >
                     <div
                       className={cn(
-                        'border-border/10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-105',
+                        'border-border/10 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border transition-transform group-hover:scale-105',
                         bg,
                         color
                       )}

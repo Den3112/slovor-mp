@@ -121,7 +121,7 @@ export function AdminVerificationsView() {
       header: t('admin:tableUser'),
       cell: (row) => (
         <div className="flex items-center gap-4">
-          <div className="bg-muted relative h-10 w-10 shrink-0 overflow-hidden rounded-xl">
+          <div className="bg-muted relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
             {row.profile?.avatar_url ? (
               <Image
                 src={row.profile.avatar_url}
@@ -270,7 +270,7 @@ export function AdminVerificationsView() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-xl border p-1">
+          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-lg border p-1">
             {['all', 'pending', 'approved', 'rejected'].map((tab) => (
               <TabsTrigger
                 key={tab}

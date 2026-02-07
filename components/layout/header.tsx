@@ -47,7 +47,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          'bg-background/80 border-border sticky top-0 z-50 h-[var(--header-height)] w-full border-b backdrop-blur-md antialiased transition-all duration-300'
+          'bg-background/80 border-border sticky top-0 z-50 h-(--header-height) w-full border-b backdrop-blur-md antialiased transition-all duration-300'
         )}
       >
         <Container className="h-full">
@@ -58,7 +58,7 @@ export function Header() {
 
               <button
                 className={cn(
-                  'hidden items-center gap-2.5 rounded-xl px-4 py-2 text-[11px] font-bold tracking-widest uppercase transition-all active:scale-[0.98] lg:flex',
+                  'hidden items-center gap-2.5 rounded-lg px-4 py-2 text-[11px] font-bold tracking-widest uppercase transition-all active:scale-[0.98] lg:flex',
                   isMegaMenuOpen
                     ? 'bg-primary shadow-primary/20 text-white shadow-lg'
                     : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border-border/40 border'
@@ -106,7 +106,8 @@ export function Header() {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 h-10 w-10 rounded-xl transition-all"
+                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 h-10 w-10 rounded-lg transition-all"
+                    aria-label={t('nav:favorites') || 'Favorites'}
                   >
                     <Link href={`/${locale}/favorites`}>
                       <Heart className="h-5 w-5" />
@@ -117,7 +118,8 @@ export function Header() {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 relative h-10 w-10 rounded-xl transition-all"
+                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 relative h-10 w-10 rounded-lg transition-all"
+                    aria-label={t('nav:messages') || 'Messages'}
                   >
                     <Link href={`/${locale}/messages`}>
                       <MessageCircle className="h-5 w-5" />
@@ -146,7 +148,7 @@ export function Header() {
                 {/* Primary CTA - Post Ad */}
                 <Button
                   asChild
-                  className="bg-primary hover:bg-primary-hover shadow-primary ml-2 h-12 gap-2.5 rounded-xl border-0 px-6 text-[15px] font-semibold text-white transition-all active:scale-[0.98]"
+                  className="bg-primary hover:bg-primary-hover shadow-primary ml-2 h-12 gap-2.5 rounded-lg border-0 px-6 text-[15px] font-semibold text-white transition-all active:scale-[0.98]"
                 >
                   <Link
                     href={`/${locale}/post`}
@@ -158,24 +160,24 @@ export function Header() {
                 </Button>
               </div>
 
-              {/* Mobile Interaction Trigger */}
-              <div className="flex items-center gap-2 lg:hidden">
+              <div className="flex shrink-0 items-center gap-2 lg:hidden">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSearchOverlayOpen(true)}
-                  className="bg-muted/40 h-10 w-10 rounded-xl"
+                  className="bg-muted/40 h-9 w-9 rounded-lg"
+                  aria-label={t('common:search') || 'Search'}
                 >
-                  <Search className="h-5 w-5" />
+                  <Search className="h-4.5 w-4.5" />
                 </Button>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="bg-muted/40 h-10 w-10 rounded-xl"
+                  className="bg-muted/40 h-9 w-9 rounded-lg"
                   aria-label="Open menu"
                 >
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-4.5 w-4.5" />
                 </Button>
               </div>
             </div>

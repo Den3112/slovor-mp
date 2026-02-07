@@ -90,28 +90,30 @@ export function ReportDialog({
       <div className="space-y-6">
         {/* Success State */}
         {submitState === 'success' ? (
-          <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-6 text-center">
+          <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-6 text-center">
             <div className="mb-2 text-4xl">✓</div>
-            <p className="font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-500">{t('reports:thankYou')}</p>
+            <p className="font-bold tracking-wide text-emerald-600 uppercase dark:text-emerald-500">
+              {t('reports:thankYou')}
+            </p>
           </div>
         ) : (
           <>
             {/* Error Message */}
             {submitState === 'error' && (
-              <div className="bg-destructive/10 border border-destructive/20 text-destructive mb-4 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wide">
+              <div className="bg-destructive/10 border-destructive/20 text-destructive mb-4 rounded-lg border px-4 py-2 text-xs font-bold tracking-wide uppercase">
                 {errorMessage}
               </div>
             )}
 
             {/* Reason Select */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
                 {t('reports:reason')} *
               </label>
               <select
                 value={reason}
                 onChange={(e) => setReason(e.target.value as ReportReason)}
-                className="border-input bg-background focus:ring-ring w-full rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
+                className="border-input bg-background focus:ring-ring w-full rounded-lg border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
               >
                 <option value="">—</option>
                 {REPORT_REASONS.map((r) => (
@@ -124,14 +126,14 @@ export function ReportDialog({
 
             {/* Description */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
                 {t('reports:description')}
               </label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="..."
-                className="border-input bg-background focus:ring-ring w-full resize-none rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
+                className="border-input bg-background focus:ring-ring w-full resize-none rounded-lg border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
                 rows={3}
               />
             </div>
@@ -141,7 +143,10 @@ export function ReportDialog({
               <Button
                 onClick={handleSubmit}
                 disabled={!reason || isSubmitting || !user}
-                className={cn('flex-1 rounded-xl font-bold uppercase tracking-widest', !user && 'opacity-50')}
+                className={cn(
+                  'flex-1 rounded-lg font-bold tracking-widest uppercase',
+                  !user && 'opacity-50'
+                )}
               >
                 {isSubmitting ? '...' : t('reports:submit')}
               </Button>
@@ -149,7 +154,7 @@ export function ReportDialog({
                 variant="outline"
                 onClick={handleClose}
                 disabled={isSubmitting}
-                className="rounded-xl font-bold uppercase tracking-widest"
+                className="rounded-lg font-bold tracking-widest uppercase"
               >
                 {t('common:back')}
               </Button>
@@ -157,7 +162,7 @@ export function ReportDialog({
 
             {/* Login hint */}
             {!user && (
-              <p className="text-muted-foreground mt-4 text-center text-[10px] font-bold uppercase tracking-widest">
+              <p className="text-muted-foreground mt-4 text-center text-[10px] font-bold tracking-widest uppercase">
                 {t('auth:signIn')} required
               </p>
             )}

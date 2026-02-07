@@ -27,7 +27,7 @@ export function CategoryFormDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="border-border bg-card rounded-xl shadow-lg sm:max-w-[425px]">
+      <DialogContent className="border-border bg-card rounded-lg shadow-lg sm:max-w-[425px]">
         <form onSubmit={onSubmit}>
           <DialogHeader>
             <DialogTitle className="text-xl font-bold tracking-tight uppercase">
@@ -61,7 +61,7 @@ export function CategoryFormDialog({
                       : e.target.value.toLowerCase().replace(/\s+/g, '-'),
                   })
                 }}
-                className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-xl font-bold transition-all"
+                className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-lg font-bold transition-all"
                 placeholder="Electronics"
                 required
               />
@@ -79,7 +79,7 @@ export function CategoryFormDialog({
                 onChange={(e) =>
                   setFormData({ ...formData, slug: e.target.value })
                 }
-                className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-xl font-bold transition-all"
+                className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-lg font-bold transition-all"
                 placeholder="electronics"
                 required
               />
@@ -97,7 +97,7 @@ export function CategoryFormDialog({
                 onChange={(e) =>
                   setFormData({ ...formData, icon: e.target.value })
                 }
-                className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-xl font-bold transition-all"
+                className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-lg font-bold transition-all"
                 placeholder="📱"
               />
             </div>
@@ -114,7 +114,7 @@ export function CategoryFormDialog({
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
                 }
-                className="border-border/60 bg-muted/20 focus:bg-background min-h-[100px] rounded-xl font-medium transition-all"
+                className="border-border/60 bg-muted/20 focus:bg-background min-h-[100px] rounded-lg font-medium transition-all"
                 placeholder="..."
               />
             </div>
@@ -124,14 +124,14 @@ export function CategoryFormDialog({
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="h-11 rounded-xl px-6 font-bold tracking-widest uppercase"
+              className="h-11 rounded-lg px-6 font-bold tracking-widest uppercase"
             >
               {t('common:cancel')}
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="shadow-primary/20 h-11 rounded-xl px-6 font-bold tracking-widest uppercase shadow-lg"
+              className="shadow-primary/20 h-11 rounded-lg px-6 font-bold tracking-widest uppercase shadow-lg"
             >
               {isSubmitting ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

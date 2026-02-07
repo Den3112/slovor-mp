@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
 import { useTranslation } from '@/lib/i18n'
@@ -11,6 +12,13 @@ interface StructuredDataProps {
 export function StructuredData({ locale }: StructuredDataProps) {
   const pathname = usePathname()
   const { t } = useTranslation('common')
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
 
   // 1. BreadcrumbList Schema
   // We extract segments from pathname to build breadcrumbs

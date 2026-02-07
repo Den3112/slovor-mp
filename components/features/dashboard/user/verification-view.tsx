@@ -114,7 +114,7 @@ export function VerificationView() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
       {/* Premium Header - Solid */}
-      <div className="group border-border bg-card relative flex flex-col gap-4 overflow-hidden rounded-xl border p-6 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
+      <div className="group border-border bg-card relative flex flex-col gap-4 overflow-hidden rounded-lg border p-6 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
         <div className="relative z-10 space-y-1">
           <h1 className="text-foreground text-2xl font-bold tracking-tight uppercase sm:text-3xl">
             {t('verification:title')}
@@ -124,7 +124,7 @@ export function VerificationView() {
           </p>
         </div>
         <div className="relative z-10">
-          <div className="bg-primary/10 text-primary border-primary/20 flex h-20 w-20 items-center justify-center rounded-xl border shadow-sm">
+          <div className="bg-primary/10 text-primary border-primary/20 flex h-20 w-20 items-center justify-center rounded-lg border shadow-sm">
             <ShieldCheck className="h-10 w-10" />
           </div>
         </div>
@@ -139,7 +139,7 @@ export function VerificationView() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             className={cn(
-              'group relative overflow-hidden rounded-xl border p-6 transition-all md:p-8',
+              'group relative overflow-hidden rounded-lg border p-6 transition-all md:p-8',
               step.isVerified
                 ? 'border-emerald-500/20 bg-emerald-500/5'
                 : step.isRejected
@@ -151,7 +151,7 @@ export function VerificationView() {
               {/* Icon */}
               <div
                 className={cn(
-                  'flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 sm:h-16 sm:w-16',
+                  'flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border transition-transform group-hover:scale-105 sm:h-16 sm:w-16',
                   step.isVerified
                     ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
                     : step.isRejected
@@ -209,7 +209,7 @@ export function VerificationView() {
                   <Button
                     onClick={() => setShowingUploadModal(true)}
                     variant="destructive"
-                    className="rounded-xl px-6 font-bold tracking-widest uppercase shadow-sm"
+                    className="rounded-lg px-6 font-bold tracking-widest uppercase shadow-sm"
                   >
                     {t('common:tryAgain')}
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -222,7 +222,7 @@ export function VerificationView() {
                         : undefined
                     }
                     disabled={isSubmitting}
-                    className="rounded-xl px-6 font-bold tracking-widest uppercase shadow-sm"
+                    className="rounded-lg px-6 font-bold tracking-widest uppercase shadow-sm"
                   >
                     {t('verification:start')}
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -235,7 +235,7 @@ export function VerificationView() {
       </div>
 
       {/* Info Card */}
-      <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 md:p-8">
+      <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-6 md:p-8">
         <div className="flex gap-4">
           <AlertCircle className="h-6 w-6 shrink-0 text-blue-500" />
           <div className="space-y-2">
@@ -255,7 +255,7 @@ export function VerificationView() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card border-border w-full max-w-xl overflow-hidden rounded-xl border shadow-none"
+            className="bg-card border-border w-full max-w-xl overflow-hidden rounded-lg border shadow-none"
           >
             <div className="space-y-6 p-8">
               <div className="flex items-center justify-between">
@@ -282,7 +282,7 @@ export function VerificationView() {
                       key={type}
                       onClick={() => setSelectedDocType(type as any)}
                       className={cn(
-                        'flex flex-col items-center gap-3 rounded-xl border-2 p-4 transition-all',
+                        'flex flex-col items-center gap-3 rounded-lg border-2 p-4 transition-all',
                         selectedDocType === type
                           ? 'bg-primary/10 border-primary text-primary'
                           : 'bg-muted text-muted-foreground hover:bg-muted/80 border-transparent'
@@ -295,8 +295,8 @@ export function VerificationView() {
                 </div>
               </div>
 
-              <div className="bg-muted group border-border hover:border-primary relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed py-12 transition-colors">
-                <div className="bg-background border-border flex h-16 w-16 items-center justify-center rounded-xl border transition-transform group-hover:scale-105">
+              <div className="bg-muted group border-border hover:border-primary relative flex flex-col items-center justify-center rounded-lg border-2 border-dashed py-12 transition-colors">
+                <div className="bg-background border-border flex h-16 w-16 items-center justify-center rounded-lg border transition-transform group-hover:scale-105">
                   <Loader2
                     className={cn(
                       'text-primary h-8 w-8 transition-all',
@@ -317,14 +317,14 @@ export function VerificationView() {
               <div className="flex gap-3 pt-4">
                 <Button
                   variant="outline"
-                  className="h-12 flex-1 rounded-xl text-xs font-bold tracking-widest uppercase"
+                  className="h-12 flex-1 rounded-lg text-xs font-bold tracking-widest uppercase"
                   onClick={() => setShowingUploadModal(false)}
                   disabled={isSubmitting}
                 >
                   {t('common:cancel')}
                 </Button>
                 <Button
-                  className="h-12 flex-1 rounded-xl text-xs font-bold tracking-widest uppercase"
+                  className="h-12 flex-1 rounded-lg text-xs font-bold tracking-widest uppercase"
                   onClick={handleSubmitDocs}
                   disabled={isSubmitting}
                 >

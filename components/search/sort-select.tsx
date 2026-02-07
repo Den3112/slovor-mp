@@ -28,7 +28,7 @@ export function SortSelect() {
         {t('filters:sort')}:
       </span>
       <Select value={currentSort} onValueChange={handleSortChange}>
-        <SelectTrigger className="border-border bg-muted/30 focus:ring-primary w-[180px] rounded-xl font-medium">
+        <SelectTrigger className="border-border bg-muted/30 focus:ring-primary w-[180px] rounded-lg font-medium">
           <SelectValue placeholder={t('filters:sort')} />
         </SelectTrigger>
         <SelectContent>

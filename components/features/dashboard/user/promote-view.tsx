@@ -87,7 +87,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
         ].map((plan) => (
           <div
             key={plan.id}
-            className="bg-card border-border/60 flex items-center justify-between rounded-xl border p-4 shadow-sm"
+            className="bg-card border-border/60 flex items-center justify-between rounded-lg border p-4 shadow-sm"
           >
             <div className="flex items-center gap-3">
               <div
@@ -130,7 +130,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
           placeholder={t('dashboard:searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-card border-border/60 ring-primary/10 focus:border-primary/40 w-full rounded-xl border px-12 py-3.5 text-sm font-bold shadow-sm transition-all outline-none focus:ring-4"
+          className="bg-card border-border/60 ring-primary/10 focus:border-primary/40 w-full rounded-lg border px-12 py-3.5 text-sm font-bold shadow-sm transition-all outline-none focus:ring-4"
         />
       </div>
 
@@ -191,7 +191,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                         <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-base font-bold tracking-tight uppercase transition-colors">
                           {listing.title}
                         </h3>
-                        <div className="text-muted-foreground/40 flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
+                        <div className="text-muted-foreground/60 flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
                           <Calendar className="mt-[-2px] h-3.5 w-3.5" />
                           {new Date(listing.created_at).toLocaleDateString()}
                         </div>
@@ -209,7 +209,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                             )}
                           </span>
                         </div>
-                        <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-11 w-11 items-center justify-center rounded-xl transition-all group-hover:text-white">
+                        <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-11 w-11 items-center justify-center rounded-lg transition-all group-hover:text-white">
                           <ArrowRight className="h-5 w-5" />
                         </div>
                       </div>

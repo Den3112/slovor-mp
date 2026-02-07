@@ -36,24 +36,10 @@
   --font-size-2xs: 0.625rem;
   --font-size-3xs: 0.5625rem;
 
-  /* Border radius scale - ALIGNED WITH MASTERPLAN NAMING */
-  --radius-3xl: 24px;
-  /* Hero Cards */
-  --radius-2xl: 20px;
-  /* Standard Cards */
-  --radius-xl: 12px;
-  /* Buttons / Inputs / Large Avatars */
-  --radius-lg: 8px;
-  /* Medium items */
-  --radius-md: 6px;
-  /* Small items */
-  --radius-sm: 4px;
-  /* Badges */
-
   /* Shadows - EXACT FROM MASTERPLAN */
-  --shadow-card: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
-  --shadow-primary: 0 4px 14px 0 rgba(99, 102, 241, 0.3);
-  --shadow-dropdown: 0 8px 40px 0 rgba(99, 102, 241, 0.15);
+  --shadow-card: var(--shadow-card);
+  --shadow-primary: var(--shadow-primary);
+  --shadow-dropdown: var(--shadow-dropdown);
 
   /* Layout constants */
   --sidebar-width: 280px;
@@ -61,6 +47,15 @@
   --header-height: 64px;
   --mobile-header-height: 56px;
   --bottom-nav-height: 72px;
+
+  /* Border radius scale - CRM Pro Max Standard */
+  --radius-3xl: 24px;
+  --radius-2xl: 20px;
+  --radius-xl: 16px;
+  --radius-lg: 12px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --radius: 12px;
 }
 
 @layer base {
@@ -92,8 +87,8 @@
     /* Muted Text & Backgrounds */
     --muted: 210 40% 96%;
     /* #F1F5F9 - Slate-100 */
-    --muted-foreground: 215 16% 47%;
-    /* #64748B - Slate-500 */
+    --muted-foreground: 215 16% 40%;
+    /* #526071 - Darker Slate for 4.5:1+ contrast */
 
     /* Accent */
     --accent: 210 40% 96%;
@@ -117,20 +112,21 @@
     /* #F59E0B - Amber-500 */
     --warning-foreground: 0 0% 100%;
 
-    /* Layout */
-    --radius: 0.75rem;
-    /* Base radius */
+    /* Shadows */
+    --shadow-card: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+    --shadow-primary: 0 4px 14px 0 rgba(99, 102, 241, 0.3);
+    --shadow-dropdown: 0 8px 40px 0 rgba(99, 102, 241, 0.15);
   }
 
   .dark {
     /* Background & Surface - DARK */
     --background: 222 47% 11%;
-    /* #0F172A - Slate-900 (using 11% for Slate-900) */
+    /* #0F172A - Slate-900 */
     --foreground: 210 40% 98%;
     /* #F8FAFC - Slate-50 */
 
     /* Card/Surface - DARK */
-    --card: 222 47% 17%;
+    --card: 222 33% 17%;
     /* #1E293B - Slate-800 */
     --card-foreground: 210 40% 98%;
 
@@ -149,8 +145,8 @@
     /* Muted - DARK */
     --muted: 217 33% 27%;
     /* #334155 */
-    --muted-foreground: 215 20% 65%;
-    /* #94A3B8 - Slate-400 */
+    --muted-foreground: 215 25% 72%;
+    /* #A3B3C8 - Lightened for better contrast on slate-800/900 */
 
     /* Accent - DARK */
     --accent: 217 33% 27%;
@@ -200,7 +196,9 @@
   [role='button'],
   a,
   input[type='submit'],
-  input[type='reset'] {
+  input[type='reset'],
+  [onClick],
+  .cursor-pointer {
     cursor: pointer;
   }
 
@@ -212,6 +210,9 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     overflow-x: hidden;
     padding-bottom: env(safe-area-inset-bottom);
+    /* Subtle background grain or gradient */
+    background-image: radial-gradient(at 0% 0%, hsla(239, 84%, 67%, 0.03) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(239, 84%, 67%, 0.02) 0, transparent 50%);
   }
 
   /* Premium Scrollbar - Desktop Only */

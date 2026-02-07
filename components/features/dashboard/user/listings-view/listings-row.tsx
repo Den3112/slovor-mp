@@ -1,6 +1,7 @@
 'use client'
 
 import { Package, Eye, Heart, ArrowRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
@@ -40,6 +41,11 @@ export function ListingsRow({
     'createListing',
     'listing',
   ])
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   return (
     <TableRow
@@ -58,7 +64,7 @@ export function ListingsRow({
       </TableCell>
       <TableCell className="px-4 py-3">
         <div className="flex items-center gap-3">
-          <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-[16px] border">
+          <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl border">
             {listing.images?.[0] ? (
               <Image
                 src={listing.images[0]}
@@ -69,7 +75,7 @@ export function ListingsRow({
                 unoptimized
               />
             ) : (
-              <Package className="text-muted-foreground/40 m-auto h-6 w-6" />
+              <Package className="text-muted-foreground/60 m-auto h-6 w-6" />
             )}
           </div>
           <div className="flex min-w-0 flex-col">
@@ -80,7 +86,7 @@ export function ListingsRow({
               {listing.title}
             </Link>
             <span className="text-muted-foreground/50 text-[10px] font-bold tracking-widest uppercase">
-              {new Date(listing.created_at).toLocaleDateString()}
+              {isMounted ? new Date(listing.created_at).toLocaleDateString() : '...'}
             </span>
           </div>
         </div>
@@ -90,7 +96,7 @@ export function ListingsRow({
           <span className="font-heading text-base font-bold tracking-tight">
             {listing.price} {listing.currency}
           </span>
-          <span className="text-muted-foreground/40 text-[10px] font-bold tracking-widest uppercase">
+          <span className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
             {t('createListing:price')}
           </span>
         </div>
@@ -108,13 +114,13 @@ export function ListingsRow({
       <TableCell className="px-6 py-4 text-right">
         <div className="text-muted-foreground flex items-center justify-end gap-2">
           <div className="flex min-w-[50px] items-center justify-end gap-1">
-            <Eye className="text-muted-foreground/40 h-4 w-4" />
+            <Eye className="text-muted-foreground/60 h-4 w-4" />
             <span className="text-xs leading-none font-bold">
               {listing.views_count || 0}
             </span>
           </div>
           <div className="flex min-w-[50px] items-center justify-end gap-1">
-            <Heart className="text-muted-foreground/40 h-4 w-4" />
+            <Heart className="text-muted-foreground/60 h-4 w-4" />
             <span className="text-xs leading-none font-bold">
               {listing.favorites_count || 0}
             </span>
@@ -127,7 +133,7 @@ export function ListingsRow({
             variant="outline"
             size="sm"
             asChild
-            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-xl text-[9px] font-bold tracking-widest uppercase"
+            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-lg text-[9px] font-bold tracking-widest uppercase"
           >
             <Link href={`/${locale}/post?edit=${listing.id}`}>
               {t('common:edit')}
@@ -137,7 +143,7 @@ export function ListingsRow({
             variant="ghost"
             size="icon"
             asChild
-            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-xl transition-all"
+            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg transition-all"
           >
             <Link href={`/${locale}/listings/${listing.id}`}>
               <ArrowRight className="h-4 w-4" />
