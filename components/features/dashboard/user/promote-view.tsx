@@ -19,6 +19,7 @@ import { EmptyState } from '@/components/ui/empty-state'
 import { formatPrice } from '@/lib/utils/formatting'
 import { useCurrency } from '@/components/providers/currency-provider'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 
 interface PromoteViewProps {
   userId: string
@@ -59,15 +60,66 @@ export function PromoteView({ userId }: PromoteViewProps) {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
-      {/* Header Section */}
-      <div>
-        <h1 className="text-foreground flex items-center gap-3 text-3xl font-bold tracking-tight uppercase">
-          <Rocket className="text-primary h-8 w-8" />
-          {t('dashboard:promote.title')}
-        </h1>
-        <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
-          {t('dashboard:promote.subtitle')}
-        </p>
+      {/* Promotion Plans Cards */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {[
+          {
+            id: 'free',
+            title: t('dashboard:promote.plans.free.title'),
+            price: 0,
+            icon: Calendar,
+            color: 'zinc',
+          },
+          {
+            id: 'standard',
+            title: t('dashboard:promote.plans.standard.title'),
+            price: Number(t('dashboard:promote.plans.standard.price')),
+            icon: ArrowRight,
+            color: 'blue',
+          },
+          {
+            id: 'premium',
+            title: t('dashboard:promote.plans.premium.title'),
+            price: Number(t('dashboard:promote.plans.premium.price')),
+            icon: Rocket,
+            color: 'amber',
+          },
+        ].map((plan) => (
+          <div
+            key={plan.id}
+            className="bg-card border-border/60 flex items-center justify-between rounded-xl border p-4 shadow-sm"
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className={cn(
+                  'flex h-10 w-10 items-center justify-center rounded-lg border',
+                  plan.color === 'blue'
+                    ? 'border-blue-200 bg-blue-500/10 text-blue-600 dark:border-blue-900'
+                    : plan.color === 'amber'
+                      ? 'border-amber-200 bg-amber-500/10 text-amber-600 dark:border-amber-900'
+                      : 'border-zinc-200 bg-zinc-500/10 text-zinc-600 dark:border-zinc-800'
+                )}
+              >
+                <plan.icon className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-foreground text-sm font-bold tracking-tight uppercase">
+                  {plan.title}
+                </p>
+                <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+                  {plan.id === 'free'
+                    ? t('dashboard:promote.plans.free.subtitle')
+                    : t('dashboard:promote.plans.' + plan.id + '.subtitle')}
+                </p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-foreground text-lg font-bold tracking-tighter">
+                {formatPrice(plan.price, 'RUB')}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Search and Filter */}
