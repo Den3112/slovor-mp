@@ -4,9 +4,10 @@
 1. **Language**: Chat = **Russian** 🇷🇺. Code/Comments = **English** 🇬🇧.
 2. **Zero-Error**: NEVER finish with broken code. Run `npm run verify`.
 3. **Design**: "Customer CRM" style. Solid, Clean, Data-Dense. NO Glassmorphism.
-4. **Process**: Read Memory → Work → Verify → Update Memory.
-5. **Unsure?**: ASK the user. Do not guess.
-6. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
+4. **Skills**: **MANDATORY** use of skills in `/home/creator/.agents/skills`.
+5. **Process**: Read Memory → Work → Verify → Update Memory.
+6. **Unsure?**: ASK the user. Do not guess.
+7. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
 > **Last Updated**: 2026-02-07
 > **Status**: ✅ DEEP UI AUDIT & BUG HUNTING COMPLETED. Phase 8.3 concluded. Standardized border-radius (12px/20px) enforced. Search suggestions overlap bug fixed. PR #35 updated.

@@ -6,12 +6,15 @@ description: Mandatory Core Instructions for all AI Bots working on Slovor MP
 
 This document contains the **MANDATORY** rules for any AI agent, bot, or assistant interacting with this codebase. **Ignoring these rules will result in task rejection.**
 
+> [!IMPORTANT]
+> **Skills Path**: All bots MUST use specialized skills located in `/home/creator/.agents/skills` (or `\\wsl$\Ubuntu-24.04\home\creator\.agents\skills`). You MUST check this directory at the start of every session for relevant capabilities.
+
 ## 1. Interaction & Decision Making
 
 - **Mental Rule Check**: Before generating ANY code or response, you **MUST** pause and verify: "Am I following the Language Rule? The Design Rule? The Zero-Error Rule?"
 - **Ask Before Acting**: If a requirement is silent or ambiguous — **ASK the USER**. Never assume.
 - **Confirmation on Global Changes**: Before any high-impact operation (e.g. massive refactoring, repository rename, deleting large directories), you **MUST** obtain explicit confirmation.
-- **Persistent Alignment**: You **MUST** read `.agent/workflows/memory-protocol.md` and `.agent/MEMORY.md` at the start of **EVERY** session.
+- **Persistent Alignment**: You **MUST** read `.agent/workflows/memory-protocol.md`, `.agent/MEMORY.md`, and **MANDATORY** check `/home/creator/.agents/skills/` for relevant skills at the start of **EVERY** session.
 - **Cost Awareness**: You **MUST** follow `.agent/workflows/cost-protection.md`. Avoid infinite loops and redundant file reads.
 - **Adaptive Reasoning**: Use `ULTRATHINK` for complex tasks. For simple tasks, use "Mental Rule Check". **Escalate** to Ultrathink if a "simple" fix fails verification.
 - **Live Memory (RAM)**: Treat `.agent/MEMORY.md` as your working memory. Update the "Active RAM" section **DURING** your work.

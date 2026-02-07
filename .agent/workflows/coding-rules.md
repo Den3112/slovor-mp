@@ -11,7 +11,10 @@ description: 8 coding principles - mandatory for all code changes
 ### 0. Autonomous Alignment (PRE-CONDITION)
 
 **You must NOT wait for the USER to remind you of the rules.**
-Before starting any task, you **MUST** read all files in `.agent/workflows/` (especially `coding-rules.md`, `git-workflow.md`, and `language-policy.md`) to align with the latest project standards. You are responsible for maintaining project consistency autonomously.
+Before starting any task, you **MUST**:
+1. Read all files in `.agent/workflows/` (especially `coding-rules.md`, `git-workflow.md`, and `language-policy.md`).
+2. **MANDATORY**: Check `/home/creator/.agents/skills/` for specialized skills relevant to your task.
+You are responsible for maintaining project consistency autonomously.
 
 ### 0.5. Server Availability (PRE-CONDITION)
 
