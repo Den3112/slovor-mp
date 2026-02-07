@@ -80,10 +80,7 @@
       "free": {
         "title": "Free",
         "subtitle": "Basic visibility",
-        "features": [
-          "Standard search placement",
-          "Valid forever"
-        ]
+        "features": ["Standard search placement", "Valid forever"]
       },
       "standard": {
         "title": "Standard",
@@ -132,5 +129,14 @@
   "activityLog": {
     "title": "Activity Log",
     "subtitle": "Audit track of all your major actions and account events"
+  },
+  "chat": {
+    "you": "You",
+    "startChat": "Say hello to start the deal!",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "reviews": {
+    "yourReply": "Your Reply"
   }
 }

@@ -21,5 +21,8 @@
   "loading": "Loading conversation...",
   "notFound": "Conversation not found",
   "startConversationWith": "Start the conversation with {name}",
-  "typing": "typing..."
+  "typing": "typing...",
+  "online": "Online",
+  "offline": "Offline",
+  "startChat": "Say hello to start the deal!"
 }
