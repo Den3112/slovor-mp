@@ -14,9 +14,9 @@ export function PerformanceCard({ data }: PerformanceChartProps) {
   const { t } = useTranslation(['dashboard'])
 
   return (
-    <motion.div variants={item} className="space-y-4 lg:col-span-2">
-      <Card className="border-border/60 flex flex-col overflow-hidden rounded-xl shadow-sm">
-        <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
+    <motion.div variants={item} className="space-y-4">
+      <Card className="border-border/40 flex flex-col overflow-hidden rounded-xl bg-card shadow-sm transition-all duration-300 hover:shadow-md">
+        <CardHeader className="border-border/10 bg-muted/5 border-b px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -28,7 +28,7 @@ export function PerformanceCard({ data }: PerformanceChartProps) {
             </div>
             <Badge
               variant="outline"
-              className="border-border/60 rounded-sm text-[9px] font-bold tracking-widest uppercase"
+              className="border-border/20 rounded-lg bg-background/50 px-3 py-1 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
             >
               {t('dashboard:last7Days')}
             </Badge>
