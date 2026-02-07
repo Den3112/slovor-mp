@@ -68,8 +68,8 @@ export function MessageList({
                   className={cn(
                     'group relative max-w-[80%] px-4 py-2 text-sm shadow-sm',
                     isMe
-                      ? 'bg-primary text-primary-foreground rounded-xl rounded-tr-sm'
-                      : 'bg-card text-card-foreground border-border/60 rounded-xl rounded-tl-sm border',
+                      ? 'bg-primary text-primary-foreground rounded-lg rounded-tr-sm'
+                      : 'bg-card text-card-foreground border-border/60 rounded-lg rounded-tl-sm border',
                     isSequential && (isMe ? 'rounded-tr-xl' : 'rounded-tl-xl')
                   )}
                 >

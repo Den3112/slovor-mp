@@ -235,7 +235,7 @@ export function AdminListingsView({
       className: 'min-w-[400px]',
       cell: (row) => (
         <div className="group/item flex items-center gap-4">
-          <div className="bg-muted border-border/40 group-hover/item:border-primary/30 relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border transition-all">
+          <div className="bg-muted border-border/40 group-hover/item:border-primary/30 relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border transition-all">
             {row.images?.[0] ? (
               <Image
                 src={row.images[0]}
@@ -397,7 +397,7 @@ export function AdminListingsView({
         className="w-full space-y-8"
       >
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap rounded-xl border p-1">
+          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap rounded-lg border p-1">
             {stats.map((tab) => (
               <TabsTrigger
                 key={tab.value}

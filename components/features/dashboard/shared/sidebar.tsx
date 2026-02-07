@@ -144,7 +144,7 @@ export function UnifiedSidebar({
                       href={localizedHref}
                       onClick={onNavigate}
                       className={cn(
-                        'group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-all',
+                        'group relative flex items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-all',
                         active
                           ? 'bg-primary/10 text-primary shadow-primary/20 shadow-sm'
                           : 'text-muted-foreground hover:bg-accent hover:text-foreground',
@@ -160,7 +160,7 @@ export function UnifiedSidebar({
                       />
 
                       {!isCollapsed && (
-                        <span className="flex-1 truncate">{link.label}</span>
+                        <span className="flex-1 whitespace-normal leading-tight">{link.label}</span>
                       )}
 
                       {/* Counter Badge */}
@@ -191,23 +191,23 @@ export function UnifiedSidebar({
         </nav>
       </div>
 
-      {/* Footer */}
-      <div className="border-border bg-card relative z-10 mt-auto shrink-0 border-t p-4">
+      {/* Sign Out Section */}
+      <div className="border-t border-border/40 p-3 pb-8 sm:pb-3">
         <button
           onClick={handleSignOut}
           className={cn(
-            'group text-muted-foreground hover:bg-destructive/10 hover:text-destructive flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-[11px] font-bold tracking-widest uppercase transition-all',
-            isCollapsed && 'justify-center px-0'
+            'group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all duration-200 hover:bg-destructive/5 hover:text-destructive',
+            isCollapsed && 'justify-center px-2'
           )}
-          title={config.signOutLabel}
         >
-          <LogOut
-            className={cn(
-              'h-4 w-4 shrink-0 transition-transform group-hover:-translate-x-1',
-              isCollapsed ? 'mx-auto' : ''
-            )}
-          />
-          {!isCollapsed && <span>{config.signOutLabel}</span>}
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/50 transition-colors group-hover:bg-destructive/10">
+            <LogOut className="h-4 w-4" />
+          </div>
+          {!isCollapsed && (
+            <span className="font-bold uppercase tracking-widest text-[10px]">
+              {config.signOutLabel}
+            </span>
+          )}
         </button>
       </div>
     </div>

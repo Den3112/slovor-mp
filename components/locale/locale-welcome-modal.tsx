@@ -84,7 +84,7 @@ export function LocaleWelcomeModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="bg-card rounded-3xl border-0 p-8 shadow-2xl sm:max-w-md">
+      <DialogContent className="bg-card rounded-2xl border-0 p-8 shadow-2xl sm:max-w-md">
         <DialogHeader>
           <div className="mb-4 flex flex-col items-center gap-4">
             <div className="bg-primary/10 flex h-16 w-16 items-center justify-center rounded-full">
@@ -106,10 +106,11 @@ export function LocaleWelcomeModal() {
             <button
               key={option.code}
               onClick={() => setSelectedLocale(option.code)}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${selectedLocale === option.code
+              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${
+                selectedLocale === option.code
                   ? 'border-primary bg-primary/10 shadow-md'
                   : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
-                }`}
+              }`}
             >
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
@@ -146,13 +147,13 @@ export function LocaleWelcomeModal() {
           <Button
             variant="outline"
             onClick={handleSkip}
-            className="border-border text-muted-foreground hover:border-border hover:bg-accent flex-1 rounded-xl border-2 py-6 font-semibold"
+            className="border-border text-muted-foreground hover:border-border hover:bg-accent flex-1 rounded-lg border-2 py-6 font-semibold"
           >
             Skip
           </Button>
           <Button
             onClick={handleConfirm}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1 rounded-xl py-6 font-semibold shadow-lg transition-all hover:shadow-xl"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1 rounded-lg py-6 font-semibold shadow-lg transition-all hover:shadow-xl"
           >
             Continue
           </Button>

@@ -111,7 +111,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
       {/* Controls */}
       <motion.div
         variants={item}
-        className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-xl border p-4 shadow-sm lg:flex-row lg:items-center"
+        className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-lg border p-4 shadow-sm lg:flex-row lg:items-center"
       >
         <Tabs
           value={activeTab}
@@ -147,7 +147,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
               placeholder={t('common:search')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border-border/60 focus:ring-primary/20 h-10 rounded-xl pl-9"
+              className="border-border/60 focus:ring-primary/20 h-10 rounded-lg pl-9"
             />
           </div>
         </div>
@@ -156,7 +156,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
       {/* Table */}
       <motion.div
         variants={item}
-        className="border-border/60 bg-card overflow-hidden rounded-xl border text-left shadow-sm"
+        className="border-border/60 bg-card overflow-hidden rounded-lg border text-left shadow-sm"
       >
         <div className="overflow-x-auto">
           <Table>
@@ -250,7 +250,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 rounded-[10px]"
+                        className="h-8 w-8 rounded-lg"
                         asChild
                       >
                         <Link href={`/${locale}/dashboard/orders/${order.id}`}>

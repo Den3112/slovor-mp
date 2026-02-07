@@ -38,11 +38,11 @@ export function Hero() {
       <Container className="relative z-10">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="bg-primary/10 text-primary border-primary/20 mb-8 inline-flex items-center gap-2 rounded border px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase">
+            <span className="bg-primary/10 text-primary-hover border-primary/20 dark:text-primary mb-8 inline-flex items-center gap-2 rounded border px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase">
               <Sparkles className="h-3.5 w-3.5" />
               {t('heroTagline')}
             </span>
@@ -107,7 +107,7 @@ export function Hero() {
 
                 <Button
                   onClick={handleSearch}
-                  className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary h-12 w-full shrink-0 rounded-xl text-base font-bold transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:px-8 md:px-10"
+                  className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary h-12 w-full shrink-0 rounded-lg text-base font-bold transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:px-8 md:px-10"
                 >
                   {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -130,7 +130,7 @@ export function Hero() {
                 <Link
                   key={term}
                   href={`/${locale}/listings?search=${term}`}
-                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border rounded-xl border px-4 py-1.5 text-sm font-semibold transition-colors"
+                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border rounded-lg border px-4 py-1.5 text-sm font-semibold transition-colors"
                 >
                   {term}
                 </Link>

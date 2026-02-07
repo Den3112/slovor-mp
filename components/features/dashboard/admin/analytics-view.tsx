@@ -99,7 +99,7 @@ export function AdminAnalyticsView() {
             {t('admin:deepDivePerformance')}
           </p>
         </div>
-        <div className="bg-muted/40 border-border/40 flex items-center gap-3 rounded-xl border p-1">
+        <div className="bg-muted/40 border-border/40 flex items-center gap-3 rounded-lg border p-1">
           {['7d', '30d', '90d', '1y'].map((range) => (
             <button
               key={range}
@@ -130,10 +130,10 @@ export function AdminAnalyticsView() {
         {growthStats.map((stat, idx) => (
           <Card
             key={idx}
-            className="border-border/60 flex flex-col justify-between rounded-xl p-6 shadow-sm"
+            className="border-border/60 flex flex-col justify-between rounded-lg p-6 shadow-sm"
           >
             <div className="mb-4 flex items-center justify-between">
-              <div className="bg-muted/50 border-border/40 rounded-xl border p-2.5">
+              <div className="bg-muted/50 border-border/40 rounded-lg border p-2.5">
                 <stat.icon className="text-primary h-4 w-4" />
               </div>
               <Badge
@@ -163,7 +163,7 @@ export function AdminAnalyticsView() {
       {/* Main Charts Section */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Traffic Chart */}
-        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-xl shadow-sm lg:col-span-2">
+        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-lg shadow-sm lg:col-span-2">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
@@ -179,7 +179,7 @@ export function AdminAnalyticsView() {
         </Card>
 
         {/* Category Performance */}
-        <Card className="border-border/60 flex flex-col overflow-hidden rounded-xl shadow-sm">
+        <Card className="border-border/60 flex flex-col overflow-hidden rounded-lg shadow-sm">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
               <Layers className="text-primary h-4 w-4" />
@@ -230,7 +230,7 @@ export function AdminAnalyticsView() {
       {/* Secondary Chart Row */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Geographical Distribution */}
-        <Card className="border-border/60 overflow-hidden rounded-xl shadow-sm">
+        <Card className="border-border/60 overflow-hidden rounded-lg shadow-sm">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
               <Map className="text-primary h-4 w-4" />
@@ -241,7 +241,7 @@ export function AdminAnalyticsView() {
             {topRegions.map((region, idx) => (
               <div
                 key={idx}
-                className="bg-muted/20 border-border/40 flex items-center justify-between rounded-xl border p-3 hover:bg-muted/30 transition-all cursor-default"
+                className="bg-muted/20 border-border/40 flex items-center justify-between rounded-lg border p-3 hover:bg-muted/30 transition-all cursor-default"
               >
                 <div className="flex items-center gap-3">
                   <div className="bg-background border-border/60 text-primary flex h-8 w-8 items-center justify-center rounded-lg border text-[10px] font-bold">
@@ -263,7 +263,7 @@ export function AdminAnalyticsView() {
         </Card>
 
         {/* Growth Trends Chart */}
-        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-xl shadow-sm lg:col-span-2">
+        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-lg shadow-sm lg:col-span-2">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
@@ -281,7 +281,7 @@ export function AdminAnalyticsView() {
 
       {/* System Health Section */}
       <div className="grid grid-cols-1">
-        <Card className="border-border/60 overflow-hidden rounded-xl bg-muted/30 dark:bg-slate-950 dark:text-white shadow-2xl transition-colors">
+        <Card className="border-border/60 overflow-hidden rounded-lg bg-muted/30 dark:bg-slate-950 dark:text-white shadow-2xl transition-colors">
           <CardHeader className="border-b border-border/40 dark:border-white/5 bg-muted/50 dark:bg-white/5 px-6 py-4">
             <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-muted-foreground dark:text-white/40 uppercase">
               <Zap className="text-success h-4 w-4" />

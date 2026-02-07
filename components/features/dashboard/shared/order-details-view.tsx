@@ -1,17 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
-    ArrowLeft,
-    Calendar,
-    User as UserIcon,
-    Package,
-    ShieldCheck,
-    AlertCircle,
-    CheckCircle2,
-    XCircle,
-    Download,
-    Wallet
+  ArrowLeft,
+  Calendar,
+  User as UserIcon,
+  Package,
+  ShieldCheck,
+  AlertCircle,
+  CheckCircle2,
+  XCircle,
+  Download,
+  Wallet,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
@@ -26,239 +26,329 @@ import { toast } from 'sonner'
 import Image from 'next/image'
 
 interface OrderDetailsViewProps {
-    order: any
-    isAdmin?: boolean
+  order: any
+  isAdmin?: boolean
 }
 
-export function OrderDetailsView({ order: initialOrder, isAdmin = false }: OrderDetailsViewProps) {
-    const { t, locale } = useTranslation(['common', 'dashboard', 'admin'])
-    const [order, setOrder] = useState(initialOrder)
-    const [isUpdating, setIsUpdating] = useState(false)
+export function OrderDetailsView({
+  order: initialOrder,
+  isAdmin = false,
+}: OrderDetailsViewProps) {
+  const { t, locale } = useTranslation(['common', 'dashboard', 'admin'])
+  const [order, setOrder] = useState(initialOrder)
+  const [isUpdating, setIsUpdating] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
-    const handleUpdateStatus = async (status: 'completed' | 'cancelled') => {
-        setIsUpdating(true)
-        try {
-            const { error } = await ordersApi.updateStatus(supabase, order.id, status)
-            if (error) throw new Error(error.message)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
-            toast.success(t('admin:orderStatusUpdated') || 'Order status updated')
-            setOrder({ ...order, status })
-        } catch (error: any) {
-            toast.error(error.message)
-        } finally {
-            setIsUpdating(false)
-        }
+  const handleUpdateStatus = async (status: 'completed' | 'cancelled') => {
+    setIsUpdating(true)
+    try {
+      const { error } = await ordersApi.updateStatus(supabase, order.id, status)
+      if (error) throw new Error(error.message)
+
+      toast.success(t('admin:orderStatusUpdated') || 'Order status updated')
+      setOrder({ ...order, status })
+    } catch (error: any) {
+      toast.error(error.message)
+    } finally {
+      setIsUpdating(false)
     }
+  }
 
-    const backPath = isAdmin ? `/${locale}/admin/orders` : `/${locale}/dashboard/orders`
+  const backPath = isAdmin
+    ? `/${locale}/admin/orders`
+    : `/${locale}/dashboard/orders`
 
-    const statusColors = {
-        pending: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-        completed: "bg-success/10 text-success border-success/20",
-        cancelled: "bg-destructive/10 text-destructive border-destructive/20",
-        refunded: "bg-blue-500/10 text-blue-600 border-blue-500/20"
-    }
+  const statusColors = {
+    pending: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+    completed: 'bg-success/10 text-success border-success/20',
+    cancelled: 'bg-destructive/10 text-destructive border-destructive/20',
+    refunded: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
+  }
 
-    return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Header */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <Button variant="ghost" size="icon" asChild className="rounded-full bg-muted/50 hover:bg-muted">
-                        <Link href={backPath}>
-                            <ArrowLeft className="h-5 w-5" />
-                        </Link>
-                    </Button>
-                    <div>
-                        <h1 className="text-2xl font-bold uppercase tracking-tight flex items-center gap-3">
-                            {t('dashboard:orderDetail') || 'Order Details'}
-                            <Badge className={cn("rounded-sm px-2.5 py-0.5 text-[10px] uppercase font-bold tracking-widest border shadow-sm", statusColors[order.status as keyof typeof statusColors])}>
-                                {order.status}
-                            </Badge>
-                        </h1>
-                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1 flex items-center gap-2">
-                            ID: <span className="text-foreground">#{order.id}</span>
-                            •
-                            <Calendar className="h-3 w-3" />
-                            {new Date(order.created_at).toLocaleString()}
-                        </p>
-                    </div>
-                </div>
-
-                <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="text-[10px] font-bold uppercase tracking-widest rounded-xl border-border/60 h-10 px-6">
-                        <Download className="h-4 w-4 mr-2" />
-                        Invoice
-                    </Button>
-                    {isAdmin && order.status === 'pending' && (
-                        <>
-                            <Button
-                                size="sm"
-                                variant="default"
-                                className="bg-success hover:bg-success/90 text-[10px] font-bold uppercase tracking-widest rounded-xl h-10 px-6"
-                                onClick={() => handleUpdateStatus('completed')}
-                                disabled={isUpdating}
-                            >
-                                <CheckCircle2 className="h-4 w-4 mr-2" />
-                                Mark Completed
-                            </Button>
-                            <Button
-                                size="sm"
-                                variant="destructive"
-                                className="text-[10px] font-bold uppercase tracking-widest rounded-xl h-10 px-6"
-                                onClick={() => handleUpdateStatus('cancelled')}
-                                disabled={isUpdating}
-                            >
-                                <XCircle className="h-4 w-4 mr-2" />
-                                Cancel
-                            </Button>
-                        </>
-                    )}
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Left Column: Product & Payment */}
-                <div className="lg:col-span-2 space-y-8">
-                    {/* Item Details */}
-                    <Card className="rounded-2xl border-border/60 shadow-sm overflow-hidden">
-                        <CardHeader className="bg-muted/20 border-b border-border/40 py-4 px-6 font-bold uppercase tracking-[0.2em] text-[10px] text-muted-foreground">
-                            Item Details
-                        </CardHeader>
-                        <CardContent className="p-6">
-                            <div className="flex flex-col sm:flex-row gap-6">
-                                <div className="h-32 w-32 rounded-xl bg-muted overflow-hidden shrink-0 border border-border/10 relative">
-                                    {order.listing?.images?.[0] ? (
-                                        <Image
-                                            src={order.listing.images[0]}
-                                            alt={order.listing.title}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    ) : (
-                                        <Package className="m-auto h-12 w-12 text-muted-foreground/20" />
-                                    )}
-                                </div>
-                                <div className="flex-1 space-y-4">
-                                    <div>
-                                        <h3 className="text-xl font-bold  tracking-tight">{order.listing?.title}</h3>
-                                        <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest mt-1">Listing ID: #{order.listing_id}</p>
-                                    </div>
-                                    <div className="flex flex-wrap gap-4">
-                                        <div className="space-y-1">
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Unit Price</p>
-                                            <p className="text-lg font-bold tracking-tight">{formatPrice(order.amount, order.currency)}</p>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Quantity</p>
-                                            <p className="text-lg font-bold tracking-tight">1</p>
-                                        </div>
-                                        <div className="ml-auto text-right space-y-1">
-                                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Total</p>
-                                            <p className="text-2xl font-bold tracking-tighter text-primary">{formatPrice(order.amount, order.currency)}</p>
-                                        </div>
-                                    </div>
-                                    <Button variant="outline" size="sm" asChild className="rounded-xl h-8 text-[9px] font-bold uppercase tracking-widest mt-2 border-border/60">
-                                        <Link href={`/${locale}/listings/${order.listing_id}`}>View Listing <ArrowLeft className="h-3 w-3 ml-2 rotate-180" /></Link>
-                                    </Button>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    {/* Transaction Details */}
-                    <Card className="rounded-2xl border-border/60 shadow-sm overflow-hidden">
-                        <CardHeader className="bg-muted/20 border-b border-border/40 py-4 px-6 flex flex-row items-center justify-between space-y-0">
-                            <CardTitle className="font-bold uppercase tracking-[0.2em] text-[10px] text-muted-foreground">Payment Information</CardTitle>
-                            <ShieldCheck className="h-4 w-4 text-primary" />
-                        </CardHeader>
-                        <CardContent className="p-6">
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                                <div className="space-y-1.5">
-                                    <dt className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Payment Method</dt>
-                                    <dd className="flex items-center gap-2 font-bold text-sm">
-                                        <Wallet className="h-4 w-4 text-primary" />
-                                        {order.payment_method}
-                                    </dd>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <dt className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Currency</dt>
-                                    <dd className="font-bold text-sm uppercase">{order.currency}</dd>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <dt className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Security Status</dt>
-                                    <dd className="font-bold text-sm text-success">Verified Secure</dd>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <dt className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Platform Fee</dt>
-                                    <dd className="font-bold text-sm">0.00 {order.currency}</dd>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-
-                {/* Right Column: Buyer/Seller Info */}
-                <div className="space-y-8">
-                    {/* User Cards */}
-                    <Card className="rounded-2xl border-border/60 shadow-sm overflow-hidden bg-card">
-                        <CardHeader className="bg-muted/20 border-b border-border/40 py-4 px-6 font-bold uppercase tracking-[0.2em] text-[10px] text-muted-foreground">
-                            Participants
-                        </CardHeader>
-                        <CardContent className="p-6 space-y-6">
-                            {/* Seller */}
-                            <div className="space-y-3">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Seller</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-[16px] bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
-                                        <UserIcon className="h-5 w-5 text-primary" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="font-bold text-sm truncate">{order.seller?.full_name || 'Anonymous User'}</p>
-                                        <p className="text-[10px] font-bold text-muted-foreground truncate ">@{order.seller?.id.split('-')[0]}</p>
-                                    </div>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-xl" asChild>
-                                        <Link href={`/${locale}/profile/${order.seller_id}`}><ArrowLeft className="h-4 w-4 rotate-180" /></Link>
-                                    </Button>
-                                </div>
-                            </div>
-
-                            <div className="h-px bg-border/40" />
-
-                            {/* Buyer */}
-                            <div className="space-y-3">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Buyer</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-[16px] bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0">
-                                        <UserIcon className="h-5 w-5 text-blue-500" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="font-bold text-sm truncate">{order.buyer?.full_name || 'Anonymous User'}</p>
-                                        <p className="text-[10px] font-bold text-muted-foreground truncate ">@{order.buyer?.id.split('-')[0]}</p>
-                                    </div>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-xl" asChild>
-                                        <Link href={`/${locale}/profile/${order.buyer_id}`}><ArrowLeft className="h-4 w-4 rotate-180" /></Link>
-                                    </Button>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    {/* Support & Help */}
-                    <Card className="rounded-2xl bg-slate-950 text-white selection:bg-primary/30 border-none shadow-xl overflow-hidden">
-                        <CardHeader className="bg-white/5 border-b border-white/5 py-4 px-6 flex flex-row items-center justify-between space-y-0">
-                            <CardTitle className="font-bold uppercase tracking-[0.2em] text-[10px] text-white/40">Support Center</CardTitle>
-                            <AlertCircle className="h-4 w-4 text-amber-500" />
-                        </CardHeader>
-                        <CardContent className="p-6 space-y-4">
-                            <p className="text-[11px] font-bold text-white/60 leading-relaxed uppercase tracking-widest">Need help with this order or want to report a problem?</p>
-                            <Button className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl h-12 font-bold uppercase tracking-widest text-[9px] border border-white/10">
-                                Contact Resolution Center
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
+  return (
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
+      {/* Header */}
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="bg-muted/50 hover:bg-muted rounded-full"
+          >
+            <Link href={backPath}>
+              <ArrowLeft className="h-5 w-5" />
+            </Link>
+          </Button>
+          <div>
+            <h1 className="flex items-center gap-3 text-2xl font-bold tracking-tight uppercase">
+              {t('dashboard:orderDetail') || 'Order Details'}
+              <Badge
+                className={cn(
+                  'rounded-sm border px-2.5 py-0.5 text-[10px] font-bold tracking-widest uppercase shadow-sm',
+                  statusColors[order.status as keyof typeof statusColors]
+                )}
+              >
+                {order.status}
+              </Badge>
+            </h1>
+            <p className="text-muted-foreground mt-1 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
+              ID: <span className="text-foreground">#{order.id}</span>
+              •
+              <Calendar className="h-3 w-3" />
+              {isMounted ? new Date(order.created_at).toLocaleString() : '...'}
+            </p>
+          </div>
         </div>
-    )
+
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-border/60 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Invoice
+          </Button>
+          {isAdmin && order.status === 'pending' && (
+            <>
+              <Button
+                size="sm"
+                variant="default"
+                className="bg-success hover:bg-success/90 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+                onClick={() => handleUpdateStatus('completed')}
+                disabled={isUpdating}
+              >
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+                Mark Completed
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                className="h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+                onClick={() => handleUpdateStatus('cancelled')}
+                disabled={isUpdating}
+              >
+                <XCircle className="mr-2 h-4 w-4" />
+                Cancel
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        {/* Left Column: Product & Payment */}
+        <div className="space-y-8 lg:col-span-2">
+          {/* Item Details */}
+          <Card className="border-border/60 overflow-hidden rounded-2xl shadow-sm">
+            <CardHeader className="bg-muted/20 border-border/40 text-muted-foreground border-b px-6 py-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+              Item Details
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="flex flex-col gap-6 sm:flex-row">
+                <div className="bg-muted border-border/10 relative h-32 w-32 shrink-0 overflow-hidden rounded-lg border">
+                  {order.listing?.images?.[0] ? (
+                    <Image
+                      src={order.listing.images[0]}
+                      alt={order.listing.title}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <Package className="text-muted-foreground/20 m-auto h-12 w-12" />
+                  )}
+                </div>
+                <div className="flex-1 space-y-4">
+                  <div>
+                    <h3 className="text-xl font-bold tracking-tight">
+                      {order.listing?.title}
+                    </h3>
+                    <p className="text-muted-foreground/60 mt-1 text-xs font-bold tracking-widest uppercase">
+                      Listing ID: #{order.listing_id}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-4">
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                        Unit Price
+                      </p>
+                      <p className="text-lg font-bold tracking-tight">
+                        {formatPrice(order.amount, order.currency)}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                        Quantity
+                      </p>
+                      <p className="text-lg font-bold tracking-tight">1</p>
+                    </div>
+                    <div className="ml-auto space-y-1 text-right">
+                      <p className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                        Total
+                      </p>
+                      <p className="text-primary text-2xl font-bold tracking-tighter">
+                        {formatPrice(order.amount, order.currency)}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="border-border/60 mt-2 h-8 rounded-lg text-[9px] font-bold tracking-widest uppercase"
+                  >
+                    <Link href={`/${locale}/listings/${order.listing_id}`}>
+                      View Listing{' '}
+                      <ArrowLeft className="ml-2 h-3 w-3 rotate-180" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Transaction Details */}
+          <Card className="border-border/60 overflow-hidden rounded-2xl shadow-sm">
+            <CardHeader className="bg-muted/20 border-border/40 flex flex-row items-center justify-between space-y-0 border-b px-6 py-4">
+              <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+                Payment Information
+              </CardTitle>
+              <ShieldCheck className="text-primary h-4 w-4" />
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+                <div className="space-y-1.5">
+                  <dt className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                    Payment Method
+                  </dt>
+                  <dd className="flex items-center gap-2 text-sm font-bold">
+                    <Wallet className="text-primary h-4 w-4" />
+                    {order.payment_method}
+                  </dd>
+                </div>
+                <div className="space-y-1.5">
+                  <dt className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                    Currency
+                  </dt>
+                  <dd className="text-sm font-bold uppercase">
+                    {order.currency}
+                  </dd>
+                </div>
+                <div className="space-y-1.5">
+                  <dt className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                    Security Status
+                  </dt>
+                  <dd className="text-success text-sm font-bold">
+                    Verified Secure
+                  </dd>
+                </div>
+                <div className="space-y-1.5">
+                  <dt className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                    Platform Fee
+                  </dt>
+                  <dd className="text-sm font-bold">0.00 {order.currency}</dd>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Column: Buyer/Seller Info */}
+        <div className="space-y-8">
+          {/* User Cards */}
+          <Card className="border-border/60 bg-card overflow-hidden rounded-2xl shadow-sm">
+            <CardHeader className="bg-muted/20 border-border/40 text-muted-foreground border-b px-6 py-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+              Participants
+            </CardHeader>
+            <CardContent className="space-y-6 p-6">
+              {/* Seller */}
+              <div className="space-y-3">
+                <p className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                  Seller
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="bg-primary/10 border-primary/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border">
+                    <UserIcon className="text-primary h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-bold">
+                      {order.seller?.full_name || 'Anonymous User'}
+                    </p>
+                    <p className="text-muted-foreground truncate text-[10px] font-bold">
+                      @{order.seller?.id.split('-')[0]}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg"
+                    asChild
+                  >
+                    <Link href={`/${locale}/profile/${order.seller_id}`}>
+                      <ArrowLeft className="h-4 w-4 rotate-180" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="bg-border/40 h-px" />
+
+              {/* Buyer */}
+              <div className="space-y-3">
+                <p className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+                  Buyer
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
+                    <UserIcon className="h-5 w-5 text-blue-500" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-bold">
+                      {order.buyer?.full_name || 'Anonymous User'}
+                    </p>
+                    <p className="text-muted-foreground truncate text-[10px] font-bold">
+                      @{order.buyer?.id.split('-')[0]}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg"
+                    asChild
+                  >
+                    <Link href={`/${locale}/profile/${order.buyer_id}`}>
+                      <ArrowLeft className="h-4 w-4 rotate-180" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Support & Help */}
+          <Card className="selection:bg-primary/30 overflow-hidden rounded-2xl border-none bg-slate-950 text-white shadow-xl">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b border-white/5 bg-white/5 px-6 py-4">
+              <CardTitle className="text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
+                Support Center
+              </CardTitle>
+              <AlertCircle className="h-4 w-4 text-amber-500" />
+            </CardHeader>
+            <CardContent className="space-y-4 p-6">
+              <p className="text-[11px] leading-relaxed font-bold tracking-widest text-white/60 uppercase">
+                Need help with this order or want to report a problem?
+              </p>
+              <Button className="h-12 w-full rounded-lg border border-white/10 bg-white/5 text-[9px] font-bold tracking-widest text-white uppercase hover:bg-white/10">
+                Contact Resolution Center
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
 }

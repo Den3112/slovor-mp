@@ -21,7 +21,7 @@ export function ListingsEmpty() {
       </p>
       <Button
         asChild
-        className="shadow-primary/20 h-12 rounded-xl px-8 text-[10px] font-bold tracking-widest uppercase shadow-lg"
+        className="shadow-primary/20 h-12 rounded-lg px-8 text-[10px] font-bold tracking-widest uppercase shadow-lg"
       >
         <Link href={`/${locale}/post`}>{t('createListing:publish')}</Link>
       </Button>

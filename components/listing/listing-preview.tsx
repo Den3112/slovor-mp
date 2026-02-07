@@ -83,7 +83,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
   const categoryName = listing.category?.name || ''
 
   return (
-    <div className="bg-card overflow-hidden rounded-xl border border-border shadow-sm">
+    <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
       {/* Image */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
         {hasValidImage ? (
@@ -116,7 +116,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="bg-black/60 text-white absolute bottom-3 left-3 rounded-lg border border-white/20 px-2.5 py-1 text-[9px] font-bold md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="absolute bottom-3 left-3 rounded-lg border border-white/20 bg-black/60 px-2.5 py-1 text-[9px] font-bold text-white md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
             {listing.images.length} PHOTOS
           </div>
         )}

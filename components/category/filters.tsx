@@ -86,8 +86,7 @@ export function Filters() {
   ]
 
   return (
-    <div className="shadow-sm border-border/60 bg-card relative mb-8 overflow-hidden rounded-xl border p-6">
-
+    <div className="border-border/60 bg-card relative mb-8 overflow-hidden rounded-lg border p-6 shadow-sm">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {/* Sort */}
         <div className="space-y-3">
@@ -96,7 +95,7 @@ export function Filters() {
             {t('filters:sort')}
           </label>
           <Select value={sort} onValueChange={setSort}>
-            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold">
+            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-lg font-bold">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -121,7 +120,7 @@ export function Filters() {
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder={t('filters:priceMin')}
-              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-xl border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
+              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-lg border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
             />
             <div className="bg-border h-px w-4" />
             <input
@@ -129,7 +128,7 @@ export function Filters() {
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder={t('filters:priceMax')}
-              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-xl border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
+              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-lg border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
             />
           </div>
         </div>
@@ -141,7 +140,7 @@ export function Filters() {
             {t('filters:location')}
           </label>
           <Select value={location} onValueChange={setLocation}>
-            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-xl font-bold uppercase">
+            <SelectTrigger className="border-input bg-muted/30 h-12 w-full rounded-lg font-bold uppercase">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -158,7 +157,7 @@ export function Filters() {
         <div className="flex items-end gap-3 lg:col-span-1">
           <Button
             onClick={applyFilters}
-            className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-xl font-bold shadow-lg"
+            className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-lg font-bold shadow-lg"
           >
             {t('filters:apply')}
           </Button>
@@ -166,7 +165,7 @@ export function Filters() {
             onClick={resetFilters}
             variant="outline"
             size="icon"
-            className="border-border/50 text-muted-foreground hover:bg-muted hover:text-foreground h-12 w-12 rounded-xl bg-transparent"
+            className="border-border/50 text-muted-foreground hover:bg-muted hover:text-foreground h-12 w-12 rounded-lg bg-transparent"
           >
             <RotateCcw className="h-5 w-5" />
           </Button>

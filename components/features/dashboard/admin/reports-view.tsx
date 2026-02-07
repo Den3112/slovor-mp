@@ -241,7 +241,7 @@ export function AdminReportsView() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-xl border p-1">
+          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-lg border p-1">
             {['all', 'pending', 'resolved', 'dismissed'].map((tab) => (
               <TabsTrigger
                 key={tab}
