@@ -7,7 +7,18 @@ export function formatDate(dateStr: string) {
 }
 
 export function formatPrice(amount: number, currency = 'EUR') {
-  return new Intl.NumberFormat('sk-SK', {
+  // Use appropriate locale for specific currencies
+  const localeMap: Record<string, string> = {
+    RUB: 'ru-RU',
+    EUR: 'sk-SK',
+    USD: 'en-US',
+    GBP: 'en-GB',
+    CZK: 'cs-CZ',
+    PLN: 'pl-PL',
+    UAH: 'uk-UA',
+  }
+
+  return new Intl.NumberFormat(localeMap[currency] || 'en-US', {
     style: 'currency',
     currency: currency,
     minimumFractionDigits: 0,

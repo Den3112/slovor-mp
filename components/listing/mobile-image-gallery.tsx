@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight, ImageOff, X, ZoomIn } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -13,6 +14,7 @@ interface MobileImageGalleryProps {
 }
 
 export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
+  const { t } = useTranslation(['listing'])
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
@@ -44,7 +46,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
       <div className="bg-muted/50 flex aspect-4/3 items-center justify-center rounded-xl md:aspect-16/10">
         <div className="text-muted-foreground/40 text-center">
           <ImageOff className="mx-auto mb-3 h-12 w-12" />
-          <p className="text-sm font-bold">No images</p>
+          <p className="text-sm font-bold">{t('listing:noImage')}</p>
         </div>
       </div>
     )
@@ -104,7 +106,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
           {/* Fullscreen Button - Desktop only */}
           <button
             onClick={() => setFullscreen(true)}
-            className="absolute right-4 bottom-4 z-10 hidden h-10 w-10 items-center justify-center rounded-full bg-background/80 border border-border shadow-sm text-foreground transition-all hover:scale-110 md:flex"
+            className="bg-background/80 border-border text-foreground absolute right-4 bottom-4 z-10 hidden h-10 w-10 items-center justify-center rounded-full border shadow-sm transition-all hover:scale-110 md:flex"
           >
             <ZoomIn className="h-5 w-5" />
           </button>
@@ -129,7 +131,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
 
           {/* Image Counter - Mobile */}
           {images.length > 1 && (
-            <div className="bg-background/80 border border-border text-foreground absolute top-4 left-4 rounded-full px-3 py-1.5 text-xs font-bold md:hidden">
+            <div className="bg-background/80 border-border text-foreground absolute top-4 left-4 rounded-full border px-3 py-1.5 text-xs font-bold md:hidden">
               {selectedIndex + 1} / {images.length}
             </div>
           )}

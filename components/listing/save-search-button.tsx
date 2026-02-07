@@ -30,7 +30,7 @@ interface Props {
 export function SaveSearchButton({ filters, searchQuery }: Props) {
   const { user } = useAuth()
   const router = useRouter()
-  const { locale } = useTranslation()
+  const { t, locale } = useTranslation(['dashboard', 'common'])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState('')
@@ -59,11 +59,11 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
 
       if (error) throw new Error(error)
 
-      toast.success('Search saved successfully')
+      toast.success(t('dashboard:savedSearchesDetails.success'))
       setOpen(false)
       setName('')
     } catch (error) {
-      toast.error('Failed to save search')
+      toast.error(t('dashboard:savedSearchesDetails.error'))
       console.error(error)
     } finally {
       setLoading(false)
@@ -79,7 +79,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
         onClick={() => router.push(`/${locale}/auth/login`)}
       >
         <BookmarkPlus className="h-4 w-4" />
-        Save Search
+        {t('dashboard:savedSearchesDetails.saveButton')}
       </Button>
     )
   }
@@ -89,24 +89,26 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2 rounded-xl">
           <BookmarkPlus className="h-4 w-4" />
-          Save Search
+          {t('dashboard:savedSearchesDetails.saveButton')}
         </Button>
       </DialogTrigger>
       <DialogContent className="rounded-xl sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Save this search</DialogTitle>
+          <DialogTitle>{t('dashboard:savedSearchesDetails.title')}</DialogTitle>
           <DialogDescription>
-            Get notified when new listings match your criteria.
+            {t('dashboard:savedSearchesDetails.description')}
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">
+              {t('dashboard:savedSearchesDetails.nameLabel')}
+            </Label>
             <Input
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. iPhone 15 Pro Max"
+              placeholder={t('dashboard:savedSearchesDetails.namePlaceholder')}
               className="rounded-xl"
             />
           </div>
@@ -116,10 +118,10 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
               className="flex cursor-pointer flex-col gap-1"
             >
               <span className="text-foreground text-base font-bold">
-                Email Notifications
+                {t('dashboard:savedSearchesDetails.emailNotifications')}
               </span>
               <span className="text-muted-foreground/80 text-sm font-medium">
-                Receive daily updates about new items
+                {t('dashboard:savedSearchesDetails.emailNotificationsDesc')}
               </span>
             </Label>
             <Switch
@@ -139,10 +141,10 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving...
+                {t('dashboard:savedSearchesDetails.saving')}
               </>
             ) : (
-              'Save Search'
+              t('dashboard:savedSearchesDetails.saveButton')
             )}
           </Button>
         </DialogFooter>

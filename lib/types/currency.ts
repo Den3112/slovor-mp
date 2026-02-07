@@ -1,6 +1,6 @@
 // Currency types for Slovor Marketplace
 
-export type CurrencyCode = 'EUR' | 'USD' | 'CZK' | 'PLN' | 'UAH' | 'GBP'
+export type CurrencyCode = 'EUR' | 'USD' | 'CZK' | 'PLN' | 'UAH' | 'GBP' | 'RUB'
 
 export interface Currency {
   code: CurrencyCode
@@ -16,6 +16,7 @@ export const CURRENCIES: Record<CurrencyCode, Currency> = {
   PLN: { code: 'PLN', name: 'Polish Złoty', symbol: 'zł', locale: 'pl-PL' },
   UAH: { code: 'UAH', name: 'Ukrainian Hryvnia', symbol: '₴', locale: 'uk-UA' },
   GBP: { code: 'GBP', name: 'British Pound', symbol: '£', locale: 'en-GB' },
+  RUB: { code: 'RUB', name: 'Russian Ruble', symbol: '₽', locale: 'ru-RU' },
 }
 
 export const DEFAULT_CURRENCY: CurrencyCode = 'EUR'
@@ -39,6 +40,7 @@ export const COUNTRY_CURRENCY_MAP: Record<string, CurrencyCode> = {
   UA: 'UAH', // Ukraine
   GB: 'GBP', // United Kingdom
   US: 'USD', // United States
+  RU: 'RUB', // Russia
 }
 
 export interface ExchangeRates {
@@ -62,4 +64,5 @@ export const FALLBACK_RATES: Record<CurrencyCode, number> = {
   PLN: 4.32,
   UAH: 40.5,
   GBP: 0.86,
+  RUB: 100,
 }
