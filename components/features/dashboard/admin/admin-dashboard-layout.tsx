@@ -27,7 +27,7 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
     signOutLabel: t('admin:signOut'),
     sections: [
       {
-        title: t('admin:overview') || 'Overview',
+        title: t('admin:overview'),
         items: [
           {
             href: '/admin',
@@ -36,13 +36,13 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
           },
           {
             href: '/admin/analytics',
-            label: t('admin:analytics') || 'Analytics',
+            label: t('admin:analytics'),
             icon: BarChart3,
           },
         ],
       },
       {
-        title: t('admin:management') || 'Management',
+        title: t('admin:management'),
         items: [
           {
             href: '/admin/listings',
@@ -52,7 +52,7 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
           { href: '/admin/users', label: t('admin:users'), icon: Users },
           {
             href: '/admin/categories',
-            label: t('admin:categories') || 'Categories',
+            label: t('admin:categories'),
             icon: Layers,
           },
           {
@@ -62,13 +62,13 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
           },
           {
             href: '/admin/orders',
-            label: t('admin:marketplaceTransactions') || 'Orders',
+            label: t('admin:marketplaceTransactions'),
             icon: ShoppingBag,
           },
         ],
       },
       {
-        title: t('admin:reports') || 'Reports & Content',
+        title: t('admin:reports'),
         items: [
           {
             href: '/admin/reports',
@@ -77,7 +77,7 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
           },
           {
             href: '/admin/support',
-            label: t('admin:supportTickets') || 'Support',
+            label: t('admin:supportTickets'),
             icon: LifeBuoy,
           },
           { href: '/admin/content', label: t('admin:content'), icon: FileText },

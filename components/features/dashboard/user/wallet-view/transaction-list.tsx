@@ -103,7 +103,9 @@ export function TransactionList({
                       'rounded border px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase',
                       transaction.status === 'completed'
                         ? 'border-emerald-500/20 bg-emerald-500/5 text-emerald-500'
-                        : 'border-amber-500/20 bg-amber-500/5 text-amber-500'
+                        : transaction.status === 'failed'
+                          ? 'border-destructive/20 bg-destructive/5 text-destructive'
+                          : 'border-amber-500/20 bg-amber-500/5 text-amber-500'
                     )}
                   >
                     {t(`dashboard:orderStatuses.${transaction.status}`)}

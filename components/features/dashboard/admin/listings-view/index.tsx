@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import {
   Users,
@@ -50,19 +50,19 @@ export function AdminListingsView({
   const [sortColumn, setSortColumn] = useState('created_at')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
 
+  const loadListings = useCallback(async () => {
+    setIsLoading(true)
+    const { data } = await listingsApi.getAdminAll()
+    if (data) setListings(data)
+    setIsLoading(false)
+  }, [])
+
   // Load listings if not provided
   useEffect(() => {
     if (initialListings.length === 0) {
       loadListings()
     }
-  }, [initialListings.length])
-
-  const loadListings = async () => {
-    setIsLoading(true)
-    const { data } = await listingsApi.getAdminAll()
-    if (data) setListings(data)
-    setIsLoading(false)
-  }
+  }, [initialListings.length, loadListings])
 
   const handleAction = async (id: string, status: 'active' | 'rejected') => {
     const { error } = await listingsApi.update(id, { status })

@@ -90,6 +90,7 @@
       "standard": {
         "title": "Standard",
         "subtitle": "Boost to top of search",
+        "price": "299",
         "features": [
           "Visible to more buyers",
           "Avg. 3x more views",
@@ -99,6 +100,7 @@
       "premium": {
         "title": "Premium",
         "subtitle": "Visual edge over others",
+        "price": "799",
         "features": [
           "Golden visual border",
           "Priority in categories",
@@ -131,10 +133,6 @@
     "emptyTitle": "Quiet for now",
     "emptyDesc": "You're all caught up! New alerts will appear here."
   },
-  "activityLog": {
-    "title": "Activity Log",
-    "subtitle": "Audit track of all your major actions and account events"
-  },
   "chat": {
     "you": "You",
     "startChat": "Say hello to start the deal!",
@@ -164,5 +162,48 @@
     "pending": "Pending",
     "cancelled": "Cancelled",
     "processing": "Processing"
-  }
+  },
+  "activityLog": {
+    "title": "Activity Log",
+    "subtitle": "Audit track of all your major actions and account events",
+    "noActivity": "No activity recorded",
+    "noActivityDesc": "Your major account events and actions will show up here.",
+    "internal": "Internal"
+  },
+  "subscriptions": {
+    "title": "Subscription Plans",
+    "subtitle": "Choose the best plan for your selling needs",
+    "upgradePrompt": "Upgrade your plan to unlock more listings and boost your sales!",
+    "currentPlanInfo": "You are currently on the {plan} plan.",
+    "currentLabel": "Current: {plan} PLAN",
+    "endsOn": "Ends on: {date}",
+    "active": "Active",
+    "mostPopular": "Most Popular",
+    "price": "Price",
+    "whyUpgrade": "Why upgrade?",
+    "upgradeDesc": "Slovor Pro accounts give you professional tools to stand out from the crowd. With boosted visibility and priority support, your listings sell on average 3x faster than basic accounts.",
+    "paymentSafety": "Payment Safety",
+    "paymentSafetyDesc": "All payments are handled securely via Slovor Pay. No credit card details are stored on our servers. You can cancel your subscription at any time from your settings.",
+    "plans": {
+      "free": {
+        "name": "Free / Individual",
+        "description": "Perfect for casual sellers and starters.",
+        "duration": "Forever",
+        "cta": "Current Plan"
+      },
+      "pro": {
+        "name": "Professional",
+        "description": "For power users and small businesses.",
+        "period": "/ month",
+        "cta": "Upgrade to Pro"
+      },
+      "business": {
+        "name": "Business",
+        "description": "Maximum exposure for professional dealers.",
+        "period": "/ month",
+        "cta": "Upgrade to Business"
+      }
+    }
+  },
+  "promoted": "Promoted"
 }

@@ -155,7 +155,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
           trend={{
             value: stats.pendingModeration > 0 ? 15 : 0,
             direction: 'neutral',
-            label: t('admin:currentBacklog') || 'Current backlog',
+            label: t('admin:currentBacklog'),
           }}
           delay={0.4}
           className={
@@ -179,8 +179,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                     {t('admin:activityMetrics')}
                   </CardTitle>
                   <p className="text-muted-foreground/40 mt-1 text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:activityMetricsDesc') ||
-                      'Global Traffic & Conversion'}
+                    {t('admin:activityMetricsDesc')}
                   </p>
                 </div>
                 <div className="bg-muted/30 border-border/40 flex rounded-lg border p-1">
@@ -240,7 +239,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
             <CardHeader className="border-b border-border/10 bg-muted/20 px-6 py-4">
               <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
                 <ShieldCheck className="text-success h-4 w-4" />
-                {t('admin:systemHealth') || 'System Health'}
+                {t('admin:systemHealth')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 p-6">
@@ -251,11 +250,11 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                       <Database className="h-4 w-4 text-blue-500" />
                     </div>
                     <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
-                      {t('admin:database') || 'Database'}
+                      {t('admin:database')}
                     </span>
                   </div>
                   <span className="text-success border-success/20 bg-success/5 rounded-sm border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:operational') || 'Operational'}
+                    {t('admin:operational')}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -264,7 +263,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                       <Activity className="h-4 w-4 text-emerald-500" />
                     </div>
                     <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
-                      {t('admin:apiLatency') || 'API Latency'}
+                      {t('admin:apiLatency')}
                     </span>
                   </div>
                   <span className="text-[10px] font-bold tracking-widest text-foreground uppercase">
@@ -277,11 +276,11 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                       <Lock className="h-4 w-4 text-amber-500" />
                     </div>
                     <span className="text-[11px] font-bold tracking-widest text-muted-foreground/60 uppercase">
-                      {t('admin:sslStatus') || 'SSL Status'}
+                      {t('admin:sslStatus')}
                     </span>
                   </div>
                   <span className="text-success border-success/20 bg-success/5 rounded-sm border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:secure') || 'Secure'}
+                    {t('admin:secure')}
                   </span>
                 </div>
               </div>
@@ -293,7 +292,7 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                   className="h-11 w-full rounded-xl border-border/60 bg-muted/10 text-[9px] font-bold tracking-widest text-muted-foreground uppercase transition-all hover:bg-muted/30 active:scale-95"
                 >
                   <RefreshCcw className="mr-2 h-3 w-3" />
-                  {t('admin:fullSystemReport') || 'Full System Report'}
+                  {t('admin:fullSystemReport')}
                 </Button>
               </div>
             </CardContent>

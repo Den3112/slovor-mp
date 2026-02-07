@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import {
   Users,
   ShieldCheck,
@@ -44,18 +44,18 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
   const [sortColumn, setSortColumn] = useState('created_at')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
 
-  useEffect(() => {
-    if (initialUsers.length === 0) {
-      loadUsers()
-    }
-  }, [initialUsers.length])
-
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     setIsLoading(true)
     const { data } = await profilesApi.getAdminAll()
     if (data) setUsers(data)
     setIsLoading(false)
-  }
+  }, [])
+
+  useEffect(() => {
+    if (initialUsers.length === 0) {
+      loadUsers()
+    }
+  }, [initialUsers.length, loadUsers])
 
   const handleToggleVerification = async (user: User) => {
     const newStatus = !user.is_verified
@@ -240,7 +240,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
             </DropdownMenuContent>
           </DropdownMenu>
           <span className="text-muted-foreground/60 text-[10px]">
-            Level: {row.verification_level || 'None'}
+            {t('admin:verificationLevel')}: {row.verification_level || t('admin:none')}
           </span>
         </div>
       ),
@@ -279,7 +279,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     },
     {
       key: 'actions',
-      header: <span className="sr-only">Actions</span>,
+      header: <span className="sr-only">{t('admin:tableActions')}</span>,
       className: 'text-right',
       cell: (row) => (
         <div className="flex justify-end">

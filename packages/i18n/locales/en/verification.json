@@ -14,5 +14,13 @@
   "submitDocuments": "Upload Documents",
   "rejected": "Rejected",
   "whyVerify": "Why verify?",
-  "whyVerifyDesc": "Verified accounts are 3x more likely to sell successfully. Buyers prefer profiles with a verified phone and identity badge as it ensures a safer marketplace experience."
+  "whyVerifyDesc": "Verified accounts are 3x more likely to sell successfully. Buyers prefer profiles with a verified phone and identity badge as it ensures a safer marketplace experience.",
+  "selectDocType": "Select the type of document you want to upload:",
+  "dropDocs": "Drop your documents here",
+  "uploadFormats": "JPEG, PNG or PDF up to 10MB",
+  "submitting": "Submitting...",
+  "submitForReview": "Submit for Review",
+  "id_card": "ID Card",
+  "passport": "Passport",
+  "drivers_license": "Driver's License"
 }
