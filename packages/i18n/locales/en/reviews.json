@@ -17,5 +17,9 @@
   "noReviewsDesc": "You haven't received any reviews yet. Sell items to build your reputation!",
   "backToListings": "Back to listings",
   "received": "Received",
-  "given": "Given"
+  "given": "Given",
+  "reply": "Reply",
+  "writeReply": "Write a reply...",
+  "sendReply": "Send Reply",
+  "replySent": "Reply sent successfully"
 }
