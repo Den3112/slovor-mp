@@ -39,6 +39,7 @@ interface UnifiedSidebarProps {
   onToggleCollapse?: () => void
   isMobile?: boolean
   onNavigate?: () => void
+  hideLogo?: boolean
 }
 
 // --- Component ---
@@ -50,6 +51,7 @@ export function UnifiedSidebar({
   onToggleCollapse,
   isMobile = false,
   onNavigate,
+  hideLogo = false,
 }: UnifiedSidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
@@ -89,12 +91,14 @@ export function UnifiedSidebar({
       {/* Header / Logo Area */}
       <div
         className={cn(
-          'border-border flex h-[80px] items-center border-b px-6',
-          isCollapsed ? 'justify-center' : 'justify-between'
+          'flex items-center px-6 transition-all',
+          !hideLogo && 'border-border border-b h-(--header-height) justify-between',
+          hideLogo && 'h-10 justify-end',
+          isCollapsed && 'justify-center px-0'
         )}
       >
-        {!isCollapsed && <Logo size="sm" />}
-        {isCollapsed && <Logo size="sm" showText={false} />}
+        {!hideLogo && !isCollapsed && <Logo size="sm" />}
+        {!hideLogo && isCollapsed && <Logo size="sm" showText={false} />}
 
         {!isMobile && onToggleCollapse && (
           <Button

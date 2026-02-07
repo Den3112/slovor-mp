@@ -90,7 +90,7 @@ export function StatsCard({
               )}
             </div>
             {Icon && (
-              <div className="bg-primary/10 text-primary rounded-xl p-2.5 transition-transform duration-300 group-hover:scale-110">
+              <div className="from-primary/10 to-primary/5 text-primary rounded-xl bg-linear-to-br p-2.5 transition-transform duration-300 group-hover:scale-110">
                 <Icon className="h-5 w-5" />
               </div>
             )}
