@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Table,
   TableBody,
@@ -58,15 +59,16 @@ export function ListingsTable({
             <TableHeader>
               <TableRow className="bg-muted/20 hover:bg-muted/20 border-border/40 border-b">
                 <TableHead className="h-10 w-12 px-4 text-center">
-                  <input
-                    type="checkbox"
-                    className="border-border/60 bg-background accent-primary h-4 w-4 cursor-pointer rounded"
-                    checked={
-                      selectedIds.length === listings.length &&
-                      listings.length > 0
-                    }
-                    onChange={onToggleSelectAll}
-                  />
+                  <div className="flex items-center justify-center">
+                    <Checkbox
+                      checked={
+                        selectedIds.length === listings.length &&
+                        listings.length > 0
+                      }
+                      onCheckedChange={onToggleSelectAll}
+                      className="border-border/60 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                    />
+                  </div>
                 </TableHead>
                 <TableHead className="text-muted-foreground/50 h-10 px-4 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {t('common:title')}

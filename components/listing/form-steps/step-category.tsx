@@ -10,6 +10,7 @@ import type {
 
 import { CategoryIcon } from '@/components/category/category-icon'
 import { FormField } from '@/components/ui/form-field'
+import { Button } from '@/components/ui/button'
 
 interface StepCategoryProps {
   categories: Category[]
@@ -34,14 +35,15 @@ export function StepCategory({
       <FormField label={t('category')} error={fieldErrors.category_id}>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {categories.map((cat) => (
-            <button
+            <Button
               key={cat.id}
               type="button"
+              variant="outline"
               onClick={() => updateField('category_id', cat.id)}
               className={cn(
-                'group relative flex flex-col items-center gap-3 rounded-lg border p-4 transition-all active:scale-95 md:p-6',
+                'group relative flex h-auto flex-col items-center gap-3 rounded-lg border p-4 transition-all active:scale-95 md:p-6',
                 formData.category_id === cat.id
-                  ? 'border-primary bg-primary/10 ring-primary/10 ring-2'
+                  ? 'border-primary bg-primary/10 ring-primary/10 hover:bg-primary/20 ring-2'
                   : 'border-border bg-card hover:border-primary/50 hover:bg-accent/50'
               )}
             >
@@ -68,7 +70,7 @@ export function StepCategory({
               >
                 {cat.name}
               </span>
-            </button>
+            </Button>
           ))}
         </div>
       </FormField>
@@ -76,20 +78,21 @@ export function StepCategory({
       <FormField label={t('condition')} error={fieldErrors.condition}>
         <div className="bg-muted/50 border-border flex gap-2 rounded-lg border p-1">
           {(['new', 'used'] as const).map((c) => (
-            <button
+            <Button
               key={c}
               type="button"
+              variant="ghost"
               onClick={() => updateField('condition', c)}
               className={cn(
-                'flex-1 rounded-lg py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
+                'h-auto flex-1 rounded-lg py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
 
                 formData.condition === c
-                  ? 'bg-background text-foreground shadow-sm'
+                  ? 'bg-background text-foreground hover:bg-background shadow-sm'
                   : 'text-muted-foreground hover:bg-background/50 hover:text-foreground'
               )}
             >
               {c === 'new' ? t('filters:new') : t('filters:used')}
-            </button>
+            </Button>
           ))}
         </div>
       </FormField>

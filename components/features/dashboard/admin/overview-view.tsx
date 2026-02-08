@@ -102,9 +102,11 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
               {t('admin:systemsOperational')}
             </span>
             <span className="hidden sm:inline">•</span>
-            <span className="flex items-center gap-1 min-w-0">
-              <span className="text-foreground/70 shrink-0">{t('admin:loggedInAs')}</span>{' '}
-              <span className="text-foreground truncate max-w-[150px] sm:max-w-none hover:whitespace-normal hover:break-all transition-all duration-300">
+            <span className="flex min-w-0 items-center gap-1">
+              <span className="text-foreground/70 shrink-0">
+                {t('admin:loggedInAs')}
+              </span>{' '}
+              <span className="text-foreground max-w-[150px] truncate transition-all duration-300 hover:break-all hover:whitespace-normal sm:max-w-none">
                 {userEmail}
               </span>
             </span>
@@ -190,12 +192,18 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                   </p>
                 </div>
                 <div className="bg-muted/30 border-border/40 flex rounded-lg border p-1">
-                  <button className="text-muted-foreground/60 hover:text-foreground px-3 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors">
+                  <Button
+                    variant="ghost"
+                    className="text-muted-foreground/60 hover:text-foreground h-auto px-3 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors hover:bg-transparent"
+                  >
                     {t('admin:days7')}
-                  </button>
-                  <button className="bg-card text-primary border-border/40 rounded-md border px-3 py-1 text-[9px] font-bold tracking-widest uppercase shadow-sm">
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="bg-card text-primary border-border/40 hover:bg-card hover:text-primary h-auto rounded-md border px-3 py-1 text-[9px] font-bold tracking-widest uppercase shadow-sm"
+                  >
                     {t('admin:days30')}
-                  </button>
+                  </Button>
                 </div>
               </div>
             </CardHeader>
@@ -242,9 +250,9 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
           </Card>
 
           {/* System Health Panel */}
-          <Card className="border-border selection:bg-primary/30 overflow-hidden rounded-lg bg-card text-foreground shadow-sm">
-            <CardHeader className="border-b border-border/10 bg-muted/20 px-6 py-4">
-              <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
+          <Card className="border-border selection:bg-primary/30 bg-card text-foreground overflow-hidden rounded-lg shadow-sm">
+            <CardHeader className="border-border/10 bg-muted/20 border-b px-6 py-4">
+              <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
                 <ShieldCheck className="text-success h-4 w-4" />
                 {t('admin:systemHealth')}
               </CardTitle>
@@ -253,10 +261,10 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/10 bg-muted/30">
+                    <div className="border-border/10 bg-muted/30 flex h-8 w-8 items-center justify-center rounded-lg border">
                       <Database className="h-4 w-4 text-blue-500" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase">
+                    <span className="text-muted-foreground/80 text-[11px] font-bold tracking-widest uppercase">
                       {t('admin:database')}
                     </span>
                   </div>
@@ -266,23 +274,23 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/10 bg-muted/30">
+                    <div className="border-border/10 bg-muted/30 flex h-8 w-8 items-center justify-center rounded-lg border">
                       <Activity className="h-4 w-4 text-emerald-500" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase">
+                    <span className="text-muted-foreground/80 text-[11px] font-bold tracking-widest uppercase">
                       {t('admin:apiLatency')}
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold tracking-widest text-foreground uppercase">
+                  <span className="text-foreground text-[10px] font-bold tracking-widest uppercase">
                     24ms
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/10 bg-muted/30">
+                    <div className="border-border/10 bg-muted/30 flex h-8 w-8 items-center justify-center rounded-lg border">
                       <Lock className="h-4 w-4 text-amber-500" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-widest text-muted-foreground/80 uppercase">
+                    <span className="text-muted-foreground/80 text-[11px] font-bold tracking-widest uppercase">
                       {t('admin:sslStatus')}
                     </span>
                   </div>
@@ -292,11 +300,11 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
                 </div>
               </div>
 
-              <div className="mt-4 border-t border-border/10 pt-4">
+              <div className="border-border/10 mt-4 border-t pt-4">
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-11 w-full rounded-lg border-border/60 bg-muted/10 text-[9px] font-bold tracking-widest text-muted-foreground uppercase transition-all hover:bg-muted/30 active:scale-95"
+                  className="border-border/60 bg-muted/10 text-muted-foreground hover:bg-muted/30 h-11 w-full rounded-lg text-[9px] font-bold tracking-widest uppercase transition-all active:scale-95"
                 >
                   <RefreshCcw className="mr-2 h-3 w-3" />
                   {t('admin:fullSystemReport')}

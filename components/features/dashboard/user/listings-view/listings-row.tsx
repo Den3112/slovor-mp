@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Checkbox } from '@/components/ui/checkbox'
 import { TableCell, TableRow } from '@/components/ui/table'
 import { useTranslation } from '@/lib/i18n'
 import { Listing } from './types'
@@ -55,11 +56,10 @@ export function ListingsRow({
       )}
     >
       <TableCell className="w-12 px-4 py-3 text-center">
-        <input
-          type="checkbox"
-          className="border-border/60 bg-background accent-primary h-4 w-4 cursor-pointer rounded"
+        <Checkbox
           checked={selected}
-          onChange={onToggle}
+          onCheckedChange={() => onToggle()}
+          className="border-border/60 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
         />
       </TableCell>
       <TableCell className="px-4 py-3">
@@ -86,7 +86,9 @@ export function ListingsRow({
               {listing.title}
             </Link>
             <span className="text-muted-foreground/50 text-[10px] font-bold tracking-widest uppercase">
-              {isMounted ? new Date(listing.created_at).toLocaleDateString() : '...'}
+              {isMounted
+                ? new Date(listing.created_at).toLocaleDateString()
+                : '...'}
             </span>
           </div>
         </div>

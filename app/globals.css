@@ -112,10 +112,10 @@
     /* #F59E0B - Amber-500 */
     --warning-foreground: 0 0% 100%;
 
-    /* Shadows */
-    --shadow-card: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
-    --shadow-primary: 0 4px 14px 0 rgba(99, 102, 241, 0.3);
-    --shadow-dropdown: 0 8px 40px 0 rgba(99, 102, 241, 0.15);
+    /* Shadows - MODIFIED FOR SOLID AESTHETIC (Reduced blur) */
+    --shadow-card: 0 4px 8px 0 rgba(0, 0, 0, 0.04);
+    --shadow-primary: 0 4px 10px 0 rgba(99, 102, 241, 0.2);
+    --shadow-dropdown: 0 8px 16px 0 rgba(99, 102, 241, 0.12);
   }
 
   .dark {
@@ -210,9 +210,8 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     overflow-x: hidden;
     padding-bottom: env(safe-area-inset-bottom);
-    /* Subtle background grain or gradient */
-    background-image: radial-gradient(at 0% 0%, hsla(239, 84%, 67%, 0.03) 0, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(239, 84%, 67%, 0.02) 0, transparent 50%);
+    /* REMOVED GRADIENTS FOR SOLID AESTHETIC */
+    background-image: none;
   }
 
   /* Premium Scrollbar - Desktop Only */

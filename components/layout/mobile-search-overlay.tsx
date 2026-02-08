@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
 
 import { useListingSearch } from '@/lib/hooks/use-listing-search'
@@ -61,27 +63,33 @@ export function MobileSearchOverlay({
               <div className="bg-muted flex flex-1 items-center rounded-lg px-3 py-2">
                 <Search className="text-muted-foreground h-5 w-5" />
                 <form onSubmit={handleSearch} className="flex-1">
-                  <input
+                  <Input
                     autoFocus
                     type="text"
                     placeholder={t('common:searchPlaceholder')}
-                    className="w-full bg-transparent px-3 py-1 text-base focus:outline-hidden"
+                    className="h-auto w-full border-none bg-transparent px-3 py-1 text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                   />
                 </form>
                 {query && (
-                  <button onClick={() => setQuery('')}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-5 w-5 p-0 hover:bg-transparent"
+                    onClick={() => setQuery('')}
+                  >
                     <X className="text-muted-foreground h-5 w-5" />
-                  </button>
+                  </Button>
                 )}
               </div>
-              <button
+              <Button
+                variant="ghost"
                 onClick={onClose}
-                className="text-primary text-sm font-bold"
+                className="text-primary h-auto px-2 text-sm font-bold hover:bg-transparent"
               >
                 {t('common:cancel')}
-              </button>
+              </Button>
             </div>
 
             {/* Content */}
@@ -95,13 +103,14 @@ export function MobileSearchOverlay({
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
                       {NAV_LINKS.categories.slice(0, 4).map((cat) => (
-                        <button
+                        <Button
+                          variant="ghost"
                           key={cat.id}
                           onClick={() => {
                             router.push(`/${locale}${cat.href}`)
                             onClose()
                           }}
-                          className="border-border/40 transition-active flex items-center gap-3 rounded-lg border p-3 text-left active:scale-95"
+                          className="border-border/40 transition-active hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-lg border p-3 text-left active:scale-95"
                         >
                           <div
                             className={cn(
@@ -114,7 +123,7 @@ export function MobileSearchOverlay({
                           <span className="text-sm font-bold">
                             {t(cat.label)}
                           </span>
-                        </button>
+                        </Button>
                       ))}
                     </div>
                   </section>
@@ -132,16 +141,17 @@ export function MobileSearchOverlay({
                         'Table',
                         'Jobs',
                       ].map((tag) => (
-                        <button
+                        <Button
+                          variant="ghost"
                           key={tag}
                           onClick={() => {
                             setQuery(tag)
                             // Optionally trigger search immediately
                           }}
-                          className="bg-muted hover:bg-muted/80 rounded-full px-4 py-2 text-sm font-medium transition-colors active:scale-95"
+                          className="bg-muted hover:bg-muted/80 h-auto rounded-full px-4 py-2 text-sm font-medium transition-colors active:scale-95"
                         >
                           {tag}
-                        </button>
+                        </Button>
                       ))}
                     </div>
                   </section>

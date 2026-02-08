@@ -2,6 +2,8 @@ import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { getTranslationServer } from '@/lib/i18n/server'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -89,9 +91,9 @@ export default async function ContactPage() {
                     <label className="text-muted-foreground ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
                       {t('contact:name')}
                     </label>
-                    <input
+                    <Input
                       type="text"
-                      className="border-border bg-muted text-foreground focus:border-primary focus:ring-primary/5 w-full rounded-lg border px-6 py-4 font-bold transition-all focus:ring-4 focus:outline-none"
+                      className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 h-14 w-full rounded-lg border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
                       placeholder={t('contact:placeholderName')}
                     />
                   </div>
@@ -99,9 +101,9 @@ export default async function ContactPage() {
                     <label className="text-muted-foreground ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
                       Email
                     </label>
-                    <input
+                    <Input
                       type="email"
-                      className="border-border bg-muted text-foreground focus:border-primary focus:ring-primary/5 w-full rounded-lg border px-6 py-4 font-bold transition-all focus:ring-4 focus:outline-none"
+                      className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 h-14 w-full rounded-lg border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
                       placeholder={t('contact:placeholderEmail')}
                     />
                   </div>
@@ -111,9 +113,9 @@ export default async function ContactPage() {
                   <label className="text-muted-foreground ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
                     {t('contact:message')}
                   </label>
-                  <textarea
+                  <Textarea
                     rows={5}
-                    className="border-border bg-muted text-foreground focus:border-primary focus:ring-primary/5 w-full resize-none rounded-lg border px-6 py-4 font-bold transition-all focus:ring-4 focus:outline-none"
+                    className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 min-h-[120px] w-full resize-none rounded-lg border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
                     placeholder={t('contact:placeholderMessage')}
                   />
                 </div>

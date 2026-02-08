@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const LOCALE_DISMISSED_KEY = 'slovor-locale-dismissed'
 const AVAILABLE_LOCALES: Locale[] = ['sk', 'cs', 'en']
@@ -157,23 +158,25 @@ export function LocaleDetector() {
 
           <div className="grid gap-2">
             {LOCALE_OPTIONS.map((option) => (
-              <button
+              <Button
                 key={option.code}
+                variant="outline"
                 onClick={() => setSelectedLocale(option.code)}
-                className={`flex items-center gap-3 rounded-lg border-2 p-4 transition-all ${
+                className={cn(
+                  'hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-lg border-2 p-4 transition-all',
                   selectedLocale === option.code
-                    ? 'border-primary bg-primary/10'
-                    : 'border-border hover:border-border hover:bg-accent'
-                }`}
+                    ? 'border-primary bg-primary/10 hover:bg-primary/20 hover:text-primary-foreground'
+                    : 'border-border'
+                )}
               >
                 <span className="text-3xl">{option.flag}</span>
-                <span className="flex-1 text-left text-lg font-semibold">
+                <span className="text-foreground flex-1 text-left text-lg font-semibold">
                   {option.name}
                 </span>
                 {selectedLocale === option.code && (
                   <Check className="text-primary h-5 w-5" />
                 )}
-              </button>
+              </Button>
             ))}
           </div>
         </div>

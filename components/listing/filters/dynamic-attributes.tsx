@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
 import { useTranslation } from '@/lib/i18n'
 import {
   CATEGORY_ATTRIBUTES,
@@ -62,7 +63,7 @@ export function DynamicAttributes({
 
             {attr.type === 'range' && (
               <div className="grid grid-cols-2 gap-2">
-                <input
+                <Input
                   type="number"
                   value={dynamicAttrs[attr.id]?.min || ''}
                   onChange={(e) =>
@@ -72,9 +73,8 @@ export function DynamicAttributes({
                     })
                   }
                   placeholder={t('filters:min') || 'Min'}
-                  className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-lg border px-3 py-2.5 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
                 />
-                <input
+                <Input
                   type="number"
                   value={dynamicAttrs[attr.id]?.max || ''}
                   onChange={(e) =>
@@ -84,17 +84,15 @@ export function DynamicAttributes({
                     })
                   }
                   placeholder={t('filters:max') || 'Max'}
-                  className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-lg border px-3 py-2.5 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
                 />
               </div>
             )}
 
             {attr.type === 'text' && (
-              <input
+              <Input
                 type="text"
                 value={dynamicAttrs[attr.id] || ''}
                 onChange={(e) => onAttrChange(attr.id, e.target.value)}
-                className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 h-11 w-full rounded-lg border px-4 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
               />
             )}
           </div>

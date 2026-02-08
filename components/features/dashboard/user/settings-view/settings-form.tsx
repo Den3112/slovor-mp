@@ -14,6 +14,13 @@ import { CURRENCIES, type CurrencyCode } from '@/lib/types/currency'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { SettingsFormProps } from './types'
 
 export function SettingsForm({
@@ -94,17 +101,21 @@ export function SettingsForm({
           </label>
           <div className="relative">
             <Coins className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-            <select
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-11 w-full appearance-none rounded-lg border px-3 py-2 pl-9 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            <Select
               value={currency}
-              onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
+              onValueChange={(value) => setCurrency(value as CurrencyCode)}
             >
-              {Object.values(CURRENCIES).map((curr) => (
-                <option key={curr.code} value={curr.code}>
-                  {curr.symbol} {curr.name} ({curr.code})
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="h-11 w-full pl-9">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(CURRENCIES).map((curr) => (
+                  <SelectItem key={curr.code} value={curr.code}>
+                    {curr.symbol} {curr.name} ({curr.code})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

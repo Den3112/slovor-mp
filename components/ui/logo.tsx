@@ -49,6 +49,7 @@ export function Logo({
         className
       )}
       data-testid="logo"
+      aria-label="Slovor Marketplace Home"
     >
       <div
         className={cn(

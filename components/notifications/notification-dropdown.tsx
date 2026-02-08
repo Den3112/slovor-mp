@@ -34,9 +34,11 @@ export function NotificationDropdown() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => setIsOpen(!isOpen)}
-        className="group relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-white/10"
+        className="group relative h-10 w-10 rounded-full hover:bg-white/10"
         aria-label="Notifications"
       >
         <Bell
@@ -53,7 +55,7 @@ export function NotificationDropdown() {
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
-      </button>
+      </Button>
 
       <AnimatePresence>
         {isOpen && (

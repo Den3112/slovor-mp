@@ -1,5 +1,6 @@
 import { User, Loader2, Camera } from 'lucide-react'
 import Image from 'next/image'
+import { Button } from '@/components/ui/button'
 import { useTranslation } from '@/lib/i18n'
 import { SettingsAvatarProps } from './types'
 
@@ -33,15 +34,16 @@ export function SettingsAvatar({
             </div>
           )}
         </div>
-        <button
+        <Button
           type="button"
+          size="icon"
           onClick={() => document.getElementById('avatar-input')?.click()}
-          className="bg-primary text-primary-foreground absolute right-0 bottom-0 rounded-lg p-2 shadow-md transition-transform hover:scale-105"
+          className="bg-primary text-primary-foreground absolute right-0 bottom-0 h-8 w-8 rounded-lg p-0 shadow-md transition-transform hover:scale-105"
           title={t('profile:uploadAvatar')}
           disabled={isUploading}
         >
           <Camera className="h-4 w-4" />
-        </button>
+        </Button>
         <input
           id="avatar-input"
           type="file"

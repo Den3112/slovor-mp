@@ -131,7 +131,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
             animate={{ opacity: 1, y: 4, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="border-border/40 bg-background/95 absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-2xl border shadow-lg"
+            className="border-primary/20 bg-background absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-2xl border-2 shadow-xl ring-1 ring-black/5"
           >
             <div className="p-4">
               {/* Popular Categories */}

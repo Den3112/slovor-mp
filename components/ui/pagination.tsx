@@ -5,6 +5,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface PaginationProps {
   currentPage: number
@@ -86,27 +87,28 @@ export function Pagination({
       </div>
 
       <div className="flex items-center gap-2">
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="border-border hover:bg-accent rounded-lg border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-9 w-9 p-0"
         >
           <ChevronLeft className="h-5 w-5" />
-        </button>
+        </Button>
 
         {getPageNumbers().map((page, index) =>
           typeof page === 'number' ? (
-            <button
+            <Button
               key={index}
               onClick={() => goToPage(page)}
-              className={`rounded-lg px-4 py-2 font-medium transition-colors ${
-                currentPage === page
-                  ? 'bg-primary text-primary-foreground'
-                  : 'border-border bg-card hover:bg-accent border'
+              variant={currentPage === page ? 'default' : 'outline'}
+              className={`h-9 min-w-9 px-3 font-medium transition-colors ${
+                currentPage === page ? '' : 'hover:bg-accent'
               }`}
             >
               {page}
-            </button>
+            </Button>
           ) : (
             <span key={index} className="text-muted-foreground px-2">
               {page}
@@ -114,13 +116,15 @@ export function Pagination({
           )
         )}
 
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           onClick={() => goToPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="border-border hover:bg-accent rounded-lg border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-9 w-9 p-0"
         >
           <ChevronRight className="h-5 w-5" />
-        </button>
+        </Button>
       </div>
     </div>
   )
