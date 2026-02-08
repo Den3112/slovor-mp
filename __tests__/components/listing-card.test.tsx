@@ -11,11 +11,13 @@ vi.mock('@/lib/i18n', () => ({
         'used': 'Used',
         'featured': 'Featured',
         'noImage': 'No image',
-        'electronics': 'Electronics', // In case it comes from somewhere else
-        'common.new': 'New',
-        'common.used': 'Used',
-        'common.featured': 'Featured',
-        'common.noImage': 'No image',
+        'photos': 'Photos',
+        'common:price': 'Price',
+        'filters:new': 'New',
+        'filters:used': 'Used',
+        'common:featured': 'Featured',
+        'common:noImage': 'No image',
+        'electronics': 'Electronics',
       }
 
       return translations[key] || key
@@ -127,7 +129,7 @@ describe('ListingCard', () => {
   it('renders a link to the listing details', () => {
     render(<ListingCard listing={mockListing} />)
     const link = screen.getByRole('link')
-    expect(link).toHaveAttribute('href', '/listings/1')
+    expect(link).toHaveAttribute('href', '/en/listings/1')
   })
 
   it('renders the compact variant correctly', () => {

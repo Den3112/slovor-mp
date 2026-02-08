@@ -1,0 +1,4 @@
+
+> slovor-mp@1.0.0 lint
+> cross-env NODE_ENV=development eslint . --cache
+

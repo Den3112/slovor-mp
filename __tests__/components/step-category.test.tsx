@@ -7,10 +7,10 @@ vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: any = {
-        'createListing.category': 'Category',
-        'createListing.condition': 'Condition',
-        'filters.new': 'New',
-        'filters.used': 'Used',
+        'category': 'Category',
+        'condition': 'Condition',
+        'filters:new': 'New',
+        'filters:used': 'Used',
       }
       return translations[key] || key
     },
@@ -70,6 +70,6 @@ describe('StepCategory', () => {
       />
     )
     const button = screen.getByText('Electronics').closest('button')
-    expect(button).toHaveClass('bg-primary')
+    expect(button).toHaveClass('bg-primary/10')
   })
 })

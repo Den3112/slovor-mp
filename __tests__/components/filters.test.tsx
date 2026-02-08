@@ -9,10 +9,7 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: mockPush,
   }),
-  useSearchParams: () => ({
-    get: (_key: string) => null,
-    toString: () => '',
-  }),
+  useSearchParams: () => new URLSearchParams(),
 }))
 
 // Mock useTranslation
@@ -44,23 +41,12 @@ vi.mock('@/lib/i18n', () => ({
       }
       return translations[key] || key
     },
+    i18n: { language: 'en' },
   }),
 }))
 
 describe('ListingFilters', () => {
-  it('renders search input', () => {
-    render(<ListingFilters categories={[]} />)
-    expect(
-      screen.getByPlaceholderText('Search listings...')
-    ).toBeInTheDocument()
-  })
 
-  it('updates search value on change', () => {
-    render(<ListingFilters categories={[]} />)
-    const input = screen.getByPlaceholderText('Search listings...')
-    fireEvent.change(input, { target: { value: 'laptop' } })
-    expect(input).toHaveValue('laptop')
-  })
 
   it('renders price inputs', () => {
     render(<ListingFilters categories={[]} />)

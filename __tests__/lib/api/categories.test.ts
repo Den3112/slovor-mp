@@ -69,10 +69,11 @@ describe('categoriesApi', () => {
     it('fetches category by slug and adds listing count', async () => {
       const mockCategory = { id: '1', name: 'Electronics', slug: 'electronics' }
 
-      const singleMock = vi
+      const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: mockCategory, error: null })
-      const eqMock = vi.fn().mockReturnValue({ single: singleMock })
+      const limitMock = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const eqMock = vi.fn().mockReturnValue({ limit: limitMock })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
 
       const countEqMock2 = vi.fn().mockResolvedValue({ count: 10 })
@@ -93,10 +94,11 @@ describe('categoriesApi', () => {
     })
 
     it('handles errors when fetching category', async () => {
-      const singleMock = vi
+      const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: null, error: { message: 'Not Found' } })
-      const eqMock = vi.fn().mockReturnValue({ single: singleMock })
+      const limitMock = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const eqMock = vi.fn().mockReturnValue({ limit: limitMock })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
 
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)

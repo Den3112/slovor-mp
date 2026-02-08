@@ -32,9 +32,9 @@ export function EmptyState({
         {isString
           ? icon
           : (() => {
-              const Icon = icon
-              return <Icon className="text-muted-foreground/50 h-16 w-16" />
-            })()}
+            const Icon = icon
+            return <Icon className="text-muted-foreground/50 h-16 w-16" />
+          })()}
       </div>
       <h3 className="text-foreground mb-2 text-2xl font-bold">{title}</h3>
       {description && (
@@ -42,23 +42,23 @@ export function EmptyState({
           {description}
         </p>
       )}
-      {actionLabel &&
-        (onAction || actionHref) &&
-        (onAction ? (
+      {actionLabel && (onAction || actionHref) && (
+        onAction ? (
           <button
             onClick={onAction}
             className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-semibold transition-colors"
           >
             {actionLabel}
           </button>
-        ) : (
+        ) : actionHref ? (
           <Link
-            href={actionHref!}
+            href={actionHref}
             className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-semibold transition-colors"
           >
             {actionLabel}
           </Link>
-        ))}
+        ) : null
+      )}
     </div>
   )
 }

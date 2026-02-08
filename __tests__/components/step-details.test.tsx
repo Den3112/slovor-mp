@@ -5,7 +5,19 @@ import { StepDetails } from '@/components/listing/form-steps/step-details'
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
-    t: (key: string) => key,
+    t: (key: string) => {
+      const translations: any = {
+        'createListing.itemTitle': 'Title',
+        'createListing.price': 'Price',
+        'createListing.description': 'Description',
+        'createListing.location': 'Location',
+        'createListing.titlePlaceholder': 'e.g. iPhone 13',
+        'titlePlaceholder': 'e.g. iPhone 13',
+        'descPlaceholder': 'Describe your item in detail',
+        'locationPlaceholder': 'Enter location',
+      }
+      return translations[key] || key
+    },
     i18n: { language: 'en' },
   }),
 }))
@@ -41,7 +53,7 @@ describe('StepDetails', () => {
   it('renders all form fields', () => {
     render(<StepDetails {...defaultProps} />)
     expect(screen.getByPlaceholderText(/iPhone 13/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('0.00')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('0')).toBeInTheDocument()
     expect(
       screen.getByPlaceholderText(/Describe your item/i)
     ).toBeInTheDocument()
@@ -61,7 +73,7 @@ describe('StepDetails', () => {
     const updateField = vi.fn()
     render(<StepDetails {...defaultProps} updateField={updateField} />)
 
-    const input = screen.getByPlaceholderText('0.00')
+    const input = screen.getByPlaceholderText('0')
     fireEvent.change(input, { target: { value: '49.99' } })
     expect(updateField).toHaveBeenCalledWith('price', '49.99')
   })

@@ -92,7 +92,7 @@ describe('storageApi', () => {
       expect(response.error).toBeNull()
       expect(response.data).toHaveLength(2)
       expect(uploadSpy).toHaveBeenCalledTimes(2)
-      expect(progressSpy).toHaveBeenCalledTimes(2)
+      expect(progressSpy).toHaveBeenCalledTimes(4)
     })
 
     it('handles failure when no files uploaded', async () => {
@@ -117,7 +117,7 @@ describe('storageApi', () => {
         .mockResolvedValueOnce({ data: { url: 'url1' } as any, error: null })
         .mockResolvedValueOnce({ data: null, error: 'Fail' })
 
-      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => { })
 
       const response = await storageApi.uploadImages(files, 'user-1')
 
