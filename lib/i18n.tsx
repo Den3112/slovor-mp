@@ -4,6 +4,7 @@ import { useTranslation as useNewTranslation } from '@/packages/i18n/client'
 
 // Import ALL namespaces to build the complete schema
 import about from '@/packages/i18n/locales/en/about.json'
+import admin from '@/packages/i18n/locales/en/admin.json'
 import auth from '@/packages/i18n/locales/en/auth.json'
 import categories from '@/packages/i18n/locales/en/categories.json'
 import common from '@/packages/i18n/locales/en/common.json'
@@ -30,6 +31,7 @@ import wallet from '@/packages/i18n/locales/en/wallet.json'
 
 const schema: any = {
   about,
+  admin,
   auth,
   categories,
   common,

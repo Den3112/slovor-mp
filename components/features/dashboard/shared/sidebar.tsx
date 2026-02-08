@@ -93,7 +93,7 @@ export function UnifiedSidebar({
         className={cn(
           'flex items-center px-6 transition-all',
           !hideLogo &&
-            'border-border h-(--header-height) justify-between border-b',
+          'border-border h-(--header-height) justify-between border-b',
           hideLogo && 'h-10 justify-end',
           isCollapsed && 'justify-center px-0'
         )}
@@ -123,7 +123,7 @@ export function UnifiedSidebar({
           {config.sections.map((section, sectionIdx) => (
             <div key={section.title || sectionIdx} className="space-y-1">
               {section.title && !isCollapsed && (
-                <h3 className="text-muted-foreground/50 mb-2 px-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <h3 className="text-muted-foreground/50 mb-3 px-4 pt-4 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {section.title}
                 </h3>
               )}
@@ -134,8 +134,8 @@ export function UnifiedSidebar({
                   const localePrefix = `/${locale}`
                   const localizedHref =
                     link.href.startsWith('http') ||
-                    link.external ||
-                    link.href.startsWith(localePrefix)
+                      link.external ||
+                      link.href.startsWith(localePrefix)
                       ? link.href
                       : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 

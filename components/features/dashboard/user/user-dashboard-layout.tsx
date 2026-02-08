@@ -17,9 +17,8 @@ import {
   Settings,
   Zap,
   Bell,
-  Activity,
   Rocket,
-  Search,
+  Clock,
 } from 'lucide-react'
 
 interface UserDashboardLayoutProps {
@@ -37,7 +36,7 @@ export function UserDashboardLayout({
     signOutLabel: t('auth:signOut'),
     sections: [
       {
-        title: t('dashboard:main') || 'Main',
+        title: t('dashboard:growth') || 'GROWTH',
         items: [
           {
             href: '/dashboard',
@@ -45,20 +44,20 @@ export function UserDashboardLayout({
             icon: LayoutDashboard,
           },
           {
+            href: '/dashboard/analytics',
+            label: t('dashboard:marketInsights'),
+            icon: Zap,
+          },
+        ],
+      },
+      {
+        title: t('dashboard:selling') || 'SELLING',
+        items: [
+          {
             href: '/dashboard/listings',
             label: t('profile:myListings'),
             icon: Package,
             badgeCount: stats?.activeListings,
-          },
-          {
-            href: '/dashboard/wallet',
-            label: t('profile:wallet'),
-            icon: ShoppingBag,
-          },
-          {
-            href: '/dashboard/subscription',
-            label: t('profile:subscription'),
-            icon: Zap,
           },
           {
             href: '/dashboard/promote',
@@ -68,13 +67,19 @@ export function UserDashboardLayout({
         ],
       },
       {
-        title: t('common:activityHistory') || 'Activity History',
+        title: t('dashboard:activityHistory') || 'ACTIVITY',
         items: [
           {
             href: '/dashboard/orders',
-            label: t('profile:orders'),
+            label: t('dashboard:ordersAndSales'),
             icon: ShoppingBag,
             badgeCount: stats?.orders,
+          },
+          {
+            href: '/dashboard/messages',
+            label: t('profile:inbox'),
+            icon: MessageCircle,
+            badgeCount: stats?.messages,
           },
           {
             href: '/dashboard/reviews',
@@ -84,24 +89,23 @@ export function UserDashboardLayout({
           },
           {
             href: '/dashboard/notifications',
-            label: t('common:notifications') || 'Notifications',
+            label: t('common:notifications'),
             icon: Bell,
           },
           {
             href: '/dashboard/activity',
-            label: t('common:activityHistory') || 'Activity History',
-            icon: Activity,
+            label: t('dashboard:activityLog.title'),
+            icon: Clock,
           },
         ],
       },
       {
-        title: t('dashboard:quickAccess') || 'Quick Access',
+        title: t('dashboard:account') || 'ACCOUNT',
         items: [
           {
-            href: '/dashboard/messages',
-            label: t('profile:inbox'),
-            icon: MessageCircle,
-            badgeCount: stats?.messages,
+            href: '/dashboard/wallet',
+            label: t('profile:wallet'),
+            icon: ShoppingBag,
           },
           {
             href: '/dashboard/favorites',
@@ -109,16 +113,6 @@ export function UserDashboardLayout({
             icon: Heart,
             badgeCount: stats?.favorites,
           },
-          {
-            href: '/dashboard/saved-searches',
-            label: t('profile:savedSearches'),
-            icon: Search,
-          },
-        ],
-      },
-      {
-        title: t('dashboard:account') || 'Account',
-        items: [
           {
             href: '/dashboard/settings',
             label: t('profile:settings'),

@@ -6,12 +6,15 @@ import { useTranslation } from '@/lib/i18n'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Activity, Clock } from 'lucide-react'
 
-export function LiveMonitor() {
+export function LiveMonitor({ stats }: { stats?: any }) {
   const { t } = useTranslation(['admin', 'common'])
   const [logs, setLogs] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    if (stats) {
+      console.log('LiveMonitor received stats:', stats.totalUsers)
+    }
     const loadLogs = async () => {
       const { data } = await adminApi.getActivityLogs(10)
       if (data) setLogs(data)
@@ -21,7 +24,7 @@ export function LiveMonitor() {
     loadLogs()
     const interval = setInterval(loadLogs, 30000) // Poll every 30s
     return () => clearInterval(interval)
-  }, [])
+  }, [stats])
 
   if (isLoading) {
     return (

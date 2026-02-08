@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { getTranslationServer } from '@/lib/i18n/server'
 
 export default async function PrivacyPage() {
-  const { t } = await getTranslationServer()
+  const { t } = await getTranslationServer(['common', 'footer', 'legal'])
   return (
     <main className="bg-background relative min-h-screen pb-24">
       <Container className="pt-32 md:pt-40">
@@ -18,11 +18,11 @@ export default async function PrivacyPage() {
                 items={[{ label: t('footer:privacy') || 'Privacy Policy' }]}
               />
               <h1 className="font-heading text-foreground text-4xl font-bold tracking-tight uppercase md:text-6xl">
-                Privacy Policy
+                {t('legal:privacy.title')}
               </h1>
               <div className="text-muted-foreground mt-2 flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
                 <Clock className="h-3.5 w-3.5" />
-                Updated: December 26, 2025
+                {t('legal:privacy.updated')}
               </div>
             </div>
           </div>
@@ -30,34 +30,28 @@ export default async function PrivacyPage() {
           <div className="bg-card border-border prose prose-invert prose-zinc max-w-none rounded-2xl border p-8 shadow-sm md:p-12">
             <section className="mb-12">
               <h2 className="text-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
-                1. Data Collection
+                {t('legal:privacy.collectionTitle')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                We collect information you provide directly to us when you
-                create an account, post a listing, or communicate with other
-                users. This includes your name, email, and location.
+                {t('legal:privacy.collectionText')}
               </p>
             </section>
 
             <section className="mb-12">
               <h2 className="text-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
-                2. Use of Information
+                {t('legal:privacy.useTitle')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                The data we collect is used to facilitate transactions, improve
-                our services, and ensure a safe trading environment. We do not
-                sell your personal information to third parties.
+                {t('legal:privacy.useText')}
               </p>
             </section>
 
             <section>
               <h2 className="text-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
-                3. Security
+                {t('legal:privacy.securityTitle')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                We use industry-standard security measures to protect your data.
-                However, no method of transmission over the internet is 100%
-                secure, and we cannot guarantee absolute security.
+                {t('legal:privacy.securityText')}
               </p>
             </section>
           </div>

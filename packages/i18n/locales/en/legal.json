@@ -1,0 +1,22 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Updated: December 26, 2025",
+    "collectionTitle": "1. Data Collection",
+    "collectionText": "We collect information you provide directly to us when you create an account, post a listing, or communicate with other users. This includes your name, email, and location.",
+    "useTitle": "2. Use of Information",
+    "useText": "The data we collect is used to facilitate transactions, improve our services, and ensure a safe trading environment. We do not sell your personal information to third parties.",
+    "securityTitle": "3. Security",
+    "securityText": "We use industry-standard security measures to protect your data. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "updated": "Updated: December 26, 2025",
+    "acceptanceTitle": "1. Acceptance of Terms",
+    "acceptanceText": "By accessing and using Slovor Marketplace, you agree to be bound by these Terms of Service. Our platform is designed to provide a premium and safe environment for all users.",
+    "useTitle": "2. Use of Platform",
+    "useText": "You agree to use our platform for lawful purposes only and in a way that does not infringe the rights of others. Harassment, spam, and fraudulent behavior are strictly prohibited.",
+    "listingsTitle": "3. Listings",
+    "listingsText": "Users are responsible for the content of their listings. We reserve the right to remove any content that violates our policies or compromises the quality of the marketplace."
+  }
+}

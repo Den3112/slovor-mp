@@ -15,6 +15,7 @@ import {
     Shield,
     MessageSquare
 } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 import { supportApi, type SupportTicket, type SupportMessage } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -39,6 +40,7 @@ export default function TicketDetailPage() {
     const [reply, setReply] = useState('')
     const [isSending, setIsSending] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
+    const { t } = useTranslation(['admin', 'common'])
 
     const scrollToBottom = useCallback(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -110,7 +112,7 @@ export default function TicketDetailPage() {
         )
     }
 
-    if (!ticket) return <div className="p-12 text-center font-bold uppercase text-muted-foreground">Ticket not found</div>
+    if (!ticket) return <div className="p-12 text-center font-bold uppercase text-muted-foreground">{t('admin:ticketNotFound')}</div>
 
     return (
         <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
@@ -152,7 +154,7 @@ export default function TicketDetailPage() {
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" className="rounded-xl h-11 px-4 font-bold uppercase tracking-widest text-[10px] border-border/60">
                                 <MoreVertical className="h-4 w-4 mr-2" />
-                                Actions
+                                {t('admin:actions')}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="rounded-xl border-border/60 min-w-[180px] p-2">
@@ -161,14 +163,14 @@ export default function TicketDetailPage() {
                                 className="rounded-lg font-bold text-xs uppercase tracking-widest p-3 cursor-pointer text-emerald-600 focus:bg-emerald-500/10 focus:text-emerald-600"
                             >
                                 <CheckCircle2 className="h-4 w-4 mr-2" />
-                                Mark Resolved
+                                {t('admin:markResolved')}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onClick={() => handleUpdateStatus('closed')}
                                 className="rounded-lg font-bold text-xs uppercase tracking-widest p-3 cursor-pointer text-muted-foreground focus:bg-muted"
                             >
                                 <AlertCircle className="h-4 w-4 mr-2" />
-                                Close Ticket
+                                {t('admin:closeTicket')}
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -182,7 +184,7 @@ export default function TicketDetailPage() {
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4 flex-none">
                             <CardTitle className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                 <MessageSquare className="h-4 w-4 text-primary" />
-                                Communication Thread
+                                {t('admin:communicationThread')}
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="flex-1 overflow-y-auto p-6 space-y-6 bg-muted/10">
@@ -207,7 +209,7 @@ export default function TicketDetailPage() {
                                     <div className="w-full border-t border-border/40"></div>
                                 </div>
                                 <div className="relative flex justify-center text-[8px] font-bold uppercase tracking-[0.3em] text-muted-foreground/40 bg-transparent">
-                                    <span className="bg-muted px-4 py-1 rounded-full border border-border/20">Discussion History</span>
+                                    <span className="bg-muted px-4 py-1 rounded-full border border-border/20">{t('admin:discussionHistory')}</span>
                                 </div>
                             </div>
 
@@ -228,7 +230,7 @@ export default function TicketDetailPage() {
                                     <div className={cn("flex-1 space-y-2", msg.is_admin && "text-right")}>
                                         <div className={cn("flex items-center gap-3", msg.is_admin && "flex-row-reverse")}>
                                             <span className="text-xs font-bold uppercase tracking-widest">
-                                                {msg.is_admin ? 'Support Agent' : ticket.user?.display_name}
+                                                {msg.is_admin ? t('admin:supportAgent') : ticket.user?.display_name}
                                             </span>
                                             <span className="text-[9px] font-bold text-muted-foreground/40">{new Date(msg.created_at).toLocaleString()}</span>
                                         </div>
@@ -252,7 +254,7 @@ export default function TicketDetailPage() {
                                 <Input
                                     value={reply}
                                     onChange={(e) => setReply(e.target.value)}
-                                    placeholder="Type your official response..."
+                                    placeholder={t('admin:replyPlaceholder')}
                                     className="flex-1 rounded-xl h-12 bg-muted/30 border-border/60 font-medium"
                                     disabled={ticket.status === 'closed' || ticket.status === 'resolved'}
                                 />
@@ -262,7 +264,7 @@ export default function TicketDetailPage() {
                                     className="rounded-xl h-12 px-6 font-bold uppercase tracking-widest shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
                                 >
                                     {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4 mr-2" />}
-                                    Send
+                                    {t('admin:send')}
                                 </Button>
                             </form>
                         </div>
@@ -273,7 +275,7 @@ export default function TicketDetailPage() {
                 <div className="space-y-6">
                     <Card className="border-border/60 shadow-sm rounded-2xl overflow-hidden">
                         <CardHeader className="border-b border-border/40 bg-muted/20 px-6 py-4">
-                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">User Details</CardTitle>
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t('admin:userDetails')}</CardTitle>
                         </CardHeader>
                         <CardContent className="p-6 space-y-4">
                             <div className="flex flex-col items-center text-center space-y-3 pb-4 border-b border-border/40">
@@ -291,20 +293,20 @@ export default function TicketDetailPage() {
                             </div>
                             <div className="grid grid-cols-1 gap-4 pt-2">
                                 <div className="space-y-1">
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">Category</p>
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">{t('admin:category')}</p>
                                     <p className="text-xs font-bold text-foreground uppercase">{ticket.category}</p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">Priority</p>
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">{t('admin:priority')}</p>
                                     <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-widest rounded-md border-primary/20 bg-primary/5 text-primary">
                                         {ticket.priority}
                                     </Badge>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">SLA Status</p>
+                                    <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/40">{t('admin:slaStatus')}</p>
                                     <div className="flex items-center gap-2">
                                         <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                        <span className="text-[10px] font-bold uppercase text-emerald-600">Within Limit</span>
+                                        <span className="text-[10px] font-bold uppercase text-emerald-600">{t('admin:withinLimit')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -313,14 +315,14 @@ export default function TicketDetailPage() {
 
                     <Card className="border-border/60 shadow-sm rounded-2xl overflow-hidden bg-slate-950 text-white selection:bg-primary/30">
                         <CardHeader className="border-b border-white/5 bg-white/5 px-6 py-4">
-                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-white/40">Admin Tools</CardTitle>
+                            <CardTitle className="text-[10px] font-bold uppercase tracking-widest text-white/40">{t('admin:adminTools')}</CardTitle>
                         </CardHeader>
                         <CardContent className="p-6 space-y-4">
                             <Button variant="outline" className="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl border-white/10 h-10 text-[9px] font-bold uppercase tracking-widest">
-                                View User Profile
+                                {t('admin:viewUserProfile')}
                             </Button>
                             <Button variant="outline" className="w-full bg-white/5 hover:bg-white/10 rounded-xl border-white/10 h-10 text-[9px] font-bold uppercase tracking-widest text-destructive hover:text-destructive">
-                                Block User
+                                {t('admin:blockUser')}
                             </Button>
                         </CardContent>
                     </Card>

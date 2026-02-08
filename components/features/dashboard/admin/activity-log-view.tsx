@@ -136,7 +136,7 @@ export function AdminActivityLogView() {
         <div>
           <h1 className="text-foreground flex items-center gap-3 text-3xl font-bold tracking-tight uppercase">
             <Activity className="text-primary h-8 w-8" />
-            {t('admin:activityLog')}
+            {t('admin:liveMonitor')}
           </h1>
           <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('admin:auditSystemActions')}
