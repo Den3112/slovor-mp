@@ -123,7 +123,7 @@ describe('Input Component - Design Tokens', () => {
     const input = screen.getByTestId('input')
     expect(input.className).toContain('border-input')
     expect(input.className).toContain('bg-background')
-    expect(input.className).toContain('focus-visible:ring-ring')
+    expect(input.className).toContain('focus-visible:ring-primary/20')
   })
 })
 

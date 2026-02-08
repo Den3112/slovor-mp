@@ -7,10 +7,10 @@ vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: any = {
-        'listing.contactSeller': 'Contact Seller',
-        'listing.callNow': 'Call Now',
-        'listing.message': 'Message',
-        'common.loading': 'Loading...',
+        'listing:contactSeller': 'Contact Seller',
+        'listing:callNow': 'Call Now',
+        'listing:message': 'Message',
+        'common:loading': 'Loading...',
       }
       return translations[key] || key
     },

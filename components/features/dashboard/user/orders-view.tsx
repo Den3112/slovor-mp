@@ -27,8 +27,18 @@ import {
 import { Pagination } from '@/components/ui/pagination'
 import { formatPrice } from '@/lib/utils/formatting'
 
+import { type Order } from '@/lib/types/database'
+
+// Start of Selection
+interface ExtendedOrder extends Omit<Order, 'listing'> {
+  is_seller: boolean
+  listing: {
+    title: string
+  } | null
+}
+
 interface UserOrdersViewProps {
-  initialOrders: any[]
+  initialOrders: ExtendedOrder[]
 }
 
 const container = {
@@ -59,10 +69,9 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
 
     // Tab Filter (Buying vs Selling)
     if (activeTab === 'buying') {
-      // In a real app we'd compare with user.id
-      // For now let's assume filtering is done by API or we have types
+      result = result.filter((order) => !order.is_seller)
     } else if (activeTab === 'selling') {
-      // same here
+      result = result.filter((order) => order.is_seller)
     }
 
     // Search Filter

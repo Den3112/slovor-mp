@@ -7,11 +7,11 @@ vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: any = {
-        'createListing.uploadPhotos': 'Upload Photos',
-        'createListing.dragDrop': 'Drag and drop',
-        'createListing.selectImages': 'Select images',
-        'createListing.uploading': 'Uploading...',
-        'createListing.addMockImage': 'Add Mock Image',
+        'uploadPhotos': 'Upload Photos',
+        'dragDrop': 'Drag and drop',
+        'selectImages': 'Select images',
+        'uploading': 'Uploading...',
+        'addMockImage': 'Add Mock Image',
       }
       return translations[key] || key
     },

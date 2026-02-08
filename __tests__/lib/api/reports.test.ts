@@ -61,19 +61,22 @@ describe('reportsApi', () => {
 
   describe('list', () => {
     it('fetches reports with filters', async () => {
-      const eqMock = vi
-        .fn()
-        .mockResolvedValue({ data: [], count: 0, error: null })
-      const orderMock = vi.fn().mockReturnValue({ eq: eqMock })
-      const selectMock = vi.fn().mockReturnValue({ order: orderMock })
+      const mockChain = {
+        select: vi.fn().mockReturnThis(),
+        order: vi.fn().mockReturnThis(),
+        eq: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockReturnThis(),
+        range: vi.fn().mockReturnThis(),
+        then: vi.fn().mockImplementation((resolves) => Promise.resolve({ data: [], count: 0, error: null }).then(resolves))
+      }
 
-      mockFrom.mockReturnValue({ select: selectMock } as any)
+      mockFrom.mockReturnValue(mockChain as any)
 
       await reportsApi.list({ status: 'pending', limit: 10, offset: 0 })
 
-      expect(selectMock).toHaveBeenCalledWith('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
-      expect(orderMock).toHaveBeenCalledWith('created_at', { ascending: false })
-      expect(eqMock).toHaveBeenCalledWith('status', 'pending')
+      expect(mockChain.select).toHaveBeenCalledWith('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
+      expect(mockChain.order).toHaveBeenCalledWith('created_at', { ascending: false })
+      expect(mockChain.eq).toHaveBeenCalledWith('status', 'pending')
     })
 
     it('fetches without params', async () => {
