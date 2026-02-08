@@ -20,8 +20,16 @@ import { ordersApi } from '@/lib/api'
 import { supabase } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 
+import { type Order } from '@/lib/types/database'
+
+interface AdminOrder extends Omit<Order, 'listing' | 'buyer' | 'seller'> {
+  buyer: { full_name: string } | null
+  seller: { full_name: string } | null
+  listing: { title: string } | null
+}
+
 interface AdminOrdersViewProps {
-  initialOrders: any[]
+  initialOrders: AdminOrder[]
 }
 
 export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
@@ -56,7 +64,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'id',
       header: t('admin:orderId'),
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
           #{row.id.split('-')[0]}
         </span>
@@ -65,7 +73,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'listing',
       header: t('admin:tableListing'),
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <div className="flex flex-col">
           <span className="max-w-[150px] truncate text-sm font-bold">
             {row.listing?.title || t('admin:unknownListing')}
@@ -79,7 +87,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'buyer',
       header: t('admin:tableBuyer'),
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <div className="flex items-center gap-2">
           <User className="text-muted-foreground/60 h-3 w-3" />
           <span className="text-xs font-bold">
@@ -91,7 +99,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'seller',
       header: t('admin:tableSeller'),
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <div className="flex items-center gap-2">
           <User className="text-muted-foreground/60 h-3 w-3" />
           <span className="text-xs font-bold">
@@ -103,7 +111,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'amount',
       header: t('admin:tableAmount'),
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <span className="text-primary text-sm font-bold tracking-tight">
           {formatPrice(row.amount, row.currency)}
         </span>
@@ -112,7 +120,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'status',
       header: t('admin:tableStatus'),
-      cell: (row: any) => {
+      cell: (row: AdminOrder) => {
         const statusStyles = {
           pending:
             'bg-amber-500/10 text-amber-600 border-amber-500/20 dot-amber-500',
@@ -145,9 +153,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
                 'bg-muted-foreground/40'
               )}
             />
-            {t(
-              `admin:order${row.status.charAt(0).toUpperCase() + row.status.slice(1)}`
-            )}
+            {t(`admin:orderStatus.${row.status}`)}
           </Badge>
         )
       },
@@ -155,7 +161,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
     {
       key: 'created_at',
       header: t('admin:tableDate'),
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <div className="text-muted-foreground flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
           <Calendar className="h-3 w-3" />
           {new Date(row.created_at).toLocaleDateString()}
@@ -166,7 +172,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
       key: 'actions',
       header: '',
       className: 'text-right',
-      cell: (row: any) => (
+      cell: (row: AdminOrder) => (
         <div className="flex justify-end gap-2">
           {row.status === 'pending' && (
             <>
