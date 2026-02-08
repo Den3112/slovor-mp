@@ -5,30 +5,33 @@ import { motion } from 'framer-motion'
 import {
   Users,
   Package,
-  AlertCircle,
   Clock,
   Loader2,
-  ShieldCheck,
   CreditCard,
   BarChart3,
-  Download,
-  Zap,
-  Layers,
-  Database,
-  Lock,
-  RefreshCcw,
-  Activity,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 import { adminApi, type AdminStats } from '@/lib/api'
 import { formatPrice } from '@/lib/utils/formatting'
 import { StatsCard } from '@/components/features/dashboard/shared/stats-card'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+
 import { Button } from '@/components/ui/button'
 
 import { ActivityChart } from './activity-chart'
 import { LiveMonitor } from './live-monitor'
+import { AlertCircle, ShieldCheck, Layers } from 'lucide-react'
+import { cn } from '@/lib/utils'
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
 
 interface AdminOverviewViewProps {
   userEmail: string
@@ -54,21 +57,6 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
     loadStats()
   }, [])
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   if (isLoading) {
     return (
       <div className="flex h-[calc(100vh-200px)] items-center justify-center">
@@ -80,240 +68,115 @@ export function AdminOverviewView({ userEmail }: AdminOverviewViewProps) {
   if (!stats) return null
 
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="space-y-10"
-      data-testid="admin-overview-view"
-    >
-      {/* Header section with refined typography */}
+    <PremiumBackground variant="mesh" className="min-h-screen border-none p-4 md:p-8">
       <motion.div
-        variants={item}
-        className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="mx-auto max-w-7xl space-y-8"
+        data-testid="admin-overview-view"
       >
-        <div className="space-y-1">
-          <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
-            {t('admin:overview')}
-          </h1>
-          <p className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-bold tracking-[0.2em] uppercase">
-            <span className="flex items-center gap-2">
-              <ShieldCheck className="text-success h-3.5 w-3.5" />
-              {t('admin:systemsOperational')}
-            </span>
-            <span className="hidden sm:inline">•</span>
-            <span className="flex min-w-0 items-center gap-1">
-              <span className="text-foreground/70 shrink-0">
-                {t('admin:loggedInAs')}
-              </span>{' '}
-              <span className="text-foreground max-w-[150px] truncate transition-all duration-300 hover:break-all hover:whitespace-normal sm:max-w-none">
-                {userEmail}
-              </span>
-            </span>
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-border/60 hover:bg-muted h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase transition-all"
-          >
-            <Download className="mr-2 h-3.5 w-3.5" />
-            {t('common:export')}
-          </Button>
-          <Button
-            size="sm"
-            className="bg-primary hover:bg-primary/90 h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase shadow-sm transition-all active:scale-95"
-          >
-            <Zap className="mr-2 h-3.5 w-3.5" />
-            {t('admin:runAudit')}
-          </Button>
-        </div>
-      </motion.div>
+        <BentoGrid>
+          {/* Admin Hero & Command Vitals */}
+          <BentoTile colSpan={12} rowSpan={2} className="border-blue-500/20 bg-blue-500/5">
+            <AdminHero userEmail={userEmail} />
+          </BentoTile>
 
-      {/* Stats Grid */}
-      <motion.div
-        variants={item}
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        <StatsCard
-          label={t('admin:totalUsers')}
-          value={stats.totalUsers.toLocaleString()}
-          icon={Users}
-          trend={{ value: 12, direction: 'up', label: t('admin:vsLastMonth') }}
-          delay={0.1}
-        />
-        <StatsCard
-          label={t('admin:activeListings')}
-          value={stats.activeListings.toLocaleString()}
-          icon={Package}
-          trend={{ value: 8, direction: 'up', label: t('admin:vsLastMonth') }}
-          delay={0.2}
-        />
-        <StatsCard
-          label={t('admin:revenue')}
-          value={formatPrice(stats.totalRevenue)}
-          icon={CreditCard}
-          trend={{ value: 5, direction: 'down', label: t('admin:vsLastMonth') }}
-          delay={0.3}
-        />
-        <StatsCard
-          label={t('admin:pendingModeration')}
-          value={stats.pendingModeration.toLocaleString()}
-          icon={Clock}
-          trend={{
-            value: stats.pendingModeration > 0 ? 15 : 0,
-            direction: 'neutral',
-            label: t('admin:currentBacklog'),
-          }}
-          delay={0.4}
-          className={
-            stats.pendingModeration > 0
-              ? 'border-amber-500/50 bg-amber-500/5'
-              : ''
-          }
-        />
-      </motion.div>
+          {/* Core Stats Row */}
+          <BentoTile colSpan={3} className="bg-background/20">
+            <StatsCard
+              label={t('admin:totalUsers')}
+              value={stats.totalUsers.toLocaleString()}
+              icon={Users}
+              trend={{ value: 12, direction: 'up', label: t('admin:vsLastMonth') }}
+            />
+          </BentoTile>
+          <BentoTile colSpan={3} className="bg-background/20">
+            <StatsCard
+              label={t('admin:activeListings')}
+              value={stats.activeListings.toLocaleString()}
+              icon={Package}
+              trend={{ value: 8, direction: 'up', label: t('admin:vsLastMonth') }}
+            />
+          </BentoTile>
+          <BentoTile colSpan={3} className="bg-background/20">
+            <StatsCard
+              label={t('admin:revenue')}
+              value={formatPrice(stats.totalRevenue)}
+              icon={CreditCard}
+              trend={{ value: 5, direction: 'down', label: t('admin:vsLastMonth') }}
+            />
+          </BentoTile>
+          <BentoTile colSpan={3} className={cn(
+            "bg-card/40 dark:bg-background/20",
+            stats.pendingModeration > 0 && "border-amber-500/50 bg-amber-500/5"
+          )}>
+            <StatsCard
+              label={t('admin:pendingModeration')}
+              value={stats.pendingModeration.toLocaleString()}
+              icon={Clock}
+              trend={{
+                value: stats.pendingModeration > 0 ? 15 : 0,
+                direction: 'neutral',
+                label: t('admin:currentBacklog'),
+              }}
+            />
+          </BentoTile>
 
-      {/* Detailed Metrics & Action Center */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-        {/* Main Chart */}
-        <motion.div variants={item} className="lg:col-span-8">
-          <Card className="border-border/60 flex h-full min-h-[480px] flex-col overflow-hidden rounded-lg shadow-sm">
-            <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
-              <div className="flex items-center justify-between">
+          {/* Activity Chart - Command Insight */}
+          <BentoTile colSpan={8} rowSpan={3} className="bg-card/40 dark:bg-slate-900/40">
+            <div className="flex h-full flex-col p-6">
+              <div className="mb-6 flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
+                  <h3 className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
                     <BarChart3 className="text-primary h-4 w-4" />
                     {t('admin:activityMetrics')}
-                  </CardTitle>
-                  <p className="text-muted-foreground/60 mt-1 text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:activityMetricsDesc')}
-                  </p>
+                  </h3>
                 </div>
-                <div className="bg-muted/30 border-border/40 flex rounded-lg border p-1">
-                  <Button
-                    variant="ghost"
-                    className="text-muted-foreground/60 hover:text-foreground h-auto px-3 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors hover:bg-transparent"
-                  >
-                    {t('admin:days7')}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="bg-card text-primary border-border/40 hover:bg-card hover:text-primary h-auto rounded-md border px-3 py-1 text-[9px] font-bold tracking-widest uppercase shadow-sm"
-                  >
-                    {t('admin:days30')}
-                  </Button>
+                <div className="bg-muted/10 flex rounded-lg p-1">
+                  <Button variant="ghost" size="sm" className="h-7 text-[9px] font-bold uppercase tracking-widest">{t('admin:days7')}</Button>
+                  <Button variant="secondary" size="sm" className="h-7 border border-border/40 text-[9px] font-bold uppercase tracking-widest">{t('admin:days30')}</Button>
                 </div>
               </div>
-            </CardHeader>
-            <CardContent className="flex flex-1 flex-col p-6 pt-10">
-              <ActivityChart />
-            </CardContent>
-          </Card>
-        </motion.div>
+              <div className="flex-1">
+                <ActivityChart />
+              </div>
+            </div>
+          </BentoTile>
 
-        {/* side monitoring column */}
-        <motion.div variants={item} className="space-y-8 lg:col-span-4">
-          <Card className="border-border/60 bg-card overflow-hidden rounded-lg shadow-sm">
-            <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
-              <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
-                <Zap className="text-primary h-4 w-4" />
-                {t('admin:controlCenter')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-8 p-6">
-              {/* Action Links */}
-              <div className="grid grid-cols-2 gap-3">
+          {/* Real-time Event Monitor */}
+          <BentoTile colSpan={4} rowSpan={3} className="border-indigo-500/20 bg-indigo-500/5 p-6">
+            <LiveMonitor />
+          </BentoTile>
+
+          {/* Quick Management Tools */}
+          <BentoTile colSpan={12} className="border-none bg-transparent shadow-none backdrop-blur-none">
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+              {[
+                { href: 'listings', label: t('admin:listings'), icon: Package, count: stats.activeListings },
+                { href: 'reports', label: t('admin:reportsTitle'), icon: AlertCircle, count: stats.pendingModeration, color: 'text-destructive' },
+                { href: 'users', label: t('admin:usersOverview'), icon: Users },
+                { href: 'content', label: t('admin:content'), icon: Layers },
+                { href: 'verifications', label: t('admin:verifications'), icon: ShieldCheck },
+                { href: 'analytics', label: t('admin:analytics'), icon: BarChart3 }
+              ].map((tool, idx) => (
                 <Link
-                  href={`/${locale}/admin/listings`}
-                  className="bg-muted/30 border-border/40 hover:border-primary/40 hover:bg-primary/5 group flex flex-col items-center justify-center gap-2 rounded-lg border p-4 text-center transition-all"
+                  key={idx}
+                  href={`/${locale}/admin/${tool.href}`}
+                  className="bg-card/40 border-border/40 hover:border-primary/40 dark:bg-card/20 group flex flex-col items-center justify-center gap-2 rounded-2xl border p-4 transition-all duration-300 hover:scale-[1.02]"
                 >
-                  <Layers className="text-primary h-5 w-5 transition-transform group-hover:scale-110" />
-                  <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:listings')}
-                  </span>
+                  <tool.icon className={cn("h-5 w-5 mb-1", tool.color || "text-primary")} />
+                  <span className="text-muted-foreground text-[9px] font-bold tracking-widest uppercase">{tool.label}</span>
                 </Link>
-                <Link
-                  href={`/${locale}/admin/reports`}
-                  className="bg-muted/30 border-border/40 hover:border-destructive/40 hover:bg-destructive/5 group flex flex-col items-center justify-center gap-2 rounded-lg border p-4 text-center transition-all"
-                >
-                  <AlertCircle className="text-destructive h-5 w-5 transition-transform group-hover:scale-110" />
-                  <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:reportsTitle')}
-                  </span>
-                </Link>
-              </div>
-
-              <LiveMonitor />
-            </CardContent>
-          </Card>
-
-          {/* System Health Panel */}
-          <Card className="border-border selection:bg-primary/30 bg-card text-foreground overflow-hidden rounded-lg shadow-sm">
-            <CardHeader className="border-border/10 bg-muted/20 border-b px-6 py-4">
-              <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
-                <ShieldCheck className="text-success h-4 w-4" />
-                {t('admin:systemHealth')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="border-border/10 bg-muted/30 flex h-8 w-8 items-center justify-center rounded-lg border">
-                      <Database className="h-4 w-4 text-blue-500" />
-                    </div>
-                    <span className="text-muted-foreground/80 text-[11px] font-bold tracking-widest uppercase">
-                      {t('admin:database')}
-                    </span>
-                  </div>
-                  <span className="text-success border-success/20 bg-success/5 rounded-sm border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:operational')}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="border-border/10 bg-muted/30 flex h-8 w-8 items-center justify-center rounded-lg border">
-                      <Activity className="h-4 w-4 text-emerald-500" />
-                    </div>
-                    <span className="text-muted-foreground/80 text-[11px] font-bold tracking-widest uppercase">
-                      {t('admin:apiLatency')}
-                    </span>
-                  </div>
-                  <span className="text-foreground text-[10px] font-bold tracking-widest uppercase">
-                    24ms
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="border-border/10 bg-muted/30 flex h-8 w-8 items-center justify-center rounded-lg border">
-                      <Lock className="h-4 w-4 text-amber-500" />
-                    </div>
-                    <span className="text-muted-foreground/80 text-[11px] font-bold tracking-widest uppercase">
-                      {t('admin:sslStatus')}
-                    </span>
-                  </div>
-                  <span className="text-success border-success/20 bg-success/5 rounded-sm border px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-                    {t('admin:secure')}
-                  </span>
-                </div>
-              </div>
-
-              <div className="border-border/10 mt-4 border-t pt-4">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="border-border/60 bg-muted/10 text-muted-foreground hover:bg-muted/30 h-11 w-full rounded-lg text-[9px] font-bold tracking-widest uppercase transition-all active:scale-95"
-                >
-                  <RefreshCcw className="mr-2 h-3 w-3" />
-                  {t('admin:fullSystemReport')}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-    </motion.div>
+              ))}
+            </div>
+          </BentoTile>
+        </BentoGrid>
+      </motion.div>
+    </PremiumBackground>
   )
 }
+
+import { BentoGrid, BentoTile } from '@/components/ui/bento'
+import { PremiumBackground } from '@/components/ui/premium-background'
+import { AdminHero } from './admin-hero'

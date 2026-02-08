@@ -81,11 +81,11 @@ export function MobileMenuDrawer({
     switch (href) {
       case '/dashboard/listings':
         return stats.activeListings
-      case '/favorites':
+      case '/dashboard/favorites':
         return stats.favorites
       case '/dashboard/orders':
         return stats.orders
-      case '/messages':
+      case '/dashboard/messages':
         return stats.messages
       case '/dashboard/reviews':
         return stats.reviews
@@ -125,7 +125,7 @@ export function MobileMenuDrawer({
           label: t('profile:purchases'),
           icon: ShoppingBag,
         },
-        { href: '/favorites', label: t('profile:favorites'), icon: Heart },
+        { href: '/dashboard/favorites', label: t('profile:favorites'), icon: Heart },
         {
           href: '/dashboard/saved-searches',
           label: t('profile:savedSearches'),
@@ -136,7 +136,7 @@ export function MobileMenuDrawer({
     {
       title: t('profile:communication'),
       items: [
-        { href: '/messages', label: t('profile:inbox'), icon: MessageCircle },
+        { href: '/dashboard/messages', label: t('profile:inbox'), icon: MessageCircle },
         { href: '/dashboard/reviews', label: t('profile:reviews'), icon: Star },
       ],
     },

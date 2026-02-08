@@ -16,11 +16,11 @@ export function DashboardFavoriteItem({
 }) {
   const { locale } = useTranslation()
   return (
-    <div className="group border-border/50 bg-card hover:border-primary/30 hover:shadow-primary/5 relative flex flex-col items-center gap-4 rounded-lg border p-3 transition-all duration-300 hover:shadow-lg sm:flex-row">
+    <div className="group border-border/40 bg-card/50 hover:bg-card hover:border-primary/20 hover:shadow-primary/5 relative flex flex-col gap-4 rounded-xl border p-4 transition-all duration-300 hover:shadow-lg sm:flex-row sm:items-center">
       {/* Image Thumbnail */}
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="bg-muted border-border/40 relative h-48 w-full shrink-0 overflow-hidden rounded-lg border transition-all duration-300 group-hover:shadow-md sm:h-24 sm:w-24"
+        className="bg-muted border-border/40 relative h-48 w-full shrink-0 overflow-hidden rounded-lg border transition-all duration-300 group-hover:shadow-md sm:h-28 sm:w-28"
       >
         {listing.images?.[0] ? (
           <Image
@@ -38,24 +38,24 @@ export function DashboardFavoriteItem({
       </Link>
 
       {/* Info */}
-      <div className="w-full min-w-0 flex-1 space-y-2">
+      <div className="w-full min-w-0 flex-1 space-y-2.5">
         <Link
           href={`/${locale}/listings/${listing.id}`}
           className="group-hover:text-primary inline-block max-w-full transition-colors"
         >
-          <h3 className="truncate text-base font-bold tracking-tight uppercase">
+          <h3 className="truncate text-lg font-bold tracking-tight uppercase">
             {listing.title || 'Untitled Listing'}
           </h3>
         </Link>
 
         <div className="flex flex-wrap items-center gap-4">
-          <span className="text-primary text-lg font-bold tracking-tight tabular-nums">
+          <span className="text-primary text-xl font-bold tracking-tight tabular-nums">
             {listing.price?.toLocaleString()}{' '}
-            <span className="text-xs">{listing.currency}</span>
+            <span className="text-sm">{listing.currency}</span>
           </span>
           {listing.location && (
-            <div className="bg-muted/50 border-border/40 flex items-center gap-1.5 rounded-md border px-2 py-0.5">
-              <MapPin className="text-muted-foreground h-3 w-3" />
+            <div className="bg-muted/50 border-border/40 flex items-center gap-1.5 rounded-md border px-2.5 py-1">
+              <MapPin className="text-muted-foreground h-3.5 w-3.5" />
               <span className="text-muted-foreground/80 text-[10px] font-bold tracking-widest uppercase">
                 {listing.location}
               </span>
@@ -65,7 +65,7 @@ export function DashboardFavoriteItem({
       </div>
 
       {/* Actions */}
-      <div className="border-border/40 flex w-full items-center gap-2 border-t pt-3 sm:w-auto sm:border-0 sm:pt-0">
+      <div className="border-border/40 flex w-full items-center gap-3 border-t pt-4 sm:w-auto sm:border-0 sm:pt-0">
         <Link
           href={`/${locale}/listings/${listing.id}`}
           className="flex-1 sm:flex-none"

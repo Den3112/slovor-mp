@@ -47,7 +47,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          'bg-background/80 border-border sticky top-0 z-50 h-(--header-height) w-full border-b antialiased backdrop-blur-md transition-all duration-300'
+          'bg-background border-border sticky top-0 z-50 h-(--header-height) w-full border-b antialiased transition-all duration-300'
         )}
       >
         <Container className="h-full px-4 sm:px-6">
@@ -109,7 +109,7 @@ export function Header() {
                     className="text-muted-foreground hover:text-primary hover:bg-primary/5 h-10 w-10 rounded-lg transition-all"
                     aria-label={t('nav:favorites') || 'Favorites'}
                   >
-                    <Link href={`/${locale}/favorites`}>
+                    <Link href={`/${locale}/dashboard/favorites`}>
                       <Heart className="h-5 w-5" />
                     </Link>
                   </Button>
@@ -121,7 +121,7 @@ export function Header() {
                     className="text-muted-foreground hover:text-primary hover:bg-primary/5 relative h-10 w-10 rounded-lg transition-all"
                     aria-label={t('nav:messages') || 'Messages'}
                   >
-                    <Link href={`/${locale}/messages`}>
+                    <Link href={`/${locale}/dashboard/messages`}>
                       <MessageCircle className="h-5 w-5" />
                       {unreadCount > 0 && (
                         <span className="bg-primary ring-background absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg text-[9px] font-bold text-white ring-2">

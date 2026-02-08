@@ -63,7 +63,7 @@ export function NotificationDropdown() {
             initial={{ opacity: 0, y: 15, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
-            className="bg-card/95 absolute right-0 z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border border-white/10 shadow-lg backdrop-blur-2xl md:w-96"
+            className="bg-card absolute right-0 z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border border-border shadow-lg md:w-96"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/5 p-5">

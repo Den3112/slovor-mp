@@ -157,18 +157,6 @@ const nextConfig: NextConfig = {
       // Redirects handled in middleware
 
 
-      // Navigation cleanup (top-level routing)
-      {
-        source: '/:lang(en|sk|cs|ru)/dashboard/messages/:path*',
-        destination: '/:lang/messages/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:lang(en|sk|cs|ru)/dashboard/favorites/:path*',
-        destination: '/:lang/favorites/:path*',
-        permanent: true,
-      },
-
       // Legacy paths
       {
         source: '/:lang(en|sk|cs|ru)/create-ad',

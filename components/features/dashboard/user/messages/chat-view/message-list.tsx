@@ -66,11 +66,12 @@ export function MessageList({
 
                 <div
                   className={cn(
-                    'group relative max-w-[80%] px-4 py-2 text-sm shadow-sm',
+                    'group relative max-w-[80%] px-4 py-2.5 text-sm shadow-sm transition-all duration-200',
                     isMe
-                      ? 'bg-primary text-primary-foreground rounded-lg rounded-tr-sm'
-                      : 'bg-card text-card-foreground border-border/60 rounded-lg rounded-tl-sm border',
-                    isSequential && (isMe ? 'rounded-tr-xl' : 'rounded-tl-xl')
+                      ? 'bg-primary text-primary-foreground rounded-2xl rounded-tr-sm shadow-primary/20'
+                      : 'bg-card text-card-foreground border-border/60 rounded-2xl rounded-tl-sm border shadow-black/5',
+                    isSequential && (isMe ? 'rounded-tr-2xl' : 'rounded-tl-2xl'),
+                    !isSequential && (isMe ? 'mt-1' : 'mt-1'),
                   )}
                 >
                   <p className="leading-relaxed font-medium break-all whitespace-pre-wrap">
@@ -78,19 +79,19 @@ export function MessageList({
                   </p>
                   <div
                     className={cn(
-                      'mt-0.5 flex items-center gap-1 select-none',
+                      'mt-1 flex items-center gap-1 select-none',
                       isMe
                         ? 'text-primary-foreground/70 justify-end'
                         : 'text-muted-foreground/60 justify-start'
                     )}
                   >
-                    <span className="text-[8px] font-bold tracking-widest uppercase opacity-80">
+                    <span className="text-[9px] font-bold tracking-widest uppercase opacity-80">
                       {format(new Date(msg.created_at), 'HH:mm')}
                     </span>
                     {isMe && (
                       <CheckCheck
                         className={cn(
-                          'h-2.5 w-2.5',
+                          'h-3 w-3',
                           msg.is_read ? 'opacity-100' : 'opacity-40'
                         )}
                       />

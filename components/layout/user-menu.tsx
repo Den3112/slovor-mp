@@ -105,7 +105,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </Link>
 
               <Link
-                href={`/${locale}/favorites`}
+                href={`/${locale}/dashboard/favorites`}
                 className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-bold transition-all"
                 onClick={() => setShowUserMenu(false)}
               >

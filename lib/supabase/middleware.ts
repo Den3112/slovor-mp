@@ -83,6 +83,16 @@ export async function updateSession(
     return new URL(`${localePrefix}${targetPath}`, request.url)
   }
 
+  // 0. Legacy Redirects (Moved to Dashboard)
+  if (path === '/messages' || path.startsWith('/messages/')) {
+    const newPath = path.replace('/messages', '/dashboard/messages')
+    return NextResponse.redirect(getRedirectUrl(newPath))
+  }
+  if (path === '/favorites' || path.startsWith('/favorites/')) {
+    const newPath = path.replace('/favorites', '/dashboard/favorites')
+    return NextResponse.redirect(getRedirectUrl(newPath))
+  }
+
   // 1. Admin Routes Protection
   if (path.startsWith('/admin')) {
     if (!user) {

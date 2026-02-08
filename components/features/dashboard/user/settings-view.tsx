@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
 import { PageTransition } from '@/components/ui/page-transition'
+import { PremiumBackground } from '@/components/ui/premium-background'
 
 import {
   SettingsHeader,
@@ -115,32 +116,38 @@ export function SettingsView() {
 
   return (
     <PageTransition>
-      <div className="space-y-6">
-        <SettingsHeader />
+      <PremiumBackground variant="mesh" className="pb-12">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <SettingsHeader />
 
-        <div className="bg-card border-border rounded-lg border p-6 shadow-sm md:p-8">
-          {!isDataLoaded ? (
-            <SettingsSkeleton />
-          ) : (
-            <div className="space-y-8">
-              <SettingsAvatar
-                avatarUrl={formData.avatar_url}
-                isUploading={isUploading}
-                onUpload={handleAvatarUpload}
-              />
+          <div className="bg-card border-border relative overflow-hidden rounded-2xl border p-6 shadow-md md:p-8">
+            <div className="bg-linear-to-br from-primary/10 via-transparent to-transparent absolute inset-0 opacity-50" />
 
-              <SettingsForm
-                formData={formData}
-                setFormData={setFormData}
-                isLoading={isLoading}
-                isUploading={isUploading}
-                onSubmit={handleUpdate}
-                userEmail={user?.email}
-              />
+            <div className="relative z-10">
+              {!isDataLoaded ? (
+                <SettingsSkeleton />
+              ) : (
+                <div className="space-y-8">
+                  <SettingsAvatar
+                    avatarUrl={formData.avatar_url}
+                    isUploading={isUploading}
+                    onUpload={handleAvatarUpload}
+                  />
+
+                  <SettingsForm
+                    formData={formData}
+                    setFormData={setFormData}
+                    isLoading={isLoading}
+                    isUploading={isUploading}
+                    onSubmit={handleUpdate}
+                    userEmail={user?.email}
+                  />
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      </PremiumBackground>
     </PageTransition>
   )
 }

@@ -98,13 +98,13 @@ export function UserDashboardLayout({
         title: t('dashboard:quickAccess') || 'Quick Access',
         items: [
           {
-            href: '/messages',
+            href: '/dashboard/messages',
             label: t('profile:inbox'),
             icon: MessageCircle,
             badgeCount: stats?.messages,
           },
           {
-            href: '/favorites',
+            href: '/dashboard/favorites',
             label: t('profile:favorites'),
             icon: Heart,
             badgeCount: stats?.favorites,

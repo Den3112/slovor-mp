@@ -35,7 +35,7 @@ export function OverviewStats({ stats }: OverviewStatsProps) {
           delay={0.2}
         />
       </Link>
-      <Link href={`/${locale}/favorites`}>
+      <Link href={`/${locale}/dashboard/favorites`}>
         <StatsCard
           label={t('dashboard:favorites')}
           value={stats.favorites.toLocaleString()}
@@ -43,7 +43,7 @@ export function OverviewStats({ stats }: OverviewStatsProps) {
           delay={0.3}
         />
       </Link>
-      <Link href={`/${locale}/messages`}>
+      <Link href={`/${locale}/dashboard/messages`}>
         <StatsCard
           label={t('profile:inbox')}
           value={stats.messages.toLocaleString()}

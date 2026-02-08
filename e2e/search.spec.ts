@@ -6,29 +6,55 @@ test.describe('Search and Filter Flow', () => {
   })
 
   test('Search input works', async ({ page }) => {
-    const searchInput = page.locator('input[type="text"]').first()
+    // 1. Find the search input. It's in the CommandCenter.
+    // We target it by placeholder or by its container if needed.
+    const searchInput = page.getByPlaceholder(/Search|Hľadať|Поиск/i).first()
     await expect(searchInput).toBeVisible()
 
+    // 2. Perform search
     await searchInput.fill('iPhone')
     await searchInput.press('Enter')
 
-    // Проверяем, что URL обновился
+    // 3. Verify URL update
+    // Note: CommandCenter now uses 'search' param, matching ListingsPage
     await expect(page).toHaveURL(/.*search=iPhone.*/)
   })
 
   test('Filter by category', async ({ page }) => {
-    // Проверяем наличие категорий (напр. первая ссылка в сетке категорий или в сайдбаре)
-    const categoryLink = page.locator('a[href*="/categories/"]').first()
-    if (await categoryLink.isVisible()) {
-      await categoryLink.click()
-      await expect(page).toHaveURL(/.*categories\/.*/)
+    // 1. Find the Category Select Trigger (Radix UI)
+    // It's in the sidebar, labeled "Category" or "Kategória"
+    // We look for the trigger button
+    const categoryTrigger = page
+      .locator('button[role="combobox"]')
+      .filter({ hasText: /All Categories|Všetky kategórie|Все категории/i })
+      .first()
+
+    // If not found (maybe text is different), try generic combobox in sidebar
+    if (await categoryTrigger.isVisible()) {
+      await categoryTrigger.click()
+
+      // 2. Select an option from the dropdown (Electronics)
+      // Radix renders options in a portal, usually with role="option"
+      const electronicsOption = page
+        .getByRole('option')
+        .filter({ hasText: /Electronics|Elektronika|Электроника/i })
+        .first()
+      await electronicsOption.click()
+
+      // 3. Verify URL update
+      await expect(page).toHaveURL(/.*category=.*/)
     }
   })
 
   test('Price filter updates URL', async ({ page }) => {
-    const minPriceInput = page.locator('input[placeholder*="Min"]').first()
-    const maxPriceInput = page.locator('input[placeholder*="Max"]').first()
-    const applyButton = page.getByRole('button', { name: /Apply|Применить/i })
+    // 1. Find Min/Max inputs
+    const minPriceInput = page.getByPlaceholder(/Min/i).first()
+    const maxPriceInput = page.getByPlaceholder(/Max/i).first()
+
+    // 2. Find Apply button
+    const applyButton = page
+      .getByRole('button', { name: /Apply|Použiť|Применить/i })
+      .first()
 
     if (
       (await minPriceInput.isVisible()) &&
@@ -37,9 +63,10 @@ test.describe('Search and Filter Flow', () => {
       await minPriceInput.fill('100')
       await maxPriceInput.fill('500')
 
-      // Use the button instead of assuming Enter works on these inputs
+      // 3. Apply
       await applyButton.click()
 
+      // 4. Verify URL
       await expect(page).toHaveURL(/.*priceMin=100.*priceMax=500/)
     }
   })

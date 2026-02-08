@@ -42,7 +42,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (query.trim()) {
-      router.push(`/${locale}/listings?q=${encodeURIComponent(query)}`)
+      router.push(`/${locale}/listings?search=${encodeURIComponent(query)}`)
       setIsOpen(false)
       onClose?.()
     }

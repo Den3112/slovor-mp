@@ -50,7 +50,7 @@ export function DashboardShell({
         {/* Main Content Area */}
         <div className="flex min-h-[calc(100vh-var(--header-height))] min-w-0 flex-1 flex-col">
           {/* Secondary Page Header - Integrated into page flow */}
-          <div className="border-border/60 bg-background/50 backdrop-blur-md mx-4 mt-4 flex h-12 shrink-0 items-center justify-between rounded-lg border px-6 py-2 shadow-sm">
+          <div className="border-border/60 bg-background mx-4 mt-4 flex h-12 shrink-0 items-center justify-between rounded-xl border px-6 py-2 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="md:hidden">
                 <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>

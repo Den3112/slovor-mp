@@ -2,13 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import {
-  ArrowLeft,
-  ShieldCheck,
-  Phone,
-  Video,
-  MoreVertical,
-} from 'lucide-react'
+import { ArrowLeft, ShieldCheck } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { ChatHeaderProps } from './types'
 
@@ -26,9 +20,9 @@ export function ChatHeader({
   const listing = conversation.listing
 
   return (
-    <div className="border-border/60 bg-background/80 sticky top-0 z-10 flex flex-none items-center justify-between border-b p-3 backdrop-blur-md">
+    <div className="border-border/60 bg-background sticky top-0 z-10 flex flex-none items-center justify-between border-b p-3">
       <div className="flex items-center gap-3">
-        <Link href={`/${locale}/messages`} className="lg:hidden">
+        <Link href={`/${locale}/dashboard/messages`} className="lg:hidden">
           <Button
             variant="ghost"
             size="icon"
@@ -104,6 +98,7 @@ export function ChatHeader({
           </Link>
         )}
 
+        {/* Hidden until implemented
         <div className="border-border/50 ml-2 flex items-center gap-1 border-l pl-2">
           <Button
             variant="ghost"
@@ -127,6 +122,7 @@ export function ChatHeader({
             <MoreVertical className="h-4 w-4" />
           </Button>
         </div>
+        */}
       </div>
     </div>
   )

@@ -12,7 +12,7 @@ const { mockFrom, mockRpc, mockSupabase } = vi.hoisted(() => {
 
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => mockSupabase,
-  supabase: mockSupabase // if used directly
+  supabase: mockSupabase, // if used directly
 }))
 
 vi.mock('@/lib/api/listings/filters', () => ({
@@ -29,11 +29,9 @@ describe('listingsApi', () => {
   describe('getAll', () => {
     it('fetches listings', async () => {
       const mockData = [{ id: '1' }]
-      const eqMock = vi
-        .fn()
-        .mockReturnValue({
-          then: (r: any) => r({ data: mockData, error: null }),
-        })
+      const eqMock = vi.fn().mockReturnValue({
+        then: (r: any) => r({ data: mockData, error: null }),
+      })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
@@ -97,12 +95,10 @@ describe('listingsApi', () => {
       const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: null, error: null })
-      const eqMock = vi
-        .fn()
-        .mockReturnValue({
-          maybeSingle: maybeSingleMock,
-          eq: vi.fn().mockReturnThis(),
-        })
+      const eqMock = vi.fn().mockReturnValue({
+        maybeSingle: maybeSingleMock,
+        eq: vi.fn().mockReturnThis(),
+      })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
@@ -135,26 +131,100 @@ describe('listingsApi', () => {
     })
   })
 
-  describe('incrementContactClicks', () => {
-    it('calls rpc', async () => {
-      mockRpc.mockResolvedValue({ error: null } as any)
-      const response = await listingsApi.incrementContactClicks('1')
-      expect(response.data).toBe(true)
-      expect(mockRpc).toHaveBeenCalledWith('increment_contact_clicks', {
-        listing_id: '1',
-      })
+  describe('getAdminAll', () => {
+    it('fetches all listings for admin', async () => {
+      const mockData = [{ id: '1', profiles: { role: 'admin' } }]
+      const orderMock = vi
+        .fn()
+        .mockResolvedValue({ data: mockData, error: null })
+      const selectMock = vi.fn().mockReturnValue({ order: orderMock })
+      mockFrom.mockReturnValue({ select: selectMock } as any)
+
+      const response = await listingsApi.getAdminAll()
+      expect(response.data).toEqual(mockData)
     })
   })
 
-  describe('delete', () => {
-    it('deletes listing', async () => {
-      const eqMock = vi.fn().mockResolvedValue({ error: null })
-      const deleteMock = vi.fn().mockReturnValue({ eq: eqMock })
+  describe('getFeatured', () => {
+    it('fetches highlighted listings', async () => {
+      const mockData = [{ id: '1', is_highlighted: true }]
+      const limitMock = vi
+        .fn()
+        .mockResolvedValue({ data: mockData, error: null })
+      const orderMock = vi.fn().mockReturnValue({ limit: limitMock })
+      const eqMock = vi
+        .fn()
+        .mockReturnValue({ eq: vi.fn().mockReturnValue({ order: orderMock }) })
+      const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
+      mockFrom.mockReturnValue({ select: selectMock } as any)
+
+      const response = await listingsApi.getFeatured(5)
+      expect(response.data).toEqual(mockData)
+    })
+  })
+
+  describe('update', () => {
+    it('updates listing if valid', async () => {
+      const mockData = { id: '1', title: 'Updated' }
+      const maybeSingleMock = vi
+        .fn()
+        .mockResolvedValue({ data: mockData, error: null })
+      const selectMock = vi
+        .fn()
+        .mockReturnValue({ maybeSingle: maybeSingleMock })
+      const eqMock = vi.fn().mockReturnValue({ select: selectMock })
+      const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
+      mockFrom.mockReturnValue({ update: updateMock } as any)
+
+      const response = await listingsApi.update('1', { title: 'Updated' })
+      expect(response.data).toEqual(mockData)
+    })
+
+    it('fails if update validation fails', async () => {
+      const response = await listingsApi.update('1', { title: 'AAAAA' })
+      expect(response.error).toBeTruthy()
+    })
+  })
+
+  describe('bulk operations', () => {
+    it('bulkDeletes listings', async () => {
+      const inMock = vi.fn().mockResolvedValue({ error: null })
+      const deleteMock = vi.fn().mockReturnValue({ in: inMock })
       mockFrom.mockReturnValue({ delete: deleteMock } as any)
 
-      const response = await listingsApi.delete('1')
-      expect(response.data).toBeNull()
+      const response = await listingsApi.bulkDelete(['1', '2'])
       expect(response.error).toBeNull()
+    })
+
+    it('bulkUpdates status', async () => {
+      const inMock = vi.fn().mockResolvedValue({ error: null })
+      const updateMock = vi.fn().mockReturnValue({ in: inMock })
+      mockFrom.mockReturnValue({ update: updateMock } as any)
+
+      const response = await listingsApi.bulkUpdateStatus(['1', '2'], 'expired')
+      expect(response.error).toBeNull()
+    })
+  })
+
+  describe('error handling', () => {
+    it('catches and logs errors in getAll', async () => {
+      mockFrom.mockImplementation(() => {
+        throw new Error('Query error')
+      })
+      const response = await listingsApi.getAll()
+      expect(response.error).toBe('Query error')
+    })
+  })
+
+  describe('promote', () => {
+    it('calls promote_listing rpc', async () => {
+      mockRpc.mockResolvedValue({ error: null })
+      const response = await listingsApi.promote('1', 'top', 7, 10)
+      expect(response.error).toBeNull()
+      expect(mockRpc).toHaveBeenCalledWith(
+        'promote_listing',
+        expect.any(Object)
+      )
     })
   })
 })

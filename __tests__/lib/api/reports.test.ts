@@ -1,16 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { reportsApi, type ReportReason } from '@/lib/api/reports'
+
 const { mockFrom, mockSupabase } = vi.hoisted(() => {
   const mockFrom = vi.fn()
   const mockSupabase = {
-    from: mockFrom
+    from: mockFrom,
   }
   return { mockFrom, mockSupabase }
 })
 
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => mockSupabase,
-  supabase: mockSupabase // if used directly
+  supabase: mockSupabase, // if used directly
 }))
 
 describe('reportsApi', () => {
@@ -57,6 +58,22 @@ describe('reportsApi', () => {
       })
       expect(response.error).toBe('You cannot report yourself')
     })
+
+    it('handles database errors during create', async () => {
+      const singleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'Insert Error' } })
+      const selectMock = vi.fn().mockReturnValue({ single: singleMock })
+      const insertMock = vi.fn().mockReturnValue({ select: selectMock })
+      mockFrom.mockReturnValue({ insert: insertMock } as any)
+
+      const response = await reportsApi.create({
+        reporter_id: 'u1',
+        listing_id: 'l1',
+        reason: 'spam',
+      })
+      expect(response.error).toBe('Insert Error')
+    })
   })
 
   describe('list', () => {
@@ -67,16 +84,27 @@ describe('reportsApi', () => {
         eq: vi.fn().mockReturnThis(),
         limit: vi.fn().mockReturnThis(),
         range: vi.fn().mockReturnThis(),
-        then: vi.fn().mockImplementation((resolves) => Promise.resolve({ data: [], count: 0, error: null }).then(resolves))
+        then: vi
+          .fn()
+          .mockImplementation((resolves) =>
+            Promise.resolve({ data: [], count: 0, error: null }).then(resolves)
+          ),
       }
 
       mockFrom.mockReturnValue(mockChain as any)
 
-      await reportsApi.list({ status: 'pending', limit: 10, offset: 0 })
+      await reportsApi.list({ status: 'pending', limit: 10, offset: 5 })
 
-      expect(mockChain.select).toHaveBeenCalledWith('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
-      expect(mockChain.order).toHaveBeenCalledWith('created_at', { ascending: false })
+      expect(mockChain.select).toHaveBeenCalledWith(
+        '*, listing:listings(id, title), reporter:profiles(display_name)',
+        { count: 'exact' }
+      )
+      expect(mockChain.order).toHaveBeenCalledWith('created_at', {
+        ascending: false,
+      })
       expect(mockChain.eq).toHaveBeenCalledWith('status', 'pending')
+      expect(mockChain.limit).toHaveBeenCalledWith(10)
+      expect(mockChain.range).toHaveBeenCalledWith(5, 5 + 10 - 1)
     })
 
     it('fetches without params', async () => {
@@ -88,6 +116,25 @@ describe('reportsApi', () => {
 
       await reportsApi.list()
       expect(orderMock).toHaveBeenCalled()
+    })
+
+    it('handles database errors in list', async () => {
+      const orderMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'List Error' } })
+      const selectMock = vi.fn().mockReturnValue({ order: orderMock })
+      mockFrom.mockReturnValue({ select: selectMock } as any)
+
+      const response = await reportsApi.list()
+      expect(response.error).toBe('List Error')
+    })
+
+    it('getAll calls list', async () => {
+      const listSpy = vi
+        .spyOn(reportsApi, 'list')
+        .mockResolvedValue({ data: [], error: null })
+      await reportsApi.getAll()
+      expect(listSpy).toHaveBeenCalled()
     })
   })
 
@@ -108,6 +155,19 @@ describe('reportsApi', () => {
       expect(updateMock).toHaveBeenCalledWith(
         expect.objectContaining({ status: 'resolved' })
       )
+    })
+
+    it('handles database errors during status update', async () => {
+      const singleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'Update Error' } })
+      const selectMock = vi.fn().mockReturnValue({ single: singleMock })
+      const eqMock = vi.fn().mockReturnValue({ select: selectMock })
+      const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
+      mockFrom.mockReturnValue({ update: updateMock } as any)
+
+      const response = await reportsApi.updateStatus('1', 'resolved')
+      expect(response.error).toBe('Update Error')
     })
   })
 
@@ -138,6 +198,19 @@ describe('reportsApi', () => {
 
       const response = await reportsApi.hasReported('u1', 'l1')
       expect(response.data).toBe(false)
+    })
+
+    it('handles database errors in hasReported', async () => {
+      const maybeSingleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'Check Error' } })
+      const eqMock2 = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const eqMock1 = vi.fn().mockReturnValue({ eq: eqMock2 })
+      const selectMock = vi.fn().mockReturnValue({ eq: eqMock1 })
+      mockFrom.mockReturnValue({ select: selectMock } as any)
+
+      const response = await reportsApi.hasReported('u1', 'l1')
+      expect(response.error).toBe('Check Error')
     })
   })
 })

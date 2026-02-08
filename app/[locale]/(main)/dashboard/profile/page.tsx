@@ -1,82 +1,45 @@
 import { createClient } from '@/lib/supabase/server'
-import dynamic from 'next/dynamic'
 import { redirect } from 'next/navigation'
-import { Eye, ExternalLink, Loader2 } from 'lucide-react'
-import { getTranslationServer } from '@/lib/i18n/server'
+import { listingsApi } from '@/lib/api/listings'
+import { DashboardProfileHub } from '@/components/features/dashboard/user/dashboard-profile-hub'
 
-const SellerProfileView = dynamic(() => import('@/components/seller-profile/seller-profile-view').then(mod => mod.SellerProfileView), {
-  loading: () => (
-    <div className="flex h-96 items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-    </div>
-  )
-})
+interface DashboardProfilePageProps {
+  params: Promise<{ locale: string }>
+}
 
-export default async function DashboardProfilePage() {
+export default async function DashboardProfilePage({
+  params,
+}: DashboardProfilePageProps) {
+  const { locale } = await params
   const supabase = await createClient()
+
+  // Verify auth
   const {
     data: { user },
   } = await supabase.auth.getUser()
-
-  const { locale, t } = await getTranslationServer();
 
   if (!user) {
     redirect(`/${locale}/auth/login`)
   }
 
-  // Fetch own profile
-  const { data: seller, error: profileError } = await supabase
+  // Fetch full profile
+  const { data: profile } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', user.id)
     .single()
 
-  const { data: listings } = await supabase
-    .from('listings')
-    .select('*, category:categories(*)')
-    .eq('user_id', user.id)
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-
-  if (profileError || !seller) {
-    // Fallback or handle error - for now redirect to settings to complete profile
-    redirect(`/${locale}/dashboard/settings`)
+  if (!profile) {
+    redirect(`/${locale}/auth/login`)
   }
 
+  // Get active listings for the user
+  const listingsResponse = await listingsApi.getByUser(user.id)
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6 duration-700">
-      {/* Premium Header - Solid Bar */}
-      <div className="bg-card relative z-10 mb-8 flex items-center justify-between rounded-xl border border-border p-5 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20">
-            <Eye className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-muted-foreground/80 text-[10px] font-bold tracking-[0.2em] uppercase">
-              {t('profile_preview:title')}
-            </h1>
-            <p className="text-foreground text-sm font-bold">
-              {t('profile_preview:description')}
-            </p>
-          </div>
-        </div>
-
-        <a
-          href={`/${locale}/seller/${user.id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold uppercase tracking-widest transition-all active:scale-95 shadow-sm"
-        >
-          {t('profile_preview:viewStore')}
-          <ExternalLink className="h-4 w-4" />
-        </a>
-      </div>
-      <SellerProfileView
-        seller={seller}
-        listings={listings || []}
-        variant="dashboard"
-      />
-    </div>
+    <DashboardProfileHub
+      seller={profile}
+      listings={listingsResponse.data || []}
+    />
   )
 }

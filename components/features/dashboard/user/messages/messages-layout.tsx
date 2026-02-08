@@ -66,7 +66,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
       await messagesApi.cleanupAllData(user.id)
       setConversations([])
       toast.success(t('messages:clearSuccess'))
-      router.push(`/${locale}/messages`)
+      router.push(`/${locale}/dashboard/messages`)
     } catch {
       toast.error(t('messages:clearError'))
     } finally {
@@ -177,26 +177,26 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                       transition={{ delay: index * 0.05 }}
                     >
                       <Link
-                        href={`/${locale}/messages/${conv.id}`}
+                        href={`/${locale}/dashboard/messages/${conv.id}`}
                         className={cn(
-                          'group relative flex gap-3 rounded-lg border border-transparent p-3 text-left transition-all duration-200',
+                          'group relative flex gap-3 rounded-xl border border-transparent p-3 text-left transition-all duration-300',
                           isActive
                             ? 'bg-primary/5 border-primary/10 shadow-sm'
-                            : 'hover:bg-muted/60 hover:border-border/50'
+                            : 'hover:bg-muted/60 hover:border-border/40 hover:shadow-xs'
                         )}
                       >
                         {/* Active Indicator */}
                         {isActive && (
-                          <div className="bg-primary absolute top-3 bottom-3 left-0 w-1 rounded-r-full" />
+                          <div className="bg-primary absolute top-3 bottom-3 left-0 w-1 rounded-r-full shadow-[0_0_10px_rgba(var(--primary),0.3)]" />
                         )}
 
                         <div className="relative shrink-0">
                           <div
                             className={cn(
-                              'bg-muted h-10 w-10 overflow-hidden rounded-lg border transition-colors',
+                              'relative h-12 w-12 overflow-hidden rounded-full border transition-all duration-300',
                               isActive
-                                ? 'border-primary/20'
-                                : 'border-border/60'
+                                ? 'border-primary/20 ring-2 ring-primary/10'
+                                : 'border-border/60 group-hover:border-primary/20'
                             )}
                           >
                             {otherUser?.avatar_url ? (
@@ -204,25 +204,25 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                                 src={otherUser.avatar_url}
                                 alt={otherUser.display_name || ''}
                                 fill
-                                className="object-cover"
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 unoptimized
                               />
                             ) : (
-                              <div className="flex h-full w-full items-center justify-center">
-                                <User className="text-muted-foreground/50 h-4 w-4" />
+                              <div className="bg-muted flex h-full w-full items-center justify-center text-muted-foreground/50">
+                                <User className="h-5 w-5" />
                               </div>
                             )}
                           </div>
                           {isUnread && (
-                            <span className="bg-primary ring-background absolute -top-1 -right-1 h-3 w-3 animate-pulse rounded-full border border-white/20 ring-2" />
+                            <span className="bg-primary ring-background absolute top-0 right-0 h-3.5 w-3.5 animate-pulse rounded-full border-2 border-white ring-2 shadow-sm" />
                           )}
                         </div>
-                        <div className="flex min-w-0 flex-1 flex-col justify-center">
-                          <div className="mb-0.5 flex items-center justify-between">
+                        <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
+                          <div className="flex items-center justify-between">
                             <span
                               className={cn(
-                                'truncate text-sm font-bold',
-                                isActive ? 'text-primary' : 'text-foreground'
+                                'truncate text-sm font-bold transition-colors',
+                                isActive ? 'text-primary' : 'text-foreground group-hover:text-primary/80'
                               )}
                             >
                               {otherUser?.display_name || 'User'}
@@ -230,10 +230,10 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                             {lastMsg && (
                               <span
                                 className={cn(
-                                  'ml-2 shrink-0 text-[9px] font-bold tracking-widest uppercase',
+                                  'shrink-0 text-[10px] font-bold tracking-widest uppercase tabular-nums',
                                   isUnread
                                     ? 'text-primary'
-                                    : 'text-muted-foreground/50'
+                                    : 'text-muted-foreground/40'
                                 )}
                               >
                                 {formatDistanceToNow(
@@ -244,22 +244,22 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                             )}
                           </div>
                           <div className="flex items-center justify-between">
-                            <div className="text-muted-foreground/70 mb-0.5 max-w-[120px] truncate text-[10px] font-bold tracking-wide uppercase">
+                            <div className="text-muted-foreground/60 max-w-[140px] truncate text-[10px] font-bold tracking-wide uppercase">
                               {conv.listing?.title}
                             </div>
                           </div>
                           {lastMsg && (
                             <p
                               className={cn(
-                                'truncate text-xs leading-snug',
+                                'truncate text-xs leading-relaxed',
                                 isUnread
                                   ? 'text-foreground font-semibold'
-                                  : 'text-muted-foreground'
+                                  : 'text-muted-foreground group-hover:text-foreground/80 transition-colors'
                               )}
                             >
                               {lastMsg.sender_id === user?.id && (
-                                <span className="text-primary/70 font-medium">
-                                  {t('dashboard:chat.you')}:{' '}
+                                <span className="text-primary/70 font-medium mr-1">
+                                  {t('dashboard:chat.you')}:
                                 </span>
                               )}
                               {lastMsg.content}

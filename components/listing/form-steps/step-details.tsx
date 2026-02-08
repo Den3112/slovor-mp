@@ -161,7 +161,7 @@ export function StepDetails({
                   >
                     <SelectTrigger
                       id={`attr-${attr.id}`}
-                      className="bg-background/60 h-14 px-6 font-bold backdrop-blur-md"
+                      className="bg-card h-14 px-6 font-bold"
                     >
                       <SelectValue placeholder={t('common:select')} />
                     </SelectTrigger>

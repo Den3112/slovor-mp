@@ -47,15 +47,15 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               { label: t('allListings'), href: `/${locale}/listings` },
               ...(listing.category
                 ? [
-                    {
-                      label: getLocalizedCategoryName(
-                        listing.category,
-                        locale,
-                        t
-                      ),
-                      href: `/${locale}/categories/${listing.category.slug}`,
-                    },
-                  ]
+                  {
+                    label: getLocalizedCategoryName(
+                      listing.category,
+                      locale,
+                      t
+                    ),
+                    href: `/${locale}/categories/${listing.category.slug}`,
+                  },
+                ]
                 : []),
               { label: displayTitle },
             ]}
@@ -103,7 +103,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
 
       {/* Mobile Sticky Action Bar */}
       <div className="fixed right-0 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] left-0 z-40 md:hidden">
-        <div className="bg-background/80 border-border border-t p-4 backdrop-blur-xl">
+        <div className="bg-background border-border border-t p-4">
           <div className="mx-auto flex max-w-lg items-center justify-between gap-4">
             <div className="flex flex-col">
               <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
