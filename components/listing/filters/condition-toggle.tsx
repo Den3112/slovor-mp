@@ -1,4 +1,5 @@
 import { PackageCheck } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { ConditionToggleProps } from './types'
@@ -18,18 +19,19 @@ export function ConditionToggle({ value, onChange }: ConditionToggleProps) {
           { value: 'new', label: t('filters:new') },
           { value: 'used', label: t('filters:used') },
         ].map((c) => (
-          <button
+          <Button
+            variant="ghost"
             key={c.value}
             onClick={() => onChange(c.value)}
             className={cn(
-              'flex-1 rounded-lg py-2 text-[10px] font-bold tracking-widest uppercase transition-all',
+              'h-auto flex-1 rounded-lg py-2 text-[10px] font-bold tracking-widest uppercase transition-all',
               value === c.value
-                ? 'bg-primary text-primary-foreground shadow-sm'
+                ? 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
             )}
           >
             {c.label}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

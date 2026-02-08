@@ -1,7 +1,7 @@
 'use client'
 
 import { useId } from 'react'
-import { cn } from '@/lib/utils'
+
 import { useTranslation } from '@/lib/i18n'
 import type {
   ListingFormData,
@@ -9,6 +9,8 @@ import type {
 } from '@/lib/utils/listing-form-schema'
 import { LocationCombobox } from '@/components/ui/location-combobox'
 import { FormField } from '@/components/ui/form-field'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import type { Category } from '@/lib/types/database'
 import {
   CATEGORY_ATTRIBUTES,
@@ -51,15 +53,6 @@ export function StepDetails({
     ? CATEGORY_ATTRIBUTES[currentCategory.slug]
     : []
 
-  const inputClasses = (hasError: boolean) =>
-    cn(
-      'placeholder:text-muted-foreground/30 w-full rounded-lg border bg-card transition-all outline-none',
-      'focus:border-primary focus:ring-primary/10 focus:bg-accent/5 focus:ring-4',
-      hasError
-        ? 'border-destructive/50 bg-destructive/5'
-        : 'border-border hover:border-primary/50'
-    )
-
   return (
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
       <FormField
@@ -68,15 +61,13 @@ export function StepDetails({
         description="Write a clear, descriptive title for your item"
         inputId={titleId}
       >
-        <input
+        <Input
           id={titleId}
           value={formData.title}
           onChange={(e) => updateField('title', e.target.value)}
-          className={cn(
-            inputClasses(!!fieldErrors.title),
-            'h-16 px-6 text-xl font-bold'
-          )}
+          className="h-16 px-6 text-xl font-bold"
           placeholder={t('titlePlaceholder')}
+          aria-invalid={!!fieldErrors.title}
         />
       </FormField>
 
@@ -91,16 +82,14 @@ export function StepDetails({
             <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-bold">
               €
             </span>
-            <input
+            <Input
               id={priceId}
               type="number"
               value={formData.price}
               onChange={(e) => updateField('price', e.target.value)}
-              className={cn(
-                inputClasses(!!fieldErrors.price),
-                'h-16 pr-6 pl-12 text-2xl font-bold tracking-tight'
-              )}
+              className="h-16 pr-6 pl-12 text-2xl font-bold tracking-tight"
               placeholder="0"
+              aria-invalid={!!fieldErrors.price}
             />
           </div>
         </FormField>
@@ -120,15 +109,13 @@ export function StepDetails({
         error={fieldErrors.description}
         inputId={descriptionId}
       >
-        <textarea
+        <Textarea
           id={descriptionId}
           value={formData.description}
           onChange={(e) => updateField('description', e.target.value)}
-          className={cn(
-            inputClasses(!!fieldErrors.description),
-            'h-48 resize-none p-6 text-lg leading-relaxed'
-          )}
+          className="h-48 resize-none p-6 text-lg leading-relaxed"
           placeholder={t('descPlaceholder')}
+          aria-invalid={!!fieldErrors.description}
         />
       </FormField>
 
@@ -174,10 +161,7 @@ export function StepDetails({
                   >
                     <SelectTrigger
                       id={`attr-${attr.id}`}
-                      className={cn(
-                        inputClasses(false),
-                        'bg-background/60 h-14 px-6 font-bold backdrop-blur-md'
-                      )}
+                      className="bg-background/60 h-14 px-6 font-bold backdrop-blur-md"
                     >
                       <SelectValue placeholder={t('common:select')} />
                     </SelectTrigger>
@@ -192,7 +176,7 @@ export function StepDetails({
                   </Select>
                 ) : (
                   <div className="relative">
-                    <input
+                    <Input
                       id={`attr-${attr.id}`}
                       type={
                         attr.type === 'range' || attr.type === 'number'
@@ -209,7 +193,7 @@ export function StepDetails({
                           [attr.id]: e.target.value,
                         })
                       }
-                      className={cn(inputClasses(false), 'h-14 px-6 font-bold')}
+                      className="h-14 px-6 font-bold"
                       placeholder={attr.unit ? `0 ${attr.unit}` : ''}
                     />
                     {attr.unit && (

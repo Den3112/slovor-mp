@@ -2,6 +2,8 @@ import Image from 'next/image'
 import { X, Loader2, Save, Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Checkbox } from '@/components/ui/checkbox'
 import { useTranslation } from '@/lib/i18n'
 import { BlogPostFormProps } from './types'
 
@@ -101,7 +103,7 @@ export function BlogPostForm({
           <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {t('admin:contentMarkdown')}
           </label>
-          <textarea
+          <Textarea
             value={post.content || ''}
             onChange={(e) => onUpdateField('content', e.target.value)}
             placeholder={t('admin:contentMarkdown')}
@@ -111,11 +113,12 @@ export function BlogPostForm({
         </div>
 
         <div className="flex items-center gap-2 py-2">
-          <input
-            type="checkbox"
+          <Checkbox
             id="is_published"
             checked={post.is_published || false}
-            onChange={(e) => onUpdateField('is_published', e.target.checked)}
+            onCheckedChange={(checked) =>
+              onUpdateField('is_published', checked as boolean)
+            }
             className="border-border h-4 w-4 rounded"
           />
           <label htmlFor="is_published" className="text-sm font-bold">

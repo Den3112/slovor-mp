@@ -47,13 +47,13 @@ export function Header() {
     <>
       <header
         className={cn(
-          'bg-background/80 border-border sticky top-0 z-50 h-(--header-height) w-full border-b backdrop-blur-md antialiased transition-all duration-300'
+          'bg-background/80 border-border sticky top-0 z-50 h-(--header-height) w-full border-b antialiased backdrop-blur-md transition-all duration-300'
         )}
       >
-        <Container className="h-full">
-          <div className="flex h-full items-center justify-between gap-8">
+        <Container className="h-full px-4 sm:px-6">
+          <div className="flex h-full items-center justify-between gap-2 sm:gap-4 md:gap-8">
             {/* Logo area with Category Trigger */}
-            <div className="flex shrink-0 items-center gap-8">
+            <div className="flex shrink-0 items-center gap-4 sm:gap-8">
               <Logo locale={locale} />
 
               <button
@@ -160,24 +160,24 @@ export function Header() {
                 </Button>
               </div>
 
-              <div className="flex shrink-0 items-center gap-2 lg:hidden">
+              <div className="flex shrink-0 items-center gap-3 lg:hidden">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSearchOverlayOpen(true)}
-                  className="bg-muted/40 h-9 w-9 rounded-lg"
+                  className="bg-muted/40 h-10 w-10 rounded-lg sm:h-9 sm:w-9"
                   aria-label={t('common:search') || 'Search'}
                 >
-                  <Search className="h-4.5 w-4.5" />
+                  <Search className="h-5 w-5" />
                 </Button>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="bg-muted/40 h-9 w-9 rounded-lg"
+                  className="bg-muted/40 h-10 w-10 rounded-lg sm:h-9 sm:w-9"
                   aria-label="Open menu"
                 >
-                  <Menu className="h-4.5 w-4.5" />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </div>
             </div>

@@ -17,7 +17,10 @@ export function MobileFilterDrawer({
     <div className="mb-6 lg:hidden">
       <Drawer.Root open={isOpen} onOpenChange={onOpenChange}>
         <Drawer.Trigger asChild>
-          <button className="border-border bg-card flex w-full items-center justify-between rounded-lg border p-4 font-bold shadow-sm transition-all active:scale-[0.98]">
+          <Button
+            variant="ghost"
+            className="border-border bg-card hover:bg-card/80 flex h-auto w-full items-center justify-between rounded-lg border p-4 font-bold shadow-sm transition-all active:scale-[0.98]"
+          >
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="text-primary h-5 w-5" />
               <span>{t('filters:title')}</span>
@@ -25,7 +28,7 @@ export function MobileFilterDrawer({
             <div className="bg-primary/20 text-primary flex h-6 w-6 items-center justify-center rounded-lg text-xs font-bold">
               +
             </div>
-          </button>
+          </Button>
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 z-50 bg-black/60" />
@@ -37,9 +40,9 @@ export function MobileFilterDrawer({
                   {t('filters:title')}
                 </Drawer.Title>
                 <Drawer.Close asChild>
-                  <button className="text-muted-foreground -mr-2 p-2">
+                  <Button variant="ghost" size="icon" className="-mr-2">
                     <X className="h-6 w-6" />
-                  </button>
+                  </Button>
                 </Drawer.Close>
               </div>
             </div>

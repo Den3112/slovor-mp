@@ -2,6 +2,8 @@ import { Plus, CreditCard, Zap, Loader2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { RefillModalProps } from './types'
 
 export function RefillModal({
@@ -35,12 +37,14 @@ export function RefillModal({
                 {t('dashboard:walletDetails.addCreditsDescription')}
               </p>
             </div>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onClose}
-              className="bg-muted hover:bg-muted/80 border-border/40 flex h-8 w-8 items-center justify-center rounded-lg border transition-colors"
+              className="bg-muted hover:bg-muted/80 border-border/40 h-8 w-8 rounded-lg border transition-colors"
             >
               <Plus className="h-4 w-4 rotate-45" />
-            </button>
+            </Button>
           </div>
 
           <div className="space-y-4">
@@ -49,26 +53,29 @@ export function RefillModal({
             </label>
             <div className="grid grid-cols-3 gap-2">
               {['20', '50', '100', '200', '500'].map((amt) => (
-                <button
+                <Button
                   key={amt}
+                  variant="outline"
                   onClick={() => setRefillAmount(amt)}
                   className={cn(
-                    'rounded-lg border-2 py-3 text-sm font-bold transition-all',
+                    'h-auto border-2 py-3 text-sm font-bold transition-all',
                     refillAmount === amt
                       ? 'bg-primary border-primary text-primary-foreground shadow-primary/20 shadow-md'
-                      : 'bg-muted/40 text-foreground hover:border-border/40 border-transparent'
+                      : 'bg-muted/40 text-foreground hover:border-border/40 hover:bg-muted/60 border-transparent'
                   )}
                 >
                   €{amt}
-                </button>
+                </Button>
               ))}
               <div className="relative">
-                <input
+                <Input
                   type="number"
                   placeholder={t('dashboard:walletDetails.other')}
                   value={refillAmount}
-                  onChange={(e) => setRefillAmount(e.target.value)}
-                  className="bg-muted/40 focus:border-primary/50 w-full rounded-lg border-2 border-transparent py-3 pl-6 text-center text-sm font-bold outline-none"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setRefillAmount(e.target.value)
+                  }
+                  className="bg-muted/40 focus:border-primary/50 h-auto w-full rounded-lg border-2 border-transparent py-3 pl-6 text-center text-sm font-bold shadow-none outline-none focus-visible:ring-0"
                 />
                 <span className="text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 text-xs font-bold">
                   €
@@ -99,14 +106,15 @@ export function RefillModal({
                   icon: Zap,
                 },
               ].map((method) => (
-                <button
+                <Button
                   key={method.id}
+                  variant="outline"
                   onClick={() => setSelectedMethod(method.id as any)}
                   className={cn(
-                    'flex w-full items-center gap-4 rounded-lg border-2 p-3 transition-all',
+                    'flex h-auto w-full items-center gap-4 rounded-lg border-2 p-3 transition-all hover:bg-transparent',
                     selectedMethod === method.id
-                      ? 'bg-primary/5 border-primary text-primary'
-                      : 'bg-muted/40 text-muted-foreground hover:border-border/40 border-transparent'
+                      ? 'bg-primary/5 border-primary text-primary hover:text-primary'
+                      : 'bg-muted/40 text-muted-foreground hover:border-border/40 hover:text-foreground border-transparent'
                   )}
                 >
                   <method.icon className="h-4 w-4" />
@@ -125,14 +133,14 @@ export function RefillModal({
                       <Zap className="h-2 w-2 fill-current text-white" />
                     )}
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           </div>
 
           <div className="border-border/40 flex gap-3 border-t pt-4">
-            <button
-              className="bg-primary shadow-primary/20 hover:bg-primary/90 text-primary-foreground h-14 flex-1 rounded-lg text-[10px] font-bold tracking-[0.2em] uppercase shadow-lg transition-all active:scale-95 disabled:pointer-events-none disabled:opacity-50"
+            <Button
+              className="bg-primary shadow-primary/20 hover:bg-primary/90 text-primary-foreground h-14 flex-1 rounded-lg text-[10px] font-bold tracking-[0.2em] uppercase shadow-lg transition-all active:scale-95"
               onClick={onConfirm}
               disabled={isRefilling || !refillAmount}
             >
@@ -144,7 +152,7 @@ export function RefillModal({
               ) : (
                 `${t('dashboard:walletDetails.confirmPayment')} €${refillAmount}`
               )}
-            </button>
+            </Button>
           </div>
 
           <p className="text-muted-foreground/60 text-center text-[9px] font-bold tracking-widest uppercase">

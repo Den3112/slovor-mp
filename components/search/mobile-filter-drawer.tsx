@@ -88,11 +88,12 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
   return (
     <Drawer.Root open={open} onOpenChange={setOpen}>
       <Drawer.Trigger asChild>
-        <button
+        <Button
+          variant="ghost"
           className={cn(
-            'flex h-12 items-center gap-2 rounded-lg border px-4 text-sm font-bold transition-all active:scale-95',
+            'flex h-12 w-auto items-center gap-2 rounded-lg border px-4 text-sm font-bold transition-all hover:bg-transparent active:scale-95',
             hasActiveFilters
-              ? 'border-primary bg-primary/10 text-primary'
+              ? 'border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary'
               : 'border-border/50 bg-muted/30 text-foreground'
           )}
         >
@@ -103,7 +104,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
               !
             </span>
           )}
-        </button>
+        </Button>
       </Drawer.Trigger>
 
       <Drawer.Portal>
@@ -126,18 +127,22 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
             </div>
             <div className="flex items-center gap-2">
               {hasActiveFilters && (
-                <button
+                <Button
+                  variant="ghost"
                   onClick={clearFilters}
-                  className="border-border/50 text-muted-foreground hover:text-destructive flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-bold transition-colors"
+                  className="border-border/50 text-muted-foreground hover:text-destructive flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-bold transition-colors hover:bg-transparent"
                 >
                   <RotateCcw className="h-4 w-4" />
                   {t('filters:clearAll')}
-                </button>
+                </Button>
               )}
               <Drawer.Close asChild>
-                <button className="border-border/40 flex h-10 w-10 items-center justify-center rounded-lg border">
+                <Button
+                  variant="ghost"
+                  className="border-border/40 flex h-10 w-10 items-center justify-center rounded-lg border p-0 hover:bg-transparent"
+                >
                   <X className="h-5 w-5" />
-                </button>
+                </Button>
               </Drawer.Close>
             </div>
           </div>
@@ -198,32 +203,34 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                   {t('filters:condition')}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
-                  <button
+                  <Button
+                    variant="ghost"
                     onClick={() =>
                       setCondition(condition === 'new' ? null : 'new')
                     }
                     className={cn(
-                      'flex h-14 items-center justify-center rounded-lg border text-base font-bold transition-all',
+                      'flex h-14 items-center justify-center rounded-lg border text-base font-bold transition-all hover:bg-transparent',
                       condition === 'new'
-                        ? 'border-primary bg-primary/10 text-primary'
+                        ? 'border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary'
                         : 'border-border/50 text-muted-foreground'
                     )}
                   >
                     {t('filters:new')}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="ghost"
                     onClick={() =>
                       setCondition(condition === 'used' ? null : 'used')
                     }
                     className={cn(
-                      'flex h-14 items-center justify-center rounded-lg border text-base font-bold transition-all',
+                      'flex h-14 items-center justify-center rounded-lg border text-base font-bold transition-all hover:bg-transparent',
                       condition === 'used'
-                        ? 'border-primary bg-primary/10 text-primary'
+                        ? 'border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary'
                         : 'border-border/50 text-muted-foreground'
                     )}
                   >
                     {t('filters:used')}
-                  </button>
+                  </Button>
                 </div>
               </div>
 

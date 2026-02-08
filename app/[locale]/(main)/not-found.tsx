@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import { useTranslation } from '@/lib/i18n'
 
 export default function NotFound() {
@@ -18,18 +19,19 @@ export default function NotFound() {
             "Sorry, we couldn't find the page you're looking for."}
         </p>
         <div className="flex justify-center gap-4">
-          <Link
-            href={`/${locale}/`}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-semibold transition-colors"
+          <Button asChild size="lg" className="rounded-xl font-bold">
+            <Link href={`/${locale}/`}>{t('404:goHome') || 'Go Home'}</Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="rounded-xl font-bold"
           >
-            {t('404:goHome') || 'Go Home'}
-          </Link>
-          <Link
-            href={`/${locale}/listings`}
-            className="border-border text-muted-foreground hover:bg-accent rounded-lg border-2 px-6 py-3 font-semibold transition-colors"
-          >
-            {t('404:browse') || 'Browse Listings'}
-          </Link>
+            <Link href={`/${locale}/listings`}>
+              {t('404:browse') || 'Browse Listings'}
+            </Link>
+          </Button>
         </div>
       </div>
     </div>

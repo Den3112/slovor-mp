@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { EmptyState } from '@/components/ui/empty-state'
+import { Input } from '@/components/ui/input'
 import { formatPrice } from '@/lib/utils/formatting'
 import { useCurrency } from '@/components/providers/currency-provider'
 import { Badge } from '@/components/ui/badge'
@@ -125,12 +126,12 @@ export function PromoteView({ userId }: PromoteViewProps) {
       {/* Search and Filter */}
       <div className="group relative max-w-xl">
         <Search className="text-muted-foreground/50 group-focus-within:text-primary absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 transition-colors" />
-        <input
+        <Input
           type="text"
           placeholder={t('dashboard:searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-card border-border/60 ring-primary/10 focus:border-primary/40 w-full rounded-lg border px-12 py-3.5 text-sm font-bold shadow-sm transition-all outline-none focus:ring-4"
+          className="bg-card w-full rounded-lg px-12 py-6 text-sm font-bold shadow-sm"
         />
       </div>
 

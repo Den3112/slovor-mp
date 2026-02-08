@@ -13,6 +13,8 @@ interface ImageGalleryProps {
   title: string
 }
 
+import { Button } from '@/components/ui/button'
+
 export function ImageGallery({ images, title }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [imageError, setImageError] = useState<Set<number>>(new Set())
@@ -129,20 +131,24 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
         {/* Navigation Arrows */}
         {validImages.length > 1 && (
           <>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={goToPrevious}
-              className="absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
+              className="absolute top-1/2 left-4 z-20 h-10 w-10 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={goToNext}
-              className="absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 md:opacity-100"
+              className="absolute top-1/2 right-4 z-20 h-10 w-10 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />
-            </button>
+            </Button>
           </>
         )}
 
@@ -160,16 +166,17 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           {validImages.map((image, index) => {
             const originalIndex = images.indexOf(image)
             return (
-              <button
+              <Button
+                variant="ghost"
                 key={index}
                 onClick={() => {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 p-0 transition-all hover:bg-transparent ${
                   index === currentIndex
-                    ? 'border-primary ring-primary/10 ring-2 ring-offset-1'
-                    : 'hover:border-border border-transparent'
+                    ? 'border-primary ring-primary/10 opacity-100 ring-2 ring-offset-1'
+                    : 'hover:border-border border-transparent opacity-70 hover:opacity-100'
                 }`}
                 aria-label={`View image ${index + 1}`}
               >
@@ -186,7 +193,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   onLoad={() => handleImageLoad(index)}
                   unoptimized
                 />
-              </button>
+              </Button>
             )
           })}
         </div>

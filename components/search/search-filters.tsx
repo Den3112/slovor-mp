@@ -7,6 +7,13 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useTranslation } from '@/lib/i18n'
 
 export function SearchFilters() {
@@ -236,22 +243,26 @@ export function SearchFilters() {
                   {f.label}
                 </Label>
                 {f.type === 'select' ? (
-                  <select
-                    className="border-border/60 bg-background focus:border-primary/40 focus:ring-primary/10 h-10 w-full rounded-lg border px-3 text-sm font-medium transition-all outline-none focus:ring-4"
-                    onChange={(e) =>
+                  <Select
+                    value={searchParams.get(`attr_${f.key}`) || 'all'}
+                    onValueChange={(value) =>
                       updateFilters({
-                        [`attr_${f.key}`]: e.target.value || null,
+                        [`attr_${f.key}`]: value === 'all' ? null : value,
                       })
                     }
-                    value={searchParams.get(`attr_${f.key}`) || ''}
                   >
-                    <option value="">{t('common:all')}</option>
-                    {f.options?.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
+                    <SelectTrigger className="border-border/60 bg-background focus:ring-primary/10 h-10 w-full rounded-lg text-sm font-medium">
+                      <SelectValue placeholder={t('common:all')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">{t('common:all')}</SelectItem>
+                      {f.options?.map((opt) => (
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 ) : (
                   <Input
                     placeholder={`${f.label}...`}
@@ -272,17 +283,21 @@ export function SearchFilters() {
       {/* Sorting in Sidebar */}
       <div className="border-border/40 space-y-4 border-t pt-4">
         <h3 className="text-foreground font-bold">{t('common:sort')}</h3>
-        <select
-          className="border-border/60 bg-background focus:border-primary/40 focus:ring-primary/10 h-10 w-full rounded-lg border px-3 text-sm font-medium transition-all outline-none focus:ring-4"
-          onChange={(e) => updateFilters({ sort: e.target.value || null })}
+        <Select
           value={searchParams.get('sort') || 'newest'}
+          onValueChange={(value) => updateFilters({ sort: value || null })}
         >
-          <option value="newest">{t('filters:newest')}</option>
-          <option value="oldest">{t('filters:oldest')}</option>
-          <option value="price-low">{t('filters:priceLow')}</option>
-          <option value="price-high">{t('filters:priceHigh')}</option>
-          <option value="views">{t('filters:popular')}</option>
-        </select>
+          <SelectTrigger className="border-border/60 bg-background focus:ring-primary/10 h-10 w-full rounded-lg text-sm font-medium">
+            <SelectValue placeholder={t('filters:newest')} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">{t('filters:newest')}</SelectItem>
+            <SelectItem value="oldest">{t('filters:oldest')}</SelectItem>
+            <SelectItem value="price-low">{t('filters:priceLow')}</SelectItem>
+            <SelectItem value="price-high">{t('filters:priceHigh')}</SelectItem>
+            <SelectItem value="views">{t('filters:popular')}</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   )

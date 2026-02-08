@@ -1,4 +1,5 @@
 import { Tag } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 import { useTranslation } from '@/lib/i18n'
 import { PriceRangeProps } from './types'
 
@@ -21,24 +22,24 @@ export function PriceRange({
           <span className="text-muted-foreground/40 absolute top-1/2 left-3 -translate-y-1/2 text-[10px] font-bold">
             €
           </span>
-          <input
+          <Input
             type="number"
             value={min}
             onChange={(e) => onMinChange(e.target.value)}
             placeholder={t('filters:priceMin')}
-            className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-lg border py-2.5 pr-3 pl-7 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+            className="pl-7"
           />
         </div>
         <div className="relative">
           <span className="text-muted-foreground/40 absolute top-1/2 left-3 -translate-y-1/2 text-[10px] font-bold">
             €
           </span>
-          <input
+          <Input
             type="number"
             value={max}
             onChange={(e) => onMaxChange(e.target.value)}
             placeholder={t('filters:priceMax')}
-            className="border-border/60 bg-muted/20 placeholder:text-muted-foreground/30 focus:border-primary/50 focus:ring-primary/10 w-full rounded-lg border py-2.5 pr-3 pl-7 text-xs font-bold transition-all focus:ring-4 focus:outline-none"
+            className="pl-7"
           />
         </div>
       </div>

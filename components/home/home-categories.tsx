@@ -47,7 +47,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-4 max-sm:px-2 md:grid-cols-3 lg:grid-cols-6">
           {mainCategories.map((category, idx) => (
             <motion.div
               key={category.id}
@@ -55,10 +55,11 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
+              className="flex"
             >
               <Link
                 href={`/${locale}/categories/${category.slug}`}
-                className="group border-border bg-card hover:border-primary/50 flex flex-col items-center justify-center gap-3 rounded-lg border p-6 text-center shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+                className="group border-border bg-card hover:border-primary/50 flex flex-1 flex-col items-center justify-center gap-3 rounded-lg border p-6 text-center shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
               >
                 <div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-lg transition-colors">
                   <CategoryIcon slug={category.slug} className="h-6 w-6" />

@@ -2,6 +2,7 @@
 
 import { useId } from 'react'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Loader2, Eye, EyeOff } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 
@@ -38,13 +39,13 @@ export function AuthForm({
           >
             {t('email')}
           </label>
-          <input
+          <Input
             id={emailId}
             name="email"
             type="email"
             placeholder="name@example.com"
             required
-            className="border-border/40 bg-background/50 text-foreground placeholder:text-muted-foreground/40 focus:bg-background h-14 w-full rounded-2xl border px-6 text-base shadow-inner transition-all outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10"
+            className="border-border/40 bg-background/50 text-foreground placeholder:text-muted-foreground/40 focus:bg-background h-14 w-full rounded-2xl border px-6 text-base shadow-inner transition-all focus-visible:border-indigo-500/50 focus-visible:ring-4 focus-visible:ring-indigo-500/10"
             data-testid="auth-email-input"
           />
         </div>
@@ -58,37 +59,40 @@ export function AuthForm({
               {t('password')}
             </label>
             {!isRegistering && (
-              <button
+              <Button
                 type="button"
-                className="text-primary text-[11px] font-bold tracking-tight hover:underline focus:outline-none"
+                variant="link"
+                className="text-primary h-auto p-0 text-[11px] font-bold tracking-tight hover:underline focus:outline-none"
               >
                 {t('forgotPassword')}
-              </button>
+              </Button>
             )}
           </div>
           <div className="relative">
-            <input
+            <Input
               id={passwordId}
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               required
               minLength={6}
-              className="border-border/40 bg-background/50 text-foreground placeholder:text-muted-foreground/40 focus:bg-background h-14 w-full rounded-2xl border px-6 pr-12 text-base shadow-inner transition-all outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10"
+              className="border-border/40 bg-background/50 text-foreground placeholder:text-muted-foreground/40 focus:bg-background h-14 w-full rounded-2xl border px-6 pr-12 text-base shadow-inner transition-all focus-visible:border-indigo-500/50 focus-visible:ring-4 focus-visible:ring-indigo-500/10"
               data-testid="auth-password-input"
             />
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? t('hidePassword') : t('showPassword')}
-              className="text-muted-foreground absolute top-1/2 right-5 z-10 -translate-y-1/2 p-2 transition-colors hover:text-indigo-500"
+              className="text-muted-foreground absolute top-1/2 right-3 z-10 -translate-y-1/2 hover:text-indigo-500"
             >
               {showPassword ? (
                 <EyeOff className="h-5 w-5" />
               ) : (
                 <Eye className="h-5 w-5" />
               )}
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -112,13 +116,14 @@ export function AuthForm({
         <span className="text-muted-foreground">
           {isRegistering ? t('alreadyHaveAccount') : t('dontHaveAccount')}
         </span>{' '}
-        <button
+        <Button
+          variant="link"
           onClick={() => setIsRegistering(!isRegistering)}
-          className="text-primary font-bold decoration-2 underline-offset-4 hover:underline"
+          className="text-primary h-auto p-0 font-bold decoration-2 underline-offset-4 hover:underline"
           data-testid="auth-toggle-mode-btn"
         >
           {isRegistering ? t('signIn') : t('signUp')}
-        </button>
+        </Button>
       </div>
     </>
   )

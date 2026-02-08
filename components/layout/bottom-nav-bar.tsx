@@ -59,12 +59,12 @@ export function BottomNavBar({
                 key={item.href}
                 onClick={onSearchClick}
                 className={cn(
-                  'flex h-12 w-16 flex-col items-center justify-center gap-1 transition-colors',
+                  'flex h-12 w-14 shrink-0 flex-col items-center justify-center gap-1 transition-colors sm:w-16',
                   active ? 'text-primary' : 'text-muted-foreground'
                 )}
               >
                 <Icon className="h-5 w-5" />
-                <span className="text-[10px] font-semibold">
+                <span className="text-[9px] font-semibold sm:text-[10px]">
                   {t(item.labelKey)}
                 </span>
               </button>
@@ -76,12 +76,12 @@ export function BottomNavBar({
               key={item.href}
               href={`/${locale}${item.href}`}
               className={cn(
-                'flex h-12 w-16 flex-col items-center justify-center gap-1 transition-colors',
+                'flex h-12 w-14 shrink-0 flex-col items-center justify-center gap-1 transition-colors sm:w-16',
                 active ? 'text-primary' : 'text-muted-foreground'
               )}
             >
               <Icon className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">
+              <span className="text-[9px] font-semibold sm:text-[10px]">
                 {t(item.labelKey)}
               </span>
             </Link>
@@ -89,7 +89,7 @@ export function BottomNavBar({
         })}
 
         {/* Center: Post Ad Button */}
-        <Link href={`/${locale}/post`} className="relative -top-4">
+        <Link href={`/${locale}/post`} className="relative -top-4 shrink-0">
           <div className="bg-primary text-primary-foreground flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-transform active:scale-95">
             <Plus className="h-6 w-6" strokeWidth={2.5} />
           </div>
@@ -105,12 +105,12 @@ export function BottomNavBar({
               key={item.href}
               href={`/${locale}${item.href}`}
               className={cn(
-                'flex h-12 w-16 flex-col items-center justify-center gap-1 transition-colors',
+                'flex h-12 w-14 shrink-0 flex-col items-center justify-center gap-1 transition-colors sm:w-16',
                 active ? 'text-primary' : 'text-muted-foreground'
               )}
             >
               <Icon className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">
+              <span className="text-[9px] font-semibold sm:text-[10px]">
                 {t(item.labelKey)}
               </span>
             </Link>
@@ -122,7 +122,7 @@ export function BottomNavBar({
           <Link
             href={`/${locale}/dashboard`}
             className={cn(
-              'relative flex h-12 w-16 flex-col items-center justify-center gap-1 transition-colors',
+              'relative flex h-12 w-14 shrink-0 flex-col items-center justify-center gap-1 transition-colors sm:w-16',
               pathname?.includes('/dashboard')
                 ? 'text-primary'
                 : 'text-muted-foreground'
@@ -136,17 +136,17 @@ export function BottomNavBar({
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-semibold">
+            <span className="text-[9px] font-semibold sm:text-[10px]">
               {t('nav:profile')}
             </span>
           </Link>
         ) : (
           <Link
             href={`/${locale}/auth/login`}
-            className="text-muted-foreground flex h-12 w-16 flex-col items-center justify-center gap-1 transition-colors"
+            className="text-muted-foreground flex h-12 w-14 shrink-0 flex-col items-center justify-center gap-1 transition-colors sm:w-16"
           >
             <User className="h-5 w-5" />
-            <span className="text-[10px] font-semibold">
+            <span className="text-[9px] font-semibold sm:text-[10px]">
               {t('common:signIn')}
             </span>
           </Link>

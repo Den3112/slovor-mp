@@ -11,6 +11,8 @@ import {
 } from '@/lib/utils/category-i18n'
 import { Facebook, Instagram, Twitter, Mail, ChevronDown } from 'lucide-react'
 import { Container } from '@/components/ui/container'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { useCurrency } from '@/components/providers/currency-provider'
 import { CURRENCIES } from '@/lib/types/currency'
@@ -60,22 +62,28 @@ export function Footer() {
       links:
         latestPosts.length > 0
           ? latestPosts.map((post) => ({
-            label: post.title,
-            href: `/${locale}/blog/${post.slug}`,
-          }))
+              label: post.title,
+              href: `/${locale}/blog/${post.slug}`,
+            }))
           : [
-            { label: 'Selling Tips', href: `/${locale}/blog` },
-            { label: 'Safety Guide', href: `/${locale}/blog` },
-            { label: 'Market Trends', href: `/${locale}/blog` },
-          ],
+              { label: 'Selling Tips', href: `/${locale}/blog` },
+              { label: 'Safety Guide', href: `/${locale}/blog` },
+              { label: 'Market Trends', href: `/${locale}/blog` },
+            ],
     },
     {
       title: t('footer:info'),
       links: [
         { label: t('footer:about'), href: `/${locale}/about` },
-        { label: t('footer:contact') || 'Contact Us', href: `/${locale}/contact` },
+        {
+          label: t('footer:contact') || 'Contact Us',
+          href: `/${locale}/contact`,
+        },
         ...dynamicPages
-          .filter((p) => !['about', 'contact', 'terms', 'privacy', 'faq'].includes(p.slug))
+          .filter(
+            (p) =>
+              !['about', 'contact', 'terms', 'privacy', 'faq'].includes(p.slug)
+          )
           .map((p) => ({
             label: p.title,
             href: `/${locale}/${p.slug}`,
@@ -165,9 +173,10 @@ export function Footer() {
             <div className="space-y-2 md:hidden">
               {navGroups.map((group, i) => (
                 <div key={i} className="border-border border-b">
-                  <button
+                  <Button
+                    variant="ghost"
                     onClick={() => toggleSection(i)}
-                    className="flex w-full items-center justify-between py-4 text-left"
+                    className="flex h-auto w-full items-center justify-between px-0 py-4 text-left hover:bg-transparent"
                   >
                     <span className="text-foreground text-sm font-bold tracking-wider uppercase">
                       {group.title}
@@ -178,7 +187,7 @@ export function Footer() {
                         openSection === i && 'rotate-180'
                       )}
                     />
-                  </button>
+                  </Button>
                   <div
                     className={cn(
                       'grid transition-all duration-300',
@@ -220,16 +229,16 @@ export function Footer() {
           </div>
           <div className="flex w-full flex-col gap-3 lg:max-w-md lg:flex-row">
             <div className="relative flex-1">
-              <Mail className="text-muted-foreground absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2" />
-              <input
+              <Mail className="text-muted-foreground absolute top-1/2 left-4 z-10 h-5 w-5 -translate-y-1/2" />
+              <Input
                 type="email"
                 placeholder={t('footer:newsletterPlaceholder')}
-                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary w-full rounded-lg border py-3.5 pr-4 pl-11 text-base font-medium focus:ring-1 focus:outline-none"
+                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary h-12 w-full rounded-lg border py-6 pr-4 pl-11 text-base font-medium shadow-sm transition-all"
               />
             </div>
-            <button className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-lg px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-lg px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto">
               {t('footer:subscribe')}
-            </button>
+            </Button>
           </div>
         </div>
 

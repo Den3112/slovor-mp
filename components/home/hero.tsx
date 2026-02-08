@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
@@ -88,15 +89,14 @@ export function Hero() {
                     className="text-muted-foreground h-5 w-5 shrink-0 transition-transform group-focus-within:scale-110 md:h-6 md:w-6"
                     aria-hidden="true"
                   />
-                  <input
+                  <Input
                     id="hero-search"
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={t('searchPlaceholder')}
                     aria-label={t('searchPlaceholder')}
-                    className="placeholder:text-muted-foreground text-foreground w-full border-none bg-transparent px-3 py-3 text-base font-semibold focus:ring-0 focus:outline-none sm:py-4 md:px-4 md:text-lg"
-                    style={{ outline: 'none', boxShadow: 'none' }}
+                    className="placeholder:text-muted-foreground text-foreground h-auto w-full border-none bg-transparent px-3 py-3 text-base font-semibold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:py-4 md:px-4 md:text-lg"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         handleSearch()

@@ -5,6 +5,7 @@
 
 import { Component, type ReactNode } from 'react'
 import { AlertCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface Props {
   children: ReactNode
@@ -46,12 +47,12 @@ export class ErrorBoundary extends Component<Props, State> {
             <p className="text-muted-foreground mb-6">
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
-            <button
+            <Button
               onClick={() => window.location.reload()}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-semibold transition-colors"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 h-auto rounded-lg px-6 py-3 font-semibold transition-colors"
             >
               Reload Page
-            </button>
+            </Button>
           </div>
         </div>
       )

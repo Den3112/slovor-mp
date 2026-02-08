@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Globe, Check } from 'lucide-react'
 import { useTranslation, type Locale } from '@/lib/i18n'
 import { FLAGS, PARTY } from '@/lib/flags'
+import { cn } from '@/lib/utils'
 
 const WELCOME_SHOWN_KEY = 'slovor-welcome-shown'
 
@@ -103,14 +104,16 @@ export function LocaleWelcomeModal() {
 
         <div className="my-6 space-y-3">
           {localeOptions.map((option) => (
-            <button
+            <Button
               key={option.code}
+              variant="outline"
               onClick={() => setSelectedLocale(option.code)}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02] ${
+              className={cn(
+                'flex h-auto w-full items-center justify-between rounded-2xl border-2 p-5 transition-all hover:scale-[1.02]',
                 selectedLocale === option.code
-                  ? 'border-primary bg-primary/10 shadow-md'
+                  ? 'border-primary bg-primary/10 hover:bg-primary/20 shadow-md'
                   : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
-              }`}
+              )}
             >
               {/* Left side: Large flag emoji + text */}
               <div className="flex items-center gap-4">
@@ -121,7 +124,9 @@ export function LocaleWelcomeModal() {
                   <p className="text-foreground text-lg font-bold">
                     {option.nativeName}
                   </p>
-                  <p className="text-muted-foreground text-sm">{option.name}</p>
+                  <p className="text-muted-foreground text-sm font-normal">
+                    {option.name}
+                  </p>
                 </div>
               </div>
 
@@ -139,7 +144,7 @@ export function LocaleWelcomeModal() {
                   </div>
                 )}
               </div>
-            </button>
+            </Button>
           ))}
         </div>
 

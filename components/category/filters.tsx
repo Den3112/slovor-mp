@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
 import { useCallback, useState } from 'react'
 import { RotateCcw, MapPin, DollarSign, ArrowUpDown } from 'lucide-react'
 
@@ -115,20 +116,20 @@ export function Filters() {
             {t('common:price') || 'Price'}
           </label>
           <div className="flex items-center gap-2">
-            <input
+            <Input
               type="number"
               value={priceMin}
               onChange={(e) => setPriceMin(e.target.value)}
               placeholder={t('filters:priceMin')}
-              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-lg border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
+              className="h-12 w-full rounded-lg px-4 text-sm font-bold"
             />
             <div className="bg-border h-px w-4" />
-            <input
+            <Input
               type="number"
               value={priceMax}
               onChange={(e) => setPriceMax(e.target.value)}
               placeholder={t('filters:priceMax')}
-              className="border-input bg-muted/30 text-foreground focus:border-primary/50 focus:ring-primary/20 h-12 w-full rounded-lg border px-4 text-sm font-bold transition-all outline-none placeholder:font-medium focus:ring-1"
+              className="h-12 w-full rounded-lg px-4 text-sm font-bold"
             />
           </div>
         </div>

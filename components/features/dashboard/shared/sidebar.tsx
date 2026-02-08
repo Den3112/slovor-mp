@@ -92,7 +92,8 @@ export function UnifiedSidebar({
       <div
         className={cn(
           'flex items-center px-6 transition-all',
-          !hideLogo && 'border-border border-b h-(--header-height) justify-between',
+          !hideLogo &&
+            'border-border h-(--header-height) justify-between border-b',
           hideLogo && 'h-10 justify-end',
           isCollapsed && 'justify-center px-0'
         )}
@@ -133,8 +134,8 @@ export function UnifiedSidebar({
                   const localePrefix = `/${locale}`
                   const localizedHref =
                     link.href.startsWith('http') ||
-                      link.external ||
-                      link.href.startsWith(localePrefix)
+                    link.external ||
+                    link.href.startsWith(localePrefix)
                       ? link.href
                       : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 
@@ -160,7 +161,9 @@ export function UnifiedSidebar({
                       />
 
                       {!isCollapsed && (
-                        <span className="flex-1 whitespace-normal leading-tight">{link.label}</span>
+                        <span className="flex-1 leading-tight whitespace-normal">
+                          {link.label}
+                        </span>
                       )}
 
                       {/* Counter Badge */}
@@ -192,23 +195,24 @@ export function UnifiedSidebar({
       </div>
 
       {/* Sign Out Section */}
-      <div className="border-t border-border/40 p-3 pb-8 sm:pb-3">
-        <button
+      <div className="border-border/40 border-t p-3 pb-8 sm:pb-3">
+        <Button
+          variant="ghost"
           onClick={handleSignOut}
           className={cn(
-            'group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all duration-200 hover:bg-destructive/5 hover:text-destructive',
+            'group hover:bg-destructive/5 hover:text-destructive flex h-auto w-full items-center justify-start gap-3 rounded-lg px-3 py-2',
             isCollapsed && 'justify-center px-2'
           )}
         >
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/50 transition-colors group-hover:bg-destructive/10">
+          <div className="bg-muted/50 group-hover:bg-destructive/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors">
             <LogOut className="h-4 w-4" />
           </div>
           {!isCollapsed && (
-            <span className="font-bold uppercase tracking-widest text-[10px]">
+            <span className="text-muted-foreground group-hover:text-destructive text-[10px] font-bold tracking-widest uppercase transition-colors">
               {config.signOutLabel}
             </span>
           )}
-        </button>
+        </Button>
       </div>
     </div>
   )

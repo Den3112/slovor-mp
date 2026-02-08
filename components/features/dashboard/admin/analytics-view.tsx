@@ -76,7 +76,12 @@ export function AdminAnalyticsView() {
       growth: '+22%',
       color: 'bg-amber-500',
     },
-    { name: t('admin:catServices'), listings: 430, growth: '-2%', color: 'bg-rose-500' },
+    {
+      name: t('admin:catServices'),
+      listings: 430,
+      growth: '-2%',
+      color: 'bg-rose-500',
+    },
   ]
 
   const topRegions = [
@@ -101,18 +106,20 @@ export function AdminAnalyticsView() {
         </div>
         <div className="bg-muted/40 border-border/40 flex items-center gap-3 rounded-lg border p-1">
           {['7d', '30d', '90d', '1y'].map((range) => (
-            <button
+            <Button
               key={range}
+              variant="ghost"
+              size="sm"
               onClick={() => setTimeRange(range)}
               className={cn(
-                'rounded-lg px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all',
+                'h-auto rounded-lg px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all',
                 timeRange === range
-                  ? 'bg-background text-primary border-border/40 border shadow-sm'
+                  ? 'bg-background text-primary border-border/40 hover:bg-background hover:text-primary border shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {range}
-            </button>
+            </Button>
           ))}
           <div className="bg-border/40 mx-1 h-4 w-px" />
           <Button
@@ -201,24 +208,39 @@ export function AdminAnalyticsView() {
                     animate={{
                       width: `${(cat.listings / (categoryPerformance[0]?.listings || 1)) * 100}%`,
                     }}
-                    transition={{ duration: 1.2, ease: "circOut", delay: idx * 0.1 }}
+                    transition={{
+                      duration: 1.2,
+                      ease: 'circOut',
+                      delay: idx * 0.1,
+                    }}
                     className={cn(
                       'h-full rounded-full shadow-[0_0_8px] shadow-current transition-all',
                       cat.color,
-                      cat.color === 'bg-blue-500' && 'bg-linear-to-r from-blue-600 to-blue-400 text-blue-500/30',
-                      cat.color === 'bg-emerald-500' && 'bg-linear-to-r from-emerald-600 to-emerald-400 text-emerald-500/30',
-                      cat.color === 'bg-amber-500' && 'bg-linear-to-r from-amber-600 to-amber-400 text-amber-500/30',
-                      cat.color === 'bg-rose-500' && 'bg-linear-to-r from-rose-600 to-rose-400 text-rose-500/30'
+                      cat.color === 'bg-blue-500' &&
+                        'bg-linear-to-r from-blue-600 to-blue-400 text-blue-500/30',
+                      cat.color === 'bg-emerald-500' &&
+                        'bg-linear-to-r from-emerald-600 to-emerald-400 text-emerald-500/30',
+                      cat.color === 'bg-amber-500' &&
+                        'bg-linear-to-r from-amber-600 to-amber-400 text-amber-500/30',
+                      cat.color === 'bg-rose-500' &&
+                        'bg-linear-to-r from-rose-600 to-rose-400 text-rose-500/30'
                     )}
                   />
                 </div>
                 <div
                   className={cn(
-                    "flex items-center gap-1 text-[9px] font-bold uppercase",
-                    cat.growth.startsWith('+') ? "text-success" : "text-destructive"
+                    'flex items-center gap-1 text-[9px] font-bold uppercase',
+                    cat.growth.startsWith('+')
+                      ? 'text-success'
+                      : 'text-destructive'
                   )}
                 >
-                  <ArrowUpRight className={cn("h-3 w-3", !cat.growth.startsWith('+') && "rotate-90")} />
+                  <ArrowUpRight
+                    className={cn(
+                      'h-3 w-3',
+                      !cat.growth.startsWith('+') && 'rotate-90'
+                    )}
+                  />
                   {cat.growth} {t('admin:growth')}
                 </div>
               </div>
@@ -241,7 +263,7 @@ export function AdminAnalyticsView() {
             {topRegions.map((region, idx) => (
               <div
                 key={idx}
-                className="bg-muted/20 border-border/40 flex items-center justify-between rounded-lg border p-3 hover:bg-muted/30 transition-all cursor-default"
+                className="bg-muted/20 border-border/40 hover:bg-muted/30 flex cursor-default items-center justify-between rounded-lg border p-3 transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="bg-background border-border/60 text-primary flex h-8 w-8 items-center justify-center rounded-lg border text-[10px] font-bold">
@@ -281,9 +303,9 @@ export function AdminAnalyticsView() {
 
       {/* System Health Section */}
       <div className="grid grid-cols-1">
-        <Card className="border-border/60 overflow-hidden rounded-lg bg-muted/30 dark:bg-slate-950 dark:text-white shadow-2xl transition-colors">
-          <CardHeader className="border-b border-border/40 dark:border-white/5 bg-muted/50 dark:bg-white/5 px-6 py-4">
-            <CardTitle className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-muted-foreground dark:text-white/40 uppercase">
+        <Card className="border-border/60 bg-muted/30 overflow-hidden rounded-lg shadow-2xl transition-colors dark:bg-slate-950 dark:text-white">
+          <CardHeader className="border-border/40 bg-muted/50 border-b px-6 py-4 dark:border-white/5 dark:bg-white/5">
+            <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase dark:text-white/40">
               <Zap className="text-success h-4 w-4" />
               {t('admin:platformHealth')}
             </CardTitle>
@@ -292,43 +314,43 @@ export function AdminAnalyticsView() {
             <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] font-bold tracking-widest text-muted-foreground dark:text-white/30 uppercase">
+                  <span className="text-muted-foreground text-[9px] font-bold tracking-widest uppercase dark:text-white/30">
                     {t('admin:apiLatency')}
                   </span>
                   <span className="text-3xl font-bold">24ms</span>
                 </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted dark:bg-white/5 border border-border/20 dark:border-white/5">
-                  <div className="bg-linear-to-r from-emerald-500 to-emerald-400 shadow-[0_0_12px] shadow-emerald-500/40 h-full w-[85%]" />
+                <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
+                  <div className="h-full w-[85%] bg-linear-to-r from-emerald-500 to-emerald-400 shadow-[0_0_12px] shadow-emerald-500/40" />
                 </div>
-                <p className="text-emerald-500 text-[10px] font-bold tracking-widest uppercase">
+                <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase">
                   {t('admin:optimized')}
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] font-bold tracking-widest text-muted-foreground dark:text-white/30 uppercase">
+                  <span className="text-muted-foreground text-[9px] font-bold tracking-widest uppercase dark:text-white/30">
                     {t('admin:serverLoad')}
                   </span>
                   <span className="text-3xl font-bold">12.4%</span>
                 </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted dark:bg-white/5 border border-border/20 dark:border-white/5">
+                <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
                   <div className="h-full w-[12%] bg-linear-to-r from-blue-500 to-blue-400 shadow-[0_0_12px] shadow-blue-500/30" />
                 </div>
-                <p className="text-[10px] font-bold tracking-widest text-blue-500 dark:text-blue-400 uppercase">
+                <p className="text-[10px] font-bold tracking-widest text-blue-500 uppercase dark:text-blue-400">
                   {t('admin:stable')}
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[9px] font-bold tracking-widest text-muted-foreground dark:text-white/30 uppercase">
+                  <span className="text-muted-foreground text-[9px] font-bold tracking-widest uppercase dark:text-white/30">
                     {t('admin:errorRate')}
                   </span>
                   <span className="text-3xl font-bold">0.02%</span>
                 </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted dark:bg-white/5 border border-border/20 dark:border-white/5">
+                <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
                   <div className="h-full w-[2%] bg-linear-to-r from-emerald-500 to-emerald-400" />
                 </div>
-                <p className="text-[10px] font-bold tracking-widest text-emerald-500 dark:text-emerald-400 uppercase">
+                <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase dark:text-emerald-400">
                   {t('admin:normal')}
                 </p>
               </div>

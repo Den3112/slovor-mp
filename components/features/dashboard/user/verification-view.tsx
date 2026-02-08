@@ -278,19 +278,20 @@ export function VerificationView() {
                 </p>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {['id_card', 'passport', 'drivers_license'].map((type) => (
-                    <button
+                    <Button
                       key={type}
+                      variant="outline"
                       onClick={() => setSelectedDocType(type as any)}
                       className={cn(
-                        'flex flex-col items-center gap-3 rounded-lg border-2 p-4 transition-all',
+                        'hover:bg-muted/80 flex h-auto flex-col items-center gap-3 rounded-lg border-2 p-4 transition-all',
                         selectedDocType === type
-                          ? 'bg-primary/10 border-primary text-primary'
-                          : 'bg-muted text-muted-foreground hover:bg-muted/80 border-transparent'
+                          ? 'bg-primary/10 border-primary text-primary hover:text-primary hover:bg-primary/15'
+                          : 'bg-muted text-muted-foreground hover:text-foreground border-transparent'
                       )}
                     >
                       <FileText className="h-6 w-6" />
                       {t(`verification:${type}`)}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>

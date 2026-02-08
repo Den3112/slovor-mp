@@ -18,6 +18,7 @@ import { Listing } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/lib/utils/formatting'
 import { SuspicionIssue } from './types'
+import { Button } from '@/components/ui/button'
 
 interface ModerationCardProps {
   listing: Listing
@@ -125,31 +126,39 @@ export function ModerationCard({
 
       {/* Action Bar */}
       <div className="bg-border/40 border-border/40 mt-auto grid grid-cols-2 gap-px border-t">
-        <button
+        <Button
+          variant="ghost"
           onClick={() => onAction(listing.id, 'active')}
-          className="bg-background group/btn flex items-center justify-center gap-2 py-5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-emerald-500 hover:text-white"
+          className="bg-background group/btn flex h-auto items-center justify-center gap-2 rounded-none py-5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-emerald-500 hover:text-white"
         >
           <CheckCircle2 className="h-4 w-4 transition-transform group-hover/btn:scale-110" />
           {t('admin:approve')}
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="ghost"
           onClick={() => onAction(listing.id, 'rejected')}
-          className="bg-background hover:bg-destructive group/btn flex items-center justify-center gap-2 py-5 text-xs font-bold tracking-widest uppercase transition-all hover:text-white"
+          className="bg-background hover:bg-destructive group/btn flex h-auto items-center justify-center gap-2 rounded-none py-5 text-xs font-bold tracking-widest uppercase transition-all hover:text-white"
         >
           <XCircle className="h-4 w-4 transition-transform group-hover/btn:scale-110" />
           {t('admin:reject')}
-        </button>
+        </Button>
       </div>
 
       {/* Sub-actions Overlay (More) */}
       <div className="border-border/40 bg-muted/20 flex items-center justify-around border-t p-2">
-        <button className="hover:bg-background text-muted-foreground hover:text-foreground flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all">
+        <Button
+          variant="ghost"
+          className="hover:bg-background text-muted-foreground hover:text-foreground flex h-auto items-center gap-1.5 rounded-lg px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all"
+        >
           <Edit3 className="h-3.5 w-3.5" /> {t('admin:requestFix')}
-        </button>
+        </Button>
         <div className="bg-border/60 h-4 w-px" />
-        <button className="hover:bg-background text-muted-foreground hover:text-destructive flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all">
+        <Button
+          variant="ghost"
+          className="hover:bg-background text-muted-foreground hover:text-destructive flex h-auto items-center gap-1.5 rounded-lg px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all"
+        >
           <Ban className="h-3.5 w-3.5" /> {t('admin:banSeller')}
-        </button>
+        </Button>
       </div>
     </motion.div>
   )
