@@ -36,6 +36,22 @@
   "inbox": "Inbox",
   "messages": "Messages",
   "welcomeBack": "Welcome back",
+  "welcomeHeader": "PERSONAL DASHBOARD",
+  "hello": "Hello",
+  "heroDescription": "Your command center for managing sales and growing on the platform.",
+  "totalViews": "Total Views",
+  "successScore": "Success Score",
+  "topPercentile": "Top {{percentile}}% of sellers",
+  "reachProLevel": "Reach Pro Level",
+  "performanceGood": "Your listings are performing better than average. Promote for maximum impact!",
+  "smartNudges": "Smart Nudges",
+  "personalizedRecommendations": "Personalized recommendations to boost your growth.",
+  "nudgePhotosTitle": "Optimize Photos",
+  "nudgePhotosDesc": "Listings with 5+ photos sell 2.4x faster. Add more images to your ads.",
+  "nudgePhotosCta": "Add Photos",
+  "nudgeMarketTitle": "Market High Demand",
+  "nudgeMarketDesc": "Electronics prices are up by 5% this week. Consider updating your prices.",
+  "nudgeMarketCta": "View Trends",
   "inactive": "Inactive",
   "noListingsYet": "No listings yet",
   "startSelling": "Start selling today and reach thousands of buyers.",
@@ -44,6 +60,9 @@
   "openInbox": "Open Inbox",
   "performance": "Performance",
   "pastDays": "Past 7 days",
+  "marketInsights": "Market Insights",
+  "activityHistory": "Activity History",
+  "postListing": "Post New Ad",
   "viewsOverTime": "Views over time",
   "last7Days": "Last 7 Days",
   "deleteListingTitle": "Delete Listing?",
@@ -106,7 +125,10 @@
       "free": {
         "title": "Free",
         "subtitle": "Basic visibility",
-        "features": ["Standard search placement", "Valid forever"]
+        "features": [
+          "Standard search placement",
+          "Valid forever"
+        ]
       },
       "standard": {
         "title": "Standard",
@@ -143,6 +165,7 @@
   "purchases": "Purchases",
   "sales": "Sales",
   "manageTransactions": "Manage your transactions and purchases",
+  "ordersAndSales": "Orders & Sales",
   "viewOrder": "View Order",
   "noOrders": "No orders found",
   "notifications": {

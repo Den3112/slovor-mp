@@ -39,7 +39,7 @@ export default async function ContactPage() {
                 icon: <Phone className="h-6 w-6 text-blue-500" />,
                 title: t('contact:phone'),
                 values: ['+421 2 123 456 78'],
-                extra: 'Mon-Fri: 9:00 - 17:00',
+                extra: t('contact:workingHours'),
               },
               {
                 icon: <MapPin className="h-6 w-6 text-emerald-500" />,
@@ -99,7 +99,7 @@ export default async function ContactPage() {
                   </div>
                   <div className="space-y-2">
                     <label className="text-muted-foreground ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
-                      Email
+                      {t('contact:emailLabel')}
                     </label>
                     <Input
                       type="email"

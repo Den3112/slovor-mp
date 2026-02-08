@@ -2,11 +2,16 @@
   "title": "Contact Us",
   "subtitle": "We're here for you. Drop us a line or visit our office.",
   "email": "Email Address",
+  "emailLabel": "Email",
   "phone": "Phone Number",
   "office": "Office",
   "sendMessage": "Send us a message",
   "name": "Name",
   "message": "Message",
   "send": "Send Message",
-  "success": "Message sent successfully!"
+  "success": "Message sent successfully!",
+  "placeholderName": "John Doe",
+  "placeholderEmail": "john@example.com",
+  "placeholderMessage": "How can we help you?",
+  "workingHours": "Mon-Fri: 9:00 - 17:00"
 }

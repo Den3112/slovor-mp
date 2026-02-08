@@ -34,8 +34,8 @@ describe('Button Component - Design Tokens', () => {
 
   it('secondary variant uses semantic secondary token', () => {
     const variants = buttonVariants({ variant: 'secondary' })
-    expect(variants).toContain('bg-secondary')
-    expect(variants).toContain('text-secondary-foreground')
+    expect(variants).toContain('bg-transparent')
+    expect(variants).toContain('border-border')
     expect(variants).not.toMatch(/bg-gray-\d+/)
   })
 
@@ -122,7 +122,7 @@ describe('Input Component - Design Tokens', () => {
     render(<Input data-testid="input" placeholder="Test" />)
     const input = screen.getByTestId('input')
     expect(input.className).toContain('border-input')
-    expect(input.className).toContain('bg-background')
+    expect(input.className).toContain('bg-card')
     expect(input.className).toContain('focus-visible:ring-primary/20')
   })
 })

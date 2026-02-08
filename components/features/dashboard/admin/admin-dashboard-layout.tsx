@@ -14,6 +14,8 @@ import {
   Layers,
   LifeBuoy,
   BarChart3,
+  Activity,
+  Settings,
 } from 'lucide-react'
 
 interface AdminDashboardLayoutProps {
@@ -35,6 +37,11 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
             icon: LayoutDashboard,
           },
           {
+            href: '/admin/monitor',
+            label: t('admin:liveMonitor'),
+            icon: Activity,
+          },
+          {
             href: '/admin/analytics',
             label: t('admin:analytics'),
             icon: BarChart3,
@@ -42,18 +49,12 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
         ],
       },
       {
-        title: t('admin:management'),
+        title: t('admin:operations') || 'OPERATIONS',
         items: [
           {
             href: '/admin/listings',
             label: t('admin:moderation'),
             icon: ShieldCheck,
-          },
-          { href: '/admin/users', label: t('admin:users'), icon: Users },
-          {
-            href: '/admin/categories',
-            label: t('admin:categories'),
-            icon: Layers,
           },
           {
             href: '/admin/verifications',
@@ -61,33 +62,49 @@ export function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
             icon: FileCheck,
           },
           {
+            href: '/admin/reports',
+            label: t('admin:reports'),
+            icon: AlertTriangle,
+          },
+        ],
+      },
+      {
+        title: t('admin:platform') || 'PLATFORM',
+        items: [
+          { href: '/admin/users', label: t('admin:users'), icon: Users },
+          {
+            href: '/admin/categories',
+            label: t('admin:categories'),
+            icon: Layers,
+          },
+          {
             href: '/admin/orders',
-            label: t('admin:marketplaceTransactions'),
+            label: t('admin:marketplace'),
             icon: ShoppingBag,
           },
         ],
       },
       {
-        title: t('admin:reports'),
+        title: t('admin:system') || 'SYSTEM',
         items: [
-          {
-            href: '/admin/reports',
-            label: t('admin:reports'),
-            icon: AlertTriangle,
-          },
+          { href: '/admin/content', label: t('admin:content'), icon: FileText },
           {
             href: '/admin/support',
             label: t('admin:supportTickets'),
             icon: LifeBuoy,
           },
-          { href: '/admin/content', label: t('admin:content'), icon: FileText },
+          {
+            href: '/admin/settings',
+            label: t('admin:settings'),
+            icon: Settings,
+          },
         ],
       },
     ],
   }
 
   return (
-    <DashboardShell config={config} title={t('admin:panel')}>
+    <DashboardShell config={config} title={t('admin:controlCenter') || 'Mission Control'}>
       {children}
     </DashboardShell>
   )

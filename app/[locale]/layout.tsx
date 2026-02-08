@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { StructuredData } from '@/components/layout/structured-data'
 import { Providers } from '../providers'
+import { GlobalCommandPalette } from '@/components/features/vantage/command-palette'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import '../globals.css'
@@ -98,6 +99,7 @@ export default async function RootLayout({
       >
         <Providers lang={locale}>
           <StructuredData locale={locale} />
+          <GlobalCommandPalette />
           {children}
           <Analytics />
           <SpeedInsights />
