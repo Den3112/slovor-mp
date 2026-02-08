@@ -72,7 +72,7 @@ export function Pagination({
   }
 
   return (
-    <div className="border-border bg-card flex items-center justify-between rounded-lg border p-4 shadow-sm">
+    <div className="border-border bg-card flex items-center justify-between rounded-xl border p-4 shadow-sm">
       <div className="text-muted-foreground text-sm">
         Showing{' '}
         <span className="text-foreground font-semibold">
@@ -103,9 +103,8 @@ export function Pagination({
               key={index}
               onClick={() => goToPage(page)}
               variant={currentPage === page ? 'default' : 'outline'}
-              className={`h-9 min-w-9 px-3 font-medium transition-colors ${
-                currentPage === page ? '' : 'hover:bg-accent'
-              }`}
+              className={`h-9 min-w-9 px-3 font-medium transition-colors ${currentPage === page ? '' : 'hover:bg-accent'
+                }`}
             >
               {page}
             </Button>

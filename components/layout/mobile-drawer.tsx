@@ -66,7 +66,7 @@ export function MobileDrawer({
   return (
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" />
+        <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40" />
         <AnimatePresence>
           {open && (
             <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[92vh] flex-col overflow-hidden rounded-t-[2.5rem] border-t shadow-2xl outline-hidden">
@@ -108,12 +108,12 @@ export function MobileDrawer({
                         {
                           icon: Heart,
                           label: t('nav:favorites'),
-                          href: '/favorites',
+                          href: '/dashboard/favorites',
                         },
                         {
                           icon: MessageSquare,
                           label: t('nav:messages'),
-                          href: '/messages',
+                          href: '/dashboard/messages',
                           badge: unreadCount,
                         },
                       ].map((item) => (
@@ -260,20 +260,20 @@ export function MobileDrawer({
                           {config.app.adminEmails.includes(
                             user.email || ''
                           ) && (
-                            <Link
-                              href={`/${locale}/admin`}
-                              onClick={() => onOpenChange(false)}
-                              className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
-                            >
-                              <div className="flex items-center gap-4">
-                                <ShieldAlert className="h-5 w-5" />
-                                <span className="text-sm font-bold tracking-tight">
-                                  {t('common:adminPanel')}
-                                </span>
-                              </div>
-                              <ChevronRight className="h-4 w-4 text-amber-500/30" />
-                            </Link>
-                          )}
+                              <Link
+                                href={`/${locale}/admin`}
+                                onClick={() => onOpenChange(false)}
+                                className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
+                              >
+                                <div className="flex items-center gap-4">
+                                  <ShieldAlert className="h-5 w-5" />
+                                  <span className="text-sm font-bold tracking-tight">
+                                    {t('common:adminPanel')}
+                                  </span>
+                                </div>
+                                <ChevronRight className="h-4 w-4 text-amber-500/30" />
+                              </Link>
+                            )}
 
                           <button
                             onClick={() => {
@@ -351,7 +351,7 @@ export function MobileDrawer({
               </ScrollArea>
 
               {/* Persistent Bottom CTA */}
-              <div className="border-border/40 bg-background/80 absolute inset-x-0 bottom-0 border-t p-6 backdrop-blur-lg">
+              <div className="border-border/40 bg-background absolute inset-x-0 bottom-0 border-t p-6">
                 <Button
                   asChild
                   className="shadow-primary/20 bg-primary hover:bg-primary/90 h-14 w-full gap-3 rounded-lg border-0 text-sm font-bold tracking-widest text-white uppercase shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]"

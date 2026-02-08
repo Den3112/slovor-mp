@@ -46,10 +46,16 @@ export async function POST(req: NextRequest) {
     }
 
     // Create Stripe Session
-    const origin = req.headers.get('origin') || 'http://localhost:3000'
+    const origin =
+      req.headers.get('origin') ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      'http://localhost:3000'
 
     // Feature Name mapping
-    const featureName = service_type === 'promotion_top' ? 'Top Position (7 Days)' : 'Premium Highlight (14 Days)'
+    const featureName =
+      service_type === 'promotion_top'
+        ? 'Top Position (7 Days)'
+        : 'Premium Highlight (14 Days)'
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

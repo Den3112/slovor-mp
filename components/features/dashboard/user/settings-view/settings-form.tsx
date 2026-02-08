@@ -42,10 +42,10 @@ export function SettingsForm({
           <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {t('profile:fullName')}
           </label>
-          <div className="relative">
-            <User className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+          <div className="relative group">
+            <User className="text-muted-foreground/50 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transition-colors group-hover:text-primary/70" />
             <Input
-              className="h-11 rounded-lg pl-9"
+              className="bg-background/50 h-11 border-white/10 pl-9 transition-all focus:border-primary/30 focus:bg-background/80 focus:ring-4 focus:ring-primary/10"
               value={formData.display_name}
               onChange={(e) =>
                 setFormData({
@@ -63,10 +63,10 @@ export function SettingsForm({
           <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {t('profile:location')}
           </label>
-          <div className="relative">
-            <MapPin className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+          <div className="relative group">
+            <MapPin className="text-muted-foreground/50 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transition-colors group-hover:text-primary/70" />
             <Input
-              className="h-11 rounded-lg pl-9"
+              className="bg-background/50 h-11 border-white/10 pl-9 transition-all focus:border-primary/30 focus:bg-background/80 focus:ring-4 focus:ring-primary/10"
               value={formData.location}
               onChange={(e) =>
                 setFormData({ ...formData, location: e.target.value })
@@ -81,10 +81,10 @@ export function SettingsForm({
           <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {t('profile:phoneNumber')}
           </label>
-          <div className="relative">
-            <Phone className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+          <div className="relative group">
+            <Phone className="text-muted-foreground/50 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transition-colors group-hover:text-primary/70" />
             <Input
-              className="h-11 rounded-lg pl-9"
+              className="bg-background/50 h-11 border-white/10 pl-9 transition-all focus:border-primary/30 focus:bg-background/80 focus:ring-4 focus:ring-primary/10"
               value={formData.phone}
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
@@ -99,13 +99,13 @@ export function SettingsForm({
           <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {t('profile:preferredCurrency')}
           </label>
-          <div className="relative">
-            <Coins className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+          <div className="relative group">
+            <Coins className="text-muted-foreground/50 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transition-colors group-hover:text-primary/70" />
             <Select
               value={currency}
               onValueChange={(value) => setCurrency(value as CurrencyCode)}
             >
-              <SelectTrigger className="h-11 w-full pl-9">
+              <SelectTrigger className="bg-background/50 h-11 w-full border-white/10 pl-9 transition-all focus:border-primary/30 focus:bg-background/80 focus:ring-4 focus:ring-primary/10">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -125,9 +125,9 @@ export function SettingsForm({
             {t('profile:emailReadonly')}
           </label>
           <div className="relative">
-            <Mail className="text-muted-foreground/50 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+            <Mail className="text-muted-foreground/30 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
-              className="bg-muted/20 text-muted-foreground h-11 rounded-lg pl-9"
+              className="bg-muted/10 text-muted-foreground/70 h-11 cursor-not-allowed rounded-lg border-white/5 pl-9 shadow-inner"
               value={userEmail || ''}
               readOnly
               disabled
@@ -140,11 +140,11 @@ export function SettingsForm({
           <label className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
             {t('profile:bio')}
           </label>
-          <div className="relative">
-            <AlignLeft className="text-muted-foreground absolute top-3.5 left-3 h-4 w-4" />
+          <div className="relative group">
+            <AlignLeft className="text-muted-foreground/50 absolute top-3.5 left-3 h-4 w-4 transition-colors group-hover:text-primary/70" />
             <Textarea
               data-testid="profile-settings-bio"
-              className="min-h-[120px] resize-y py-3 pl-9"
+              className="bg-background/50 min-h-[120px] resize-y border-white/10 py-3 pl-9 transition-all focus:border-primary/30 focus:bg-background/80 focus:ring-4 focus:ring-primary/10"
               value={formData.bio}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 setFormData({ ...formData, bio: e.target.value })
@@ -160,8 +160,9 @@ export function SettingsForm({
           type="submit"
           data-testid="profile-settings-save"
           disabled={isLoading || isUploading}
-          className="min-w-[140px] rounded-lg font-bold tracking-widest uppercase"
+          className="relative min-w-[200px] overflow-hidden rounded-xl border border-primary/20 bg-primary px-8 py-6 font-bold tracking-widest text-primary-foreground uppercase shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] hover:shadow-primary/40 active:scale-95 disabled:opacity-50"
         >
+          <span className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
           {isLoading ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (

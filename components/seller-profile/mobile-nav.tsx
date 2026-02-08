@@ -25,9 +25,12 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
   }
 
   return (
-    <div className="fixed right-0 bottom-0 left-0 z-40 md:hidden" data-testid="profile-mobile-nav">
+    <div
+      className="fixed right-0 bottom-0 left-0 z-40 md:hidden"
+      data-testid="profile-mobile-nav"
+    >
       {/* Solid Background with Border Top */}
-      <div className="bg-card absolute inset-0 border-t border-border shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" />
+      <div className="bg-card border-border absolute inset-0 border-t shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" />
 
       <nav
         className="relative flex h-[88px] items-center justify-around px-2 pb-[28px]"
@@ -77,7 +80,9 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
               </span>
             )}
           </div>
-          <span className="text-[10px] font-bold">{t('profile:myListings')}</span>
+          <span className="text-[10px] font-bold">
+            {t('profile:myListings')}
+          </span>
         </Link>
 
         {/* 3. CORE ACTION: POST AD */}
@@ -91,11 +96,11 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
 
         {/* 4. Inbox - Show Badge */}
         <Link
-          href={`/${locale}/messages`}
+          href={`/${locale}/dashboard/messages`}
           data-testid="profile-mobile-nav-messages"
           className={cn(
             'flex h-full w-16 flex-col items-center justify-center gap-1 transition-colors active:scale-95',
-            isActive('/messages')
+            isActive('/dashboard/messages')
               ? 'text-primary'
               : 'text-muted-foreground hover:text-foreground'
           )}
@@ -104,7 +109,7 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
             <MessageCircle
               className={cn(
                 'h-6 w-6',
-                isActive('/messages') && 'fill-primary/20'
+                isActive('/dashboard/messages') && 'fill-primary/20'
               )}
             />
             {stats && stats.messages > 0 && (
@@ -128,7 +133,9 @@ export function MobileBottomNav({ stats }: MobileBottomNavProps) {
             )}
           >
             <Menu className="h-6 w-6" />
-            <span className="text-[10px] font-bold">{t('common:dashboard')}</span>
+            <span className="text-[10px] font-bold">
+              {t('common:dashboard')}
+            </span>
           </button>
         </MobileMenuDrawer>
       </nav>

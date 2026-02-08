@@ -127,7 +127,7 @@ export function LocationCombobox({
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           className={cn(
-            'placeholder:text-muted-foreground/30 h-14 w-full rounded-lg border bg-white/5 pr-12 pl-14 font-medium transition-all outline-none',
+            'placeholder:text-muted-foreground/30 h-14 w-full rounded-xl border bg-white/5 pr-12 pl-14 font-medium transition-all outline-none',
             'focus:border-primary focus:ring-primary/10 focus:bg-white/10 focus:ring-4',
             error
               ? 'border-destructive/50 bg-destructive/5'
@@ -171,7 +171,7 @@ export function LocationCombobox({
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleSelectCity(city)}
                   className={cn(
-                    'flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-colors',
+                    'flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors',
                     highlightedIndex === index
                       ? 'bg-primary/10 text-foreground'
                       : 'text-foreground/80 hover:bg-muted/50',

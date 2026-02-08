@@ -69,6 +69,29 @@ describe('reviewsApi', () => {
       expect(response.data?.totalReviews).toBe(2)
       expect(response.data?.averageRating).toBe(4) // (5+3)/2
     })
+
+    it('handles zero reviews', async () => {
+      const orderMock = vi.fn().mockResolvedValue({ data: [], error: null })
+      const eqMock = vi.fn().mockReturnValue({ order: orderMock })
+      const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
+      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+
+      const response = await reviewsApi.getForSeller('s1')
+      expect(response.data?.averageRating).toBe(0)
+      expect(response.data?.totalReviews).toBe(0)
+    })
+
+    it('handles database errors', async () => {
+      const orderMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'Fetch Error' } })
+      const eqMock = vi.fn().mockReturnValue({ order: orderMock })
+      const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
+      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+
+      const response = await reviewsApi.getForSeller('s1')
+      expect(response.error).toBe('Fetch Error')
+    })
   })
 
   describe('hasReviewed', () => {
@@ -76,71 +99,86 @@ describe('reviewsApi', () => {
       const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: { id: '1' }, error: null })
-      // query chain: select -> eq -> eq -> [eq] -> maybeSingle
-      const eqMock = vi
-        .fn()
-        .mockReturnValue({
-          maybeSingle: maybeSingleMock,
-          eq: vi.fn(),
-          select: vi.fn(),
-        })
-      // Setting up circular "this" for eq
-      eqMock.mockReturnValue(eqMock)
-      // Actually, my global setup does mockReturnThis for eq.
-      // But here I need `maybeSingle` to be available on the result of `eq`.
-      // In global setup: `eq: vi.fn().mockReturnThis()`.
-      // And `maybeSingle` is on the MAIN object.
-      // So recursively it works.
+
+      const chain = {
+        eq: vi.fn(),
+        maybeSingle: maybeSingleMock,
+      }
+      chain.eq.mockReturnValue(chain)
+
+      const selectMock = vi.fn().mockReturnValue(chain)
 
       vi.mocked(supabase.from).mockReturnValue({
-        select: vi.fn().mockReturnThis(),
-        eq: vi.fn().mockReturnThis(),
-        maybeSingle: maybeSingleMock,
+        select: selectMock,
       } as any)
 
       const response = await reviewsApi.hasReviewed('s1', 'b1', 'l1')
       expect(response.data).toBe(true)
     })
+
+    it('checks if reviewed (without listing)', async () => {
+      const maybeSingleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: null })
+      const chain = {
+        eq: vi.fn(),
+        maybeSingle: maybeSingleMock,
+      }
+      chain.eq.mockReturnValue(chain)
+      vi.mocked(supabase.from).mockReturnValue({
+        select: vi.fn().mockReturnValue(chain),
+      } as any)
+
+      const response = await reviewsApi.hasReviewed('s1', 'b1')
+      expect(response.data).toBe(false)
+    })
+
+    it('handles database errors', async () => {
+      const maybeSingleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'Check Error' } })
+      const chain = {
+        eq: vi.fn(),
+        maybeSingle: maybeSingleMock,
+      }
+      chain.eq.mockReturnValue(chain)
+      vi.mocked(supabase.from).mockReturnValue({
+        select: vi.fn().mockReturnValue(chain),
+      } as any)
+
+      const response = await reviewsApi.hasReviewed('s1', 'b1')
+      expect(response.error).toBe('Check Error')
+    })
   })
 
   describe('delete', () => {
     it('deletes review', async () => {
-      vi.fn().mockResolvedValue({ error: null })
-      // In setup: delete() returns this. Then eq(). Then eq().
-      // Wait, supabase delete() is usually at the start/middle... `supabase.from().delete().eq().eq()`
-      // `delete` returns a builder.
-      // But `delete()` can also Execute? No, usually it's `delete()`.
-      // The code is: `.delete().eq().eq()` and then await.
-      // So the LAST `eq` needs to be thenable/resolve.
-      // In my setup `eq` returns `this`.
-      // So `this` needs to be thenable?
-      // The global setup `eq: vi.fn().mockReturnThis()` means it returns the API object.
-
-      // I need to override `eq` to be thenable for the *last* call.
-      // Or use `mockResolvedValue` on the object itself if Vitest supports it? No.
-      // The standard Supabase client is thenable on the builder.
-      // My mock object in `vitest.setup.tsx` is NOT thenable by default unless I add `then`.
-
-      // Wait, for `create` (insert), I mocked `insert().select().single()`. `single` returns promise.
-      // Here `delete().eq().eq()`.
-      // I need to make the object looks like a promise.
-
       const thenable = {
         then: (resolve: any) => resolve({ error: null }),
-        eq: vi.fn().mockReturnThis(), // Allow chaining
+        eq: vi.fn().mockReturnThis(),
       }
-
-      const deleteMock = vi.fn().mockReturnValue(thenable)
-      // But wait, `eq` is called on the result of `delete`, returning `this` (thenable).
-      // Then `eq` called again.
-      // So `thenable.eq` needs to return `thenable`.
       thenable.eq.mockReturnValue(thenable as any)
 
-      vi.mocked(supabase.from).mockReturnValue({ delete: deleteMock } as any)
+      vi.mocked(supabase.from).mockReturnValue({
+        delete: vi.fn().mockReturnValue(thenable),
+      } as any)
 
       const response = await reviewsApi.delete('r1', 'b1')
-      expect(response.error).toBeNull()
       expect(response.data).toBe(true)
+    })
+
+    it('handles database errors', async () => {
+      const thenable = {
+        then: (resolve: any) => resolve({ error: { message: 'Delete Error' } }),
+        eq: vi.fn().mockReturnThis(),
+      }
+      thenable.eq.mockReturnValue(thenable as any)
+      vi.mocked(supabase.from).mockReturnValue({
+        delete: vi.fn().mockReturnValue(thenable),
+      } as any)
+
+      const response = await reviewsApi.delete('r1', 'b1')
+      expect(response.error).toBe('Delete Error')
     })
   })
 
@@ -157,6 +195,71 @@ describe('reviewsApi', () => {
 
       const response = await reviewsApi.getByAuthor('b1')
       expect(response.data).toHaveLength(1)
+    })
+
+    it('handles database errors', async () => {
+      const orderMock = vi
+        .fn()
+        .mockResolvedValue({
+          data: null,
+          error: { message: 'Author Reviews Error' },
+        })
+      const eqMock = vi.fn().mockReturnValue({ order: orderMock })
+      const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
+      vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
+
+      const response = await reviewsApi.getByAuthor('b1')
+      expect(response.error).toBe('Author Reviews Error')
+    })
+  })
+
+  describe('reply', () => {
+    it('updates review with seller reply', async () => {
+      const mockReview = { id: 'r1', seller_reply: 'Thanks' }
+      const singleMock = vi
+        .fn()
+        .mockResolvedValue({ data: mockReview, error: null })
+      const selectMock = vi.fn().mockReturnValue({ single: singleMock })
+      const eqMock = vi.fn().mockReturnValue({ select: selectMock })
+      const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
+
+      vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
+
+      const response = await reviewsApi.reply('r1', 'Thanks')
+      expect(response.data?.seller_reply).toBe('Thanks')
+    })
+
+    it('handles database errors', async () => {
+      const singleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'Reply Error' } })
+      const selectMock = vi.fn().mockReturnValue({ single: singleMock })
+      const eqMock = vi.fn().mockReturnValue({ select: selectMock })
+      const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
+      vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
+
+      const response = await reviewsApi.reply('r1', 'Thanks')
+      expect(response.error).toBe('Reply Error')
+    })
+  })
+
+  describe('error handling', () => {
+    it('catches database errors in create', async () => {
+      const insertMock = vi.fn().mockReturnValue({
+        select: vi.fn().mockReturnValue({
+          single: vi
+            .fn()
+            .mockResolvedValue({ data: null, error: { message: 'DB Error' } }),
+        }),
+      })
+      vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
+
+      const response = await reviewsApi.create({
+        recipient_id: 's',
+        author_id: 'a',
+        rating: 5,
+      })
+      expect(response.error).toBe('DB Error')
     })
   })
 })

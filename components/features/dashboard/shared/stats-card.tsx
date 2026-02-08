@@ -38,7 +38,7 @@ export function StatsCard({
     >
       <Card
         className={cn(
-          'group border-border hover:border-primary/40 shadow-card bg-background/60 backdrop-blur-md relative h-full overflow-hidden transition-all duration-300',
+          'group border-border hover:border-primary/40 shadow-card bg-card relative h-full overflow-hidden transition-all duration-300',
           className
         )}
       >

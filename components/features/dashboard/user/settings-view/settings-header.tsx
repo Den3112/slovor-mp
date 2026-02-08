@@ -4,9 +4,11 @@ export function SettingsHeader() {
   const { t } = useTranslation()
 
   return (
-    <div className="bg-card border-border flex flex-col gap-2 rounded-lg border p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+    <div className="bg-card border-border/50 flex flex-col gap-2 rounded-xl border p-6 shadow-sm md:flex-row md:items-center md:justify-between">
       <div className="space-y-1">
-        <h1 className="text-foreground flex items-center gap-2 text-3xl font-bold tracking-tight uppercase">
+        <h1
+          className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-2xl font-bold tracking-tight text-transparent transition-all duration-300"
+        >
           {t('profile:settings')}
         </h1>
         <p className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">

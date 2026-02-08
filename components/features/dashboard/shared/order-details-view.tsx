@@ -289,7 +289,7 @@ export function OrderDetailsView({
                     className="h-8 w-8 rounded-lg"
                     asChild
                   >
-                    <Link href={`/${locale}/profile/${order.seller_id}`}>
+                    <Link href={`/${locale}/seller/${order.seller_id}`}>
                       <ArrowLeft className="h-4 w-4 rotate-180" />
                     </Link>
                   </Button>
@@ -321,7 +321,7 @@ export function OrderDetailsView({
                     className="h-8 w-8 rounded-lg"
                     asChild
                   >
-                    <Link href={`/${locale}/profile/${order.buyer_id}`}>
+                    <Link href={`/${locale}/seller/${order.buyer_id}`}>
                       <ArrowLeft className="h-4 w-4 rotate-180" />
                     </Link>
                   </Button>

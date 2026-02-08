@@ -9,7 +9,7 @@ export const revalidate = 60
 const ITEMS_PER_PAGE = 12
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     search?: string
     category?: string
     priceMin?: string
@@ -17,11 +17,11 @@ interface Props {
     condition?: string
     location?: string
     sort?: string
-  }
+  }>
 }
 
 export default async function ListingsPage({ searchParams }: Props) {
-  const params = searchParams
+  const params = await searchParams
 
   // Extract and group dynamic attributes (attr_*)
   const attributes: Record<string, any> = {}

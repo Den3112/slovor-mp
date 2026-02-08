@@ -108,7 +108,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
       </Drawer.Trigger>
 
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" />
+        <Drawer.Overlay className="fixed inset-0 z-40 bg-black/60" />
         <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] flex-col rounded-t-4xl border-t">
           {/* Handle */}
           <div className="bg-muted-foreground/20 mx-auto mt-4 h-1.5 w-12 rounded-full" />

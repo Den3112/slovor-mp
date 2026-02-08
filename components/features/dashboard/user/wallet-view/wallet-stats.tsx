@@ -43,13 +43,17 @@ export function WalletStats({ transactions, currency }: WalletStatsProps) {
       {stats.map((stat, i) => (
         <div
           key={i}
-          className="border-border/60 bg-card rounded-lg border p-5 shadow-sm"
+          className="border-border/50 bg-card/50 hover:bg-card hover:border-primary/20 hover:shadow-primary/5 hover:scale-[1.02] group relative overflow-hidden rounded-xl border p-5 shadow-sm transition-all duration-300"
         >
-          <stat.icon className="text-muted-foreground/60 mb-3 h-5 w-5" />
-          <p className="text-muted-foreground/60 text-[10px] font-bold tracking-[0.2em] uppercase">
+          <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/5 ring-1 ring-primary/10 transition-colors group-hover:bg-primary/10">
+            <stat.icon className="text-muted-foreground group-hover:text-primary h-5 w-5 transition-colors" />
+          </div>
+          <p className="text-muted-foreground/60 mb-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {stat.label}
           </p>
-          <p className="text-foreground text-xl font-bold">{stat.value}</p>
+          <p className="text-foreground text-2xl font-bold tracking-tight">
+            {stat.value}
+          </p>
         </div>
       ))}
     </div>

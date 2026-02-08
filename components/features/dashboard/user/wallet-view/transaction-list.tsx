@@ -11,7 +11,7 @@ import { useTranslation } from '@/lib/i18n'
 import { formatPrice } from '@/lib/utils/formatting'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import { EmptyState } from '@/components/ui/empty-state'
+import { Button } from '@/components/ui/button'
 import { TransactionListProps } from './types'
 import type { Transaction } from '@/lib/types/database'
 
@@ -59,35 +59,36 @@ export function TransactionList({
       </div>
 
       {transactions.length > 0 ? (
-        <div className="divide-border/40 border-border/60 bg-card divide-y overflow-hidden rounded-lg border shadow-sm">
+        <div className="bg-card border-border/50 divide-border/30 divide-y overflow-hidden rounded-2xl border shadow-sm">
           {transactions.map((transaction) => {
             const info = getTransactionIcon(transaction.type)
             return (
               <div
                 key={transaction.id}
-                className="group hover:bg-muted/30 flex items-center gap-5 p-6 transition-colors"
+                className="group hover:bg-muted/30 flex items-center gap-5 p-5 transition-colors"
               >
                 <div
                   className={cn(
-                    'border-border/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border transition-transform group-hover:scale-105',
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-105 shadow-sm',
                     info.bg,
-                    info.color
+                    info.color,
+                    'border-transparent'
                   )}
                 >
-                  <info.icon className="h-6 w-6" />
+                  <info.icon className="h-5 w-5" />
                 </div>
-                <div className="min-w-0 flex-1 space-y-0.5">
+                <div className="min-w-0 flex-1 space-y-1">
                   <p className="text-foreground text-sm font-bold tracking-tight uppercase">
                     {t(`dashboard:walletDetails.${transaction.type}`)}
                   </p>
                   <div className="text-muted-foreground/60 flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1.5">
                       <Calendar className="h-3 w-3" />
                       {isMounted ? new Date(transaction.created_at).toLocaleDateString() : '...'}
                     </span>
                     {transaction.id && (
-                      <span className="hidden sm:inline">
-                        REF: #{transaction.id.slice(0, 8)}
+                      <span className="hidden opacity-50 sm:inline">
+                        #{transaction.id.slice(0, 8)}
                       </span>
                     )}
                   </div>
@@ -95,7 +96,7 @@ export function TransactionList({
                 <div className="text-right">
                   <p
                     className={cn(
-                      'text-lg font-bold tracking-tight',
+                      'text-lg font-bold tracking-tight tabular-nums',
                       transaction.type === 'refill'
                         ? 'text-emerald-500'
                         : 'text-foreground'
@@ -106,12 +107,12 @@ export function TransactionList({
                   </p>
                   <span
                     className={cn(
-                      'rounded border px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase',
+                      'inline-block rounded-md px-2 py-0.5 text-[9px] font-bold tracking-[0.15em] uppercase mt-1',
                       transaction.status === 'completed'
-                        ? 'border-emerald-500/20 bg-emerald-500/5 text-emerald-500'
+                        ? 'bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/20'
                         : transaction.status === 'failed'
-                          ? 'border-destructive/20 bg-destructive/5 text-destructive'
-                          : 'border-amber-500/20 bg-amber-500/5 text-amber-500'
+                          ? 'bg-destructive/10 text-destructive ring-1 ring-destructive/20'
+                          : 'bg-amber-500/10 text-amber-600 ring-1 ring-amber-500/20'
                     )}
                   >
                     {t(`dashboard:orderStatuses.${transaction.status}`)}
@@ -122,13 +123,24 @@ export function TransactionList({
           })}
         </div>
       ) : (
-        <EmptyState
-          icon={CreditCard}
-          title={t('dashboard:noOrders')}
-          description={t('dashboard:walletDetails.addCreditsDescription')}
-          actionLabel={t('dashboard:walletDetails.addFunds')}
-          onAction={onAddFunds}
-        />
+        <div className="border-border/50 bg-card/30 flex flex-col items-center justify-center rounded-2xl border p-12 text-center shadow-sm">
+          <div className="bg-muted/50 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <CreditCard className="text-muted-foreground/40 h-8 w-8" />
+          </div>
+          <h3 className="text-foreground mb-1 text-lg font-bold">
+            {t('dashboard:noOrders')}
+          </h3>
+          <p className="text-muted-foreground mb-6 text-sm">
+            {t('dashboard:walletDetails.addCreditsDescription')}
+          </p>
+          <Button
+            onClick={onAddFunds}
+            variant="outline"
+            className="hover:text-primary hover:border-primary/20 rounded-lg text-[10px] font-bold tracking-widest uppercase"
+          >
+            {t('dashboard:walletDetails.addFunds')}
+          </Button>
+        </div>
       )}
     </div>
   )

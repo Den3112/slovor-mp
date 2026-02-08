@@ -62,7 +62,7 @@ export function QuickActionsAndActivity() {
             asChild
             className="hover:bg-primary/5 hover:text-primary h-8 px-2 text-[10px] font-bold tracking-widest uppercase"
           >
-            <Link href={`/${locale}/messages`}>{t('common:viewAll')}</Link>
+            <Link href={`/${locale}/dashboard/messages`}>{t('common:viewAll')}</Link>
           </Button>
         </CardHeader>
         <CardContent className="max-h-[450px] flex-1 overflow-auto p-4">

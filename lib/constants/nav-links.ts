@@ -18,7 +18,7 @@ import {
   Bike,
   Heart,
   Dog,
-  ShoppingBag
+  ShoppingBag,
 } from 'lucide-react'
 
 export const NAV_LINKS = {
@@ -34,7 +34,7 @@ export const NAV_LINKS = {
       label: 'categories:transport',
       icon: Car,
       color: 'bg-blue-500',
-      popularSubcategories: ['cars', 'motorcycles', 'parts', 'trucks']
+      popularSubcategories: ['cars', 'motorcycles', 'parts', 'trucks'],
     },
     {
       id: 'real-estate',
@@ -42,7 +42,7 @@ export const NAV_LINKS = {
       label: 'categories:realEstate',
       icon: RealEstate,
       color: 'bg-emerald-500',
-      popularSubcategories: ['rent', 'sale', 'new-projects', 'commercial']
+      popularSubcategories: ['rent', 'sale', 'new-projects', 'commercial'],
     },
     {
       id: 'electronics',
@@ -50,7 +50,7 @@ export const NAV_LINKS = {
       label: 'categories:electronics',
       icon: Smartphone,
       color: 'bg-purple-500',
-      popularSubcategories: ['smartphones', 'computers', 'tv-audio', 'cameras']
+      popularSubcategories: ['smartphones', 'computers', 'tv-audio', 'cameras'],
     },
     {
       id: 'home-garden',
@@ -58,7 +58,7 @@ export const NAV_LINKS = {
       label: 'categories:homeGarden',
       icon: Armchair,
       color: 'bg-orange-500',
-      popularSubcategories: ['furniture', 'appliances', 'garden', 'tools']
+      popularSubcategories: ['furniture', 'appliances', 'garden', 'tools'],
     },
     {
       id: 'fashion',
@@ -66,7 +66,7 @@ export const NAV_LINKS = {
       label: 'categories:fashion',
       icon: Shirt,
       color: 'bg-pink-500',
-      popularSubcategories: ['clothing', 'shoes', 'accessories', 'kids']
+      popularSubcategories: ['clothing', 'shoes', 'accessories', 'kids'],
     },
     {
       id: 'jobs',
@@ -74,7 +74,7 @@ export const NAV_LINKS = {
       label: 'categories:jobs',
       icon: Briefcase,
       color: 'bg-indigo-500',
-      popularSubcategories: ['vacancies', 'resumes']
+      popularSubcategories: ['vacancies', 'resumes'],
     },
     {
       id: 'services',
@@ -82,7 +82,7 @@ export const NAV_LINKS = {
       label: 'categories:services',
       icon: Hammer,
       color: 'bg-cyan-500',
-      popularSubcategories: ['beauty', 'repairs', 'it', 'tuition']
+      popularSubcategories: ['beauty', 'repairs', 'it', 'tuition'],
     },
     {
       id: 'hobby-sport',
@@ -90,7 +90,7 @@ export const NAV_LINKS = {
       label: 'categories:hobbySport',
       icon: Bike,
       color: 'bg-red-500',
-      popularSubcategories: ['sport', 'books', 'music', 'tickets']
+      popularSubcategories: ['sport', 'books', 'music', 'tickets'],
     },
     {
       id: 'pets',
@@ -98,27 +98,27 @@ export const NAV_LINKS = {
       label: 'categories:pets',
       icon: Dog,
       color: 'bg-amber-500',
-      popularSubcategories: ['cats', 'dogs', 'birds']
+      popularSubcategories: ['cats', 'dogs', 'birds'],
     },
     {
       id: 'other',
       href: '/categories/other',
       label: 'categories:other',
       icon: ShoppingBag,
-      color: 'bg-slate-500'
-    }
+      color: 'bg-slate-500',
+    },
   ],
   user: [
-    { href: '/messages', label: 'nav:messages', icon: MessageSquare },
-    { href: '/favorites', label: 'nav:favorites', icon: Heart },
+    { href: '/dashboard/messages', label: 'nav:messages', icon: MessageSquare },
+    { href: '/dashboard/favorites', label: 'nav:favorites', icon: Heart },
     { href: '/dashboard', label: 'nav:profile', icon: User },
   ],
   action: {
-    post: { href: '/post', label: 'nav:postAd', icon: PlusCircle }
+    post: { href: '/post', label: 'nav:postAd', icon: PlusCircle },
   },
   footer: [
     { href: '/help', label: 'footer.help', icon: HelpCircle },
     { href: '/legal', label: 'footer.legal', icon: ShieldCheck },
     { href: '/blog', label: 'footer.blog', icon: FileText },
-  ]
+  ],
 }

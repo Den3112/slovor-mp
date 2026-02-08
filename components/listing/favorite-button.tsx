@@ -112,7 +112,7 @@ export function FavoriteButton({
         sizeClasses[size],
         isFavorited
           ? 'border-red-400 bg-red-500 text-white shadow-md shadow-red-500/20'
-          : 'bg-black/40 text-white shadow-sm backdrop-blur-none hover:border-white hover:bg-white hover:text-red-500',
+          : 'bg-black/40 text-white shadow-sm hover:border-white hover:bg-white hover:text-red-500',
         className
       )}
       aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}

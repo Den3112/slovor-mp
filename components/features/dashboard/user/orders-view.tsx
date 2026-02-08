@@ -120,43 +120,43 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
       {/* Controls */}
       <motion.div
         variants={item}
-        className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-lg border p-4 shadow-sm lg:flex-row lg:items-center"
+        className="bg-muted border-border/60 flex flex-col items-start justify-between gap-4 rounded-2xl border p-2 lg:flex-row lg:items-center"
       >
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
           className="w-full lg:w-auto"
         >
-          <TabsList className="bg-muted/50 border-border/20 h-auto flex-wrap justify-start rounded-lg border p-1">
+          <TabsList className="bg-transparent h-auto flex-wrap justify-start p-0 gap-1">
             <TabsTrigger
               value="all"
-              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded px-4 py-2 text-[9px] font-bold tracking-widest uppercase"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm border border-transparent data-[state=active]:border-border/50 h-auto rounded-xl px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"
             >
               {t('dashboard:allOrders')}
             </TabsTrigger>
             <TabsTrigger
               value="buying"
-              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded px-4 py-2 text-[9px] font-bold tracking-widest uppercase"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm border border-transparent data-[state=active]:border-border/50 h-auto rounded-xl px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"
             >
               {t('dashboard:purchases')}
             </TabsTrigger>
             <TabsTrigger
               value="selling"
-              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded px-4 py-2 text-[9px] font-bold tracking-widest uppercase"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm border border-transparent data-[state=active]:border-border/50 h-auto rounded-xl px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"
             >
               {t('dashboard:sales')}
             </TabsTrigger>
           </TabsList>
         </Tabs>
 
-        <div className="flex w-full gap-2 lg:w-auto">
+        <div className="flex w-full gap-2 px-2 lg:w-auto lg:px-0">
           <div className="relative flex-1 lg:w-72">
             <Search className="text-muted-foreground/60 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
               placeholder={t('common:search')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border-border/60 focus:ring-primary/20 h-10 rounded-lg pl-9"
+              className="border-border/60 focus:ring-primary/20 bg-background/50 h-10 rounded-xl pl-10 shadow-sm"
             />
           </div>
         </div>
@@ -165,28 +165,28 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
       {/* Table */}
       <motion.div
         variants={item}
-        className="border-border/60 bg-card overflow-hidden rounded-lg border text-left shadow-sm"
+        className="border-border/60 bg-card overflow-hidden rounded-2xl border text-left shadow-sm"
       >
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/20 hover:bg-muted/20 border-border/40 border-b">
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+              <TableRow className="bg-muted/30 border-border/40 hover:bg-muted/30 border-b">
+                <TableHead className="text-muted-foreground/60 h-12 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {t('dashboard:order')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-muted-foreground/60 h-12 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {t('dashboard:amount')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-muted-foreground/60 h-12 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {t('dashboard:status')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-muted-foreground/60 h-12 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {t('dashboard:type')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-muted-foreground/60 h-12 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
                   {t('common:date')}
                 </TableHead>
-                <TableHead className="h-10 px-6 text-right"></TableHead>
+                <TableHead className="h-12 px-6 text-right"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -196,31 +196,31 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                     key={order.id}
                     className="hover:bg-accent/40 border-border/40 group border-b transition-colors"
                   >
-                    <TableCell className="px-6 py-4">
-                      <div className="space-y-0.5">
-                        <p className="max-w-[200px] truncate text-sm font-bold">
+                    <TableCell className="px-6 py-5">
+                      <div className="space-y-1">
+                        <p className="max-w-[200px] truncate text-sm font-bold tracking-tight">
                           {order.listing?.title ||
                             t('dashboard:unknownListing')}
                         </p>
-                        <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+                        <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase opacity-60">
                           #{order.id.split('-')[0]}
                         </p>
                       </div>
                     </TableCell>
-                    <TableCell className="px-6 py-4">
-                      <span className="font-heading text-base font-bold tracking-tight whitespace-nowrap">
+                    <TableCell className="px-6 py-5">
+                      <span className="font-heading text-primary/90 text-base font-bold tracking-tight whitespace-nowrap tabular-nums">
                         {formatPrice(order.amount, order.currency)}
                       </span>
                     </TableCell>
-                    <TableCell className="px-6 py-4">
+                    <TableCell className="px-6 py-5">
                       <Badge
                         variant={
                           order.status === 'completed' ? 'success' : 'outline'
                         }
                         className={cn(
-                          'rounded-sm px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase shadow-sm',
+                          'rounded-md px-2.5 py-1 text-[9px] font-bold tracking-[0.15em] uppercase shadow-sm border',
                           order.status === 'completed'
-                            ? 'bg-success/10 text-success border-success/20'
+                            ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
                             : order.status === 'cancelled'
                               ? 'bg-destructive/10 text-destructive border-destructive/20'
                               : 'border-amber-500/20 bg-amber-500/10 text-amber-600'
@@ -229,37 +229,37 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                         {t(`dashboard:orderStatuses.${order.status}`)}
                       </Badge>
                     </TableCell>
-                    <TableCell className="px-6 py-4">
+                    <TableCell className="px-6 py-5">
                       <div className="flex items-center gap-2">
                         {order.is_seller ? (
                           <Badge
                             variant="outline"
-                            className="bg-primary/5 text-primary border-primary/20 pl-1 text-[8px] font-bold tracking-widest uppercase"
+                            className="bg-primary/5 text-primary border-primary/20 hover:bg-primary/10 pl-1.5 pr-2.5 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors"
                           >
-                            <ArrowUpRight className="mr-1 h-3 w-3" />{' '}
+                            <ArrowUpRight className="mr-1.5 h-3 w-3" />{' '}
                             {t('dashboard:selling')}
                           </Badge>
                         ) : (
                           <Badge
                             variant="outline"
-                            className="border-emerald-500/20 bg-emerald-500/5 pl-1 text-[8px] font-bold tracking-widest text-emerald-600 uppercase"
+                            className="border-blue-500/20 bg-blue-500/5 text-blue-600 hover:bg-blue-500/10 pl-1.5 pr-2.5 py-1 text-[9px] font-bold tracking-widest uppercase transition-colors"
                           >
-                            <ArrowDownLeft className="mr-1 h-3 w-3" />{' '}
+                            <ArrowDownLeft className="mr-1.5 h-3 w-3" />{' '}
                             {t('dashboard:buying')}
                           </Badge>
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="px-6 py-4">
+                    <TableCell className="px-6 py-5">
                       <span className="text-muted-foreground/60 text-[10px] font-bold tracking-widest whitespace-nowrap uppercase">
                         {new Date(order.created_at).toLocaleDateString()}
                       </span>
                     </TableCell>
-                    <TableCell className="px-6 py-4 text-right">
+                    <TableCell className="px-6 py-5 text-right">
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 rounded-lg"
+                        className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-xl transition-all"
                         asChild
                       >
                         <Link href={`/${locale}/dashboard/orders/${order.id}`}>
@@ -271,10 +271,12 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={6} className="h-48 text-center">
-                    <div className="text-muted-foreground flex flex-col items-center justify-center">
-                      <ShoppingBag className="mb-3 h-10 w-10 opacity-20" />
-                      <p className="text-sm font-medium">
+                  <TableCell colSpan={6} className="h-64 text-center">
+                    <div className="text-muted-foreground flex flex-col items-center justify-center gap-4">
+                      <div className="bg-muted/50 rounded-full p-4">
+                        <ShoppingBag className="h-8 w-8 opacity-30" />
+                      </div>
+                      <p className="text-sm font-medium uppercase tracking-wide opacity-50">
                         {t('dashboard:noOrders')}
                       </p>
                     </div>
