@@ -3,23 +3,26 @@
 import { motion } from 'framer-motion'
 import type { DashboardStats } from '@/lib/api/dashboard-stats'
 
-import { PerformanceCard, RecentActivityTable } from './overview/index'
-import { WalletWidget, ActiveOrdersWidget } from './widgets'
-import { DashboardHero } from './overview/dashboard-hero'
-import { QuickActionsAndActivity } from './overview/quick-actions'
+import { PerformanceCard } from './performance-card'
+import { RecentActivityTable } from './recent-activity-table'
+import { WalletWidget, ActiveOrdersWidget } from '../widgets'
+import { DashboardHero } from './dashboard-hero'
+import { QuickActionsAndActivity } from './quick-actions'
 
-import { MarketInsightsTile } from './overview/market-insights-tile'
-import { SuccessScore } from './vantage/success-score'
-import { SmartNudges } from './vantage/smart-nudges'
+import { MarketInsightsTile } from './market-insights-tile'
+import { SuccessScore } from '../vantage/success-score'
+import { SmartNudges } from '../vantage/smart-nudges'
 import { BentoGrid, BentoTile } from '@/components/ui/bento'
 import { PremiumBackground } from '@/components/ui/premium-background'
 
+import { Listing } from '@/lib/api'
+import { User } from '@supabase/supabase-js'
 
 interface UserOverviewViewProps {
-  user: any
+  user: User
   stats: DashboardStats
-  userListings: any[]
-  chartData: any[]
+  userListings: Listing[]
+  chartData: { date: string; value: number }[]
 }
 
 const container = {
@@ -40,9 +43,27 @@ export function UserOverviewView({
 }: UserOverviewViewProps) {
   // Mock orders for now - in real implementation this would come from props
   const recentOrders = [
-    { id: 'ORD-7829', title: 'Translation Srv...', price: '€150.00', status: 'active', date: '2m ago' },
-    { id: 'ORD-7812', title: 'Logo Design...', price: '€299.00', status: 'completed', date: '2h ago' },
-    { id: 'ORD-7790', title: 'SEO Audit...', price: '€850.00', status: 'pending', date: '1d ago' },
+    {
+      id: 'ORD-7829',
+      title: 'Translation Srv...',
+      price: '€150.00',
+      status: 'active',
+      date: '2m ago',
+    },
+    {
+      id: 'ORD-7812',
+      title: 'Logo Design...',
+      price: '€299.00',
+      status: 'completed',
+      date: '2h ago',
+    },
+    {
+      id: 'ORD-7790',
+      title: 'SEO Audit...',
+      price: '€850.00',
+      status: 'pending',
+      date: '1d ago',
+    },
   ] as any[]
 
   return (
@@ -59,24 +80,24 @@ export function UserOverviewView({
           <BentoTile
             colSpan={12}
             rowSpan={2} // Increased height for better visual hierarchy
-            className="bg-background/20 backdrop-blur-xl border-primary/10 lg:col-span-8"
+            className="bg-background/20 border-primary/10 backdrop-blur-xl lg:col-span-8"
           >
             <DashboardHero user={user} stats={stats} />
           </BentoTile>
 
           {/* Success Score & Smart Nudges */}
-          <div className="col-span-12 lg:col-span-4 grid grid-rows-2 gap-4 lg:gap-6 h-full">
+          <div className="col-span-12 grid h-full grid-rows-2 gap-4 lg:col-span-4 lg:gap-6">
             <BentoTile
               colSpan={12}
               rowSpan={1}
-              className="bg-transparent border-none p-0 shadow-none"
+              className="border-none bg-transparent p-0 shadow-none"
             >
               <SuccessScore score={84} percentile={5} trend="up" />
             </BentoTile>
             <BentoTile
               colSpan={12}
               rowSpan={1}
-              className="bg-transparent border-none p-0 shadow-none"
+              className="border-none bg-transparent p-0 shadow-none"
             >
               <SmartNudges />
             </BentoTile>
@@ -84,16 +105,19 @@ export function UserOverviewView({
 
           {/* Wallet & Active Orders */}
           <WalletWidget
-            balance={stats.walletBalance || 1250.00}
+            balance={stats.walletBalance || 1250.0}
             currency={stats.walletCurrency || 'EUR'}
           />
 
           <ActiveOrdersWidget orders={recentOrders} />
 
-          <BentoTile colSpan={4} rowSpan={2} className="p-0 border-none bg-transparent shadow-none">
+          <BentoTile
+            colSpan={4}
+            rowSpan={2}
+            className="border-none bg-transparent p-0 shadow-none"
+          >
             <QuickActionsAndActivity />
           </BentoTile>
-
 
           {/* Market Insights & Performance */}
           <BentoTile colSpan={12} rowSpan={2} className="lg:col-span-8">
@@ -119,4 +143,3 @@ export function UserOverviewView({
     </PremiumBackground>
   )
 }
-

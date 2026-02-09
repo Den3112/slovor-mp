@@ -38,7 +38,7 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
         </div>
       ) : (
         <div className="border-border/50 bg-background flex flex-col items-center justify-center rounded-2xl border p-12 text-center shadow-xs">
-          <div className="bg-primary/5 mb-6 flex h-20 w-20 items-center justify-center rounded-full ring-1 ring-primary/10">
+          <div className="bg-primary/5 ring-primary/10 mb-6 flex h-20 w-20 items-center justify-center rounded-full ring-1">
             <Heart className="text-primary/40 h-10 w-10" />
           </div>
           <EmptyState
