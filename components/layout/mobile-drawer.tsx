@@ -69,7 +69,7 @@ export function MobileDrawer({
         <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40" />
         <AnimatePresence>
           {open && (
-            <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[92vh] flex-col overflow-hidden rounded-t-[2.5rem] border-t shadow-2xl outline-hidden">
+            <Drawer.Content className="border-border bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-[92vh] flex-col overflow-hidden rounded-t-2xl border-t shadow-xl outline-hidden">
               {/* Drawer Handle */}
               <div className="bg-muted-foreground/20 mx-auto mt-4 h-1 w-10 rounded-full" />
 

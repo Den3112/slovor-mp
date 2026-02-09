@@ -1,0 +1,23 @@
+{
+  "privacy": {
+    "title": "Zásady ochrany osobních údajů",
+    "updated": "Poslední aktualizace: 9. února 2026",
+    "intro": "V Slovor Marketplace bereme vaše soukromí vážně. Tyto zásady vysvětlují, jak shromažďujeme, používáme a chráníme vaše osobní údaje.",
+    "collectionTitle": "Shromažďování informací",
+    "collectionText": "Shromažďujeme informace, které nám poskytnete přímo, jako je vaše jméno, e-mailová adresa a podrobnosti o vašem profilu.",
+    "useTitle": "Jak používáme vaše údaje",
+    "useText": "Vaše informace používáme k poskytování, udržování a zlepšování našich služeb a ke komunikaci s vámi.",
+    "securityTitle": "Bezpečnost dat",
+    "securityText": "Implementujeme robustní bezpečnostní opatření k ochraně vašich osobních údajů před neoprávneným přístupem."
+  },
+  "terms": {
+    "title": "Obchodní podmínky",
+    "updated": "Poslední aktualizace: 9. února 2026",
+    "acceptanceTitle": "Přijetí podmínek",
+    "acceptanceText": "Přístupem nebo používáním Slovor Marketplace souhlasíte s těmito podmínkami.",
+    "useTitle": "Používání platformy",
+    "useText": "Souhlasíte s používáním naší platformy pouze pro zákonné účely a v souladu s těmito podmínkami.",
+    "listingsTitle": "Inzeráty a obsah",
+    "listingsText": "Uživatelé jsou zodpovědní za obsah, který zveřejňují, a musí zajistit jeho přesnost a legálnost."
+  }
+}

@@ -38,7 +38,7 @@ export function BulkActionsBar({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="dark:bg-card dark:border-border fixed bottom-24 left-1/2 z-50 flex max-w-[90vw] min-w-[320px] -translate-x-1/2 items-center gap-6 rounded-2xl border border-white/10 bg-slate-900 px-6 py-3 shadow-2xl"
+      className="dark:bg-card dark:border-border fixed bottom-24 left-1/2 z-50 flex max-w-[90vw] min-w-[320px] -translate-x-1/2 items-center gap-6 rounded-2xl border border-border bg-slate-900 px-6 py-3 shadow-xl"
     >
       <div className="flex flex-col">
         <span className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -109,11 +109,11 @@ export function BulkConfirmDialog({
           <AlertDialogDescription className="text-muted-foreground font-medium">
             {action === 'delete'
               ? t('dashboard:bulkActions.deleteConfirm', {
-                  count: selectedCount,
-                })
+                count: selectedCount,
+              })
               : t('dashboard:bulkActions.deactivateConfirm', {
-                  count: selectedCount,
-                })}
+                count: selectedCount,
+              })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="gap-2">

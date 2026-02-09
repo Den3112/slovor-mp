@@ -59,7 +59,7 @@ export function MobileSearchOverlay({
         >
           <div className="safe-top flex h-full flex-col">
             {/* Header */}
-            <div className="border-border/40 flex items-center gap-3 border-b p-4">
+            <div className="border-border flex items-center gap-3 border-b p-4">
               <div className="bg-muted flex flex-1 items-center rounded-lg px-3 py-2">
                 <Search className="text-muted-foreground h-5 w-5" />
                 <form onSubmit={handleSearch} className="flex-1">
@@ -110,7 +110,7 @@ export function MobileSearchOverlay({
                             router.push(`/${locale}${cat.href}`)
                             onClose()
                           }}
-                          className="border-border/40 transition-active hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-lg border p-3 text-left active:scale-95"
+                          className="border-border transition-active hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-lg border p-3 text-left active:scale-95"
                         >
                           <div
                             className={cn(
@@ -185,7 +185,7 @@ export function MobileSearchOverlay({
                             onClose()
                           }
                         }}
-                        className="border-border/40 active:bg-muted/50 flex cursor-pointer items-center justify-between border-b py-3"
+                        className="border-border active:bg-muted/50 flex cursor-pointer items-center justify-between border-b py-3"
                       >
                         <div className="flex items-center gap-3">
                           {item.images?.[0] ? (

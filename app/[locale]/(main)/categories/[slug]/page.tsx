@@ -8,9 +8,9 @@ import { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string, locale: string }>
 }): Promise<Metadata> {
-  const { slug } = await params
+  const { slug, locale } = await params
   const supabase = createStaticClient()
   const { data: category } = await categoriesApi.getBySlug(slug, supabase)
 
@@ -20,12 +20,29 @@ export async function generateMetadata({
     }
   }
 
+  const browseTexts: Record<string, string> = {
+    en: 'Browse',
+    sk: 'Prehliadať',
+    cs: 'Prohlížet',
+    ru: 'Посмотреть'
+  }
+
+  const findTexts: Record<string, string> = {
+    en: 'Find the best deals in Slovakia.',
+    sk: 'Nájdite najlepšie ponuky na Slovensku.',
+    cs: 'Najděte nejlepší nabídky na Slovensku.',
+    ru: 'Найдите лучшие предложения в Словакии.'
+  }
+
+  const browse = browseTexts[locale] || browseTexts.en
+  const find = findTexts[locale] || findTexts.en
+
   return {
     title: `${category.name} | Slovor Marketplace`,
-    description: `Browse ${category.name} on Slovor. Find the best deals in Slovakia.`,
+    description: `${browse} ${category.name} on Slovor. ${find}`,
     openGraph: {
       title: `${category.name} | Slovor Marketplace`,
-      description: `Browse ${category.name} on Slovor. Find the best deals in Slovakia.`,
+      description: `${browse} ${category.name} on Slovor. ${find}`,
       images: ['/og-image.png'],
     },
   }

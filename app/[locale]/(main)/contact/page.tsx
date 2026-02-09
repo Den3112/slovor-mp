@@ -6,9 +6,12 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Contact Us | Slovor Marketplace',
-  description: 'Get in touch with the Slovor team. We are here to help.',
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getTranslationServer(['contact'])
+  return {
+    title: t('contact:title'),
+    description: t('contact:subtitle'),
+  }
 }
 
 export default async function ContactPage() {

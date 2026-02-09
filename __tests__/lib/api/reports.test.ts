@@ -96,7 +96,7 @@ describe('reportsApi', () => {
       await reportsApi.list({ status: 'pending', limit: 10, offset: 5 })
 
       expect(mockChain.select).toHaveBeenCalledWith(
-        '*, listing:listings(id, title), reporter:profiles(display_name)',
+        '*, listing:listings(id, title, images), reporter:profiles!reporter_id(display_name, avatar_url), reported_user:profiles!reported_user_id(display_name, avatar_url)',
         { count: 'exact' }
       )
       expect(mockChain.order).toHaveBeenCalledWith('created_at', {

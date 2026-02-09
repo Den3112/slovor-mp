@@ -1,8 +1,11 @@
 {
   "title": "O Slovor Marketplace",
-  "subtitle": "Nejmodernější platforma pro nákup a prodej na Slovensku.",
+  "subtitle": "Nejmodernější slovenská platforma pro lokální nákup a prodej.",
   "mission": "Naše mise",
-  "missionText": "V Slovor věříme, že nákup a prodej lokálně by měl být krásný, bezpečný a nenáročný. Vybudovali jsme platformu, která spojuje špičkovou technologii s intuitivním uživatelským zážitkem.",
+  "missionText": "V Slovoru věříme, že lokální nákup a prodej by měl být krásný, bezpečný a jednoduchý. Vyvinuli sme platformu, která kombinuje nejmodernější technologie s intuitivním uživatelským zážitkem.",
   "whyTitle": "Proč Slovor?",
-  "whyText": "Na rozdíl od tradičných inzertných stránek se Slovor zaměřuje na zážitek. Od našeho designového systému až po bleskové vyhledávání, každý detail je vytvořen tak, aby vám pomohl."
+  "whyText": "Na rozdíl od tradičních inzertních stránek se Slovor zaměřuje na zážitek. Od našeho designového systému až po bleskové vyhledávání, každý detail je navržen tak, aby vám pomohl.",
+  "ourStory": "Náš příběh",
+  "builtForSlovakiaTitle": "Vytvořeno pro Slovensko",
+  "builtForSlovakiaText": "Slovor se 100% zaměřuje na slovenský trh. Podporujeme místní jazyky, regiony a měny, abychom zajistili bezproblémový zážitek pro všechny naše uživatele."
 }

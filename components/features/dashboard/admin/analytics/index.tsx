@@ -214,16 +214,8 @@ export function AdminAnalyticsView() {
                       delay: idx * 0.1,
                     }}
                     className={cn(
-                      'h-full rounded-full shadow-[0_0_8px] shadow-current transition-all',
-                      cat.color,
-                      cat.color === 'bg-blue-500' &&
-                        'bg-linear-to-r from-blue-600 to-blue-400 text-blue-500/30',
-                      cat.color === 'bg-emerald-500' &&
-                        'bg-linear-to-r from-emerald-600 to-emerald-400 text-emerald-500/30',
-                      cat.color === 'bg-amber-500' &&
-                        'bg-linear-to-r from-amber-600 to-amber-400 text-amber-500/30',
-                      cat.color === 'bg-rose-500' &&
-                        'bg-linear-to-r from-rose-600 to-rose-400 text-rose-500/30'
+                      'h-full rounded-full transition-all',
+                      cat.color
                     )}
                   />
                 </div>
@@ -303,7 +295,7 @@ export function AdminAnalyticsView() {
 
       {/* System Health Section */}
       <div className="grid grid-cols-1">
-        <Card className="border-border/60 bg-muted/30 overflow-hidden rounded-lg shadow-2xl transition-colors dark:bg-slate-950 dark:text-white">
+        <Card className="border-border/60 bg-muted/30 overflow-hidden rounded-lg shadow-lg transition-colors dark:bg-slate-950 dark:text-white">
           <CardHeader className="border-border/40 bg-muted/50 border-b px-6 py-4 dark:border-white/5 dark:bg-white/5">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase dark:text-white/40">
               <Zap className="text-success h-4 w-4" />
@@ -320,7 +312,7 @@ export function AdminAnalyticsView() {
                   <span className="text-3xl font-bold">24ms</span>
                 </div>
                 <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
-                  <div className="h-full w-[85%] bg-linear-to-r from-emerald-500 to-emerald-400 shadow-[0_0_12px] shadow-emerald-500/40" />
+                  <div className="bg-emerald-500 h-full w-[85%]" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase">
                   {t('admin:optimized')}
@@ -334,7 +326,7 @@ export function AdminAnalyticsView() {
                   <span className="text-3xl font-bold">12.4%</span>
                 </div>
                 <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
-                  <div className="h-full w-[12%] bg-linear-to-r from-blue-500 to-blue-400 shadow-[0_0_12px] shadow-blue-500/30" />
+                  <div className="bg-blue-500 h-full w-[12%]" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-blue-500 uppercase dark:text-blue-400">
                   {t('admin:stable')}
@@ -348,7 +340,7 @@ export function AdminAnalyticsView() {
                   <span className="text-3xl font-bold">0.02%</span>
                 </div>
                 <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
-                  <div className="h-full w-[2%] bg-linear-to-r from-emerald-500 to-emerald-400" />
+                  <div className="bg-emerald-500 h-full w-[2%]" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase dark:text-emerald-400">
                   {t('admin:normal')}

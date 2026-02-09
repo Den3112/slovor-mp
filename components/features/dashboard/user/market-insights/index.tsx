@@ -90,7 +90,7 @@ export function MarketInsightsView() {
           <div className="from-primary/5 absolute inset-0 bg-linear-to-br via-transparent to-transparent opacity-50" />
           <div className="relative z-10 flex h-full items-center justify-center p-8">
             <div className="max-w-2xl space-y-6 text-center">
-              <div className="bg-primary/20 shadow-primary/20 border-primary/20 mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border shadow-2xl backdrop-blur-xl">
+              <div className="bg-primary/10 border-primary/20 mx-auto flex h-20 w-20 items-center justify-center rounded-xl border shadow-md">
                 <Zap className="text-primary h-10 w-10 animate-pulse" />
               </div>
               <div className="space-y-3">
@@ -102,19 +102,19 @@ export function MarketInsightsView() {
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-4 pt-4 md:grid-cols-3">
-                <div className="bg-card/30 border-border/10 rounded-xl border p-4 backdrop-blur-sm">
+                <div className="bg-card border-border rounded-xl border p-4">
                   <p className="text-primary text-xl font-bold">2.4x</p>
                   <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
                     Faster Sales
                   </p>
                 </div>
-                <div className="bg-card/30 border-border/10 rounded-xl border p-4 backdrop-blur-sm">
+                <div className="bg-card border-border rounded-xl border p-4">
                   <p className="text-xl font-bold text-blue-500">+12%</p>
                   <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
                     Growth
                   </p>
                 </div>
-                <div className="bg-card/30 border-border/10 rounded-xl border p-4 backdrop-blur-sm">
+                <div className="bg-card border-border rounded-xl border p-4">
                   <p className="text-xl font-bold text-purple-500">98%</p>
                   <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
                     Score

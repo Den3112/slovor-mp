@@ -1,22 +1,26 @@
 {
   "heroTagline": "Slovakia's Premium Marketplace",
-  "heroTitleMain": "Find exactly",
-  "heroTitleHighlight": "what you need",
-  "heroSubtitle": "Thousands of listings every day. Buy and sell everything - from electronics to real estate.",
+  "heroTitleMain": "Find exactly what",
+  "heroTitleHighlight": "you need",
+  "heroSubtitle": "Thousands of listings every day. Buy and sell everything from electronics to real estate.",
   "searchPlaceholder": "What are you looking for?",
-  "popularSearches": "Popular searches",
+  "popularSearches": "Popular Searches",
   "categoriesTitle": "Browse Categories",
   "featuredListings": "Featured Listings",
-  "ctaTitle": "Start selling today!",
+  "ctaTitle": "Start Selling Today!",
   "ctaSubtitle": "Simple, fast and free. Post your ad in 2 minutes.",
   "hero": {
-    "title": "Find what you need",
+    "title": "Find what you're looking for",
     "subtitle": "Thousands of listings every day"
+  },
+  "categories": {
+    "title": "Browse Categories",
+    "subtitle": "Explore our popular categories"
   },
   "categoriesSubtitle": "Explore our popular categories",
   "featured": {
     "title": "Featured Listings",
-    "subtitle": "Best deals of the week"
+    "subtitle": "Best offers of the week"
   },
   "features": {
     "reimagined": "Reimagined",
@@ -26,17 +30,17 @@
   "regionsTitle": "Popular by Regions",
   "howItWorksTitle": "How It Works",
   "howItWorksStep1": "Create",
-  "howItWorksStep1Desc": "Create your listing in 2 minutes",
+  "howItWorksStep1Desc": "Create an ad in 2 minutes",
   "howItWorksStep2": "Publish",
   "howItWorksStep2Desc": "Publish for free to thousands",
   "howItWorksStep3": "Sell",
   "howItWorksStep3Desc": "Sell fast and get paid",
   "popularInRegion": "listings",
   "viewAllVip": "All VIP",
-  "viewAllRecent": "All Latest",
-  "readyToSell": "Ready to sell?",
+  "viewAllRecent": "All Recent",
+  "readyToSell": "Ready to Sell?",
   "createAdIn2Min": "Create an ad in 2 minutes!",
-  "postListingBtn": "Post an ad",
+  "postListingBtn": "Post Ad",
   "megaMenu": {
     "title": "Categories",
     "viewAll": "View all categories"
@@ -48,13 +52,13 @@
   "popularNow": "POPULAR REGIONS",
   "regions": {
     "bratislava": "Bratislava",
-    "kosice": "Košice",
-    "zilina": "Žilina",
+    "kosice": "Kosice",
+    "zilina": "Zilina",
     "nitra": "Nitra",
-    "banskaBystrica": "Banská Bystrica"
+    "banskaBystrica": "Banska Bystrica"
   },
   "recent": {
-    "title": "Latest Listings",
-    "badge": "Fresh Arrivals"
+    "title": "Recent Listings",
+    "badge": "Fresh News"
   }
 }

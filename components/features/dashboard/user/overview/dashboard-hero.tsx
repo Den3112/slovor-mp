@@ -43,13 +43,13 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
           transition={{ delay: 0.1 }}
           className="flex items-center gap-3"
         >
-          <div className="bg-background/40 border-primary/20 text-primary flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-md">
+          <div className="bg-muted/50 border-border text-primary flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
             <Sparkles className="h-3 w-3" />
             <span>{t('dashboard:welcomeHeader') || 'COMMAND CENTER'}</span>
           </div>
 
           {user.user_metadata?.email_confirmed && (
-            <div className="bg-background/40 border-emerald-500/20 text-emerald-500 flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-md">
+            <div className="bg-muted/50 border-border text-emerald-500 flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
               <ShieldCheck className="h-3 w-3" />
               <span>{t('common:verified') || 'VERIFIED'}</span>
             </div>
@@ -72,7 +72,7 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
 
       {/* Quick Stats Grid */}
       <div className="relative z-10 mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <div className="bg-background/40 border-border/40 hover:border-primary/30 group flex flex-col gap-1 rounded-2xl border p-4 backdrop-blur-md transition-colors">
+        <div className="bg-card border-border hover:border-primary/40 group flex flex-col gap-1 rounded-xl border p-4 transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
               {t('dashboard:totalViews')}
@@ -84,7 +84,7 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
           </span>
         </div>
 
-        <div className="bg-background/40 border-border/40 hover:border-emerald-500/30 group flex flex-col gap-1 rounded-2xl border p-4 backdrop-blur-md transition-colors">
+        <div className="bg-card border-border hover:border-emerald-500/40 group flex flex-col gap-1 rounded-xl border p-4 transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
               {t('dashboard:active')}
@@ -96,7 +96,7 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
           </span>
         </div>
 
-        <div className="bg-background/40 border-border/40 hover:border-blue-500/30 group flex flex-col gap-1 rounded-2xl border p-4 backdrop-blur-md transition-colors">
+        <div className="bg-card border-border hover:border-blue-500/40 group flex flex-col gap-1 rounded-xl border p-4 transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
               RATING
@@ -110,7 +110,7 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
 
         {/* CTA */}
         <div className="flex items-center">
-          <Button className="w-full h-full min-h-[80px] rounded-2xl text-xs font-bold uppercase tracking-wider" asChild>
+          <Button className="w-full h-full min-h-[80px] rounded-xl text-xs font-bold uppercase tracking-wider" asChild>
             <Link href="/dashboard/listings/new">
               Post New Listing
             </Link>

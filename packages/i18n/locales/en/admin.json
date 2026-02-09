@@ -326,5 +326,7 @@
   "listingsRejected": "Listings rejected successfully",
   "bulkActionError": "Failed to perform bulk action",
   "statusSold": "Sold",
-  "selectedItems": "Selected items"
+  "selectedItems": "Selected items",
+  "unknownTarget": "Unknown Target",
+  "fullAuditLog": "Full Audit Log"
 }

@@ -1,9 +1,10 @@
 {
-    "home": "Domov",
-    "search": "Hledat",
-    "categories": "Kategorie",
-    "messages": "Zprávy",
-    "favorites": "Oblíbené",
-    "profile": "Můj profil",
-    "postAd": "Přidat inzerát"
+  "home": "Domů",
+  "search": "Hledat",
+  "categories": "Kategorie",
+  "messages": "Zprávy",
+  "favorites": "Oblíbené",
+  "profile": "Profil",
+  "postAd": "Přidat inzerát",
+  "dashboard": "Dashboard"
 }

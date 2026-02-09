@@ -17,5 +17,14 @@
   "deleteAll": "Smazat vše",
   "clearSuccess": "Všechny zprávy byly smazány",
   "clearError": "Nepodařilo se smazat zprávy",
-  "noMessages": "Zatím žádné zprávy"
+  "noMessages": "Zatím žádné zprávy",
+  "loading": "Načítám konverzaci...",
+  "notFound": "Konverzace nebyla nalezena",
+  "startConversationWith": "Začněte konverzaci s {name}",
+  "typing": "píše...",
+  "online": "Online",
+  "offline": "Offline",
+  "startChat": "Pozdravte a začněte obchod!",
+  "sendError": "Nepodařilo se odeslat zprávu",
+  "unknownUser": "Uživatel"
 }

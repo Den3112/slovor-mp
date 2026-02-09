@@ -59,7 +59,7 @@ export function LocationSwitcher() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="border-border/40 bg-background/95 absolute top-full right-0 z-50 mt-2 min-w-[200px] gap-1 overflow-hidden rounded-2xl border p-2 shadow-2xl"
+              className="border-border bg-background absolute top-full right-0 z-50 mt-2 min-w-[200px] gap-1 overflow-hidden rounded-2xl border p-2 shadow-lg"
             >
               <div className="text-muted-foreground mb-2 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
                 {t('common:location')}

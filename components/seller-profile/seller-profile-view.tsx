@@ -145,11 +145,11 @@ export function SellerProfileView({
               {variant === 'public' ? (
                 <Button
                   size="xl"
-                  className="relative w-full overflow-hidden rounded-xl bg-primary font-bold tracking-widest text-primary-foreground uppercase shadow-xl shadow-primary/25 transition-all hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/40 active:scale-95"
+                  className="relative w-full overflow-hidden rounded-xl bg-primary font-bold tracking-widest text-primary-foreground uppercase shadow-lg transition-all hover:scale-[1.02] active:scale-95"
                   onClick={handleContact}
                   disabled={isContacting}
                 >
-                  <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                  <div className="bg-primary/5 absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100" />
                   {isContacting ? (
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   ) : (
@@ -198,7 +198,7 @@ export function SellerProfileView({
             <div className="space-y-10 lg:col-span-8 animate-in fade-in slide-in-from-right-4 duration-700 delay-300">
               <div className="border-border flex items-center justify-between border-b pb-6">
                 <div>
-                  <h1 className="bg-linear-to-r from-foreground to-foreground/60 bg-clip-text text-3xl font-black tracking-tight text-transparent uppercase sm:text-4xl">
+                  <h1 className="text-foreground text-3xl font-black tracking-tight uppercase sm:text-4xl">
                     {t('seller:listings')}
                   </h1>
                   <p className="text-muted-foreground mt-1 text-sm font-medium">

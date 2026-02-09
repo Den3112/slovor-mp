@@ -34,8 +34,7 @@ export function WalletHeader({
   const { t } = useTranslation(['dashboard'])
 
   return (
-    <div className="bg-card border-border relative overflow-hidden rounded-3xl border p-8 shadow-lg">
-      <div className="from-primary/10 absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-50" />
+    <div className="bg-card border-border relative overflow-hidden rounded-2xl border p-8 shadow-md">
 
       <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div className="space-y-2">
@@ -164,7 +163,7 @@ export function TransactionList({ transactions }: TransactionListProps) {
   const { t } = useTranslation(['dashboard', 'common'])
 
   return (
-    <div className="bg-card border-border overflow-hidden rounded-3xl border shadow-sm">
+    <div className="bg-card border-border overflow-hidden rounded-2xl border shadow-sm">
       <div className="border-border flex flex-col gap-4 border-b p-6 sm:flex-row sm:items-center sm:justify-between">
         <h3 className="text-lg font-bold tracking-tight uppercase">
           {t('dashboard:walletDetails.history', {
@@ -206,7 +205,7 @@ export function TransactionList({ transactions }: TransactionListProps) {
                   )}
                 >
                   {transaction.type === 'deposit' ||
-                  transaction.type === 'refill' ? (
+                    transaction.type === 'refill' ? (
                     <ArrowDownLeft className="h-5 w-5" />
                   ) : (
                     <ArrowUpRight className="h-5 w-5" />
@@ -298,7 +297,7 @@ export function RefillModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md overflow-hidden rounded-3xl p-0">
+      <DialogContent className="max-w-md overflow-hidden rounded-2xl p-0">
         <div className="bg-primary absolute inset-0 -bottom-1/2 opacity-[0.03]" />
 
         <div className="relative p-8">

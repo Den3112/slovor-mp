@@ -1,6 +1,9 @@
 {
+  "main": "Hlavné",
+  "account": "Účet",
+  "quickAccess": "Rýchly prístup",
   "myListings": "Moje inzeráty",
-  "manageListings": "Spravujte svoje aktívne a archivované inzeráty.",
+  "manageListings": "Spravujte svoje inzeráty.",
   "inventoryDescription": "Spravujte svoje zásoby a sledujte výkonnosť všetkých svojich aktívnych inzerátov a konceptov.",
   "searchPlaceholder": "Hľadať v mojich inzerátoch...",
   "noListings": "Nenašli sa žiadne inzeráty.",
@@ -21,7 +24,9 @@
   "delete": "Vymazať",
   "favorites": "Obľúbené",
   "active": "Aktívne",
+  "activeStatus": "Aktívny",
   "drafts": "Koncepty",
+  "draftStatus": "Koncept",
   "sold": "Predané",
   "archived": "Archivované",
   "views": "Zobrazenia",
@@ -31,6 +36,22 @@
   "inbox": "Doručené",
   "messages": "Správy",
   "welcomeBack": "Vitajte späť",
+  "welcomeHeader": "OSOBNÝ DASHBOARD",
+  "hello": "Ahoj",
+  "heroDescription": "Vaše riadiace centrum pre správu predaja a rast na platforme.",
+  "totalViews": "Celkový počet zobrazení",
+  "successScore": "Skóre úspešnosti",
+  "topPercentile": "Top {{percentile}}% predajcov",
+  "reachProLevel": "Dosiahnuť Pro úroveň",
+  "performanceGood": "Vaše inzeráty majú nadpriemerný výkon. Propagujte ich pre maximálny dosah!",
+  "smartNudges": "Inteligentné odporúčania",
+  "personalizedRecommendations": "Personalizované tipy pre váš rast.",
+  "nudgePhotosTitle": "Optimalizujte fotky",
+  "nudgePhotosDesc": "Inzeráty s 5+ fotkami sa predávajú 2,4x rýchlejšie. Pridajte k svojim inzerátom viac obrázkov.",
+  "nudgePhotosCta": "Pridať fotky",
+  "nudgeMarketTitle": "Vysoký dopyt na trhu",
+  "nudgeMarketDesc": "Ceny elektroniky tento týždeň vzrástli o 5%. Zvážte aktualizáciu svojich cien.",
+  "nudgeMarketCta": "Zobraziť trendy",
   "inactive": "Neaktívne",
   "noListingsYet": "Zatiaľ žiadne inzeráty",
   "startSelling": "Začnite predávať ešte dnes a oslovte tisíce kupujúcich.",
@@ -39,17 +60,36 @@
   "openInbox": "Otvoriť doručené",
   "performance": "Výkonnosť",
   "pastDays": "Posledných 7 dní",
+  "marketInsights": "Trhové analýzy",
+  "activityHistory": "História aktivity",
+  "postListing": "Pridať nový inzerát",
   "viewsOverTime": "Vývoj zobrazení",
+  "last7Days": "Posledných 7 dní",
+  "deleteListingTitle": "Vymazať inzerát?",
+  "deleteListingConfirm": "Naozaj chcete vymazať \"{{title}}\"?",
+  "deleteListingWarning": "Túto akciu nie je možné vrátiť späť. Inzerát bude natrvalo odstránený.",
+  "deleteForever": "Navždy vymazať",
+  "deleting": "Maže sa...",
+  "unknownListing": "Inzerát bez názvu",
   "activityFeed": "Aktivita",
   "growth": "rast",
   "savedSearches": "Uložené hľadania",
+  "savedSearchesDetails": {
+    "title": "Uložiť toto hľadanie",
+    "description": "Dostávajte upozornenia, keď nové inzeráty zodpovedajú vašim kritériám.",
+    "nameLabel": "Názov",
+    "namePlaceholder": "napr. iPhone 15 Pro Max",
+    "emailNotifications": "E-mailové upozornenia",
+    "emailNotificationsDesc": "Dostávajte denné aktualizácie o nových položkách",
+    "saveButton": "Uložiť hľadanie",
+    "saving": "Ukladá sa...",
+    "success": "Hľadanie bolo úspešne uložené",
+    "error": "Nepodarilo sa uložiť hľadanie"
+  },
   "promoteListings": "Propagovať inzeráty",
   "thisWeek": "Tento týždeň",
   "quickActions": "Rýchle akcie",
   "status": "Stav",
-  "main": "Hlavné",
-  "account": "Účet",
-  "quickAccess": "Rýchly prístup",
   "walletDetails": {
     "title": "Peňaženka",
     "addFunds": "Pridať prostriedky",
@@ -64,28 +104,158 @@
     "promotion_highlight": "Prémiové zvýraznenie",
     "subscription": "Predplatné",
     "availableBalance": "Dostupný zostatok",
-    "refillSuccess": "Peňaženka bola úspešne dobitá!"
+    "refillSuccess": "Peňaženka bola úspešne dobitá!",
+    "other": "Iné",
+    "card": "Kreditná / Debetná karta",
+    "applePay": "Apple Pay",
+    "googlePay": "Google Pay",
+    "walletRefillVia": "Dobitie peňaženky cez {method}"
   },
+  "promote": {
+    "title": "Propagujte svoj inzerát",
+    "subtitle": "Oslovte viac kupujúcich a predávajte až 5-krát rýchlejšie s našimi prémiovými nástrojmi na propagáciu.",
+    "selectListing": "Vybrať inzerát",
+    "selectPlan": "Vybrať balík",
+    "confirmPay": "Potvrdiť a zaplatiť",
+    "secureCheckout": "Bezpečná platba • Spokojnosť zaručená",
+    "bestValue": "Najlepšia hodnota",
+    "success": "Inzerát bol úspešne propagovaný!",
+    "error": "Chyba pri nastavovaní propagácie",
+    "plans": {
+      "free": {
+        "title": "Zadarmo",
+        "subtitle": "Základná viditeľnosť",
+        "features": ["Štandardné umiestnenie vo vyhľadávaní", "Platnosť navždy"]
+      },
+      "standard": {
+        "title": "Štandard",
+        "subtitle": "Posun na začiatok vyhľadávania",
+        "price": "299",
+        "features": [
+          "Viditeľné pre viac kupujúcich",
+          "V priemere 3x viac zobrazení",
+          "Platnosť 7 dní"
+        ]
+      },
+      "premium": {
+        "title": "Premium",
+        "subtitle": "Vizuálna prevaha nad ostatnými",
+        "price": "799",
+        "features": [
+          "Zlatý vizuálny okraj",
+          "Priorita v kategóriách",
+          "Platnosť 14 dní"
+        ]
+      }
+    }
+  },
+  "wallet": {
+    "spending": "Výdavky",
+    "revenue": "Príjmy",
+    "activePromos": "Aktívne promá",
+    "transactions": "Transakcie",
+    "securePayment": "Platba zabezpečená Slovor Pay. Údaje o kreditných kartách sa na našich serveroch neukladajú.",
+    "other": "Iné",
+    "processing": "Spracováva sa..."
+  },
+  "orders": "Objednávky",
+  "purchases": "Nákupy",
+  "sales": "Predaje",
+  "manageTransactions": "Spravujte svoje transakcie a nákupy",
+  "ordersAndSales": "Objednávky a predaje",
+  "viewOrder": "Zobraziť objednávku",
+  "noOrders": "Nenašli sa žiadne objednávky",
   "notifications": {
     "title": "Upozornenia",
-    "subtitle": "Majte prehľad o svojich najnovších aktivitách",
+    "subtitle": "Majte prehľad o najnovších upozorneniach a aktivitách",
     "markAllRead": "Označiť všetko ako prečítané",
     "markedAllRead": "Všetky upozornenia boli označené ako prečítané",
     "deleted": "Upozornenie bolo vymazané",
     "emptyTitle": "Zatiaľ je tu ticho",
     "emptyDesc": "Všetko ste si už pozreli! Nové upozornenia sa zobrazia tu."
   },
+  "chat": {
+    "you": "Vy",
+    "startChat": "Pozdravte a začnite obchod!",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "reviews": {
+    "yourReply": "Vaša odpoveď"
+  },
+  "noListingsDesc": "Zatiaľ ste nevytvorili žiadne inzeráty. Začnite predávať ešte dnes!",
+  "notificationsEnabled": "Upozornenia zapnuté",
+  "notificationsDisabled": "Upozornenia vypnuté",
+  "emailStatusOn": "E-mail: ZAP",
+  "emailStatusOff": "E-mail: VYP",
+  "enableNotifications": "Zapnúť upozornenia",
+  "disableNotifications": "Vypnúť upozornenia",
+  "deleted": "Úspešne vymazané",
+  "allOrders": "Všetky objednávky",
+  "order": "Objednávka",
+  "amount": "Suma",
+  "type": "Typ",
+  "buying": "Nákup",
+  "selling": "Predaj",
+  "orderStatuses": {
+    "completed": "Dokončené",
+    "pending": "Čakajúce",
+    "cancelled": "Zrušené",
+    "processing": "Spracováva sa",
+    "failed": "Zlyhalo"
+  },
+  "bulkActions": {
+    "title": "Hromadné akcie",
+    "selectedItems": "{count} vybratých položiek",
+    "cancel": "Zrušiť",
+    "deactivate": "Deaktivovať",
+    "delete": "Vymazať",
+    "deleteTitle": "Vymazať inzeráty",
+    "deactivateTitle": "Deaktivovať inzeráty",
+    "deleteConfirm": "Naozaj chcete natrvalo vymazať {count} inzerátov? Túto akciu nie je možné vrátiť späť.",
+    "deactivateConfirm": "Naozaj chcete deaktivovať {count} inzerátov? Budú označené ako predané a skryté z vyhľadávania."
+  },
   "activityLog": {
     "title": "Záznam aktivity",
-    "subtitle": "Prehľad všetkých vašich dôležitých akcií a udalostí účtu"
+    "subtitle": "Prehľad všetkých vašich dôležitých akcií a udalostí účtu",
+    "noActivity": "Nebola zaznamenaná žiadna aktivita",
+    "noActivityDesc": "Tu sa zobrazia vaše hlavné udalosti a akcie v účte.",
+    "internal": "Interný"
   },
-  "promote": {
-    "title": "Propagácia",
-    "subtitle": "Zvýšte viditeľnosť svojho inzerátu",
-    "selectListing": "Vybrať inzerát",
-    "selectPlan": "Vybrať balík",
-    "confirmPromote": "Potvrdiť propagáciu",
-    "success": "Inzerát bol úspešne propagovaný!",
-    "error": "Chyba pri nastavovaní propagácie"
-  }
+  "subscriptions": {
+    "title": "Plány predplatného",
+    "subtitle": "Vyberte si najlepší plán pre vaše potreby predaja",
+    "upgradePrompt": "Upgradujte svoj plán a odomknite viac inzerátov a zvýšte svoj predaj!",
+    "currentPlanInfo": "Momentálne používate plán {plan}.",
+    "currentLabel": "Aktuálny: PLÁN {plan}",
+    "endsOn": "Končí: {date}",
+    "active": "Aktívny",
+    "mostPopular": "Najpopulárnejšie",
+    "price": "Cena",
+    "whyUpgrade": "Prečo upgradovať?",
+    "upgradeDesc": "Účty Slovor Pro vám poskytujú profesionálne nástroje, vďaka ktorým vyniknete. So zvýšenou viditeľnosťou a prioritnou podporou sa vaše inzeráty predávajú v priemere 3x rýchlejšie ako pri základných účtoch.",
+    "paymentSafety": "Bezpečnosť platieb",
+    "paymentSafetyDesc": "Všetky platby sú spracovávané bezpečne cez Slovor Pay. Údaje o kreditných kartách sa na našich serveroch neukladajú. Svoje predplatné môžete kedykoľvek zrušiť v nastaveniach.",
+    "plans": {
+      "free": {
+        "name": "Zadarmo / Jednotlivec",
+        "description": "Ideálne pre príležitostných predajcov a začiatočníkov.",
+        "duration": "Navždy",
+        "cta": "Aktuálny plán"
+      },
+      "pro": {
+        "name": "Profesionál",
+        "description": "Pre náročných používateľov a malé firmy.",
+        "period": "/ mesiac",
+        "cta": "Prejsť na Pro"
+      },
+      "business": {
+        "name": "Biznis",
+        "description": "Maximálna expozícia pre profesionálnych predajcov.",
+        "period": "/ mesiac",
+        "cta": "Prejsť na Biznis"
+      }
+    }
+  },
+  "promoted": "Promované"
 }

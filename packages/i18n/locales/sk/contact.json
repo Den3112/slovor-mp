@@ -1,12 +1,17 @@
 {
   "title": "Kontaktujte nás",
-  "subtitle": "Sme tu pre vás. Napíšte nám alebo nás navštívte.",
-  "email": "Emailová adresa",
+  "subtitle": "Sme tu pre vás. Napíšte nám alebo navštívte našu kanceláriu.",
+  "email": "E-mailová adresa",
+  "emailLabel": "Email",
   "phone": "Telefónne číslo",
   "office": "Kancelária",
   "sendMessage": "Pošlite nám správu",
   "name": "Meno",
   "message": "Správa",
-  "send": "Odoslať správu",
-  "success": "Správa bola úspešne odoslaná!"
+  "send": "Poslať správu",
+  "success": "Správa bola úspešne odoslaná!",
+  "placeholderName": "Ján Novák",
+  "placeholderEmail": "jan@priklad.sk",
+  "placeholderMessage": "Ako vám môžeme pomôcť?",
+  "workingHours": "Po-Pi: 9:00 - 17:00"
 }

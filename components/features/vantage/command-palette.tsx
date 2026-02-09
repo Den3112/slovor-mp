@@ -228,13 +228,13 @@ export function GlobalCommandPalette() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={() => setCommandPaletteOpen(false)}
-        className="bg-background/80 fixed inset-0 backdrop-blur-md"
+        className="bg-background/95 fixed inset-0"
       />
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        className="bg-card border-border/50 relative w-full max-w-xl overflow-hidden rounded-2xl border shadow-2xl"
+        className="bg-card border-border relative w-full max-w-xl overflow-hidden rounded-2xl border shadow-lg"
       >
         <div className="border-border/10 flex items-center border-b px-4 py-3">
           {isSearching ? (
@@ -332,7 +332,7 @@ export function GlobalCommandPalette() {
           )}
         </div>
 
-        <div className="bg-muted/50 border-border/10 flex items-center justify-between border-t px-4 py-3 text-[10px]">
+        <div className="bg-muted border-border/10 flex items-center justify-between border-t px-4 py-3 text-[10px]">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5">
               <kbd className="bg-background rounded border px-1.5 py-0.5">

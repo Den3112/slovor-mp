@@ -3,10 +3,12 @@ import { getTranslationServer } from '@/lib/i18n/server'
 import { Sparkles, Target, Star } from 'lucide-react'
 import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'About Us | Slovor Marketplace',
-  description:
-    'Learn about Slovor Marketplace, our mission, and why we are built for Slovakia.',
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getTranslationServer(['about'])
+  return {
+    title: t('about:title'),
+    description: t('about:subtitle'),
+  }
 }
 
 export default async function AboutPage() {

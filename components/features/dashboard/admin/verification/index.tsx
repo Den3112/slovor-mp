@@ -342,7 +342,7 @@ export function AdminVerificationView() {
         open={!!selectedRequest}
         onOpenChange={(open) => !open && setSelectedRequest(null)}
       >
-        <DialogContent className="border-border/60 bg-background/95 max-w-3xl backdrop-blur-xl">
+        <DialogContent className="border-border/60 bg-background max-w-3xl">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold tracking-tight uppercase">
               {t('admin:reviewVerifyDocs')}

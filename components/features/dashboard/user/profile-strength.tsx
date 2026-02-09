@@ -16,8 +16,7 @@ export function ProfileStrength({
   const { t } = useTranslation(['profile'])
 
   return (
-    <div className="bg-card border-border relative overflow-hidden rounded-3xl border p-6 shadow-md">
-      <div className="from-primary/10 absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-50" />
+    <div className="bg-card border-border relative overflow-hidden rounded-2xl border p-6 shadow-sm">
 
       <div className="relative z-10 space-y-4">
         <div className="flex items-center justify-between">
