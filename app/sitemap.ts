@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
 
   // Dynamic routes: Categories
-  let categoryRoutes: any[] = []
+  let categoryRoutes: MetadataRoute.Sitemap = []
   try {
     const { data: categories } = await categoriesApi.getAll(supabase)
     categoryRoutes = (categories || []).flatMap((category) =>
