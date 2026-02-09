@@ -10,6 +10,10 @@ import {
   ChevronRight,
   User,
   Calendar,
+  MoreVertical,
+  CheckCircle2,
+  AlertCircle,
+  Filter,
 } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { supportApi, type SupportTicket } from '@/lib/api'
@@ -23,6 +27,22 @@ import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { StatusBadge } from '@/components/features/dashboard/shared/status-badge'
+import { PriorityBadge } from '@/components/features/dashboard/shared/priority-badge'
 
 export function AdminSupportView() {
   const { t, locale } = useTranslation(['common', 'admin'])
@@ -30,6 +50,11 @@ export function AdminSupportView() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [activeTab, setActiveTab] = useState('all') // all, open, in_progress, resolved
+  const [priorityFilter, setPriorityFilter] = useState<string>('all')
+  const [sortConfig, setSortConfig] = useState<{
+    key: string
+    direction: 'asc' | 'desc'
+  } | null>({ key: 'created_at', direction: 'desc' })
 
   const loadTickets = useCallback(async () => {
     setIsLoading(true)
@@ -47,11 +72,48 @@ export function AdminSupportView() {
     loadTickets()
   }, [loadTickets])
 
+  const handleUpdateStatus = async (
+    id: string,
+    status: SupportTicket['status']
+  ) => {
+    try {
+      const { error } = await supportApi.updateStatus(id, status)
+      if (error) throw new Error(error)
+
+      setTickets((prev) =>
+        prev.map((ticket) =>
+          ticket.id === id ? { ...ticket, status } : ticket
+        )
+      )
+      toast.success(t('admin:statusUpdated'))
+    } catch (error) {
+      toast.error(t('admin:statusUpdateError'))
+    }
+  }
+
+  const handleSort = (key: string) => {
+    setSortConfig((current) => {
+      if (current?.key === key) {
+        return { key, direction: current.direction === 'asc' ? 'desc' : 'asc' }
+      }
+      return { key, direction: 'asc' }
+    })
+  }
+
   const filteredTickets = useMemo(() => {
-    let result = tickets
+    let result = [...tickets]
+
+    // Status Filter
     if (activeTab !== 'all') {
       result = result.filter((t) => t.status === activeTab)
     }
+
+    // Priority Filter
+    if (priorityFilter !== 'all') {
+      result = result.filter((t) => t.priority === priorityFilter)
+    }
+
+    // Search
     if (searchQuery) {
       const q = searchQuery.toLowerCase()
       result = result.filter(
@@ -61,13 +123,28 @@ export function AdminSupportView() {
           t.user?.email?.toLowerCase().includes(q)
       )
     }
+
+    // Sorting
+    if (sortConfig) {
+      result.sort((a, b) => {
+        const aValue = a[sortConfig.key as keyof SupportTicket] ?? ''
+        const bValue = b[sortConfig.key as keyof SupportTicket] ?? ''
+
+        if (aValue === bValue) return 0
+
+        const direction = sortConfig.direction === 'asc' ? 1 : -1
+        return aValue > bValue ? direction : -direction
+      })
+    }
+
     return result
-  }, [tickets, activeTab, searchQuery])
+  }, [tickets, activeTab, searchQuery, priorityFilter, sortConfig])
 
   const columns: Column<SupportTicket>[] = [
     {
       key: 'subject',
       header: t('admin:tableTicketSubject'),
+      sortable: true,
       className: 'min-w-[300px]',
       cell: (row) => (
         <div className="flex items-center gap-4">
@@ -103,8 +180,9 @@ export function AdminSupportView() {
       ),
     },
     {
-      key: 'user_id',
+      key: 'user',
       header: t('admin:tableRequestedBy'),
+      sortable: false, // sorting by nested object needs custom logic, skip for now or implement
       cell: (row) => (
         <div className="flex items-center gap-2.5">
           <div className="bg-muted border-border/40 relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg border">
@@ -133,59 +211,29 @@ export function AdminSupportView() {
     {
       key: 'priority',
       header: t('admin:tablePriority'),
-      cell: (row) => {
-        const colors = {
-          low: 'bg-muted text-muted-foreground border-border/40',
-          medium: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
-          high: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
-          urgent: 'bg-destructive/10 text-destructive border-destructive/20',
-        }
-        return (
-          <Badge
-            variant="outline"
-            className={cn(
-              'rounded-md px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase',
-              colors[row.priority]
-            )}
-          >
-            {t(
-              `admin:priority${row.priority.charAt(0).toUpperCase() + row.priority.slice(1)}`
-            )}
-          </Badge>
-        )
-      },
+      sortable: true,
+      cell: (row) => <PriorityBadge priority={row.priority} />,
     },
     {
       key: 'status',
       header: t('admin:tableStatus'),
-      cell: (row) => {
-        const styles = {
-          open: 'bg-destructive/10 text-destructive border-destructive/20',
-          in_progress: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
-          resolved: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
-          closed: 'bg-muted text-muted-foreground border-border/40',
-        }
-        return (
-          <Badge
-            variant="outline"
-            className={cn(
-              'rounded-md px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase',
-              styles[row.status]
-            )}
-          >
-            {t(
-              `admin:tab${row.status
-                .split('_')
-                .map((s: string) => s.charAt(0).toUpperCase() + s.slice(1))
-                .join('')}`
-            )}
-          </Badge>
-        )
-      },
+      sortable: true,
+      cell: (row) => <StatusBadge status={row.status} />,
     },
     {
       key: 'created_at',
+      header: t('admin:tableCreated'),
+      sortable: true,
+      cell: (row) => (
+        <div className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
+          {new Date(row.created_at).toLocaleDateString()}
+        </div>
+      ),
+    },
+    {
+      key: 'updated_at',
       header: t('admin:tableLastUpdate'),
+      sortable: true,
       cell: (row) => (
         <div className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
           <Calendar className="h-3 w-3" />
@@ -198,16 +246,57 @@ export function AdminSupportView() {
       header: '',
       className: 'text-right',
       cell: (row) => (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg transition-all"
-          asChild
-        >
-          <Link href={`/${locale}/admin/support/${row.id}`}>
-            <ChevronRight className="h-4 w-4" />
-          </Link>
-        </Button>
+        <div className="flex justify-end gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg transition-all"
+            asChild
+          >
+            <Link href={`/${locale}/admin/support/${row.id}`}>
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-lg"
+              >
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="border-border/60 min-w-[160px] rounded-xl"
+            >
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`/${locale}/admin/support/${row.id}`}
+                  className="cursor-pointer text-xs font-bold tracking-widest uppercase"
+                >
+                  {t('admin:viewDetails')}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => handleUpdateStatus(row.id, 'resolved')}
+                className="cursor-pointer text-xs font-bold tracking-widest text-emerald-600 uppercase focus:text-emerald-700"
+              >
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+                {t('admin:markResolved')}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleUpdateStatus(row.id, 'closed')}
+                className="text-muted-foreground cursor-pointer text-xs font-bold tracking-widest uppercase"
+              >
+                <AlertCircle className="mr-2 h-4 w-4" />
+                {t('admin:closeTicket')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       ),
     },
   ]
@@ -236,7 +325,7 @@ export function AdminSupportView() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-lg border p-1">
             {['all', 'open', 'in_progress', 'resolved', 'closed'].map((tab) => (
               <TabsTrigger
@@ -261,6 +350,47 @@ export function AdminSupportView() {
               </TabsTrigger>
             ))}
           </TabsList>
+
+          <div className="flex w-full items-center gap-2 md:w-auto">
+            <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+              <SelectTrigger className="border-border/60 h-10 w-[180px] text-[10px] font-bold tracking-widest uppercase">
+                <Filter className="text-muted-foreground mr-2 h-3.5 w-3.5" />
+                <SelectValue placeholder="Filter Priority" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem
+                  value="all"
+                  className="text-[10px] font-bold tracking-widest uppercase"
+                >
+                  All Priorities
+                </SelectItem>
+                <SelectItem
+                  value="urgent"
+                  className="text-[10px] font-bold tracking-widest uppercase"
+                >
+                  Urgent
+                </SelectItem>
+                <SelectItem
+                  value="high"
+                  className="text-[10px] font-bold tracking-widest uppercase"
+                >
+                  High
+                </SelectItem>
+                <SelectItem
+                  value="medium"
+                  className="text-[10px] font-bold tracking-widest uppercase"
+                >
+                  Medium
+                </SelectItem>
+                <SelectItem
+                  value="low"
+                  className="text-[10px] font-bold tracking-widest uppercase"
+                >
+                  Low
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <motion.div
@@ -275,6 +405,9 @@ export function AdminSupportView() {
             onSearch={setSearchQuery}
             searchPlaceholder={t('admin:searchTickets')}
             emptyMessage={t('admin:noTickets')}
+            onSort={handleSort}
+            sortColumn={sortConfig?.key}
+            sortDirection={sortConfig?.direction}
           />
         </motion.div>
       </Tabs>

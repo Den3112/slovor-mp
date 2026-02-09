@@ -19,7 +19,7 @@ import { toast } from 'sonner'
 import { useTranslation } from '@/lib/i18n'
 
 export function CategoriesManager() {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common', 'admin'])
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
@@ -121,10 +121,10 @@ export function CategoriesManager() {
         <div className="group relative max-w-md flex-1">
           <Search className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 transition-colors" />
           <Input
-            placeholder={t('admin:searchCategories')}
+            placeholder={t('admin:searchCategories', { defaultValue: 'Search categories...' })}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-card border-border h-11 rounded-lg pl-12 text-xs font-bold tracking-widest uppercase transition-all"
+            className="bg-card/50 border-border h-12 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all focus:ring-primary/20 backdrop-blur-sm"
           />
         </div>
         <Button
@@ -143,50 +143,50 @@ export function CategoriesManager() {
               color: '',
             })
           }}
-          className="h-11 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+          className="shadow-primary/20 h-12 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase shadow-lg"
         >
-          <Plus className="mr-2 h-4 w-4" /> {t('admin:addCategory')}
+          <Plus className="mr-2 h-4 w-4" /> {t('admin:addCategory', { defaultValue: 'Add Category' })}
         </Button>
       </div>
 
-      <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
+      <div className="bg-card/30 border-border overflow-hidden rounded-3xl border shadow-xl backdrop-blur-md">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-muted/10 border-border/40 border-b">
-                <th className="text-muted-foreground px-6 py-4 text-left text-[10px] font-bold tracking-widest uppercase">
-                  {t('admin:tableListing')} / {t('admin:inputSlug')}
+              <tr className="bg-muted/30 border-border/40 border-b">
+                <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
+                  {t('admin:tableListing', { defaultValue: 'Name' })} / {t('admin:inputSlug', { defaultValue: 'Slug' })}
                 </th>
-                <th className="text-muted-foreground px-6 py-4 text-left text-[10px] font-bold tracking-widest uppercase">
-                  {t('admin:tableTranslations')}
+                <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
+                  {t('admin:tableTranslations', { defaultValue: 'Translations' })}
                 </th>
-                <th className="text-muted-foreground px-6 py-4 text-left text-[10px] font-bold tracking-widest uppercase">
-                  {t('admin:tableIconOrder')}
+                <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
+                  {t('admin:tableIconOrder', { defaultValue: 'Style & Order' })}
                 </th>
-                <th className="text-muted-foreground px-6 py-4 text-right text-[10px] font-bold tracking-widest uppercase">
-                  {t('admin:tableActions')}
+                <th className="text-muted-foreground px-8 py-5 text-right text-[10px] font-black tracking-[0.2em] uppercase">
+                  {t('admin:tableActions', { defaultValue: 'Actions' })}
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-border/50 divide-y">
+            <tbody className="divide-border/40 divide-y">
               {isLoading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center">
-                    <Loader2 className="text-primary mx-auto h-8 w-8 animate-spin" />
+                  <td colSpan={4} className="px-8 py-20 text-center">
+                    <Loader2 className="text-primary mx-auto h-10 w-10 animate-spin" />
                   </td>
                 </tr>
               ) : filteredCategories.length === 0 && editingId !== 'new' ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center">
-                    <p className="text-muted-foreground font-medium">
-                      {t('admin:noCategoriesFound')}
+                  <td colSpan={4} className="px-8 py-20 text-center">
+                    <p className="text-muted-foreground text-sm font-bold tracking-widest uppercase opacity-40">
+                      {t('admin:noCategoriesFound', { defaultValue: 'No categories found' })}
                     </p>
                   </td>
                 </tr>
               ) : (
                 <>
                   {editingId === 'new' && (
-                    <tr className="bg-primary/5">
+                    <tr className="bg-primary/3 border-primary/20 border-l-4">
                       <td className="px-6 py-4">
                         <div className="space-y-2">
                           <Input

@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 type ContentTab = 'categories' | 'blog' | 'pages' | 'settings'
 
 export function AdminContentView() {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common', 'admin'])
   const [activeTab, setActiveTab] = useState<ContentTab>('categories')
 
   const tabs = [

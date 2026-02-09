@@ -2,17 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  BarChart3,
-  Loader2,
-} from 'lucide-react'
+import { BarChart3, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
-import { ActivityChart } from './activity-chart'
-import { LiveMonitor } from './vantage/live-monitor'
-import { ActionStream } from './vantage/action-stream'
-import { PriorityQueueTile } from './priority-queue-tile'
-import { AdminHero } from './admin-hero'
-import { RevenueWidget, ContentOverviewWidget } from './widgets'
+import { ActivityChart } from '../activity-chart'
+import { LiveMonitor } from '../vantage/live-monitor'
+import { ActionStream } from '../vantage/action-stream'
+import { PriorityQueueTile } from '../priority-queue-tile'
+import { AdminHero } from '../admin-hero'
+import { RevenueWidget, ContentOverviewWidget } from '../widgets'
 import { BentoGrid, BentoTile } from '@/components/ui/bento'
 import { PremiumBackground } from '@/components/ui/premium-background'
 
@@ -121,4 +118,3 @@ export function AdminOverviewView({ userEmail }: { userEmail: string }) {
     </PremiumBackground>
   )
 }
-

@@ -9,6 +9,7 @@ import {
   MoreHorizontal,
 } from 'lucide-react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useTranslation } from '@/lib/i18n'
 import { profilesApi, adminApi, type User } from '@/lib/api'
 import { Button } from '@/components/ui/button'
@@ -36,7 +37,7 @@ interface AdminUsersViewProps {
 }
 
 export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
-  const { t } = useTranslation(['common', 'admin'])
+  const { t } = useTranslation(['common', 'admin', 'users'])
   const [users, setUsers] = useState<User[]>(initialUsers)
   const [isLoading, setIsLoading] = useState(initialUsers.length === 0)
   const [searchQuery, setSearchQuery] = useState('')
@@ -170,7 +171,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
       className: 'min-w-[250px]',
       cell: (row) => (
         <div className="flex items-center gap-3">
-          <div className="bg-muted border-border relative h-10 w-10 shrink-0 overflow-hidden rounded-full border">
+          <div className="bg-muted border-border/40 relative h-10 w-10 shrink-0 overflow-hidden rounded-full border shadow-sm">
             {row.avatar_url ? (
               <Image
                 src={row.avatar_url}
@@ -181,7 +182,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 unoptimized
               />
             ) : (
-              <div className="text-muted-foreground flex h-full w-full items-center justify-center">
+              <div className="text-muted-foreground/30 flex h-full w-full items-center justify-center">
                 <Users className="h-4 w-4" />
               </div>
             )}
@@ -190,7 +191,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
             <span className="text-foreground mb-1 max-w-[150px] truncate text-sm leading-none font-bold tracking-tight">
               {row.display_name || t('admin:anonymous')}
             </span>
-            <span className="text-muted-foreground font-mono text-[10px] leading-none font-bold tracking-tighter uppercase opacity-80">
+            <span className="text-muted-foreground/60 font-mono text-[9px] leading-none font-bold tracking-tighter uppercase opacity-80">
               ID: {row.id.split('-')[0]}
             </span>
           </div>
@@ -203,7 +204,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
       sortable: true,
       className: 'hidden md:table-cell',
       cell: (row) => (
-        <span className="text-muted-foreground text-sm font-medium">
+        <span className="text-muted-foreground text-[11px] font-bold tracking-wider uppercase">
           {row.created_at
             ? new Date(row.created_at).toLocaleDateString()
             : t('admin:na')}
@@ -212,21 +213,27 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     },
     {
       key: 'status',
-      header: t('users:status'),
+      header: t('admin:tableStatus'),
       cell: (row: any) => {
         const status = row.status || 'active'
-        const variants: Record<string, string> = {
-          active: 'badge-success',
-          pending: 'badge-warning',
-          suspended: 'badge-destructive',
-        }
         return (
-          <div className={cn(
-            "inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-            variants[status] || 'bg-muted text-muted-foreground'
-          )}>
-            {status}
-          </div>
+          <Badge
+            variant="outline"
+            className={cn(
+              "flex h-6 w-fit items-center gap-1.5 rounded-md border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase",
+              status === 'active' ? "bg-success/10 text-success border-success/20" :
+                status === 'pending' ? "bg-warning/10 text-warning border-warning/20" :
+                  "bg-destructive/10 text-destructive border-destructive/20"
+            )}
+          >
+            <span className={cn(
+              "h-1.5 w-1.5 shrink-0 rounded-full",
+              status === 'active' ? "bg-success" :
+                status === 'pending' ? "bg-warning" :
+                  "bg-destructive"
+            )} />
+            {t(`admin:status${status.charAt(0).toUpperCase() + status.slice(1)}`)}
+          </Badge>
         )
       },
     },
@@ -240,68 +247,59 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="text-primary h-auto justify-start p-0 text-xs font-bold tracking-wider uppercase hover:bg-transparent"
+                className="text-primary h-auto justify-start p-0 text-[10px] font-bold tracking-widest uppercase hover:bg-transparent"
               >
                 {row.role || 'user'}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuLabel>{t('admin:changeRole')}</DropdownMenuLabel>
+            <DropdownMenuContent align="start" className="border-border/60 bg-background/95 backdrop-blur-xl">
+              <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">{t('admin:changeRole')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleRoleChange(row, 'user')}>
+              <DropdownMenuItem onClick={() => handleRoleChange(row, 'user')} className="text-[10px] font-bold tracking-widest uppercase">
                 {t('admin:roleUser')}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleRoleChange(row, 'moderator')}
+                className="text-[10px] font-bold tracking-widest uppercase"
               >
                 {t('admin:roleModerator')}
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleRoleChange(row, 'admin')}>
+              <DropdownMenuItem onClick={() => handleRoleChange(row, 'admin')} className="text-[10px] font-bold tracking-widest uppercase">
                 {t('admin:roleAdmin')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <span className="text-muted-foreground/80 text-[10px] font-medium">
-            {t('admin:verificationLevel')}: {row.verification_level || t('admin:none')}
+          <span className="text-muted-foreground/40 text-[9px] font-bold tracking-widest uppercase">
+            LVL: {row.verification_level || 0}
           </span>
         </div>
       ),
     },
     {
-      key: 'status',
-      header: t('admin:tableStatus'),
+      key: 'verification',
+      header: t('admin:tableVerification'),
       sortable: true,
       cell: (row) => (
         <div className="flex flex-wrap gap-2">
-          {row.is_verified && (
+          {row.is_verified ? (
             <Badge
               variant="outline"
-              className="bg-success/10 text-success border-success/20 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
+              className="bg-primary/10 text-primary border-primary/20 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
             >
-              {t('admin:userVerified')}
-            </Badge>
-          )}
-          {row.status === 'banned' ? (
-            <Badge
-              variant="outline"
-              className="bg-destructive/10 text-destructive border-destructive/20 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
-            >
-              {t('admin:userBanned')}
+              <ShieldCheck className="mr-1 h-3 w-3" />
+              {t('admin:verified')}
             </Badge>
           ) : (
-            <Badge
-              variant="outline"
-              className="bg-muted text-muted-foreground/60 border-border/40 rounded-sm px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase"
-            >
-              {t('admin:statusActive')}
-            </Badge>
+            <span className="text-muted-foreground/30 text-[9px] font-bold tracking-widest uppercase italic">
+              {t('admin:unverified')}
+            </span>
           )}
         </div>
       ),
     },
     {
       key: 'actions',
-      header: <span className="sr-only">{t('admin:tableActions')}</span>,
+      header: '',
       className: 'text-right',
       cell: (row) => (
         <div className="flex justify-end">
@@ -310,22 +308,22 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 rounded-lg"
+                className="hover:bg-muted/50 h-8 w-8 rounded-lg"
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{t('admin:actions')}</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleToggleVerification(row)}>
+            <DropdownMenuContent align="end" className="border-border/60 bg-background/95 backdrop-blur-xl">
+              <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">{t('admin:actions')}</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => handleToggleVerification(row)} className="text-[10px] font-bold tracking-widest uppercase">
                 {row.is_verified ? (
                   <>
-                    <ShieldAlert className="mr-2 h-4 w-4 text-amber-500" />
+                    <ShieldAlert className="mr-2 h-3.5 w-3.5 text-warning" />
                     {t('admin:removeVerification')}
                   </>
                 ) : (
                   <>
-                    <ShieldCheck className="mr-2 h-4 w-4 text-emerald-500" />
+                    <ShieldCheck className="mr-2 h-3.5 w-3.5 text-success" />
                     {t('admin:verifyUser')}
                   </>
                 )}
@@ -333,9 +331,9 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => handleToggleBan(row)}
-                className="text-destructive focus:text-destructive"
+                className="text-destructive focus:text-destructive focus:bg-destructive/5 text-[10px] font-bold tracking-widest uppercase"
               >
-                <Ban className="mr-2 h-4 w-4" />
+                <Ban className="mr-2 h-3.5 w-3.5" />
                 {row.status === 'banned' ? t('admin:unbanUser') : t('admin:banUser')}
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -346,7 +344,13 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
   ]
 
   return (
-    <div className="space-y-6" data-testid="admin-users-view">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="space-y-8"
+      data-testid="admin-users-view"
+    >
       <UsersHeader />
 
       <DataGrid
@@ -360,6 +364,6 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
         isLoading={isLoading}
         emptyMessage={t('admin:noUsersFound')}
       />
-    </div>
+    </motion.div>
   )
 }

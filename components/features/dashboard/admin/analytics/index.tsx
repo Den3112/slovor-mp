@@ -19,7 +19,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
-import { ActivityChart } from './activity-chart'
+import { ActivityChart } from '../activity-chart'
 
 export function AdminAnalyticsView() {
   const { t } = useTranslation(['common', 'admin'])

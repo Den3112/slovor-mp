@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { reportsApi, type ReportWithDetails } from '@/lib/api'
 import {
   AlertTriangle,
@@ -24,7 +25,7 @@ import { motion } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export function AdminReportsView() {
-  const { t, locale } = useTranslation(['common', 'admin'])
+  const { t } = useTranslation(['common', 'admin'])
   const [reports, setReports] = useState<ReportWithDetails[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
@@ -106,20 +107,62 @@ export function AdminReportsView() {
       header: t('admin:tableTarget'),
       cell: (row) => (
         <div className="flex items-center gap-4">
-          <div className="bg-destructive/10 text-destructive border-destructive/20 flex h-10 w-10 min-w-[40px] items-center justify-center rounded-lg border shadow-sm transition-transform group-hover:scale-110">
-            <AlertTriangle className="h-5 w-5" />
+          <div className="bg-muted relative h-10 w-10 min-w-[40px] shrink-0 overflow-hidden rounded-lg border">
+            {row.listing ? (
+              row.listing.images && row.listing.images[0] ? (
+                <Image
+                  src={row.listing.images[0]}
+                  alt=""
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="text-muted-foreground flex h-full w-full items-center justify-center">
+                  <ExternalLink className="h-4 w-4" />
+                </div>
+              )
+            ) : row.reported_user ? (
+              row.reported_user.avatar_url ? (
+                <Image
+                  src={row.reported_user.avatar_url}
+                  alt=""
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="text-muted-foreground flex h-full w-full items-center justify-center">
+                  <User className="h-4 w-4" />
+                </div>
+              )
+            ) : (
+              <div className="text-muted-foreground flex h-full w-full items-center justify-center">
+                <AlertTriangle className="h-4 w-4" />
+              </div>
+            )}
           </div>
           <div className="flex flex-col space-y-0.5">
             <p className="text-foreground line-clamp-1 max-w-[200px] text-sm font-bold tracking-tight">
-              {row.listing?.title || t('admin:unknownListing')}
+              {row.listing?.title ||
+                row.reported_user?.display_name ||
+                t('admin:unknownTarget')}
             </p>
-            <Link
-              href={`/${locale}/listings/${row.listing_id}`}
-              target="_blank"
-              className="text-primary hover:text-primary/80 flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase transition-colors"
-            >
-              {t('admin:viewListing')} <ExternalLink className="h-3 w-3" />
-            </Link>
+            {row.listing ? (
+              <Link
+                href={`/listings/${row.listing.id}`}
+                target="_blank"
+                className="text-primary hover:text-primary/80 flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase transition-colors"
+              >
+                {t('admin:viewListing')} <ExternalLink className="h-3 w-3" />
+              </Link>
+            ) : row.reported_user ? (
+              <Link
+                href={`/users/${row.reported_user_id}`}
+                target="_blank"
+                className="text-primary hover:text-primary/80 flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase transition-colors"
+              >
+                {t('admin:viewUserProfile')} <User className="h-3 w-3" />
+              </Link>
+            ) : null}
           </div>
         </div>
       ),
