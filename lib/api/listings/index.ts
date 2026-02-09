@@ -8,7 +8,7 @@ import {
   applyListingFilters,
   applyListingSorting,
   applyListingPagination,
-  type ListingFilterOptions
+  type ListingFilterOptions,
 } from './filters'
 
 export type { ListingFilterOptions }
@@ -76,6 +76,21 @@ export const listingsApi = {
       return { data: count || 0, error: null }
     } catch (error) {
       logError('listingsApi.getCount', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  async getPendingCount(): Promise<ApiResponse<number>> {
+    try {
+      const { count, error } = await supabase
+        .from('listings')
+        .select('id', { count: 'exact', head: true })
+        .eq('status', 'pending')
+
+      if (error) throw error
+      return { data: count || 0, error: null }
+    } catch (error) {
+      logError('listingsApi.getPendingCount', error)
       return { data: null, error: (error as Error).message }
     }
   },
@@ -226,7 +241,10 @@ export const listingsApi = {
     }
   },
 
-  async getByUser(userId: string, client?: SupabaseClient): Promise<ApiResponse<Listing[]>> {
+  async getByUser(
+    userId: string,
+    client?: SupabaseClient
+  ): Promise<ApiResponse<Listing[]>> {
     try {
       const supabaseClient = client || supabase
       const { data, error } = await supabaseClient
