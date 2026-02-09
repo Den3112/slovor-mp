@@ -4,13 +4,19 @@ import { createClient } from '@/lib/supabase/server'
 import { config } from '@/lib/config'
 import { Loader2 } from 'lucide-react'
 
-const AdminOverviewView = dynamic(() => import('@/components/features/dashboard/admin/overview-view').then(mod => mod.AdminOverviewView), {
-  loading: () => (
-    <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-    </div>
-  )
-})
+const AdminOverviewView = dynamic(
+  () =>
+    import('@/components/features/dashboard/admin/overview').then(
+      (mod) => mod.AdminOverviewView
+    ),
+  {
+    loading: () => (
+      <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+        <Loader2 className="text-primary h-8 w-8 animate-spin" />
+      </div>
+    ),
+  }
+)
 
 export default async function AdminPage() {
   const supabase = await createClient()
