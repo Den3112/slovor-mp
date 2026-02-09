@@ -1,7 +1,0 @@
-Script started on 2026-02-07 20:48:41+00:00 [COMMAND="npm run lint" TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="280" LINES="29"]
-
-> slovor-mp@1.0.0 lint
-> cross-env NODE_ENV=development eslint . --cache
-
-[1G[0K[1G[0K⠙[1G[0K
-Script done on 2026-02-07 20:48:51+00:00 [COMMAND_EXIT_CODE="0"]

@@ -1,7 +1,0 @@
-
-
-Config: (none, using defaults)
-Database: /home/creator/.squirrel/projects/localhost-3000/project.db
-New crawl: http://localhost:3000
-Found 136 URLs in sitemap
-2026-02-08T10:30:31.711Z [info] Following redirect: http://localhost:3000/ → http://localhost:3000/en
