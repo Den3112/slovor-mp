@@ -56,7 +56,7 @@ export function SettingsView() {
     } finally {
       setIsLoading(false)
     }
-  }, [user?.id, t])
+  }, [user, t])
 
   useEffect(() => {
     if (user?.id) {
