@@ -16,9 +16,15 @@ export interface ReportWithDetails extends ListingReport {
   listing?: {
     id: string
     title: string
+    images?: string[]
   }
   reporter?: {
     display_name: string
+    avatar_url?: string
+  }
+  reported_user?: {
+    display_name: string
+    avatar_url?: string
   }
 }
 
@@ -27,12 +33,19 @@ export const reportsApi = {
     return this.list()
   },
 
-  async list(options?: { status?: string; limit?: number; offset?: number }): Promise<ApiResponse<ReportWithDetails[]>> {
+  async list(options?: {
+    status?: string
+    limit?: number
+    offset?: number
+  }): Promise<ApiResponse<ReportWithDetails[]>> {
     const supabase = createClient()
     try {
       let query = supabase
         .from('reports')
-        .select('*, listing:listings(id, title), reporter:profiles(display_name)', { count: 'exact' })
+        .select(
+          '*, listing:listings(id, title, images), reporter:profiles!reporter_id(display_name, avatar_url), reported_user:profiles!reported_user_id(display_name, avatar_url)',
+          { count: 'exact' }
+        )
         .order('created_at', { ascending: false })
 
       if (options?.status) {
@@ -55,7 +68,10 @@ export const reportsApi = {
     }
   },
 
-  async hasReported(reporterId: string, listingId: string): Promise<ApiResponse<boolean>> {
+  async hasReported(
+    reporterId: string,
+    listingId: string
+  ): Promise<ApiResponse<boolean>> {
     const supabase = createClient()
     try {
       const { data, error } = await supabase
@@ -73,7 +89,10 @@ export const reportsApi = {
     }
   },
 
-  async updateStatus(id: string, status: 'resolved' | 'dismissed'): Promise<ApiResponse<ListingReport>> {
+  async updateStatus(
+    id: string,
+    status: 'resolved' | 'dismissed'
+  ): Promise<ApiResponse<ListingReport>> {
     const supabase = createClient()
     try {
       const { data, error } = await supabase
@@ -91,7 +110,9 @@ export const reportsApi = {
     }
   },
 
-  async create(report: Partial<ListingReport>): Promise<ApiResponse<ListingReport>> {
+  async create(
+    report: Partial<ListingReport>
+  ): Promise<ApiResponse<ListingReport>> {
     const supabase = createClient()
 
     // Validate request
@@ -99,7 +120,11 @@ export const reportsApi = {
       return { data: null, error: 'Must report either a listing or a user' }
     }
 
-    if (report.reporter_id && report.reported_user_id && report.reporter_id === report.reported_user_id) {
+    if (
+      report.reporter_id &&
+      report.reported_user_id &&
+      report.reporter_id === report.reported_user_id
+    ) {
       return { data: null, error: 'You cannot report yourself' }
     }
 
@@ -116,5 +141,5 @@ export const reportsApi = {
       logError('reportsApi.create', error)
       return { data: null, error: (error as Error).message }
     }
-  }
+  },
 }
