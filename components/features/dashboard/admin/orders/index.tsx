@@ -55,8 +55,8 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
 
       toast.success(t('admin:orderStatusUpdated'))
       setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)))
-    } catch (error: any) {
-      toast.error(error.message)
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred')
     }
   }
 
@@ -143,14 +143,14 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
             className={cn(
               'flex h-6 w-fit items-center gap-1.5 rounded-md border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase',
               statusStyles[row.status as keyof typeof statusStyles] ||
-              'bg-muted text-muted-foreground border-border/40'
+                'bg-muted text-muted-foreground border-border/40'
             )}
           >
             <span
               className={cn(
                 'h-1.5 w-1.5 shrink-0 rounded-full',
                 dotStyles[row.status as keyof typeof dotStyles] ||
-                'bg-muted-foreground/40'
+                  'bg-muted-foreground/40'
               )}
             />
             {t(`admin:orderStatus.${row.status}`)}
