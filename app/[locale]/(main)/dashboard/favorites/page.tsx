@@ -1,4 +1,4 @@
-import { FavoritesView } from '@/components/features/dashboard/user/favorites-view'
+import { FavoritesView } from '@/components/features/dashboard/user/favorites'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function DashboardFavoritesPage() {

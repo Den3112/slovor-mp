@@ -1,6 +1,6 @@
 'use client'
 
-import { WalletView } from '@/components/features/dashboard/user/wallet-view'
+import { WalletView } from '@/components/features/dashboard/user/wallet'
 
 export default function WalletPage() {
   return <WalletView />

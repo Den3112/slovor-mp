@@ -3,21 +3,29 @@ import { redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 
-const MarketInsightsView = dynamic(() => import('@/components/features/dashboard/user/market-insights-view').then(mod => mod.MarketInsightsView), {
+const MarketInsightsView = dynamic(
+  () =>
+    import('@/components/features/dashboard/user/market-insights').then(
+      (mod) => mod.MarketInsightsView
+    ),
+  {
     loading: () => (
-        <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-    )
-})
+      <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+        <Loader2 className="text-primary h-8 w-8 animate-spin" />
+      </div>
+    ),
+  }
+)
 
 export default async function AnalyticsPage() {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-    if (!user) {
-        redirect('/')
-    }
+  if (!user) {
+    redirect('/')
+  }
 
-    return <MarketInsightsView />
+  return <MarketInsightsView />
 }

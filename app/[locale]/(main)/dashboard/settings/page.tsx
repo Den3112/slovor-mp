@@ -3,17 +3,25 @@ import { redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 
-const SettingsView = dynamic(() => import('@/components/features/dashboard/user/settings-view').then(mod => mod.SettingsView), {
-  loading: () => (
-    <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-    </div>
-  )
-})
+const SettingsView = dynamic(
+  () =>
+    import('@/components/features/dashboard/user/settings').then(
+      (mod) => mod.SettingsView
+    ),
+  {
+    loading: () => (
+      <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+        <Loader2 className="text-primary h-8 w-8 animate-spin" />
+      </div>
+    ),
+  }
+)
 
 export default async function SettingsPage() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
   if (!user) {
     redirect('/')
