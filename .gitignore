@@ -51,3 +51,12 @@ build_log.txt
 *storybook.log
 storybook-static
 .eslintcache
+
+# Temporary build/lint outputs
+*_output.txt
+*_report.txt
+*_report.json
+eslint_config_dump.json
+squirrel_report*.xml
+test_dir/
+test_write
