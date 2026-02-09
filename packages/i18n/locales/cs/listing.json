@@ -29,5 +29,22 @@
   "purchaseDescription": "Chystáte se koupit tuto položku. Částka bude odečtena z vašeho zůstatku v peněžence.",
   "confirmPurchase": "Potvrdit nákup",
   "insufficientBalance": "Nedostatečný zůstatek. Prosím, dobijte si peněženku.",
-  "purchaseSuccess": "Nákup byl úspěšný! Vaše objednávka byla vytvořena."
+  "purchaseSuccess": "Nákup byl úspěšný! Vaše objednávka byla vytvořena.",
+  "paymentMethod": "Způsob platby",
+  "internalWallet": "Interní peněženka",
+  "unexpectedError": "Při nákupu došlo k neočekávané chybě.",
+  "purchaseFailed": "Nákup se nezdařil",
+  "processing": "Zpracovává se...",
+  "checkoutSuccess": "Úspěch!",
+  "redirectingToOrder": "Přesměrování na detaily objednávky...",
+  "recentlyViewed": "Nedávno zobrazené",
+  "noImage": "Žádný obrázek",
+  "status": {
+    "active": "Aktivní",
+    "sold": "Prodáno",
+    "draft": "Návrh",
+    "pending": "Čekající",
+    "rejected": "Odmítnuto",
+    "expired": "Expirovaný"
+  }
 }

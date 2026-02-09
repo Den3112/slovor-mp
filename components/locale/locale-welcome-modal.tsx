@@ -85,7 +85,7 @@ export function LocaleWelcomeModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="bg-card rounded-2xl border-0 p-8 shadow-2xl sm:max-w-md">
+      <DialogContent className="bg-card rounded-2xl border-0 p-8 shadow-lg sm:max-w-md">
         <DialogHeader>
           <div className="mb-4 flex flex-col items-center gap-4">
             <div className="bg-primary/10 flex h-16 w-16 items-center justify-center rounded-full">

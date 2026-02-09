@@ -61,7 +61,7 @@ export function Header() {
                   'hidden items-center gap-2.5 rounded-lg px-4 py-2 text-[11px] font-bold tracking-widest uppercase transition-all active:scale-[0.98] lg:flex',
                   isMegaMenuOpen
                     ? 'bg-primary shadow-primary/20 text-white shadow-lg'
-                    : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border-border/40 border'
+                    : 'bg-card text-muted-foreground hover:bg-muted hover:text-foreground border-border border'
                 )}
                 onMouseEnter={() => setIsMegaMenuOpen(true)}
                 onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
@@ -165,7 +165,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSearchOverlayOpen(true)}
-                  className="bg-muted/40 h-10 w-10 rounded-lg sm:h-9 sm:w-9"
+                  className="bg-card h-10 w-10 rounded-lg sm:h-9 sm:w-9"
                   aria-label={t('common:search') || 'Search'}
                 >
                   <Search className="h-5 w-5" />
@@ -174,7 +174,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="bg-muted/40 h-10 w-10 rounded-lg sm:h-9 sm:w-9"
+                  className="bg-card h-10 w-10 rounded-lg sm:h-9 sm:w-9"
                   aria-label="Open menu"
                 >
                   <Menu className="h-5 w-5" />

@@ -41,7 +41,7 @@ export function ListingCard({
     return (
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="group border-border/60 bg-card active:bg-muted/50 md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-2xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-0.5 md:hover:shadow-md"
+        className="group border-border bg-card active:bg-muted md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-2xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-0.5 md:hover:shadow-md"
       >
         {/* Compact Image */}
         <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-28">
@@ -65,14 +65,14 @@ export function ListingCard({
               />
             </>
           ) : (
-            <div className="bg-muted/50 text-muted-foreground/40 flex h-full w-full items-center justify-center">
+            <div className="bg-muted text-muted-foreground/40 flex h-full w-full items-center justify-center">
               <ImageOff className="h-6 w-6" />
             </div>
           )}
 
           {/* Condition Badge */}
           {listing.condition === 'new' && (
-            <div className="bg-background/90 text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-sm px-1.5 py-0.5 text-[8px] font-bold uppercase shadow-sm">
+            <div className="bg-background text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-sm px-1.5 py-0.5 text-[8px] font-bold uppercase shadow-sm">
               <Sparkles className="fill-primary h-2.5 w-2.5" />
               {t('new')}
             </div>
@@ -158,7 +158,7 @@ export function ListingCard({
             <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/5" />
           </>
         ) : (
-          <div className="bg-muted/50 text-muted-foreground/30 absolute inset-0 flex flex-col items-center justify-center">
+          <div className="bg-muted text-muted-foreground/30 absolute inset-0 flex flex-col items-center justify-center">
             <ImageOff className="mb-2 h-10 w-10 stroke-1" />
             <span className="text-[10px] font-bold tracking-widest uppercase">
               {t('noImage')}

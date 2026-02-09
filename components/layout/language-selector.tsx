@@ -57,7 +57,7 @@ export function LanguageSelector() {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="shadow-premium border-border bg-card/95 absolute right-0 z-50 mt-3 w-44 overflow-hidden rounded-lg border p-2"
+            className="shadow-premium border-border bg-card absolute right-0 z-50 mt-3 w-44 overflow-hidden rounded-lg border p-2"
           >
             {SUPPORTED_LOCALES.map((lang) => (
               <button

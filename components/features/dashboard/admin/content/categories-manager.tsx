@@ -124,7 +124,7 @@ export function CategoriesManager() {
             placeholder={t('admin:searchCategories', { defaultValue: 'Search categories...' })}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-card/50 border-border h-12 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all focus:ring-primary/20 backdrop-blur-sm"
+            className="border-border bg-card h-12 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all focus:ring-primary/20"
           />
         </div>
         <Button
@@ -149,11 +149,11 @@ export function CategoriesManager() {
         </Button>
       </div>
 
-      <div className="bg-card/30 border-border overflow-hidden rounded-3xl border shadow-xl backdrop-blur-md">
+      <div className="border-border bg-card overflow-hidden rounded-2xl border shadow-lg">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-muted/30 border-border/40 border-b">
+              <tr className="bg-muted border-border/40 border-b">
                 <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
                   {t('admin:tableListing', { defaultValue: 'Name' })} / {t('admin:inputSlug', { defaultValue: 'Slug' })}
                 </th>

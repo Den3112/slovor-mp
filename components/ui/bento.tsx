@@ -67,7 +67,7 @@ export function BentoTile({
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
       className={cn(
-        'border-border/40 bg-card/70 shadow-card hover:border-border/60 dark:bg-card/50 group relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 hover:shadow-xl active:scale-[0.98]',
+        'border-border bg-card shadow-card hover:border-border/80 group relative overflow-hidden rounded-2xl border transition-all duration-300 hover:shadow-lg active:scale-[0.98]',
         colSpans[colSpan],
         className
       )}

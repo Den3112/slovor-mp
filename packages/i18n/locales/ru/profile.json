@@ -43,8 +43,23 @@
   "noSavedSearchesDesc": "Сохраните поиск, чтобы получать уведомления, когда новые объявления соответствуют вашим критериям.",
   "deleteSearchTitle": "Удалить сохраненный поиск",
   "deleteSearchConfirm": "Вы уверены, что хотите удалить этот сохраненный поиск? Это действие нельзя отменить.",
-  "notifications": "уведомления",
+  "notifications": "Уведомления",
   "created": "Создан",
   "verification": "Верификация",
-  "subscription": "Подписка"
+  "subscription": "Подписка",
+  "general": "Общие",
+  "security": "Безопасность",
+  "securitySettings": "Настройки безопасности",
+  "security.description": "Управляйте своим паролем и методами аутентификации для защиты аккаунта.",
+  "changePassword": "Изменить пароль",
+  "notificationSettings": "Настройки уведомлений",
+  "notifications.description": "Выберите, как вы хотите получать уведомления об обновлениях и сообщениях.",
+  "emailNotifications": "Email уведомления",
+  "pushNotifications": "Push уведомления",
+  "smsNotifications": "SMS уведомления",
+  "displayName": "Отображаемое имя",
+  "settings_view": {
+    "saveSuccess": "Настройки успешно сохранены",
+    "loadError": "Не удалось загрузить профиль"
+  }
 }

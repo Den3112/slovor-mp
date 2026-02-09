@@ -58,8 +58,8 @@ export function BottomTabBar() {
             >
               {tab.primary ? (
                 <div className="relative -mt-8 flex items-center justify-center">
-                  <div className="bg-primary/20 absolute inset-0 animate-pulse rounded-full blur-xl" />
-                  <div className="bg-primary text-primary-foreground shadow-primary/40 ring-background relative flex h-14 w-14 items-center justify-center rounded-full border-0 shadow-2xl ring-4 transition-all group-hover:scale-110 active:scale-90">
+                  <div className="bg-primary/10 absolute inset-0 rounded-full" />
+                  <div className="bg-primary text-primary-foreground shadow-primary/40 ring-background relative flex h-14 w-14 items-center justify-center rounded-full border-0 shadow-lg ring-4 transition-all group-hover:scale-110 active:scale-90">
                     <Icon className="h-7 w-7" strokeWidth={3} />
                   </div>
                 </div>

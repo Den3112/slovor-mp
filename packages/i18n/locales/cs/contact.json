@@ -1,12 +1,17 @@
 {
   "title": "Kontaktujte nás",
-  "subtitle": "Jsme tu pro vás. Napište nám nebo nás navštivte.",
-  "email": "Emailová adresa",
+  "subtitle": "Jsme tu pro vás. Napište nám nebo navštivte naši kancelář.",
+  "email": "E-mailová adresa",
+  "emailLabel": "Email",
   "phone": "Telefonní číslo",
   "office": "Kancelář",
-  "sendMessage": "Pošlite nám zprávu",
+  "sendMessage": "Pošlete nám zprávu",
   "name": "Jméno",
   "message": "Zpráva",
-  "send": "Odeslat zprávu",
-  "success": "Zpráva byla úspěšně odeslána!"
+  "send": "Poslat zprávu",
+  "success": "Zpráva byla úspěšně odeslána!",
+  "placeholderName": "Jan Novák",
+  "placeholderEmail": "jan@priklad.cz",
+  "placeholderMessage": "Jak vám můžeme pomoci?",
+  "workingHours": "Po-Pá: 9:00 - 17:00"
 }

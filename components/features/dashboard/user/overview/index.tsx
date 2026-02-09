@@ -14,8 +14,12 @@ import { SuccessScore } from '../vantage/success-score'
 import { SmartNudges } from '../vantage/smart-nudges'
 import { BentoGrid, BentoTile } from '@/components/ui/bento'
 import { PremiumBackground } from '@/components/ui/premium-background'
+import { formatPrice } from '@/lib/utils/formatting'
+import { formatDistanceToNow } from 'date-fns'
+import { ru, enUS } from 'date-fns/locale'
+import { useTranslation } from '@/lib/i18n'
 
-import { Listing } from '@/lib/api'
+import { Listing, Transaction, Order } from '@/lib/types/database'
 import { User } from '@supabase/supabase-js'
 
 interface UserOverviewViewProps {
@@ -23,6 +27,8 @@ interface UserOverviewViewProps {
   stats: DashboardStats
   userListings: Listing[]
   chartData: { date: string; value: number }[]
+  recentOrders: Order[]
+  transactions: Transaction[]
 }
 
 const container = {
@@ -40,31 +46,21 @@ export function UserOverviewView({
   stats,
   userListings,
   chartData,
+  recentOrders,
+  transactions,
 }: UserOverviewViewProps) {
-  // Mock orders for now - in real implementation this would come from props
-  const recentOrders = [
-    {
-      id: 'ORD-7829',
-      title: 'Translation Srv...',
-      price: '€150.00',
-      status: 'active',
-      date: '2m ago',
-    },
-    {
-      id: 'ORD-7812',
-      title: 'Logo Design...',
-      price: '€299.00',
-      status: 'completed',
-      date: '2h ago',
-    },
-    {
-      id: 'ORD-7790',
-      title: 'SEO Audit...',
-      price: '€850.00',
-      status: 'pending',
-      date: '1d ago',
-    },
-  ] as any[]
+  const { locale } = useTranslation(['admin', 'dashboard'])
+
+  const mappedOrders = recentOrders.map(order => ({
+    id: order.id,
+    status: order.status as any,
+    title: (order as any).listing?.title || 'Unknown Item',
+    price: formatPrice(order.amount, order.currency),
+    date: formatDistanceToNow(new Date(order.created_at), {
+      addSuffix: true,
+      locale: locale === 'ru' ? ru : enUS
+    })
+  }))
 
   return (
     <PremiumBackground variant="mesh" className="min-h-screen p-4 md:p-8">
@@ -80,7 +76,7 @@ export function UserOverviewView({
           <BentoTile
             colSpan={12}
             rowSpan={2} // Increased height for better visual hierarchy
-            className="bg-background/20 border-primary/10 backdrop-blur-xl lg:col-span-8"
+            className="bg-card border-border lg:col-span-8"
           >
             <DashboardHero user={user} stats={stats} />
           </BentoTile>
@@ -105,11 +101,12 @@ export function UserOverviewView({
 
           {/* Wallet & Active Orders */}
           <WalletWidget
-            balance={stats.walletBalance || 1250.0}
+            balance={stats.walletBalance || 0}
             currency={stats.walletCurrency || 'EUR'}
+            transactions={transactions}
           />
 
-          <ActiveOrdersWidget orders={recentOrders} />
+          <ActiveOrdersWidget orders={mappedOrders} />
 
           <BentoTile
             colSpan={4}
@@ -132,7 +129,7 @@ export function UserOverviewView({
           <BentoTile
             colSpan={12}
             rowSpan={2}
-            className="border-none bg-transparent shadow-none backdrop-blur-none"
+            className="border-none bg-transparent shadow-none"
           >
             <div className="flex flex-col gap-4">
               <RecentActivityTable listings={userListings} />

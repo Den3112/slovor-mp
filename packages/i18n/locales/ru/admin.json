@@ -320,5 +320,13 @@
   "action_ban": "Блокировка",
   "action_unban": "Разблокировка",
   "action_reject": "Отклонение",
-  "title": "Заголовок"
+  "title": "Заголовок",
+  "fullAuditLog": "Полный журнал аудита",
+  "statusSold": "Продано",
+  "bulkActionError": "Не удалось выполнить массовое действие",
+  "listingsRejected": "Объявления успешно отклонены",
+  "listingsApproved": "Объявления успешно одобрены",
+  "listingsDeleted": "Объявления успешно удалены",
+  "confirmDeleteListings": "Вы уверены, что хотите удалить {{count}} объявлений?",
+  "notAvailable": "Недоступно"
 }

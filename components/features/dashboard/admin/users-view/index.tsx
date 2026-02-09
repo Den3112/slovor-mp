@@ -252,7 +252,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 {row.role || 'user'}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="border-border/60 bg-background/95 backdrop-blur-xl">
+            <DropdownMenuContent align="start" className="border-border/60 bg-background">
               <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">{t('admin:changeRole')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => handleRoleChange(row, 'user')} className="text-[10px] font-bold tracking-widest uppercase">
@@ -313,7 +313,7 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="border-border/60 bg-background/95 backdrop-blur-xl">
+            <DropdownMenuContent align="end" className="border-border/60 bg-background">
               <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">{t('admin:actions')}</DropdownMenuLabel>
               <DropdownMenuItem onClick={() => handleToggleVerification(row)} className="text-[10px] font-bold tracking-widest uppercase">
                 {row.is_verified ? (

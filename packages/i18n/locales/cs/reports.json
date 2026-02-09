@@ -5,13 +5,18 @@
   "reason": "Důvod nahlášení",
   "description": "Popis (volitelné)",
   "submit": "Odeslat nahlášení",
-  "thankYou": "Děkujeme za nahlášení! Prověříme to.",
+  "thankYou": "Děkujeme za vaše nahlášení! Prověříme ho.",
+  "success": "Nahlášení bylo úspěšně odesláno",
+  "error": "Chyba při odesílání nahlášení",
   "reasons": {
     "spam": "Spam",
+    "scam": "Podvod",
     "inappropriate": "Nevhodný obsah",
-    "fraud": "Podezření z podvodu",
-    "counterfeit": "Padělky",
-    "prohibited": "Zakázané zboží",
+    "misleading": "Zavádějící",
+    "offensive": "Urážlivý obsah",
+    "fraud": "Podezření na podvod",
+    "counterfeit": "Padělek",
+    "prohibited": "Zakázaná položka",
     "duplicate": "Duplicitní inzerát",
     "other": "Jiné"
   }

@@ -6,6 +6,24 @@ import { Container } from '@/components/ui/container'
 import { Skeleton } from '@/components/ui/skeleton'
 import { SearchResultsView } from '@/components/search/search-results-view'
 import { SearchHeader } from '@/components/search/search-header'
+import { getTranslationServer } from '@/lib/i18n/server'
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>
+}): Promise<Metadata> {
+  const { q } = await searchParams
+  const { t } = await getTranslationServer(['search', 'common'])
+
+  const title = q ? `${q} | ${t('common:search')}` : t('common:search')
+
+  return {
+    title,
+    description: t('search:filters'),
+  }
+}
 
 // Fetch data on the server
 async function SearchResults({
@@ -13,8 +31,17 @@ async function SearchResults({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) {
-  const { q, category, minPrice, maxPrice, condition, location, sort, page, ...rest } =
-    searchParams
+  const {
+    q,
+    category,
+    minPrice,
+    maxPrice,
+    condition,
+    location,
+    sort,
+    page,
+    ...rest
+  } = searchParams
   const itemsPerPage = 12
 
   // Extract dynamic attributes (prefixed with attr_)
@@ -80,7 +107,7 @@ export default async function SearchPage(props: SearchPageProps) {
   const query = searchParams.q || ''
 
   return (
-    <Container className="min-h-screen bg-background pb-12">
+    <Container className="bg-background min-h-screen pb-12">
       {/* Header Section */}
       <SearchHeader query={query} />
 

@@ -14,7 +14,7 @@ export function IdentityWidget({ isVerified }: IdentityWidgetProps) {
 
     return (
         <div className={cn(
-            "relative overflow-hidden rounded-3xl border p-6 transition-all duration-300",
+            "relative overflow-hidden rounded-2xl border p-6 transition-all duration-300",
             isVerified
                 ? "border-emerald-500/20 bg-emerald-500/5"
                 : "border-border bg-card hover:border-primary/30"

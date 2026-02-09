@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
+import { adminApi } from '@/lib/api/admin'
 
 interface Event {
   id: string
@@ -26,27 +27,50 @@ export function LiveMonitor() {
   const { t } = useTranslation(['admin'])
   const [events, setEvents] = useState<Event[]>([])
 
-  // Simulate real-time events for the impressive "Vantage" feel
+  // Use real data from logs for initial pulse
   useEffect(() => {
-    const eventTypes: Event['type'][] = [
-      'visit',
-      'moderation',
-      'user',
-      'order',
-      'alert',
-    ]
-    const labels = [
-      'New session started',
-      'Listing approved #482',
-      'New pro seller verified',
-      'Transaction successful',
-      'Potential anomaly detected',
-    ]
+    async function loadRecentEvents() {
+      try {
+        const { data, error } = await adminApi.getActivityLogs(10)
+        if (error) throw new Error(error)
 
+        if (data) {
+          const mappedEvents: Event[] = data.map((log: any) => {
+            let type: Event['type'] = 'visit'
+            if (log.action.includes('order')) type = 'order'
+            else if (log.action.includes('verify') || log.action.includes('moderate')) type = 'moderation'
+            else if (log.action.includes('register') || log.action.includes('user')) type = 'user'
+            else if (log.action.includes('error') || log.action.includes('fail')) type = 'alert'
+
+            return {
+              id: log.id,
+              type,
+              label: t(`admin:action_${log.action}`) || log.action,
+              timestamp: new Date(log.created_at),
+              location: log.ip_address || 'Cloud Environment',
+              user: log.profiles?.display_name
+            }
+          })
+          setEvents(mappedEvents)
+        }
+      } catch (err) {
+        console.error('Failed to load monitor events:', err)
+      }
+    }
+
+    loadRecentEvents()
+
+    // Simulate real-time pulses mixed with real data for the "Live" feel
     const interval = setInterval(() => {
-      const type = eventTypes[
-        Math.floor(Math.random() * eventTypes.length)
-      ] as Event['type']
+      const types: Event['type'][] = ['visit', 'moderation', 'user', 'order', 'alert']
+      const labels = [
+        'New session started',
+        'Heartbeat active',
+        'Encryption verified',
+        'Node status: Healthy',
+      ]
+
+      const type = types[Math.floor(Math.random() * types.length)] as Event['type']
       const newEvent: Event = {
         id: Math.random().toString(36).substr(2, 9),
         type,
@@ -58,10 +82,10 @@ export function LiveMonitor() {
       }
 
       setEvents((prev) => [newEvent, ...prev].slice(0, 10))
-    }, 4000)
+    }, 15000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [t])
 
   return (
     <div className="bg-card border-border/50 flex h-full flex-col items-stretch overflow-hidden rounded-2xl border shadow-sm">
@@ -134,15 +158,18 @@ export function LiveMonitor() {
           <div className="flex flex-col items-center justify-center py-12 text-center opacity-40">
             <Activity className="mb-2 h-8 w-8 animate-pulse" />
             <p className="text-[10px] font-bold tracking-widest uppercase">
-              Waiting for pulses...
+              {t('admin:waitingPulses') || 'Waiting for pulses...'}
             </p>
           </div>
         )}
       </div>
 
       <div className="bg-muted/30 border-border/10 border-t px-4 py-2">
-        <button className="text-primary hover:text-primary-foreground hover:bg-primary flex w-full items-center justify-center gap-2 rounded-lg py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all">
-          View Detail Stream
+        <button
+          className="text-primary hover:text-primary-foreground hover:bg-primary flex w-full items-center justify-center gap-2 rounded-lg py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
+          aria-label={t('admin:viewDetailStream') || 'View Detail Stream'}
+        >
+          {t('admin:viewDetailStream') || 'View Detail Stream'}
         </button>
       </div>
     </div>

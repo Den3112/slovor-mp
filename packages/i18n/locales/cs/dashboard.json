@@ -1,7 +1,10 @@
 {
+  "main": "Hlavní",
+  "account": "Účet",
+  "quickAccess": "Rychlý přístup",
   "myListings": "Moje inzeráty",
-  "manageListings": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátov a konceptov.",
-  "inventoryDescription": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátov a konceptov.",
+  "manageListings": "Spravujte své inzeráty.",
+  "inventoryDescription": "Spravujte své zásoby a sledujte výkonnost všech svých aktivních inzerátů a konceptů.",
   "searchPlaceholder": "Hledat v mých inzerátech...",
   "noListings": "Nenalezeny žádné inzeráty.",
   "noListingsDescription": "Zatím jste nevytvořili žádné inzeráty.",
@@ -21,7 +24,9 @@
   "delete": "Smazat",
   "favorites": "Oblíbené",
   "active": "Aktivní",
+  "activeStatus": "Aktivní",
   "drafts": "Koncepty",
+  "draftStatus": "Koncept",
   "sold": "Prodáno",
   "archived": "Archivováno",
   "views": "Zobrazení",
@@ -31,23 +36,61 @@
   "inbox": "Doručené",
   "messages": "Zprávy",
   "welcomeBack": "Vítejte zpět",
+  "welcomeHeader": "OSOBNÍ DASHBOARD",
+  "hello": "Ahoj",
+  "heroDescription": "Vaše řídicí centrum pro správu prodeje a růst na platformě.",
+  "totalViews": "Celkový počet zobrazení",
+  "successScore": "Skóre úspěšnosti",
+  "topPercentile": "Top {{percentile}}% prodejců",
+  "reachProLevel": "Dosáhnout Pro úrovně",
+  "performanceGood": "Vaše inzeráty mají nadprůměrný výkon. Propagujte je pro maximální dosah!",
+  "smartNudges": "Inteligentní doporučení",
+  "personalizedRecommendations": "Personalizované tipy pro váš růst.",
+  "nudgePhotosTitle": "Optimalizujte fotky",
+  "nudgePhotosDesc": "Inzeráty s 5+ fotkami se prodávají 2,4x rychleji. Přidejte ke svým inzerátům více obrázků.",
+  "nudgePhotosCta": "Přidat fotky",
+  "nudgeMarketTitle": "Vysoká poptávka na trhu",
+  "nudgeMarketDesc": "Ceny elektroniky tento týden vzrostly o 5%. Zvažte aktualizaci svých cen.",
+  "nudgeMarketCta": "Zobrazit trendy",
   "inactive": "Neaktivní",
   "noListingsYet": "Zatím žádné inzeráty",
   "startSelling": "Začněte prodávat ještě dnes a oslovte tisíce kupujících.",
   "new": "Nové",
   "recentConversations": "Nedávné konverzace",
-  "openInbox": "Otvoriť doručené",
+  "openInbox": "Otevřít doručené",
   "performance": "Výkonnost",
   "pastDays": "Posledních 7 dní",
+  "marketInsights": "Tržní analýzy",
+  "activityHistory": "Historie aktivity",
+  "postListing": "Přidat nový inzerát",
   "viewsOverTime": "Vývoj zobrazení",
+  "last7Days": "Posledních 7 dní",
+  "deleteListingTitle": "Smazat inzerát?",
+  "deleteListingConfirm": "Opravdu chcete smazat \"{{title}}\"?",
+  "deleteListingWarning": "Tuto akci nelze vrátit zpět. Inzerát bude natrvalo odstraněn.",
+  "deleteForever": "Navždy smazat",
+  "deleting": "Maže se...",
+  "unknownListing": "Inzerát bez názvu",
   "activityFeed": "Aktivita",
   "growth": "růst",
   "savedSearches": "Uložená hledání",
+  "savedSearchesDetails": {
+    "title": "Uložit toto hledání",
+    "description": "Dostávejte upozornění, když nové inzeráty odpovídají vašim kritériím.",
+    "nameLabel": "Název",
+    "namePlaceholder": "např. iPhone 15 Pro Max",
+    "emailNotifications": "E-mailová upozornění",
+    "emailNotificationsDesc": "Dostávejte denní aktualizace o nových položkách",
+    "saveButton": "Uložit hledání",
+    "saving": "Ukládá se...",
+    "success": "Hledání bylo úspěšně uloženo",
+    "error": "Nepodařilo se uložit hledání"
+  },
   "promoteListings": "Propagovat inzeráty",
   "thisWeek": "Tento týden",
   "quickActions": "Rychlé akce",
   "status": "Stav",
-  "wallet": {
+  "walletDetails": {
     "title": "Peněženka",
     "addFunds": "Přidat prostředky",
     "refillBalance": "Dobít zůstatek",
@@ -59,15 +102,160 @@
     "refill": "Dobití",
     "promotion_top": "Topování",
     "promotion_highlight": "Prémiové zvýraznění",
-    "subscription": "Předplatné"
+    "subscription": "Předplatné",
+    "availableBalance": "Dostupný zůstatek",
+    "refillSuccess": "Peněženka byla úspěšně dobita!",
+    "other": "Jiné",
+    "card": "Kreditní / Debetní karta",
+    "applePay": "Apple Pay",
+    "googlePay": "Google Pay",
+    "walletRefillVia": "Dobití peněženky přes {method}"
   },
   "promote": {
-    "title": "Propagace",
-    "subtitle": "Zvyšte viditelnost svého inzerátu",
+    "title": "Propagujte svůj inzerát",
+    "subtitle": "Oslovte více kupujících a prodávejte až 5-krát rychleji s našimi prémiovými nástroji pro propagaci.",
     "selectListing": "Vybrat inzerát",
     "selectPlan": "Vybrat balíček",
-    "confirmPromote": "Potvrdit propagaci",
+    "confirmPay": "Potvrdit a zaplatit",
+    "secureCheckout": "Bezpečná platba • Spokojenost zaručena",
+    "bestValue": "Nejlepší hodnota",
     "success": "Inzerát byl úspěšně propagován!",
-    "error": "Chyba při nastavování propagace"
-  }
+    "error": "Chyba při nastavování propagace",
+    "plans": {
+      "free": {
+        "title": "Zdarma",
+        "subtitle": "Základní viditelnost",
+        "features": ["Standardní umístění ve vyhledávání", "Platnost navždy"]
+      },
+      "standard": {
+        "title": "Standard",
+        "subtitle": "Posun na začátek vyhledávání",
+        "price": "299",
+        "features": [
+          "Viditelné pro více kupujících",
+          "V průměru 3x více zobrazení",
+          "Platnost 7 dní"
+        ]
+      },
+      "premium": {
+        "title": "Premium",
+        "subtitle": "Vizuální převaha nad ostatními",
+        "price": "799",
+        "features": [
+          "Zlatý vizuální okraj",
+          "Priorita v kategoriích",
+          "Platnost 14 dní"
+        ]
+      }
+    }
+  },
+  "wallet": {
+    "spending": "Výdaje",
+    "revenue": "Příjmy",
+    "activePromos": "Aktivní proma",
+    "transactions": "Transakce",
+    "securePayment": "Platba zabezpečená Slovor Pay. Údaje o kreditních kartách se na našich serverech neukládají.",
+    "other": "Jiné",
+    "processing": "Zpracovává se..."
+  },
+  "orders": "Objednávky",
+  "purchases": "Nákupy",
+  "sales": "Prodeje",
+  "manageTransactions": "Spravujte své transakcie a nákupy",
+  "ordersAndSales": "Objednávky a prodeje",
+  "viewOrder": "Zobrazit objednávku",
+  "noOrders": "Nenalezeny žádné objednávky",
+  "notifications": {
+    "title": "Upozornění",
+    "subtitle": "Mějte přehled o nejnovějších upozorněních a aktivitách",
+    "markAllRead": "Označit vše jako přečtené",
+    "markedAllRead": "Všechna upozornění byla označena jako přečtená",
+    "deleted": "Upozornění bylo smazáno",
+    "emptyTitle": "Zatím je tu ticho",
+    "emptyDesc": "Všechno jste si už prohlédli! Nová upozornění se zobrazí zde."
+  },
+  "chat": {
+    "you": "Vy",
+    "startChat": "Pozdravte a začněte obchod!",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "reviews": {
+    "yourReply": "Vaše odpověď"
+  },
+  "noListingsDesc": "Zatím jste nevytvořili žádné inzeráty. Začněte prodávat ještě dnes!",
+  "notificationsEnabled": "Upozornění zapnuta",
+  "notificationsDisabled": "Upozornění vypnuta",
+  "emailStatusOn": "E-mail: ZAP",
+  "emailStatusOff": "E-mail: VYP",
+  "enableNotifications": "Zapnout upozornění",
+  "disableNotifications": "Vypnout upozornění",
+  "deleted": "Úspěšně smazáno",
+  "allOrders": "Všechny objednávky",
+  "order": "Objednávka",
+  "amount": "Částka",
+  "type": "Typ",
+  "buying": "Nákup",
+  "selling": "Prodej",
+  "orderStatuses": {
+    "completed": "Dokončeno",
+    "pending": "Čekající",
+    "cancelled": "Zrušeno",
+    "processing": "Zpracovává sa",
+    "failed": "Selhalo"
+  },
+  "bulkActions": {
+    "title": "Hromadné akce",
+    "selectedItems": "{count} vybraných položek",
+    "cancel": "Zrušit",
+    "deactivate": "Deaktivovat",
+    "delete": "Smazat",
+    "deleteTitle": "Smazat inzeráty",
+    "deactivateTitle": "Deaktivovat inzeráty",
+    "deleteConfirm": "Opravdu chcete natrvalo smazat {count} inzerátů? Tuto akci nelze vrátit zpět.",
+    "deactivateConfirm": "Opravdu chcete deaktivovat {count} inzerátů? Budou označeny jako prodané a skryty z vyhledávání."
+  },
+  "activityLog": {
+    "title": "Záznam aktivity",
+    "subtitle": "Přehled všech vašich důležitých akcí a událostí účtu",
+    "noActivity": "Nebyla zaznamenána žádná aktivita",
+    "noActivityDesc": "Zde se zobrazí vaše hlavní události a akce v účtu.",
+    "internal": "Interní"
+  },
+  "subscriptions": {
+    "title": "Plány předplatného",
+    "subtitle": "Vyberte si nejlepší plán pro vaše potřeby prodeje",
+    "upgradePrompt": "Upgradujte svůj plán a odemkněte více inzerátů a zvyšte svůj prodej!",
+    "currentPlanInfo": "Momentálně používáte plán {plan}.",
+    "currentLabel": "Aktuální: PLÁN {plan}",
+    "endsOn": "Končí: {date}",
+    "active": "Aktivní",
+    "mostPopular": "Nejpopulárnější",
+    "price": "Cena",
+    "whyUpgrade": "Proč upgradovat?",
+    "upgradeDesc": "Účty Slovor Pro vám poskytují profesionální nástroje, díky kterým vyniknete. Se zvýšenou viditelností a prioritní podporou se vaše inzeráty prodávají v průměru 3x rychleji než u základních účtů.",
+    "paymentSafety": "Bezpečnost plateb",
+    "paymentSafetyDesc": "Všechny platby jsou zpracovávány bezpečně přes Slovor Pay. Údaje o kreditních kartách se na našich serverech neukládají. Své předplatné můžete kdykoli zrušit v nastavení.",
+    "plans": {
+      "free": {
+        "name": "Zdarma / Jednotlivec",
+        "description": "Ideální pro příležitostné prodejce a začátečníky.",
+        "duration": "Navždy",
+        "cta": "Aktuální plán"
+      },
+      "pro": {
+        "name": "Profesionál",
+        "description": "Pro náročné uživatele a malé firmy.",
+        "period": "/ měsíc",
+        "cta": "Přejít na Pro"
+      },
+      "business": {
+        "name": "Byznys",
+        "description": "Maximální expozice pro profesionální prodejce.",
+        "period": "/ měsíc",
+        "cta": "Přejít na Byznys"
+      }
+    }
+  },
+  "promoted": "Promováno"
 }

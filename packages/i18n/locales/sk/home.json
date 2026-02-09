@@ -13,6 +13,10 @@
     "title": "Nájdi, čo hľadáš",
     "subtitle": "Tisíce inzerátov každý deň"
   },
+  "categories": {
+    "title": "Prechádzaj kategórie",
+    "subtitle": "Prehľadaj naše populárne kategórie"
+  },
   "categoriesSubtitle": "Prehľadaj naše populárne kategórie",
   "featured": {
     "title": "Významné inzeráty",
@@ -52,5 +56,9 @@
     "zilina": "Žilina",
     "nitra": "Nitra",
     "banskaBystrica": "Banská Bystrica"
+  },
+  "recent": {
+    "title": "Najnovšie inzeráty",
+    "badge": "Čerstvé novinky"
   }
 }

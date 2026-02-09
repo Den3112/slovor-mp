@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import {
   User as UserIcon,
   Phone,
@@ -52,7 +53,7 @@ export function SettingsView() {
       if (error) throw new Error(error)
       setProfile(data)
     } catch (err: any) {
-      toast.error(t('profile:settings.loadError') || 'Failed to load profile')
+      toast.error(t('profile:settings_view.loadError'))
     } finally {
       setIsLoading(false)
     }
@@ -71,7 +72,7 @@ export function SettingsView() {
       const { error } = await profilesApi.update(user.id, profile)
       if (error) throw new Error(error)
       toast.success(
-        t('profile:settings.saveSuccess') || 'Profile updated successfully'
+        t('profile:settings_view.saveSuccess')
       )
     } catch (err: any) {
       toast.error(err.message || 'Update failed')
@@ -102,8 +103,7 @@ export function SettingsView() {
               {t('profile:settings')}
             </h1>
             <p className="text-muted-foreground mt-1">
-              {t('profile:settings.description') ||
-                'Manage your account settings and profile preferences.'}
+              {t('profile:settingsDescription')}
             </p>
           </div>
           <Button
@@ -120,7 +120,7 @@ export function SettingsView() {
           </Button>
         </div>
 
-        <div className="bg-muted/50 border-border/10 flex w-fit gap-2 rounded-2xl border p-1 backdrop-blur-md">
+        <div className="bg-muted border-border flex w-fit gap-2 rounded-2xl border p-1">
           <TabButton
             active={activeTab === 'profile'}
             onClick={() => setActiveTab('profile')}
@@ -137,7 +137,7 @@ export function SettingsView() {
             active={activeTab === 'notifications'}
             onClick={() => setActiveTab('notifications')}
             icon={<Bell className="h-4 w-4" />}
-            label={t('common:notifications')}
+            label={t('profile:notifications')}
           />
         </div>
 
@@ -154,7 +154,7 @@ export function SettingsView() {
                 {/* Avatar Section */}
                 <BentoTile
                   colSpan={12}
-                  className="bg-card/40 border-border/5 flex flex-col items-center justify-center p-8 backdrop-blur-xl md:col-span-4"
+                  className="bg-card border-border flex flex-col items-center justify-center p-8 md:col-span-4"
                 >
                   <div className="group relative cursor-pointer">
                     <Avatar className="border-primary/20 group-hover:border-primary/40 h-32 w-32 border-4 transition-all">
@@ -177,7 +177,7 @@ export function SettingsView() {
                 {/* Info Form */}
                 <BentoTile
                   colSpan={12}
-                  className="bg-card/40 border-border/5 space-y-6 p-6 backdrop-blur-xl md:col-span-8"
+                  className="bg-card border-border space-y-6 p-6 md:col-span-8"
                 >
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
@@ -285,15 +285,14 @@ export function SettingsView() {
               >
                 <BentoTile
                   colSpan={12}
-                  className="bg-card/40 border-border/5 flex min-h-[400px] flex-col items-center justify-center p-8 text-center backdrop-blur-xl"
+                  className="bg-card border-border flex min-h-[400px] flex-col items-center justify-center p-8 text-center"
                 >
                   <Shield className="text-primary/40 mb-4 h-16 w-16" />
                   <h3 className="mb-2 text-xl font-bold">
                     {t('profile:securitySettings')}
                   </h3>
                   <p className="text-muted-foreground mb-8 max-w-md">
-                    {t('profile:security.description') ||
-                      'Manage your password and authentication methods to keep your account secure.'}
+                    {t('profile:security.description')}
                   </p>
                   <Button
                     variant="outline"
@@ -315,27 +314,26 @@ export function SettingsView() {
               >
                 <BentoTile
                   colSpan={12}
-                  className="bg-card/40 border-border/5 flex min-h-[400px] flex-col items-center justify-center p-8 text-center backdrop-blur-xl"
+                  className="bg-card border-border flex min-h-[400px] flex-col items-center justify-center p-8 text-center"
                 >
                   <Bell className="text-primary/40 mb-4 h-16 w-16" />
                   <h3 className="mb-2 text-xl font-bold">
-                    {t('common:notificationSettings')}
+                    {t('profile:notificationSettings')}
                   </h3>
                   <p className="text-muted-foreground mb-8 max-w-md">
-                    {t('profile:notifications.description') ||
-                      'Choose how you want to be notified about updates and messages.'}
+                    {t('profile:notifications.description')}
                   </p>
                   <div className="w-full max-w-sm space-y-4 text-left">
                     <NotificationToggle
-                      label="Email Notifications"
+                      label={t('profile:emailNotifications')}
                       enabled={true}
                     />
                     <NotificationToggle
-                      label="Push Notifications"
+                      label={t('profile:pushNotifications')}
                       enabled={false}
                     />
                     <NotificationToggle
-                      label="SMS Notifications"
+                      label={t('profile:smsNotifications')}
                       enabled={false}
                     />
                   </div>
@@ -363,6 +361,8 @@ function TabButton({
   return (
     <button
       onClick={onClick}
+      aria-pressed={active}
+      aria-label={label}
       className={cn(
         'flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200',
         active
@@ -386,9 +386,17 @@ function NotificationToggle({
   const [isOn, setIsOn] = useState(enabled)
   return (
     <div className="bg-muted/5 border-border/5 flex items-center justify-between rounded-xl border p-4">
-      <span className="font-medium">{label}</span>
+      <div className="flex items-center gap-2">
+        <span className="font-medium">{label}</span>
+        <Badge variant="secondary" className="px-1 py-0 text-[8px] uppercase tracking-wider h-3 border-none bg-primary/10 text-primary">
+          Soon
+        </Badge>
+      </div>
       <button
         onClick={() => setIsOn(!isOn)}
+        role="switch"
+        aria-checked={isOn}
+        aria-label={label}
         className={cn(
           'relative h-5 w-10 rounded-full transition-colors',
           isOn ? 'bg-primary' : 'bg-muted/30'

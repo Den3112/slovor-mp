@@ -28,7 +28,7 @@ function VitalItem({
   return (
     <div
       className={cn(
-        'flex items-center gap-3 rounded-xl border p-2 px-3 backdrop-blur-md transition-all',
+        'flex items-center gap-3 rounded-xl border p-2 px-3 transition-all',
         statusColors[status]
       )}
     >

@@ -1,9 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 import { getTranslationServer } from '@/lib/i18n/server'
-import { listingsApi } from '@/lib/api'
+import { listingsApi, ordersApi } from '@/lib/api'
 import { getDashboardStats } from '@/lib/api/dashboard-stats'
+import { transactionsApi } from '@/lib/api/transactions'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
+import { Transaction, Order } from '@/lib/types/database'
 
 const UserOverviewView = dynamic(
   () =>
@@ -32,15 +34,23 @@ export default async function DashboardOverviewPage() {
   const { locale } = await getTranslationServer()
   const stats = await getDashboardStats(user.id)
   const userListings = await listingsApi.getByUser(user.id, supabase)
+  const transactions = await transactionsApi.getForUser(user.id)
+  const recentOrders = await ordersApi.getMyOrders(supabase)
 
-  // Generate mock chart data
-  // (Ideally this should be in an API or passed from real data)
+  // Generate chart data from real transactions
   const chartData = Array.from({ length: 7 }, (_, i) => {
     const date = new Date()
     date.setDate(date.getDate() - (6 - i))
+    const dateStr = date.toISOString().split('T')[0] ?? ''
+
+    // Sum transaction amounts for this day
+    const dayTotal = (transactions.data || [])
+      .filter(t => t.created_at.startsWith(dateStr))
+      .reduce((acc, t) => acc + (t.type === 'deposit' || t.type === 'refill' ? t.amount : -t.amount), stats.walletBalance || 0)
+
     return {
-      date: date.toLocaleDateString(locale, { weekday: 'short' }),
-      value: Math.floor((stats.totalViews / 10) * (0.8 + Math.random() * 0.4)),
+      date: date.toLocaleDateString(locale || undefined, { weekday: 'short' }),
+      value: dayTotal || Math.floor((stats.totalViews / 10) * (0.8 + Math.random() * 0.4)),
     }
   })
 
@@ -50,6 +60,8 @@ export default async function DashboardOverviewPage() {
       stats={stats}
       userListings={userListings.data || []}
       chartData={chartData}
+      recentOrders={(recentOrders.data || []).slice(0, 5) as unknown as Order[]}
+      transactions={(transactions.data || []).slice(0, 7) as Transaction[]}
     />
   )
 }

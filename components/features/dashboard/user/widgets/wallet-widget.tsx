@@ -9,10 +9,13 @@ import Link from 'next/link'
 import { HubWidget } from '@/components/features/dashboard/shared/hub-widget'
 import { Area, AreaChart, ResponsiveContainer } from 'recharts'
 
+import { Transaction } from '@/lib/types/database'
+
 interface WalletWidgetProps {
   balance: number
   currency: string
   history?: { date: string; value: number }[]
+  transactions?: Transaction[]
 }
 
 // Mock data generator if no history provided
@@ -27,10 +30,16 @@ export function WalletWidget({
   balance,
   currency,
   history,
+  transactions,
 }: WalletWidgetProps) {
   const { t, locale } = useTranslation(['dashboard', 'profile'])
   const router = useRouter()
-  const chartData = history || generateMockHistory(balance)
+
+  // Use history from props, or generate from transactions, or fallback to mock
+  const chartData = history ||
+    (transactions && transactions.length > 0
+      ? transactions.map((t, i) => ({ date: i.toString(), value: t.amount }))
+      : generateMockHistory(balance))
 
   return (
     <HubWidget
@@ -90,13 +99,14 @@ export function WalletWidget({
 
         <div className="border-border/40 mt-4 flex items-center justify-between border-t pt-4">
           <div className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
-            **** 4242
+            {t('dashboard:walletDetails.defaultMethod')}
           </div>
           <Button
             variant="ghost"
             size="sm"
             asChild
             className="hover:bg-primary/5 hover:text-primary h-8 w-8 rounded-full p-0"
+            aria-label={t('profile:wallet')}
           >
             <Link href={`/${locale}/dashboard/wallet`}>
               <ArrowUpRight className="h-4 w-4" />

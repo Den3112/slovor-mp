@@ -5,14 +5,18 @@
   "reason": "Dôvod nahlásenia",
   "description": "Popis (voliteľné)",
   "submit": "Odoslať nahlásenie",
-  "thankYou": "Ďakujeme za nahlásenie! Preveríme to.",
+  "thankYou": "Ďakujeme za vaše nahlásenie! Preveríme ho.",
+  "success": "Nahlásenie bolo úspešne odoslané",
+  "error": "Chyba pri odosielaní nahlásenia",
   "reasons": {
     "spam": "Spam",
+    "scam": "Podvod",
     "inappropriate": "Nevhodný obsah",
-    "fraud": "Podozrenie z podvodu",
+    "misleading": "Zavádzajúce",
     "offensive": "Urážlivý obsah",
+    "fraud": "Podozrenie na podvod",
     "counterfeit": "Falzifikát",
-    "prohibited": "Zakázaný tovar",
+    "prohibited": "Zakázaná položka",
     "duplicate": "Duplicitný inzerát",
     "other": "Iné"
   }

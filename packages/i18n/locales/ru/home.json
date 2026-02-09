@@ -1,56 +1,64 @@
 {
-    "heroTagline": "Премиальный маркетплейс Словакии",
-    "heroTitleMain": "Найдите именно то,",
-    "heroTitleHighlight": "что вам нужно",
-    "heroSubtitle": "Тысячи объявлений каждый день. Покупайте и продавайте всё — от электроники до недвижимости.",
-    "searchPlaceholder": "Что вы ищете?",
-    "popularSearches": "Популярные запросы",
-    "categoriesTitle": "Просмотр категорий",
-    "featuredListings": "Рекомендуемые объявления",
-    "ctaTitle": "Начните продавать сегодня!",
-    "ctaSubtitle": "Просто, быстро и бесплатно. Разместите объявление за 2 минуты.",
-    "categoriesSubtitle": "Исследуйте наши популярные категории",
-    "hero": {
-        "title": "Найдите то, что ищете",
-        "subtitle": "Тысячи объявлений каждый день"
-    },
-    "featured": {
-        "title": "Рекомендуемые объявления",
-        "subtitle": "Лучшие предложения недели"
-    },
-    "features": {
-        "reimagined": "Переосмыслено",
-        "forSlovakia": "для Словакии"
-    },
-    "categoriesGrid": "Обзор категорий",
-    "regionsTitle": "Популярно по регионам",
-    "howItWorksTitle": "Как это работает",
-    "howItWorksStep1": "Создать",
-    "howItWorksStep1Desc": "Создайте объявление за 2 минуты",
-    "howItWorksStep2": "Опубликовать",
-    "howItWorksStep2Desc": "Опубликуйте бесплатно для тысяч людей",
-    "howItWorksStep3": "Продать",
-    "howItWorksStep3Desc": "Продавайте быстро и получайте оплату",
-    "popularInRegion": "объявлений",
-    "viewAllVip": "Все VIP",
-    "viewAllRecent": "Последние объявления",
-    "readyToSell": "Готовы продавать?",
-    "createAdIn2Min": "Создайте объявление за 2 минуты!",
-    "postListingBtn": "Подать объявление",
-    "megaMenu": {
-        "title": "Категории",
-        "viewAll": "Все категории"
-    },
-    "promo": {
-        "title": "ГОТОВЫ ПРОДАВАТЬ БЫСТРО?",
-        "subtitle": "Перейдите на VIP и получите в 10 раз больше просмотров уже сегодня."
-    },
-    "popularNow": "ПОПУЛЯРНЫЕ РЕГИОНЫ",
-    "regions": {
-        "bratislava": "Братислава",
-        "kosice": "Кошице",
-        "zilina": "Жилина",
-        "nitra": "Нитра",
-        "banskaBystrica": "Банска Быстрица"
-    }
+  "heroTagline": "Премиальный маркетплейс Словакии",
+  "heroTitleMain": "Найдите именно то,",
+  "heroTitleHighlight": "что вам нужно",
+  "heroSubtitle": "Тысячи объявлений каждый день. Покупайте и продавайте всё — от электроники до недвижимости.",
+  "searchPlaceholder": "Что вы ищете?",
+  "popularSearches": "Популярные запросы",
+  "categoriesTitle": "Просмотр категорий",
+  "featuredListings": "Рекомендуемые объявления",
+  "ctaTitle": "Начните продавать сегодня!",
+  "ctaSubtitle": "Просто, быстро и бесплатно. Разместите объявление за 2 минуты.",
+  "categoriesSubtitle": "Исследуйте наши популярные категории",
+  "hero": {
+    "title": "Найдите то, что ищете",
+    "subtitle": "Тысячи объявлений каждый день"
+  },
+  "categories": {
+    "title": "Обзор категорий",
+    "subtitle": "Исследуйте наши популярные категории"
+  },
+  "featured": {
+    "title": "Рекомендуемые объявления",
+    "subtitle": "Лучшие предложения недели"
+  },
+  "features": {
+    "reimagined": "Переосмыслено",
+    "forSlovakia": "для Словакии"
+  },
+  "categoriesGrid": "Обзор категорий",
+  "regionsTitle": "Популярно по регионам",
+  "howItWorksTitle": "Как это работает",
+  "howItWorksStep1": "Создать",
+  "howItWorksStep1Desc": "Создайте объявление за 2 минуты",
+  "howItWorksStep2": "Опубликовать",
+  "howItWorksStep2Desc": "Опубликуйте бесплатно для тысяч людей",
+  "howItWorksStep3": "Продать",
+  "howItWorksStep3Desc": "Продавайте быстро и получайте оплату",
+  "popularInRegion": "объявлений",
+  "viewAllVip": "Все VIP",
+  "viewAllRecent": "Последние объявления",
+  "readyToSell": "Готовы продавать?",
+  "createAdIn2Min": "Создайте объявление за 2 минуты!",
+  "postListingBtn": "Подать объявление",
+  "megaMenu": {
+    "title": "Категории",
+    "viewAll": "Все категории"
+  },
+  "promo": {
+    "title": "ГОТОВЫ ПРОДАВАТЬ БЫСТРО?",
+    "subtitle": "Перейдите на VIP и получите в 10 раз больше просмотров уже сегодня."
+  },
+  "popularNow": "ПОПУЛЯРНЫЕ РЕГИОНЫ",
+  "regions": {
+    "bratislava": "Братислава",
+    "kosice": "Кошице",
+    "zilina": "Жилина",
+    "nitra": "Нитра",
+    "banskaBystrica": "Банска Быстрица"
+  },
+  "recent": {
+    "title": "Последние объявления",
+    "badge": "Новинки"
+  }
 }

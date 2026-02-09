@@ -24,15 +24,13 @@ export function ProfileCard({
   const { t } = useTranslation(['seller', 'trust'])
 
   return (
-    <div className="group bg-card border-border relative flex flex-col overflow-hidden rounded-3xl border shadow-md transition-all duration-500 hover:shadow-xl dark:shadow-none">
-      <div className="absolute inset-0 bg-linear-to-br from-white/5 via-transparent to-transparent opacity-50" />
-      <div className="from-primary/5 to-primary/5 absolute inset-0 bg-linear-to-r via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+    <div className="group bg-card border-border relative flex flex-col overflow-hidden rounded-2xl border shadow-lg transition-all duration-500 hover:shadow-xl dark:shadow-none">
 
       <div className="relative z-10 space-y-8 p-8">
         {/* Avatar & Verification */}
         <div className="flex flex-col items-center text-center">
           <div className="relative mb-6">
-            <div className="bg-primary/20 group-hover:bg-primary/30 absolute -inset-4 animate-pulse rounded-full blur-xl transition-all" />
+            <div className="bg-primary/20 absolute -inset-4 rounded-full transition-all" />
             {seller.avatar_url ? (
               <Image
                 src={seller.avatar_url}
@@ -40,24 +38,23 @@ export function ProfileCard({
                 width={112}
                 height={112}
                 unoptimized
-                className="relative h-28 w-28 rounded-full border-4 border-white/20 object-cover shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                className="relative h-28 w-28 rounded-full border-4 border-white/20 object-cover shadow-lg transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
-              <div className="from-primary to-primary/60 shadow-primary/20 flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br text-white shadow-lg">
+              <div className="bg-primary shadow-primary/20 flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-lg">
                 <User className="text-muted-foreground/30 h-10 w-10" />
               </div>
             )}
             {seller.verified && (
-              <div className="ring-background absolute -right-2 -bottom-2 rounded-full bg-blue-500 p-2 text-white shadow-lg ring-4 shadow-blue-500/40">
+              <div className="ring-background absolute -right-2 -bottom-2 rounded-full bg-blue-500 p-2 text-white shadow-lg ring-4">
                 <ShieldCheck className="h-5 w-5" />
               </div>
             )}
           </div>
 
           {/* Name & Badge */}
-          <div className="from-primary/20 absolute inset-0 bg-linear-to-br via-transparent to-transparent opacity-50" />
           <div className="space-y-3">
-            <h1 className="from-foreground to-foreground/60 bg-linear-to-r bg-clip-text text-2xl leading-tight font-black tracking-tight text-transparent uppercase sm:text-3xl">
+            <h1 className="text-foreground text-2xl leading-tight font-black tracking-tight uppercase sm:text-3xl">
               {seller.display_name ?? seller.username}
             </h1>
             {seller.verified && (
@@ -78,8 +75,8 @@ export function ProfileCard({
           )}
 
           {/* Stats - Glass Row */}
-          <div className="mt-8 grid w-full grid-cols-2 gap-4 border-t border-white/10 pt-8">
-            <div className="group/stat rounded-2xl border border-white/5 bg-white/5 p-4 text-center transition-colors hover:bg-white/10">
+          <div className="mt-8 grid w-full grid-cols-2 gap-4 border-t border-border pt-8">
+            <div className="group/stat bg-muted/30 border-border rounded-2xl border p-4 text-center transition-colors hover:bg-muted/50">
               <p className="text-foreground text-3xl font-black tracking-tight">
                 {listingsCount}
               </p>
@@ -87,7 +84,7 @@ export function ProfileCard({
                 {t('seller:activeListings')}
               </p>
             </div>
-            <div className="group/stat rounded-2xl border border-white/5 bg-white/5 p-4 text-center transition-colors hover:bg-white/10">
+            <div className="group/stat bg-muted/30 border-border rounded-2xl border p-4 text-center transition-colors hover:bg-muted/50">
               <div className="flex items-center justify-center gap-2">
                 <span className="text-foreground text-3xl leading-none font-black tracking-tight">
                   {ratingData?.averageRating || '—'}

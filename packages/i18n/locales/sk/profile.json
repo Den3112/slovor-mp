@@ -41,8 +41,25 @@
   "savedSearchesDescription": "Získajte upozornenie, keď nové inzeráty zodpovedajú vašim kritériám.",
   "noSavedSearches": "Žiadne uložené hľadania",
   "noSavedSearchesDesc": "Uložte si hľadanie, aby ste dostali upozornenie na nové inzeráty.",
-  "deleteSearchConfirm": "Odstrániť toto uložené hľadanie?",
-  "notifications": "notifikácie",
+  "deleteSearchTitle": "Odstrániť uložené hľadanie",
+  "deleteSearchConfirm": "Naozaj chcete odstrániť toto uložené hľadanie? Túto akciu nie je možné vrátiť späť.",
+  "notifications": "Upozornenia",
   "created": "Vytvorené",
-  "verification": "Verifikácia"
+  "verification": "Verifikácia",
+  "subscription": "Predplatné",
+  "general": "Všeobecné",
+  "security": "Bezpečnosť",
+  "securitySettings": "Nastavenia bezpečnosti",
+  "security.description": "Spravujte svoje heslo a metódy overenia na ochranu svojho účtu.",
+  "changePassword": "Zmeniť heslo",
+  "notificationSettings": "Nastavenia upozornení",
+  "notifications.description": "Vyberte si, ako chcete byť informovaní o aktualizáciách a správach.",
+  "emailNotifications": "E-mailové upozornenia",
+  "pushNotifications": "Push upozornenia",
+  "smsNotifications": "SMS upozornenia",
+  "displayName": "Zobrazované meno",
+  "settings_view": {
+    "saveSuccess": "Nastavenia boli úspešne uložené",
+    "loadError": "Nepodarilo sa načítať profil"
+  }
 }
