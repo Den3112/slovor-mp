@@ -285,7 +285,6 @@
   "reviewManageListings": "Review and manage marketplace content",
   "tableName": "Name",
   "tableListings": "Listings",
-  "selectedItems": "Selected items",
   "approveAll": "Approve All",
   "rejectAll": "Reject All",
   "regionNorth": "North Region",
@@ -309,7 +308,6 @@
   "tableJoined": "Joined",
   "notAvailable": "Not Available",
   "currentBacklog": "Current Backlog",
-  "searchListings": "Search listings...",
   "tableMember": "Member",
   "userVerified": "User Verified",
   "verificationRemoved": "Verification Removed",
@@ -320,5 +318,13 @@
   "verifyUser": "Verify User",
   "unbanUser": "Unban User",
   "banUser": "Ban User",
-  "na": "N/A"
+  "na": "N/A",
+  "searchListings": "Search listings...",
+  "confirmDeleteListings": "Are you sure you want to delete {{count}} listings?",
+  "listingsDeleted": "Listings deleted successfully",
+  "listingsApproved": "Listings approved successfully",
+  "listingsRejected": "Listings rejected successfully",
+  "bulkActionError": "Failed to perform bulk action",
+  "statusSold": "Sold",
+  "selectedItems": "Selected items"
 }

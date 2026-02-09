@@ -135,6 +135,7 @@
   "reportResolved": "Жалоба отмечена как решенная",
   "reportDismissed": "Жалоба отклонена",
   "tableTarget": "Объект",
+  "unknownTarget": "Неизвестный объект",
   "unknownListing": "Неизвестное объявление",
   "viewListing": "Открыть",
   "tableReason": "Причина",
