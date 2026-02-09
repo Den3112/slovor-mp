@@ -5,13 +5,19 @@ import { getDashboardStats } from '@/lib/api/dashboard-stats'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 
-const UserOverviewView = dynamic(() => import('@/components/features/dashboard/user/overview-view').then(mod => mod.UserOverviewView), {
-  loading: () => (
-    <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-    </div>
-  )
-})
+const UserOverviewView = dynamic(
+  () =>
+    import('@/components/features/dashboard/user/overview').then(
+      (mod) => mod.UserOverviewView
+    ),
+  {
+    loading: () => (
+      <div className="flex h-[calc(100vh-200px)] items-center justify-center">
+        <Loader2 className="text-primary h-8 w-8 animate-spin" />
+      </div>
+    ),
+  }
+)
 
 export default async function DashboardOverviewPage() {
   const supabase = await createClient()
