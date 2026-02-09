@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS public.support_messages (
 );
 
 -- Enable RLS
-ALTER TABLE public.support_tickets ENABLE CONTROL; -- Error in prompt, should be ENABLE ROW LEVEL SECURITY
 ALTER TABLE public.support_tickets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.support_messages ENABLE ROW LEVEL SECURITY;
 
