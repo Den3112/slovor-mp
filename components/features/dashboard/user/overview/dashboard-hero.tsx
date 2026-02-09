@@ -7,9 +7,12 @@ import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
+import { User } from '@supabase/supabase-js'
+import { DashboardStats } from '@/lib/api/dashboard-stats'
+
 interface DashboardHeroProps {
-  user: any
-  stats: any
+  user: User
+  stats: DashboardStats
 }
 
 export function DashboardHero({ user, stats }: DashboardHeroProps) {
