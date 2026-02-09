@@ -2,7 +2,7 @@
 
 > **🤖 FOR AI AGENTS:** Before starting ANY work, you **MUST** read the mandatory project workflows in `.agent/workflows/`. Specifically, `bot-charter.md` (Global Instructions) and `coding-rules.md` (Code Standards & Reports) define your operating protocol. DO NOT skip this.
 
-> **Premium Slovakian Classifieds Marketplace** - Built with Next.js 15, React 19, Supabase, Tailwind CSS. Featuring "Avant-Garde" UI/UX.
+> **Premium Slovakian Classifieds Marketplace** - Built with Next.js 16, React 19, Supabase, Tailwind CSS 4. Featuring "Customer CRM" premium UI design.
 
 **Live Demo:** [slovor-mp.vercel.app](https://slovor-mp.vercel.app)
 **Dev Preview:** [slovor-mp-git-dev.vercel.app](https://slovor-mp-git-dev.vercel.app)
@@ -59,20 +59,20 @@ cd slovor-mp
 git checkout dev
 
 # Install dependencies
-pnpm install
+npm install
 
 # Setup environment
 cp .env.example .env.local
 # Edit .env.local with your Supabase credentials
 
 # Run development server
-pnpm dev
+npm run dev
 
 # Run verification (Lint, Types, Build)
-pnpm verify
+npm run verify
 
 # Run Tests
-pnpm test
+npm test
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -89,8 +89,8 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
-- **UI:** React 19, Tailwind CSS, Framer Motion
+- **Framework:** Next.js 16 (App Router, Turbopack)
+- **UI:** React 19, Tailwind CSS 4, shadcn/ui
 - **Database:** Supabase (Auth, Database, Storage)
 - **Deployment:** Vercel
 - **Language:** TypeScript (Strict)
@@ -126,5 +126,5 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-**Last Updated:** 2026-01-22
+**Last Updated:** 2026-02-09
 **Maintained by:** [@Den3112](https://github.com/Den3112)
