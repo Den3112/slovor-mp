@@ -20,7 +20,7 @@ import { CURRENCIES } from '@/lib/types/currency'
 import { Logo } from '@/components/ui/logo'
 
 export function Footer() {
-  const { t, i18n } = useTranslation(['common', 'footer'])
+  const { t, i18n } = useTranslation(['common', 'footer', 'categories'])
 
   const locale = i18n.language
   const { currency, geoLocation, isLoading } = useCurrency()
@@ -58,18 +58,18 @@ export function Footer() {
       })),
     },
     {
-      title: t('marketTrends') || 'News & Tips',
+      title: t('common:marketTrends') || 'News & Tips',
       links:
         latestPosts.length > 0
           ? latestPosts.map((post) => ({
-              label: post.title,
-              href: `/${locale}/blog/${post.slug}`,
-            }))
+            label: post.title,
+            href: `/${locale}/blog/${post.slug}`,
+          }))
           : [
-              { label: 'Selling Tips', href: `/${locale}/blog` },
-              { label: 'Safety Guide', href: `/${locale}/blog` },
-              { label: 'Market Trends', href: `/${locale}/blog` },
-            ],
+            { label: t('common:sellingTips'), href: `/${locale}/blog` },
+            { label: t('common:safetyGuide'), href: `/${locale}/blog` },
+            { label: t('common:marketTrends'), href: `/${locale}/blog` },
+          ],
     },
     {
       title: t('footer:info'),

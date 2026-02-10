@@ -68,14 +68,18 @@ export function SmartNudges() {
                   </span>
                 </div>
 
-                <p className="text-muted-foreground text-xs leading-relaxed">
-                  {nudge.description}
-                </p>
+                <div className="flex flex-1 flex-col justify-between space-y-3">
+                  <div className="space-y-3">
+                    <p className="text-muted-foreground text-xs leading-relaxed">
+                      {nudge.description}
+                    </p>
+                  </div>
 
-                <button className="text-primary hover:text-primary-foreground flex items-center gap-2 text-[11px] font-black tracking-widest uppercase transition-all hover:translate-x-1">
-                  {nudge.cta}
-                  <ArrowRight className="h-3 w-3" />
-                </button>
+                  <button className="text-primary hover:text-primary-foreground mt-auto flex items-center gap-2 text-[11px] font-black tracking-widest uppercase transition-all hover:translate-x-1">
+                    {nudge.cta}
+                    <ArrowRight className="h-3 w-3" />
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}

@@ -61,7 +61,7 @@ export const reportsApi = {
       const { data, error } = await query
 
       if (error) throw error
-      return { data: (data as any) || [], error: null }
+      return { data: (data as unknown as ReportWithDetails[]) || [], error: null }
     } catch (error) {
       logError('reportsApi.list', error)
       return { data: null, error: (error as Error).message }

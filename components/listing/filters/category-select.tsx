@@ -16,7 +16,7 @@ export function CategorySelect({
   onChange,
   locale,
 }: CategorySelectProps) {
-  const { t } = useTranslation(['filters', 'common'])
+  const { t } = useTranslation(['filters', 'common', 'categories'])
 
   return (
     <div className="space-y-3">
@@ -30,12 +30,12 @@ export function CategorySelect({
       >
         <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-lg font-bold">
           <SelectValue
-            placeholder={t('filters:allCategories') || 'All Categories'}
+            placeholder={t('filters:allCategories')}
           />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">
-            {t('filters:allCategories') || 'All Categories'}
+            {t('filters:allCategories')}
           </SelectItem>
           {categories.map((cat) => (
             <SelectItem key={cat.id} value={cat.slug}>

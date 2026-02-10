@@ -14,6 +14,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import { format } from 'date-fns'
+import { ru, enUS, sk, cs } from 'date-fns/locale'
 import { useTranslation } from '@/lib/i18n'
 import { RecentActivityTableProps } from './types'
 
@@ -25,6 +27,12 @@ const item = {
 export function RecentActivityTable({ listings }: RecentActivityTableProps) {
   const { t, locale } = useTranslation(['common', 'dashboard', 'createListing'])
   const [isMounted, setIsMounted] = useState(false)
+
+  const dateLocale =
+    locale === 'ru' ? ru :
+      locale === 'sk' ? sk :
+        locale === 'cs' ? cs :
+          enUS
 
   useEffect(() => {
     setIsMounted(true)
@@ -122,7 +130,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                             </Link>
                           </h4>
                           <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
-                            {isMounted ? new Date(listing.created_at).toLocaleDateString() : '...'}
+                            {isMounted ? format(new Date(listing.created_at), 'PP', { locale: dateLocale }) : '...'}
                           </p>
                         </div>
                       </div>
@@ -218,7 +226,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                       </TableCell>
                       <TableCell className="px-6 py-4">
                         <span className="text-muted-foreground/70 text-[11px] font-bold tracking-widest uppercase">
-                          {isMounted ? new Date(listing.created_at).toLocaleDateString() : '...'}
+                          {isMounted ? format(new Date(listing.created_at), 'PP', { locale: dateLocale }) : '...'}
                         </span>
                       </TableCell>
                       <TableCell className="px-6 py-4">

@@ -31,7 +31,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/20"
+            className="fixed inset-0 z-90 bg-black/20"
           />
 
           {/* Menu Panel */}
@@ -40,7 +40,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            className="border-border bg-background absolute inset-x-0 top-16 z-50 border-b shadow-lg"
+            className="border-border bg-background absolute inset-x-0 top-16 z-100 border-b shadow-lg"
             onMouseLeave={onClose}
           >
             <Container className="py-12">

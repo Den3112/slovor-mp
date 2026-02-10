@@ -15,7 +15,7 @@ import { useTranslation } from '@/packages/i18n/client'
 import { usePathname, useRouter } from 'next/navigation'
 
 export function LanguageSelector() {
-  const { i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
   const locale = i18n.language
   const router = useRouter()
   const pathname = usePathname()
@@ -34,7 +34,7 @@ export function LanguageSelector() {
       <button
         onClick={() => setShowLangMenu(!showLangMenu)}
         onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
-        aria-label="Select language"
+        aria-label={t('common:aria.selectLanguage')}
         aria-expanded={showLangMenu}
         className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-lg border px-3 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"
       >
@@ -89,6 +89,7 @@ export function LanguageSelector() {
 }
 
 export function MobileLanguageSelector({ locale }: { locale: string }) {
+  const { t } = useTranslation('common')
   const router = useRouter()
   const pathname = usePathname()
 
@@ -103,7 +104,7 @@ export function MobileLanguageSelector({ locale }: { locale: string }) {
   return (
     <div className="mt-8">
       <p className="text-muted-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
-        Language
+        {t('common:aria.language')}
       </p>
       <div className="grid grid-cols-3 gap-2">
         {SUPPORTED_LOCALES.map((lang) => (

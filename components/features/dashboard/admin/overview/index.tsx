@@ -71,7 +71,7 @@ export function AdminOverviewView({ userEmail }: { userEmail: string }) {
 
           <BentoTile
             colSpan={12}
-            rowSpan={3} // Taller for queue
+            rowSpan={2}
             className="border-rose-500/20 bg-rose-500/5 lg:col-span-4"
           >
             <PriorityQueueTile />

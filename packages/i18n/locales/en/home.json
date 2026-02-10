@@ -4,7 +4,10 @@
   "heroTitleHighlight": "you need",
   "heroSubtitle": "Thousands of listings every day. Buy and sell everything from electronics to real estate.",
   "searchPlaceholder": "What are you looking for?",
-  "popularSearches": "Popular Searches",
+  "popularSearches": {
+    "title": "Popular Searches",
+    "items": ["iPhone", "BMW", "Apartment", "Sofa", "Bicycle", "PS5", "Work"]
+  },
   "categoriesTitle": "Browse Categories",
   "featuredListings": "Featured Listings",
   "ctaTitle": "Start Selling Today!",

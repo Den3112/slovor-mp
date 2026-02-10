@@ -43,7 +43,7 @@ export function AuthForm({
             id={emailId}
             name="email"
             type="email"
-            placeholder="name@example.com"
+            placeholder={t('emailPlaceholder')}
             required
             className="border-border bg-background text-foreground placeholder:text-muted-foreground/40 h-14 w-full rounded-2xl border px-6 text-base shadow-inner transition-all focus-visible:border-indigo-500/50 focus-visible:ring-4 focus-visible:ring-indigo-500/10"
             data-testid="auth-email-input"

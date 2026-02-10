@@ -50,9 +50,9 @@ export function CheckoutDialog({
         router.push(`/${locale}/dashboard/orders/${orderId}`)
         onClose()
       }, 2000)
-    } catch (err: any) {
+    } catch (err) {
       console.error('Purchase failed:', err)
-      const errorMsg = err.message || t('listing:unexpectedError')
+      const errorMsg = err instanceof Error ? err.message : t('listing:unexpectedError')
       setError(errorMsg)
       toast.error(t('listing:purchaseFailed'))
     } finally {

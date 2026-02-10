@@ -10,7 +10,6 @@
   "dashboard": "Dashboard",
   "profile": "My Profile",
   "notifications": "Notifications",
-  "marketTrends": "Market Trends",
   "adminPanel": "Admin Panel",
   "switchToProfile": "Switch to Profile",
   "switchToAdmin": "Switch to Admin",
@@ -23,6 +22,8 @@
   "condition": "Condition",
   "description": "Description",
   "contact": "Contact",
+  "contactSeller": "Contact Seller",
+  "day": "day",
   "views": "Views",
   "published": "Published",
   "new": "New",
@@ -46,7 +47,12 @@
   "previous": "Previous",
   "featured": "Featured",
   "search": "Search",
-  "listings": "listings",
+  "explorer": "Explorer",
+  "listings": "{{count}} listings",
+  "listings_one": "{{count}} listing",
+  "listings_few": "{{count}} listings",
+  "listings_many": "{{count}} listings",
+  "listings_other": "{{count}} listings",
   "found": "found",
   "noListings": "No listings found",
   "tryDifferentFilters": "Try adjusting your filters",
@@ -63,7 +69,15 @@
   "messages": "Messages",
   "activityHistory": "Activity History",
   "viewDetails": "View Details",
-  "quickSuggestions": "Quick Suggestions",
+  "quickSuggestions": {
+    "title": "Quick Suggestions",
+    "items": [
+      "iPhone 15 Pro Max",
+      "BMW M5 2023",
+      "Apartment in Bratislava",
+      "Remote React Developer"
+    ]
+  },
   "advancedSearch": "Advanced Search",
   "cancel": "Cancel",
   "searchingFor": "Searching for",
@@ -97,5 +111,18 @@
   "guest": "Guest",
   "help": "Help",
   "legal": "Legal Information",
-  "marketplaceSlogan": "Discover unique items or start selling today."
+  "marketplaceSlogan": "Discover unique items or start selling today.",
+  "marketTrends": "Market Trends",
+  "sellingTips": "Selling Tips",
+  "safetyGuide": "Safety Guide",
+  "aria": {
+    "logo": "Slovor Marketplace Home",
+    "selectLanguage": "Select language",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "language": "Language"
+  },
+  "showResults": "Show {{count}} listings",
+  "showResults_one": "Show {{count}} listing",
+  "showResults_other": "Show {{count}} listings"
 }

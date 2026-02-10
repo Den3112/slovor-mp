@@ -10,7 +10,6 @@
   "dashboard": "Dashboard",
   "profile": "Můj profil",
   "notifications": "Upozornění",
-  "marketTrends": "Trendy na trhu",
   "adminPanel": "Admin Panel",
   "switchToProfile": "Přepnout na profil",
   "switchToAdmin": "Přepnout na Admin",
@@ -23,6 +22,8 @@
   "condition": "Stav",
   "description": "Popis",
   "contact": "Kontakt",
+  "contactSeller": "Kontaktovat prodejce",
+  "day": "den",
   "views": "Zobrazení",
   "published": "Uveřejněno",
   "new": "Nový",
@@ -46,7 +47,12 @@
   "previous": "Předchozí",
   "featured": "Doporučené",
   "search": "Hledat",
-  "listings": "inzerátů",
+  "explorer": "Průzkumník",
+  "listings": "{{count}} inzerátů",
+  "listings_one": "{{count}} inzerát",
+  "listings_few": "{{count}} inzeráty",
+  "listings_many": "{{count}} inzerátů",
+  "listings_other": "{{count}} inzerátů",
   "found": "nalezeno",
   "noListings": "Nenalezeny žádné inzeráty",
   "tryDifferentFilters": "Zkuste upravit filtry",
@@ -63,10 +69,18 @@
   "messages": "Zprávy",
   "activityHistory": "Historie aktivity",
   "viewDetails": "Zobrazit detaily",
-  "quickSuggestions": "Rychlé návrhy",
+  "quickSuggestions": {
+    "title": "Rychlé návrhy",
+    "items": [
+      "iPhone 15 Pro Max",
+      "BMW M5 2023",
+      "Byt v Bratislavě",
+      "Vzdálený React vývojář"
+    ]
+  },
   "advancedSearch": "Rozšířené vyhledávání",
   "cancel": "Zrušit",
-  "searchingFor": "Hledám",
+  "searchingFor": "Hľadám",
   "postAd": "Přidat inzerát",
   "categories": "Kategorie",
   "cat": {
@@ -97,5 +111,20 @@
   "guest": "Host",
   "help": "Pomoc",
   "legal": "Právní informace",
-  "marketplaceSlogan": "Objevte jedinečné předměty nebo začněte prodávat ještě dnes."
+  "marketplaceSlogan": "Objevte jedinečné předměty nebo začněte prodávat ještě dnes.",
+  "marketTrends": "Tržní trendy",
+  "sellingTips": "Tipy na prodej",
+  "safetyGuide": "Bezpečnost",
+  "aria": {
+    "logo": "Domů Slovor Marketplace",
+    "selectLanguage": "Vybrat jazyk",
+    "switchToLight": "Přepnout na světlý režim",
+    "switchToDark": "Přepnout na tmavý režim",
+    "language": "Jazyk"
+  },
+  "showResults": "Zobrazit {{count}} inzerátů",
+  "showResults_one": "Zobrazit {{count}} inzerát",
+  "showResults_few": "Zobrazit {{count}} inzeráty",
+  "showResults_many": "Zobrazit {{count}} inzerátů",
+  "showResults_other": "Zobrazit {{count}} inzerátů"
 }

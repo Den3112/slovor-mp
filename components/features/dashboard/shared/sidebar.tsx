@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -11,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useParams } from 'next/navigation'
 import { Logo } from '@/components/ui/logo'
+import { useMounted } from '@/lib/hooks/use-mounted'
 
 // --- Types ---
 
@@ -57,6 +59,7 @@ export function UnifiedSidebar({
   const router = useRouter()
   const params = useParams()
   const locale = (params?.locale as string) || 'en'
+  const isMounted = useMounted()
 
   const isActiveLink = (href: string) => {
     const cleanPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/')
@@ -77,6 +80,8 @@ export function UnifiedSidebar({
     router.push(`/${locale}/`)
     router.refresh()
   }
+
+  if (!isMounted) return <div className={cn('bg-card border-border border-r', isCollapsed ? 'w-20' : 'w-64')} />
 
   return (
     <div

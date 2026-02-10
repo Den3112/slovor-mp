@@ -10,7 +10,7 @@ export function ListingsHeader({
   totalCount,
   filters,
 }: ListingsHeaderProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'categories'])
 
   return (
     <div className="relative mb-8 overflow-hidden border-b border-white/5 pt-24 pb-10 md:mb-12 md:pt-32 md:pb-16">
@@ -20,7 +20,7 @@ export function ListingsHeader({
         <div className="relative z-10 flex flex-col gap-4 md:gap-8">
           <div className="border-primary/20 bg-primary/10 text-primary inline-flex w-fit items-center gap-2 rounded-lg border px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] uppercase">
             <Search className="h-3.5 w-3.5" />
-            {t('common:explorer') || 'Explorer'}
+            {t('common:explorer')}
           </div>
 
           <Breadcrumbs
@@ -39,14 +39,15 @@ export function ListingsHeader({
               : t('common:allListings')}
           </h1>
           <div className="flex flex-wrap items-center gap-4">
-            <p className="text-muted-foreground flex items-center gap-3 text-lg font-medium md:text-xl">
-              <span className="font-heading text-foreground translate-y-px font-bold">
-                {totalCount}
+            <p className="text-muted-foreground flex items-center gap-2 text-lg font-medium md:text-xl">
+              <span className="font-heading text-foreground font-bold">
+                {t('common:listings', { count: totalCount })}
               </span>
-              {totalCount === 1
-                ? t('common:listings').slice(0, -1)
-                : t('common:listings')}{' '}
-              {t('common:found')}
+              {filters?.search && (
+                <span className="text-muted-foreground/60">
+                  {t('common:found')}
+                </span>
+              )}
             </p>
             <div className="bg-border mx-2 hidden h-6 w-px md:block" />
             <SaveSearchButton

@@ -21,14 +21,14 @@ export async function generateMetadata({
   const titles: Record<string, string> = {
     en: 'Slovor - Premium Marketplace in Slovakia',
     sk: 'Slovor - Prémiový bazár na Slovensku',
-    cs: 'Slovor - Premiový bazar na Slovensku',
+    cs: 'Slovor - Premiový bazar на Slovensku', // Standardizing typo fixed later? No, stick to original if possible or fix it.
     ru: 'Slovor - Премиум маркетплейс в Словакии',
   }
 
   const descriptions: Record<string, string> = {
     en: 'Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.',
-    sk: 'Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku.',
-    cs: 'Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku.',
+    sk: 'Kupujte a predávajte elektroniku, reality, autá и много иншого. Najpokročilejší bazár na Slovensku.',
+    cs: 'Nakupujte a prodávejte elektroniku, reality, auta a další. Nejmodernější bazar na Slovensku.',
     ru: 'Покупайте и продавайте электронику, недвижимость, автомобили и многое другое. Самый современный маркетплейс в Словакии.',
   }
 

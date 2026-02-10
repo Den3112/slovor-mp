@@ -7,14 +7,16 @@ vi.mock('@/lib/i18n', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: any = {
-        'email': 'Email',
-        'password': 'Password',
-        'signIn': 'Sign In',
-        'signUp': 'Sign Up',
-        'dontHaveAccount': "Don't have an account?",
-        'alreadyHaveAccount': 'Already have an account?',
-        'showPassword': 'Show Password',
-        'hidePassword': 'Hide Password',
+        email: 'Email',
+        emailPlaceholder: 'name@example.com',
+        password: 'Password',
+        forgotPassword: 'Forgot Password?',
+        signIn: 'Sign In',
+        signUp: 'Sign Up',
+        dontHaveAccount: "Don't have an account?",
+        alreadyHaveAccount: 'Already have an account?',
+        showPassword: 'Show Password',
+        hidePassword: 'Hide Password',
       }
       return translations[key] || key
     },
@@ -42,9 +44,7 @@ describe('AuthForm', () => {
 
   it('renders register form when isRegistering is true', () => {
     render(<AuthForm {...defaultProps} isRegistering={true} />)
-    expect(
-      screen.getByRole('button', { name: /Sign Up/i })
-    ).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Sign Up/i })).toBeInTheDocument()
     expect(screen.getByText(/Already have an account\?/i)).toBeInTheDocument()
   })
 

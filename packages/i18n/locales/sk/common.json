@@ -10,7 +10,6 @@
   "dashboard": "Dashboard",
   "profile": "Môj profil",
   "notifications": "Upozornenia",
-  "marketTrends": "Trendy na trhu",
   "adminPanel": "Admin Panel",
   "switchToProfile": "Prepnúť na profil",
   "switchToAdmin": "Prepnúť na Admin",
@@ -23,6 +22,8 @@
   "condition": "Stav",
   "description": "Popis",
   "contact": "Kontakt",
+  "contactSeller": "Kontaktovať predajcu",
+  "day": "deň",
   "views": "Zobrazenia",
   "published": "Uverejnené",
   "new": "Nový",
@@ -46,7 +47,12 @@
   "previous": "Predchádzajúce",
   "featured": "Odporúčané",
   "search": "Hľadať",
-  "listings": "inzerátov",
+  "explorer": "Prieskumník",
+  "listings": "{{count}} inzerátov",
+  "listings_one": "{{count}} inzerát",
+  "listings_few": "{{count}} inzeráty",
+  "listings_many": "{{count}} inzerátov",
+  "listings_other": "{{count}} inzerátov",
   "found": "nájdených",
   "noListings": "Nenašli sa žiadne inzeráty",
   "tryDifferentFilters": "Skúste upraviť filtre",
@@ -63,7 +69,15 @@
   "messages": "Správy",
   "activityHistory": "História aktivity",
   "viewDetails": "Zobraziť detaily",
-  "quickSuggestions": "Rýchle návrhy",
+  "quickSuggestions": {
+    "title": "Rýchle návrhy",
+    "items": [
+      "iPhone 15 Pro Max",
+      "BMW M5 2023",
+      "Byt v Bratislave",
+      "Vzdialený React vývojár"
+    ]
+  },
   "advancedSearch": "Rozšírené vyhľadávanie",
   "cancel": "Zrušiť",
   "searchingFor": "Hľadám",
@@ -97,5 +111,20 @@
   "guest": "Hosť",
   "help": "Pomoc",
   "legal": "Právne informácie",
-  "marketplaceSlogan": "Objavte jedinečné predmety alebo začnite predávať ešte dnes."
+  "marketplaceSlogan": "Objavte jedinečné predmety alebo začnite predávať ešte dnes.",
+  "marketTrends": "Trhové trendy",
+  "sellingTips": "Tipy na predaj",
+  "safetyGuide": "Bezpečnosť",
+  "aria": {
+    "logo": "Domov Slovor Marketplace",
+    "selectLanguage": "Vybrať jazyk",
+    "switchToLight": "Prepnúť na svetlý režim",
+    "switchToDark": "Prepnúť na tmavý režim",
+    "language": "Jazyk"
+  },
+  "showResults": "Zobraziť {{count}} inzerátov",
+  "showResults_one": "Zobraziť {{count}} inzerát",
+  "showResults_few": "Zobraziť {{count}} inzeráty",
+  "showResults_many": "Zobraziť {{count}} inzerátov",
+  "showResults_other": "Zobraziť {{count}} inzerátov"
 }

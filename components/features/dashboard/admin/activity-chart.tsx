@@ -24,7 +24,7 @@ export function ActivityChart({ data: initialData }: ActivityChartProps) {
     async function fetchActivity() {
       try {
         // Fetch last 100 transactions to aggregate
-        const { data: transactions } = await transactionsApi.getForUser('all')
+        const { data: transactions } = await transactionsApi.getAll()
 
         // Group by day for the last 7 days
         const chartData = Array.from({ length: 7 }, (_, i) => {

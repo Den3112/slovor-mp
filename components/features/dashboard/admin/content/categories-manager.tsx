@@ -90,8 +90,9 @@ export function CategoriesManager() {
         setEditingId(null)
         loadCategories()
       }
-    } catch (error: any) {
-      toast.error(error.message || t('admin:failedToDeleteCategory'))
+    } catch (error) {
+      const message = error instanceof Error ? error.message : t('admin:failedToDeleteCategory')
+      toast.error(message)
     } finally {
       setIsSubmitting(false)
     }

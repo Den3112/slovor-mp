@@ -20,7 +20,7 @@ export function PriceRange({
       <div className="grid grid-cols-2 gap-2">
         <div className="relative">
           <span className="text-muted-foreground/40 absolute top-1/2 left-3 -translate-y-1/2 text-[10px] font-bold">
-            €
+            {t('common:currencySymbol')}
           </span>
           <Input
             type="number"
@@ -32,7 +32,7 @@ export function PriceRange({
         </div>
         <div className="relative">
           <span className="text-muted-foreground/40 absolute top-1/2 left-3 -translate-y-1/2 text-[10px] font-bold">
-            €
+            {t('common:currencySymbol')}
           </span>
           <Input
             type="number"

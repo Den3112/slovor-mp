@@ -19,9 +19,9 @@ interface WalletWidgetProps {
 }
 
 // Mock data generator if no history provided
-const generateMockHistory = (baseValue: number) => {
+const generateMockHistory = (baseValue: number, t: (key: string, options?: any) => string) => {
   return Array.from({ length: 7 }, (_, i) => ({
-    date: `Day ${i + 1}`,
+    date: `${t('common:day')} ${i + 1}`,
     value: baseValue * (0.8 + Math.random() * 0.4),
   }))
 }
@@ -39,7 +39,7 @@ export function WalletWidget({
   const chartData = history ||
     (transactions && transactions.length > 0
       ? transactions.map((t, i) => ({ date: i.toString(), value: t.amount }))
-      : generateMockHistory(balance))
+      : generateMockHistory(balance, t))
 
   return (
     <HubWidget
@@ -116,7 +116,7 @@ export function WalletWidget({
       </div>
 
       {/* Background Decor */}
-      <div className="pointer-events-none absolute top-0 right-0 p-8 opacity-5">
+      <div className="pointer-events-none absolute top-0 right-0 z-0 p-8 opacity-5">
         <CreditCard size={120} />
       </div>
     </HubWidget>

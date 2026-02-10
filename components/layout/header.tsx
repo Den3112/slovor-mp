@@ -82,8 +82,11 @@ export function Header() {
               </button>
             </div>
 
-            {/* Central Expressive Search - Desktop */}
-            <div className="hidden max-w-xl flex-1 items-center justify-center md:flex">
+            {/* Central Expressive Search - Desktop (Hidden on home page to avoid duplication) */}
+            <div className={cn(
+              "hidden max-w-xl flex-1 items-center justify-center md:flex transition-opacity duration-300",
+              (pathname === '/' || pathname === `/${locale}` || pathname === `/${locale}/`) && "hidden!"
+            )}>
               <div className="group relative w-full">
                 <CommandCenter locale={locale} />
                 {/* Visual indicator of center focus */}

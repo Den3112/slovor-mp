@@ -1,5 +1,7 @@
 {
-  "main": "Hlavní",
+  "selling": "Prodej",
+  "growth": "Růst",
+  "activity": "Aktivita",
   "account": "Účet",
   "quickAccess": "Rychlý přístup",
   "myListings": "Moje inzeráty",
@@ -16,6 +18,7 @@
   "noSoldItemsDescription": "Zde se zobrazí položky, které označíte jako prodané.",
   "noArchivedItems": "Žádné archivované položky",
   "noArchivedItemsDescription": "Zde se zobrazí smazané inzeráty.",
+  "dateListed": "Datum přidání",
   "all": "Vše",
   "confirmDelete": "Opravdu chcete smazat tento inzerát?",
   "activate": "Aktivovat",
@@ -38,6 +41,11 @@
   "welcomeBack": "Vítejte zpět",
   "welcomeHeader": "OSOBNÍ DASHBOARD",
   "hello": "Ahoj",
+  "goodMorning": "Dobré ráno",
+  "goodAfternoon": "Dobrý den",
+  "goodEvening": "Dobrý večer",
+  "rating": "Hodnocení",
+  "postNewListing": "Přidat nový inzerát",
   "heroDescription": "Vaše řídicí centrum pro správu prodeje a růst na platformě.",
   "totalViews": "Celkový počet zobrazení",
   "successScore": "Skóre úspěšnosti",
@@ -72,7 +80,6 @@
   "deleting": "Maže se...",
   "unknownListing": "Inzerát bez názvu",
   "activityFeed": "Aktivita",
-  "growth": "růst",
   "savedSearches": "Uložená hledání",
   "savedSearchesDetails": {
     "title": "Uložit toto hledání",
@@ -109,7 +116,8 @@
     "card": "Kreditní / Debetní karta",
     "applePay": "Apple Pay",
     "googlePay": "Google Pay",
-    "walletRefillVia": "Dobití peněženky přes {method}"
+    "walletRefillVia": "Dobití peněženky přes {method}",
+    "defaultMethod": "Výchozí metoda"
   },
   "promote": {
     "title": "Propagujte svůj inzerát",
@@ -158,6 +166,10 @@
     "other": "Jiné",
     "processing": "Zpracovává se..."
   },
+  "electronics": "Elektronika",
+  "demand": "Poptávka",
+  "high": "Vysoký",
+  "marketInsightsNote": "* Na základě lokální aktivity za posledních 24 hodin",
   "orders": "Objednávky",
   "purchases": "Nákupy",
   "sales": "Prodeje",
@@ -196,7 +208,6 @@
   "amount": "Částka",
   "type": "Typ",
   "buying": "Nákup",
-  "selling": "Prodej",
   "orderStatuses": {
     "completed": "Dokončeno",
     "pending": "Čekající",
@@ -220,7 +231,17 @@
     "subtitle": "Přehled všech vašich důležitých akcí a událostí účtu",
     "noActivity": "Nebyla zaznamenána žádná aktivita",
     "noActivityDesc": "Zde se zobrazí vaše hlavní události a akce v účtu.",
-    "internal": "Interní"
+    "internal": "Interní",
+    "entries": {
+      "newMessage": "Nová zpráva",
+      "itemsSold": "Položka prodána",
+      "listingFavorited": "Přidáno do oblíbených",
+      "listingExpiring": "Platnost končí",
+      "newMessageDesc": "{{user}} vám poslal dotaz k {{item}}",
+      "saleDesc": "Váš „{{item}}“ si koupil uživatel {{user}}",
+      "favoriteDesc": "Vaši položku „{{item}}“ si uložilo {{count}} uživatelů",
+      "expiringDesc": "Platnost vašeho inzerátu „{{item}}“ končí za {{days}} dny"
+    }
   },
   "subscriptions": {
     "title": "Plány předplatného",

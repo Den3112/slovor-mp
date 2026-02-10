@@ -16,7 +16,7 @@ import { BentoGrid, BentoTile } from '@/components/ui/bento'
 import { PremiumBackground } from '@/components/ui/premium-background'
 import { formatPrice } from '@/lib/utils/formatting'
 import { formatDistanceToNow } from 'date-fns'
-import { ru, enUS } from 'date-fns/locale'
+import { ru, enUS, sk, cs } from 'date-fns/locale'
 import { useTranslation } from '@/lib/i18n'
 
 import { Listing, Transaction, Order } from '@/lib/types/database'
@@ -49,16 +49,20 @@ export function UserOverviewView({
   recentOrders,
   transactions,
 }: UserOverviewViewProps) {
-  const { locale } = useTranslation(['admin', 'dashboard'])
+  const { t, locale } = useTranslation(['admin', 'dashboard'])
 
   const mappedOrders = recentOrders.map(order => ({
     id: order.id,
     status: order.status as any,
-    title: (order as any).listing?.title || 'Unknown Item',
+    title: (order as any).listing?.title || t('dashboard:unknownListing'),
     price: formatPrice(order.amount, order.currency),
     date: formatDistanceToNow(new Date(order.created_at), {
       addSuffix: true,
-      locale: locale === 'ru' ? ru : enUS
+      locale:
+        locale === 'ru' ? ru :
+          locale === 'sk' ? sk :
+            locale === 'cs' ? cs :
+              enUS
     })
   }))
 

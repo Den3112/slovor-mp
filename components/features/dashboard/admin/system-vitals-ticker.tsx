@@ -1,15 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
+import { useState, useEffect } from 'react'
 import { Activity, Database, ShieldCheck, Zap, Server } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n'
 
 interface VitalItemProps {
   label: string
   value: string | number
   status?: 'success' | 'warning' | 'error' | 'neutral'
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
 }
 
 function VitalItem({
@@ -44,10 +44,11 @@ function VitalItem({
 }
 
 export function SystemVitalsTicker() {
+  const { t } = useTranslation(['admin'])
   const [metrics, setMetrics] = useState({
     latency: '24ms',
     uptime: '99.99%',
-    dbStatus: 'Operational',
+    dbStatus: t('admin:operational'),
     cpu: '12%',
     memory: '1.2GB',
   })
@@ -65,33 +66,33 @@ export function SystemVitalsTicker() {
   }, [])
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
       <VitalItem
-        label="API Latency"
+        label={t('admin:apiLatency')}
         value={metrics.latency}
         icon={Zap}
         status="success"
       />
       <VitalItem
-        label="DB Status"
+        label={t('admin:dbStatus')}
         value={metrics.dbStatus}
         icon={Database}
         status="success"
       />
       <VitalItem
-        label="Uptime"
+        label={t('admin:uptime')}
         value={metrics.uptime}
         icon={ShieldCheck}
         status="success"
       />
       <VitalItem
-        label="CPU Load"
+        label={t('admin:cpuLoad')}
         value={metrics.cpu}
         icon={Activity}
         status="neutral"
       />
       <VitalItem
-        label="Memory"
+        label={t('admin:memory')}
         value={metrics.memory}
         icon={Server}
         status="neutral"

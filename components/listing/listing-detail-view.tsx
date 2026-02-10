@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { StructuredData } from '@/components/layout/structured-data'
 import { ImageGallery } from '@/components/listing/image-gallery'
 import { MobileImageGallery } from '@/components/listing/mobile-image-gallery'
 import { Container } from '@/components/ui/container'
@@ -31,6 +32,24 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
   const displayTitle = getLocalizedTitle(listing, locale)
   const displayDescription = getLocalizedDescription(listing, locale)
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: displayTitle,
+    description: displayDescription,
+    image: listing.images || [],
+    offers: {
+      '@type': 'Offer',
+      price: listing.price,
+      priceCurrency: listing.currency || 'EUR',
+      availability:
+        listing.status === 'active'
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
+      url: `${process.env.NEXT_PUBLIC_APP_URL || ''}/${locale}/listings/${listing.id}`,
+    },
+  }
+
   const { addItem } = useRecentlyViewed()
 
   useEffect(() => {
@@ -40,6 +59,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
 
   return (
     <div className="bg-background min-h-screen pb-32">
+      <StructuredData locale={locale} extraSchema={productSchema} />
       <Container className="pt-24 md:pt-32">
         <div className="mb-6 md:mb-8">
           <Breadcrumbs
@@ -101,9 +121,10 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
         </div>
       </Container>
 
-      {/* Mobile Sticky Action Bar */}
-      <div className="fixed right-0 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] left-0 z-40 md:hidden">
-        <div className="bg-background border-border border-t p-4">
+      {/* Mobile Sticky Action Bar - Adjusted bottom to clear global BottomNavBar */}
+      <div className="fixed right-0 bottom-0 left-0 z-40 flex flex-col md:hidden">
+        {/* Added safe area padding and increased margin to clear bottom nav */}
+        <div className="border-t bg-background p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] mb-[var(--bottom-nav-height,72px)]">
           <div className="mx-auto flex max-w-lg items-center justify-between gap-4">
             <div className="flex flex-col">
               <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
@@ -124,7 +145,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
                 if (sidebarButton) sidebarButton.click()
               }}
             >
-              Contact Seller
+              {t('common:contactSeller')}
             </Button>
           </div>
         </div>

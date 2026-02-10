@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: {
       default: defaultTitle,
-      template: `%s | ${defaultTitle}`,
+      template: `%s | Slovor`,
     },
     description: defaultDescription,
     metadataBase: new URL('https://slovor.sk'),
@@ -78,8 +78,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Slovor Marketplace',
-      description: 'The modern marketplace for Slovakia.',
+      title: defaultTitle,
+      description: defaultDescription,
       images: ['/og-image.png'],
     },
   }

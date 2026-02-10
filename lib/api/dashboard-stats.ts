@@ -12,9 +12,8 @@ export interface DashboardStats {
   recentConversations?: Conversation[]
   walletBalance?: number
   walletCurrency?: string
+  rating?: number
 }
-
-
 
 export async function getDashboardStats(
   userId: string
@@ -46,7 +45,7 @@ export async function getDashboardStats(
         .eq('user_id', userId),
       supabase
         .from('reviews')
-        .select('id', { count: 'exact' })
+        .select('rating', { count: 'exact' })
         .eq('recipient_id', userId),
       // Fetch full conversation data directly here instead of just IDs
       supabase
@@ -82,11 +81,7 @@ export async function getDashboardStats(
         .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
         .order('updated_at', { ascending: false })
         .limit(3),
-      supabase
-        .from('wallets')
-        .select('*')
-        .eq('user_id', userId)
-        .single(),
+      supabase.from('wallets').select('*').eq('user_id', userId).single(),
       supabase
         .from('orders')
         .select('id', { count: 'exact' })
@@ -96,12 +91,21 @@ export async function getDashboardStats(
     // Process Listings Data
     const listings = listingsRes.data || []
     const activeListings = listings.filter((l) => l.status === 'active').length
-    const totalViews = listings.reduce((acc, curr) => acc + (curr.views_count || 0), 0)
+    const totalViews = listings.reduce(
+      (acc, curr) => acc + (curr.views_count || 0),
+      0
+    )
 
     // Process Favorites & Others
     const favorites = favoritesRes.count || 0
     const savedSearches = savedSearchesRes.count || 0
-    const totalReviews = reviewsRes.count || 0
+    const reviews = reviewsRes.data || []
+    const totalReviews = reviews.length
+    const averageRating =
+      totalReviews > 0
+        ? reviews.reduce((acc, curr) => acc + (curr.rating || 0), 0) /
+          totalReviews
+        : 5.0
     const totalOrders = ordersRes.count || 0
 
     // Process Conversations
@@ -152,6 +156,7 @@ export async function getDashboardStats(
       recentConversations,
       walletBalance: walletRes.data?.balance || 0,
       walletCurrency: walletRes.data?.currency || 'EUR',
+      rating: averageRating,
     }
   } catch (error) {
     console.error('Error fetching dashboard stats:', error)

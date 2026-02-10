@@ -4,9 +4,11 @@ import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n'
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme()
+  const { t } = useTranslation('common')
   const [mounted, setMounted] = useState(false)
 
   // Prevent hydration mismatch
@@ -51,7 +53,7 @@ export function ThemeToggle({ className }: { className?: string }) {
           : 'bg-muted/50 hover:bg-muted/80 text-primary',
         className
       )}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isDark ? t('common:aria.switchToLight') : t('common:aria.switchToDark')}
     >
       <Sun
         className={cn(

@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import {
   Search,
-  Clock,
   TrendingUp,
   X,
   Car,
@@ -11,6 +10,7 @@ import {
   Smartphone,
   Briefcase,
   Zap,
+  type LucideIcon,
 } from 'lucide-react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -228,29 +228,27 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                   // Default suggestions
                   <>
                     <div className="text-muted-foreground mb-2 px-2 text-[10px] font-bold tracking-widest uppercase">
-                      {t('common:quickSuggestions') || 'QUICK SUGGESTIONS'}
+                      {t('common:quickSuggestions.title')}
                     </div>
-                    {[
-                      { label: 'iPhone 15 Pro Max', icon: Smartphone },
-                      { label: 'BMW M5 2023', icon: Car },
-                      { label: 'Apartment in Bratislava', icon: Home },
-                      { label: 'Remote React Developer', icon: Briefcase },
-                    ].map((item, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          setQuery(item.label)
-                          // Trigger search effect automatically via state change
-                        }}
-                        className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
-                      >
-                        <Clock className="text-muted-foreground group-hover:text-primary h-4 w-4" />
-                        <span className="text-sm font-medium">
-                          {item.label}
-                        </span>
-                        <Zap className="text-primary ml-auto h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
-                      </button>
-                    ))}
+                    {(t('common:quickSuggestions.items', {
+                      returnObjects: true,
+                    }) || []).map((label: string, idx: number) => {
+                      const icons: LucideIcon[] = [Smartphone, Car, Home, Briefcase]
+                      const Icon = icons[idx % icons.length] as LucideIcon
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            setQuery(label)
+                          }}
+                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
+                        >
+                          <Icon className="text-muted-foreground group-hover:text-primary h-4 w-4" />
+                          <span className="text-sm font-medium">{label}</span>
+                          <Zap className="text-primary ml-auto h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                        </button>
+                      )
+                    })}
                   </>
                 )}
               </div>

@@ -9,7 +9,7 @@ describe('category-i18n utility', () => {
   const mockT = (key: string, options?: any) => {
     // Simulate t('cat.electronics') -> 'Electronic Devices'
     const db: Record<string, string> = {
-      'cat.electronics': 'Electronic Devices',
+      'categories:electronics': 'Electronic Devices',
     }
     return db[key] || options?.defaultValue || ''
   }

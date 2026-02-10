@@ -12,12 +12,14 @@ import {
 import { cn } from '@/lib/utils'
 import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 import { Container } from '@/components/ui/container'
+import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 
 interface DashboardShellProps {
   children: React.ReactNode
   config: SidebarConfig
   headerContent?: React.ReactNode
   title?: string
+  showBreadcrumbs?: boolean
 }
 
 export function DashboardShell({
@@ -25,6 +27,7 @@ export function DashboardShell({
   config,
   headerContent,
   title,
+  showBreadcrumbs = true,
 }: DashboardShellProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -79,11 +82,15 @@ export function DashboardShell({
                   </Sheet>
                 </div>
 
-                {title && (
-                  <h1 className="text-muted-foreground/90 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
-                    <LayoutDashboard className="text-primary h-3 w-3 opacity-50" />
-                    {title}
-                  </h1>
+                {showBreadcrumbs ? (
+                  <Breadcrumbs />
+                ) : (
+                  title && (
+                    <h1 className="text-muted-foreground/90 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
+                      <LayoutDashboard className="text-primary h-3 w-3 opacity-50" />
+                      {title}
+                    </h1>
+                  )
                 )}
               </div>
 

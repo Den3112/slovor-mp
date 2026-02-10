@@ -10,7 +10,6 @@
   "dashboard": "Панель",
   "profile": "Профиль",
   "notifications": "Уведомления",
-  "marketTrends": "Тренды рынка",
   "adminPanel": "Админка",
   "switchToProfile": "В профиль",
   "switchToAdmin": "В админку",
@@ -23,6 +22,8 @@
   "condition": "Состояние",
   "description": "Описание",
   "contact": "Контакты",
+  "contactSeller": "Связаться с продавцом",
+  "day": "день",
   "views": "Просмотры",
   "published": "Опубликовано",
   "new": "Новое",
@@ -46,7 +47,12 @@
   "previous": "Назад",
   "featured": "Рекомендуемое",
   "search": "Поиск",
-  "listings": "объявлений",
+  "explorer": "Проводник",
+  "listings": "{{count}} объявлений",
+  "listings_one": "{{count}} объявление",
+  "listings_few": "{{count}} объявления",
+  "listings_many": "{{count}} объявлений",
+  "listings_other": "{{count}} объявлений",
   "found": "найдено",
   "noListings": "Объявлений не найдено",
   "tryDifferentFilters": "Попробуйте другие фильтры",
@@ -63,7 +69,15 @@
   "messages": "Сообщения",
   "activityHistory": "История активности",
   "viewDetails": "Подробнее",
-  "quickSuggestions": "Быстрые подсказки",
+  "quickSuggestions": {
+    "title": "Быстрые подсказки",
+    "items": [
+      "iPhone 15 Pro Max",
+      "BMW M5 2023",
+      "Квартира в Братиславе",
+      "Удаленный React разработчик"
+    ]
+  },
   "advancedSearch": "Расширенный поиск",
   "cancel": "Отмена",
   "searchingFor": "Ищем",
@@ -97,5 +111,20 @@
   "guest": "Гость",
   "help": "Помощь",
   "legal": "Юридическая информация",
-  "marketplaceSlogan": "Найдите уникальные товары или начните продавать сегодня."
+  "marketplaceSlogan": "Найдите уникальные товары или начните продавать сегодня.",
+  "marketTrends": "Тренды рынка",
+  "sellingTips": "Советы по продажам",
+  "safetyGuide": "Безопасность",
+  "aria": {
+    "logo": "Главная Slovor Marketplace",
+    "selectLanguage": "Выбрать язык",
+    "switchToLight": "Переключить на светлую тему",
+    "switchToDark": "Переключить на темную тему",
+    "language": "Язык"
+  },
+  "showResults": "Показать {{count}} объявлений",
+  "showResults_one": "Показать {{count}} объявление",
+  "showResults_few": "Показать {{count}} объявления",
+  "showResults_many": "Показать {{count}} объявлений",
+  "showResults_other": "Показать {{count}} объявлений"
 }
