@@ -143,14 +143,14 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
             className={cn(
               'flex h-6 w-fit items-center gap-1.5 rounded-md border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase',
               statusStyles[row.status as keyof typeof statusStyles] ||
-                'bg-muted text-muted-foreground border-border/40'
+              'bg-muted text-muted-foreground border-border/40'
             )}
           >
             <span
               className={cn(
                 'h-1.5 w-1.5 shrink-0 rounded-full',
                 dotStyles[row.status as keyof typeof dotStyles] ||
-                  'bg-muted-foreground/40'
+                'bg-muted-foreground/40'
               )}
             />
             {t(`admin:orderStatus.${row.status}`)}
@@ -230,7 +230,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
         columns={columns}
         data={filteredOrders}
         onSearch={setSearchQuery}
-        searchPlaceholder={t('admin:searchOrders')}
+        searchPlaceholder={t('admin:searchPlaceholderOrders')}
         emptyMessage={t('admin:noOrders')}
       />
     </div>

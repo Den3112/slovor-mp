@@ -107,7 +107,7 @@
   "queueClear": "Queue is clear! Well done.",
   "noDescription": "No description provided.",
   "seller": "Seller",
-  "joined": "Joined {year}",
+  "joined": "Joined {{year}}",
   "fullDetails": "Full Details",
   "requestFix": "Request Fix",
   "banSeller": "Ban Seller",
@@ -186,7 +186,7 @@
   "tableLastUpdate": "Last Update",
   "supportCenter": "Support Center",
   "manageSupportTickets": "Respond to user inquiries and technical issues",
-  "avgResponseTime": "Avg. Response Time: {time}",
+  "avgResponseTime": "Avg. Response Time: {{time}}",
   "tabAll": "All",
   "tabOpen": "Open",
   "tabInProgress": "In Progress",
@@ -346,5 +346,11 @@
   "statusSold": "Sold",
   "selectedItems": "Selected items",
   "unknownTarget": "Unknown Target",
-  "fullAuditLog": "Full Audit Log"
+  "fullAuditLog": "Full Audit Log",
+  "tableVerification": "Verification",
+  "tableCreated": "Created",
+  "noVerificationRequests": "No verification requests at this time.",
+  "comingSoon": "Coming Soon",
+  "comingSoonDesc": "This feature is currently under development and will be available soon.",
+  "searchPlaceholderOrders": "Search by order ID, buyer, seller or listing..."
 }

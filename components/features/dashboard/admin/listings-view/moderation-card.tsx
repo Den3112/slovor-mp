@@ -85,7 +85,9 @@ export function ModerationCard({
           </div>
           <div className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
             <Clock className="h-3.5 w-3.5" />
-            {new Date(listing.created_at).toLocaleDateString()}
+            {listing.created_at && !isNaN(new Date(listing.created_at).getTime())
+              ? new Date(listing.created_at).toLocaleDateString()
+              : '—'}
           </div>
         </div>
       </div>
@@ -109,7 +111,9 @@ export function ModerationCard({
               </span>
               <span className="text-muted-foreground/60 text-[9px] font-bold uppercase">
                 {t('admin:joined', {
-                  year: new Date(listing.user?.created_at || '').getFullYear(),
+                  year: listing.user?.created_at && !isNaN(new Date(listing.user.created_at).getTime())
+                    ? new Date(listing.user.created_at).getFullYear()
+                    : '—'
                 })}
               </span>
             </div>

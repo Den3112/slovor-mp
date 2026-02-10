@@ -48,9 +48,11 @@ export function AdminCategoriesView() {
   const loadCategories = useCallback(async () => {
     setIsLoading(true)
     try {
-      const { data } = await categoriesApi.getAll()
+      const { data, error } = await categoriesApi.getAll()
+      if (error) throw new Error(error)
       if (data) setCategories(data)
     } catch (error) {
+      console.error('Failed to load categories:', error)
       toast.error(t('admin:failedToLoadCategories'))
     } finally {
       setIsLoading(false)

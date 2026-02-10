@@ -33,17 +33,5 @@ export default async function AdminVerificationPage() {
   // For now, let's rely on the component's internal fetch for consistency with other admin views
   // unless performance demands SSR.
 
-  return (
-    <div className="container py-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Identity Verification
-        </h1>
-        <p className="text-muted-foreground">
-          Review and verify user identity documents.
-        </p>
-      </div>
-      <AdminVerificationView />
-    </div>
-  )
+  return <AdminVerificationView />
 }
