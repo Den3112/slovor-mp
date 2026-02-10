@@ -1,24 +1,44 @@
-'use client'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { Settings, Construction } from 'lucide-react'
+import { getTranslationServer } from '@/lib/i18n/server'
 
-import {
-  LifeBuoy,
-  Construction,
-} from 'lucide-react'
-import { useTranslation } from '@/lib/i18n'
+export default async function AdminSettingsPage(props: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await props.params
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-export function AdminSupportView() {
-  const { t } = useTranslation(['common', 'admin'])
+  if (!user) {
+    redirect(`/${locale}/login`)
+  }
+
+  // Check if user is admin
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle()
+
+  if (profile?.role !== 'admin') {
+    redirect(`/${locale}/dashboard`)
+  }
+
+  const { t } = await getTranslationServer(['admin', 'common'])
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-foreground flex items-center gap-3 text-3xl font-bold tracking-tight uppercase">
-            <LifeBuoy className="text-primary h-8 w-8" />
-            {t('admin:supportCenter')}
+            <Settings className="text-primary h-8 w-8" />
+            {t('admin:settings')}
           </h1>
           <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
-            {t('admin:manageSupportTickets')}
+            {t('admin:overview')}
           </p>
         </div>
       </div>

@@ -16,36 +16,24 @@ export const categoriesApi = {
   async getAll(client?: SupabaseClient): Promise<ApiResponse<Category[]>> {
     const supabaseClient = client || supabase
     try {
-      const { data: categories, error: catError } = await withRetry<any>(() =>
+      // Use resource embedding to get counts in a single query if possible,
+      // but for filtering (is_active: true) we might still need some logic.
+      // Let's try the simple approach first that fetches all at once.
+      const { data: categories, error } = await withRetry<any>(() =>
         supabaseClient
           .from('categories')
-          .select('*')
+          .select('*, listings:listings(count)')
           .order('name')
       )
 
-      if (catError) {
-        throw catError
-      }
+      if (error) throw error
 
-      // Get listing counts for each category
-      const categoriesWithCount = await withRetry<Category[]>(() =>
-        Promise.all(
-          (categories || []).map(async (category: Category) => {
-            const { count } = await supabaseClient
-              .from('listings')
-              .select('id', { count: 'exact', head: true })
-              .eq('category_id', category.id)
-              .eq('is_active', true)
+      const formattedData = (categories || []).map((cat: any) => ({
+        ...cat,
+        listing_count: cat.listings?.[0]?.count || 0,
+      }))
 
-            return {
-              ...category,
-              listing_count: count || 0,
-            }
-          })
-        )
-      )
-
-      return { data: categoriesWithCount, error: null }
+      return { data: formattedData, error: null }
     } catch (error) {
       return { data: null, error: (error as Error).message }
     }

@@ -38,7 +38,7 @@ export function DashboardShell({
         {/* Sidebar - Desktop - Sticky under the 80px main Header */}
         <aside
           className={cn(
-            'border-border/60 bg-card sticky top-(--header-height) hidden h-[calc(100vh-var(--header-height))] shrink-0 border-r transition-all duration-300 ease-in-out md:flex',
+            'border-border/60 bg-card sticky top-(--header-height) hidden h-[calc(100vh-var(--header-height))] shrink-0 border-r transition-all duration-300 ease-in-out lg:flex',
             isCollapsed ? 'w-20' : 'w-64'
           )}
         >
@@ -56,7 +56,7 @@ export function DashboardShell({
           {(title || headerContent) && (
             <div className="border-border/60 bg-background mx-4 mt-4 flex h-12 shrink-0 items-center justify-between rounded-xl border px-6 py-2 shadow-sm">
               <div className="flex items-center gap-4">
-                <div className="md:hidden">
+                <div className="lg:hidden">
                   <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
                     <SheetTrigger asChild>
                       <Button

@@ -139,8 +139,11 @@ export function AdminListingsView({
         icon: Tag,
       })
     }
-    const createdDate = new Date(listing.user?.created_at || '')
-    const daysOld = (Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24)
+    const userCreatedAt = listing.user?.created_at
+    const createdDate = userCreatedAt ? new Date(userCreatedAt) : null
+    const daysOld = createdDate && !isNaN(createdDate.getTime())
+      ? (Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24)
+      : 100 // Assume old if no valid date
     if (daysOld < 2) {
       issues.push({
         label: t('admin:newSeller'),
@@ -288,13 +291,15 @@ export function AdminListingsView({
               {row.user?.display_name || 'User'}
             </span>
             <span className="text-muted-foreground/40 text-[9px] font-bold tracking-wider uppercase">
-              {new Date(row.user?.created_at || '').toLocaleDateString(
-                undefined,
-                {
-                  month: 'short',
-                  year: 'numeric',
-                }
-              )}
+              {row.user?.created_at && !isNaN(new Date(row.user.created_at).getTime())
+                ? new Date(row.user.created_at).toLocaleDateString(
+                  undefined,
+                  {
+                    month: 'short',
+                    year: 'numeric',
+                  }
+                )
+                : '—'}
             </span>
           </div>
         </div>

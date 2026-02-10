@@ -38,8 +38,8 @@ export const reviewsApi = {
       const { data, error } = await supabase
         .from('reviews')
         .insert({
-          recipient_id: review.recipient_id,
-          author_id: review.author_id,
+          seller_id: review.recipient_id,
+          buyer_id: review.author_id,
           listing_id: review.listing_id || null,
           rating: review.rating,
           comment: review.comment || null,
@@ -75,9 +75,8 @@ export const reviewsApi = {
           )
         `
         )
-        .eq('recipient_id', sellerId)
+        .eq('seller_id', sellerId)
         .order('created_at', { ascending: false })
-
 
       if (error) {
         throw error
@@ -118,8 +117,8 @@ export const reviewsApi = {
       let query = supabase
         .from('reviews')
         .select('id')
-        .eq('recipient_id', recipientId)
-        .eq('author_id', authorId)
+        .eq('seller_id', recipientId)
+        .eq('buyer_id', authorId)
 
       if (listingId) {
         query = query.eq('listing_id', listingId)
@@ -150,7 +149,7 @@ export const reviewsApi = {
         .from('reviews')
         .delete()
         .eq('id', reviewId)
-        .eq('author_id', authorId)
+        .eq('buyer_id', authorId)
 
       if (error) {
         throw error
@@ -185,7 +184,7 @@ export const reviewsApi = {
                   )
                 `
         )
-        .eq('author_id', authorId)
+        .eq('buyer_id', authorId)
         .order('created_at', { ascending: false })
 
       if (error) {
