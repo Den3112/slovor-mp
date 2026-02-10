@@ -99,12 +99,12 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
         <div className="bg-card border-border hover:border-blue-500/40 group flex flex-col gap-1 rounded-xl border p-4 transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
-              RATING
+              {t('dashboard:rating')}
             </span>
             <Trophy className="text-blue-500 h-4 w-4" />
           </div>
           <span className="text-foreground text-2xl font-bold tabular-nums">
-            5.0
+            {stats.rating?.toFixed(1) || '5.0'}
           </span>
         </div>
 
@@ -112,7 +112,7 @@ export function DashboardHero({ user, stats }: DashboardHeroProps) {
         <div className="flex items-center">
           <Button className="w-full h-full min-h-[80px] rounded-xl text-xs font-bold uppercase tracking-wider" asChild>
             <Link href="/dashboard/listings/new">
-              Post New Listing
+              {t('dashboard:postNewListing')}
             </Link>
           </Button>
         </div>

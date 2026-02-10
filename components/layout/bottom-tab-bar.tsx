@@ -14,7 +14,9 @@ export function BottomTabBar() {
   const pathname = usePathname()
   const unreadCount = useUnreadMessages()
   const isDashboard =
-    pathname?.includes('/admin') || pathname?.includes('/dashboard')
+    pathname?.includes('/admin') ||
+    pathname?.includes('/dashboard') ||
+    pathname?.endsWith('/post')
 
   if (isDashboard) {
     return null

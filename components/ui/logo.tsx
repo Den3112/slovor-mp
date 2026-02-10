@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n'
 
 interface LogoProps {
   locale?: string
@@ -19,6 +20,7 @@ export function Logo({
   size = 'md',
   variant = 'default',
 }: LogoProps) {
+  const { t } = useTranslation('common')
   const href = locale ? `/${locale}` : '/'
 
   const sizes = {
@@ -49,7 +51,7 @@ export function Logo({
         className
       )}
       data-testid="logo"
-      aria-label="Slovor Marketplace Home"
+      aria-label={t('common:aria.logo')}
     >
       <div
         className={cn(

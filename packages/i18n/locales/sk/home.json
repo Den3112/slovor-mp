@@ -4,7 +4,10 @@
   "heroTitleHighlight": "čo potrebujete",
   "heroSubtitle": "Tisíce inzerátov každý deň. Kúp a predaj všetko - od elektroniky až po nehnutenošti.",
   "searchPlaceholder": "Čo hľadáte?",
-  "popularSearches": "Populárne vyhľadávania",
+  "popularSearches": {
+    "title": "Populárne vyhľadávania",
+    "items": ["iPhone", "BMW", "Byt", "Pohovka", "Bicykel", "PS5", "Práca"]
+  },
   "categoriesTitle": "Prechádzaj kategórie",
   "featuredListings": "Významné inzeráty",
   "ctaTitle": "Začni predávať dnes!",

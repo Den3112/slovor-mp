@@ -11,6 +11,7 @@ import {
 } from '@/components/features/dashboard/shared/data-grid'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
+import { StatsCard } from '@/components/features/dashboard/shared/stats-card'
 
 import {
   CategoryHeader,
@@ -145,6 +146,13 @@ export function AdminCategoriesView() {
     )
   }, [categories, searchQuery])
 
+  const stats = useMemo(() => {
+    const total = categories.length
+    const active = categories.filter((c) => (c.listing_count || 0) > 0).length
+    const empty = total - active
+    return { total, active, empty }
+  }, [categories])
+
   const columns: Column<Category>[] = [
     {
       key: 'name',
@@ -216,6 +224,27 @@ export function AdminCategoriesView() {
   return (
     <div className="space-y-8" data-testid="admin-categories-view">
       <CategoryHeader onAdd={() => handleOpenDialog()} />
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <StatsCard
+          label={t('admin:statTotalCategories')}
+          value={stats.total}
+          icon={Layers}
+        />
+        <StatsCard
+          label={t('admin:statActiveCategories')}
+          value={stats.active}
+          icon={Edit3}
+          className="border-success/20"
+        />
+        <StatsCard
+          label={t('admin:statEmptyCategories')}
+          value={stats.empty}
+          icon={Trash2}
+          className="border-destructive/20"
+        />
+      </div>
 
       <DataGrid
         columns={columns}

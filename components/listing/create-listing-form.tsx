@@ -188,7 +188,7 @@ function CreateListingFormContent() {
         </div>
 
         {/* Actions */}
-        <div className="border-border bg-card fixed right-0 bottom-0 left-0 z-50 flex items-center justify-between border-t p-4 md:relative md:mt-10 md:justify-between md:border-t md:border-transparent md:bg-transparent md:p-0 md:pt-8">
+        <div className="border-border bg-card fixed right-0 bottom-0 left-0 z-50 flex items-center justify-between border-t p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] md:relative md:bottom-0 md:mt-10 md:justify-between md:border-t md:border-transparent md:bg-transparent md:p-0 md:pt-8">
           {!showPreview ? (
             <>
               {step > 1 ? (

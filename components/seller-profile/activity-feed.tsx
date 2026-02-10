@@ -3,6 +3,7 @@
 import { MessageSquare, Heart, Info, DollarSign } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
+import { useTranslation } from '@/lib/i18n'
 
 interface ActivityItem {
   id: string
@@ -14,37 +15,39 @@ interface ActivityItem {
 }
 
 export function ActivityFeed() {
+  const { t } = useTranslation(['dashboard'])
+
   const activities: ActivityItem[] = [
     {
       id: '1',
       type: 'message',
-      title: 'New Message',
-      description: 'Peter sent you a question about iPhone 15',
-      time: '2m ago',
+      title: t('dashboard:activityLog.entries.newMessage'),
+      description: t('dashboard:activityLog.entries.newMessageDesc', { user: 'Peter', item: 'iPhone 15' }),
+      time: '2m',
       isUnread: true,
     },
     {
       id: '2',
       type: 'sale',
-      title: 'Items Sold',
-      description: 'Your "Acoustic Guitar" was purchased by @marek_s',
-      time: '45m ago',
+      title: t('dashboard:activityLog.entries.itemsSold'),
+      description: t('dashboard:activityLog.entries.saleDesc', { item: 'Acoustic Guitar', user: '@marek_s' }),
+      time: '45m',
       isUnread: true,
     },
     {
       id: '3',
       type: 'like',
-      title: 'Listing Favorited',
-      description: 'Your item "MacBook M3" was saved by 5 users',
-      time: '1h ago',
+      title: t('dashboard:activityLog.entries.listingFavorited'),
+      description: t('dashboard:activityLog.entries.favoriteDesc', { item: 'MacBook M3', count: 5 }),
+      time: '1h',
       isUnread: false,
     },
     {
       id: '4',
       type: 'system',
-      title: 'Listing Expiring',
-      description: 'Your "Vintage Watch" listing expires in 2 days',
-      time: '3h ago',
+      title: t('dashboard:activityLog.entries.listingExpiring'),
+      description: t('dashboard:activityLog.entries.expiringDesc', { item: 'Vintage Watch', days: 2 }),
+      time: '3h',
       isUnread: false,
     },
   ]
@@ -60,7 +63,7 @@ export function ActivityFeed() {
           className={cn(
             'group relative flex items-start gap-4 rounded-lg p-3 transition-all duration-200',
             'hover:bg-accent/50 hover:border-border/50 border border-transparent',
-            item.isUnread && 'bg-primary/[0.03]'
+            item.isUnread && 'bg-primary/5'
           )}
         >
           <div

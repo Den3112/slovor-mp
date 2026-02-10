@@ -15,15 +15,9 @@ export function Hero() {
   const router = useRouter()
   const [query, setQuery] = useState('')
 
-  const popularSearches = [
-    'iPhone',
-    'BMW',
-    'Byt',
-    'Pohovka',
-    'Bicykel',
-    'PS5',
-    'Práca',
-  ]
+  const popularSearches = (t('home:popularSearches.items', {
+    returnObjects: true,
+  }) || []) as string[]
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -79,9 +73,9 @@ export function Hero() {
               <motion.div
                 whileHover={{ scale: 1.005 }}
                 whileTap={{ scale: 0.995 }}
-                className="bg-card border-border hover:border-primary/40 ring-primary/10 relative flex flex-col gap-3 overflow-hidden rounded-2xl border p-2 shadow-sm transition-all duration-300 hover:shadow-md sm:flex-row sm:items-center sm:focus-within:ring-4"
+                className="bg-card border-border hover:border-primary/40 ring-primary/10 relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border p-2 shadow-sm transition-all duration-300 hover:shadow-md sm:flex-row sm:items-center sm:focus-within:ring-4"
               >
-                <div className="flex flex-1 items-center px-4 py-2 sm:pl-6">
+                <div className="flex w-full items-center px-4 py-1 sm:flex-1 sm:py-2 sm:pl-6">
                   <label htmlFor="hero-search" className="sr-only">
                     Search
                   </label>
@@ -96,7 +90,7 @@ export function Hero() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={t('searchPlaceholder')}
                     aria-label={t('searchPlaceholder')}
-                    className="placeholder:text-muted-foreground text-foreground h-auto w-full border-none bg-transparent px-3 py-3 text-base font-semibold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:py-4 md:px-4 md:text-lg"
+                    className="placeholder:text-muted-foreground text-foreground h-12 w-full border-none bg-transparent px-3 py-3 text-base font-semibold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:h-auto sm:py-4 md:px-4 md:text-lg"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         handleSearch()
@@ -123,14 +117,14 @@ export function Hero() {
             className="mt-10 flex flex-wrap items-center justify-center gap-3 px-2"
           >
             <span className="mb-2 w-full text-center text-[10px] font-bold tracking-widest text-slate-400 uppercase sm:mr-2 sm:mb-0 sm:w-auto">
-              {t('popularSearches')}
+              {t('home:popularSearches.title')}
             </span>
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-2 max-w-full">
               {popularSearches.map((term) => (
                 <Link
                   key={term}
                   href={`/${locale}/listings?search=${term}`}
-                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border rounded-lg border px-4 py-1.5 text-sm font-semibold transition-colors"
+                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border truncate rounded-lg border px-4 py-1.5 text-sm font-semibold transition-colors"
                 >
                   {term}
                 </Link>

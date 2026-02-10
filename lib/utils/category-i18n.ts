@@ -4,7 +4,6 @@
 
 import type { Category } from '@/lib/types/database'
 
-
 /**
  * Returns localized category name based on current locale
  * Falls back to: locale-specific name → translation key → default name
@@ -34,8 +33,8 @@ export function getLocalizedCategoryName(
     return category.name_en
   }
 
-  // Fall back to translation key (under 'cat' namespace in common.json)
-  const translationKey = t(`cat.${category.slug}`, { defaultValue: '' })
+  // Fall back to translation key (under 'categories' namespace)
+  const translationKey = t(`categories:${category.slug}`, { defaultValue: '' })
   if (translationKey) {
     return translationKey
   }

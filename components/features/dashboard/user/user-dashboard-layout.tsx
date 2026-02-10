@@ -36,7 +36,7 @@ export function UserDashboardLayout({
     signOutLabel: t('auth:signOut'),
     sections: [
       {
-        title: t('dashboard:growth') || 'GROWTH',
+        title: t('dashboard:growth'),
         items: [
           {
             href: '/dashboard',
@@ -51,7 +51,7 @@ export function UserDashboardLayout({
         ],
       },
       {
-        title: t('dashboard:selling') || 'SELLING',
+        title: t('dashboard:selling'),
         items: [
           {
             href: '/dashboard/listings',
@@ -67,7 +67,7 @@ export function UserDashboardLayout({
         ],
       },
       {
-        title: t('dashboard:activityHistory') || 'ACTIVITY',
+        title: t('dashboard:activity'),
         items: [
           {
             href: '/dashboard/orders',
@@ -100,7 +100,7 @@ export function UserDashboardLayout({
         ],
       },
       {
-        title: t('dashboard:account') || 'ACCOUNT',
+        title: t('dashboard:account'),
         items: [
           {
             href: '/dashboard/wallet',

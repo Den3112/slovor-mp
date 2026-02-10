@@ -78,7 +78,7 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
                     variant="outline"
                     className="border-border/40 h-4 px-1 py-0 text-[9px] uppercase"
                   >
-                    {order.status}
+                    {t(`dashboard:orderStatuses.${order.status}`)}
                   </Badge>
                 </div>
               </div>

@@ -25,15 +25,15 @@ export function PremiumBackground({
       {variant === 'mesh' && (
         <>
           <div
-            className="bg-primary/10 dark:bg-primary/5 absolute -top-[10%] -left-[10%] h-[40%] w-[40%] animate-pulse rounded-full blur-[120px]"
+            className="bg-primary/5 dark:bg-primary/5 absolute -top-[10%] -left-[10%] h-[40%] w-[40%] animate-pulse rounded-full blur-[60px]"
             style={{ animationDuration: '8s' }}
           />
           <div
-            className="absolute top-[20%] -right-[5%] h-[30%] w-[30%] animate-pulse rounded-full bg-blue-500/5 blur-[100px]"
+            className="absolute top-[20%] -right-[5%] h-[30%] w-[30%] animate-pulse rounded-full bg-blue-500/2 blur-2xl"
             style={{ animationDuration: '12s' }}
           />
           <div
-            className="absolute -bottom-[10%] left-[20%] h-[35%] w-[35%] animate-pulse rounded-full bg-purple-500/5 blur-[110px]"
+            className="absolute -bottom-[10%] left-[20%] h-[35%] w-[35%] animate-pulse rounded-full bg-purple-500/2 blur-3xl"
             style={{ animationDuration: '10s' }}
           />
         </>

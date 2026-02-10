@@ -2,6 +2,7 @@
 // Centralized API layer for categories management
 
 import { supabase } from '@/lib/supabase/client'
+import { withRetry } from '@/lib/supabase/utils'
 import type { Category, ApiResponse } from '@/lib/types/database'
 import type { SupabaseClient } from '@supabase/supabase-js'
 export type { Category }
@@ -15,29 +16,33 @@ export const categoriesApi = {
   async getAll(client?: SupabaseClient): Promise<ApiResponse<Category[]>> {
     const supabaseClient = client || supabase
     try {
-      const { data: categories, error: catError } = await supabaseClient
-        .from('categories')
-        .select('*')
-        .order('name')
+      const { data: categories, error: catError } = await withRetry<any>(() =>
+        supabaseClient
+          .from('categories')
+          .select('*')
+          .order('name')
+      )
 
       if (catError) {
         throw catError
       }
 
       // Get listing counts for each category
-      const categoriesWithCount = await Promise.all(
-        (categories || []).map(async (category) => {
-          const { count } = await supabaseClient
-            .from('listings')
-            .select('id', { count: 'exact', head: true })
-            .eq('category_id', category.id)
-            .eq('is_active', true)
+      const categoriesWithCount = await withRetry<Category[]>(() =>
+        Promise.all(
+          (categories || []).map(async (category: Category) => {
+            const { count } = await supabaseClient
+              .from('listings')
+              .select('id', { count: 'exact', head: true })
+              .eq('category_id', category.id)
+              .eq('is_active', true)
 
-          return {
-            ...category,
-            listing_count: count || 0,
-          }
-        })
+            return {
+              ...category,
+              listing_count: count || 0,
+            }
+          })
+        )
       )
 
       return { data: categoriesWithCount, error: null }
@@ -58,23 +63,27 @@ export const categoriesApi = {
   ): Promise<ApiResponse<Category>> {
     const supabaseClient = client || supabase
     try {
-      const { data, error } = await supabaseClient
-        .from('categories')
-        .select('*')
-        .eq('slug', slug)
-        .limit(1)
-        .maybeSingle()
+      const { data, error } = await withRetry<any>(() =>
+        supabaseClient
+          .from('categories')
+          .select('*')
+          .eq('slug', slug)
+          .limit(1)
+          .maybeSingle()
+      )
 
       if (error) {
         throw error
       }
 
       // Get listing count for this category
-      const { count } = await supabaseClient
-        .from('listings')
-        .select('id', { count: 'exact', head: true })
-        .eq('category_id', data.id)
-        .eq('is_active', true)
+      const { count } = await withRetry<any>(() =>
+        supabaseClient
+          .from('listings')
+          .select('id', { count: 'exact', head: true })
+          .eq('category_id', data.id)
+          .eq('is_active', true)
+      )
 
       return {
         data: {

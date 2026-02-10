@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   ArrowLeft,
   Calendar,
@@ -24,9 +24,17 @@ import { ordersApi } from '@/lib/api'
 import { supabase } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import Image from 'next/image'
+import type { Order, User } from '@/lib/types/database'
+import { useMounted } from '@/lib/hooks/use-mounted'
+
+interface OrderWithDetails extends Order {
+  listing?: any
+  seller?: User
+  buyer?: User
+}
 
 interface OrderDetailsViewProps {
-  order: any
+  order: OrderWithDetails
   isAdmin?: boolean
 }
 
@@ -35,13 +43,9 @@ export function OrderDetailsView({
   isAdmin = false,
 }: OrderDetailsViewProps) {
   const { t, locale } = useTranslation(['common', 'dashboard', 'admin'])
-  const [order, setOrder] = useState(initialOrder)
+  const [order, setOrder] = useState<OrderWithDetails>(initialOrder)
   const [isUpdating, setIsUpdating] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  const isMounted = useMounted()
 
   const handleUpdateStatus = async (status: 'completed' | 'cancelled') => {
     setIsUpdating(true)

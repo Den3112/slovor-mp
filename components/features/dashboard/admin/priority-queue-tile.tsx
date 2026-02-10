@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react'
 import { AlertCircle, Clock, CheckCircle2, ShieldAlert, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { listingsApi, supportApi, verificationApi } from '@/lib/api'
+import { listingsApi, verificationApi, reportsApi } from '@/lib/api'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n'
 
 export function PriorityQueueTile() {
+  const { t } = useTranslation(['admin'])
   const [stats, setStats] = useState({
     reports: 0,
     pendingListings: 0,
@@ -18,13 +20,14 @@ export function PriorityQueueTile() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const [listingsRes, supportRes, verificationsRes] = await Promise.all([
+        const [listingsRes, reportsRes, verificationsRes] = await Promise.all([
           listingsApi.getPendingCount(),
-          supportApi.getAllTickets(),
+          reportsApi.getAll(),
           verificationApi.getAdminAll()
         ])
 
-        const reportsCount = supportRes.data?.filter(t => t.category === 'safety' && t.status === 'open').length || 0
+        // Reports specifically from the reports table
+        const reportsCount = reportsRes.data?.filter(r => r.status === 'pending').length || 0
         const pendingListingsCount = listingsRes.data || 0
         const pendingVerificationsCount = verificationsRes.data?.filter(v => v.status === 'pending').length || 0
 
@@ -46,17 +49,17 @@ export function PriorityQueueTile() {
     {
       id: 1,
       type: 'report',
-      label: 'User Reports',
+      label: t('admin:userReports'),
       count: stats.reports,
       icon: ShieldAlert,
       color: 'text-rose-500',
       bg: 'bg-rose-500/10',
-      link: '/admin/support?tab=safety'
+      link: '/admin/reports'
     },
     {
       id: 2,
       type: 'moderation',
-      label: 'Pending Listings',
+      label: t('admin:pendingListings'),
       count: stats.pendingListings,
       icon: Clock,
       color: 'text-amber-500',
@@ -66,12 +69,12 @@ export function PriorityQueueTile() {
     {
       id: 3,
       type: 'verification',
-      label: 'ID Verification',
+      label: t('admin:idVerification'),
       count: stats.pendingVerifications,
       icon: CheckCircle2,
       color: 'text-blue-500',
       bg: 'bg-blue-500/10',
-      link: '/admin/verification' // Assuming this page exists or will exist
+      link: '/admin/verification'
     },
   ]
 
@@ -84,12 +87,12 @@ export function PriorityQueueTile() {
           <div className="flex items-center gap-2">
             <AlertCircle className="h-5 w-5 text-rose-500" />
             <h3 className="text-sm font-bold tracking-tight uppercase opacity-60">
-              Priority Queue
+              {t('admin:priorityQueue')}
             </h3>
           </div>
           {totalIssues > 0 && (
             <span className="rounded-full bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-500 animate-pulse">
-              Action Required
+              {t('admin:actionRequired')}
             </span>
           )}
         </div>
@@ -129,7 +132,7 @@ export function PriorityQueueTile() {
         asChild
       >
         <Link href="/admin/support">
-          Resolve All Issues
+          {t('admin:resolveAllIssues')}
         </Link>
       </Button>
     </div>

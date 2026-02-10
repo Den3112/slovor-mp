@@ -62,7 +62,7 @@ export function CategoryFormDialog({
                   })
                 }}
                 className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-lg font-bold transition-all"
-                placeholder="Electronics"
+                placeholder={t('admin:placeholderName')}
                 required
               />
             </div>
@@ -80,7 +80,7 @@ export function CategoryFormDialog({
                   setFormData({ ...formData, slug: e.target.value })
                 }
                 className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-lg font-bold transition-all"
-                placeholder="electronics"
+                placeholder={t('admin:placeholderSlug')}
                 required
               />
             </div>
@@ -98,7 +98,7 @@ export function CategoryFormDialog({
                   setFormData({ ...formData, icon: e.target.value })
                 }
                 className="border-border/60 bg-muted/20 focus:bg-background h-11 rounded-lg font-bold transition-all"
-                placeholder="📱"
+                placeholder={t('admin:placeholderIcon')}
               />
             </div>
             <div className="space-y-2">
@@ -115,7 +115,7 @@ export function CategoryFormDialog({
                   setFormData({ ...formData, description: e.target.value })
                 }
                 className="border-border/60 bg-muted/20 focus:bg-background min-h-[100px] rounded-lg font-medium transition-all"
-                placeholder="..."
+                placeholder={t('admin:placeholderDescription')}
               />
             </div>
           </div>

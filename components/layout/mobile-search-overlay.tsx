@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, X, TrendingUp, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
@@ -25,6 +25,7 @@ export function MobileSearchOverlay({
   const { t, i18n } = useTranslation('common')
   const locale = i18n.language
   const router = useRouter()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const { query, setQuery, results, isSearching } = useListingSearch()
 
@@ -36,14 +37,21 @@ export function MobileSearchOverlay({
     }
   }
 
-  // Prevent body scroll when open
+  // Prevent body scroll when open and focus input
   useEffect(() => {
+    let timer: NodeJS.Timeout
     if (isOpen) {
       document.body.style.overflow = 'hidden'
+      // Small delay to ensure animation has started or is near completion
+      timer = setTimeout(() => {
+        inputRef.current?.focus()
+      }, 50)
     } else {
       document.body.style.overflow = 'unset'
     }
+
     return () => {
+      if (timer) clearTimeout(timer)
       document.body.style.overflow = 'unset'
     }
   }, [isOpen])
@@ -55,7 +63,7 @@ export function MobileSearchOverlay({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="bg-background fixed inset-0 z-100"
+          className="bg-background fixed inset-0 z-9999"
         >
           <div className="safe-top flex h-full flex-col">
             {/* Header */}
@@ -64,7 +72,7 @@ export function MobileSearchOverlay({
                 <Search className="text-muted-foreground h-5 w-5" />
                 <form onSubmit={handleSearch} className="flex-1">
                   <Input
-                    autoFocus
+                    ref={inputRef}
                     type="text"
                     placeholder={t('common:searchPlaceholder')}
                     className="h-auto w-full border-none bg-transparent px-3 py-1 text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"

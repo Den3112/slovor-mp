@@ -7,9 +7,10 @@ import { useTranslation } from '@/lib/i18n'
 
 interface StructuredDataProps {
   locale: string
+  extraSchema?: any
 }
 
-export function StructuredData({ locale }: StructuredDataProps) {
+export function StructuredData({ locale, extraSchema }: StructuredDataProps) {
   const pathname = usePathname()
   const { t } = useTranslation('common')
   const [mounted, setMounted] = useState(false)
@@ -77,6 +78,12 @@ export function StructuredData({ locale }: StructuredDataProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(navSchema) }}
       />
+      {extraSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(extraSchema) }}
+        />
+      )}
     </>
   )
 }

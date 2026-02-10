@@ -1,5 +1,7 @@
 {
-  "main": "Main",
+  "selling": "Selling",
+  "growth": "Growth",
+  "activity": "Activity",
   "account": "Account",
   "quickAccess": "Quick Access",
   "myListings": "My Listings",
@@ -16,6 +18,7 @@
   "noSoldItemsDescription": "Items you mark as sold will appear here.",
   "noArchivedItems": "No archived items",
   "noArchivedItemsDescription": "Deleted listings appear here.",
+  "dateListed": "Date Listed",
   "all": "All",
   "confirmDelete": "Are you sure you want to delete this listing?",
   "activate": "Activate",
@@ -38,6 +41,11 @@
   "welcomeBack": "Welcome back",
   "welcomeHeader": "PERSONAL DASHBOARD",
   "hello": "Hello",
+  "goodMorning": "Good morning",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "rating": "Rating",
+  "postNewListing": "Post New Listing",
   "heroDescription": "Your command center for managing sales and growing on the platform.",
   "totalViews": "Total Views",
   "successScore": "Success Score",
@@ -72,7 +80,6 @@
   "deleting": "Deleting...",
   "unknownListing": "Untitled Listing",
   "activityFeed": "Activity",
-  "growth": "growth",
   "savedSearches": "Saved Searches",
   "savedSearchesDetails": {
     "title": "Save this search",
@@ -109,7 +116,8 @@
     "card": "Credit / Debit Card",
     "applePay": "Apple Pay",
     "googlePay": "Google Pay",
-    "walletRefillVia": "Wallet refill via {method}"
+    "walletRefillVia": "Wallet refill via {method}",
+    "defaultMethod": "Default Method"
   },
   "promote": {
     "title": "Promote your Listing",
@@ -125,10 +133,7 @@
       "free": {
         "title": "Free",
         "subtitle": "Basic visibility",
-        "features": [
-          "Standard search placement",
-          "Valid forever"
-        ]
+        "features": ["Standard search placement", "Valid forever"]
       },
       "standard": {
         "title": "Standard",
@@ -161,6 +166,10 @@
     "other": "Other",
     "processing": "Processing..."
   },
+  "electronics": "Electronics",
+  "demand": "Demand",
+  "high": "High",
+  "marketInsightsNote": "* Based on local activity in last 24h",
   "orders": "Orders",
   "purchases": "Purchases",
   "sales": "Sales",
@@ -199,7 +208,6 @@
   "amount": "Amount",
   "type": "Type",
   "buying": "Buying",
-  "selling": "Selling",
   "orderStatuses": {
     "completed": "Completed",
     "pending": "Pending",
@@ -223,7 +231,17 @@
     "subtitle": "Audit track of all your major actions and account events",
     "noActivity": "No activity recorded",
     "noActivityDesc": "Your major account events and actions will show up here.",
-    "internal": "Internal"
+    "internal": "Internal",
+    "entries": {
+      "newMessage": "New Message",
+      "itemsSold": "Items Sold",
+      "listingFavorited": "Listing Favorited",
+      "listingExpiring": "Listing Expiring",
+      "newMessageDesc": "{{user}} sent you a question about {{item}}",
+      "saleDesc": "Your \"{{item}}\" was purchased by {{user}}",
+      "favoriteDesc": "Your item \"{{item}}\" was saved by {{count}} users",
+      "expiringDesc": "Your \"{{item}}\" listing expires in {{days}} days"
+    }
   },
   "subscriptions": {
     "title": "Subscription Plans",

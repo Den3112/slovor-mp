@@ -24,7 +24,7 @@ export function ListingCard({
   featured,
   variant = 'default',
 }: ListingCardProps) {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation(['common', 'categories'])
   const locale = i18n.language
   const [imageError, setImageError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -123,7 +123,7 @@ export function ListingCard({
     <Link
       href={`/${locale}/listings/${listing.id}`}
       className={cn(
-        'group hover:ring-primary/5 hover:border-primary/50 relative block overflow-hidden rounded-2xl border transition-all duration-300 hover:ring-4',
+        'group hover:ring-primary/5 hover:border-primary/50 relative block overflow-hidden rounded-3xl border transition-all duration-300 hover:ring-4',
         listing.is_highlighted || featured
           ? 'border-primary/40 bg-primary/3'
           : 'border-border bg-card'

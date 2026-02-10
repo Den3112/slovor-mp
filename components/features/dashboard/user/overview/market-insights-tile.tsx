@@ -1,16 +1,19 @@
 'use client'
 
 import { BarChart3, TrendingUp, Users } from 'lucide-react'
+import { useTranslation } from '@/lib/i18n'
 
 export function MarketInsightsTile() {
+  const { t } = useTranslation(['dashboard'])
+
   const trends = [
     {
-      label: 'Electronics',
+      label: t('dashboard:electronics'),
       growth: '+12%',
       icon: TrendingUp,
       color: 'text-emerald-500',
     },
-    { label: 'Demand', growth: 'High', icon: Users, color: 'text-blue-500' },
+    { label: t('dashboard:demand'), growth: t('dashboard:high'), icon: Users, color: 'text-blue-500' },
   ]
 
   return (
@@ -19,7 +22,7 @@ export function MarketInsightsTile() {
         <div className="flex items-center gap-2">
           <BarChart3 className="text-primary h-5 w-5" />
           <h3 className="text-sm font-bold tracking-tight uppercase opacity-60">
-            Market Insights
+            {t('dashboard:marketInsights')}
           </h3>
         </div>
       </div>
@@ -44,7 +47,7 @@ export function MarketInsightsTile() {
       </div>
 
       <p className="text-muted-foreground mt-4 text-[10px] leading-relaxed italic">
-        * Based on local activity in last 24h
+        {t('dashboard:marketInsightsNote')}
       </p>
     </div>
   )

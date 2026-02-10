@@ -49,13 +49,12 @@ export function MobileFilterDrawer({
             <div className="flex-1 overflow-y-auto p-6">
               <ListingFilters categories={categories} />
             </div>
-            <div className="border-border/40 safe-bottom border-t p-4">
+            <div className="border-border/40 safe-bottom mb-[env(safe-area-inset-bottom)] border-t p-4 pb-8 md:pb-4">
               <Button
                 className="h-14 w-full rounded-lg text-lg font-bold"
                 onClick={() => onOpenChange(false)}
               >
-                {t('common:showResultCount', { count: totalCount }) ||
-                  `Show ${totalCount} Listings`}
+                {t('common:showResults', { count: totalCount })}
               </Button>
             </div>
           </Drawer.Content>
