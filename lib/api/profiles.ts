@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
+import { withRetry } from '@/lib/supabase/utils'
 import type { User, ApiResponse, Listing } from '@/lib/types/database'
 export type { User }
 import { logError } from '@/lib/utils/logger'
@@ -18,11 +19,9 @@ export const profilesApi = {
    */
   async getById(id: string): Promise<ApiResponse<User>> {
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle()
+      const { data, error } = await withRetry(() =>
+        supabase.from('profiles').select('*').eq('id', id).maybeSingle()
+      )
 
       if (error) {
         throw error
@@ -44,11 +43,9 @@ export const profilesApi = {
    */
   async getOrCreate(id: string, email?: string): Promise<ApiResponse<User>> {
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle()
+      const { data, error } = await withRetry(() =>
+        supabase.from('profiles').select('*').eq('id', id).maybeSingle()
+      )
 
       if (error) {
         throw error
@@ -83,11 +80,13 @@ export const profilesApi = {
       const { id: _, created_at: __, updated_at: ___, ...safeUpdates } = updates
 
       // Use upsert to create profile if it doesn't exist
-      const { data, error } = await supabase
-        .from('profiles')
-        .upsert({ id, ...safeUpdates }, { onConflict: 'id' })
-        .select()
-        .maybeSingle()
+      const { data, error } = await withRetry(() =>
+        supabase
+          .from('profiles')
+          .upsert({ id, ...safeUpdates }, { onConflict: 'id' })
+          .select()
+          .maybeSingle()
+      )
 
       if (error) {
         throw error
@@ -110,10 +109,12 @@ export const profilesApi = {
   async getStats(userId: string): Promise<ApiResponse<ProfileStats>> {
     try {
       // Get all user's listings
-      const { data: listings, error: listingsError } = await supabase
-        .from('listings')
-        .select('views, is_active')
-        .eq('user_id', userId)
+      const { data: listings, error: listingsError } = await withRetry(() =>
+        supabase
+          .from('listings')
+          .select('views, is_active')
+          .eq('user_id', userId)
+      )
 
       if (listingsError) {
         throw listingsError
@@ -129,10 +130,13 @@ export const profilesApi = {
         totalListings > 0 ? Math.round(totalViews / totalListings) : 0
 
       // Get favorites count
-      const { count: favoritesCount, error: favoritesError } = await supabase
-        .from('favorites')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', userId)
+      const { count: favoritesCount, error: favoritesError } = await withRetry(
+        () =>
+          supabase
+            .from('favorites')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', userId)
+      )
 
       if (favoritesError) {
         throw favoritesError
@@ -162,12 +166,14 @@ export const profilesApi = {
     limit = 5
   ): Promise<ApiResponse<Listing[]>> {
     try {
-      const { data, error } = await supabase
-        .from('listings')
-        .select('*')
-        .eq('user_id', userId)
-        .order('updated_at', { ascending: false })
-        .limit(limit)
+      const { data, error } = await withRetry(() =>
+        supabase
+          .from('listings')
+          .select('*')
+          .eq('user_id', userId)
+          .order('updated_at', { ascending: false })
+          .limit(limit)
+      )
 
       if (error) {
         throw error
@@ -181,10 +187,12 @@ export const profilesApi = {
   },
   async getAdminAll(): Promise<ApiResponse<User[]>> {
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('created_at', { ascending: false })
+      const { data, error } = await withRetry(() =>
+        supabase
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false })
+      )
       if (error) throw error
       return { data: data || [], error: null }
     } catch (error) {
