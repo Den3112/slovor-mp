@@ -10,30 +10,27 @@ describe('categoriesApi', () => {
   describe('getAll', () => {
     it('fetches all categories and adds listing counts', async () => {
       const mockCategories = [
-        { id: '1', name: 'Electronics', slug: 'electronics' },
-        { id: '2', name: 'Fashion', slug: 'fashion' },
+        {
+          id: '1',
+          name: 'Electronics',
+          slug: 'electronics',
+          listings: [{ count: 5 }],
+        },
+        {
+          id: '2',
+          name: 'Fashion',
+          slug: 'fashion',
+          listings: [{ count: 5 }],
+        },
       ]
 
-      // Mock the first call: fetch categories
-      // We need to chain: from -> select -> order -> then/result
-      const orderMock = vi
-        .fn()
-        .mockResolvedValue({ data: mockCategories, error: null })
-      const selectMock = vi.fn().mockReturnValue({ order: orderMock })
+      const selectMock = vi.fn().mockReturnValue({
+        order: vi.fn().mockResolvedValue({ data: mockCategories, error: null }),
+      })
 
-      // Mock the second call: fetch counts using Promise.all map
-      // Each category triggers a count query
-      const countEqMock2 = vi.fn().mockResolvedValue({ count: 5 }) // listing count
-      const countEqMock1 = vi.fn().mockReturnValue({ eq: countEqMock2 }) // category_id filter
-      const countSelectMock = vi.fn().mockReturnValue({ eq: countEqMock1 })
-
-      // We need to allow multiple calls to supabase.from
       vi.mocked(supabase.from).mockImplementation((table) => {
         if (table === 'categories') {
           return { select: selectMock } as any
-        }
-        if (table === 'listings') {
-          return { select: countSelectMock } as any
         }
         return {} as any
       })
@@ -72,7 +69,9 @@ describe('categoriesApi', () => {
       const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: mockCategory, error: null })
-      const limitMock = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const limitMock = vi
+        .fn()
+        .mockReturnValue({ maybeSingle: maybeSingleMock })
       const eqMock = vi.fn().mockReturnValue({ limit: limitMock })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
 
@@ -97,7 +96,9 @@ describe('categoriesApi', () => {
       const maybeSingleMock = vi
         .fn()
         .mockResolvedValue({ data: null, error: { message: 'Not Found' } })
-      const limitMock = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const limitMock = vi
+        .fn()
+        .mockReturnValue({ maybeSingle: maybeSingleMock })
       const eqMock = vi.fn().mockReturnValue({ limit: limitMock })
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
 
