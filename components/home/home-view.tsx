@@ -44,11 +44,11 @@ export function HomeView({
       <RegionsSection />
 
       {/* Featured Listings Section (VIP) */}
-      <section className="bg-muted/10 border-y border-border/40 py-24">
+      <section className="bg-muted/10 border-border/40 border-y py-24">
         <Container>
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8 lg:mb-20">
             <div className="max-w-2xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded bg-primary/10 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-primary uppercase border border-primary/20">
+              <span className="badge-pill bg-primary/10 text-primary border-primary/20 mb-4">
                 VIP / Featured
               </span>
               <h2 className="font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
@@ -57,7 +57,7 @@ export function HomeView({
             </div>
             <Link
               href={`/${locale}/listings?isFeatured=true`}
-              className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary transition-all hover:opacity-80"
+              className="group text-primary inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase transition-all hover:opacity-80"
             >
               {t('common:viewAll')}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -80,7 +80,7 @@ export function HomeView({
         <Container>
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8 lg:mb-20">
             <div className="max-w-2xl">
-              <span className="mb-4 inline-flex items-center gap-2 rounded bg-muted/40 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] text-muted-foreground uppercase border border-border">
+              <span className="badge-pill bg-muted/40 text-muted-foreground border-border mb-4">
                 {t('home:recent.badge') || 'Fresh Arrivals'}
               </span>
               <h2 className="font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
@@ -89,7 +89,7 @@ export function HomeView({
             </div>
             <Link
               href={`/${locale}/listings`}
-              className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary transition-all hover:opacity-80"
+              className="group text-primary inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase transition-all hover:opacity-80"
             >
               {t('common:viewAll')}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -5,6 +5,7 @@
 import type { LucideIcon } from 'lucide-react'
 import {
   Laptop,
+  Smartphone,
   Car,
   Home,
   Shirt,
@@ -30,6 +31,9 @@ import {
   Ticket,
   Gift,
   Package,
+  Layers,
+  ShoppingBag,
+  Bike,
 } from 'lucide-react'
 
 /**
@@ -43,8 +47,8 @@ export const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
   elektronika: Laptop,
   laptops: Laptop,
   notebooky: Laptop,
-  phones: Laptop,
-  mobily: Laptop,
+  phones: Smartphone,
+  mobily: Smartphone,
   cameras: Laptop,
   fotoaparaty: Laptop,
 
@@ -77,8 +81,8 @@ export const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
   sport: Dumbbell,
   'sport-hobby': Dumbbell,
   fitness: Dumbbell,
-  cycling: Dumbbell,
-  cyklistika: Dumbbell,
+  cycling: Bike,
+  cyklistika: Bike,
   'winter-sports': Dumbbell,
 
   // Kids & Baby (Detské potreby)
@@ -97,8 +101,8 @@ export const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
   vozidla: Car,
   cars: Car,
   auta: Car,
-  motorcycles: Car,
-  motorky: Car,
+  motorcycles: Bike,
+  motorky: Bike,
   autoparts: Wrench,
 
   // Real Estate (Nehnuteľnosti)
@@ -184,15 +188,181 @@ export const CATEGORY_ICON_MAP: Record<string, LucideIcon> = {
 } as const
 
 /**
+ * Premium CRM-style color schemes (Soft Tints & High Contrast)
+ */
+export const CATEGORY_COLOR_MAP: Record<string, string> = {
+  // Indigo / Blue (Default Tech/Business)
+  electronics:
+    'bg-indigo-50/80 text-indigo-600 border-indigo-100/50 hover:bg-indigo-100',
+  elektronika:
+    'bg-indigo-50/80 text-indigo-600 border-indigo-100/50 hover:bg-indigo-100',
+  laptops:
+    'bg-indigo-50/80 text-indigo-600 border-indigo-100/50 hover:bg-indigo-100',
+  phones:
+    'bg-indigo-50/80 text-indigo-600 border-indigo-100/50 hover:bg-indigo-100',
+
+  // Rose / Pink (Fashion/Beauty)
+  fashion: 'bg-rose-50/80 text-rose-600 border-rose-100/50 hover:bg-rose-100',
+  oblecenie: 'bg-rose-50/80 text-rose-600 border-rose-100/50 hover:bg-rose-100',
+  moda: 'bg-rose-50/80 text-rose-600 border-rose-100/50 hover:bg-rose-100',
+  'beauty-health':
+    'bg-pink-50/80 text-pink-600 border-pink-100/50 hover:bg-pink-100',
+
+  // Emerald / Green (Home/Nature)
+  'home-garden':
+    'bg-emerald-50/80 text-emerald-600 border-emerald-100/50 hover:bg-emerald-100',
+  'dom-a-zahrada':
+    'bg-emerald-50/80 text-emerald-600 border-emerald-100/50 hover:bg-emerald-100',
+  garden:
+    'bg-emerald-50/80 text-emerald-600 border-emerald-100/50 hover:bg-emerald-100',
+
+  // Orange / Amber (Sports/Energy)
+  sports:
+    'bg-orange-50/80 text-orange-600 border-orange-100/50 hover:bg-orange-100',
+  sport:
+    'bg-orange-50/80 text-orange-600 border-orange-100/50 hover:bg-orange-100',
+
+  // Sky / Blue (Travel/Vehicles)
+  travel: 'bg-sky-50/80 text-sky-600 border-sky-100/50 hover:bg-sky-100',
+  vehicles: 'bg-sky-50/80 text-sky-600 border-sky-100/50 hover:bg-sky-100',
+  vozidla: 'bg-sky-50/80 text-sky-600 border-sky-100/50 hover:bg-sky-100',
+
+  // Violet / Purple (Real Estate/Kids)
+  'real-estate':
+    'bg-violet-50/80 text-violet-600 border-violet-100/50 hover:bg-violet-100',
+  nehnutelnosti:
+    'bg-violet-50/80 text-violet-600 border-violet-100/50 hover:bg-violet-100',
+  'kids-baby':
+    'bg-violet-50/80 text-violet-600 border-violet-100/50 hover:bg-violet-100',
+
+  // Amber / Yellow (Services/Jobs)
+  services:
+    'bg-amber-50/80 text-amber-600 border-amber-100/50 hover:bg-amber-100',
+  sluzby:
+    'bg-amber-50/80 text-amber-600 border-amber-100/50 hover:bg-amber-100',
+
+  default:
+    'bg-slate-50/80 text-slate-600 border-slate-100/50 hover:bg-slate-100',
+} as const
+
+export function getCategoryColors(slug: string): string {
+  return (CATEGORY_COLOR_MAP as any)[slug] || CATEGORY_COLOR_MAP.default
+}
+
+/**
  * Default fallback icon for unknown categories
  */
 export const DEFAULT_CATEGORY_ICON = Package
 
 /**
- * Gets icon for category slug with fallback
- * @param slug - Category slug
+ * List of available icon names for UI selection
+ * These are keys from the CATEGORY_ICON_MAP or other valid Lucide icons
+ */
+export const AVAILABLE_ICON_NAMES = [
+  'Laptop',
+  'Smartphone',
+  'Car',
+  'Home',
+  'Shirt',
+  'TreePine',
+  'Dumbbell',
+  'Baby',
+  'Truck',
+  'Building',
+  'Wrench',
+  'Dog',
+  'Palette',
+  'BookOpen',
+  'Music',
+  'Film',
+  'Sparkles',
+  'Gamepad2',
+  'Armchair',
+  'Shovel',
+  'Hammer',
+  'Gem',
+  'Briefcase',
+  'Plane',
+  'Ticket',
+  'Gift',
+  'Package',
+  'Layers',
+  'ShoppingBag',
+  'Bike',
+] as const
+
+/**
+ * Maps icon name strings to Lucide components
+ * Useful for dynamic rendering from database values
+ */
+export const ICON_NAME_MAP: Record<string, LucideIcon> = {
+  Laptop,
+  Smartphone,
+  Car,
+  Home,
+  Shirt,
+  TreePine,
+  Dumbbell,
+  Baby,
+  Truck,
+  Building,
+  Wrench,
+  Dog,
+  Palette,
+  BookOpen,
+  Music,
+  Film,
+  Sparkles,
+  Gamepad2,
+  Armchair,
+  Shovel,
+  Hammer,
+  Gem,
+  Briefcase,
+  Plane,
+  Ticket,
+  Gift,
+  Package,
+  Layers,
+  ShoppingBag,
+  Bike,
+}
+
+/**
+ * Case-insensitive map for icon names
+ */
+const CASE_INSENSITIVE_MAP = Object.entries(ICON_NAME_MAP).reduce(
+  (acc, [name, icon]) => {
+    acc[name.toLowerCase()] = icon
+    return acc
+  },
+  {} as Record<string, LucideIcon>
+)
+
+/**
+ * Gets icon for category slug or icon name with fallback
+ * @param identifier - Category slug or Icon name (case-insensitive)
  * @returns LucideIcon component
  */
-export function getCategoryIcon(slug: string): LucideIcon {
-  return CATEGORY_ICON_MAP[slug] || DEFAULT_CATEGORY_ICON
+export function getCategoryIcon(identifier: string): LucideIcon {
+  if (!identifier) return DEFAULT_CATEGORY_ICON
+
+  // 1. Try slug map (exact match)
+  if (CATEGORY_ICON_MAP[identifier]) return CATEGORY_ICON_MAP[identifier]
+
+  // 2. Try case-insensitive icon name map
+  const lowerIdentifier = identifier.toLowerCase()
+  if (CASE_INSENSITIVE_MAP[lowerIdentifier])
+    return CASE_INSENSITIVE_MAP[lowerIdentifier]
+
+  // 3. Fallback
+  return DEFAULT_CATEGORY_ICON
+}
+
+/**
+ * Gets specific icon by name (case-insensitive)
+ */
+export function getIconByName(name: string): LucideIcon | null {
+  if (!name) return null
+  return CASE_INSENSITIVE_MAP[name.toLowerCase()] || null
 }

@@ -81,7 +81,7 @@ export function NotificationsView() {
             variant="outline"
             size="sm"
             onClick={handleMarkAllAsRead}
-            className="border-border/60 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+            className="border-border/60 h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
           >
             <Check className="mr-2 h-4 w-4" />
             {t('dashboard:notifications.markAllRead')}

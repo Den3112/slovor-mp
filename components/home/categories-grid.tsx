@@ -8,7 +8,6 @@ import { CategoryIcon } from '@/components/category/category-icon'
 import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
-import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 
 interface CategoriesGridProps {
@@ -59,17 +58,10 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
                 href={`/${locale}/categories/${category.slug}`}
                 className="group border-border bg-card hover:border-primary/40 shadow-card flex flex-col items-center justify-center gap-3 rounded-3xl border p-4 text-center transition-all hover:-translate-y-1 active:scale-[0.98] sm:p-6 md:p-8"
               >
-                <div
-                  className={cn(
-                    'group-hover:bg-primary group-hover:text-primary-foreground ring-muted/30 flex h-16 w-16 items-center justify-center rounded-2xl shadow-sm ring-4 transition-all duration-300 sm:h-20 sm:w-20',
-                    category.color || 'bg-muted'
-                  )}
-                >
-                  <CategoryIcon
-                    slug={category.slug}
-                    className="h-8 w-8 transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10"
-                  />
-                </div>
+                <CategoryIcon
+                  slug={category.slug}
+                  className="h-8 w-8 transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10"
+                />
                 <div className="space-y-1 px-1">
                   <h3 className="group-hover:text-primary line-clamp-1 text-[10px] font-bold tracking-tight uppercase transition-colors sm:text-xs">
                     {getLocalizedCategoryName(category, locale, t)}

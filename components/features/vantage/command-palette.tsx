@@ -113,24 +113,24 @@ export function GlobalCommandPalette() {
     const results = [...filteredItems]
 
     // Add User Results
-    searchResults.users.forEach(user => {
+    searchResults.users.forEach((user) => {
       results.push({
         id: `user-${user.id}`,
         label: user.display_name || user.username || 'User',
         icon: Users,
         href: `/admin/users?id=${user.id}`,
-        group: 'Global Search: Users'
+        group: 'Global Search: Users',
       } as any)
     })
 
     // Add Listing Results
-    searchResults.listings.forEach(listing => {
+    searchResults.listings.forEach((listing) => {
       results.push({
         id: `listing-${listing.id}`,
         label: listing.title,
         icon: Package,
         href: `/listings/${listing.id}`,
-        group: 'Global Search: Listings'
+        group: 'Global Search: Listings',
       } as any)
     })
 
@@ -153,20 +153,21 @@ export function GlobalCommandPalette() {
       try {
         const [usersRes, listingsRes] = await Promise.all([
           profilesApi.getAdminAll(), // For now, simple search. In real case we would have searchByName
-          listingsApi.getAll({ search: query, limit: 5 })
+          listingsApi.getAll({ search: query, limit: 5 }),
         ])
 
         // Mock search for users as we don't have dedicated search endpoint yet
         const matchedUsers = (usersRes.data || [])
-          .filter(u =>
-            u.display_name?.toLowerCase().includes(query.toLowerCase()) ||
-            u.username?.toLowerCase().includes(query.toLowerCase())
+          .filter(
+            (u) =>
+              u.display_name?.toLowerCase().includes(query.toLowerCase()) ||
+              u.username?.toLowerCase().includes(query.toLowerCase())
           )
           .slice(0, 5)
 
         setSearchResults({
           users: matchedUsers,
-          listings: listingsRes.data || []
+          listings: listingsRes.data || [],
         })
       } catch (error) {
         console.error('Command Palette Search Error:', error)
@@ -259,10 +260,13 @@ export function GlobalCommandPalette() {
         <div className="scrollbar-hide max-h-[60vh] overflow-y-auto p-2">
           {allResults.length > 0 ? (
             <div className="space-y-4">
-              {['Admin', 'User', 'Global Search: Users', 'Global Search: Listings'].map((group) => {
-                const groupItems = allResults.filter(
-                  (i) => i.group === group
-                )
+              {[
+                'Admin',
+                'User',
+                'Global Search: Users',
+                'Global Search: Listings',
+              ].map((group) => {
+                const groupItems = allResults.filter((i) => i.group === group)
                 if (groupItems.length === 0) return null
 
                 return (
@@ -294,7 +298,7 @@ export function GlobalCommandPalette() {
                         >
                           <div
                             className={cn(
-                              'flex h-8 w-8 items-center justify-center rounded-lg transition-colors',
+                              'flex h-8 w-8 items-center justify-center rounded-xl transition-colors',
                               isActive
                                 ? 'bg-white/20'
                                 : 'bg-muted group-hover:bg-background'

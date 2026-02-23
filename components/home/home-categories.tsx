@@ -40,7 +40,7 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
           </div>
           <Link
             href={`/${locale}/categories`}
-            className="group border-border/50 bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary inline-flex w-fit items-center gap-2 rounded-lg border px-5 py-3 text-xs font-bold tracking-widest uppercase transition-all md:gap-3 md:px-8 md:py-4 md:text-sm"
+            className="group border-border/50 bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary inline-flex w-fit items-center gap-2 rounded-xl border px-5 py-3 text-xs font-bold tracking-widest uppercase transition-all md:gap-3 md:px-8 md:py-4 md:text-sm"
           >
             {t('common:viewAll')}
             <ArrowRight className="text-primary h-4 w-4 transition-transform group-hover:translate-x-1 md:h-5 md:w-5" />
@@ -59,9 +59,9 @@ export function HomeCategories({ categories }: HomeCategoriesProps) {
             >
               <Link
                 href={`/${locale}/categories/${category.slug}`}
-                className="group border-border bg-card hover:border-primary/50 flex flex-1 flex-col items-center justify-center gap-3 rounded-lg border p-6 text-center shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+                className="group border-border bg-card hover:border-primary/50 flex flex-1 flex-col items-center justify-center gap-3 rounded-xl border p-6 text-center shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
               >
-                <div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-lg transition-colors">
+                <div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground flex h-12 w-12 items-center justify-center rounded-xl transition-colors">
                   <CategoryIcon slug={category.slug} className="h-6 w-6" />
                 </div>
                 <div className="space-y-1">

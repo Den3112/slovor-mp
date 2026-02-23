@@ -38,7 +38,7 @@ export function OverviewHeader({ user }: OverviewHeaderProps) {
         <Button
           variant="outline"
           asChild
-          className="border-border/60 hidden h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase sm:flex"
+          className="border-border/60 hidden h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase sm:flex"
         >
           <Link href={`/${locale}/dashboard/settings`}>
             {t('profile:settings')}
@@ -46,7 +46,7 @@ export function OverviewHeader({ user }: OverviewHeaderProps) {
         </Button>
         <Button
           asChild
-          className="shadow-primary/20 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase shadow-lg"
+          className="shadow-primary/20 h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase shadow-lg"
         >
           <Link href={`/${locale}/post`}>
             <Plus className="mr-2 h-4 w-4" />

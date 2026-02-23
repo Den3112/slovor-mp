@@ -62,7 +62,8 @@ export function DashboardShell({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="hover:bg-muted/80 h-8 w-8 rounded-lg"
+                        className="hover:bg-muted/80 h-8 w-8 rounded-xl"
+                        data-testid="mobile-sidebar-trigger"
                       >
                         <Menu className="text-muted-foreground h-4 w-4" />
                         <span className="sr-only">Open menu</span>

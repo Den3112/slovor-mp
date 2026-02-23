@@ -52,7 +52,7 @@ export function ListingsTable({
     <div className="space-y-6">
       <motion.div
         variants={item}
-        className="border-border/60 bg-card overflow-hidden rounded-lg border shadow-sm"
+        className="border-border/60 bg-card overflow-hidden rounded-xl border shadow-sm"
       >
         <div className="overflow-x-auto">
           <Table>

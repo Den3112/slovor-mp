@@ -81,7 +81,15 @@ export function UnifiedSidebar({
     router.refresh()
   }
 
-  if (!isMounted) return <div className={cn('bg-card border-border border-r', isCollapsed ? 'w-20' : 'w-64')} />
+  if (!isMounted)
+    return (
+      <div
+        className={cn(
+          'bg-card border-border border-r',
+          isCollapsed ? 'w-20' : 'w-64'
+        )}
+      />
+    )
 
   return (
     <div
@@ -98,7 +106,7 @@ export function UnifiedSidebar({
         className={cn(
           'flex items-center px-6 transition-all',
           !hideLogo &&
-          'border-border h-(--header-height) justify-between border-b',
+            'border-border h-(--header-height) justify-between border-b',
           hideLogo && 'h-10 justify-end',
           isCollapsed && 'justify-center px-0'
         )}
@@ -139,8 +147,8 @@ export function UnifiedSidebar({
                   const localePrefix = `/${locale}`
                   const localizedHref =
                     link.href.startsWith('http') ||
-                      link.external ||
-                      link.href.startsWith(localePrefix)
+                    link.external ||
+                    link.href.startsWith(localePrefix)
                       ? link.href
                       : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 
@@ -150,7 +158,7 @@ export function UnifiedSidebar({
                       href={localizedHref}
                       onClick={onNavigate}
                       className={cn(
-                        'group relative flex items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-all',
+                        'group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-all',
                         active
                           ? 'bg-primary/10 text-primary shadow-primary/20 shadow-sm'
                           : 'text-muted-foreground hover:bg-accent hover:text-foreground',
@@ -205,11 +213,11 @@ export function UnifiedSidebar({
           variant="ghost"
           onClick={handleSignOut}
           className={cn(
-            'group hover:bg-destructive/5 hover:text-destructive flex h-auto w-full items-center justify-start gap-3 rounded-lg px-3 py-2',
+            'group hover:bg-destructive/5 hover:text-destructive flex h-auto w-full items-center justify-start gap-3 rounded-xl px-3 py-2',
             isCollapsed && 'justify-center px-2'
           )}
         >
-          <div className="bg-muted/50 group-hover:bg-destructive/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors">
+          <div className="bg-muted/50 group-hover:bg-destructive/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-colors">
             <LogOut className="h-4 w-4" />
           </div>
           {!isCollapsed && (

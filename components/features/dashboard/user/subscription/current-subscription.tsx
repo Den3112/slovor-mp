@@ -15,7 +15,7 @@ export function CurrentSubscription({ currentSub }: CurrentSubscriptionProps) {
   return (
     <div
       className={cn(
-        'rounded-lg border p-4 transition-all',
+        'rounded-xl border p-4 transition-all',
         currentSub.plan_type === 'free'
           ? 'border-blue-200 bg-blue-500/5 dark:border-blue-900/50'
           : 'border-primary bg-primary/5 shadow-sm'

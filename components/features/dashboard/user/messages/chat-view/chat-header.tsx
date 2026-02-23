@@ -26,16 +26,16 @@ export function ChatHeader({
           <Button
             variant="ghost"
             size="icon"
-            className="hover:bg-muted -ml-2 h-8 w-8 rounded-lg"
+            className="hover:bg-muted -ml-2 h-8 w-8 rounded-xl"
           >
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
 
         <div className="group relative cursor-pointer">
-          <Avatar className="border-border/50 group-hover:ring-primary/10 h-10 w-10 rounded-lg border ring-2 ring-transparent transition-all">
+          <Avatar className="border-border/50 group-hover:ring-primary/10 h-10 w-10 rounded-xl border ring-2 ring-transparent transition-all">
             <AvatarImage src={otherUser?.avatar_url || ''} />
-            <AvatarFallback className="bg-muted text-muted-foreground rounded-lg">
+            <AvatarFallback className="bg-muted text-muted-foreground rounded-xl">
               {otherUser?.display_name?.[0] || 'U'}
             </AvatarFallback>
           </Avatar>
@@ -71,7 +71,7 @@ export function ChatHeader({
         {listing && (
           <Link
             href={`/${locale}/listings/${listing.id}`}
-            className="border-border/50 bg-card hover:bg-muted/50 hover:border-primary/20 group hidden items-center gap-3 rounded-lg border p-1.5 pr-3 transition-all md:flex"
+            className="border-border/50 bg-card hover:bg-muted/50 hover:border-primary/20 group hidden items-center gap-3 rounded-xl border p-1.5 pr-3 transition-all md:flex"
           >
             <div className="bg-muted relative h-8 w-8 shrink-0 overflow-hidden rounded">
               {listing.images?.[0] ? (
@@ -103,21 +103,21 @@ export function ChatHeader({
           <Button
             variant="ghost"
             size="icon"
-            className="text-muted-foreground hover:text-foreground h-8 w-8 rounded-lg"
+            className="text-muted-foreground hover:text-foreground h-8 w-8 rounded-xl"
           >
             <Phone className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            className="text-muted-foreground hover:text-foreground h-8 w-8 rounded-lg"
+            className="text-muted-foreground hover:text-foreground h-8 w-8 rounded-xl"
           >
             <Video className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            className="text-muted-foreground hover:text-foreground h-8 w-8 rounded-lg"
+            className="text-muted-foreground hover:text-foreground h-8 w-8 rounded-xl"
           >
             <MoreVertical className="h-4 w-4" />
           </Button>

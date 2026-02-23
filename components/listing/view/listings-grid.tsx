@@ -74,7 +74,7 @@ export function ListingsGrid({
             {/* Infinite Scroll Loader & Sentinel */}
             <div ref={observerTarget} className="flex justify-center py-8">
               {loading && (
-                <div className="bg-card text-muted-foreground border-border flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-bold tracking-widest uppercase shadow-sm">
+                <div className="bg-card text-muted-foreground border-border flex items-center gap-2 rounded-xl border px-4 py-2 text-xs font-bold tracking-widest uppercase shadow-sm">
                   <Loader2 className="h-3 w-3 animate-spin" />
                   {t('common:loading') || 'Loading more...'}
                 </div>

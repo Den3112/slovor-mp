@@ -90,7 +90,7 @@ export function ReportDialog({
       <div className="space-y-6">
         {/* Success State */}
         {submitState === 'success' ? (
-          <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-6 text-center">
+          <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-6 text-center">
             <div className="mb-2 text-4xl">✓</div>
             <p className="font-bold tracking-wide text-emerald-600 uppercase dark:text-emerald-500">
               {t('reports:thankYou')}
@@ -100,7 +100,7 @@ export function ReportDialog({
           <>
             {/* Error Message */}
             {submitState === 'error' && (
-              <div className="bg-destructive/10 border-destructive/20 text-destructive mb-4 rounded-lg border px-4 py-2 text-xs font-bold tracking-wide uppercase">
+              <div className="bg-destructive/10 border-destructive/20 text-destructive mb-4 rounded-xl border px-4 py-2 text-xs font-bold tracking-wide uppercase">
                 {errorMessage}
               </div>
             )}
@@ -113,7 +113,7 @@ export function ReportDialog({
               <select
                 value={reason}
                 onChange={(e) => setReason(e.target.value as ReportReason)}
-                className="border-input bg-background focus:ring-ring w-full rounded-lg border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
+                className="border-input bg-background focus:ring-ring w-full rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
               >
                 <option value="">—</option>
                 {REPORT_REASONS.map((r) => (
@@ -133,7 +133,7 @@ export function ReportDialog({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="..."
-                className="border-input bg-background focus:ring-ring w-full resize-none rounded-lg border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
+                className="border-input bg-background focus:ring-ring w-full resize-none rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
                 rows={3}
               />
             </div>
@@ -144,7 +144,7 @@ export function ReportDialog({
                 onClick={handleSubmit}
                 disabled={!reason || isSubmitting || !user}
                 className={cn(
-                  'flex-1 rounded-lg font-bold tracking-widest uppercase',
+                  'flex-1 rounded-xl font-bold tracking-widest uppercase',
                   !user && 'opacity-50'
                 )}
               >
@@ -154,7 +154,7 @@ export function ReportDialog({
                 variant="outline"
                 onClick={handleClose}
                 disabled={isSubmitting}
-                className="rounded-lg font-bold tracking-widest uppercase"
+                className="rounded-xl font-bold tracking-widest uppercase"
               >
                 {t('common:back')}
               </Button>

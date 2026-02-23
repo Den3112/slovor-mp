@@ -25,7 +25,7 @@ export function PlanCard({
   return (
     <div
       className={cn(
-        'relative flex flex-col overflow-hidden rounded-lg border transition-all duration-300',
+        'relative flex flex-col overflow-hidden rounded-xl border transition-all duration-300',
         plan.highlight && !isCurrent
           ? 'border-primary bg-primary/5 shadow-primary/5 scale-[1.02] shadow-lg'
           : isCurrent
@@ -38,7 +38,7 @@ export function PlanCard({
         <div className="flex items-center justify-between">
           <div
             className={cn(
-              'flex h-12 w-12 items-center justify-center rounded-lg border',
+              'flex h-12 w-12 items-center justify-center rounded-xl border',
               plan.color === 'blue'
                 ? 'border-blue-200 bg-blue-500/10 text-blue-600 dark:border-blue-900'
                 : plan.color === 'amber'
@@ -105,7 +105,7 @@ export function PlanCard({
           onClick={() => onUpgrade(plan.id)}
           disabled={isCurrent || isSubmitting}
           className={cn(
-            'h-12 w-full rounded-lg text-[10px] font-bold tracking-widest uppercase transition-all',
+            'h-12 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all',
             isCurrent
               ? 'bg-muted text-muted-foreground border-border hover:bg-muted cursor-default'
               : plan.highlight

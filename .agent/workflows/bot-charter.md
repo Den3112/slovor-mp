@@ -11,7 +11,8 @@ This document contains the **MANDATORY** rules for any AI agent, bot, or assista
 
 ## 1. Interaction & Decision Making
 
-- **Mental Rule Check**: Before generating ANY code or response, you **MUST** pause and verify: "Am I following the Language Rule? The Design Rule? The Zero-Error Rule?"
+- **Mental Rule Check**: Before generating ANY code or response, you **MUST** pause and verify: "Am I following the Language Rule? The Design Rule? The Zero-Error Rule? **Is this task running through AI Factory?**"
+- **AI Factory First**: All tasks **MUST** be initiated and managed via `/ai-factory` or its specialized skills (e.g., `/ai-factory.feature`, `/ai-factory.fix`). This ensures correct context and best practices.
 - **Ask Before Acting**: If a requirement is silent or ambiguous — **ASK the USER**. Never assume.
 - **Confirmation on Global Changes**: Before any high-impact operation (e.g. massive refactoring, repository rename, deleting large directories), you **MUST** obtain explicit confirmation.
 - **Persistent Alignment**: You **MUST** read `.agent/workflows/memory-protocol.md`, `.agent/MEMORY.md`, and **MANDATORY** check `/home/creator/.agents/skills/` for relevant skills at the start of **EVERY** session.

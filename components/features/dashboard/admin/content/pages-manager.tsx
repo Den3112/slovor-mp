@@ -104,7 +104,7 @@ export function PagesManager() {
 
   if (editingPage) {
     return (
-      <div className="bg-card border-border animate-in fade-in zoom-in-95 space-y-6 rounded-lg border p-6 shadow-sm duration-300 md:p-8">
+      <div className="bg-card border-border animate-in fade-in zoom-in-95 space-y-6 rounded-xl border p-6 shadow-sm duration-300 md:p-8">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold">
             {editingPage.id ? t('admin:editPage') : t('admin:newPage')}
@@ -113,7 +113,7 @@ export function PagesManager() {
             variant="ghost"
             size="sm"
             onClick={handleCancel}
-            className="rounded-lg"
+            className="rounded-xl"
           >
             <X className="h-4 w-4" />
           </Button>
@@ -131,7 +131,7 @@ export function PagesManager() {
                   setEditingPage({ ...editingPage, title: e.target.value })
                 }
                 placeholder={t('admin:pageTitlePlaceholder')}
-                className="h-11 rounded-lg"
+                className="h-11 rounded-xl"
                 required
               />
             </div>
@@ -145,7 +145,7 @@ export function PagesManager() {
                   setEditingPage({ ...editingPage, slug: e.target.value })
                 }
                 placeholder={t('admin:pageSlugPlaceholder')}
-                className="h-11 rounded-lg"
+                className="h-11 rounded-xl"
                 required
               />
             </div>
@@ -161,7 +161,7 @@ export function PagesManager() {
                 setEditingPage({ ...editingPage, content: e.target.value })
               }
               placeholder={t('admin:pageContent')}
-              className="bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-primary/10 min-h-[400px] w-full rounded-lg border p-4 font-mono text-sm leading-relaxed transition-all outline-none focus:ring-4"
+              className="bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-primary/10 min-h-[400px] w-full rounded-xl border p-4 font-mono text-sm leading-relaxed transition-all outline-none focus:ring-4"
               required
             />
           </div>
@@ -171,13 +171,13 @@ export function PagesManager() {
               variant="outline"
               type="button"
               onClick={handleCancel}
-              className="h-11 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+              className="h-11 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
             >
               {t('common:cancel')}
             </Button>
             <Button
               disabled={isSubmitting}
-              className="h-11 rounded-lg px-8 text-[10px] font-bold tracking-widest uppercase shadow-sm"
+              className="h-11 rounded-xl px-8 text-[10px] font-bold tracking-widest uppercase shadow-sm"
             >
               {isSubmitting ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -201,18 +201,18 @@ export function PagesManager() {
             placeholder={t('admin:searchPages')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-card border-border h-11 rounded-lg pl-12 text-xs font-bold tracking-widest uppercase transition-all"
+            className="bg-card border-border h-11 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all"
           />
         </div>
         <Button
           onClick={handleCreate}
-          className="h-11 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+          className="h-11 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
         >
           <Plus className="mr-2 h-4 w-4" /> {t('admin:newPage')}
         </Button>
       </div>
 
-      <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
+      <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
@@ -254,7 +254,7 @@ export function PagesManager() {
                   >
                     <td className="group-hover:border-primary border-l-4 border-transparent px-6 py-6 transition-all">
                       <div className="flex items-center gap-3">
-                        <div className="bg-primary/10 text-primary rounded-lg p-2">
+                        <div className="bg-primary/10 text-primary rounded-xl p-2">
                           <Layout className="h-4 w-4" />
                         </div>
                         <span className="text-foreground font-bold">
@@ -280,7 +280,7 @@ export function PagesManager() {
                           size="sm"
                           variant="ghost"
                           onClick={() => window.open(`/${page.slug}`, '_blank')}
-                          className="h-9 w-9 rounded-lg p-0 hover:bg-indigo-500/10 hover:text-indigo-500"
+                          className="h-9 w-9 rounded-xl p-0 hover:bg-indigo-500/10 hover:text-indigo-500"
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Button>
@@ -288,7 +288,7 @@ export function PagesManager() {
                           size="sm"
                           variant="ghost"
                           onClick={() => handleEdit(page)}
-                          className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-lg p-0"
+                          className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-xl p-0"
                         >
                           <Pencil className="h-4 w-4" />
                         </Button>
@@ -296,7 +296,7 @@ export function PagesManager() {
                           size="sm"
                           variant="ghost"
                           onClick={() => handleDelete(page.id)}
-                          className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 rounded-lg p-0"
+                          className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 rounded-xl p-0"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

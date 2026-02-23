@@ -152,13 +152,13 @@ export function LocaleWelcomeModal() {
           <Button
             variant="outline"
             onClick={handleSkip}
-            className="border-border text-muted-foreground hover:border-border hover:bg-accent flex-1 rounded-lg border-2 py-6 font-semibold"
+            className="border-border text-muted-foreground hover:border-border hover:bg-accent flex-1 rounded-xl border-2 py-6 font-semibold"
           >
             Skip
           </Button>
           <Button
             onClick={handleConfirm}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1 rounded-lg py-6 font-semibold shadow-lg transition-all hover:shadow-xl"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1 rounded-xl py-6 font-semibold shadow-lg transition-all hover:shadow-xl"
           >
             Continue
           </Button>

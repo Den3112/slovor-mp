@@ -66,6 +66,19 @@ export function StructuredData({ locale, extraSchema }: StructuredDataProps) {
     ),
   }
 
+  // 3. Organization Schema
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Slovor Marketplace',
+    url: process.env.NEXT_PUBLIC_APP_URL || 'https://slovor.sk',
+    logo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://slovor.sk'}/logo.png`,
+    sameAs: [
+      'https://www.facebook.com/slovor',
+      'https://www.instagram.com/slovor',
+    ],
+  }
+
   return (
     <>
       {breadcrumbs.length > 0 && (
@@ -77,6 +90,10 @@ export function StructuredData({ locale, extraSchema }: StructuredDataProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(navSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       {extraSchema && (
         <script

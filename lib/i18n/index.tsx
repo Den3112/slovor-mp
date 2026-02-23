@@ -5,11 +5,12 @@ import {
   useContext,
   useState,
   useEffect,
+  useMemo,
+  useCallback,
   type ReactNode,
 } from 'react'
-// import i18next from 'i18next'
 import { useTranslation as useI18nextTranslation } from 'react-i18next'
-import '@/packages/i18n/client' // Ensure i18next is initialized
+import '@/packages/i18n/client'
 
 export type Locale = 'en' | 'sk' | 'cs' | 'ru'
 
@@ -19,20 +20,27 @@ interface I18nContextValue {
   t: (key: string, options?: any) => string
 }
 
-export const I18nContext = createContext<I18nContextValue | undefined>(undefined)
+export const I18nContext = createContext<I18nContextValue | undefined>(
+  undefined
+)
 
 const LOCALE_STORAGE_KEY = 'slovor-locale'
 const LOCALE_COOKIE_KEY = 'slovor-locale'
 
-export function I18nProvider({ children, lang }: { children: ReactNode; lang?: string }) {
+export function I18nProvider({
+  children,
+  lang,
+}: {
+  children: ReactNode
+  lang?: string
+}) {
   const { t, i18n } = useI18nextTranslation()
 
-
-  const initialLocale = (lang as Locale) || (i18n.language as Locale) || 'en'
+  const initialLocale = (lang as Locale) || 'en'
   const [locale, setLocaleState] = useState<Locale>(initialLocale)
 
-  // Update HTML lang attribute and meta tags
-  const updateHtmlLang = (newLocale: Locale) => {
+  // Update HTML lang attribute and meta tags - MEMOIZED
+  const updateHtmlLang = useCallback((newLocale: Locale) => {
     if (typeof document !== 'undefined') {
       document.documentElement.lang = newLocale
 
@@ -61,7 +69,7 @@ export function I18nProvider({ children, lang }: { children: ReactNode; lang?: s
       }
       contentLang.setAttribute('content', newLocale)
     }
-  }
+  }, [])
 
   // Sync with URL lang prop
   useEffect(() => {
@@ -76,36 +84,69 @@ export function I18nProvider({ children, lang }: { children: ReactNode; lang?: s
       localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
       document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
     }
-  }, [lang, i18n])
+  }, [lang, i18n, updateHtmlLang])
 
-  const setLocale = async (newLocale: Locale) => {
-    setLocaleState(newLocale)
-    await i18n.changeLanguage(newLocale)
-    localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
-    document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
-    updateHtmlLang(newLocale)
-  }
+  const setLocale = useCallback(
+    async (newLocale: Locale) => {
+      setLocaleState(newLocale)
+      await i18n.changeLanguage(newLocale)
+      localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
+      document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
+      updateHtmlLang(newLocale)
+    },
+    [i18n, updateHtmlLang]
+  )
 
-  const value: I18nContextValue = {
-    locale,
-    setLocale,
-    t: (key: string, options?: any) => t(key, options) as string,
-  }
+  // Stability fix: Callback for the t function from context
+  const tFunction = useCallback(
+    (key: string, options?: any) => t(key, options) as string,
+    [t]
+  )
+
+  const value = useMemo(
+    () => ({
+      locale,
+      setLocale,
+      t: tFunction,
+    }),
+    [locale, setLocale, tFunction]
+  )
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 
 export function useTranslation(ns?: string | string[]) {
   const context = useContext(I18nContext)
-  const { t, i18n } = useI18nextTranslation(ns)
+
+  // Decisively memoize namespaces to prevent re-renders when passed as array literal
+  const stableNs = useMemo(() => {
+    if (Array.isArray(ns)) return ns.slice().sort().join(',')
+    return ns
+  }, [ns])
+
+  const memoizedNs = useMemo(() => {
+    if (typeof stableNs === 'string' && stableNs.includes(','))
+      return stableNs.split(',')
+    return stableNs
+  }, [stableNs])
+
+  const { t: translate, i18n } = useI18nextTranslation(memoizedNs)
 
   if (!context) {
     throw new Error('useTranslation must be used within I18nProvider')
   }
 
-  return {
-    ...context,
-    t: (key: string, options?: any) => t(key, options) as string,
-    i18n,
-  }
+  const t = useCallback(
+    (key: string, options?: any) => translate(key, options) as string,
+    [translate]
+  )
+
+  return useMemo(
+    () => ({
+      ...context,
+      t,
+      i18n,
+    }),
+    [context, t, i18n]
+  )
 }

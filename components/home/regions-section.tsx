@@ -57,7 +57,7 @@ export function RegionsSection() {
                 className="group bg-card border-border hover:border-primary/40 shadow-card relative block rounded-2xl border p-6 transition-all hover:-translate-y-2 active:scale-95"
               >
                 <div className="space-y-4">
-                  <div className="bg-primary/5 text-primary group-hover:bg-primary group-hover:text-primary-foreground border-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border shadow-sm transition-all group-hover:scale-110 group-hover:rotate-6">
+                  <div className="bg-primary/5 text-primary group-hover:bg-primary group-hover:text-primary-foreground border-primary/10 flex h-12 w-12 items-center justify-center rounded-xl border shadow-sm transition-all group-hover:scale-110 group-hover:rotate-6">
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>

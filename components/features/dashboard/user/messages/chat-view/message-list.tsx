@@ -54,9 +54,9 @@ export function MessageList({
                 {!isMe && (
                   <div className="w-8 shrink-0">
                     {showAvatar && (
-                      <Avatar className="border-border/40 h-8 w-8 rounded-lg border">
+                      <Avatar className="border-border/40 h-8 w-8 rounded-xl border">
                         <AvatarImage src={otherUser?.avatar_url || ''} />
-                        <AvatarFallback className="rounded-lg text-[10px]">
+                        <AvatarFallback className="rounded-xl text-[10px]">
                           {otherUser?.display_name?.[0]}
                         </AvatarFallback>
                       </Avatar>
@@ -68,10 +68,11 @@ export function MessageList({
                   className={cn(
                     'group relative max-w-[80%] px-4 py-2.5 text-sm shadow-sm transition-all duration-200',
                     isMe
-                      ? 'bg-primary text-primary-foreground rounded-2xl rounded-tr-sm shadow-primary/20'
+                      ? 'bg-primary text-primary-foreground shadow-primary/20 rounded-2xl rounded-tr-sm'
                       : 'bg-card text-card-foreground border-border/60 rounded-2xl rounded-tl-sm border shadow-black/5',
-                    isSequential && (isMe ? 'rounded-tr-2xl' : 'rounded-tl-2xl'),
-                    !isSequential && (isMe ? 'mt-1' : 'mt-1'),
+                    isSequential &&
+                      (isMe ? 'rounded-tr-2xl' : 'rounded-tl-2xl'),
+                    !isSequential && (isMe ? 'mt-1' : 'mt-1')
                   )}
                 >
                   <p className="leading-relaxed font-medium break-all whitespace-pre-wrap">

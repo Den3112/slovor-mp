@@ -98,7 +98,7 @@ export function StepDetails({
           <label className="text-muted-foreground/80 ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('currency')}
           </label>
-          <div className="text-muted-foreground border-border bg-muted/50 flex h-16 items-center justify-center rounded-lg border font-bold">
+          <div className="text-muted-foreground border-border bg-muted/50 flex h-16 items-center justify-center rounded-xl border font-bold">
             EUR
           </div>
         </div>

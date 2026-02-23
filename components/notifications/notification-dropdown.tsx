@@ -63,7 +63,7 @@ export function NotificationDropdown() {
             initial={{ opacity: 0, y: 15, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
-            className="bg-card absolute right-0 z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border border-border shadow-lg md:w-96"
+            className="bg-card border-border absolute right-0 z-50 mt-3 w-80 origin-top-right overflow-hidden rounded-2xl border shadow-lg md:w-96"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/5 p-5">
@@ -82,7 +82,7 @@ export function NotificationDropdown() {
                   variant="ghost"
                   size="sm"
                   onClick={markAllAsRead}
-                  className="hover:bg-primary/10 hover:text-primary rounded-lg text-[10px] font-bold tracking-widest uppercase"
+                  className="hover:bg-primary/10 hover:text-primary rounded-xl text-[10px] font-bold tracking-widest uppercase"
                 >
                   Mark all as read
                 </Button>
@@ -197,7 +197,7 @@ export function NotificationDropdown() {
               <Link href={`/${locale}/dashboard/notifications`}>
                 <Button
                   variant="ghost"
-                  className="text-muted-foreground hover:text-foreground w-full rounded-lg text-xs font-bold"
+                  className="text-muted-foreground hover:text-foreground w-full rounded-xl text-xs font-bold"
                 >
                   View full history
                 </Button>

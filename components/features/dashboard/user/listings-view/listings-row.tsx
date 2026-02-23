@@ -135,7 +135,7 @@ export function ListingsRow({
             variant="outline"
             size="sm"
             asChild
-            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-lg text-[9px] font-bold tracking-widest uppercase"
+            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-xl text-[9px] font-bold tracking-widest uppercase"
           >
             <Link href={`/${locale}/post?edit=${listing.id}`}>
               {t('common:edit')}
@@ -145,7 +145,7 @@ export function ListingsRow({
             variant="ghost"
             size="icon"
             asChild
-            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg transition-all"
+            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-xl transition-all"
           >
             <Link href={`/${locale}/listings/${listing.id}`}>
               <ArrowRight className="h-4 w-4" />

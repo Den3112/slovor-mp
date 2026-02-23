@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, Suspense, useEffect } from 'react'
+import { z } from 'zod'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -8,6 +9,13 @@ import { ArrowLeft } from 'lucide-react'
 import { AuthSocial } from './components/auth-social'
 import { AuthForm } from './components/auth-form'
 import { useTranslation } from '@/lib/i18n'
+
+const authSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters' }),
+})
 
 function LoginContent() {
   const { t, locale } = useTranslation(['auth', 'common'])
@@ -37,9 +45,7 @@ function LoginContent() {
       })
       if (error) throw error
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : t('auth:unexpectedError')
-      )
+      setError(err instanceof Error ? err.message : t('auth:unexpectedError'))
       setGoogleLoading(false)
     }
   }
@@ -52,6 +58,14 @@ function LoginContent() {
     const formData = new FormData(e.currentTarget)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
+
+    // Client-side validation
+    const validationResult = authSchema.safeParse({ email, password })
+    if (!validationResult.success) {
+      setError(validationResult.error.issues?.[0]?.message || 'Invalid input')
+      setLoading(false)
+      return
+    }
 
     try {
       if (isRegistering) {
@@ -99,7 +113,7 @@ function LoginContent() {
   }
 
   return (
-    <div className="bg-card relative z-10 w-full max-w-md rounded-xl border border-border p-6 shadow-sm md:p-8">
+    <div className="bg-card border-border relative z-10 w-full max-w-md rounded-xl border p-6 shadow-sm md:p-8">
       <div className="mb-6">
         <Link
           href={`/${locale}/`}
@@ -111,22 +125,20 @@ function LoginContent() {
       </div>
 
       <div className="mb-8 text-center">
-        <div className="bg-primary/10 text-primary mb-6 inline-flex h-12 w-12 items-center justify-center rounded-lg">
+        <div className="bg-primary/10 text-primary mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl">
           <span className="text-2xl">✨</span>
         </div>
         <h1 className="font-heading text-foreground mb-2 text-2xl font-bold tracking-tight md:text-3xl">
           {isRegistering ? t('auth:joinSlovor') : t('auth:welcomeBack')}
         </h1>
         <p className="text-muted-foreground text-sm">
-          {isRegistering
-            ? t('auth:signUpSubtitle')
-            : t('auth:signInSubtitle')}
+          {isRegistering ? t('auth:signUpSubtitle') : t('auth:signInSubtitle')}
         </p>
       </div>
 
       {error && (
         <div
-          className="bg-destructive/10 text-destructive mb-6 rounded-lg border border-destructive/20 p-3 text-sm font-medium"
+          className="bg-destructive/10 text-destructive border-destructive/20 mb-6 rounded-xl border p-3 text-sm font-medium"
           data-testid="auth-error-alert"
         >
           {error}
@@ -158,7 +170,9 @@ export default function LoginPage() {
     <div className="bg-background relative flex min-h-dvh flex-col items-center justify-center p-4 md:p-8">
       <Suspense
         fallback={
-          <div className="text-primary text-center font-bold">{t('loading')}</div>
+          <div className="text-primary text-center font-bold">
+            {t('loading')}
+          </div>
         }
       >
         <LoginContent />

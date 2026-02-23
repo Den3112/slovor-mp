@@ -104,7 +104,7 @@ export function AdminAnalyticsView() {
             {t('admin:deepDivePerformance')}
           </p>
         </div>
-        <div className="bg-muted/40 border-border/40 flex items-center gap-3 rounded-lg border p-1">
+        <div className="bg-muted/40 border-border/40 flex items-center gap-3 rounded-xl border p-1">
           {['7d', '30d', '90d', '1y'].map((range) => (
             <Button
               key={range}
@@ -112,7 +112,7 @@ export function AdminAnalyticsView() {
               size="sm"
               onClick={() => setTimeRange(range)}
               className={cn(
-                'h-auto rounded-lg px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all',
+                'h-auto rounded-xl px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all',
                 timeRange === range
                   ? 'bg-background text-primary border-border/40 hover:bg-background hover:text-primary border shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
@@ -125,7 +125,7 @@ export function AdminAnalyticsView() {
           <Button
             variant="ghost"
             size="icon"
-            className="hover:bg-background h-8 w-8 rounded-lg transition-all"
+            className="hover:bg-background h-8 w-8 rounded-xl transition-all"
           >
             <Download className="h-3.5 w-3.5" />
           </Button>
@@ -137,10 +137,10 @@ export function AdminAnalyticsView() {
         {growthStats.map((stat, idx) => (
           <Card
             key={idx}
-            className="border-border/60 flex flex-col justify-between rounded-lg p-6 shadow-sm"
+            className="border-border/60 flex flex-col justify-between rounded-xl p-6 shadow-sm"
           >
             <div className="mb-4 flex items-center justify-between">
-              <div className="bg-muted/50 border-border/40 rounded-lg border p-2.5">
+              <div className="bg-muted/50 border-border/40 rounded-xl border p-2.5">
                 <stat.icon className="text-primary h-4 w-4" />
               </div>
               <Badge
@@ -170,7 +170,7 @@ export function AdminAnalyticsView() {
       {/* Main Charts Section */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Traffic Chart */}
-        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-lg shadow-sm lg:col-span-2">
+        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-xl shadow-sm lg:col-span-2">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
@@ -186,7 +186,7 @@ export function AdminAnalyticsView() {
         </Card>
 
         {/* Category Performance */}
-        <Card className="border-border/60 flex flex-col overflow-hidden rounded-lg shadow-sm">
+        <Card className="border-border/60 flex flex-col overflow-hidden rounded-xl shadow-sm">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
               <Layers className="text-primary h-4 w-4" />
@@ -244,7 +244,7 @@ export function AdminAnalyticsView() {
       {/* Secondary Chart Row */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Geographical Distribution */}
-        <Card className="border-border/60 overflow-hidden rounded-lg shadow-sm">
+        <Card className="border-border/60 overflow-hidden rounded-xl shadow-sm">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
               <Map className="text-primary h-4 w-4" />
@@ -255,10 +255,10 @@ export function AdminAnalyticsView() {
             {topRegions.map((region, idx) => (
               <div
                 key={idx}
-                className="bg-muted/20 border-border/40 hover:bg-muted/30 flex cursor-default items-center justify-between rounded-lg border p-3 transition-all"
+                className="bg-muted/20 border-border/40 hover:bg-muted/30 flex cursor-default items-center justify-between rounded-xl border p-3 transition-all"
               >
                 <div className="flex items-center gap-3">
-                  <div className="bg-background border-border/60 text-primary flex h-8 w-8 items-center justify-center rounded-lg border text-[10px] font-bold">
+                  <div className="bg-background border-border/60 text-primary flex h-8 w-8 items-center justify-center rounded-xl border text-[10px] font-bold">
                     {idx + 1}
                   </div>
                   <span className="text-xs font-bold tracking-tight uppercase">
@@ -277,7 +277,7 @@ export function AdminAnalyticsView() {
         </Card>
 
         {/* Growth Trends Chart */}
-        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-lg shadow-sm lg:col-span-2">
+        <Card className="border-border/60 flex min-h-[400px] flex-col overflow-hidden rounded-xl shadow-sm lg:col-span-2">
           <CardHeader className="border-border/40 bg-muted/20 border-b px-6 py-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
@@ -295,7 +295,7 @@ export function AdminAnalyticsView() {
 
       {/* System Health Section */}
       <div className="grid grid-cols-1">
-        <Card className="border-border/60 bg-muted/30 overflow-hidden rounded-lg shadow-lg transition-colors dark:bg-slate-950 dark:text-white">
+        <Card className="border-border/60 bg-muted/30 overflow-hidden rounded-xl shadow-lg transition-colors dark:bg-slate-950 dark:text-white">
           <CardHeader className="border-border/40 bg-muted/50 border-b px-6 py-4 dark:border-white/5 dark:bg-white/5">
             <CardTitle className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase dark:text-white/40">
               <Zap className="text-success h-4 w-4" />
@@ -312,7 +312,7 @@ export function AdminAnalyticsView() {
                   <span className="text-3xl font-bold">24ms</span>
                 </div>
                 <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
-                  <div className="bg-emerald-500 h-full w-[85%]" />
+                  <div className="h-full w-[85%] bg-emerald-500" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase">
                   {t('admin:optimized')}
@@ -326,7 +326,7 @@ export function AdminAnalyticsView() {
                   <span className="text-3xl font-bold">12.4%</span>
                 </div>
                 <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
-                  <div className="bg-blue-500 h-full w-[12%]" />
+                  <div className="h-full w-[12%] bg-blue-500" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-blue-500 uppercase dark:text-blue-400">
                   {t('admin:stable')}
@@ -340,7 +340,7 @@ export function AdminAnalyticsView() {
                   <span className="text-3xl font-bold">0.02%</span>
                 </div>
                 <div className="bg-muted border-border/20 h-1.5 w-full overflow-hidden rounded-full border dark:border-white/5 dark:bg-white/5">
-                  <div className="bg-emerald-500 h-full w-[2%]" />
+                  <div className="h-full w-[2%] bg-emerald-500" />
                 </div>
                 <p className="text-[10px] font-bold tracking-widest text-emerald-500 uppercase dark:text-emerald-400">
                   {t('admin:normal')}

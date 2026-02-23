@@ -19,12 +19,12 @@ export function BlogManagerHeader({
           placeholder={t('admin:searchPosts')}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="bg-card border-border h-11 rounded-lg pl-12 text-xs font-bold tracking-widest uppercase transition-all"
+          className="bg-card border-border h-11 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all"
         />
       </div>
       <Button
         onClick={onCreate}
-        className="h-11 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+        className="h-11 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
       >
         <Plus className="mr-2 h-4 w-4" /> {t('admin:newArticle')}
       </Button>

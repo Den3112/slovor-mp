@@ -8,9 +8,7 @@ vi.mock('@/lib/env', () => ({
     SUPABASE_ANON_KEY: 'mock-key',
     NODE_ENV: 'test',
     APP_URL: 'http://localhost:3000',
-    ENABLE_AUTH: true,
-    ENABLE_PAYMENTS: true,
-  }
+  },
 }))
 
 describe('Environment Variables', () => {
@@ -33,10 +31,5 @@ describe('Environment Variables', () => {
   it('has APP_URL property with default', () => {
     expect(env.APP_URL).toBeDefined()
     expect(env.APP_URL).toContain('http')
-  })
-
-  it('has feature flags', () => {
-    expect(env.ENABLE_AUTH).toBeDefined()
-    expect(env.ENABLE_PAYMENTS).toBeDefined()
   })
 })

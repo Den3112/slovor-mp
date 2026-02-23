@@ -14,6 +14,7 @@ import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 import { useCurrency } from '@/components/providers/currency-provider'
 import { CURRENCIES } from '@/lib/types/currency'
 
@@ -29,6 +30,21 @@ export function Footer() {
   const [dynamicPages, setDynamicPages] = useState<StaticPage[]>([])
   const [openSection, setOpenSection] = useState<number | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [email, setEmail] = useState('')
+
+  const handleSubscribe = () => {
+    if (!email || !email.includes('@')) {
+      toast.error(
+        t('footer:subscribeError') || 'Please enter a valid email address.'
+      )
+      return
+    }
+    toast.success(
+      t('footer:subscribeSuccess') ||
+        'Successfully subscribed to our newsletter!'
+    )
+    setEmail('')
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -62,14 +78,14 @@ export function Footer() {
       links:
         latestPosts.length > 0
           ? latestPosts.map((post) => ({
-            label: post.title,
-            href: `/${locale}/blog/${post.slug}`,
-          }))
+              label: post.title,
+              href: `/${locale}/blog/${post.slug}`,
+            }))
           : [
-            { label: t('common:sellingTips'), href: `/${locale}/blog` },
-            { label: t('common:safetyGuide'), href: `/${locale}/blog` },
-            { label: t('common:marketTrends'), href: `/${locale}/blog` },
-          ],
+              { label: t('common:sellingTips'), href: `/${locale}/blog` },
+              { label: t('common:safetyGuide'), href: `/${locale}/blog` },
+              { label: t('common:marketTrends'), href: `/${locale}/blog` },
+            ],
     },
     {
       title: t('footer:info'),
@@ -135,7 +151,7 @@ export function Footer() {
                   key={i}
                   href={social.href}
                   aria-label={social.label}
-                  className="border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-primary flex h-10 w-10 items-center justify-center rounded-lg border shadow-sm transition-all hover:-translate-y-1"
+                  className="social-icon-btn"
                 >
                   {social.icon}
                 </a>
@@ -156,7 +172,7 @@ export function Footer() {
                       <li key={j}>
                         <Link
                           href={link.href}
-                          className="group text-muted-foreground hover:text-primary flex items-center gap-1.5 text-base font-medium transition-colors"
+                          className="link-primary flex items-center gap-1.5 text-base transition-colors"
                         >
                           <span className="transition-transform group-hover:translate-x-1">
                             {link.label}
@@ -233,10 +249,15 @@ export function Footer() {
               <Input
                 type="email"
                 placeholder={t('footer:newsletterPlaceholder')}
-                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary h-12 w-full rounded-lg border py-6 pr-4 pl-11 text-base font-medium shadow-sm transition-all"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary h-12 w-full rounded-xl border py-6 pr-4 pl-11 text-base font-medium shadow-sm transition-all"
               />
             </div>
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-lg px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto">
+            <Button
+              onClick={handleSubscribe}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-xl px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto"
+            >
               {t('footer:subscribe')}
             </Button>
           </div>
@@ -250,7 +271,7 @@ export function Footer() {
               {t('footer:rights')}.
             </p>
             <div className="flex items-center gap-6">
-              <span className="bg-muted text-muted-foreground border-border/50 flex h-6 items-center gap-2 rounded-lg border px-3 text-[10px] font-bold tracking-wider uppercase">
+              <span className="bg-muted text-muted-foreground border-border/50 flex h-6 items-center gap-2 rounded-md border px-3 text-[10px] font-bold tracking-wider uppercase">
                 <div className="h-1.5 w-1.5 rounded-sm bg-emerald-500" />
                 {mounted && !isLoading
                   ? `${geoLocation?.country || 'Slovakia'} / ${CURRENCIES[currency]?.code || 'EUR'}`

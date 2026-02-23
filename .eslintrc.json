@@ -1,6 +1,16 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:storybook/recommended"
-  ]
+  "extends": ["next/core-web-vitals", "plugin:storybook/recommended"],
+  "rules": {
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "Literal[value=/rounded-lg/]",
+        "message": "Use 'rounded-xl' instead of 'rounded-lg' for global style unification."
+      },
+      {
+        "selector": "TemplateElement[value.raw=/rounded-lg/]",
+        "message": "Use 'rounded-xl' instead of 'rounded-lg' for global style unification."
+      }
+    ]
+  }
 }

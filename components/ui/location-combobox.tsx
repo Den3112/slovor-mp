@@ -140,7 +140,7 @@ export function LocationCombobox({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="text-muted-foreground hover:text-foreground absolute top-1/2 right-4 -translate-y-1/2 rounded-lg p-1 transition-colors"
+          className="text-muted-foreground hover:text-foreground absolute top-1/2 right-4 -translate-y-1/2 rounded-xl p-1 transition-colors"
         >
           <ChevronDown
             className={cn(
@@ -160,7 +160,7 @@ export function LocationCombobox({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.98 }}
             transition={{ duration: 0.12 }}
-            className="border-border/50 bg-card absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-lg border shadow-lg"
+            className="border-border/50 bg-card absolute top-full left-0 z-50 mt-2 w-full overflow-hidden rounded-xl border shadow-lg"
           >
             <div className="max-h-64 overflow-y-auto p-1">
               {suggestions.map((city, index) => (
@@ -202,7 +202,7 @@ export function LocationCombobox({
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
-            className="border-border/50 bg-card text-muted-foreground absolute top-full left-0 z-50 mt-2 w-full rounded-lg border p-4 text-center text-sm shadow-xl"
+            className="border-border/50 bg-card text-muted-foreground absolute top-full left-0 z-50 mt-2 w-full rounded-xl border p-4 text-center text-sm shadow-xl"
           >
             No cities found for &quot;{searchQuery}&quot;
           </motion.div>

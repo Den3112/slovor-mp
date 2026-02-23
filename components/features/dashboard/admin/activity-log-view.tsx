@@ -44,7 +44,7 @@ export function AdminActivityLogView() {
       header: t('admin:tableUser'),
       cell: (row) => (
         <div className="flex items-center gap-3">
-          <div className="bg-muted border-border/40 relative h-8 w-8 shrink-0 overflow-hidden rounded-lg border">
+          <div className="bg-muted border-border/40 relative h-8 w-8 shrink-0 overflow-hidden rounded-xl border">
             {row.profiles?.avatar_url ? (
               <Image
                 src={row.profiles.avatar_url}
