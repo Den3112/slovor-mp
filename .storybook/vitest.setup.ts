@@ -1,7 +1,21 @@
-import * as a11yAddonAnnotations from "@storybook/addon-a11y/preview";
-import { setProjectAnnotations } from '@storybook/nextjs-vite';
-import * as projectAnnotations from './preview';
+import { vi } from 'vitest'
+import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview'
+import { setProjectAnnotations } from '@storybook/nextjs-vite'
+import * as projectAnnotations from './preview'
 
 // This is an important step to apply the right configuration when testing your stories.
 // More info at: https://storybook.js.org/docs/api/portable-stories/portable-stories-vitest#setprojectannotations
-setProjectAnnotations([a11yAddonAnnotations, projectAnnotations]);
+// Mock Next.js navigation
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+    back: vi.fn(),
+  }),
+  useSearchParams: () => new URLSearchParams(),
+  usePathname: () => '',
+  useParams: () => ({}),
+}))
+
+setProjectAnnotations([a11yAddonAnnotations, projectAnnotations])

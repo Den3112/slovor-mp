@@ -1,0 +1,255 @@
+
+> slovor-mp@1.0.0 test:run
+> vitest run
+
+│
+▲  No story files found for the specified pattern: stories/**/*.mdx
+│
+▲  No story files found for the specified pattern:
+│  stories/**/*.stories.@(js|jsx|mjs|ts|tsx)
+│
+▲  No story files found for the specified pattern: components/**/*.mdx
+Warning: Starting in Storybook 8.5.0-alpha.18, the "test.include" option in Vitest is discouraged in favor of just using the "stories" field in your Storybook configuration.
+
+The values you passed to "test.include" will be ignored, please remove them from your Vitest configuration where the Storybook plugin is applied.
+
+More info: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#addon-test-indexing-behavior-of-storybookaddon-test-is-changed
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/home/creator/slovor-mp[39m
+
+Warning: Starting in Storybook 8.5.0-alpha.18, the "test.include" option in Vitest is discouraged in favor of just using the "stories" field in your Storybook configuration.
+
+The values you passed to "test.include" will be ignored, please remove them from your Vitest configuration where the Storybook plugin is applied.
+
+More info: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#addon-test-indexing-behavior-of-storybookaddon-test-is-changed
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils/logger.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/listings.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/image-gallery.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 502[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/location-select.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[33m 437[2mms[22m[39m
+     [33m[2m✓[22m[39m renders correctly [33m 337[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/category-select.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 712[2mms[22m[39m
+     [33m[2m✓[22m[39m renders with placeholder [33m 421[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/listing-card.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 729[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/filters.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 1182[2mms[22m[39m
+     [33m[2m✓[22m[39m renders price inputs [33m 479[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/step-category.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 338[2mms[22m[39m
+[90mstdout[2m | __tests__/components/create-listing-form.test.tsx[2m > [22m[2mCreateListingForm[2m > [22m[2mrenders the form with step 1
+[22m[39mCreateListingForm: RENDER { user: [33mtrue[39m, authLoading: [33mfalse[39m }
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/ui/design-tokens.test.tsx [2m([22m[2m15 tests[22m[2m)[22m[32m 224[2mms[22m[39m
+[90mstdout[2m | __tests__/components/create-listing-form.test.tsx[2m > [22m[2mCreateListingForm[2m > [22m[2mshows categories after loading
+[22m[39mCreateListingForm: RENDER { user: [33mtrue[39m, authLoading: [33mfalse[39m }
+
+[90mstdout[2m | __tests__/components/create-listing-form.test.tsx[2m > [22m[2mCreateListingForm[2m > [22m[2mallows selecting a category
+[22m[39mCreateListingForm: RENDER { user: [33mtrue[39m, authLoading: [33mfalse[39m }
+
+[90mstdout[2m | __tests__/components/create-listing-form.test.tsx[2m > [22m[2mCreateListingForm[2m > [22m[2mshows condition buttons
+[22m[39mCreateListingForm: RENDER { user: [33mtrue[39m, authLoading: [33mfalse[39m }
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/create-listing-form.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 435[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/step-images.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 488[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/auth-social.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 223[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/auth-form.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[33m 383[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/step-details.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 591[2mms[22m[39m
+     [33m[2m✓[22m[39m renders all form fields [33m 409[2mms[22m[39m
+ [32m✓[39m [30m[45m storybook (chromium) [49m[39m components/ui/card.stories.tsx [2m([22m[2m2 tests[22m[2m)[22m[33m 2898[2mms[22m[39m
+   [33m[2m✓[22m[39m Default [33m 2340[2mms[22m[39m
+   [33m[2m✓[22m[39m Interactive [33m 551[2mms[22m[39m
+[90mstdout[2m | __tests__/lib/utils/analytics.test.ts[2m > [22m[2manalytics utility[2m > [22m[2mstores events in sessionStorage in non-production environment
+[22m[39m[Analytics] search_performed {"query":"test"}
+
+[90mstdout[2m | __tests__/lib/utils/analytics.test.ts[2m > [22m[2manalytics utility[2m > [22m[2mlimits stored events to 50
+[22m[39m[Analytics] filter_applied {"i":0}
+[Analytics] filter_applied {"i":1}
+[Analytics] filter_applied {"i":2}
+[Analytics] filter_applied {"i":3}
+[Analytics] filter_applied {"i":4}
+[Analytics] filter_applied {"i":5}
+[Analytics] filter_applied {"i":6}
+[Analytics] filter_applied {"i":7}
+[Analytics] filter_applied {"i":8}
+[Analytics] filter_applied {"i":9}
+[Analytics] filter_applied {"i":10}
+[Analytics] filter_applied {"i":11}
+[Analytics] filter_applied {"i":12}
+[Analytics] filter_applied {"i":13}
+[Analytics] filter_applied {"i":14}
+[Analytics] filter_applied {"i":15}
+[Analytics] filter_applied {"i":16}
+[Analytics] filter_applied {"i":17}
+[Analytics] filter_applied {"i":18}
+[Analytics] filter_applied {"i":19}
+[Analytics] filter_applied {"i":20}
+[Analytics] filter_applied {"i":21}
+[Analytics] filter_applied {"i":22}
+[Analytics] filter_applied {"i":23}
+[Analytics] filter_applied {"i":24}
+[Analytics] filter_applied {"i":25}
+[Analytics] filter_applied {"i":26}
+[Analytics] filter_applied {"i":27}
+[Analytics] filter_applied {"i":28}
+[Analytics] filter_applied {"i":29}
+[Analytics] filter_applied {"i":30}
+[Analytics] filter_applied {"i":31}
+[Analytics] filter_applied {"i":32}
+[Analytics] filter_applied {"i":33}
+[Analytics] filter_applied {"i":34}
+[Analytics] filter_applied {"i":35}
+[Analytics] filter_applied {"i":36}
+[Analytics] filter_applied {"i":37}
+[Analytics] filter_applied {"i":38}
+[Analytics] filter_applied {"i":39}
+[Analytics] filter_applied {"i":40}
+[Analytics] filter_applied {"i":41}
+[Analytics] filter_applied {"i":42}
+[Analytics] filter_applied {"i":43}
+[Analytics] filter_applied {"i":44}
+[Analytics] filter_applied {"i":45}
+[Analytics] filter_applied {"i":46}
+[Analytics] filter_applied {"i":47}
+[Analytics] filter_applied {"i":48}
+[Analytics] filter_applied {"i":49}
+[Analytics] filter_applied {"i":50}
+[Analytics] filter_applied {"i":51}
+[Analytics] filter_applied {"i":52}
+[Analytics] filter_applied {"i":53}
+[Analytics] filter_applied {"i":54}
+[Analytics] filter_applied {"i":55}
+[Analytics] filter_applied {"i":56}
+[Analytics] filter_applied {"i":57}
+[Analytics] filter_applied {"i":58}
+[Analytics] filter_applied {"i":59}
+
+[90mstdout[2m | __tests__/lib/utils/analytics.test.ts[2m > [22m[2manalytics utility[2m > [22m[2mclears tracked events
+[22m[39m[Analytics] message_sent 
+
+[90mstdout[2m | __tests__/lib/utils/analytics.test.ts[2m > [22m[2manalytics utility[2m > [22m[2mhandles storage errors gracefully
+[22m[39m[Analytics] report_submitted 
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 312[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils/analytics.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 138[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/header.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 784[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the logo [33m 544[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/utils/formatting.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/storage.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m✓[39m [30m[45m storybook (chromium) [49m[39m components/ui/badge.stories.tsx [2m([22m[2m6 tests[22m[2m)[22m[33m 3792[2mms[22m[39m
+   [33m[2m✓[22m[39m Default [33m 2330[2mms[22m[39m
+   [33m[2m✓[22m[39m Secondary [33m 445[2mms[22m[39m
+   [33m[2m✓[22m[39m Success [33m 308[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/listing-action-buttons.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 180[2mms[22m[39m
+ [32m✓[39m [30m[45m storybook (chromium) [49m[39m components/ui/button.stories.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 4454[2mms[22m[39m
+   [33m[2m✓[22m[39m Default [33m 2307[2mms[22m[39m
+   [33m[2m✓[22m[39m Destructive [33m 396[2mms[22m[39m
+   [33m[2m✓[22m[39m Outline [33m 373[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/hooks/use-favorite.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 143[2mms[22m[39m
+[90mstderr[2m | __tests__/lib/api/profiles.test.ts[2m > [22m[2mprofilesApi[2m > [22m[2mgetById[2m > [22m[2mhandles db error
+[22m[39m[ERROR][profilesApi.getById][client]: {"message":"DB Error"}
+
+[90mstderr[2m | __tests__/lib/api/profiles.test.ts[2m > [22m[2mprofilesApi[2m > [22m[2mupdate[2m > [22m[2mhandles failure in update
+[22m[39m[ERROR][profilesApi.update][client]: {"message":"Update Failed"}
+
+[90mstderr[2m | __tests__/lib/api/profiles.test.ts[2m > [22m[2mprofilesApi[2m > [22m[2mgetStats[2m > [22m[2mhandles errors when fetching listings
+[22m[39m[ERROR][profilesApi.getStats][client]: {"message":"DB Error"}
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/favorites.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+[90mstderr[2m | __tests__/lib/api/profiles.test.ts[2m > [22m[2mprofilesApi[2m > [22m[2mgetRecentActivity[2m > [22m[2mhandles errors
+[22m[39m[ERROR][profilesApi.getRecentActivity][client]: {"message":"Fetch Fail"}
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/profiles.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 145[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/components/price-display.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 147[2mms[22m[39m
+[90mstderr[2m | __tests__/lib/api/listings.test.ts[2m > [22m[2mlistingsApi[2m > [22m[2merror handling[2m > [22m[2mcatches and logs errors in getAll
+[22m[39m[ERROR][listingsApi.getAll][client]: Query error
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/listings.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/conversations.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/api/listings-filters.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+[90mstderr[2m | __tests__/api/detect-locale.test.ts[2m > [22m[2mAPI: Detect Locale[2m > [22m[2mGET /api/detect-locale[2m > [22m[2mshould handle errors gracefully
+[22m[39mError detecting locale: Error: Headers error
+    at [90m/home/creator/slovor-mp/[39m__tests__/api/detect-locale.test.ts:136:15
+    at Mock [90m(file:///home/creator/slovor-mp/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:285:34[90m)[39m
+    at Module.GET [90m(/home/creator/slovor-mp/[39mapp/api/detect-locale/route.ts:17:31[90m)[39m
+    at [90m/home/creator/slovor-mp/[39m__tests__/api/detect-locale.test.ts:139:30
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mfile:///home/creator/slovor-mp/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:20
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/api/detect-locale.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/services/translation.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+[90mstderr[2m | __tests__/app/api/users-me.test.ts[2m > [22m[2mAPI Users Me Route[2m > [22m[2mGET[2m > [22m[2mreturns basic user info if profile missing
+[22m[39mProfile fetch error: { message: [32m'Missing'[39m }
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/users-me.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+[90mstderr[2m | __tests__/lib/api/reviews.test.ts[2m > [22m[2mreviewsApi[2m > [22m[2mgetForSeller[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][reviewsApi.getForSeller][client]: {"message":"Fetch Error"}
+
+[90mstderr[2m | __tests__/lib/api/reviews.test.ts[2m > [22m[2mreviewsApi[2m > [22m[2mhasReviewed[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][reviewsApi.hasReviewed][client]: {"message":"Check Error"}
+
+[90mstderr[2m | __tests__/lib/api/reviews.test.ts[2m > [22m[2mreviewsApi[2m > [22m[2mdelete[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][reviewsApi.delete][client]: {"message":"Delete Error"}
+
+[90mstderr[2m | __tests__/lib/api/reviews.test.ts[2m > [22m[2mreviewsApi[2m > [22m[2mgetByAuthor[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][reviewsApi.getByAuthor][client]: {"message":"Author Reviews Error"}
+
+[90mstderr[2m | __tests__/lib/api/reviews.test.ts[2m > [22m[2mreviewsApi[2m > [22m[2mreply[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][reviewsApi.reply][client]: {"message":"Reply Error"}
+
+[90mstderr[2m | __tests__/lib/api/reviews.test.ts[2m > [22m[2mreviewsApi[2m > [22m[2merror handling[2m > [22m[2mcatches database errors in create
+[22m[39m[ERROR][reviewsApi.create][client]: {"message":"DB Error"}
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/reviews.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils/listing-form-schema.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/detect-locale.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/moderation/content-filter.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/categories.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils/draft-storage.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+[90mstderr[2m | __tests__/app/api/api-utils.test.ts[2m > [22m[2mAPI Utilities[2m > [22m[2mgetAuthenticatedClient[2m > [22m[2mreturns null if environment variables are missing
+[22m[39mMissing Supabase environment variables
+Missing Supabase environment variables
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/api-utils.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/api.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/middleware.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+[90mstderr[2m | __tests__/lib/api/saved-searches.test.ts[2m > [22m[2msavedSearchesApi[2m > [22m[2mgetAll[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][savedSearchesApi.getAll][client]: {"message":"DB Error"}
+
+[90mstderr[2m | __tests__/lib/api/saved-searches.test.ts[2m > [22m[2msavedSearchesApi[2m > [22m[2mcreate[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][savedSearchesApi.create][client]: {"message":"Insert Error"}
+
+[90mstderr[2m | __tests__/lib/api/saved-searches.test.ts[2m > [22m[2msavedSearchesApi[2m > [22m[2mupdate[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][savedSearchesApi.update][client]: {"message":"Update Error"}
+
+[90mstderr[2m | __tests__/lib/api/saved-searches.test.ts[2m > [22m[2msavedSearchesApi[2m > [22m[2mdelete[2m > [22m[2mhandles database errors
+[22m[39m[ERROR][savedSearchesApi.delete][client]: {"message":"Delete Error"}
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/saved-searches.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/categories.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/listings-filters.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+[90mstderr[2m | __tests__/lib/api/reports.test.ts[2m > [22m[2mreportsApi[2m > [22m[2mcreate[2m > [22m[2mhandles database errors during create
+[22m[39m[ERROR][reportsApi.create][client]: {"message":"Insert Error"}
+
+[90mstderr[2m | __tests__/lib/api/reports.test.ts[2m > [22m[2mreportsApi[2m > [22m[2mlist[2m > [22m[2mhandles database errors in list
+[22m[39m[ERROR][reportsApi.list][client]: {"message":"List Error"}
+
+[90mstderr[2m | __tests__/lib/api/reports.test.ts[2m > [22m[2mreportsApi[2m > [22m[2mupdateStatus[2m > [22m[2mhandles database errors during status update
+[22m[39m[ERROR][reportsApi.updateStatus][client]: {"message":"Update Error"}
+
+[90mstderr[2m | __tests__/lib/api/reports.test.ts[2m > [22m[2mreportsApi[2m > [22m[2mhasReported[2m > [22m[2mhandles database errors in hasReported
+[22m[39m[ERROR][reportsApi.hasReported][client]: {"message":"Check Error"}
+
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/reports.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/utils/cn.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/app/api/health.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m lib/api/__tests__/api.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/api/api-health.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/supabase/server.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/api/listings-server.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils/listing-utils.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/utils/category-i18n.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/lib/env.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m __tests__/utils/listing-utils.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m56 passed[39m[22m[90m (56)[39m
+[2m      Tests [22m [1m[32m377 passed[39m[22m[90m (377)[39m
+[2m   Start at [22m 20:59:18
+[2m   Duration [22m 26.16s[2m (transform 37.07s, setup 44.33s, import 68.35s, tests 20.29s, environment 49.48s)[22m
+

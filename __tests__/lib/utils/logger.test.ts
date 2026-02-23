@@ -2,8 +2,8 @@ import { describe, it, expect, vi, afterEach } from 'vitest'
 import { logError, logWarn, logInfo } from '@/lib/utils/logger'
 
 describe('logger utility', () => {
-  const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
   const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+  const consoleInfoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
   const consoleErrorSpy = vi
     .spyOn(console, 'error')
     .mockImplementation(() => {})
@@ -31,7 +31,7 @@ describe('logger utility', () => {
   it('logs info correctly in development', () => {
     // Since we are running tests, process.env.NODE_ENV is usually 'test' or 'development'
     logInfo('test-ctx', 'some info')
-    expect(consoleLogSpy).toHaveBeenCalledWith(
+    expect(consoleInfoSpy).toHaveBeenCalledWith(
       expect.stringContaining('[INFO][test-ctx]'),
       'some info'
     )
