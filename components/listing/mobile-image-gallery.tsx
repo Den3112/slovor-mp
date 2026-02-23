@@ -45,7 +45,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
 
   if (!images || images.length === 0) {
     return (
-      <div className="bg-muted/50 flex aspect-4/3 items-center justify-center rounded-lg md:aspect-16/10">
+      <div className="bg-muted/50 flex aspect-4/3 items-center justify-center rounded-xl md:aspect-16/10">
         <div className="text-muted-foreground/40 text-center">
           <ImageOff className="mx-auto mb-3 h-12 w-12" />
           <p className="text-sm font-bold">{t('listing:noImage')}</p>
@@ -58,7 +58,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
     <>
       <div className="space-y-3 md:space-y-6">
         {/* Main Gallery */}
-        <div className="group border-border bg-card relative overflow-hidden rounded-lg border shadow-sm">
+        <div className="group border-border bg-card relative overflow-hidden rounded-xl border shadow-sm">
           {/* Carousel */}
           <div ref={emblaRef} className="overflow-hidden">
             <div className="flex touch-pan-y">
@@ -153,7 +153,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
                 key={index}
                 onClick={() => emblaApi?.scrollTo(index)}
                 className={cn(
-                  'relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 p-0 transition-all hover:opacity-100 lg:h-24 lg:w-24',
+                  'relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 p-0 transition-all hover:opacity-100 lg:h-24 lg:w-24',
                   selectedIndex === index
                     ? 'border-primary scale-105 opacity-100 shadow-lg'
                     : 'border-transparent opacity-60'

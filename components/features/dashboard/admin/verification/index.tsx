@@ -252,7 +252,7 @@ export function AdminVerificationView() {
           variant="outline"
           size="sm"
           onClick={() => setSelectedRequest(row)}
-          className="bg-background hover:bg-muted border-border/60 h-8 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase transition-all"
+          className="bg-background hover:bg-muted border-border/60 h-8 rounded-xl px-4 text-[10px] font-bold tracking-widest uppercase transition-all"
         >
           {t('admin:reviewVerifyDocs')}
         </Button>
@@ -299,13 +299,13 @@ export function AdminVerificationView() {
             <TabsTrigger
               key={tab.value}
               value={tab.value}
-              className="data-[state=active]:bg-background data-[state=active]:text-primary rounded-lg px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-lg"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary rounded-xl px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-lg"
             >
               {tab.label}
               {tab.count > 0 && (
                 <span
                   className={cn(
-                    'ml-3 rounded-lg border px-2 py-0.5 text-[9px] font-bold',
+                    'ml-3 rounded-xl border px-2 py-0.5 text-[9px] font-bold',
                     tab.value === 'pending'
                       ? 'bg-primary border-primary shadow-primary/20 text-white shadow-lg'
                       : 'bg-muted-foreground/5 text-muted-foreground/40 border-border/40'

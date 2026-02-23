@@ -10,7 +10,7 @@ export default async function PrivacyPage() {
       <Container className="pt-32 md:pt-40">
         <div className="mx-auto max-w-4xl">
           <div className="animate-in fade-in slide-in-from-top-4 mb-12 flex items-center gap-6 duration-700">
-            <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10">
+            <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10">
               <Shield className="h-7 w-7 text-emerald-500" />
             </div>
             <div className="flex-1">

@@ -19,7 +19,7 @@ export function CategoryHeader({ onAdd }: CategoryHeaderProps) {
       </div>
       <Button
         onClick={onAdd}
-        className="shadow-primary/20 h-11 rounded-lg px-6 font-bold tracking-widest uppercase shadow-lg"
+        className="shadow-primary/20 h-11 rounded-xl px-6 font-bold tracking-widest uppercase shadow-lg"
       >
         <Plus className="mr-2 h-4 w-4" strokeWidth={2.5} />
         {t('admin:addCategory')}

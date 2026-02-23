@@ -56,7 +56,12 @@ export function SmartNudges() {
 
               <div className="relative space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-lg">
+                  <div className="bg-primary/10 relative flex h-8 w-8 items-center justify-center rounded-xl">
+                    {/* Attention indicator */}
+                    <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                      <span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
+                      <span className="bg-primary relative inline-flex h-2.5 w-2.5 rounded-full"></span>
+                    </span>
                     {nudge.type === 'tip' ? (
                       <Target className="text-primary h-4 w-4" />
                     ) : (

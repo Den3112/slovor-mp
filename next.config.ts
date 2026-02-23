@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 // Validate environment variables at build-time
-import './lib/env.mjs'
+import './lib/env.ts'
 
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
@@ -65,7 +65,6 @@ const nextConfig: NextConfig = {
     ],
     // Enable SVG support for Dicebear avatars
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
     // Disable optimization for faster loading of external images
     unoptimized: false,
@@ -129,7 +128,17 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://*.supabase.co https://images.unsplash.com https://picsum.photos https://loremflickr.com https://api.dicebear.com https://res.cloudinary.com; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://open.er-api.com https://vitals.vercel-insights.com; frame-ancestors 'none'; upgrade-insecure-requests;",
+          },
+          {
+            key: 'Permissions-Policy',
+            value:
+              'camera=(), microphone=(), geolocation=(), browsing-topics=()',
           },
         ],
       },
@@ -139,7 +148,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Removed hardcoded locale redirects to handle them dynamically in middleware
-
 
       // Profile to Dashboard unification
       // Redirects handled in middleware
@@ -155,7 +163,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // Redirects handled in middleware
-
 
       // Legacy paths
       {

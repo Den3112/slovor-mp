@@ -43,7 +43,7 @@ export default async function FAQPage() {
               className="group border-border bg-card hover:border-primary/30 cursor-default rounded-xl border p-8 shadow-sm transition-all"
             >
               <div className="flex items-start gap-4">
-                <div className="bg-muted group-hover:bg-primary border-border mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border transition-colors duration-300 group-hover:text-white">
+                <div className="bg-muted group-hover:bg-primary border-border mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border transition-colors duration-300 group-hover:text-white">
                   <ChevronRight className="h-4 w-4" />
                 </div>
                 <div>

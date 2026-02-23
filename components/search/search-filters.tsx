@@ -146,7 +146,7 @@ export function SearchFilters() {
           <div className="flex items-center space-x-2">
             <Checkbox
               id="new"
-              className="rounded-lg"
+              className="rounded-xl"
               checked={searchParams.get('condition') === 'new'}
               onCheckedChange={(checked) =>
                 updateFilters({ condition: checked ? 'new' : null })
@@ -157,7 +157,7 @@ export function SearchFilters() {
           <div className="flex items-center space-x-2">
             <Checkbox
               id="used"
-              className="rounded-lg"
+              className="rounded-xl"
               checked={searchParams.get('condition') === 'used'}
               onCheckedChange={(checked) =>
                 updateFilters({ condition: checked ? 'used' : null })
@@ -251,7 +251,7 @@ export function SearchFilters() {
                       })
                     }
                   >
-                    <SelectTrigger className="border-border/60 bg-background focus:ring-primary/10 h-10 w-full rounded-lg text-sm font-medium">
+                    <SelectTrigger className="border-border/60 bg-background focus:ring-primary/10 h-10 w-full rounded-xl text-sm font-medium">
                       <SelectValue placeholder={t('common:all')} />
                     </SelectTrigger>
                     <SelectContent>
@@ -287,7 +287,7 @@ export function SearchFilters() {
           value={searchParams.get('sort') || 'newest'}
           onValueChange={(value) => updateFilters({ sort: value || null })}
         >
-          <SelectTrigger className="border-border/60 bg-background focus:ring-primary/10 h-10 w-full rounded-lg text-sm font-medium">
+          <SelectTrigger className="border-border/60 bg-background focus:ring-primary/10 h-10 w-full rounded-xl text-sm font-medium">
             <SelectValue placeholder={t('filters:newest')} />
           </SelectTrigger>
           <SelectContent>

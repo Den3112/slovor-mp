@@ -51,7 +51,7 @@ export function UserOverviewView({
 }: UserOverviewViewProps) {
   const { t, locale } = useTranslation(['admin', 'dashboard'])
 
-  const mappedOrders = recentOrders.map(order => ({
+  const mappedOrders = recentOrders.map((order) => ({
     id: order.id,
     status: order.status as any,
     title: (order as any).listing?.title || t('dashboard:unknownListing'),
@@ -59,11 +59,14 @@ export function UserOverviewView({
     date: formatDistanceToNow(new Date(order.created_at), {
       addSuffix: true,
       locale:
-        locale === 'ru' ? ru :
-          locale === 'sk' ? sk :
-            locale === 'cs' ? cs :
-              enUS
-    })
+        locale === 'ru'
+          ? ru
+          : locale === 'sk'
+            ? sk
+            : locale === 'cs'
+              ? cs
+              : enUS,
+    }),
   }))
 
   return (
@@ -86,7 +89,7 @@ export function UserOverviewView({
           </BentoTile>
 
           {/* Success Score & Smart Nudges */}
-          <div className="col-span-12 grid h-full grid-rows-2 gap-4 lg:col-span-4 lg:gap-6">
+          <div className="col-span-full grid h-full grid-rows-2 gap-4 lg:col-span-4 lg:gap-6">
             <BentoTile
               colSpan={12}
               rowSpan={1}

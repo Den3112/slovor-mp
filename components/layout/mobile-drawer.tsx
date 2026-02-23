@@ -11,11 +11,17 @@ import {
   Home,
   MessageSquare,
   Settings,
-  UserCircle,
   Moon,
   Sun,
   ShieldAlert,
   Package,
+  Zap,
+  Star,
+  Clock,
+  LayoutDashboard,
+  Wallet,
+  ShoppingBag,
+  ShieldCheck,
 } from 'lucide-react'
 import { config } from '@/lib/config'
 import { cn } from '@/lib/utils'
@@ -84,7 +90,7 @@ export function MobileDrawer({
                   </p>
                 </div>
                 <Drawer.Close asChild>
-                  <button className="bg-muted text-muted-foreground flex h-10 w-10 items-center justify-center rounded-lg transition-all active:scale-95">
+                  <button className="bg-muted text-muted-foreground flex h-10 w-10 items-center justify-center rounded-xl transition-all active:scale-95">
                     <X className="h-5 w-5" />
                   </button>
                 </Drawer.Close>
@@ -183,7 +189,7 @@ export function MobileDrawer({
                           <div className="flex items-center gap-4">
                             <div
                               className={cn(
-                                'flex h-8 w-8 items-center justify-center rounded-lg text-white shadow-sm ring-1 ring-white/10',
+                                'flex h-8 w-8 items-center justify-center rounded-xl text-white shadow-sm ring-1 ring-white/10',
                                 cat.color
                               )}
                             >
@@ -209,7 +215,7 @@ export function MobileDrawer({
                         <>
                           {[
                             {
-                              icon: UserCircle,
+                              icon: LayoutDashboard,
                               label: t('nav:dashboard'),
                               href: '/dashboard',
                             },
@@ -217,6 +223,39 @@ export function MobileDrawer({
                               icon: Package,
                               label: t('profile:myListings') || 'My Listings',
                               href: '/dashboard/listings',
+                            },
+                            {
+                              icon: Wallet,
+                              label: t('profile:wallet') || 'Wallet',
+                              href: '/dashboard/wallet',
+                            },
+                            {
+                              icon: ShoppingBag,
+                              label: t('dashboard:ordersAndSales') || 'Orders',
+                              href: '/dashboard/orders',
+                            },
+                            {
+                              icon: Star,
+                              label: t('profile:reviews') || 'Reviews',
+                              href: '/dashboard/reviews',
+                            },
+                            {
+                              icon: Zap,
+                              label:
+                                t('dashboard:marketInsights') || 'Analytics',
+                              href: '/dashboard/analytics',
+                            },
+                            {
+                              icon: Clock,
+                              label:
+                                t('dashboard:activityLog.title') || 'Activity',
+                              href: '/dashboard/activity',
+                            },
+                            {
+                              icon: ShieldCheck,
+                              label:
+                                t('profile:verification') || 'Verification',
+                              href: '/dashboard/verification',
                             },
                             {
                               icon: Settings,
@@ -260,20 +299,20 @@ export function MobileDrawer({
                           {config.app.adminEmails.includes(
                             user.email || ''
                           ) && (
-                              <Link
-                                href={`/${locale}/admin`}
-                                onClick={() => onOpenChange(false)}
-                                className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
-                              >
-                                <div className="flex items-center gap-4">
-                                  <ShieldAlert className="h-5 w-5" />
-                                  <span className="text-sm font-bold tracking-tight">
-                                    {t('common:adminPanel')}
-                                  </span>
-                                </div>
-                                <ChevronRight className="h-4 w-4 text-amber-500/30" />
-                              </Link>
-                            )}
+                            <Link
+                              href={`/${locale}/admin`}
+                              onClick={() => onOpenChange(false)}
+                              className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
+                            >
+                              <div className="flex items-center gap-4">
+                                <ShieldAlert className="h-5 w-5" />
+                                <span className="text-sm font-bold tracking-tight">
+                                  {t('common:adminPanel')}
+                                </span>
+                              </div>
+                              <ChevronRight className="h-4 w-4 text-amber-500/30" />
+                            </Link>
+                          )}
 
                           <button
                             onClick={() => {
@@ -293,14 +332,14 @@ export function MobileDrawer({
                           <Link
                             href={`/${locale}/auth/login`}
                             onClick={() => onOpenChange(false)}
-                            className="bg-primary text-primary-foreground shadow-primary/20 flex items-center justify-center rounded-lg py-3 text-[10px] font-bold tracking-widest uppercase shadow-lg transition-all active:scale-95"
+                            className="bg-primary text-primary-foreground shadow-primary/20 flex items-center justify-center rounded-xl py-3 text-[10px] font-bold tracking-widest uppercase shadow-lg transition-all active:scale-95"
                           >
                             {t('common:signIn')}
                           </Link>
                           <Link
                             href={`/${locale}/auth/register`}
                             onClick={() => onOpenChange(false)}
-                            className="bg-muted text-foreground border-border/40 flex items-center justify-center rounded-lg border py-3 text-[10px] font-bold tracking-widest uppercase transition-all active:scale-95"
+                            className="bg-muted text-foreground border-border/40 flex items-center justify-center rounded-xl border py-3 text-[10px] font-bold tracking-widest uppercase transition-all active:scale-95"
                           >
                             {t('common:register')}
                           </Link>
@@ -313,7 +352,7 @@ export function MobileDrawer({
                   <div className="border-border/40 space-y-6 border-t pt-4">
                     <div className="flex items-center justify-between px-4">
                       <div className="flex items-center gap-3">
-                        <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-lg">
+                        <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-xl">
                           {theme === 'dark' ? (
                             <Moon className="h-4 w-4" />
                           ) : (
@@ -354,7 +393,7 @@ export function MobileDrawer({
               <div className="border-border/40 bg-background absolute inset-x-0 bottom-0 border-t p-6">
                 <Button
                   asChild
-                  className="shadow-primary/20 bg-primary hover:bg-primary/90 h-14 w-full gap-3 rounded-lg border-0 text-sm font-bold tracking-widest text-white uppercase shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="shadow-primary/20 bg-primary hover:bg-primary/90 h-14 w-full gap-3 rounded-xl border-0 text-sm font-bold tracking-widest text-white uppercase shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Link
                     href={`/${locale}/post`}

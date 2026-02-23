@@ -51,6 +51,7 @@ export async function GET() {
       PLN: data.conversion_rates.PLN ?? FALLBACK_RATES.PLN,
       UAH: data.conversion_rates.UAH ?? FALLBACK_RATES.UAH,
       GBP: data.conversion_rates.GBP ?? FALLBACK_RATES.GBP,
+      RUB: data.conversion_rates.RUB ?? FALLBACK_RATES.RUB,
     }
 
     // Update cache
@@ -66,7 +67,7 @@ export async function GET() {
       cached: false,
     })
   } catch (error) {
-    console.warn('Exchange rate API failed, using fallback rates.', error)
+    console.error('Exchange rate API failed:', error)
 
     // Return fallback rates
     return NextResponse.json({

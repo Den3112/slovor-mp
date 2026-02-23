@@ -44,7 +44,7 @@ export function ListingCard({
         className="group border-border bg-card active:bg-muted md:hover:border-primary/40 relative flex gap-4 overflow-hidden rounded-2xl border p-3 transition-all active:scale-[0.98] md:hover:-translate-y-0.5 md:hover:shadow-md"
       >
         {/* Compact Image */}
-        <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-28">
+        <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
           {hasValidImage ? (
             <>
               <Image
@@ -145,7 +145,7 @@ export function ListingCard({
                 'object-cover transition-transform duration-700 group-hover:scale-105',
                 isLoading ? 'opacity-0' : 'opacity-100'
               )}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={() => {
                 setImageError(true)
                 setIsLoading(false)
@@ -190,7 +190,7 @@ export function ListingCard({
 
         {/* Photos Count Overlay */}
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg border border-white/20 bg-black/80 px-2 py-1 text-[10px] font-bold text-white">
+          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-xl border border-white/20 bg-black/80 px-2 py-1 text-[10px] font-bold text-white">
             <span className="opacity-70">{listing.images.length}</span>
             <span className="text-[8px] tracking-widest uppercase">
               {t('photos') || 'Photos'}
@@ -256,7 +256,7 @@ export function ListingCard({
           </div>
 
           {listing.location && (
-            <div className="bg-muted/30 text-muted-foreground flex items-center gap-1.5 rounded-lg px-2 py-1.5">
+            <div className="bg-muted/30 text-muted-foreground flex items-center gap-1.5 rounded-xl px-2 py-1.5">
               <MapPin className="text-primary h-3 w-3" />
               <span className="max-w-[80px] truncate text-[10px] font-bold tracking-wide uppercase">
                 {listing.location.split(',')[0]}

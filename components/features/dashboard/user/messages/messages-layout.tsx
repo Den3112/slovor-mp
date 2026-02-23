@@ -86,7 +86,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
   })
 
   return (
-    <div className="bg-card lg:border-border flex h-[calc(100vh-140px)] flex-col overflow-hidden rounded-lg shadow-sm lg:flex-row lg:border">
+    <div className="bg-card lg:border-border flex h-[calc(100vh-140px)] flex-col overflow-hidden rounded-xl shadow-sm lg:flex-row lg:border">
       {/* Sidebar / List */}
       <div
         className={cn(
@@ -105,7 +105,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 rounded-lg transition-colors"
+                  className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 h-8 w-8 rounded-xl transition-colors"
                   title={t('messages:clearAllChats')}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -142,7 +142,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
               placeholder={t('common:search')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-muted/40 border-border/50 focus:bg-background focus:border-primary/50 h-9 rounded-lg pl-9 text-xs font-medium transition-all"
+              className="bg-muted/40 border-border/50 focus:bg-background focus:border-primary/50 h-9 rounded-xl pl-9 text-xs font-medium transition-all"
             />
           </div>
         </div>
@@ -195,7 +195,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                             className={cn(
                               'relative h-12 w-12 overflow-hidden rounded-full border transition-all duration-300',
                               isActive
-                                ? 'border-primary/20 ring-2 ring-primary/10'
+                                ? 'border-primary/20 ring-primary/10 ring-2'
                                 : 'border-border/60 group-hover:border-primary/20'
                             )}
                           >
@@ -208,13 +208,13 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                                 unoptimized
                               />
                             ) : (
-                              <div className="bg-muted flex h-full w-full items-center justify-center text-muted-foreground/50">
+                              <div className="bg-muted text-muted-foreground/50 flex h-full w-full items-center justify-center">
                                 <User className="h-5 w-5" />
                               </div>
                             )}
                           </div>
                           {isUnread && (
-                            <span className="bg-primary ring-background absolute top-0 right-0 h-3.5 w-3.5 animate-pulse rounded-full border-2 border-white ring-2 shadow-sm" />
+                            <span className="bg-primary ring-background absolute top-0 right-0 h-3.5 w-3.5 animate-pulse rounded-full border-2 border-white shadow-sm ring-2" />
                           )}
                         </div>
                         <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
@@ -222,7 +222,9 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                             <span
                               className={cn(
                                 'truncate text-sm font-bold transition-colors',
-                                isActive ? 'text-primary' : 'text-foreground group-hover:text-primary/80'
+                                isActive
+                                  ? 'text-primary'
+                                  : 'text-foreground group-hover:text-primary/80'
                               )}
                             >
                               {otherUser?.display_name || 'User'}
@@ -258,7 +260,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                               )}
                             >
                               {lastMsg.sender_id === user?.id && (
-                                <span className="text-primary/70 font-medium mr-1">
+                                <span className="text-primary/70 mr-1 font-medium">
                                   {t('dashboard:chat.you')}:
                                 </span>
                               )}

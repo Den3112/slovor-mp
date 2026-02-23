@@ -90,7 +90,7 @@ export function ContentOverviewWidget() {
               className="hover:bg-muted/5 group flex items-center justify-between p-4 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="bg-muted/20 border-border/20 rounded-lg border p-2">
+                <div className="bg-muted/20 border-border/20 rounded-xl border p-2">
                   {getIcon(item.type)}
                 </div>
                 <div className="space-y-0.5">

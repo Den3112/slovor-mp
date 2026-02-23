@@ -107,7 +107,7 @@ export function AdminReportsView() {
       header: t('admin:tableTarget'),
       cell: (row) => (
         <div className="flex items-center gap-4">
-          <div className="bg-muted relative h-10 w-10 min-w-[40px] shrink-0 overflow-hidden rounded-lg border">
+          <div className="bg-muted relative h-10 w-10 min-w-[40px] shrink-0 overflow-hidden rounded-xl border">
             {row.listing ? (
               row.listing.images && row.listing.images[0] ? (
                 <Image
@@ -284,12 +284,12 @@ export function AdminReportsView() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-lg border p-1">
+          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap justify-start rounded-xl border p-1">
             {['all', 'pending', 'resolved', 'dismissed'].map((tab) => (
               <TabsTrigger
                 key={tab}
                 value={tab}
-                className="data-[state=active]:bg-background data-[state=active]:text-primary rounded-lg px-4 py-2 text-[9px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-sm"
+                className="data-[state=active]:bg-background data-[state=active]:text-primary rounded-xl px-4 py-2 text-[9px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-sm"
               >
                 {tab === 'all' ? t('common:all') : t(`admin:${tab}`)}
               </TabsTrigger>

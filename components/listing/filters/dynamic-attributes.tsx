@@ -47,7 +47,7 @@ export function DynamicAttributes({
                   onAttrChange(attr.id, v === 'all' ? '' : v)
                 }
               >
-                <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-lg font-bold">
+                <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
                   <SelectValue placeholder={t('common:all')} />
                 </SelectTrigger>
                 <SelectContent>

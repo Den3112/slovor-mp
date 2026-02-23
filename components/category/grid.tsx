@@ -44,8 +44,8 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
               </div>
 
               {category.icon_name && (
-                <div className="bg-muted/50 group-hover/card:bg-primary group-hover/card:text-primary-foreground mb-6 rounded-2xl p-6 transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotate-6">
-                  <CategoryIcon slug={category.slug} className="h-12 w-12" />
+                <div className="mb-6 transition-all duration-500 group-hover/card:scale-110 group-hover/card:rotate-6">
+                  <CategoryIcon slug={category.slug} size="lg" />
                 </div>
               )}
 
@@ -55,7 +55,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
 
               {category.listing_count !== undefined && (
                 <span className="bg-muted/50 text-muted-foreground group-hover/card:bg-primary/10 group-hover/card:text-primary mt-3 rounded-full px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all">
-                  {category.listing_count} {t('common:listings')}
+                  {t('common:listings', { count: category.listing_count })}
                 </span>
               )}
             </Link>
@@ -67,7 +67,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                   <Link
                     key={sub.id}
                     href={`/${locale}/categories/${sub.slug}`}
-                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-lg border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
+                    className="border-border/50 text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl border px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
                   >
                     {getLocalizedCategoryName(sub, locale, t)}
                   </Link>

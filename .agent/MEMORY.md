@@ -6,15 +6,16 @@
 3. **Design**: "Customer CRM" style. Solid, Clean, Data-Dense. NO Glassmorphism.
 4. **Skills**: **MANDATORY** use of skills in `/home/creator/.agents/skills`.
 5. **Process**: Read Memory → Work → Verify → Update Memory.
-6. **Unsure?**: ASK the user. Do not guess.
-7. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
+6. **AI Factory**: All tasks **MUST** be initiated via `/ai-factory` or its specialized skills.
+7. **Unsure?**: ASK the user. Do not guess.
+8. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
-> **Last Updated**: 2026-02-10
-> **Status**: ✅ ADMIN & DASHBOARD AUDIT COMPLETED. All 15 identified bugs fixed and pushed.
+> **Last Updated**: 2026-02-22
+> **Status**: ✅ AI FACTORY INTEGRATED & SERVER VERIFIED.
 
 ## ⚡ Active RAM
-- **Status**: Admin & Dashboard Bug Fixing Initiative COMPLETED.
-- **Next Step**: Final project review, merge to main, and deployment preparation.
+- **Status**: AI Factory fully integrated. Server is running and verified. Docker infrastructure updated and hardened to standard.
+- **Next Step**: Monitor for user requests via AI Factory workflows.
 
 ---
 
@@ -30,18 +31,9 @@
 
 ### Статус аудита и исправлений (Admin Hub & User Dashboard)
 - **API & Logic**:
-  - Исправлены `reviewsApi` (seller_id/buyer_id) — исправлено 400 ошибок в консоли.
-  - Исправлены `walletsApi` (maybeSingle) — убраны 406 ошибки при отсутствии кошелька.
-  - Исправлены `categoriesApi` (embed counts) — решена проблема "пустой таблицы".
-- **i18n & Localization**:
-  - Переведены все ICU `{placeholder}` в i18next `{{placeholder}}` (Subscriptions).
-  - Убраны `{{COUNT}}` и raw keys (`noVerificationRequests`, `TABLEVERIFICATION`, `TABLECREATED`).
-  - Добавлены недостающие ключи в `admin.json` и `dashboard.json`.
-- **UI & UX**:
-  - Решена проблема `Invalid Date` во всех списках листингов в админке.
-  - Исправлена мобильная адаптивность сайдбара (`lg` брейкпоинт + рабочий бургер-меню).
-  - Добавлены заглушки `Coming Soon` для Support, Settings и Analytics.
-- **Пути к артефактам**: `/home/creator/.gemini/antigravity/brain/475fab39-4c75-4a46-9ab8-94c0c6ad0bf2/walkthrough.md`
+  - Исправлен `categoriesApi.getAll` (в тесте `categories.test.ts` обновлены моки под Resource Embedding).
+  - Добавлен `withRetry` в `profilesApi` для предотвращения клиентских ошибок `Failed to fetch`.
+- **Пути к артефактам**: `/home/creator/.gemini/antigravity/brain/65635806-d4c4-4dbb-8448-3e1d6c2419cb/walkthrough.md`
 
 ### Текущий статус по фазам
 - **Phase 10 (Deep UI Audit)**: ✅ Исправлено. Радиусы (20px/12px) и SEO нормализованы.

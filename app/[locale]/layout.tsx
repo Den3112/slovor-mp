@@ -7,11 +7,19 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import '../globals.css'
 import { cn } from '@/lib/utils'
 
-// Fallback system fonts to bypass next/font/google build issues in some environments
-const fontHeading = "'Inter', 'Inter var', system-ui, -apple-system, sans-serif"
-const fontSans = "'Inter', 'Inter var', system-ui, -apple-system, sans-serif"
-const fontMono =
-  "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+import { Inter, JetBrains_Mono } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  display: 'swap',
+  variable: '--font-sans',
+})
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin', 'cyrillic'],
+  display: 'swap',
+  variable: '--font-mono',
+})
 
 export const viewport: Viewport = {
   themeColor: '#6366F1',
@@ -21,25 +29,30 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
   const { locale } = await params
 
   const titles: Record<string, string> = {
-    en: "Slovor - Premium Marketplace in Slovakia",
-    sk: "Slovor - Prémiový bazár na Slovensku",
-    cs: "Slovor - Premiový bazar na Slovensku",
-    ru: "Slovor - Премиум маркетплейс в Словакии"
+    en: 'Slovor - Premium Marketplace in Slovakia',
+    sk: 'Slovor - Prémiový bazár na Slovensku',
+    cs: 'Slovor - Premiový bazar na Slovensku',
+    ru: 'Slovor - Премиум маркетплейс в Словакии',
   }
 
   const descriptions: Record<string, string> = {
-    en: "Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.",
-    sk: "Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku.",
-    cs: "Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku.",
-    ru: "Покупайте и продавайте электронику, недвижимость, автомобили и многое другое. Самый современный маркетплейс в Словакии."
+    en: 'Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.',
+    sk: 'Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku.',
+    cs: 'Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku.',
+    ru: 'Покупайте и продавайте электронику, недвижимость, автомобили и многое другое. Самый современный маркетплейс в Словакии.',
   }
 
-  const defaultTitle = titles[locale] || titles.en || "Slovor - Premium Marketplace in Slovakia";
-  const defaultDescription = descriptions[locale] || descriptions.en;
+  const defaultTitle =
+    titles[locale] || titles.en || 'Slovor - Premium Marketplace in Slovakia'
+  const defaultDescription = descriptions[locale] || descriptions.en
 
   return {
     title: {
@@ -95,26 +108,17 @@ export default async function RootLayout({
   const { locale } = await params
 
   return (
-    <html
-      lang={locale}
-      suppressHydrationWarning
-      data-scroll-behavior="smooth"
-      style={
-        {
-          // @ts-ignore
-          '--font-heading': fontHeading,
-          '--font-sans': fontSans,
-          '--font-mono': fontMono,
-        } as React.CSSProperties
-      }
-    >
+    <html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <meta charSet="utf-8" />
       </head>
       <body
         suppressHydrationWarning
         className={cn(
-          'bg-background text-foreground min-h-screen font-sans antialiased'
+          'bg-background text-foreground min-h-screen font-sans antialiased',
+          inter.variable,
+          jetBrainsMono.variable,
+          '--font-heading'
         )}
       >
         <Providers lang={locale}>

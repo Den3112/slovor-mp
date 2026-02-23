@@ -22,7 +22,10 @@ export function ActivityFeed() {
       id: '1',
       type: 'message',
       title: t('dashboard:activityLog.entries.newMessage'),
-      description: t('dashboard:activityLog.entries.newMessageDesc', { user: 'Peter', item: 'iPhone 15' }),
+      description: t('dashboard:activityLog.entries.newMessageDesc', {
+        user: 'Peter',
+        item: 'iPhone 15',
+      }),
       time: '2m',
       isUnread: true,
     },
@@ -30,7 +33,10 @@ export function ActivityFeed() {
       id: '2',
       type: 'sale',
       title: t('dashboard:activityLog.entries.itemsSold'),
-      description: t('dashboard:activityLog.entries.saleDesc', { item: 'Acoustic Guitar', user: '@marek_s' }),
+      description: t('dashboard:activityLog.entries.saleDesc', {
+        item: 'Acoustic Guitar',
+        user: '@marek_s',
+      }),
       time: '45m',
       isUnread: true,
     },
@@ -38,7 +44,10 @@ export function ActivityFeed() {
       id: '3',
       type: 'like',
       title: t('dashboard:activityLog.entries.listingFavorited'),
-      description: t('dashboard:activityLog.entries.favoriteDesc', { item: 'MacBook M3', count: 5 }),
+      description: t('dashboard:activityLog.entries.favoriteDesc', {
+        item: 'MacBook M3',
+        count: 5,
+      }),
       time: '1h',
       isUnread: false,
     },
@@ -46,7 +55,10 @@ export function ActivityFeed() {
       id: '4',
       type: 'system',
       title: t('dashboard:activityLog.entries.listingExpiring'),
-      description: t('dashboard:activityLog.entries.expiringDesc', { item: 'Vintage Watch', days: 2 }),
+      description: t('dashboard:activityLog.entries.expiringDesc', {
+        item: 'Vintage Watch',
+        days: 2,
+      }),
       time: '3h',
       isUnread: false,
     },
@@ -61,14 +73,14 @@ export function ActivityFeed() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: idx * 0.1 }}
           className={cn(
-            'group relative flex items-start gap-4 rounded-lg p-3 transition-all duration-200',
+            'group relative flex items-start gap-4 rounded-xl p-3 transition-all duration-200',
             'hover:bg-accent/50 hover:border-border/50 border border-transparent',
             item.isUnread && 'bg-primary/5'
           )}
         >
           <div
             className={cn(
-              'mt-1 shrink-0 rounded-lg p-2',
+              'mt-1 shrink-0 rounded-xl p-2',
               item.type === 'message' && 'bg-primary/10 text-primary',
               item.type === 'like' && 'bg-pink-500/10 text-pink-500',
               item.type === 'system' && 'bg-amber-500/10 text-amber-500',

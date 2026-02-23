@@ -144,7 +144,7 @@ export function AdminListingDetailView({
                   {listing.images.map((img, i) => (
                     <div
                       key={i}
-                      className="bg-muted relative aspect-square overflow-hidden rounded-lg border"
+                      className="bg-muted relative aspect-square overflow-hidden rounded-xl border"
                     >
                       <Image
                         src={img}
@@ -156,7 +156,7 @@ export function AdminListingDetailView({
                   ))}
                 </div>
               ) : (
-                <div className="text-muted-foreground flex h-32 items-center justify-center rounded-lg border-2 border-dashed">
+                <div className="text-muted-foreground flex h-32 items-center justify-center rounded-xl border-2 border-dashed">
                   {t('admin:noImages')}
                 </div>
               )}

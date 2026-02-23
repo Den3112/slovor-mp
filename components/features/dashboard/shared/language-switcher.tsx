@@ -92,7 +92,7 @@ export function LanguageSwitcher({
         <Button
           variant="ghost"
           className={cn(
-            'text-muted-foreground hover:bg-muted/60 hover:text-foreground w-full justify-start gap-3 rounded-lg px-3 font-medium',
+            'text-muted-foreground hover:bg-muted/60 hover:text-foreground w-full justify-start gap-3 rounded-xl px-3 font-medium',
             className
           )}
         >

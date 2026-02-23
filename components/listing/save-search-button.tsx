@@ -75,7 +75,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
       <Button
         variant="outline"
         size="sm"
-        className="gap-2 rounded-lg"
+        className="gap-2 rounded-xl"
         onClick={() => router.push(`/${locale}/auth/login`)}
       >
         <BookmarkPlus className="h-4 w-4" />
@@ -87,12 +87,12 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2 rounded-lg">
+        <Button variant="outline" size="sm" className="gap-2 rounded-xl">
           <BookmarkPlus className="h-4 w-4" />
           {t('dashboard:savedSearchesDetails.saveButton')}
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-lg sm:max-w-[425px]">
+      <DialogContent className="rounded-xl sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('dashboard:savedSearchesDetails.title')}</DialogTitle>
           <DialogDescription>
@@ -109,10 +109,10 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder={t('dashboard:savedSearchesDetails.namePlaceholder')}
-              className="rounded-lg"
+              className="rounded-xl"
             />
           </div>
-          <div className="bg-muted/40 hover:bg-muted/60 flex items-center justify-between rounded-lg p-5 transition-colors">
+          <div className="bg-muted/40 hover:bg-muted/60 flex items-center justify-between rounded-xl p-5 transition-colors">
             <Label
               htmlFor="email-notif"
               className="flex cursor-pointer flex-col gap-1"
@@ -136,7 +136,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
           <Button
             onClick={handleSave}
             disabled={!name.trim() || loading}
-            className="w-full rounded-lg"
+            className="w-full rounded-xl"
           >
             {loading ? (
               <>

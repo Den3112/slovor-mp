@@ -27,7 +27,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
   if (validImages.length === 0) {
     return (
-      <div className="bg-muted border-border flex aspect-4/3 w-full flex-col items-center justify-center gap-3 rounded-lg border">
+      <div className="bg-muted border-border flex aspect-4/3 w-full flex-col items-center justify-center gap-3 rounded-xl border">
         <ImageOff className="text-muted-foreground h-16 w-16" />
         <span className="text-muted-foreground text-lg font-medium">
           No images available
@@ -135,7 +135,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
               variant="ghost"
               size="icon"
               onClick={goToPrevious}
-              className="absolute top-1/2 left-4 z-20 h-10 w-10 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
+              className="absolute top-1/2 left-4 z-20 h-10 w-10 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
@@ -144,7 +144,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
               variant="ghost"
               size="icon"
               onClick={goToNext}
-              className="absolute top-1/2 right-4 z-20 h-10 w-10 -translate-y-1/2 rounded-lg bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
+              className="absolute top-1/2 right-4 z-20 h-10 w-10 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />
@@ -154,7 +154,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
         {/* Image Counter */}
         {validImages.length > 1 && (
-          <div className="absolute right-4 bottom-4 z-20 rounded-lg bg-black/70 px-2 py-1 text-xs font-medium text-white">
+          <div className="absolute right-4 bottom-4 z-20 rounded-xl bg-black/70 px-2 py-1 text-xs font-medium text-white">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}
@@ -173,7 +173,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 p-0 transition-all hover:bg-transparent ${
+                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 p-0 transition-all hover:bg-transparent ${
                   index === currentIndex
                     ? 'border-primary ring-primary/10 opacity-100 ring-2 ring-offset-1'
                     : 'hover:border-border border-transparent opacity-70 hover:opacity-100'

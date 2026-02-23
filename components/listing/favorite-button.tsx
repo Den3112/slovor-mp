@@ -108,7 +108,7 @@ export function FavoriteButton({
       whileTap={{ scale: 0.9 }}
       onClick={toggleFavorite}
       className={cn(
-        'group relative flex items-center justify-center rounded-lg border border-white/20 transition-all duration-300',
+        'group relative flex items-center justify-center rounded-xl border border-white/20 transition-all duration-300',
         sizeClasses[size],
         isFavorited
           ? 'border-red-400 bg-red-500 text-white shadow-md shadow-red-500/20'

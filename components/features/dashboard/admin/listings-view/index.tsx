@@ -141,9 +141,10 @@ export function AdminListingsView({
     }
     const userCreatedAt = listing.user?.created_at
     const createdDate = userCreatedAt ? new Date(userCreatedAt) : null
-    const daysOld = createdDate && !isNaN(createdDate.getTime())
-      ? (Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24)
-      : 100 // Assume old if no valid date
+    const daysOld =
+      createdDate && !isNaN(createdDate.getTime())
+        ? (Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24)
+        : 100 // Assume old if no valid date
     if (daysOld < 2) {
       issues.push({
         label: t('admin:newSeller'),
@@ -238,7 +239,7 @@ export function AdminListingsView({
       className: 'min-w-[400px]',
       cell: (row) => (
         <div className="group/item flex items-center gap-4">
-          <div className="bg-muted border-border/40 group-hover/item:border-primary/30 relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border transition-all">
+          <div className="bg-muted border-border/40 group-hover/item:border-primary/30 relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border transition-all">
             {row.images?.[0] ? (
               <Image
                 src={row.images[0]}
@@ -283,7 +284,7 @@ export function AdminListingsView({
       className: 'min-w-[160px]',
       cell: (row) => (
         <div className="flex items-center gap-3">
-          <div className="bg-muted text-muted-foreground border-border/40 flex h-8 w-8 items-center justify-center rounded-lg border">
+          <div className="bg-muted text-muted-foreground border-border/40 flex h-8 w-8 items-center justify-center rounded-xl border">
             <Users className="h-4 w-4" />
           </div>
           <div className="flex flex-col">
@@ -291,14 +292,12 @@ export function AdminListingsView({
               {row.user?.display_name || 'User'}
             </span>
             <span className="text-muted-foreground/40 text-[9px] font-bold tracking-wider uppercase">
-              {row.user?.created_at && !isNaN(new Date(row.user.created_at).getTime())
-                ? new Date(row.user.created_at).toLocaleDateString(
-                  undefined,
-                  {
+              {row.user?.created_at &&
+              !isNaN(new Date(row.user.created_at).getTime())
+                ? new Date(row.user.created_at).toLocaleDateString(undefined, {
                     month: 'short',
                     year: 'numeric',
-                  }
-                )
+                  })
                 : '—'}
             </span>
           </div>
@@ -352,7 +351,7 @@ export function AdminListingsView({
             variant="outline"
             size="icon"
             onClick={() => handleAction(row.id, 'active')}
-            className="border-border/40 h-8 w-8 rounded-lg transition-all hover:border-emerald-500/20 hover:bg-emerald-500/5 hover:text-emerald-500"
+            className="border-border/40 h-8 w-8 rounded-xl transition-all hover:border-emerald-500/20 hover:bg-emerald-500/5 hover:text-emerald-500"
             title={t('admin:approve')}
           >
             <CheckCircle2 className="h-4 w-4" />
@@ -361,7 +360,7 @@ export function AdminListingsView({
             variant="outline"
             size="icon"
             onClick={() => handleAction(row.id, 'rejected')}
-            className="border-border/40 hover:bg-destructive/5 hover:text-destructive hover:border-destructive/20 h-8 w-8 rounded-lg transition-all"
+            className="border-border/40 hover:bg-destructive/5 hover:text-destructive hover:border-destructive/20 h-8 w-8 rounded-xl transition-all"
             title={t('admin:reject')}
           >
             <XCircle className="h-4 w-4" />
@@ -402,17 +401,17 @@ export function AdminListingsView({
         className="w-full space-y-8"
       >
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap rounded-lg border p-1">
+          <TabsList className="bg-muted/40 border-border/40 h-auto flex-wrap rounded-xl border p-1">
             {stats.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="data-[state=active]:bg-background data-[state=active]:text-primary rounded-lg px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-lg"
+                className="data-[state=active]:bg-background data-[state=active]:text-primary rounded-xl px-5 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-lg"
               >
                 {tab.label}
                 <span
                   className={cn(
-                    'ml-3 rounded-lg border px-2 py-0.5 text-[9px] font-bold',
+                    'ml-3 rounded-xl border px-2 py-0.5 text-[9px] font-bold',
                     tab.value === 'pending' && tab.count > 0
                       ? 'bg-primary border-primary shadow-primary/20 text-white shadow-lg'
                       : 'bg-muted-foreground/5 text-muted-foreground/40 border-border/40'

@@ -67,15 +67,15 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               { label: t('allListings'), href: `/${locale}/listings` },
               ...(listing.category
                 ? [
-                  {
-                    label: getLocalizedCategoryName(
-                      listing.category,
-                      locale,
-                      t
-                    ),
-                    href: `/${locale}/categories/${listing.category.slug}`,
-                  },
-                ]
+                    {
+                      label: getLocalizedCategoryName(
+                        listing.category,
+                        locale,
+                        t
+                      ),
+                      href: `/${locale}/categories/${listing.category.slug}`,
+                    },
+                  ]
                 : []),
               { label: displayTitle },
             ]}
@@ -87,7 +87,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
           <div className="space-y-8 lg:col-span-8">
             {/* Image Gallery */}
             <div className="hidden md:block">
-              <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
+              <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
                 <ImageGallery
                   images={listing.images || []}
                   title={displayTitle}
@@ -124,7 +124,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       {/* Mobile Sticky Action Bar - Adjusted bottom to clear global BottomNavBar */}
       <div className="fixed right-0 bottom-0 left-0 z-40 flex flex-col md:hidden">
         {/* Added safe area padding and increased margin to clear bottom nav */}
-        <div className="border-t bg-background p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] mb-[var(--bottom-nav-height,72px)]">
+        <div className="bg-background mb-[var(--bottom-nav-height,72px)] border-t p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)]">
           <div className="mx-auto flex max-w-lg items-center justify-between gap-4">
             <div className="flex flex-col">
               <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
@@ -137,7 +137,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               />
             </div>
             <Button
-              className="shadow-primary/20 h-14 flex-1 rounded-lg text-lg font-bold shadow-lg"
+              className="shadow-primary/20 h-14 flex-1 rounded-xl text-lg font-bold shadow-lg"
               onClick={() => {
                 const sidebarButton = document.querySelector(
                   '[data-action="contact"]'

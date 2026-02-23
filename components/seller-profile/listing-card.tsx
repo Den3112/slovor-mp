@@ -52,7 +52,7 @@ function DeleteConfirmModal({
           <DialogDescription asChild>
             <div className="space-y-3">
               <p>{t('dashboard:deleteListingConfirm', { title })}</p>
-              <p className="bg-destructive/5 text-destructive flex items-center gap-2 rounded-lg p-3 text-sm">
+              <p className="bg-destructive/5 text-destructive flex items-center gap-2 rounded-xl p-3 text-sm">
                 <AlertTriangle className="h-4 w-4" />
                 {t('dashboard:deleteListingWarning')}
               </p>
@@ -140,7 +140,7 @@ export function DashboardListingCard({
         {/* Clickable Image Thumbnail */}
         <Link
           href={`/${locale}/listings/${listing.id}`}
-          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-lg shadow-inner md:h-32 md:w-32"
+          className="bg-muted group/image relative h-48 w-full shrink-0 overflow-hidden rounded-xl shadow-inner md:h-32 md:w-32"
         >
           {listing.images?.[0] ? (
             <>
@@ -148,8 +148,11 @@ export function DashboardListingCard({
                 src={listing.images[0]}
                 alt={listing.title}
                 fill
-                className="object-cover transition-transform duration-700 group-hover/image:scale-110"
+                className="object-cover transition-transform duration-500 group-hover/image:scale-110"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 unoptimized
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+F9PQAI8wNPvd7POQAAAABJRU5ErkJggg=="
                 priority={priority}
               />
             </>
@@ -203,7 +206,7 @@ export function DashboardListingCard({
               baseCurrency={listing.currency}
               className="text-foreground text-xl font-bold tracking-tighter md:text-2xl"
             />
-            <div className="text-muted-foreground/70 flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] font-bold">
+            <div className="text-muted-foreground/70 flex items-center gap-1.5 rounded-xl border border-white/5 bg-white/5 px-2.5 py-1 text-[10px] font-bold">
               <Eye className="h-3 w-3" />
               <span>{listing.views_count || 0}</span>
             </div>
@@ -211,7 +214,7 @@ export function DashboardListingCard({
         </Link>
 
         {/* Actions - Modern Pill Group */}
-        <div className="border-border/40 bg-muted/30 mt-2 flex w-full items-center gap-2 rounded-lg border p-1 md:mt-0 md:w-auto md:border-none md:bg-transparent md:pl-4">
+        <div className="border-border/40 bg-muted/30 mt-2 flex w-full items-center gap-2 rounded-xl border p-1 md:mt-0 md:w-auto md:border-none md:bg-transparent md:pl-4">
           <Link
             href={`/${locale}/post?edit=${listing.id}`}
             title="Edit"
@@ -220,7 +223,7 @@ export function DashboardListingCard({
             <Button
               size="icon"
               variant="ghost"
-              className="hover:bg-primary/20 hover:text-primary text-muted-foreground h-12 w-full rounded-lg transition-all md:w-12"
+              className="hover:bg-primary/20 hover:text-primary text-muted-foreground h-12 w-full rounded-xl transition-all md:w-12"
             >
               <Edit className="h-5 w-5" />
               <span className="sr-only">{t('dashboard:edit')}</span>
@@ -232,7 +235,7 @@ export function DashboardListingCard({
             size="icon"
             variant="ghost"
             className={cn(
-              'h-12 w-full flex-1 rounded-lg transition-all md:w-12 md:flex-none',
+              'h-12 w-full flex-1 rounded-xl transition-all md:w-12 md:flex-none',
               listing.status === 'active'
                 ? 'text-muted-foreground hover:bg-amber-500/20 hover:text-amber-500'
                 : 'text-muted-foreground hover:bg-emerald-500/20 hover:text-emerald-500'
@@ -251,7 +254,7 @@ export function DashboardListingCard({
           <Button
             size="icon"
             variant="ghost"
-            className="text-muted-foreground hover:bg-destructive/20 hover:text-destructive h-12 w-full flex-1 rounded-lg transition-all md:w-12 md:flex-none"
+            className="text-muted-foreground hover:bg-destructive/20 hover:text-destructive h-12 w-full flex-1 rounded-xl transition-all md:w-12 md:flex-none"
             onClick={() => setShowDeleteModal(true)}
             disabled={isDeleting}
             title="Delete"

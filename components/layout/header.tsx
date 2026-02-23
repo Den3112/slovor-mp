@@ -58,7 +58,7 @@ export function Header() {
 
               <button
                 className={cn(
-                  'hidden items-center gap-2.5 rounded-lg px-4 py-2 text-[11px] font-bold tracking-widest uppercase transition-all active:scale-[0.98] lg:flex',
+                  'hidden items-center gap-2.5 rounded-xl px-4 py-2 text-[11px] font-bold tracking-widest uppercase transition-all active:scale-[0.98] lg:flex',
                   isMegaMenuOpen
                     ? 'bg-primary shadow-primary/20 text-white shadow-lg'
                     : 'bg-card text-muted-foreground hover:bg-muted hover:text-foreground border-border border'
@@ -83,10 +83,15 @@ export function Header() {
             </div>
 
             {/* Central Expressive Search - Desktop (Hidden on home page to avoid duplication) */}
-            <div className={cn(
-              "hidden max-w-xl flex-1 items-center justify-center md:flex transition-opacity duration-300",
-              (pathname === '/' || pathname === `/${locale}` || pathname === `/${locale}/`) && "hidden!"
-            )}>
+            <div
+              className={cn(
+                'hidden max-w-xl flex-1 items-center justify-center transition-opacity duration-300 md:flex',
+                (pathname === '/' ||
+                  pathname === `/${locale}` ||
+                  pathname === `/${locale}/`) &&
+                  'hidden!'
+              )}
+            >
               <div className="group relative w-full">
                 <CommandCenter locale={locale} />
                 {/* Visual indicator of center focus */}
@@ -109,7 +114,7 @@ export function Header() {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 h-10 w-10 rounded-lg transition-all"
+                    className="icon-btn rounded-xl transition-all"
                     aria-label={t('nav:favorites') || 'Favorites'}
                   >
                     <Link href={`/${locale}/dashboard/favorites`}>
@@ -121,13 +126,13 @@ export function Header() {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="text-muted-foreground hover:text-primary hover:bg-primary/5 relative h-10 w-10 rounded-lg transition-all"
+                    className="icon-btn relative rounded-xl transition-all"
                     aria-label={t('nav:messages') || 'Messages'}
                   >
                     <Link href={`/${locale}/dashboard/messages`}>
                       <MessageCircle className="h-5 w-5" />
                       {unreadCount > 0 && (
-                        <span className="bg-primary ring-background absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-lg text-[9px] font-bold text-white ring-2">
+                        <span className="bg-primary ring-background absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold text-white ring-2">
                           {unreadCount > 9 ? '9+' : unreadCount}
                         </span>
                       )}
@@ -151,7 +156,7 @@ export function Header() {
                 {/* Primary CTA - Post Ad */}
                 <Button
                   asChild
-                  className="bg-primary hover:bg-primary-hover shadow-primary ml-2 h-12 gap-2.5 rounded-lg border-0 px-6 text-[15px] font-semibold text-white transition-all active:scale-[0.98]"
+                  className="bg-primary hover:bg-primary-hover shadow-primary ml-2 h-12 gap-2.5 rounded-xl border-0 px-6 text-[15px] font-semibold text-white transition-all active:scale-[0.98]"
                 >
                   <Link
                     href={`/${locale}/post`}
@@ -164,11 +169,12 @@ export function Header() {
               </div>
 
               <div className="flex shrink-0 items-center gap-3 lg:hidden">
+                <ThemeToggle className="sm:h-9 sm:w-9" />
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSearchOverlayOpen(true)}
-                  className="bg-card h-10 w-10 rounded-lg sm:h-9 sm:w-9"
+                  className="bg-card h-10 w-10 rounded-xl sm:h-9 sm:w-9"
                   aria-label={t('common:search') || 'Search'}
                 >
                   <Search className="h-5 w-5" />
@@ -177,7 +183,7 @@ export function Header() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
-                  className="bg-card h-10 w-10 rounded-lg sm:h-9 sm:w-9"
+                  className="bg-card h-10 w-10 rounded-xl sm:h-9 sm:w-9"
                   aria-label="Open menu"
                 >
                   <Menu className="h-5 w-5" />

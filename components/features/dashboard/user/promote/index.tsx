@@ -88,12 +88,12 @@ export function PromoteView({ userId }: PromoteViewProps) {
         ].map((plan) => (
           <div
             key={plan.id}
-            className="bg-card border-border/60 flex items-center justify-between rounded-lg border p-4 shadow-sm"
+            className="bg-card border-border/60 flex items-center justify-between rounded-xl border p-4 shadow-sm"
           >
             <div className="flex items-center gap-3">
               <div
                 className={cn(
-                  'flex h-10 w-10 items-center justify-center rounded-lg border',
+                  'flex h-10 w-10 items-center justify-center rounded-xl border',
                   plan.color === 'blue'
                     ? 'border-blue-200 bg-blue-500/10 text-blue-600 dark:border-blue-900'
                     : plan.color === 'amber'
@@ -131,7 +131,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
           placeholder={t('dashboard:searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-card w-full rounded-lg px-12 py-6 text-sm font-bold shadow-sm"
+          className="bg-card w-full rounded-xl px-12 py-6 text-sm font-bold shadow-sm"
         />
       </div>
 
@@ -180,7 +180,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                         </div>
                       )}
                       {listing.is_highlighted && (
-                        <div className="absolute top-4 left-4 z-10 rounded-lg bg-amber-500 px-3 py-1.5 text-[8px] font-bold tracking-[0.2em] text-white uppercase shadow-lg shadow-amber-500/20">
+                        <div className="absolute top-4 left-4 z-10 rounded-xl bg-amber-500 px-3 py-1.5 text-[8px] font-bold tracking-[0.2em] text-white uppercase shadow-lg shadow-amber-500/20">
                           {t('dashboard:promoted')}
                         </div>
                       )}
@@ -210,7 +210,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                             )}
                           </span>
                         </div>
-                        <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-11 w-11 items-center justify-center rounded-lg transition-all group-hover:text-white">
+                        <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-11 w-11 items-center justify-center rounded-xl transition-all group-hover:text-white">
                           <ArrowRight className="h-5 w-5" />
                         </div>
                       </div>

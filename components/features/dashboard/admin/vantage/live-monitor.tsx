@@ -38,9 +38,21 @@ export function LiveMonitor() {
           const mappedEvents: Event[] = data.map((log: any) => {
             let type: Event['type'] = 'visit'
             if (log.action.includes('order')) type = 'order'
-            else if (log.action.includes('verify') || log.action.includes('moderate')) type = 'moderation'
-            else if (log.action.includes('register') || log.action.includes('user')) type = 'user'
-            else if (log.action.includes('error') || log.action.includes('fail')) type = 'alert'
+            else if (
+              log.action.includes('verify') ||
+              log.action.includes('moderate')
+            )
+              type = 'moderation'
+            else if (
+              log.action.includes('register') ||
+              log.action.includes('user')
+            )
+              type = 'user'
+            else if (
+              log.action.includes('error') ||
+              log.action.includes('fail')
+            )
+              type = 'alert'
 
             return {
               id: log.id,
@@ -48,7 +60,7 @@ export function LiveMonitor() {
               label: t(`admin:action_${log.action}`) || log.action,
               timestamp: new Date(log.created_at),
               location: log.ip_address || 'Cloud Environment',
-              user: log.profiles?.display_name
+              user: log.profiles?.display_name,
             }
           })
           setEvents(mappedEvents)
@@ -62,7 +74,13 @@ export function LiveMonitor() {
 
     // Simulate real-time pulses mixed with real data for the "Live" feel
     const interval = setInterval(() => {
-      const types: Event['type'][] = ['visit', 'moderation', 'user', 'order', 'alert']
+      const types: Event['type'][] = [
+        'visit',
+        'moderation',
+        'user',
+        'order',
+        'alert',
+      ]
       const labels = [
         'New session started',
         'Heartbeat active',
@@ -70,7 +88,9 @@ export function LiveMonitor() {
         'Node status: Healthy',
       ]
 
-      const type = types[Math.floor(Math.random() * types.length)] as Event['type']
+      const type = types[
+        Math.floor(Math.random() * types.length)
+      ] as Event['type']
       const newEvent: Event = {
         id: Math.random().toString(36).substr(2, 9),
         type,
@@ -114,7 +134,7 @@ export function LiveMonitor() {
             >
               <div
                 className={cn(
-                  'ring-border/50 mt-0.5 flex h-7 w-7 items-center justify-center rounded-lg shadow-xs ring-1 transition-colors',
+                  'ring-border/50 mt-0.5 flex h-7 w-7 items-center justify-center rounded-xl shadow-xs ring-1 transition-colors',
                   event.type === 'order' && 'bg-green-500/10 text-green-500',
                   event.type === 'alert' && 'bg-red-500/10 text-red-500',
                   event.type === 'moderation' && 'bg-blue-500/10 text-blue-500',
@@ -166,7 +186,7 @@ export function LiveMonitor() {
 
       <div className="bg-muted/30 border-border/10 border-t px-4 py-2">
         <button
-          className="text-primary hover:text-primary-foreground hover:bg-primary flex w-full items-center justify-center gap-2 rounded-lg py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
+          className="text-primary hover:text-primary-foreground hover:bg-primary flex w-full items-center justify-center gap-2 rounded-xl py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
           aria-label={t('admin:viewDetailStream') || 'View Detail Stream'}
         >
           {t('admin:viewDetailStream') || 'View Detail Stream'}

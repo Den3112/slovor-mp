@@ -20,11 +20,21 @@ import {
   CategoryFormData,
 } from './sub-components'
 
+import { CategoryIcon } from '@/components/category/category-icon'
+
 export function AdminCategoriesView() {
-  const { t } = useTranslation(['common', 'admin'])
+  const namespaces = useMemo(() => ['common', 'admin'], [])
+  const { t } = useTranslation(namespaces)
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const loadingRef = React.useRef(false)
+  const tRef = React.useRef(t)
+
+  // Keep tRef in sync
+  useEffect(() => {
+    tRef.current = t
+  }, [t])
 
   // Dialog states
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -46,18 +56,29 @@ export function AdminCategoriesView() {
   })
 
   const loadCategories = useCallback(async () => {
+    if (loadingRef.current) return
+    loadingRef.current = true
     setIsLoading(true)
+
     try {
       const { data, error } = await categoriesApi.getAll()
-      if (error) throw new Error(error)
-      if (data) setCategories(data)
-    } catch (error) {
+      if (error) {
+        console.error('API Error details:', error)
+        throw new Error(
+          typeof error === 'string' ? error : JSON.stringify(error)
+        )
+      }
+      if (data) {
+        setCategories(data)
+      }
+    } catch (error: any) {
       console.error('Failed to load categories:', error)
-      toast.error(t('admin:failedToLoadCategories'))
+      toast.error(tRef.current('admin:failedToLoadCategories'))
     } finally {
       setIsLoading(false)
+      loadingRef.current = false
     }
-  }, [t])
+  }, []) // TRULY STABLE
 
   useEffect(() => {
     loadCategories()
@@ -100,6 +121,8 @@ export function AdminCategoriesView() {
       icon_name: formData.icon_name || null,
       color: formData.color || null,
     }
+
+    console.log('[FIX] Saving category', payload)
 
     try {
       if (editingCategory) {
@@ -155,73 +178,76 @@ export function AdminCategoriesView() {
     return { total, active, empty }
   }, [categories])
 
-  const columns: Column<Category>[] = [
-    {
-      key: 'name',
-      header: t('admin:tableName'),
-      sortable: true,
-      className: 'min-w-[200px]',
-      cell: (row) => (
-        <div className="flex items-center gap-3">
-          <div className="bg-primary/5 border-primary/10 text-primary flex h-10 w-10 items-center justify-center rounded-lg border">
-            {row.icon ? (
-              <span className="text-xl">{row.icon}</span>
-            ) : (
-              <Layers className="h-5 w-5" />
-            )}
+  const columns: Column<Category>[] = useMemo(
+    () => [
+      {
+        key: 'name',
+        header: t('admin:tableName'),
+        sortable: true,
+        className: 'min-w-[200px]',
+        cell: (row) => (
+          <div className="flex items-center gap-3">
+            <CategoryIcon
+              slug={row.slug}
+              iconName={row.icon_name}
+              iconEmoji={row.icon}
+              showBackground={false}
+              className="h-5 w-5"
+            />
+            <div className="flex flex-col">
+              <span className="text-foreground text-sm font-bold tracking-tight">
+                {row.name}
+              </span>
+              <span className="text-muted-foreground/40 text-[10px] font-bold tracking-widest uppercase">
+                {row.slug}
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-foreground text-sm font-bold tracking-tight">
-              {row.name}
-            </span>
-            <span className="text-muted-foreground/40 text-[10px] font-bold tracking-widest uppercase">
-              {row.slug}
-            </span>
+        ),
+      },
+      {
+        key: 'listing_count',
+        header: t('admin:tableListings'),
+        sortable: true,
+        cell: (row) => (
+          <div className="flex items-center gap-2">
+            <Badge
+              variant="outline"
+              className="bg-muted/50 border-border/40 rounded-xl px-3 py-1 text-[10px] font-bold tracking-widest uppercase"
+            >
+              {row.listing_count || 0}
+            </Badge>
           </div>
-        </div>
-      ),
-    },
-    {
-      key: 'listing_count',
-      header: t('admin:tableListings'),
-      sortable: true,
-      cell: (row) => (
-        <div className="flex items-center gap-2">
-          <Badge
-            variant="outline"
-            className="bg-muted/50 border-border/40 rounded-lg px-3 py-1 text-[10px] font-bold tracking-widest uppercase"
-          >
-            {row.listing_count || 0}
-          </Badge>
-        </div>
-      ),
-    },
-    {
-      key: 'actions',
-      header: '',
-      className: 'text-right',
-      cell: (row) => (
-        <div className="flex justify-end gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => handleOpenDialog(row)}
-            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg transition-all"
-          >
-            <Edit3 className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDeleteId(row.id)}
-            className="hover:bg-destructive/10 hover:text-destructive h-8 w-8 rounded-lg transition-all"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
-      ),
-    },
-  ]
+        ),
+      },
+      {
+        key: 'actions',
+        header: '',
+        className: 'text-right',
+        cell: (row) => (
+          <div className="flex justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleOpenDialog(row)}
+              className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-xl transition-all"
+            >
+              <Edit3 className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setDeleteId(row.id)}
+              className="hover:bg-destructive/10 hover:text-destructive h-8 w-8 rounded-xl transition-all"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        ),
+      },
+    ],
+    [t]
+  )
 
   return (
     <div className="space-y-8" data-testid="admin-categories-view">

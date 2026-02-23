@@ -68,7 +68,7 @@ export function MobileSearchOverlay({
           <div className="safe-top flex h-full flex-col">
             {/* Header */}
             <div className="border-border flex items-center gap-3 border-b p-4">
-              <div className="bg-muted flex flex-1 items-center rounded-lg px-3 py-2">
+              <div className="bg-muted flex flex-1 items-center rounded-xl px-3 py-2">
                 <Search className="text-muted-foreground h-5 w-5" />
                 <form onSubmit={handleSearch} className="flex-1">
                   <Input
@@ -118,11 +118,11 @@ export function MobileSearchOverlay({
                             router.push(`/${locale}${cat.href}`)
                             onClose()
                           }}
-                          className="border-border transition-active hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-lg border p-3 text-left active:scale-95"
+                          className="border-border transition-active hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-xl border p-3 text-left active:scale-95"
                         >
                           <div
                             className={cn(
-                              'flex h-10 w-10 items-center justify-center rounded-lg text-white',
+                              'flex h-10 w-10 items-center justify-center rounded-xl text-white',
                               cat.color
                             )}
                           >

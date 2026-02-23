@@ -73,7 +73,7 @@ export function StepImages({
             scale: isDragActive ? 1.01 : 1,
           }}
           className={cn(
-            'group relative flex min-h-[280px] flex-col items-center justify-center rounded-lg border-2 border-dashed transition-all duration-200',
+            'group relative flex min-h-[280px] flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all duration-200',
             isUploading
               ? 'border-primary/50 bg-primary/5 cursor-wait'
               : 'bg-card hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-primary/10 transition-all focus-within:ring-2'
@@ -94,7 +94,7 @@ export function StepImages({
           <div className="pointer-events-none flex flex-col items-center gap-4 p-8 text-center">
             <motion.div
               animate={isDragActive ? { y: -10 } : { y: 0 }}
-              className="bg-primary/10 text-primary flex h-20 w-20 items-center justify-center rounded-lg transition-transform group-hover:scale-110"
+              className="bg-primary/10 text-primary flex h-20 w-20 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
             >
               {isUploading ? (
                 <Loader2 className="h-10 w-10 animate-spin" />
@@ -119,7 +119,7 @@ export function StepImages({
                 type="button"
                 variant="secondary"
                 onClick={() => fileInputRef.current?.click()}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-auto mt-2 rounded-lg px-8 shadow-sm transition-all active:scale-95"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-auto mt-2 rounded-xl px-8 shadow-sm transition-all active:scale-95"
                 disabled={formData.images.length >= 10}
               >
                 {t('selectImages')}
@@ -135,7 +135,7 @@ export function StepImages({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-muted/30 border-border rounded-lg border p-5 shadow-sm"
+            className="bg-muted/30 border-border rounded-xl border p-5 shadow-sm"
           >
             <div className="text-muted-foreground mb-3 flex w-full items-center justify-between text-[10px] font-bold tracking-widest uppercase">
               <span className="flex items-center gap-2">
@@ -151,7 +151,7 @@ export function StepImages({
                 %
               </span>
             </div>
-            <div className="bg-muted h-2 w-full overflow-hidden rounded-lg">
+            <div className="bg-muted h-2 w-full overflow-hidden rounded-xl">
               <motion.div
                 className="bg-primary h-full"
                 initial={{ width: 0 }}
@@ -187,7 +187,7 @@ export function StepImages({
               <Reorder.Item
                 key={img}
                 value={img}
-                className="group border-border bg-muted relative aspect-square cursor-grab overflow-hidden rounded-lg border shadow-sm active:cursor-grabbing"
+                className="group border-border bg-muted relative aspect-square cursor-grab overflow-hidden rounded-xl border shadow-sm active:cursor-grabbing"
               >
                 <Image
                   src={img}
@@ -206,11 +206,11 @@ export function StepImages({
                       e.stopPropagation()
                       onRemoveImage(idx)
                     }}
-                    className="h-10 w-10 rounded-lg shadow-sm"
+                    className="h-10 w-10 rounded-xl shadow-sm"
                   >
                     <Trash2 className="h-5 w-5" />
                   </Button>
-                  <div className="rounded-lg bg-white/20 p-2.5 text-white">
+                  <div className="rounded-xl bg-white/20 p-2.5 text-white">
                     <GripHorizontal className="h-5 w-5" />
                   </div>
                 </div>
@@ -222,14 +222,14 @@ export function StepImages({
                       key="cover-badge"
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      className="bg-primary absolute top-3 left-3 rounded-lg px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-sm"
+                      className="bg-primary absolute top-3 left-3 rounded-xl px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-sm"
                     >
                       Cover
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-lg border border-white/10 bg-black/70 text-[10px] font-bold text-white uppercase transition-all md:opacity-0 md:group-hover:opacity-100">
+                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-xl border border-white/10 bg-black/70 text-[10px] font-bold text-white uppercase transition-all md:opacity-0 md:group-hover:opacity-100">
                   {idx + 1}
                 </div>
               </Reorder.Item>

@@ -25,7 +25,7 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
             {t('profile:favoritesDescription')}
           </p>
         </div>
-        <div className="bg-primary/5 text-primary border-primary/10 hidden h-10 items-center justify-center rounded-lg border px-4 text-[10px] font-bold tracking-widest uppercase md:flex">
+        <div className="bg-primary/5 text-primary border-primary/10 hidden h-10 items-center justify-center rounded-xl border px-4 text-[10px] font-bold tracking-widest uppercase md:flex">
           {favoriteListings.length} {t('common:saved')}
         </div>
       </div>

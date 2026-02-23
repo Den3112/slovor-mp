@@ -41,25 +41,13 @@ export function StepCategory({
               variant="outline"
               onClick={() => updateField('category_id', cat.id)}
               className={cn(
-                'group relative flex h-auto flex-col items-center gap-3 rounded-lg border p-4 transition-all active:scale-95 md:p-6',
+                'group relative flex h-auto flex-col items-center gap-3 rounded-2xl border p-4 transition-all active:scale-95 md:p-6',
                 formData.category_id === cat.id
-                  ? 'border-primary bg-primary/10 ring-primary/10 hover:bg-primary/20 ring-2'
+                  ? 'border-primary bg-primary/5 ring-primary/10 ring-2'
                   : 'border-border bg-card hover:border-primary/50 hover:bg-accent/50'
               )}
             >
-              <div
-                className={cn(
-                  'flex h-12 w-12 items-center justify-center rounded-lg transition-transform group-hover:scale-110 md:h-16 md:w-16',
-                  formData.category_id === cat.id
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary'
-                )}
-              >
-                <CategoryIcon
-                  slug={cat.slug}
-                  className="h-6 w-6 md:h-8 md:w-8"
-                />
-              </div>
+              <CategoryIcon slug={cat.slug} className="h-6 w-6 md:h-8 md:w-8" />
               <span
                 className={cn(
                   'text-center text-xs font-bold transition-colors md:text-sm',
@@ -76,7 +64,7 @@ export function StepCategory({
       </FormField>
 
       <FormField label={t('condition')} error={fieldErrors.condition}>
-        <div className="bg-muted/50 border-border flex gap-2 rounded-lg border p-1">
+        <div className="bg-muted/50 border-border flex gap-2 rounded-xl border p-1">
           {(['new', 'used'] as const).map((c) => (
             <Button
               key={c}
@@ -84,7 +72,7 @@ export function StepCategory({
               variant="ghost"
               onClick={() => updateField('condition', c)}
               className={cn(
-                'h-auto flex-1 rounded-lg py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
+                'h-auto flex-1 rounded-xl py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300',
 
                 formData.condition === c
                   ? 'bg-background text-foreground hover:bg-background shadow-sm'

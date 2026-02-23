@@ -14,7 +14,7 @@ export function ListingDescription({ description }: ListingDescriptionProps) {
       <h2 className="font-heading text-2xl font-bold tracking-tight">
         {t('listing:itemDescription')}
       </h2>
-      <div className="bg-primary h-1.5 w-20 rounded-lg" />
+      <div className="bg-primary h-1.5 w-20 rounded-xl" />
       <p className="text-foreground/80 text-lg leading-relaxed font-medium whitespace-pre-wrap">
         {description}
       </p>

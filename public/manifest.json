@@ -1,24 +1,23 @@
 {
     "name": "Slovor Marketplace",
     "short_name": "Slovor",
-    "description": "Premium High-End Marketplace for everything",
+    "description": "Premium classifieds marketplace",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#6366F1",
-    "orientation": "portrait",
     "icons": [
         {
             "src": "/icon-192.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable any"
         },
         {
             "src": "/icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable any"
         }
     ]
 }

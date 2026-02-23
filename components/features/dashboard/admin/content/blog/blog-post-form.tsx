@@ -17,7 +17,7 @@ export function BlogPostForm({
   const { t } = useTranslation(['common', 'admin'])
 
   return (
-    <div className="bg-card border-border animate-in fade-in zoom-in-95 space-y-6 rounded-lg border p-6 shadow-sm duration-300 md:p-8">
+    <div className="bg-card border-border animate-in fade-in zoom-in-95 space-y-6 rounded-xl border p-6 shadow-sm duration-300 md:p-8">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold">
           {post.id ? t('admin:editPost') : t('admin:newPost')}
@@ -26,7 +26,7 @@ export function BlogPostForm({
           variant="ghost"
           size="sm"
           onClick={onCancel}
-          className="rounded-lg"
+          className="rounded-xl"
         >
           <X className="h-4 w-4" />
         </Button>
@@ -42,7 +42,7 @@ export function BlogPostForm({
               value={post.title || ''}
               onChange={(e) => onUpdateField('title', e.target.value)}
               placeholder={t('admin:title')}
-              className="h-11 rounded-lg"
+              className="h-11 rounded-xl"
               required
             />
           </div>
@@ -54,7 +54,7 @@ export function BlogPostForm({
               value={post.slug || ''}
               onChange={(e) => onUpdateField('slug', e.target.value)}
               placeholder={t('admin:slugPlaceholder')}
-              className="h-11 rounded-lg"
+              className="h-11 rounded-xl"
               required
             />
           </div>
@@ -68,7 +68,7 @@ export function BlogPostForm({
             value={post.excerpt || ''}
             onChange={(e) => onUpdateField('excerpt', e.target.value)}
             placeholder={t('admin:excerpt')}
-            className="h-11 rounded-lg"
+            className="h-11 rounded-xl"
           />
         </div>
 
@@ -81,9 +81,9 @@ export function BlogPostForm({
               value={post.cover_image || ''}
               onChange={(e) => onUpdateField('cover_image', e.target.value)}
               placeholder={t('admin:imagePlaceholder')}
-              className="h-11 rounded-lg"
+              className="h-11 rounded-xl"
             />
-            <div className="bg-muted border-border/50 relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border">
+            <div className="bg-muted border-border/50 relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border">
               {post.cover_image ? (
                 <Image
                   src={post.cover_image}
@@ -107,7 +107,7 @@ export function BlogPostForm({
             value={post.content || ''}
             onChange={(e) => onUpdateField('content', e.target.value)}
             placeholder={t('admin:contentMarkdown')}
-            className="bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-primary/10 min-h-[300px] w-full rounded-lg border p-4 font-mono text-sm transition-all outline-none focus:ring-4"
+            className="bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-primary/10 min-h-[300px] w-full rounded-xl border p-4 font-mono text-sm transition-all outline-none focus:ring-4"
             required
           />
         </div>
@@ -131,13 +131,13 @@ export function BlogPostForm({
             variant="outline"
             type="button"
             onClick={onCancel}
-            className="h-11 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+            className="h-11 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
           >
             {t('common:cancel')}
           </Button>
           <Button
             disabled={isSubmitting}
-            className="h-11 rounded-lg px-8 text-[10px] font-bold tracking-widest uppercase shadow-sm"
+            className="h-11 rounded-xl px-8 text-[10px] font-bold tracking-widest uppercase shadow-sm"
           >
             {isSubmitting ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
