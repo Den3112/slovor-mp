@@ -38,6 +38,7 @@ describe('API Listings Route', () => {
       lte: vi.fn().mockReturnThis(),
       order: vi.fn().mockReturnThis(),
       range: vi.fn().mockReturnThis(),
+      textSearch: vi.fn().mockReturnThis(),
       insert: vi.fn().mockReturnThis(),
       single: vi.fn().mockReturnThis(),
       then: (cb: any) => cb({ data: [], count: 0, error: null }),
@@ -70,7 +71,10 @@ describe('API Listings Route', () => {
       )
       await GET(req)
 
-      expect(mockFrom.ilike).toHaveBeenCalledWith('title', '%car%')
+      expect(mockFrom.textSearch).toHaveBeenCalledWith('title', 'car', {
+        type: 'websearch',
+        config: 'english',
+      })
       expect(mockFrom.gte).toHaveBeenCalledWith('price', '100')
     })
 

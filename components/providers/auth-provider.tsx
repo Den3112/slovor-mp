@@ -1,6 +1,13 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useMemo } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react'
 import { supabase } from '@/lib/supabase/client'
 import type { Session, User } from '@supabase/supabase-js'
 import { useRouter, useParams } from 'next/navigation'
@@ -69,13 +76,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => clearInterval(interval)
   }, [session])
 
-  const signOut = useMemo(
-    () => async () => {
-      await supabase.auth.signOut()
-      router.refresh()
-    },
-    [router]
-  )
+  const signOut = useCallback(async () => {
+    await supabase.auth.signOut()
+    router.refresh()
+  }, [router])
 
   const value = useMemo(
     () => ({
@@ -84,7 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isLoading,
       signOut,
     }),
-    [session, isLoading]
+    [session, isLoading, signOut]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
