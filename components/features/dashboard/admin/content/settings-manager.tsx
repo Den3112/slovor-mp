@@ -98,7 +98,7 @@ export function SettingsManager() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left: Basic Info */}
         <div className="space-y-6 lg:col-span-2">
-          <div className="bg-card border-border space-y-6 rounded-lg border p-6 shadow-sm md:p-8">
+          <div className="bg-card border-border space-y-6 rounded-xl border p-6 shadow-sm md:p-8">
             <h3 className="flex items-center gap-3 text-xl font-bold tracking-tight uppercase">
               <Globe className="text-primary h-5 w-5" />
               {t('admin:generalBranding')}
@@ -114,7 +114,7 @@ export function SettingsManager() {
                   onChange={(e) =>
                     setGeneral({ ...general, siteName: e.target.value })
                   }
-                  className="h-12 rounded-lg"
+                  className="h-12 rounded-xl"
                 />
               </div>
               <div className="space-y-2">
@@ -128,7 +128,7 @@ export function SettingsManager() {
                     onChange={(e) =>
                       setGeneral({ ...general, supportEmail: e.target.value })
                     }
-                    className="h-12 rounded-lg pl-12"
+                    className="h-12 rounded-xl pl-12"
                   />
                 </div>
               </div>
@@ -143,12 +143,12 @@ export function SettingsManager() {
                 onChange={(e) =>
                   setGeneral({ ...general, footerDescription: e.target.value })
                 }
-                className="border-input bg-background focus:ring-ring min-h-[100px] w-full rounded-lg border p-4 text-sm font-medium transition-all focus:ring-2 focus:outline-none"
+                className="border-input bg-background focus:ring-ring min-h-[100px] w-full rounded-xl border p-4 text-sm font-medium transition-all focus:ring-2 focus:outline-none"
               />
             </div>
           </div>
 
-          <div className="bg-card border-border space-y-6 rounded-lg border p-6 shadow-sm md:p-8">
+          <div className="bg-card border-border space-y-6 rounded-xl border p-6 shadow-sm md:p-8">
             <h3 className="flex items-center gap-3 text-xl font-bold tracking-tight uppercase">
               <Share2 className="text-primary h-5 w-5" />
               {t('admin:socialMedia')}
@@ -164,7 +164,7 @@ export function SettingsManager() {
                   onChange={(e) =>
                     setSocial({ ...social, facebook: e.target.value })
                   }
-                  className="h-11 rounded-lg"
+                  className="h-11 rounded-xl"
                 />
               </div>
               <div className="space-y-2">
@@ -176,7 +176,7 @@ export function SettingsManager() {
                   onChange={(e) =>
                     setSocial({ ...social, instagram: e.target.value })
                   }
-                  className="h-11 rounded-lg"
+                  className="h-11 rounded-xl"
                 />
               </div>
               <div className="space-y-2">
@@ -188,7 +188,7 @@ export function SettingsManager() {
                   onChange={(e) =>
                     setSocial({ ...social, twitter: e.target.value })
                   }
-                  className="h-11 rounded-lg"
+                  className="h-11 rounded-xl"
                 />
               </div>
             </div>
@@ -197,7 +197,7 @@ export function SettingsManager() {
 
         {/* Right: Status & Actions */}
         <div className="space-y-6">
-          <div className="bg-primary/5 border-primary/20 space-y-6 rounded-lg border p-6 shadow-sm">
+          <div className="bg-primary/5 border-primary/20 space-y-6 rounded-xl border p-6 shadow-sm">
             <h3 className="text-lg font-bold tracking-tight uppercase">
               {t('admin:systemAction')}
             </h3>
@@ -207,7 +207,7 @@ export function SettingsManager() {
             <Button
               onClick={handleSave}
               disabled={isLoading}
-              className="bg-primary hover:bg-primary/90 h-14 w-full rounded-lg text-xs font-bold tracking-widest uppercase shadow-sm transition-all active:scale-95"
+              className="bg-primary hover:bg-primary/90 h-14 w-full rounded-xl text-xs font-bold tracking-widest uppercase shadow-sm transition-all active:scale-95"
             >
               {isLoading ? (
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -220,7 +220,7 @@ export function SettingsManager() {
 
           <div
             className={cn(
-              'rounded-lg border p-6 shadow-sm transition-all duration-500',
+              'rounded-xl border p-6 shadow-sm transition-all duration-500',
               system.maintenanceMode
                 ? 'border-amber-500/30 bg-amber-500/10'
                 : 'border-emerald-500/30 bg-emerald-500/10'
@@ -238,13 +238,13 @@ export function SettingsManager() {
                   })
                 }
                 className={cn(
-                  'relative h-6 w-12 cursor-pointer rounded-lg transition-colors duration-300',
+                  'relative h-6 w-12 cursor-pointer rounded-xl transition-colors duration-300',
                   system.maintenanceMode ? 'bg-amber-500' : 'bg-emerald-500'
                 )}
               >
                 <div
                   className={cn(
-                    'absolute top-1 left-1 h-4 w-4 rounded-lg bg-white transition-transform duration-300',
+                    'absolute top-1 left-1 h-4 w-4 rounded-xl bg-white transition-transform duration-300',
                     system.maintenanceMode && 'translate-x-6'
                   )}
                 />

@@ -29,10 +29,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
   const [isMounted, setIsMounted] = useState(false)
 
   const dateLocale =
-    locale === 'ru' ? ru :
-      locale === 'sk' ? sk :
-        locale === 'cs' ? cs :
-          enUS
+    locale === 'ru' ? ru : locale === 'sk' ? sk : locale === 'cs' ? cs : enUS
 
   useEffect(() => {
     setIsMounted(true)
@@ -81,7 +78,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
 
   return (
     <motion.div variants={item}>
-      <Card className="border-border/40 bg-card overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
+      <Card className="border-border/40 bg-card overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md">
         <CardHeader className="border-border/10 bg-muted/5 flex flex-row items-center justify-between space-y-0 border-b px-6 py-4">
           <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
             {t('dashboard:recentActivity')}
@@ -104,12 +101,15 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
           {listings && listings.length > 0 ? (
             <div className="overflow-x-auto">
               {/* Mobile View (Cards) */}
-              <div className="md:hidden space-y-4 p-4">
+              <div className="space-y-4 p-4 md:hidden">
                 {listings.slice(0, 5).map((listing) => (
-                  <div key={listing.id} className="bg-card border-border/40 rounded-lg border p-4 space-y-3 shadow-sm">
+                  <div
+                    key={listing.id}
+                    className="bg-card border-border/40 space-y-3 rounded-xl border p-4 shadow-sm"
+                  >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 overflow-hidden">
-                        <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border">
+                        <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border">
                           {listing.images?.[0] ? (
                             <Image
                               src={listing.images[0]}
@@ -124,25 +124,32 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-bold text-sm truncate leading-tight mb-0.5">
-                            <Link href={`/${locale}/listings/${listing.id}`} className="hover:text-primary transition-colors">
+                          <h4 className="mb-0.5 truncate text-sm leading-tight font-bold">
+                            <Link
+                              href={`/${locale}/listings/${listing.id}`}
+                              className="hover:text-primary transition-colors"
+                            >
                               {listing.title}
                             </Link>
                           </h4>
-                          <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
-                            {isMounted ? format(new Date(listing.created_at), 'PP', { locale: dateLocale }) : '...'}
+                          <p className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
+                            {isMounted
+                              ? format(new Date(listing.created_at), 'PP', {
+                                  locale: dateLocale,
+                                })
+                              : '...'}
                           </p>
                         </div>
                       </div>
                       <div className="shrink-0">
                         {getStatusBadge(
                           listing.status ||
-                          (listing.is_active ? 'active' : 'inactive')
+                            (listing.is_active ? 'active' : 'inactive')
                         )}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between border-t border-border/40 pt-3 mt-3">
+                    <div className="border-border/40 mt-3 flex items-center justify-between border-t pt-3">
                       <span className="font-heading text-lg font-bold tracking-tight">
                         {listing.price} {listing.currency}
                       </span>
@@ -151,7 +158,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                           variant="outline"
                           size="sm"
                           asChild
-                          className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-lg px-3 text-[10px] font-bold tracking-widest uppercase"
+                          className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-xl px-3 text-[10px] font-bold tracking-widest uppercase"
                         >
                           <Link href={`/${locale}/post?edit=${listing.id}`}>
                             {t('common:edit')}
@@ -161,7 +168,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                           variant="ghost"
                           size="icon"
                           asChild
-                          className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-lg"
+                          className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-xl"
                         >
                           <Link href={`/${locale}/listings/${listing.id}`}>
                             <ArrowRight className="h-4 w-4" />
@@ -202,7 +209,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                     >
                       <TableCell className="px-6 py-4">
                         <div className="flex items-center gap-4">
-                          <div className="bg-muted border-border/10 relative h-10 w-10 shrink-0 overflow-hidden rounded-lg border">
+                          <div className="bg-muted border-border/10 relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border">
                             {listing.images?.[0] ? (
                               <Image
                                 src={listing.images[0]}
@@ -226,7 +233,11 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                       </TableCell>
                       <TableCell className="px-6 py-4">
                         <span className="text-muted-foreground/70 text-[11px] font-bold tracking-widest uppercase">
-                          {isMounted ? format(new Date(listing.created_at), 'PP', { locale: dateLocale }) : '...'}
+                          {isMounted
+                            ? format(new Date(listing.created_at), 'PP', {
+                                locale: dateLocale,
+                              })
+                            : '...'}
                         </span>
                       </TableCell>
                       <TableCell className="px-6 py-4">
@@ -237,7 +248,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                       <TableCell className="px-6 py-4">
                         {getStatusBadge(
                           listing.status ||
-                          (listing.is_active ? 'active' : 'inactive')
+                            (listing.is_active ? 'active' : 'inactive')
                         )}
                       </TableCell>
                       <TableCell className="px-6 py-4 text-right">
@@ -246,7 +257,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                             variant="outline"
                             size="sm"
                             asChild
-                            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-7 rounded-lg px-3 text-[9px] font-bold tracking-widest uppercase"
+                            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-7 rounded-xl px-3 text-[9px] font-bold tracking-widest uppercase"
                           >
                             <Link href={`/${locale}/post?edit=${listing.id}`}>
                               {t('common:edit')}
@@ -256,7 +267,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                             variant="ghost"
                             size="icon"
                             asChild
-                            className="hover:bg-primary/10 hover:text-primary h-7 w-7 rounded-lg"
+                            className="hover:bg-primary/10 hover:text-primary h-7 w-7 rounded-xl"
                           >
                             <Link href={`/${locale}/listings/${listing.id}`}>
                               <ArrowRight className="h-3.5 w-3.5" />
@@ -281,7 +292,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                 variant="outline"
                 size="sm"
                 asChild
-                className="border-border/60 rounded-lg text-[10px] font-bold tracking-widest uppercase"
+                className="border-border/60 rounded-xl text-[10px] font-bold tracking-widest uppercase"
               >
                 <Link href={`/${locale}/post`}>
                   {t('createListing:publish')}

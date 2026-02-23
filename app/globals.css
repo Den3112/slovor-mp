@@ -32,6 +32,11 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
+  /* Step Colors */
+  --color-step-1: hsl(var(--step-1));
+  --color-step-2: hsl(var(--step-2));
+  --color-step-3: hsl(var(--step-3));
+
   /* Typography scale */
   --font-size-2xs: 0.625rem;
   --font-size-3xs: 0.5625rem;
@@ -108,9 +113,15 @@
     --success: 142 70% 45%;
     /* #10B981 - Emerald-500 */
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    /* #F59E0B - Amber-500 */
     --warning-foreground: 0 0% 100%;
+
+    /* Step Colors - How It Works */
+    --step-1: 221 83% 53%;
+    /* Blue-500 equivalent */
+    --step-2: 271 91% 65%;
+    /* Purple-500 equivalent */
+    --step-3: 24 94% 50%;
+    /* Orange-500 equivalent */
 
     /* Shadows - MODIFIED FOR SOLID AESTHETIC (Reduced blur) */
     --shadow-card: 0 4px 8px 0 rgba(0, 0, 0, 0.04);
@@ -311,7 +322,7 @@
 
 /* Card Utility - CRM Style: Solid, Crisp Border */
 @utility card-base {
-  @apply bg-card border border-border rounded-xl;
+  @apply bg-card border border-border rounded-2xl;
 }
 
 @utility card-interactive {
@@ -351,6 +362,36 @@
 
 @utility badge-destructive {
   @apply bg-destructive/10 text-destructive border border-destructive/20 font-medium;
+}
+
+/* ============================================
+   PRO MAX UNIFIED UTILITIES
+   Single source of truth for repeating patterns
+   ============================================ */
+
+/* Section padding — unified vertical rhythm */
+@utility section-padding {
+  @apply py-20 md:py-24 lg:py-28;
+}
+
+/* Section header label — pill badge for section titles */
+@utility badge-pill {
+  @apply inline-flex items-center gap-2 rounded-md px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] uppercase border;
+}
+
+/* Icon button in header/footer — unified style */
+@utility icon-btn {
+  @apply flex items-center justify-center h-10 w-10 rounded-xl text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all;
+}
+
+/* Social icon button — footer/profile */
+@utility social-icon-btn {
+  @apply flex items-center justify-center h-10 w-10 rounded-xl border border-border bg-card text-muted-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary;
+}
+
+/* Primary link hover style */
+@utility link-primary {
+  @apply text-muted-foreground hover:text-primary font-medium transition-colors;
 }
 
 /* Sidebar Utilities */

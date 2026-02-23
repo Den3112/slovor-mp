@@ -10,7 +10,7 @@ import {
   TrendingUp,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { getCategoryIcon } from '@/lib/constants/category-icons'
+import { CategoryIcon } from '@/components/category/category-icon'
 import { getCategoriesWithCounts } from '@/lib/supabase/categories'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import { useTranslation } from '@/lib/i18n'
@@ -92,7 +92,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="border-border/60 bg-card absolute top-full left-0 z-50 mt-4 w-[640px] origin-top-left overflow-hidden rounded-lg border shadow-xl"
+            className="border-border/60 bg-card absolute top-full left-0 z-50 mt-4 w-[640px] origin-top-left overflow-hidden rounded-xl border shadow-xl"
           >
             <div className="flex h-full min-h-[400px]">
               {/* Left Side: Category Grid */}
@@ -113,17 +113,14 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
 
                 <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                   {categories.slice(0, 10).map((category) => {
-                    const Icon = getCategoryIcon(category.slug)
                     return (
                       <Link
                         key={category.id}
                         href={`/${locale}/categories/${category.slug}`}
                         onClick={() => setIsOpen(false)}
-                        className="group hover:bg-muted/50 flex items-center gap-4 rounded-lg p-2.5 transition-all active:scale-95"
+                        className="group hover:bg-muted/50 flex items-center gap-4 rounded-xl p-2.5 transition-all active:scale-95"
                       >
-                        <div className="bg-muted/50 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary group-hover:shadow-primary/10 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg shadow-inner transition-all">
-                          <Icon className="h-5 w-5 md:h-6 md:w-6" />
-                        </div>
+                        <CategoryIcon slug={category.slug} size="md" />
                         <div className="min-w-0 flex-1">
                           <span className="text-foreground group-hover:text-primary block truncate text-sm font-bold transition-colors">
                             {getLocalizedCategoryName(category, locale, t)}
@@ -152,7 +149,7 @@ export function CategoriesDropdown({ className }: CategoriesDropdownProps) {
                         {t('featured')}
                       </span>
                     </div>
-                    <div className="group/item bg-primary/10 hover:bg-primary/20 relative overflow-hidden rounded-lg p-4 transition-all">
+                    <div className="group/item bg-primary/10 hover:bg-primary/20 relative overflow-hidden rounded-xl p-4 transition-all">
                       <p className="text-foreground relative z-10 text-xs leading-relaxed font-bold">
                         {t('home:heroSubtitle').split(':')[0]}
                       </p>

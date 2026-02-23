@@ -29,7 +29,7 @@ export function LocationSwitcher() {
         variant="outline"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'bg-muted/20 hover:bg-muted/40 border-border/40 group flex h-auto items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold transition-all active:scale-95',
+          'bg-muted/20 hover:bg-muted/40 border-border/40 group flex h-auto items-center gap-2 rounded-xl border px-4 py-2 text-sm font-bold transition-all active:scale-95',
           isOpen && 'border-primary/50 bg-background shadow-lg'
         )}
       >
@@ -74,7 +74,7 @@ export function LocationSwitcher() {
                       setIsOpen(false)
                     }}
                     className={cn(
-                      'flex h-auto w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                      'flex h-auto w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors',
                       selectedCity === city
                         ? 'bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary'
                         : 'hover:bg-muted text-muted-foreground hover:text-foreground'

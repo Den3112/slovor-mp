@@ -20,7 +20,7 @@ export function BlogPostsTable({
   const { t, i18n } = useTranslation(['common', 'admin'])
 
   return (
-    <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
+    <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
@@ -62,7 +62,7 @@ export function BlogPostsTable({
                 >
                   <td className="px-6 py-6 text-sm font-medium">
                     <div className="flex items-center gap-4">
-                      <div className="bg-muted border-border/30 relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border">
+                      <div className="bg-muted border-border/30 relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border">
                         {post.cover_image ? (
                           <Image
                             src={post.cover_image}
@@ -108,7 +108,7 @@ export function BlogPostsTable({
                         size="sm"
                         variant="ghost"
                         onClick={() => onEdit(post)}
-                        className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-lg p-0"
+                        className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-xl p-0"
                       >
                         <Pencil className="h-4 w-4" />
                       </Button>
@@ -116,7 +116,7 @@ export function BlogPostsTable({
                         size="sm"
                         variant="ghost"
                         onClick={() => onDelete(post.id)}
-                        className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 rounded-lg p-0"
+                        className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 rounded-xl p-0"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

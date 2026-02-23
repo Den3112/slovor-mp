@@ -238,7 +238,7 @@ export function UserOrdersView({ initialOrders = [] }: UserOrdersViewProps) {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="hover:bg-primary/10 hover:text-primary ml-1 h-8 w-8 rounded-lg"
+                      className="hover:bg-primary/10 hover:text-primary ml-1 h-8 w-8 rounded-xl"
                       asChild
                     >
                       <Link href={`/${locale}/dashboard/orders/${order.id}`}>

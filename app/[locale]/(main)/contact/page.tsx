@@ -58,7 +58,7 @@ export default async function ContactPage() {
                 key={i}
                 className="group border-border bg-card hover:border-primary/30 rounded-2xl border p-8 shadow-sm transition-all"
               >
-                <div className="bg-muted border-border group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-lg border transition-all duration-300">
+                <div className="bg-muted border-border group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-xl border transition-all duration-300">
                   {item.icon}
                 </div>
                 <h3 className="text-muted-foreground mb-4 text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -96,7 +96,7 @@ export default async function ContactPage() {
                     </label>
                     <Input
                       type="text"
-                      className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 h-14 w-full rounded-lg border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
+                      className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 h-14 w-full rounded-xl border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
                       placeholder={t('contact:placeholderName')}
                     />
                   </div>
@@ -106,7 +106,7 @@ export default async function ContactPage() {
                     </label>
                     <Input
                       type="email"
-                      className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 h-14 w-full rounded-lg border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
+                      className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 h-14 w-full rounded-xl border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
                       placeholder={t('contact:placeholderEmail')}
                     />
                   </div>
@@ -118,14 +118,14 @@ export default async function ContactPage() {
                   </label>
                   <Textarea
                     rows={5}
-                    className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 min-h-[120px] w-full resize-none rounded-lg border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
+                    className="border-border bg-muted text-foreground focus-visible:border-primary focus-visible:ring-primary/5 min-h-[120px] w-full resize-none rounded-xl border px-6 py-4 font-bold shadow-none transition-all focus-visible:ring-4"
                     placeholder={t('contact:placeholderMessage')}
                   />
                 </div>
 
                 <Button
                   size="xl"
-                  className="w-full rounded-lg font-bold tracking-widest uppercase shadow-sm"
+                  className="w-full rounded-xl font-bold tracking-widest uppercase shadow-sm"
                 >
                   {t('contact:send')}
                   <Send className="ml-2 h-5 w-5" />

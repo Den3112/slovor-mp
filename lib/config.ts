@@ -1,16 +1,18 @@
 // Application configuration
 // Centralized config following Principle #3 (One owner)
 
+import { env } from '@/lib/env'
+
 export const config = {
   // Environment detection
-  isDevelopment: process.env.NODE_ENV === 'development',
-  isProduction: process.env.NODE_ENV === 'production',
+  isDevelopment: env.NODE_ENV === 'development',
+  isProduction: env.NODE_ENV === 'production',
   isPreview: process.env.VERCEL_ENV === 'preview',
 
   // Supabase
   supabase: {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+    url: env.SUPABASE_URL,
+    anonKey: env.SUPABASE_ANON_KEY,
   },
 
   // Feature flags
@@ -31,7 +33,11 @@ export const config = {
     url: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : 'http://localhost:3000',
-    adminEmails: ['admin@slovor.sk', 'moderator@slovor.sk', 'test.seller@slovor.sk'],
+    adminEmails: [
+      'admin@slovor.sk',
+      'moderator@slovor.sk',
+      'test.seller@slovor.sk',
+    ],
   },
 }
 

@@ -81,7 +81,7 @@ export function ActiveFilters() {
       {activeFilters.map((filter) => (
         <Badge
           key={filter.key}
-          className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 group flex cursor-default items-center gap-2 rounded-lg px-3 py-1.5 transition-all"
+          className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 group flex cursor-default items-center gap-2 rounded-xl px-3 py-1.5 transition-all"
         >
           <span className="text-[10px] font-bold tracking-tight uppercase">
             {filter.label}

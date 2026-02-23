@@ -38,7 +38,7 @@ export function ModerationCard({
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="group bg-card border-border/60 hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col overflow-hidden rounded-lg border shadow-sm transition-all duration-500 hover:shadow-lg"
+      className="group bg-card border-border/60 hover:shadow-primary/5 hover:border-primary/20 relative flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all duration-500 hover:shadow-lg"
     >
       {/* Status Badge Overlays */}
       {issues.map((issue, idx) => (
@@ -85,7 +85,8 @@ export function ModerationCard({
           </div>
           <div className="text-muted-foreground flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
             <Clock className="h-3.5 w-3.5" />
-            {listing.created_at && !isNaN(new Date(listing.created_at).getTime())
+            {listing.created_at &&
+            !isNaN(new Date(listing.created_at).getTime())
               ? new Date(listing.created_at).toLocaleDateString()
               : '—'}
           </div>
@@ -102,7 +103,7 @@ export function ModerationCard({
 
         <div className="border-border/40 flex items-center justify-between border-y py-2">
           <div className="flex items-center gap-3">
-            <div className="bg-primary/10 text-primary border-primary/20 flex h-8 w-8 items-center justify-center rounded-lg border">
+            <div className="bg-primary/10 text-primary border-primary/20 flex h-8 w-8 items-center justify-center rounded-xl border">
               <UserCircle className="h-4 w-4" />
             </div>
             <div className="flex flex-col">
@@ -111,9 +112,11 @@ export function ModerationCard({
               </span>
               <span className="text-muted-foreground/60 text-[9px] font-bold uppercase">
                 {t('admin:joined', {
-                  year: listing.user?.created_at && !isNaN(new Date(listing.user.created_at).getTime())
-                    ? new Date(listing.user.created_at).getFullYear()
-                    : '—'
+                  year:
+                    listing.user?.created_at &&
+                    !isNaN(new Date(listing.user.created_at).getTime())
+                      ? new Date(listing.user.created_at).getFullYear()
+                      : '—',
                 })}
               </span>
             </div>
@@ -152,14 +155,14 @@ export function ModerationCard({
       <div className="border-border/40 bg-muted/20 flex items-center justify-around border-t p-2">
         <Button
           variant="ghost"
-          className="hover:bg-background text-muted-foreground hover:text-foreground flex h-auto items-center gap-1.5 rounded-lg px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all"
+          className="hover:bg-background text-muted-foreground hover:text-foreground flex h-auto items-center gap-1.5 rounded-xl px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all"
         >
           <Edit3 className="h-3.5 w-3.5" /> {t('admin:requestFix')}
         </Button>
         <div className="bg-border/60 h-4 w-px" />
         <Button
           variant="ghost"
-          className="hover:bg-background text-muted-foreground hover:text-destructive flex h-auto items-center gap-1.5 rounded-lg px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all"
+          className="hover:bg-background text-muted-foreground hover:text-destructive flex h-auto items-center gap-1.5 rounded-xl px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase transition-all"
         >
           <Ban className="h-3.5 w-3.5" /> {t('admin:banSeller')}
         </Button>

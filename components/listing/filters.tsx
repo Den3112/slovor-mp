@@ -154,7 +154,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="shadow-primary/20 h-11 w-full rounded-lg text-[10px] font-bold tracking-widest uppercase shadow-lg"
+          className="shadow-primary/20 h-11 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase shadow-lg"
         >
           {isPending ? t('common:loading') : t('filters:apply')}
         </Button>
@@ -162,7 +162,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
           variant="ghost"
           onClick={resetFilters}
           disabled={isPending}
-          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-lg text-[10px] font-bold tracking-widest uppercase transition-colors"
+          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase transition-colors"
         >
           {t('common:reset')}
         </Button>

@@ -1,6 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { languages } from '@/packages/i18n/settings'
+import { env } from '@/lib/env'
 
 export async function updateSession(
   request: NextRequest,
@@ -19,8 +20,8 @@ export async function updateSession(
       },
     })
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  const supabaseUrl = env.SUPABASE_URL
+  const supabaseAnonKey = env.SUPABASE_ANON_KEY
 
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -117,9 +118,6 @@ export async function updateSession(
 
   // 2. Protected User Routes
   if (!user && (path.startsWith('/post') || path.startsWith('/dashboard'))) {
-    // Redirect to login
-    // Assuming /auth/login is the correct path for login
-    // Preserving the original behavior but adding locale support
     const redirectUrl = getRedirectUrl('/auth/login')
     return NextResponse.redirect(redirectUrl)
   }

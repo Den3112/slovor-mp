@@ -42,7 +42,7 @@ export function NotificationItem({
       >
         <div
           className={cn(
-            'border-border/10 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border transition-transform group-hover:scale-105',
+            'border-border/10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-105',
             bg,
             color
           )}
@@ -95,7 +95,7 @@ export function NotificationItem({
               variant="ghost"
               size="icon"
               onClick={() => onMarkAsRead(notification.id)}
-              className="hover:bg-success/10 hover:text-success h-8 w-8 rounded-lg"
+              className="hover:bg-success/10 hover:text-success h-8 w-8 rounded-xl"
             >
               <Check className="h-4 w-4" />
             </Button>
@@ -104,7 +104,7 @@ export function NotificationItem({
             variant="ghost"
             size="icon"
             onClick={() => onDelete(notification.id)}
-            className="hover:bg-destructive/10 hover:text-destructive h-8 w-8 rounded-lg"
+            className="hover:bg-destructive/10 hover:text-destructive h-8 w-8 rounded-xl"
           >
             <Trash2 className="h-4 w-4" />
           </Button>

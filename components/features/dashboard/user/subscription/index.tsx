@@ -43,7 +43,7 @@ export function SubscriptionView({
   return (
     <div className="animate-in fade-in space-y-8 duration-700">
       {/* Header Section */}
-      <div className="bg-card border-border flex flex-col gap-2 rounded-lg border p-6 shadow-sm">
+      <div className="bg-card border-border flex flex-col gap-2 rounded-xl border p-6 shadow-sm">
         <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
           {t('profile:subscription')}
         </h1>

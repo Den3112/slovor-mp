@@ -22,7 +22,7 @@ export function CategoryDeleteDialog({
 
   return (
     <AlertDialog open={!!deleteId} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="border-border bg-card rounded-lg shadow-lg">
+      <AlertDialogContent className="border-border bg-card rounded-xl shadow-lg">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-destructive text-xl font-bold tracking-tight uppercase">
             {t('admin:deleteCategoryTitle')}
@@ -33,7 +33,7 @@ export function CategoryDeleteDialog({
         </AlertDialogHeader>
         <AlertDialogFooter className="gap-2">
           <AlertDialogCancel
-            className="h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+            className="h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
             disabled={isSubmitting}
           >
             {t('common:cancel')}
@@ -44,7 +44,7 @@ export function CategoryDeleteDialog({
               onDelete()
             }}
             disabled={isSubmitting}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-destructive/20 h-10 rounded-lg border-0 px-6 text-[10px] font-bold tracking-widest uppercase shadow-lg"
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-destructive/20 h-10 rounded-xl border-0 px-6 text-[10px] font-bold tracking-widest uppercase shadow-lg"
           >
             {isSubmitting ? (
               <Loader2 className="h-3 w-3 animate-spin" />

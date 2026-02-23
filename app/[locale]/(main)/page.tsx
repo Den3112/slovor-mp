@@ -27,7 +27,7 @@ export async function generateMetadata({
 
   const descriptions: Record<string, string> = {
     en: 'Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.',
-    sk: 'Kupujte a predávajte elektroniku, reality, autá и много иншого. Najpokročilejší bazár na Slovensku.',
+    sk: 'Kupujte a predávajte elektroniku, reality, autá a veľa ďalšieho. Najpokročilejší bazár na Slovensku.',
     cs: 'Nakupujte a prodávejte elektroniku, reality, auta a další. Nejmodernější bazar na Slovensku.',
     ru: 'Покупайте и продавайте электронику, недвижимость, автомобили и многое другое. Самый современный маркетплейс в Словакии.',
   }
@@ -54,7 +54,6 @@ export const revalidate = 60
  * Passes data to HomeView client component for rendering
  */
 export default async function HomePage() {
-  console.log('>>> RENDER HOMEPAGE <<<')
   const supabase = await createClient()
   const { data: categories, error } = await categoriesApi.getAll(supabase)
 

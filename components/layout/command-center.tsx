@@ -148,11 +148,11 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                         router.push(`/${locale}${cat.href}`)
                         setIsOpen(false)
                       }}
-                      className="hover:bg-muted border-border/40 flex flex-col items-center gap-2 rounded-lg border p-3 transition-all hover:scale-105"
+                      className="hover:bg-muted border-border/40 flex flex-col items-center gap-2 rounded-xl border p-3 transition-all hover:scale-105"
                     >
                       <div
                         className={cn(
-                          'flex h-10 w-10 items-center justify-center rounded-lg text-white',
+                          'flex h-10 w-10 items-center justify-center rounded-xl text-white',
                           cat.color
                         )}
                       >
@@ -190,7 +190,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                             setIsOpen(false)
                             onClose?.()
                           }}
-                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors"
+                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors"
                         >
                           {item.images?.[0] ? (
                             <div className="bg-muted relative h-8 w-8 overflow-hidden rounded-md">
@@ -230,10 +230,17 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                     <div className="text-muted-foreground mb-2 px-2 text-[10px] font-bold tracking-widest uppercase">
                       {t('common:quickSuggestions.title')}
                     </div>
-                    {(t('common:quickSuggestions.items', {
-                      returnObjects: true,
-                    }) || []).map((label: string, idx: number) => {
-                      const icons: LucideIcon[] = [Smartphone, Car, Home, Briefcase]
+                    {(
+                      t('common:quickSuggestions.items', {
+                        returnObjects: true,
+                      }) || []
+                    ).map((label: string, idx: number) => {
+                      const icons: LucideIcon[] = [
+                        Smartphone,
+                        Car,
+                        Home,
+                        Briefcase,
+                      ]
                       const Icon = icons[idx % icons.length] as LucideIcon
                       return (
                         <button
@@ -241,7 +248,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                           onClick={() => {
                             setQuery(label)
                           }}
-                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
+                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-colors"
                         >
                           <Icon className="text-muted-foreground group-hover:text-primary h-4 w-4" />
                           <span className="text-sm font-medium">{label}</span>

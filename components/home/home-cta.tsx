@@ -38,7 +38,7 @@ export function HomeCTA() {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <span className="bg-primary/10 border-primary/20 text-primary mb-6 inline-block rounded border px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] uppercase">
+              <span className="badge-pill bg-primary/10 border-primary/20 text-primary mb-6">
                 {t('common:getStarted')}
               </span>
               <h2 className="font-heading text-4xl leading-[1.1] font-bold tracking-tight uppercase md:text-7xl">
@@ -66,7 +66,7 @@ export function HomeCTA() {
               <Button
                 asChild
                 size="lg"
-                className="shadow-primary/20 bg-primary hover:bg-primary/90 h-16 rounded-lg border-0 px-12 text-lg font-bold tracking-widest uppercase shadow-xl transition-all hover:scale-105 active:scale-95"
+                className="shadow-primary/20 bg-primary hover:bg-primary/90 h-16 rounded-xl border-0 px-12 text-lg font-bold tracking-widest uppercase shadow-xl transition-all hover:scale-105 active:scale-95"
               >
                 <Link href={`/${locale}/post`}>
                   <Plus className="mr-3 h-6 w-6" />

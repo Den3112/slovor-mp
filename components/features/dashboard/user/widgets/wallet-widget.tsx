@@ -8,6 +8,7 @@ import { formatPrice } from '@/lib/utils/formatting'
 import Link from 'next/link'
 import { HubWidget } from '@/components/features/dashboard/shared/hub-widget'
 import { Area, AreaChart, ResponsiveContainer } from 'recharts'
+import { useState, useEffect } from 'react'
 
 import { Transaction } from '@/lib/types/database'
 
@@ -19,7 +20,10 @@ interface WalletWidgetProps {
 }
 
 // Mock data generator if no history provided
-const generateMockHistory = (baseValue: number, t: (key: string, options?: any) => string) => {
+const generateMockHistory = (
+  baseValue: number,
+  t: (key: string, options?: any) => string
+) => {
   return Array.from({ length: 7 }, (_, i) => ({
     date: `${t('common:day')} ${i + 1}`,
     value: baseValue * (0.8 + Math.random() * 0.4),
@@ -34,9 +38,15 @@ export function WalletWidget({
 }: WalletWidgetProps) {
   const { t, locale } = useTranslation(['dashboard', 'profile'])
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Use history from props, or generate from transactions, or fallback to mock
-  const chartData = history ||
+  const chartData =
+    history ||
     (transactions && transactions.length > 0
       ? transactions.map((t, i) => ({ date: i.toString(), value: t.amount }))
       : generateMockHistory(balance, t))
@@ -69,32 +79,34 @@ export function WalletWidget({
 
         {/* Mini Chart */}
         <div className="-mx-2 mt-4 h-[60px] w-full opacity-50">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData}>
-              <defs>
-                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--primary)"
-                    stopOpacity={0.3}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--primary)"
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-              </defs>
-              <Area
-                type="monotone"
-                dataKey="value"
-                stroke="var(--primary)"
-                strokeWidth={2}
-                fillOpacity={1}
-                fill="url(#colorValue)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+          {mounted && (
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData}>
+                <defs>
+                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor="var(--primary)"
+                      stopOpacity={0.3}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--primary)"
+                      stopOpacity={0}
+                    />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="var(--primary)"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorValue)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
         <div className="border-border/40 mt-4 flex items-center justify-between border-t pt-4">

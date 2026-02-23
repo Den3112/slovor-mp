@@ -13,19 +13,19 @@ export function HowItWorks() {
       icon: <PlusCircle className="h-8 w-8" />,
       title: t('home:howItWorksStep1'),
       desc: t('home:howItWorksStep1Desc'),
-      color: 'bg-blue-500',
+      color: 'bg-step-1',
     },
     {
       icon: <Globe className="h-8 w-8" />,
       title: t('home:howItWorksStep2'),
       desc: t('home:howItWorksStep2Desc'),
-      color: 'bg-purple-500',
+      color: 'bg-step-2',
     },
     {
       icon: <Zap className="h-8 w-8" />,
       title: t('home:howItWorksStep3'),
       desc: t('home:howItWorksStep3Desc'),
-      color: 'bg-orange-500',
+      color: 'bg-step-3',
     },
   ]
 
@@ -55,7 +55,7 @@ export function HowItWorks() {
 
               <div className="bg-background border-border ring-muted/20 relative mb-6 flex h-24 w-24 items-center justify-center rounded-2xl border-2 ring-8">
                 <div
-                  className={`flex h-16 w-16 items-center justify-center rounded-lg text-white ${step.color}`}
+                  className={`flex h-16 w-16 items-center justify-center rounded-xl text-white ${step.color}`}
                 >
                   {step.icon}
                 </div>

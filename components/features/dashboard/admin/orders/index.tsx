@@ -143,14 +143,14 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
             className={cn(
               'flex h-6 w-fit items-center gap-1.5 rounded-md border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase',
               statusStyles[row.status as keyof typeof statusStyles] ||
-              'bg-muted text-muted-foreground border-border/40'
+                'bg-muted text-muted-foreground border-border/40'
             )}
           >
             <span
               className={cn(
                 'h-1.5 w-1.5 shrink-0 rounded-full',
                 dotStyles[row.status as keyof typeof dotStyles] ||
-                'bg-muted-foreground/40'
+                  'bg-muted-foreground/40'
               )}
             />
             {t(`admin:orderStatus.${row.status}`)}
@@ -179,7 +179,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
               <Button
                 variant="outline"
                 size="icon"
-                className="h-8 w-8 rounded-lg border-emerald-500/20 hover:bg-emerald-500/5 hover:text-emerald-600"
+                className="h-8 w-8 rounded-xl border-emerald-500/20 hover:bg-emerald-500/5 hover:text-emerald-600"
                 onClick={() => handleUpdateStatus(row.id, 'completed')}
               >
                 <CheckCircle2 className="h-4 w-4" />
@@ -187,7 +187,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
               <Button
                 variant="outline"
                 size="icon"
-                className="border-destructive/20 hover:bg-destructive/5 hover:text-destructive h-8 w-8 rounded-lg"
+                className="border-destructive/20 hover:bg-destructive/5 hover:text-destructive h-8 w-8 rounded-xl"
                 onClick={() => handleUpdateStatus(row.id, 'cancelled')}
               >
                 <XCircle className="h-4 w-4" />
@@ -197,7 +197,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
           <Button
             variant="outline"
             size="icon"
-            className="bg-background hover:bg-muted h-8 w-8 rounded-lg"
+            className="bg-background hover:bg-muted h-8 w-8 rounded-xl"
             asChild
           >
             <Link href={`/${locale}/admin/orders/${row.id}`}>

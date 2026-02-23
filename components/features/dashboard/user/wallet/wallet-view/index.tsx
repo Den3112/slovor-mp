@@ -35,7 +35,6 @@ export function WalletHeader({
 
   return (
     <div className="bg-card border-border relative overflow-hidden rounded-2xl border p-8 shadow-md">
-
       <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div className="space-y-2">
           <div className="bg-primary/10 text-primary border-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl border">
@@ -175,10 +174,10 @@ export function TransactionList({ transactions }: TransactionListProps) {
             <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
               placeholder={t('common:search')}
-              className="h-9 w-full rounded-lg pl-9 text-xs sm:w-64"
+              className="h-9 w-full rounded-xl pl-9 text-xs sm:w-64"
             />
           </div>
-          <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg">
+          <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl">
             <Filter className="h-4 w-4" />
           </Button>
         </div>
@@ -205,7 +204,7 @@ export function TransactionList({ transactions }: TransactionListProps) {
                   )}
                 >
                   {transaction.type === 'deposit' ||
-                    transaction.type === 'refill' ? (
+                  transaction.type === 'refill' ? (
                     <ArrowDownLeft className="h-5 w-5" />
                   ) : (
                     <ArrowUpRight className="h-5 w-5" />

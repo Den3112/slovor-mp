@@ -13,7 +13,12 @@ export function MarketInsightsTile() {
       icon: TrendingUp,
       color: 'text-emerald-500',
     },
-    { label: t('dashboard:demand'), growth: t('dashboard:high'), icon: Users, color: 'text-blue-500' },
+    {
+      label: t('dashboard:demand'),
+      growth: t('dashboard:high'),
+      icon: Users,
+      color: 'text-blue-500',
+    },
   ]
 
   return (
@@ -34,7 +39,7 @@ export function MarketInsightsTile() {
             className="bg-background/40 border-border/20 flex items-center justify-between rounded-xl border p-3"
           >
             <div className="flex items-center gap-3">
-              <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-lg">
+              <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-xl">
                 <trend.icon className={`h-4 w-4 ${trend.color}`} />
               </div>
               <span className="text-sm font-medium">{trend.label}</span>

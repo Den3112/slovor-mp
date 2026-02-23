@@ -17,7 +17,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
   const { t, locale } = useTranslation()
 
   return (
-    <Card className="border-border/80 group relative overflow-hidden rounded-lg bg-slate-950 text-white shadow-lg">
+    <Card className="border-border/80 group relative overflow-hidden rounded-xl bg-slate-950 text-white shadow-lg">
       <div className="absolute top-0 right-0 p-4 opacity-5 transition-opacity group-hover:opacity-10 md:p-8">
         <CreditCard size={120} />
       </div>
@@ -25,7 +25,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
       <CardContent className="relative z-10 flex h-full min-h-[200px] flex-col justify-between p-6 md:min-h-[220px] md:p-8">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <div className="rounded-lg border border-white/5 bg-slate-900 p-2">
+            <div className="rounded-xl border border-white/5 bg-slate-900 p-2">
               <CreditCard className="text-primary h-5 w-5" />
             </div>
             <span className="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase">
@@ -47,7 +47,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
           <Button
             size="sm"
             onClick={onAddFunds}
-            className="h-10 flex-1 rounded-lg bg-white px-4 text-[10px] font-bold tracking-widest text-slate-950 uppercase hover:bg-white/90"
+            className="h-10 flex-1 rounded-xl bg-white px-4 text-[10px] font-bold tracking-widest text-slate-950 uppercase hover:bg-white/90"
           >
             <Plus className="mr-2 h-3.5 w-3.5" />
             {t('dashboard:walletDetails.addFunds')}
@@ -56,7 +56,7 @@ export function WalletCard({ balance, currency, onAddFunds }: WalletCardProps) {
             size="sm"
             variant="outline"
             asChild
-            className="h-10 rounded-lg border-white/10 bg-slate-900 px-4 text-[10px] font-bold tracking-widest text-white uppercase hover:bg-slate-800"
+            className="h-10 rounded-xl border-white/10 bg-slate-900 px-4 text-[10px] font-bold tracking-widest text-white uppercase hover:bg-slate-800"
           >
             <Link href={`/${locale}/dashboard/wallet`}>
               <ArrowUpRight className="h-4 w-4" />

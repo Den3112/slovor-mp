@@ -45,10 +45,10 @@ export function CategoryShowcase({ categories }: Props) {
             <Link
               key={category.id}
               href={`/${locale}/categories/${category.slug}`}
-              className="group border-border bg-card rounded-lg border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
+              className="group border-border bg-card rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="bg-primary/10 group-hover:bg-primary/20 mb-4 flex h-16 w-16 items-center justify-center rounded-lg transition-colors">
+                <div className="bg-primary/10 group-hover:bg-primary/20 mb-4 flex h-16 w-16 items-center justify-center rounded-xl transition-colors">
                   <IconComponent className="text-primary h-8 w-8" />
                 </div>
                 <h3 className="text-foreground group-hover:text-primary font-bold transition-colors">

@@ -108,7 +108,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
               onClick={() => setActiveTab('received')}
               variant="ghost"
               className={cn(
-                'rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-transparent',
+                'rounded-xl px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-transparent',
                 activeTab === 'received'
                   ? 'bg-background text-primary ring-border/50 hover:bg-background shadow-sm ring-1'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -120,7 +120,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
               onClick={() => setActiveTab('given')}
               variant="ghost"
               className={cn(
-                'rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-transparent',
+                'rounded-xl px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-transparent',
                 activeTab === 'given'
                   ? 'bg-background text-primary ring-border/50 hover:bg-background shadow-sm ring-1'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'

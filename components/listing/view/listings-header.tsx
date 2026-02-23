@@ -18,7 +18,7 @@ export function ListingsHeader({
 
       <Container>
         <div className="relative z-10 flex flex-col gap-4 md:gap-8">
-          <div className="border-primary/20 bg-primary/10 text-primary inline-flex w-fit items-center gap-2 rounded-lg border px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] uppercase">
+          <div className="border-primary/20 bg-primary/10 text-primary inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] uppercase">
             <Search className="h-3.5 w-3.5" />
             {t('common:explorer')}
           </div>

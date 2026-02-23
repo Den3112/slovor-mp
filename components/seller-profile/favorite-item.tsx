@@ -20,7 +20,7 @@ export function DashboardFavoriteItem({
       {/* Image Thumbnail */}
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="bg-muted border-border/40 relative h-48 w-full shrink-0 overflow-hidden rounded-lg border transition-all duration-300 group-hover:shadow-md sm:h-28 sm:w-28"
+        className="bg-muted border-border/40 relative h-48 w-full shrink-0 overflow-hidden rounded-xl border transition-all duration-300 group-hover:shadow-md sm:h-28 sm:w-28"
       >
         {listing.images?.[0] ? (
           <Image
@@ -73,7 +73,7 @@ export function DashboardFavoriteItem({
           <Button
             variant="ghost"
             size="sm"
-            className="hover:bg-primary/10 hover:text-primary hover:border-primary/20 w-full rounded-lg border border-transparent text-xs font-bold tracking-widest uppercase transition-all sm:w-auto"
+            className="hover:bg-primary/10 hover:text-primary hover:border-primary/20 w-full rounded-xl border border-transparent text-xs font-bold tracking-widest uppercase transition-all sm:w-auto"
           >
             <ExternalLink className="mr-2 h-3.5 w-3.5" />
             View
@@ -108,7 +108,7 @@ function RemoveFavoriteButton({ listingId }: { listingId: string }) {
       size="icon"
       variant="ghost"
       onClick={handleRemove}
-      className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 hover:border-destructive/20 h-9 w-9 rounded-lg border border-transparent transition-all"
+      className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 hover:border-destructive/20 h-9 w-9 rounded-xl border border-transparent transition-all"
     >
       <Trash2 className="h-4 w-4" />
     </Button>
