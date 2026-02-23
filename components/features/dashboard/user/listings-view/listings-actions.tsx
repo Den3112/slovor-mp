@@ -38,7 +38,7 @@ export function BulkActionsBar({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="dark:bg-card dark:border-border fixed bottom-24 left-1/2 z-50 flex max-w-[90vw] min-w-[320px] -translate-x-1/2 items-center gap-6 rounded-2xl border border-border bg-slate-900 px-6 py-3 shadow-xl"
+      className="dark:bg-card dark:border-border border-border fixed bottom-24 left-1/2 z-50 flex max-w-[90vw] min-w-[320px] -translate-x-1/2 items-center gap-6 rounded-2xl border bg-slate-900 px-6 py-3 shadow-xl"
     >
       <div className="flex flex-col">
         <span className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -53,14 +53,14 @@ export function BulkActionsBar({
         <Button
           size="sm"
           variant="ghost"
-          className="dark:text-foreground dark:hover:bg-accent h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest text-white uppercase hover:bg-white/10"
+          className="dark:text-foreground dark:hover:bg-accent h-9 rounded-xl px-4 text-[10px] font-bold tracking-widest text-white uppercase hover:bg-white/10"
           onClick={onCancel}
         >
           {t('dashboard:bulkActions.cancel')}
         </Button>
         <Button
           size="sm"
-          className="h-9 rounded-lg border border-transparent bg-white px-4 text-[10px] font-bold tracking-widest text-slate-900 uppercase hover:bg-white/90"
+          className="h-9 rounded-xl border border-transparent bg-white px-4 text-[10px] font-bold tracking-widest text-slate-900 uppercase hover:bg-white/90"
           onClick={onDeactivate}
           disabled={isSubmitting}
         >
@@ -69,7 +69,7 @@ export function BulkActionsBar({
         <Button
           size="sm"
           variant="destructive"
-          className="h-9 rounded-lg px-4 text-[10px] font-bold tracking-widest uppercase"
+          className="h-9 rounded-xl px-4 text-[10px] font-bold tracking-widest uppercase"
           onClick={onDelete}
           disabled={isSubmitting}
         >
@@ -99,7 +99,7 @@ export function BulkConfirmDialog({
 
   return (
     <AlertDialog open={!!action} onOpenChange={(open) => !open && onClose()}>
-      <AlertDialogContent className="border-border bg-card rounded-lg">
+      <AlertDialogContent className="border-border bg-card rounded-xl">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-xl font-bold tracking-tight uppercase">
             {action === 'delete'
@@ -109,16 +109,16 @@ export function BulkConfirmDialog({
           <AlertDialogDescription className="text-muted-foreground font-medium">
             {action === 'delete'
               ? t('dashboard:bulkActions.deleteConfirm', {
-                count: selectedCount,
-              })
+                  count: selectedCount,
+                })
               : t('dashboard:bulkActions.deactivateConfirm', {
-                count: selectedCount,
-              })}
+                  count: selectedCount,
+                })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="gap-2">
           <AlertDialogCancel
-            className="rounded-lg text-[10px] font-bold tracking-widest uppercase"
+            className="rounded-xl text-[10px] font-bold tracking-widest uppercase"
             disabled={isSubmitting}
           >
             {t('common:cancel')}
@@ -129,7 +129,7 @@ export function BulkConfirmDialog({
               onConfirm()
             }}
             className={cn(
-              'rounded-lg text-[10px] font-bold tracking-widest uppercase',
+              'rounded-xl text-[10px] font-bold tracking-widest uppercase',
               action === 'delete'
                 ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90'
                 : 'bg-primary text-primary-foreground hover:bg-primary/90'

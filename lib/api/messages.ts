@@ -304,6 +304,13 @@ export const messagesApi = {
    */
   async getUnreadCount(userId: string): Promise<ApiResponse<number>> {
     try {
+      if (!userId) {
+        return { data: 0, error: null }
+      }
+
+      // [FIX] Ensure safe request to Supabase API
+      console.log('[FIX] getUnreadCount called for user:', userId)
+
       // Get conversation IDs where user is participant
       const { data: conversations, error: convError } = await supabase
         .from('conversations')
@@ -331,10 +338,15 @@ export const messagesApi = {
         throw error
       }
 
-      return { data: count || 0, error: null }
+      const finalCount = count || 0
+      console.log('[FIX] getUnreadCount success. Count:', finalCount)
+      return { data: finalCount, error: null }
     } catch (error) {
       logError('messagesApi.getUnreadCount', error)
-      return { data: null, error: (error as Error).message }
+      return {
+        data: null,
+        error: error instanceof Error ? error.message : JSON.stringify(error),
+      }
     }
   },
 

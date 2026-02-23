@@ -24,15 +24,18 @@ export default async function BlogPage({
 
   if (posts.length === 0) {
     return (
-      <div className="min-h-screen bg-background pt-32 pb-20">
+      <div className="bg-background min-h-screen pt-32 pb-20">
         <Container>
-          <div className="text-center py-20 bg-card border border-border rounded-xl shadow-sm max-w-2xl mx-auto">
-            <div className="bg-muted w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 border border-border">
-              <Sparkles className="h-8 w-8 text-muted-foreground/40" />
+          <div className="bg-card border-border mx-auto max-w-2xl rounded-xl border py-20 text-center shadow-sm">
+            <div className="bg-muted border-border mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-xl border">
+              <Sparkles className="text-muted-foreground/40 h-8 w-8" />
             </div>
-            <h1 className="mb-4 text-4xl font-bold  tracking-tight uppercase">Blog Coming Soon</h1>
-            <p className="text-muted-foreground font-medium max-w-md mx-auto">
-              Our team is working on exciting content. Check back later for expert tips and marketplace news.
+            <h1 className="mb-4 text-4xl font-bold tracking-tight uppercase">
+              Blog Coming Soon
+            </h1>
+            <p className="text-muted-foreground mx-auto max-w-md font-medium">
+              Our team is working on exciting content. Check back later for
+              expert tips and marketplace news.
             </p>
           </div>
         </Container>
@@ -41,17 +44,17 @@ export default async function BlogPage({
   }
 
   return (
-    <div className="min-h-screen bg-background pt-24 pb-20 md:pt-32">
+    <div className="bg-background min-h-screen pt-24 pb-20 md:pt-32">
       <Container>
         {/* Header */}
-        <div className="mb-16 text-center animate-in fade-in slide-in-from-top-4 duration-700">
-          <div className="bg-primary/10 mx-auto mb-6 inline-flex items-center gap-2 rounded-xl border border-primary/20 px-4 py-2">
+        <div className="animate-in fade-in slide-in-from-top-4 mb-16 text-center duration-700">
+          <div className="bg-primary/10 border-primary/20 mx-auto mb-6 inline-flex items-center gap-2 rounded-xl border px-4 py-2">
             <Sparkles className="text-primary h-4 w-4" />
-            <span className="text-primary text-[10px] font-bold uppercase tracking-widest">
+            <span className="text-primary text-[10px] font-bold tracking-widest uppercase">
               Slovor Insights
             </span>
           </div>
-          <h1 className="mb-6 text-4xl font-bold tracking-tight lg:text-7xl  uppercase">
+          <h1 className="mb-6 text-4xl font-bold tracking-tight uppercase lg:text-7xl">
             Market Trends & News
           </h1>
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg font-medium">
@@ -64,10 +67,10 @@ export default async function BlogPage({
         {featuredPost && (
           <Link
             href={`/${locale}/blog/${featuredPost.slug}`}
-            className="group block border border-border bg-card overflow-hidden rounded-xl transition-all hover:border-primary/50 shadow-sm hover:shadow-xl hover:shadow-primary/5 duration-500 mb-20"
+            className="group border-border bg-card hover:border-primary/50 hover:shadow-primary/5 mb-20 block overflow-hidden rounded-xl border shadow-sm transition-all duration-500 hover:shadow-xl"
           >
             <div className="grid gap-0 md:grid-cols-2">
-              <div className="relative aspect-16/10 md:aspect-auto h-full min-h-[400px] overflow-hidden">
+              <div className="relative aspect-16/10 h-full min-h-[400px] overflow-hidden md:aspect-auto">
                 {featuredPost.cover_image ? (
                   <Image
                     src={featuredPost.cover_image}
@@ -76,32 +79,34 @@ export default async function BlogPage({
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="w-full h-full bg-muted" />
+                  <div className="bg-muted h-full w-full" />
                 )}
                 <div className="absolute top-6 left-6">
-                  <span className="bg-primary text-primary-foreground rounded-lg px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest">
+                  <span className="bg-primary text-primary-foreground rounded-xl px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase">
                     Featured Store
                   </span>
                 </div>
               </div>
-              <div className="flex flex-col justify-center p-8 md:p-16 space-y-8">
-                <span className="inline-flex w-fit items-center rounded-lg bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20">
+              <div className="flex flex-col justify-center space-y-8 p-8 md:p-16">
+                <span className="bg-primary/10 text-primary border-primary/20 inline-flex w-fit items-center rounded-xl border px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
                   Expert Insight
                 </span>
-                <h2 className="text-3xl font-bold tracking-tight transition-colors md:text-5xl  uppercase leading-tight group-hover:text-primary">
+                <h2 className="group-hover:text-primary text-3xl leading-tight font-bold tracking-tight uppercase transition-colors md:text-5xl">
                   {featuredPost.title}
                 </h2>
-                <p className="text-muted-foreground text-lg font-medium leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed font-medium">
                   {featuredPost.excerpt}
                 </p>
-                <div className="flex items-center gap-6 border-t border-border pt-8 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                <div className="border-border text-muted-foreground flex items-center gap-6 border-t pt-8 text-[11px] font-bold tracking-widest uppercase">
                   <span className="flex items-center gap-2">
-                    <User className="h-4 w-4 text-primary" />
+                    <User className="text-primary h-4 w-4" />
                     {featuredPost.author?.display_name || 'Slovor Team'}
                   </span>
                   <span className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary" />
-                    {featuredPost.published_at ? new Date(featuredPost.published_at).toLocaleDateString() : new Date(featuredPost.created_at).toLocaleDateString()}
+                    <Clock className="text-primary h-4 w-4" />
+                    {featuredPost.published_at
+                      ? new Date(featuredPost.published_at).toLocaleDateString()
+                      : new Date(featuredPost.created_at).toLocaleDateString()}
                   </span>
                 </div>
               </div>
@@ -115,7 +120,7 @@ export default async function BlogPage({
             <Link
               key={post.id}
               href={`/${locale}/blog/${post.slug}`}
-              className="group flex flex-col border border-border bg-card overflow-hidden rounded-xl transition-all hover:border-primary/50 shadow-sm hover:shadow-xl hover:shadow-primary/5"
+              className="group border-border bg-card hover:border-primary/50 hover:shadow-primary/5 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-xl"
             >
               <div className="relative aspect-video overflow-hidden">
                 {post.cover_image ? (
@@ -126,27 +131,29 @@ export default async function BlogPage({
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 ) : (
-                  <div className="w-full h-full bg-muted" />
+                  <div className="bg-muted h-full w-full" />
                 )}
               </div>
-              <div className="flex-1 p-8 flex flex-col">
-                <span className="mb-4 inline-flex w-fit items-center rounded-lg bg-muted border border-border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-hover:bg-primary/10 group-hover:block transition-colors">
+              <div className="flex flex-1 flex-col p-8">
+                <span className="bg-muted border-border text-muted-foreground group-hover:bg-primary/10 mb-4 inline-flex w-fit items-center rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase transition-colors group-hover:block">
                   Article
                 </span>
-                <h3 className="mb-4 text-xl font-bold tracking-tight transition-colors  uppercase line-clamp-2 leading-snug group-hover:text-primary">
+                <h3 className="group-hover:text-primary mb-4 line-clamp-2 text-xl leading-snug font-bold tracking-tight uppercase transition-colors">
                   {post.title}
                 </h3>
-                <p className="text-muted-foreground mb-8 line-clamp-2 text-sm font-medium leading-relaxed flex-1">
+                <p className="text-muted-foreground mb-8 line-clamp-2 flex-1 text-sm leading-relaxed font-medium">
                   {post.excerpt}
                 </p>
-                <div className="flex items-center justify-between border-t border-border pt-6 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-                  <span className="flex items-center gap-1.5 line-clamp-1 max-w-[120px]">
-                    <User className="h-3 w-3 text-primary" />
+                <div className="border-border text-muted-foreground flex items-center justify-between border-t pt-6 text-[11px] font-bold tracking-widest uppercase">
+                  <span className="line-clamp-1 flex max-w-[120px] items-center gap-1.5">
+                    <User className="text-primary h-3 w-3" />
                     {post.author?.display_name || 'Team'}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Clock className="h-3 w-3 text-primary" />
-                    {post.published_at ? new Date(post.published_at).toLocaleDateString() : new Date(post.created_at).toLocaleDateString()}
+                    <Clock className="text-primary h-3 w-3" />
+                    {post.published_at
+                      ? new Date(post.published_at).toLocaleDateString()
+                      : new Date(post.created_at).toLocaleDateString()}
                   </span>
                 </div>
               </div>

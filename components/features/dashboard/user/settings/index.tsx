@@ -71,9 +71,11 @@ export function SettingsView() {
     try {
       const { error } = await profilesApi.update(user.id, profile)
       if (error) throw new Error(error)
-      toast.success(
-        t('profile:settings_view.saveSuccess')
-      )
+
+      // Refresh state to ensure UI is in sync
+      await loadProfile()
+
+      toast.success(t('profile:settings_view.saveSuccess'))
     } catch (err: any) {
       toast.error(err.message || 'Update failed')
     } finally {
@@ -361,7 +363,8 @@ function TabButton({
   return (
     <button
       onClick={onClick}
-      aria-pressed={active}
+      role="tab"
+      aria-selected={active}
       aria-label={label}
       className={cn(
         'flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200',
@@ -388,7 +391,10 @@ function NotificationToggle({
     <div className="bg-muted/5 border-border/5 flex items-center justify-between rounded-xl border p-4">
       <div className="flex items-center gap-2">
         <span className="font-medium">{label}</span>
-        <Badge variant="secondary" className="px-1 py-0 text-[8px] uppercase tracking-wider h-3 border-none bg-primary/10 text-primary">
+        <Badge
+          variant="secondary"
+          className="bg-primary/10 text-primary h-3 border-none px-1 py-0 text-[8px] tracking-wider uppercase"
+        >
           Soon
         </Badge>
       </div>

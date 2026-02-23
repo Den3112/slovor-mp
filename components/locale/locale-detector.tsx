@@ -163,7 +163,7 @@ export function LocaleDetector() {
                 variant="outline"
                 onClick={() => setSelectedLocale(option.code)}
                 className={cn(
-                  'hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-lg border-2 p-4 transition-all',
+                  'hover:bg-accent hover:text-accent-foreground flex h-auto w-full items-center justify-start gap-3 rounded-xl border-2 p-4 transition-all',
                   selectedLocale === option.code
                     ? 'border-primary bg-primary/10 hover:bg-primary/20 hover:text-primary-foreground'
                     : 'border-border'

@@ -91,7 +91,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
         <Button
           variant="ghost"
           className={cn(
-            'flex h-12 w-auto items-center gap-2 rounded-lg border px-4 text-sm font-bold transition-all hover:bg-transparent active:scale-95',
+            'flex h-12 w-auto items-center gap-2 rounded-xl border px-4 text-sm font-bold transition-all hover:bg-transparent active:scale-95',
             hasActiveFilters
               ? 'border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary'
               : 'border-border/50 bg-muted/30 text-foreground'
@@ -130,7 +130,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                 <Button
                   variant="ghost"
                   onClick={clearFilters}
-                  className="border-border/50 text-muted-foreground hover:text-destructive flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-bold transition-colors hover:bg-transparent"
+                  className="border-border/50 text-muted-foreground hover:text-destructive flex h-10 items-center gap-2 rounded-xl border px-3 text-sm font-bold transition-colors hover:bg-transparent"
                 >
                   <RotateCcw className="h-4 w-4" />
                   {t('filters:clearAll')}
@@ -139,7 +139,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
               <Drawer.Close asChild>
                 <Button
                   variant="ghost"
-                  className="border-border/40 flex h-10 w-10 items-center justify-center rounded-lg border p-0 hover:bg-transparent"
+                  className="border-border/40 flex h-10 w-10 items-center justify-center rounded-xl border p-0 hover:bg-transparent"
                 >
                   <X className="h-5 w-5" />
                 </Button>
@@ -209,7 +209,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                       setCondition(condition === 'new' ? null : 'new')
                     }
                     className={cn(
-                      'flex h-14 items-center justify-center rounded-lg border text-base font-bold transition-all hover:bg-transparent',
+                      'flex h-14 items-center justify-center rounded-xl border text-base font-bold transition-all hover:bg-transparent',
                       condition === 'new'
                         ? 'border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary'
                         : 'border-border/50 text-muted-foreground'
@@ -223,7 +223,7 @@ export function MobileFilterDrawer({ resultCount }: MobileFilterDrawerProps) {
                       setCondition(condition === 'used' ? null : 'used')
                     }
                     className={cn(
-                      'flex h-14 items-center justify-center rounded-lg border text-base font-bold transition-all hover:bg-transparent',
+                      'flex h-14 items-center justify-center rounded-xl border text-base font-bold transition-all hover:bg-transparent',
                       condition === 'used'
                         ? 'border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary'
                         : 'border-border/50 text-muted-foreground'

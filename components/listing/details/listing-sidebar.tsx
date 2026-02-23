@@ -92,14 +92,14 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
   }
 
   return (
-    <div className="border-border bg-card sticky top-28 space-y-8 rounded-lg border p-6 shadow-sm md:p-8">
+    <div className="border-border bg-card sticky top-28 space-y-8 rounded-xl border p-6 shadow-sm md:p-8">
       <div className="border-border space-y-3 border-b pb-6">
         <span className="text-primary/80 text-[10px] font-bold tracking-[0.2em] uppercase">
           {t('price')}
         </span>
 
         {listing.status !== 'active' && (
-          <div className="mb-4 animate-pulse rounded-lg border border-amber-500/20 bg-amber-500/10 p-4">
+          <div className="mb-4 animate-pulse rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
             <h4 className="flex items-center gap-2 font-bold text-amber-600">
               <ShieldCheck className="h-5 w-5" />
               Listing Inactive
@@ -154,21 +154,21 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
         <ListingOwnerActions
           listingId={listing.id}
           ownerId={listing.user_id}
-          className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50 h-14 w-full gap-2 rounded-lg border-2 text-xs font-bold tracking-widest uppercase"
+          className="border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/50 h-14 w-full gap-2 rounded-xl border-2 text-xs font-bold tracking-widest uppercase"
         />
 
         <div className="grid grid-cols-2 gap-3">
           <Button
             variant="ghost"
             size="lg"
-            className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-lg text-[10px] font-bold tracking-widest uppercase"
+            className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl text-[10px] font-bold tracking-widest uppercase"
           >
             <Heart className="h-5 w-5" /> {t('listing:saveListing')}
           </Button>
           <Button
             variant="ghost"
             size="lg"
-            className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-lg text-[10px] font-bold tracking-widest uppercase"
+            className="text-muted-foreground hover:text-foreground h-14 gap-2 rounded-xl text-[10px] font-bold tracking-widest uppercase"
           >
             <Share2 className="h-5 w-5" /> {t('listing:shareListing')}
           </Button>

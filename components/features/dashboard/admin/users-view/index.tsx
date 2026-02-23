@@ -67,7 +67,9 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
     if (error) {
       toast.error(error)
     } else {
-      toast.success(newStatus ? t('admin:userVerified') : t('admin:verificationRemoved'))
+      toast.success(
+        newStatus ? t('admin:userVerified') : t('admin:verificationRemoved')
+      )
       setUsers((prev) =>
         prev.map((u) =>
           u.id === user.id ? { ...u, is_verified: newStatus } : u
@@ -220,19 +222,27 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
           <Badge
             variant="outline"
             className={cn(
-              "flex h-6 w-fit items-center gap-1.5 rounded-md border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase",
-              status === 'active' ? "bg-success/10 text-success border-success/20" :
-                status === 'pending' ? "bg-warning/10 text-warning border-warning/20" :
-                  "bg-destructive/10 text-destructive border-destructive/20"
+              'flex h-6 w-fit items-center gap-1.5 rounded-md border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase',
+              status === 'active'
+                ? 'bg-success/10 text-success border-success/20'
+                : status === 'pending'
+                  ? 'bg-warning/10 text-warning border-warning/20'
+                  : 'bg-destructive/10 text-destructive border-destructive/20'
             )}
           >
-            <span className={cn(
-              "h-1.5 w-1.5 shrink-0 rounded-full",
-              status === 'active' ? "bg-success" :
-                status === 'pending' ? "bg-warning" :
-                  "bg-destructive"
-            )} />
-            {t(`admin:status${status.charAt(0).toUpperCase() + status.slice(1)}`)}
+            <span
+              className={cn(
+                'h-1.5 w-1.5 shrink-0 rounded-full',
+                status === 'active'
+                  ? 'bg-success'
+                  : status === 'pending'
+                    ? 'bg-warning'
+                    : 'bg-destructive'
+              )}
+            />
+            {t(
+              `admin:status${status.charAt(0).toUpperCase() + status.slice(1)}`
+            )}
           </Badge>
         )
       },
@@ -252,10 +262,18 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 {row.role || 'user'}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="border-border/60 bg-background">
-              <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">{t('admin:changeRole')}</DropdownMenuLabel>
+            <DropdownMenuContent
+              align="start"
+              className="border-border/60 bg-background"
+            >
+              <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">
+                {t('admin:changeRole')}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleRoleChange(row, 'user')} className="text-[10px] font-bold tracking-widest uppercase">
+              <DropdownMenuItem
+                onClick={() => handleRoleChange(row, 'user')}
+                className="text-[10px] font-bold tracking-widest uppercase"
+              >
                 {t('admin:roleUser')}
               </DropdownMenuItem>
               <DropdownMenuItem
@@ -264,7 +282,10 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               >
                 {t('admin:roleModerator')}
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleRoleChange(row, 'admin')} className="text-[10px] font-bold tracking-widest uppercase">
+              <DropdownMenuItem
+                onClick={() => handleRoleChange(row, 'admin')}
+                className="text-[10px] font-bold tracking-widest uppercase"
+              >
                 {t('admin:roleAdmin')}
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -308,22 +329,30 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:bg-muted/50 h-8 w-8 rounded-lg"
+                className="hover:bg-muted/50 h-8 w-8 rounded-xl"
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="border-border/60 bg-background">
-              <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">{t('admin:actions')}</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleToggleVerification(row)} className="text-[10px] font-bold tracking-widest uppercase">
+            <DropdownMenuContent
+              align="end"
+              className="border-border/60 bg-background"
+            >
+              <DropdownMenuLabel className="text-[10px] font-bold tracking-widest uppercase opacity-60">
+                {t('admin:actions')}
+              </DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => handleToggleVerification(row)}
+                className="text-[10px] font-bold tracking-widest uppercase"
+              >
                 {row.is_verified ? (
                   <>
-                    <ShieldAlert className="mr-2 h-3.5 w-3.5 text-warning" />
+                    <ShieldAlert className="text-warning mr-2 h-3.5 w-3.5" />
                     {t('admin:removeVerification')}
                   </>
                 ) : (
                   <>
-                    <ShieldCheck className="mr-2 h-3.5 w-3.5 text-success" />
+                    <ShieldCheck className="text-success mr-2 h-3.5 w-3.5" />
                     {t('admin:verifyUser')}
                   </>
                 )}
@@ -334,7 +363,9 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 className="text-destructive focus:text-destructive focus:bg-destructive/5 text-[10px] font-bold tracking-widest uppercase"
               >
                 <Ban className="mr-2 h-3.5 w-3.5" />
-                {row.status === 'banned' ? t('admin:unbanUser') : t('admin:banUser')}
+                {row.status === 'banned'
+                  ? t('admin:unbanUser')
+                  : t('admin:banUser')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

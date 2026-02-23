@@ -58,7 +58,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         >
                           <div
                             className={cn(
-                              'flex h-11 w-11 items-center justify-center rounded-lg text-white shadow-md ring-1 ring-white/10 transition-transform group-hover:scale-110 group-hover:rotate-3',
+                              'flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md ring-1 ring-white/10 transition-transform group-hover:scale-110 group-hover:rotate-3',
                               category.color
                             )}
                           >
@@ -119,7 +119,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       <Button
                         asChild
                         size="sm"
-                        className="bg-primary hover:bg-primary/90 h-9 w-full rounded-lg border-0 text-[9px] font-bold tracking-widest uppercase transition-transform group-hover:scale-[1.02]"
+                        className="bg-primary hover:bg-primary/90 h-9 w-full rounded-xl border-0 text-[9px] font-bold tracking-widest uppercase transition-transform group-hover:scale-[1.02]"
                       >
                         <Link href={`/${locale}/post`}>{t('nav:postAd')}</Link>
                       </Button>
@@ -139,7 +139,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                             key={cityKey}
                             href={`/${locale}/listings?location=${cityKey}`}
                             onClick={onClose}
-                            className="border-border/60 hover:border-primary/50 hover:bg-primary/5 rounded-lg border px-2 py-2 text-center text-[9px] font-bold tracking-widest uppercase transition-all"
+                            className="border-border/60 hover:border-primary/50 hover:bg-primary/5 rounded-xl border px-2 py-2 text-center text-[9px] font-bold tracking-widest uppercase transition-all"
                           >
                             {t(`home:regions.${cityKey}`)}
                           </Link>

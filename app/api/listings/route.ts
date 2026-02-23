@@ -26,7 +26,12 @@ export async function GET(req: NextRequest) {
 
     if (searchParams.get('search')) {
       const searchTerm = searchParams.get('search') || ''
-      query.ilike('title', `%${searchTerm}%`)
+      // Use textSearch for better results instead of basic ilike
+      // The config 'english' is used here, but ideally should match the locale.
+      query.textSearch('title', searchTerm, {
+        type: 'websearch',
+        config: 'english',
+      })
     }
 
     if (searchParams.get('category')) {

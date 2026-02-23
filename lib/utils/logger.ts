@@ -1,20 +1,46 @@
 type LogLevel = 'info' | 'warn' | 'error'
 
-function log(level: LogLevel, context: string, errorOrMessage: unknown) {
-  // In dev mode log more details, in prod we can attach external service
-  const isServer = typeof window === 'undefined'
-  const prefix = `[${level.toUpperCase()}][${context}]${isServer ? '[server]' : '[client]'}:`
+interface LogPayload {
+  timestamp: string
+  level: LogLevel
+  context: string
+  message: unknown
+  env: string
+  isServer: boolean
+}
 
-  if (level === 'error') {
-    // eslint-disable-next-line no-console
-    console.error(prefix, errorOrMessage)
-  } else if (level === 'warn') {
-    // eslint-disable-next-line no-console
-    console.warn(prefix, errorOrMessage)
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(prefix, errorOrMessage)
+function log(level: LogLevel, context: string, errorOrMessage: unknown) {
+  const isServer = typeof window === 'undefined'
+  const isProd = process.env.NODE_ENV === 'production'
+
+  const payload: LogPayload = {
+    timestamp: new Date().toISOString(),
+    level,
+    context,
+    message:
+      errorOrMessage instanceof Error ? errorOrMessage.message : errorOrMessage,
+    env: process.env.NODE_ENV || 'development',
+    isServer,
   }
+
+  if (isProd) {
+    // Structured JSON for production logging (ELK, Datadog, etc.)
+    // eslint-disable-next-line no-console
+    console[level](JSON.stringify(payload))
+    return
+  }
+
+  // Readable format for development
+  const prefix = `[${level.toUpperCase()}][${context}]${isServer ? '[server]' : '[client]'}:`
+  const displayMessage =
+    typeof errorOrMessage === 'object' && errorOrMessage !== null
+      ? errorOrMessage instanceof Error
+        ? errorOrMessage.message
+        : JSON.stringify(errorOrMessage)
+      : errorOrMessage
+
+  // eslint-disable-next-line no-console
+  console[level](prefix, displayMessage)
 }
 
 export function logError(context: string, error: unknown) {
@@ -26,6 +52,7 @@ export function logWarn(context: string, message: unknown) {
 }
 
 export function logInfo(context: string, message: unknown) {
+  // Always log info in production if structured, or only in dev if readable
   if (process.env.NODE_ENV !== 'production') {
     log('info', context, message)
   }

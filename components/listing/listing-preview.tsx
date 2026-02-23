@@ -83,7 +83,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
   const categoryName = listing.category?.name || ''
 
   return (
-    <div className="bg-card border-border overflow-hidden rounded-lg border shadow-sm">
+    <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
       {/* Image */}
       <div className="bg-muted relative aspect-4/3 overflow-hidden">
         {hasValidImage ? (
@@ -108,7 +108,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 md:top-4 md:left-4 md:gap-2">
           {listing.condition === 'new' && (
-            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-lg px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
+            <div className="bg-background/90 text-foreground flex items-center gap-1 rounded-xl px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase shadow-sm md:gap-1.5 md:px-3 md:py-1.5 md:text-[10px] md:tracking-widest">
               <Sparkles className="fill-primary text-primary h-2.5 w-2.5 md:h-3 md:w-3" />
               {t('common:new')}
             </div>
@@ -116,7 +116,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
         </div>
 
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-3 left-3 rounded-lg border border-white/20 bg-black/60 px-2.5 py-1 text-[9px] font-bold text-white md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
+          <div className="absolute bottom-3 left-3 rounded-xl border border-white/20 bg-black/60 px-2.5 py-1 text-[9px] font-bold text-white md:bottom-4 md:left-4 md:px-3 md:text-[10px]">
             {listing.images.length} PHOTOS
           </div>
         )}

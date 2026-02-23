@@ -92,7 +92,7 @@ export function ReviewItem({
               </div>
             </div>
 
-            <div className="bg-muted/30 border-border/40 flex w-fit gap-0.5 rounded-lg border p-1.5">
+            <div className="bg-muted/30 border-border/40 flex w-fit gap-0.5 rounded-xl border p-1.5">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
@@ -150,7 +150,7 @@ export function ReviewItem({
                         setIsReplying(false)
                         setReplyText('')
                       }}
-                      className="rounded-lg text-[10px] font-bold tracking-widest uppercase"
+                      className="rounded-xl text-[10px] font-bold tracking-widest uppercase"
                     >
                       {t('common:cancel')}
                     </Button>
@@ -158,7 +158,7 @@ export function ReviewItem({
                       size="sm"
                       onClick={handleSubmitReply}
                       disabled={isSubmitting || !replyText.trim()}
-                      className="shadow-primary/20 rounded-lg text-[10px] font-bold tracking-widest uppercase shadow-md"
+                      className="shadow-primary/20 rounded-xl text-[10px] font-bold tracking-widest uppercase shadow-md"
                     >
                       {isSubmitting ? (
                         <Loader2 className="mr-2 h-3 w-3 animate-spin" />
@@ -174,7 +174,7 @@ export function ReviewItem({
                   variant="outline"
                   size="sm"
                   onClick={() => setIsReplying(true)}
-                  className="hover:bg-primary/5 hover:text-primary hover:border-primary/20 border-border/60 rounded-lg text-[10px] font-bold tracking-widest uppercase transition-all"
+                  className="hover:bg-primary/5 hover:text-primary hover:border-primary/20 border-border/60 rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all"
                 >
                   {t('reviews:reply')}
                 </Button>

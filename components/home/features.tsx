@@ -68,7 +68,7 @@ export function Features() {
                 'Direct contact between buyers and sellers',
               ].map((item, i) => (
                 <div key={i} className="group flex items-center gap-4">
-                  <div className="bg-primary/10 group-hover:bg-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all group-hover:scale-110">
+                  <div className="bg-primary/10 group-hover:bg-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-all group-hover:scale-110">
                     <CheckCircle2 className="text-primary h-4 w-4 group-hover:text-white" />
                   </div>
                   <span className="text-foreground/80 group-hover:text-primary text-xl font-bold transition-colors">
@@ -87,11 +87,11 @@ export function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group border-border bg-card hover:border-primary/50 rounded-lg border p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+                className="group border-border bg-card hover:border-primary/50 rounded-xl border p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
               >
                 <div
                   className={cn(
-                    'bg-muted group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-lg shadow-sm transition-all duration-300',
+                    'bg-muted group-hover:bg-primary group-hover:text-primary-foreground mb-6 flex h-14 w-14 items-center justify-center rounded-xl shadow-sm transition-all duration-300',
                     feature.color
                   )}
                 >

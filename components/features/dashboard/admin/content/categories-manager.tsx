@@ -91,7 +91,10 @@ export function CategoriesManager() {
         loadCategories()
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : t('admin:failedToDeleteCategory')
+      const message =
+        error instanceof Error
+          ? error.message
+          : t('admin:failedToDeleteCategory')
       toast.error(message)
     } finally {
       setIsSubmitting(false)
@@ -122,10 +125,12 @@ export function CategoriesManager() {
         <div className="group relative max-w-md flex-1">
           <Search className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 transition-colors" />
           <Input
-            placeholder={t('admin:searchCategories', { defaultValue: 'Search categories...' })}
+            placeholder={t('admin:searchCategories', {
+              defaultValue: 'Search categories...',
+            })}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border-border bg-card h-12 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all focus:ring-primary/20"
+            className="border-border bg-card focus:ring-primary/20 h-12 rounded-xl pl-12 text-xs font-bold tracking-widest uppercase transition-all"
           />
         </div>
         <Button
@@ -146,7 +151,8 @@ export function CategoriesManager() {
           }}
           className="shadow-primary/20 h-12 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase shadow-lg"
         >
-          <Plus className="mr-2 h-4 w-4" /> {t('admin:addCategory', { defaultValue: 'Add Category' })}
+          <Plus className="mr-2 h-4 w-4" />{' '}
+          {t('admin:addCategory', { defaultValue: 'Add Category' })}
         </Button>
       </div>
 
@@ -156,10 +162,13 @@ export function CategoriesManager() {
             <thead>
               <tr className="bg-muted border-border/40 border-b">
                 <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
-                  {t('admin:tableListing', { defaultValue: 'Name' })} / {t('admin:inputSlug', { defaultValue: 'Slug' })}
+                  {t('admin:tableListing', { defaultValue: 'Name' })} /{' '}
+                  {t('admin:inputSlug', { defaultValue: 'Slug' })}
                 </th>
                 <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
-                  {t('admin:tableTranslations', { defaultValue: 'Translations' })}
+                  {t('admin:tableTranslations', {
+                    defaultValue: 'Translations',
+                  })}
                 </th>
                 <th className="text-muted-foreground px-8 py-5 text-left text-[10px] font-black tracking-[0.2em] uppercase">
                   {t('admin:tableIconOrder', { defaultValue: 'Style & Order' })}
@@ -180,7 +189,9 @@ export function CategoriesManager() {
                 <tr>
                   <td colSpan={4} className="px-8 py-20 text-center">
                     <p className="text-muted-foreground text-sm font-bold tracking-widest uppercase opacity-40">
-                      {t('admin:noCategoriesFound', { defaultValue: 'No categories found' })}
+                      {t('admin:noCategoriesFound', {
+                        defaultValue: 'No categories found',
+                      })}
                     </p>
                   </td>
                 </tr>
@@ -197,7 +208,7 @@ export function CategoriesManager() {
                               setFormData({ ...formData, name: e.target.value })
                             }
                             placeholder={t('admin:inputName')}
-                            className="h-9 rounded-lg text-sm"
+                            className="h-9 rounded-xl text-sm"
                           />
                           <Input
                             value={formData.slug}
@@ -205,7 +216,7 @@ export function CategoriesManager() {
                               setFormData({ ...formData, slug: e.target.value })
                             }
                             placeholder={t('admin:inputSlug')}
-                            className="h-9 rounded-lg text-sm"
+                            className="h-9 rounded-xl text-sm"
                           />
                         </div>
                       </td>
@@ -220,7 +231,7 @@ export function CategoriesManager() {
                               })
                             }
                             placeholder="SK"
-                            className="h-8 rounded-lg text-xs"
+                            className="h-8 rounded-xl text-xs"
                           />
                           <Input
                             value={formData.name_cs}
@@ -231,7 +242,7 @@ export function CategoriesManager() {
                               })
                             }
                             placeholder="CS"
-                            className="h-8 rounded-lg text-xs"
+                            className="h-8 rounded-xl text-xs"
                           />
                           <Input
                             value={formData.name_en}
@@ -242,7 +253,7 @@ export function CategoriesManager() {
                               })
                             }
                             placeholder="EN"
-                            className="h-8 rounded-lg text-xs"
+                            className="h-8 rounded-xl text-xs"
                           />
                         </div>
                       </td>
@@ -257,7 +268,7 @@ export function CategoriesManager() {
                               })
                             }
                             placeholder={t('admin:icon')}
-                            className="h-9 rounded-lg text-sm"
+                            className="h-9 rounded-xl text-sm"
                           />
                           <Input
                             type="number"
@@ -268,7 +279,7 @@ export function CategoriesManager() {
                                 order_index: parseInt(e.target.value),
                               })
                             }
-                            className="h-9 w-20 rounded-lg text-sm"
+                            className="h-9 w-20 rounded-xl text-sm"
                           />
                         </div>
                       </td>
@@ -278,7 +289,7 @@ export function CategoriesManager() {
                             size="sm"
                             onClick={handleSubmit}
                             disabled={isSubmitting}
-                            className="h-9 w-9 rounded-lg p-0"
+                            className="h-9 w-9 rounded-xl p-0"
                           >
                             {isSubmitting ? (
                               <Loader2 className="h-4 w-4 animate-spin" />
@@ -290,7 +301,7 @@ export function CategoriesManager() {
                             size="sm"
                             variant="ghost"
                             onClick={handleCancel}
-                            className="h-9 w-9 rounded-lg p-0"
+                            className="h-9 w-9 rounded-xl p-0"
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -315,7 +326,7 @@ export function CategoriesManager() {
                                 })
                               }
                               placeholder={t('admin:displayName')}
-                              className="h-9 rounded-lg text-sm"
+                              className="h-9 rounded-xl text-sm"
                             />
                             <Input
                               value={formData.slug}
@@ -326,7 +337,7 @@ export function CategoriesManager() {
                                 })
                               }
                               placeholder={t('admin:inputSlug')}
-                              className="h-9 rounded-lg text-sm"
+                              className="h-9 rounded-xl text-sm"
                             />
                           </div>
                         ) : (
@@ -352,7 +363,7 @@ export function CategoriesManager() {
                                 })
                               }
                               placeholder="SK"
-                              className="h-8 rounded-lg text-xs"
+                              className="h-8 rounded-xl text-xs"
                             />
                             <Input
                               value={formData.name_cs}
@@ -363,7 +374,7 @@ export function CategoriesManager() {
                                 })
                               }
                               placeholder="CS"
-                              className="h-8 rounded-lg text-xs"
+                              className="h-8 rounded-xl text-xs"
                             />
                             <Input
                               value={formData.name_en}
@@ -374,7 +385,7 @@ export function CategoriesManager() {
                                 })
                               }
                               placeholder="EN"
-                              className="h-8 rounded-lg text-xs"
+                              className="h-8 rounded-xl text-xs"
                             />
                           </div>
                         ) : (
@@ -403,7 +414,7 @@ export function CategoriesManager() {
                                 })
                               }
                               placeholder={t('admin:icon')}
-                              className="h-9 rounded-lg text-sm"
+                              className="h-9 rounded-xl text-sm"
                             />
                             <Input
                               type="number"
@@ -414,12 +425,12 @@ export function CategoriesManager() {
                                   order_index: parseInt(e.target.value),
                                 })
                               }
-                              className="h-9 w-20 rounded-lg text-sm"
+                              className="h-9 w-20 rounded-xl text-sm"
                             />
                           </div>
                         ) : (
                           <div className="flex items-center gap-2">
-                            <div className="bg-primary/10 text-primary rounded-lg p-2">
+                            <div className="bg-primary/10 text-primary rounded-xl p-2">
                               <FolderOpen className="h-4 w-4" />
                             </div>
                             <span className="text-muted-foreground text-xs font-bold">
@@ -436,7 +447,7 @@ export function CategoriesManager() {
                                 size="sm"
                                 onClick={handleSubmit}
                                 disabled={isSubmitting}
-                                className="h-9 w-9 rounded-lg p-0"
+                                className="h-9 w-9 rounded-xl p-0"
                               >
                                 {isSubmitting ? (
                                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -448,7 +459,7 @@ export function CategoriesManager() {
                                 size="sm"
                                 variant="ghost"
                                 onClick={handleCancel}
-                                className="h-9 w-9 rounded-lg p-0"
+                                className="h-9 w-9 rounded-xl p-0"
                               >
                                 <X className="h-4 w-4" />
                               </Button>
@@ -459,7 +470,7 @@ export function CategoriesManager() {
                                 size="sm"
                                 variant="ghost"
                                 onClick={() => handleEdit(category)}
-                                className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-lg p-0"
+                                className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-xl p-0"
                               >
                                 <Pencil className="h-4 w-4" />
                               </Button>
@@ -467,7 +478,7 @@ export function CategoriesManager() {
                                 size="sm"
                                 variant="ghost"
                                 onClick={() => handleDelete(category.id)}
-                                className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 rounded-lg p-0"
+                                className="hover:bg-destructive/10 hover:text-destructive h-9 w-9 rounded-xl p-0"
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>

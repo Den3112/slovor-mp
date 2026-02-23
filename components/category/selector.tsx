@@ -1,12 +1,18 @@
 'use client'
-// Category selector component
-// Simple dropdown for selecting category
 
 import { useState, useEffect } from 'react'
 import type { Category } from '@/lib/types/database'
 import { getMainCategories } from '@/lib/supabase/categories'
 import { useTranslation } from '@/lib/i18n'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { CategoryIcon } from '@/components/category/category-icon'
 
 interface CategorySelectorProps {
   onSelect: (categoryId: string) => void
@@ -41,38 +47,46 @@ export function CategorySelector({
   }
 
   if (loading) {
-    return <div className="text-muted-foreground">{t('loading')}</div>
+    return (
+      <div className="border-border bg-muted/20 h-11 w-full animate-pulse rounded-xl border" />
+    )
   }
 
   if (error) {
     return (
-      <div className="text-destructive">
+      <div className="text-destructive p-2 text-xs font-bold">
         {t('error')}: {error}
       </div>
     )
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-2">
       <label
         htmlFor="category"
-        className="text-muted-foreground mb-2 block text-sm font-medium"
+        className="text-muted-foreground block text-xs font-bold tracking-widest uppercase"
       >
         {t('categoryLabel')}
       </label>
-      <select
-        id="category"
-        value={selectedCategoryId}
-        onChange={(e) => onSelect(e.target.value)}
-        className="border-input bg-muted/30 focus:border-primary/50 focus:ring-primary/20 w-full rounded-lg border px-4 py-2 transition-all focus:ring-1 focus:outline-none"
-      >
-        <option value="">{t('selectCategory')}</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.id}>
-            {getLocalizedCategoryName(category, locale, t)}
-          </option>
-        ))}
-      </select>
+      <Select value={selectedCategoryId} onValueChange={onSelect}>
+        <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
+          <SelectValue placeholder={t('selectCategory')} />
+        </SelectTrigger>
+        <SelectContent>
+          {categories.map((category) => (
+            <SelectItem key={category.id} value={category.id}>
+              <div className="flex items-center gap-2">
+                <CategoryIcon
+                  slug={category.slug}
+                  showBackground={false}
+                  size="sm"
+                />
+                <span>{getLocalizedCategoryName(category, locale, t)}</span>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   )
 }

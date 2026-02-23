@@ -19,7 +19,7 @@ export function SortSelect({ value, onChange, options }: SortSelectProps) {
         {t('filters:sort')}
       </label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-lg font-bold">
+        <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

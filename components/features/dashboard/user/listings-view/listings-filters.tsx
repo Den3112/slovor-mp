@@ -32,14 +32,14 @@ export function ListingsFilters({
   return (
     <motion.div
       variants={item}
-      className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-lg border p-4 shadow-sm lg:flex-row lg:items-center"
+      className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-xl border p-4 shadow-sm lg:flex-row lg:items-center"
     >
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="w-full lg:w-auto"
       >
-        <TabsList className="bg-muted/50 border-border/20 h-auto flex-wrap justify-start rounded-lg border p-1">
+        <TabsList className="bg-muted/50 border-border/20 h-auto flex-wrap justify-start rounded-xl border p-1">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.value}
@@ -65,7 +65,7 @@ export function ListingsFilters({
             placeholder={t('common:search')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border-border/60 focus:ring-primary/20 h-10 rounded-lg pl-9 text-xs font-bold"
+            className="border-border/60 focus:ring-primary/20 h-10 rounded-xl pl-9 text-xs font-bold"
           />
         </div>
       </div>

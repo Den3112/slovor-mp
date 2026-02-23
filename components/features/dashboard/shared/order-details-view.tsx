@@ -113,7 +113,7 @@ export function OrderDetailsView({
           <Button
             variant="outline"
             size="sm"
-            className="border-border/60 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+            className="border-border/60 h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
           >
             <Download className="mr-2 h-4 w-4" />
             Invoice
@@ -123,7 +123,7 @@ export function OrderDetailsView({
               <Button
                 size="sm"
                 variant="default"
-                className="bg-success hover:bg-success/90 h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+                className="bg-success hover:bg-success/90 h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
                 onClick={() => handleUpdateStatus('completed')}
                 disabled={isUpdating}
               >
@@ -133,7 +133,7 @@ export function OrderDetailsView({
               <Button
                 size="sm"
                 variant="destructive"
-                className="h-10 rounded-lg px-6 text-[10px] font-bold tracking-widest uppercase"
+                className="h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
                 onClick={() => handleUpdateStatus('cancelled')}
                 disabled={isUpdating}
               >
@@ -155,7 +155,7 @@ export function OrderDetailsView({
             </CardHeader>
             <CardContent className="p-6">
               <div className="flex flex-col gap-6 sm:flex-row">
-                <div className="bg-muted border-border/10 relative h-32 w-32 shrink-0 overflow-hidden rounded-lg border">
+                <div className="bg-muted border-border/10 relative h-32 w-32 shrink-0 overflow-hidden rounded-xl border">
                   {order.listing?.images?.[0] ? (
                     <Image
                       src={order.listing.images[0]}
@@ -204,7 +204,7 @@ export function OrderDetailsView({
                     variant="outline"
                     size="sm"
                     asChild
-                    className="border-border/60 mt-2 h-8 rounded-lg text-[9px] font-bold tracking-widest uppercase"
+                    className="border-border/60 mt-2 h-8 rounded-xl text-[9px] font-bold tracking-widest uppercase"
                   >
                     <Link href={`/${locale}/listings/${order.listing_id}`}>
                       View Listing{' '}
@@ -290,7 +290,7 @@ export function OrderDetailsView({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 rounded-lg"
+                    className="h-8 w-8 rounded-xl"
                     asChild
                   >
                     <Link href={`/${locale}/seller/${order.seller_id}`}>
@@ -322,7 +322,7 @@ export function OrderDetailsView({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 rounded-lg"
+                    className="h-8 w-8 rounded-xl"
                     asChild
                   >
                     <Link href={`/${locale}/seller/${order.buyer_id}`}>
@@ -346,7 +346,7 @@ export function OrderDetailsView({
               <p className="text-[11px] leading-relaxed font-bold tracking-widest text-white/60 uppercase">
                 Need help with this order or want to report a problem?
               </p>
-              <Button className="h-12 w-full rounded-lg border border-white/10 bg-white/5 text-[9px] font-bold tracking-widest text-white uppercase hover:bg-white/10">
+              <Button className="h-12 w-full rounded-xl border border-white/10 bg-white/5 text-[9px] font-bold tracking-widest text-white uppercase hover:bg-white/10">
                 Contact Resolution Center
               </Button>
             </CardContent>

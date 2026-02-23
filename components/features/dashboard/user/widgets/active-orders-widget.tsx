@@ -60,7 +60,7 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
             className="hover:bg-muted/5 group flex items-center justify-between p-4 transition-colors"
           >
             <div className="flex items-center gap-3">
-              <div className="bg-muted/10 border-border/20 rounded-lg border p-2">
+              <div className="bg-muted/10 border-border/20 rounded-xl border p-2">
                 {getStatusIcon(order.status)}
               </div>
               <div className="space-y-0.5">

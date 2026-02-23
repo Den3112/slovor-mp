@@ -42,7 +42,7 @@ export function CategoryView({
 
       <div className="fade-in-up mt-8 mb-16">
         <div className="flex flex-col gap-8 md:flex-row md:items-center">
-          <div className="border-border/60 bg-card flex h-24 w-24 items-center justify-center rounded-lg border shadow-sm md:h-32 md:w-32">
+          <div className="border-border/60 bg-card flex h-24 w-24 items-center justify-center rounded-xl border shadow-sm md:h-32 md:w-32">
             <CategoryIcon
               slug={category.slug}
               className="text-primary animate-float h-12 w-12 transition-all duration-700 md:h-16 md:w-16"
@@ -53,7 +53,7 @@ export function CategoryView({
               {categoryName}
             </h1>
             <div className="flex items-center gap-3">
-              <div className="border-primary/20 bg-primary/5 text-primary inline-flex items-center gap-2 rounded-lg border px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase">
+              <div className="border-primary/20 bg-primary/5 text-primary inline-flex items-center gap-2 rounded-xl border px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase">
                 <div className="bg-primary h-2 w-2 animate-pulse rounded-sm" />
                 {totalCount} {t('common:listings')} {t('common:found')}
               </div>

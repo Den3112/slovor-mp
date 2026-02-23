@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "next build",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "start": "next start",
     "clean": "rimraf .next node_modules",
     "lint": "cross-env NODE_ENV=development eslint . --cache",
@@ -12,7 +12,7 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write . --cache",
     "format:check": "prettier --check . --cache",
-    "check:circular": "madge --circular --extensions ts,tsx . --exclude '.next|node_modules|public|.github|.agent'",
+    "check:circular": "madge --circular --extensions ts,tsx . --ts-config ./tsconfig.json --exclude '.next|node_modules|public|.github|.agent'",
     "setup:husky": "husky",
     "db:info": "node scripts/db-info.js",
     "db:clear": "node scripts/clear-listings.js",
@@ -31,7 +31,9 @@
     "knip": "knip",
     "analyze": "cross-env ANALYZE=true npm run build",
     "precommit": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook": "cross-env STORYBOOK=true NEXT_PUBLIC_STORYBOOK=true storybook dev -p 6006",
+    "build-storybook": "cross-env STORYBOOK=true NEXT_PUBLIC_STORYBOOK=true storybook build"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.8.0",
@@ -68,6 +70,7 @@
     "next-themes": "0.4.6",
     "react-i18next": "^16.5.3",
     "recharts": "^3.7.0",
+    "sharp": "0.34.5",
     "sonner": "^2.0.7",
     "stripe": "^20.2.0",
     "tailwind-merge": "^3.4.0",

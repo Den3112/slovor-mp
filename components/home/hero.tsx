@@ -37,7 +37,7 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="bg-primary/10 text-primary-hover border-primary/20 dark:text-primary mb-8 inline-flex items-center gap-2 rounded border px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase">
+            <span className="badge-pill bg-primary/10 text-primary-hover border-primary/20 dark:text-primary mb-8">
               <Sparkles className="h-3.5 w-3.5" />
               {t('heroTagline')}
             </span>
@@ -101,7 +101,7 @@ export function Hero() {
 
                 <Button
                   onClick={handleSearch}
-                  className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary h-12 w-full shrink-0 rounded-lg text-base font-bold transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:px-8 md:px-10"
+                  className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary h-12 w-full shrink-0 rounded-xl text-base font-bold transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:px-8 md:px-10"
                 >
                   {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -119,12 +119,12 @@ export function Hero() {
             <span className="mb-2 w-full text-center text-[10px] font-bold tracking-widest text-slate-400 uppercase sm:mr-2 sm:mb-0 sm:w-auto">
               {t('home:popularSearches.title')}
             </span>
-            <div className="flex flex-wrap items-center justify-center gap-2 max-w-full">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
               {popularSearches.map((term) => (
                 <Link
                   key={term}
                   href={`/${locale}/listings?search=${term}`}
-                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border truncate rounded-lg border px-4 py-1.5 text-sm font-semibold transition-colors"
+                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border truncate rounded-xl border px-4 py-1.5 text-sm font-semibold transition-colors"
                 >
                   {term}
                 </Link>

@@ -34,7 +34,7 @@ export function LocationSelect({ value, onChange }: LocationSelectProps) {
         value={value || 'all'}
         onValueChange={(v) => onChange(v === 'all' ? '' : v)}
       >
-        <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-lg font-bold">
+        <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
           <SelectValue placeholder={t('filters:allLocations')} />
         </SelectTrigger>
         <SelectContent>

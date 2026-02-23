@@ -26,11 +26,12 @@ export function ThemeToggle({ className }: { className?: string }) {
           maxHeight: '40px',
         }}
         className={cn(
-          'border-border/40 bg-muted/20 flex items-center justify-center rounded-lg border',
+          'border-border/40 bg-muted/20 flex items-center justify-center rounded-xl border',
           className
         )}
+        aria-label="Toggle theme"
       >
-        <div className="bg-muted h-4 w-4 animate-pulse rounded-lg" />
+        <div className="bg-muted h-4 w-4 animate-pulse rounded-xl" />
       </button>
     )
   }
@@ -47,13 +48,15 @@ export function ThemeToggle({ className }: { className?: string }) {
         maxHeight: '40px',
       }}
       className={cn(
-        'group border-border/40 hover:border-primary/50 relative flex shrink-0 items-center justify-center rounded-lg border transition-all',
+        'group border-border/40 hover:border-primary/50 relative flex shrink-0 items-center justify-center rounded-xl border transition-all',
         isDark
           ? 'bg-muted/40 hover:bg-muted/60 text-primary-foreground'
           : 'bg-muted/50 hover:bg-muted/80 text-primary',
         className
       )}
-      aria-label={isDark ? t('common:aria.switchToLight') : t('common:aria.switchToDark')}
+      aria-label={
+        isDark ? t('common:aria.switchToLight') : t('common:aria.switchToDark')
+      }
     >
       <Sun
         className={cn(

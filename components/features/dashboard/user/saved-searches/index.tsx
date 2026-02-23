@@ -91,7 +91,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
-      <div className="bg-card border-border flex flex-col justify-between gap-4 rounded-lg border p-6 shadow-sm sm:flex-row sm:items-center">
+      <div className="bg-card border-border flex flex-col justify-between gap-4 rounded-xl border p-6 shadow-sm sm:flex-row sm:items-center">
         <div className="space-y-1">
           <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
             {t('dashboard:savedSearches')}
@@ -103,7 +103,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
       </div>
 
       {searches.length === 0 ? (
-        <div className="bg-card border-border rounded-lg border p-12 shadow-sm">
+        <div className="bg-card border-border rounded-xl border p-12 shadow-sm">
           <EmptyState
             icon={Search}
             title={t('profile:noSavedSearches')}
@@ -117,7 +117,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
           {searches.map((search) => (
             <div
               key={search.id}
-              className="group border-border bg-card hover:border-primary/30 relative overflow-hidden rounded-lg border p-6 transition-all hover:shadow-md"
+              className="group border-border bg-card hover:border-primary/30 relative overflow-hidden rounded-xl border p-6 transition-all hover:shadow-md"
             >
               <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
                 <div className="min-w-0 flex-1">
@@ -135,25 +135,25 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
 
                   <div className="flex flex-wrap gap-2">
                     {search.query && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
                         <Search className="h-3 w-3" />
                         {search.query}
                       </span>
                     )}
                     {search.category?.name && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
                         <Tag className="h-3 w-3" />
                         {search.category.name}
                       </span>
                     )}
                     {search.location && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
                         <MapPin className="h-3 w-3" />
                         {search.location}
                       </span>
                     )}
                     {(search.min_price || search.max_price) && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
                         €{search.min_price || 0} -{' '}
                         {search.max_price ? `€${search.max_price}` : '∞'}
                       </span>
@@ -191,7 +191,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                     size="icon"
                     onClick={() => handleToggleNotifications(search)}
                     className={cn(
-                      'h-11 w-11 rounded-lg border border-transparent transition-all',
+                      'h-11 w-11 rounded-xl border border-transparent transition-all',
                       search.notify_email
                         ? 'bg-primary/5 text-primary hover:bg-primary/10 border-primary/10'
                         : 'bg-muted/40 text-muted-foreground hover:bg-muted/60 border-border/40'
@@ -213,7 +213,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="bg-muted/40 hover:bg-primary/10 hover:text-primary border-border/40 h-11 w-11 rounded-lg border transition-all"
+                    className="bg-muted/40 hover:bg-primary/10 hover:text-primary border-border/40 h-11 w-11 rounded-xl border transition-all"
                   >
                     <Link href={buildSearchUrl(search)}>
                       <ExternalLink className="h-4.5 w-4.5" />
@@ -225,7 +225,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                     size="icon"
                     onClick={() => setDeleteId(search.id)}
                     disabled={isDeleting === search.id}
-                    className="hover:bg-destructive/10 hover:text-destructive text-muted-foreground/20 hover:border-destructive/10 h-11 w-11 rounded-lg border border-transparent transition-all"
+                    className="hover:bg-destructive/10 hover:text-destructive text-muted-foreground/20 hover:border-destructive/10 h-11 w-11 rounded-xl border border-transparent transition-all"
                   >
                     {isDeleting === search.id ? (
                       <Loader2 className="text-destructive h-4 w-4 animate-spin" />
@@ -244,7 +244,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
         open={!!deleteId}
         onOpenChange={(open) => !open && setDeleteId(null)}
       >
-        <AlertDialogContent className="border-border bg-card rounded-lg">
+        <AlertDialogContent className="border-border bg-card rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-xl font-bold tracking-tight uppercase">
               {t('profile:deleteSearchTitle')}
@@ -254,12 +254,12 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="gap-2">
-            <AlertDialogCancel className="rounded-lg text-[10px] font-bold tracking-widest uppercase">
+            <AlertDialogCancel className="rounded-xl text-[10px] font-bold tracking-widest uppercase">
               {t('common:cancel')}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-lg text-[10px] font-bold tracking-widest uppercase"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl text-[10px] font-bold tracking-widest uppercase"
             >
               {t('common:delete')}
             </AlertDialogAction>

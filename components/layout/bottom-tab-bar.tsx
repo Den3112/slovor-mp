@@ -76,7 +76,7 @@ export function BottomTabBar() {
                   />
                   {tab.href === (user ? '/dashboard' : '/auth/login') &&
                     unreadCount > 0 && (
-                      <span className="bg-primary ring-background absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-lg text-[9px] font-bold text-white shadow-sm ring-2">
+                      <span className="bg-primary ring-background absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-xl text-[9px] font-bold text-white shadow-sm ring-2">
                         {unreadCount > 9 ? '9+' : unreadCount}
                       </span>
                     )}

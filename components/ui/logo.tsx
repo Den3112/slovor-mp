@@ -55,7 +55,7 @@ export function Logo({
     >
       <div
         className={cn(
-          'relative overflow-hidden rounded-lg transition-transform duration-500 group-hover:scale-105',
+          'relative overflow-hidden rounded-xl transition-transform duration-500 group-hover:scale-105',
           currentSize.box
         )}
       >

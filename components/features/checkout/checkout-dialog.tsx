@@ -52,7 +52,8 @@ export function CheckoutDialog({
       }, 2000)
     } catch (err) {
       console.error('Purchase failed:', err)
-      const errorMsg = err instanceof Error ? err.message : t('listing:unexpectedError')
+      const errorMsg =
+        err instanceof Error ? err.message : t('listing:unexpectedError')
       setError(errorMsg)
       toast.error(t('listing:purchaseFailed'))
     } finally {
@@ -72,8 +73,8 @@ export function CheckoutDialog({
           <>
             <div className="space-y-6">
               {/* Listing Summary Card */}
-              <div className="bg-muted/30 border-border/40 flex items-center gap-4 rounded-lg border p-4">
-                <div className="bg-muted border-border/10 relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border">
+              <div className="bg-muted/30 border-border/40 flex items-center gap-4 rounded-xl border p-4">
+                <div className="bg-muted border-border/10 relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border">
                   {listing.images?.[0] && (
                     <Image
                       src={listing.images[0]}
@@ -94,7 +95,7 @@ export function CheckoutDialog({
               </div>
 
               {/* Wallet Info Badge */}
-              <div className="border-primary/20 bg-primary/5 flex items-center justify-between rounded-lg border p-3">
+              <div className="border-primary/20 bg-primary/5 flex items-center justify-between rounded-xl border p-3">
                 <div className="text-primary flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
                   <Wallet className="h-3.5 w-3.5" />
                   {t('listing:paymentMethod')}
@@ -105,7 +106,7 @@ export function CheckoutDialog({
               </div>
 
               {error && (
-                <div className="bg-destructive/10 border-destructive/20 text-destructive animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-lg border p-4">
+                <div className="bg-destructive/10 border-destructive/20 text-destructive animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-xl border p-4">
                   <AlertCircle className="h-5 w-5 shrink-0" />
                   <p className="text-xs leading-relaxed font-bold">{error}</p>
                 </div>
@@ -117,14 +118,14 @@ export function CheckoutDialog({
                 variant="outline"
                 onClick={onClose}
                 disabled={isProcessing}
-                className="border-border/60 h-11 flex-1 rounded-lg text-[10px] font-bold tracking-widest uppercase"
+                className="border-border/60 h-11 flex-1 rounded-xl text-[10px] font-bold tracking-widest uppercase"
               >
                 {t('common:back')}
               </Button>
               <Button
                 onClick={handlePurchase}
                 disabled={isProcessing}
-                className="shadow-primary/20 h-11 flex-1 rounded-lg text-[10px] font-bold tracking-widest uppercase shadow-lg"
+                className="shadow-primary/20 h-11 flex-1 rounded-xl text-[10px] font-bold tracking-widest uppercase shadow-lg"
               >
                 {isProcessing ? (
                   <>

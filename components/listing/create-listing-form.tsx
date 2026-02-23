@@ -102,7 +102,7 @@ function CreateListingFormContent() {
 
       <div
         className={cn(
-          'bg-card md:border-border relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-lg md:border md:p-10 md:shadow-sm',
+          'bg-card md:border-border relative w-full overflow-hidden transition-[max-width,height] duration-500 ease-in-out md:rounded-xl md:border md:p-10 md:shadow-sm',
           containerWidth,
           'min-h-[calc(100dvh-60px)] md:min-h-0'
         )}
@@ -145,7 +145,7 @@ function CreateListingFormContent() {
         </div>
 
         {error && (
-          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-lg border p-4 font-medium md:mx-0">
+          <div className="border-destructive/20 bg-destructive/10 text-destructive animate-in slide-in-from-top-2 mx-4 mb-6 flex items-center gap-2 rounded-xl border p-4 font-medium md:mx-0">
             <AlertCircle className="h-5 w-5" /> {error}
           </div>
         )}
@@ -196,7 +196,7 @@ function CreateListingFormContent() {
                   type="button"
                   variant="ghost"
                   onClick={prevStep}
-                  className="text-muted-foreground hover:bg-secondary hidden rounded-lg font-bold md:flex"
+                  className="text-muted-foreground hover:bg-secondary hidden rounded-xl font-bold md:flex"
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t('back')}
                 </Button>
@@ -210,7 +210,7 @@ function CreateListingFormContent() {
                 variant="ghost"
                 onClick={prevStep}
                 className={cn(
-                  'text-muted-foreground rounded-lg font-bold md:hidden',
+                  'text-muted-foreground rounded-xl font-bold md:hidden',
                   step === 1 && 'invisible'
                 )}
               >
@@ -221,7 +221,7 @@ function CreateListingFormContent() {
                 <Button
                   type="button"
                   onClick={goToNextStep}
-                  className="rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
+                  className="rounded-xl px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
                 >
                   {t('nextStep')} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -230,7 +230,7 @@ function CreateListingFormContent() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-lg px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
+                  className="bg-primary hover:bg-primary/90 min-w-[140px] rounded-xl px-8 py-6 font-bold transition-transform active:scale-95 md:py-4"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -246,7 +246,7 @@ function CreateListingFormContent() {
                 type="button"
                 variant="outline"
                 onClick={() => setViewMode('edit')}
-                className="flex-1 rounded-lg"
+                className="flex-1 rounded-xl"
               >
                 <Edit3 className="mr-2 h-4 w-4" />
                 {t('backToEdit')}
@@ -255,7 +255,7 @@ function CreateListingFormContent() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-primary flex-1 rounded-lg px-8 py-4 font-bold"
+                className="bg-primary flex-1 rounded-xl px-8 py-4 font-bold"
               >
                 {isSubmitting ? (
                   <Loader2 className="h-5 w-5 animate-spin" />

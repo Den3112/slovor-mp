@@ -31,7 +31,7 @@ export function LiveMonitor({ stats }: { stats?: any }) {
       <div className="space-y-4">
         {[...Array(3)].map((_, i) => (
           <div key={i} className="flex animate-pulse gap-3">
-            <div className="bg-muted h-8 w-8 rounded-lg" />
+            <div className="bg-muted h-8 w-8 rounded-xl" />
             <div className="flex-1 space-y-2">
               <div className="bg-muted h-3 w-3/4 rounded" />
               <div className="bg-muted h-2 w-1/2 rounded" />
@@ -59,7 +59,7 @@ export function LiveMonitor({ stats }: { stats?: any }) {
               exit={{ opacity: 0, scale: 0.95 }}
               className="group flex items-start gap-3"
             >
-              <div className="bg-muted border-border/40 group-hover:bg-primary/5 relative flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-colors">
+              <div className="bg-muted border-border/40 group-hover:bg-primary/5 relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-colors">
                 <Activity className="text-muted-foreground group-hover:text-primary h-3.5 w-3.5 transition-colors" />
               </div>
               <div className="min-w-0 flex-1">

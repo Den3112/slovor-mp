@@ -70,7 +70,7 @@ export function DataGrid<T extends { id: string | number }>({
         </div>
       )}
 
-      <div className="border-border/60 bg-card overflow-hidden rounded-lg border shadow-sm">
+      <div className="border-border/60 bg-card overflow-hidden rounded-xl border shadow-sm">
         <Table>
           <TableHeader className="bg-muted/10 border-border/40 border-b">
             <TableRow className="h-12 border-0 hover:bg-transparent">

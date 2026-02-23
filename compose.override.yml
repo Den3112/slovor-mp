@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps
+    # Mount local files for hot-reloading
+    volumes:
+      - .:/app:delegated
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    networks:
+      - frontend
+      - backend
+    command: npm run dev
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  db:
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  redis:
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - backend

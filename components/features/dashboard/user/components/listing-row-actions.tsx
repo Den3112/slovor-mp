@@ -48,7 +48,7 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
           asChild
           variant="outline"
           size="sm"
-          className="border-primary/20 bg-primary/5 text-primary hover:bg-primary hidden h-8 gap-2 rounded-lg px-3 text-[10px] font-bold tracking-widest uppercase transition-all hover:text-white sm:flex"
+          className="border-primary/20 bg-primary/5 text-primary hover:bg-primary hidden h-8 gap-2 rounded-xl px-3 text-[10px] font-bold tracking-widest uppercase transition-all hover:text-white sm:flex"
         >
           <Link href={`/${locale}/listings/${listing.id}/promote`}>
             <TrendingUp className="h-3.5 w-3.5" />
@@ -61,7 +61,7 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="text-muted-foreground hover:text-foreground hover:border-border/60 h-8 w-8 rounded-lg border border-transparent p-0 transition-all"
+            className="text-muted-foreground hover:text-foreground hover:border-border/60 h-8 w-8 rounded-xl border border-transparent p-0 transition-all"
           >
             <span className="sr-only">{t('common:openMenu')}</span>
             <MoreHorizontal className="h-4 w-4" />
@@ -69,11 +69,11 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="border-border/60 w-[180px] rounded-lg p-1.5 shadow-xl"
+          className="border-border/60 w-[180px] rounded-xl p-1.5 shadow-xl"
         >
           <DropdownMenuItem
             asChild
-            className="h-10 cursor-pointer rounded-lg px-3"
+            className="h-10 cursor-pointer rounded-xl px-3"
           >
             <Link href={`/${locale}/listings/${listing.id}`} target="_blank">
               <Eye className="text-muted-foreground mr-2 h-4 w-4" />
@@ -84,7 +84,7 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
           </DropdownMenuItem>
           <DropdownMenuItem
             asChild
-            className="h-10 cursor-pointer rounded-lg px-3"
+            className="h-10 cursor-pointer rounded-xl px-3"
           >
             <Link href={`/${locale}/post?edit=${listing.id}`}>
               <SquarePen className="text-muted-foreground mr-2 h-4 w-4" />
@@ -97,7 +97,7 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
           {listing.status === 'active' && (
             <DropdownMenuItem
               asChild
-              className="text-primary bg-primary/5 focus:bg-primary h-10 cursor-pointer rounded-lg px-3 focus:text-white"
+              className="text-primary bg-primary/5 focus:bg-primary h-10 cursor-pointer rounded-xl px-3 focus:text-white"
             >
               <Link href={`/${locale}/listings/${listing.id}/promote`}>
                 <TrendingUp className="mr-2 h-4 w-4" />
@@ -111,7 +111,7 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
           <DropdownMenuSeparator className="bg-border/40 my-1.5" />
           <DropdownMenuItem
             onClick={handleDelete}
-            className="text-destructive focus:bg-destructive/10 focus:text-destructive h-10 cursor-pointer rounded-lg px-3"
+            className="text-destructive focus:bg-destructive/10 focus:text-destructive h-10 cursor-pointer rounded-xl px-3"
           >
             <Trash2 className="mr-2 h-4 w-4" />
             <span className="text-[11px] font-bold tracking-wider uppercase">

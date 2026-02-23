@@ -44,6 +44,7 @@ docker-compose*.yml
 .env
 .env.*
 !.env.example
+docker-compose*.yml
 
 # Documentation
 README.md

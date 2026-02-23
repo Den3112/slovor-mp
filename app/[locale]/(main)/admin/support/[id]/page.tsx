@@ -264,14 +264,14 @@ export default function AdminTicketDetailPage({
             >
               <DropdownMenuItem
                 onClick={() => handleStatusChange('resolved')}
-                className="cursor-pointer rounded-lg p-3 text-xs font-bold tracking-widest text-emerald-600 uppercase focus:bg-emerald-500/10 focus:text-emerald-600"
+                className="cursor-pointer rounded-xl p-3 text-xs font-bold tracking-widest text-emerald-600 uppercase focus:bg-emerald-500/10 focus:text-emerald-600"
               >
                 <CheckCircle className="mr-2 h-4 w-4" />
                 {t('admin:markResolved')}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleStatusChange('closed')}
-                className="text-muted-foreground focus:bg-muted cursor-pointer rounded-lg p-3 text-xs font-bold tracking-widest uppercase"
+                className="text-muted-foreground focus:bg-muted cursor-pointer rounded-xl p-3 text-xs font-bold tracking-widest uppercase"
               >
                 <XCircle className="mr-2 h-4 w-4" />
                 {t('admin:closeTicket')}
