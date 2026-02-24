@@ -60,9 +60,9 @@ export function PromoteView({ userId }: PromoteViewProps) {
   }
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-12 duration-700">
       {/* Promotion Plans Cards */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {[
           {
             id: 'free',
@@ -70,6 +70,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
             price: 0,
             icon: Calendar,
             color: 'zinc',
+            glow: 'shadow-zinc-500/10',
           },
           {
             id: 'standard',
@@ -77,6 +78,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
             price: Number(t('dashboard:promote.plans.standard.price')),
             icon: ArrowRight,
             color: 'blue',
+            glow: 'shadow-blue-500/10',
           },
           {
             id: 'premium',
@@ -84,151 +86,176 @@ export function PromoteView({ userId }: PromoteViewProps) {
             price: Number(t('dashboard:promote.plans.premium.price')),
             icon: Rocket,
             color: 'amber',
+            glow: 'shadow-amber-500/10',
           },
         ].map((plan) => (
           <div
             key={plan.id}
-            className="bg-card border-border/60 flex items-center justify-between rounded-xl border p-4 shadow-sm"
+            className={cn(
+              "glass-panel border-primary/10 bg-background/20 relative overflow-hidden rounded-[2rem] p-8 transition-all duration-500 hover:scale-[1.02]",
+              plan.glow
+            )}
           >
-            <div className="flex items-center gap-3">
+            <div className="relative z-10 flex flex-col gap-6">
               <div
                 className={cn(
-                  'flex h-10 w-10 items-center justify-center rounded-xl border',
+                  'flex h-14 w-14 items-center justify-center rounded-2xl border shadow-lg',
                   plan.color === 'blue'
-                    ? 'border-blue-200 bg-blue-500/10 text-blue-600 dark:border-blue-900'
+                    ? 'border-blue-200 bg-blue-500/10 text-blue-600'
                     : plan.color === 'amber'
-                      ? 'border-amber-200 bg-amber-500/10 text-amber-600 dark:border-amber-900'
-                      : 'border-zinc-200 bg-zinc-500/10 text-zinc-600 dark:border-zinc-800'
+                      ? 'border-amber-200 bg-amber-500/10 text-amber-600 shadow-amber-500/20'
+                      : 'border-zinc-200 bg-zinc-500/10 text-zinc-600'
                 )}
               >
-                <plan.icon className="h-5 w-5" />
+                <plan.icon className="h-6 w-6" />
               </div>
+
               <div>
-                <p className="text-foreground text-sm font-bold tracking-tight uppercase">
+                <p className="text-foreground text-base font-black tracking-tight uppercase">
                   {plan.title}
                 </p>
-                <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+                <p className="text-muted-foreground mt-1 text-[10px] font-black tracking-[0.2em] uppercase opacity-70">
                   {plan.id === 'free'
                     ? t('dashboard:promote.plans.free.subtitle')
                     : t('dashboard:promote.plans.' + plan.id + '.subtitle')}
                 </p>
               </div>
+
+              <div className="mt-2">
+                <p className="text-foreground text-3xl font-black tracking-tighter tabular-nums">
+                  {formatPrice(plan.price, 'RUB')}
+                </p>
+              </div>
             </div>
-            <div className="text-right">
-              <p className="text-foreground text-lg font-bold tracking-tighter">
-                {formatPrice(plan.price, 'RUB')}
-              </p>
-            </div>
+            <div className="bg-primary/5 absolute -right-6 -bottom-6 h-32 w-32 rounded-full blur-3xl opacity-50" />
           </div>
         ))}
       </div>
 
-      {/* Search and Filter */}
-      <div className="group relative max-w-xl">
-        <Search className="text-muted-foreground/50 group-focus-within:text-primary absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 transition-colors" />
-        <Input
-          type="text"
-          placeholder={t('dashboard:searchPlaceholder')}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-card w-full rounded-xl px-12 py-6 text-sm font-bold shadow-sm"
-        />
-      </div>
-
-      {/* Listings Grid */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
-            {t('dashboard:promote.selectListing')}
-            <Badge
-              variant="secondary"
-              className="bg-muted/50 rounded-md px-1.5 py-0 text-[9px] font-bold tracking-widest"
-            >
-              {filteredListings.length}
-            </Badge>
-          </h2>
-        </div>
-
-        {filteredListings.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {filteredListings.map((listing) => (
-                <motion.div
-                  key={listing.id}
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  onClick={() =>
-                    router.push(`/${locale}/listings/${listing.id}/promote`)
-                  }
-                  className="group border-border/60 bg-card hover:border-primary/50 hover:shadow-primary/5 cursor-pointer overflow-hidden rounded-2xl border transition-all hover:shadow-xl active:scale-[0.98]"
+      {/* Main Section */}
+      <div className="glass-panel border-primary/10 bg-background/10 rounded-[2.5rem] p-10 overflow-hidden shadow-2xl shadow-primary/5">
+        <div className="flex flex-col gap-10">
+          {/* Header & Search */}
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
+            <div className="space-y-2">
+              <h2 className="text-foreground flex items-center gap-3 text-2xl font-black tracking-tighter uppercase whitespace-nowrap">
+                <Rocket className="text-primary h-7 w-7" />
+                {t('dashboard:promote.selectListing')}
+                <Badge
+                  variant="secondary"
+                  className="bg-primary/10 text-primary border-primary/20 rounded-xl px-3 py-1 text-[10px] font-black tracking-widest"
                 >
-                  <div className="flex h-full flex-col">
-                    <div className="bg-muted border-border/10 relative aspect-video w-full overflow-hidden border-b">
-                      {listing.images?.[0] ? (
-                        <Image
-                          src={listing.images[0]}
-                          alt={listing.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
-                          unoptimized
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <ImageIcon className="text-muted-foreground/10 h-10 w-10" />
-                        </div>
-                      )}
-                      {listing.is_highlighted && (
-                        <div className="absolute top-4 left-4 z-10 rounded-xl bg-amber-500 px-3 py-1.5 text-[8px] font-bold tracking-[0.2em] text-white uppercase shadow-lg shadow-amber-500/20">
-                          {t('dashboard:promoted')}
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    </div>
+                  {filteredListings.length}
+                </Badge>
+              </h2>
+              <p className="text-muted-foreground text-[10px] font-black tracking-[0.2em] uppercase opacity-60">
+                {t('dashboard:promote.selectDescription', { defaultValue: 'Choose a listing to boost its visibility' })}
+              </p>
+            </div>
 
-                    <div className="flex flex-1 flex-col space-y-4 p-6">
-                      <div className="space-y-1.5">
-                        <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-base font-bold tracking-tight uppercase transition-colors">
-                          {listing.title}
-                        </h3>
-                        <div className="text-muted-foreground/60 flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
-                          <Calendar className="mt-[-2px] h-3.5 w-3.5" />
-                          {new Date(listing.created_at).toLocaleDateString()}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-2">
-                        <div className="flex flex-col">
-                          <span className="text-muted-foreground/40 mb-[-2px] text-[9px] font-bold tracking-widest uppercase">
-                            {t('dashboard:price')}
-                          </span>
-                          <span className="text-foreground text-xl font-bold tracking-tighter">
-                            {formatPrice(
-                              listing.price,
-                              currency || listing.currency
-                            )}
-                          </span>
-                        </div>
-                        <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-11 w-11 items-center justify-center rounded-xl transition-all group-hover:text-white">
-                          <ArrowRight className="h-5 w-5" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            <div className="relative w-full lg:max-w-md">
+              <Search className="text-primary/40 absolute top-1/2 left-5 h-5 w-5 -translate-y-1/2" />
+              <Input
+                type="text"
+                placeholder={t('dashboard:searchPlaceholder')}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="glass-panel border-primary/10 focus-visible:ring-primary/20 h-16 rounded-2xl bg-background/50 pl-14 text-sm font-black shadow-inner"
+              />
+            </div>
           </div>
-        ) : (
-          <EmptyState
-            icon={Rocket}
-            title={t('dashboard:noListings')}
-            description={t('dashboard:noActiveListingsDescription')}
-            actionLabel={t('dashboard:newListing')}
-            actionHref={`/${locale}/post`}
-          />
-        )}
+
+          <div className="h-px bg-linear-to-r from-transparent via-primary/10 to-transparent" />
+
+          {/* Listings Grid */}
+          {filteredListings.length > 0 ? (
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <AnimatePresence mode="popLayout">
+                {filteredListings.map((listing) => (
+                  <motion.div
+                    key={listing.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    onClick={() =>
+                      router.push(`/${locale}/listings/${listing.id}/promote`)
+                    }
+                    className="group glass-panel border-primary/5 bg-background/20 hover:border-primary/30 hover:shadow-primary/10 cursor-pointer overflow-hidden rounded-[2rem] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-soft hover:shadow-2xl"
+                  >
+                    <div className="flex h-full flex-col">
+                      <div className="relative aspect-video w-full overflow-hidden">
+                        {listing.images?.[0] ? (
+                          <Image
+                            src={listing.images[0]}
+                            alt={listing.title}
+                            fill
+                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                            unoptimized
+                          />
+                        ) : (
+                          <div className="bg-primary/5 flex h-full w-full items-center justify-center">
+                            <ImageIcon className="text-primary/20 h-12 w-12" />
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                        {listing.is_highlighted && (
+                          <div className="glass-panel absolute top-4 left-4 z-10 rounded-xl bg-amber-500/90 border-amber-400/50 px-3 py-1.5 text-[9px] font-black tracking-widest text-white uppercase shadow-lg shadow-amber-500/40 backdrop-blur-md">
+                            {t('dashboard:promoted')}
+                          </div>
+                        ) || (
+                            <div className="glass-panel absolute top-4 left-4 z-10 rounded-xl bg-primary/20 border-white/20 px-3 py-1.5 text-[9px] font-black tracking-widest text-white uppercase backdrop-blur-md opacity-0 transition-opacity group-hover:opacity-100">
+                              {t('dashboard:promote.available', { defaultValue: 'Ready to Boost' })}
+                            </div>
+                          )}
+                      </div>
+
+                      <div className="flex flex-1 flex-col space-y-6 p-8">
+                        <div className="space-y-2">
+                          <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-lg font-black tracking-tight uppercase transition-colors duration-300">
+                            {listing.title}
+                          </h3>
+                          <div className="text-muted-foreground/60 flex items-center gap-3 text-[10px] font-black tracking-[0.2em] uppercase">
+                            <Calendar className="mt-[-2px] h-3.5 w-3.5 text-primary/40" />
+                            {new Date(listing.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2">
+                          <div className="flex flex-col">
+                            <span className="text-muted-foreground/40 mb-1 text-[9px] font-black tracking-widest uppercase">
+                              {t('dashboard:price')}
+                            </span>
+                            <span className="text-foreground text-2xl font-black tracking-tighter tabular-nums">
+                              {formatPrice(
+                                listing.price,
+                                currency || listing.currency
+                              )}
+                            </span>
+                          </div>
+                          <div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:scale-110 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:text-white shadow-soft group-hover:shadow-primary/30 group-hover:rotate-12">
+                            <ArrowRight className="h-6 w-6" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <div className="py-20">
+              <EmptyState
+                icon={Rocket}
+                title={t('dashboard:noListings')}
+                description={t('dashboard:noActiveListingsDescription')}
+                actionLabel={t('dashboard:newListing')}
+                actionHref={`/${locale}/post`}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

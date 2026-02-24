@@ -38,8 +38,8 @@ export function DashboardShell({
         {/* Sidebar - Desktop - Sticky under the 80px main Header */}
         <aside
           className={cn(
-            'border-border/60 bg-card sticky top-(--header-height) hidden h-[calc(100vh-var(--header-height))] shrink-0 border-r transition-all duration-300 ease-in-out lg:flex',
-            isCollapsed ? 'w-20' : 'w-64'
+            'glass-panel border-primary/5 sticky top-(--header-height) hidden h-[calc(100vh-var(--header-height))] shrink-0 border-r transition-all duration-500 ease-out-expo lg:flex',
+            isCollapsed ? 'w-20' : 'w-72'
           )}
         >
           <UnifiedSidebar
@@ -54,24 +54,24 @@ export function DashboardShell({
         <div className="flex min-h-[calc(100vh-var(--header-height))] min-w-0 flex-1 flex-col">
           {/* Secondary Page Header - Integrated into page flow */}
           {(title || headerContent) && (
-            <div className="border-border/60 bg-background mx-4 mt-4 flex h-12 shrink-0 items-center justify-between rounded-xl border px-6 py-2 shadow-sm">
-              <div className="flex items-center gap-4">
+            <div className="glass-panel border-primary/10 mx-6 mt-6 flex h-16 shrink-0 items-center justify-between rounded-2xl border px-8 py-2 shadow-xl shadow-primary/5">
+              <div className="flex items-center gap-6">
                 <div className="lg:hidden">
                   <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
                     <SheetTrigger asChild>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="hover:bg-muted/80 h-8 w-8 rounded-xl"
+                        className="hover:bg-primary/5 h-10 w-10 rounded-2xl transition-all active:scale-90"
                         data-testid="mobile-sidebar-trigger"
                       >
-                        <Menu className="text-muted-foreground h-4 w-4" />
+                        <Menu className="text-primary/60 h-5 w-5" />
                         <span className="sr-only">Open menu</span>
                       </Button>
                     </SheetTrigger>
                     <SheetContent
                       side="left"
-                      className="border-border/80 w-72 border-r p-0"
+                      className="border-primary/10 w-72 border-r p-0"
                     >
                       <UnifiedSidebar
                         config={config}

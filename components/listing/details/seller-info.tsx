@@ -16,26 +16,27 @@ export function SellerInfoCard({ seller }: SellerInfoCardProps) {
   return (
     <Link
       href={`/${locale}/seller/${seller.id}`}
-      className="border-border/50 group/seller hover:bg-muted/30 -mx-4 flex items-center gap-4 border-t border-b px-4 py-4 transition-colors sm:mx-0 sm:px-0 sm:hover:bg-transparent"
+      className="group/seller flex items-center gap-4 py-1 transition-all"
     >
-      <Avatar className="border-primary/20 h-12 w-12 border-2 transition-transform group-hover/seller:scale-105">
+      <Avatar className="ring-primary/10 group-hover/seller:ring-primary/20 h-14 w-14 ring-4 transition-transform group-hover/seller:scale-105">
         <AvatarImage src={seller.avatar_url || undefined} />
-        <AvatarFallback>
-          <UserIcon className="text-muted-foreground h-6 w-6" />
+        <AvatarFallback className="bg-primary/5">
+          <UserIcon className="text-primary/40 h-6 w-6" />
         </AvatarFallback>
       </Avatar>
       <div className="min-w-0 flex-1">
-        <p className="text-foreground group-hover/seller:text-primary truncate font-bold transition-colors">
+        <p className="text-foreground group-hover/seller:text-primary truncate text-base font-black tracking-tight transition-colors">
           {seller.display_name || 'Anonymous Seller'}
         </p>
-        <div className="text-muted-foreground flex items-center gap-2 text-xs">
-          <span suppressHydrationWarning>
-            {t('seller:memberSince')} {new Date(seller.created_at).getFullYear()}
+        <div className="text-muted-foreground/60 flex items-center gap-2 text-[10px] font-black tracking-widest uppercase">
+          <span suppressHydrationWarning className="opacity-70">
+            {t('seller:memberSince')}{' '}
+            {new Date(seller.created_at).getFullYear()}
           </span>
           {seller.verified && (
             <>
-              <span className="bg-border h-1 w-1 rounded-sm" />
-              <div className="flex items-center gap-1 font-medium text-emerald-600">
+              <div className="h-1 w-1 rounded-full bg-emerald-500/40" />
+              <div className="flex items-center gap-1 text-emerald-500">
                 <ShieldCheck className="h-3 w-3" />
                 {t('trust:verified')}
               </div>

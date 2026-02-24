@@ -22,7 +22,7 @@ export function EmptyState({
   const isString = typeof icon === 'string'
 
   return (
-    <div className="bg-muted/30 border-border/50 relative flex flex-col items-center justify-center overflow-hidden rounded-3xl border px-6 py-20 text-center shadow-sm">
+    <div className="bg-muted/30 border-border/50 relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border px-6 py-20 text-center shadow-sm">
       {/* Decorative background elements */}
       <div className="bg-primary/5 absolute top-0 h-64 w-64 -translate-y-1/2 rounded-full blur-[100px]" />
       <div className="bg-secondary/10 absolute right-0 bottom-0 h-64 w-64 translate-x-1/3 translate-y-1/3 rounded-full blur-[80px]" />
@@ -30,7 +30,7 @@ export function EmptyState({
       <div className="relative z-10 flex flex-col items-center">
         <div
           className={cn(
-            'bg-background shadow-primary/5 ring-border/50 mb-6 flex h-24 w-24 items-center justify-center rounded-3xl shadow-2xl ring-1',
+            'bg-background shadow-primary/5 ring-border/50 mb-6 flex h-24 w-24 items-center justify-center rounded-2xl shadow-md ring-1',
             isString ? 'text-5xl' : ''
           )}
         >

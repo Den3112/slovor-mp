@@ -4,12 +4,8 @@
     "no-restricted-syntax": [
       "error",
       {
-        "selector": "Literal[value=/rounded-lg/]",
-        "message": "Use 'rounded-xl' instead of 'rounded-lg' for global style unification."
-      },
-      {
-        "selector": "TemplateElement[value.raw=/rounded-lg/]",
-        "message": "Use 'rounded-xl' instead of 'rounded-lg' for global style unification."
+        "selector": "Literal[value=/rounded-3xl/]",
+        "message": "Use 'rounded-2xl' instead of 'rounded-3xl' for global style unification (20px standard)."
       }
     ]
   }

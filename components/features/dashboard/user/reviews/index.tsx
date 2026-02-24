@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { reviewsApi, type SellerRating, type Review } from '@/lib/api'
-import { Award, Loader2 } from 'lucide-react'
+import { Star, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -58,10 +58,10 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
         reviews: ratingData.reviews.map((r) =>
           r.id === reviewId
             ? {
-                ...r,
-                seller_reply: data.seller_reply,
-                seller_reply_at: data.seller_reply_at,
-              }
+              ...r,
+              seller_reply: data.seller_reply,
+              seller_reply_at: data.seller_reply_at,
+            }
             : r
         ),
       })
@@ -81,37 +81,43 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
     activeTab === 'received' ? ratingData?.reviews || [] : givenReviews
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-12 duration-700">
       {/* Premium Header */}
-      <div className="from-card to-background border-border relative overflow-hidden rounded-2xl border bg-linear-to-br p-8 shadow-sm">
-        <div className="bg-primary/5 absolute top-0 right-0 -mt-16 -mr-16 h-64 w-64 rounded-full blur-3xl" />
-        <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
-          <div className="space-y-2">
-            <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
-              {t('reviews:title')}
-            </h1>
-            <p className="text-muted-foreground/70 text-[10px] font-bold tracking-[0.2em] uppercase">
-              {t('reviews:manageReputation')}
-            </p>
+      <div className="bg-card relative overflow-hidden rounded-2xl border border-border p-10 shadow-md">
+        <div className="bg-primary/10 absolute -right-20 -top-20 h-64 w-64 rounded-full blur-[100px] opacity-40 animate-pulse" />
+        <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div className="space-y-4">
+            <div className="bg-primary shadow-primary/20 flex h-16 w-16 items-center justify-center rounded-xl shadow-lg">
+              <Star className="h-8 w-8 fill-white text-white" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-muted-foreground ml-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
+                {t('profile:reviewsSubtitle', { defaultValue: 'Manage your reputation' })}
+              </p>
+              <h1 className="text-foreground text-5xl font-black tracking-tighter uppercase sm:text-6xl">
+                {t('dashboard:reviews')}
+              </h1>
+            </div>
           </div>
-          <div className="bg-primary/10 text-primary border-primary/20 shadow-primary/10 ring-primary/5 flex h-14 w-14 items-center justify-center rounded-xl border shadow-lg ring-4">
-            <Award className="h-7 w-7" />
+          <div className="bg-card border-border relative h-16 items-center justify-center rounded-xl border px-8 text-xs font-black tracking-widest uppercase shadow-sm md:flex hidden">
+            <span className="text-primary mr-2 text-xl">{reviews.length}</span>
+            <span className="opacity-40">{t('common:reviews')}</span>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-10">
         {/* Tabs and Summary Row */}
-        <div className="flex flex-col gap-6 lg:flex-row">
-          <div className="bg-muted border-border/60 flex h-fit w-fit items-center gap-2 rounded-xl border p-1.5">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+          <div className="bg-card border-border flex h-fit w-fit items-center gap-2 rounded-xl p-1.5 shadow-sm">
             <Button
               onClick={() => setActiveTab('received')}
               variant="ghost"
               className={cn(
-                'rounded-xl px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-transparent',
+                'rounded-xl px-8 py-3 text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-300',
                 activeTab === 'received'
-                  ? 'bg-background text-primary ring-border/50 hover:bg-background shadow-sm ring-1'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-primary hover:text-white scale-105'
+                  : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
               )}
             >
               {t('reviews:received')}
@@ -120,26 +126,30 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
               onClick={() => setActiveTab('given')}
               variant="ghost"
               className={cn(
-                'rounded-xl px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all hover:bg-transparent',
+                'rounded-xl px-8 py-3 text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-300',
                 activeTab === 'given'
-                  ? 'bg-background text-primary ring-border/50 hover:bg-background shadow-sm ring-1'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-primary hover:text-white scale-105'
+                  : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
               )}
             >
               {t('reviews:given')}
             </Button>
           </div>
 
-          {activeTab === 'received' && <ReviewStats ratingData={ratingData} />}
+          <div className="flex-1">
+            {activeTab === 'received' && <ReviewStats ratingData={ratingData} />}
+          </div>
         </div>
 
         {/* Reviews List */}
-        <ReviewList
-          reviews={reviews}
-          activeTab={activeTab}
-          isMounted={isMounted}
-          onReply={handleReplySubmit}
-        />
+        <div className="glass-panel border-primary/10 bg-background/10 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-primary/5">
+          <ReviewList
+            reviews={reviews}
+            activeTab={activeTab}
+            isMounted={isMounted}
+            onReply={handleReplySubmit}
+          />
+        </div>
       </div>
     </div>
   )

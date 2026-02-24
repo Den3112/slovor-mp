@@ -13,7 +13,9 @@ test.describe('Public Pages - Load & Display', () => {
     // Header elements
     await expect(page.locator('header')).toBeVisible()
     // Logo usually redirects to home with locale
-    await expect(page.locator('a[data-testid="header-logo"]').first()).toBeVisible()
+    await expect(
+      page.locator('a[data-testid="header-logo"]').first()
+    ).toBeVisible()
 
     // Hero section
     await expect(page.locator('h1')).toBeVisible()
@@ -137,7 +139,11 @@ test.describe('Navigation & Links', () => {
     if (await categoriesBtn.isVisible()) {
       await categoriesBtn.click()
       // Check if MegaMenu appears
-      await expect(page.locator('div:has-text("Popular"), div:has-text("Populárne")').first()).toBeVisible({ timeout: 5000 })
+      await expect(
+        page
+          .locator('div:has-text("Popular"), div:has-text("Populárne")')
+          .first()
+      ).toBeVisible({ timeout: 5000 })
     }
   })
 
@@ -226,8 +232,8 @@ test.describe('UI Elements', () => {
       // Theme should have toggled (classes changed)
       expect(
         htmlBefore !== htmlAfter ||
-        htmlAfter?.includes('dark') ||
-        htmlAfter?.includes('light')
+          htmlAfter?.includes('dark') ||
+          htmlAfter?.includes('light')
       ).toBeTruthy()
     }
   })
@@ -525,9 +531,7 @@ test.describe('Listing Preview Component', () => {
 
       // Should show listing preview card
       const previewCard = page
-        .locator(
-          '.rounded-2xl, .rounded-3xl, [class*="listing-preview"], [class*="card"]'
-        )
+        .locator('.rounded-2xl, [class*="listing-preview"], [class*="card"]')
         .first()
       await expect(previewCard).toBeVisible({ timeout: 5000 })
     }

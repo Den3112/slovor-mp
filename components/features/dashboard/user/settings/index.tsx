@@ -23,6 +23,7 @@ import {
   Globe,
   Loader2,
   Save,
+  Settings as SettingsIcon,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
@@ -86,108 +87,112 @@ export function SettingsView() {
   if (isLoading) {
     return (
       <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
+        <Loader2 className="text-primary h-12 w-12 animate-spin stroke-3" />
       </div>
     )
   }
 
   return (
-    <PremiumBackground variant="mesh" className="min-h-screen p-4 md:p-8">
+    <PremiumBackground variant="mesh" className="min-h-screen py-10 px-4 md:px-8">
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="mx-auto max-w-5xl space-y-8"
+        className="mx-auto max-w-6xl space-y-12"
       >
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between px-2">
+          <div className="space-y-2">
+            <h1 className="text-foreground text-4xl font-black tracking-tighter uppercase sm:text-5xl lg:text-6xl text-gradient">
               {t('profile:settings')}
             </h1>
-            <p className="text-muted-foreground mt-1">
+            <p className="text-primary/40 text-xs font-black tracking-[0.2em] uppercase">
               {t('profile:settingsDescription')}
             </p>
           </div>
           <Button
             onClick={handleSave}
             disabled={isSaving}
-            className="shadow-primary/20 min-w-[140px] rounded-xl shadow-lg"
+            className="shadow-primary/20 hover:bg-primary/90 h-14 min-w-[180px] rounded-2xl px-8 text-[10px] font-black tracking-[0.2em] uppercase shadow-2xl transition-all active:scale-95"
           >
             {isSaving ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-3 h-5 w-5 animate-spin stroke-3" />
             ) : (
-              <Save className="mr-2 h-4 w-4" />
+              <Save className="mr-3 h-5 w-5 stroke-3" />
             )}
             {t('common:saveChanges')}
           </Button>
         </div>
 
-        <div className="bg-muted border-border flex w-fit gap-2 rounded-2xl border p-1">
+        <div className="glass-panel border-primary/10 bg-primary/5 flex w-fit gap-2 rounded-[2rem] border p-1.5 shadow-2xl shadow-primary/5">
           <TabButton
             active={activeTab === 'profile'}
             onClick={() => setActiveTab('profile')}
-            icon={<UserIcon className="h-4 w-4" />}
+            icon={<UserIcon className="h-4.5 w-4.5 stroke-3" />}
             label={t('profile:general')}
           />
           <TabButton
             active={activeTab === 'security'}
             onClick={() => setActiveTab('security')}
-            icon={<Shield className="h-4 w-4" />}
+            icon={<Shield className="h-4.5 w-4.5 stroke-3" />}
             label={t('profile:security')}
           />
           <TabButton
             active={activeTab === 'notifications'}
             onClick={() => setActiveTab('notifications')}
-            icon={<Bell className="h-4 w-4" />}
+            icon={<Bell className="h-4.5 w-4.5 stroke-3" />}
             label={t('profile:notifications')}
           />
         </div>
 
-        <BentoGrid>
+        <BentoGrid className="gap-8">
           <AnimatePresence mode="wait">
             {activeTab === 'profile' && (
               <motion.div
                 key="profile"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                className="col-span-12 grid grid-cols-12 gap-6"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.05, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-12 grid grid-cols-12 gap-8"
               >
                 {/* Avatar Section */}
                 <BentoTile
                   colSpan={12}
-                  className="bg-card border-border flex flex-col items-center justify-center p-8 md:col-span-4"
+                  className="bg-card flex flex-col items-center justify-center rounded-2xl border border-border p-12 shadow-md transition-all duration-500 hover:shadow-lg md:col-span-4"
                 >
                   <div className="group relative cursor-pointer">
-                    <Avatar className="border-primary/20 group-hover:border-primary/40 h-32 w-32 border-4 transition-all">
-                      <AvatarImage src={profile?.avatar_url} />
-                      <AvatarFallback className="bg-primary/10 text-2xl font-bold">
+                    <div className="absolute -inset-4 rounded-full bg-primary/20 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
+                    <Avatar className="ring-primary/10 group-hover:ring-primary/40 h-44 w-44 rounded-full border-0 ring-8 ring-offset-0 transition-all duration-700 group-hover:scale-105">
+                      <AvatarImage src={profile?.avatar_url} className="object-cover" />
+                      <AvatarFallback className="bg-primary/5 text-4xl font-black text-primary">
                         {profile?.display_name?.charAt(0) ||
                           user?.email?.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="bg-foreground/40 absolute inset-0 flex items-center justify-center rounded-full opacity-0 transition-opacity group-hover:opacity-100">
-                      <Camera className="text-background h-8 w-8" />
+                    <div className="bg-primary/80 absolute inset-0 flex items-center justify-center rounded-full opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:opacity-100">
+                      <Camera className="text-white h-10 w-10 stroke-3" />
                     </div>
                   </div>
-                  <h3 className="mt-4 font-semibold">
-                    {profile?.display_name || 'User'}
-                  </h3>
-                  <p className="text-muted-foreground text-xs">{user?.email}</p>
+                  <div className="mt-8 text-center space-y-1">
+                    <h3 className="text-foreground text-xl font-black tracking-tighter uppercase leading-none">
+                      {profile?.display_name || 'User'}
+                    </h3>
+                    <p className="text-primary/40 text-[10px] font-black tracking-widest uppercase">{user?.email}</p>
+                  </div>
                 </BentoTile>
 
                 {/* Info Form */}
                 <BentoTile
                   colSpan={12}
-                  className="bg-card border-border space-y-6 p-6 md:col-span-8"
+                  className="bg-card space-y-10 rounded-2xl border border-border p-12 shadow-md md:col-span-8"
                 >
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
+                  <div className="grid gap-10 md:grid-cols-2">
+                    <div className="space-y-4">
                       <Label
                         htmlFor="display_name"
-                        className="text-muted-foreground flex items-center gap-2 text-xs font-medium tracking-wider uppercase"
+                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
                       >
-                        <UserIcon className="h-3 w-3" />{' '}
+                        <UserIcon className="h-4 w-4 stroke-3 opacity-50" />{' '}
                         {t('profile:displayName')}
                       </Label>
                       <Input
@@ -199,15 +204,15 @@ export function SettingsView() {
                             display_name: e.target.value,
                           })
                         }
-                        className="bg-background/50 border-border/10 rounded-xl"
+                        className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background h-14 rounded-2xl px-6 text-[13px] font-black tracking-tight transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                       <Label
                         htmlFor="full_name"
-                        className="text-muted-foreground flex items-center gap-2 text-xs font-medium tracking-wider uppercase"
+                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
                       >
-                        <UserIcon className="h-3 w-3" /> {t('profile:fullName')}
+                        <UserIcon className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:fullName')}
                       </Label>
                       <Input
                         id="full_name"
@@ -215,17 +220,17 @@ export function SettingsView() {
                         onChange={(e) =>
                           setProfile({ ...profile, full_name: e.target.value })
                         }
-                        className="bg-background/50 border-border/10 rounded-xl"
+                        className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background h-14 rounded-2xl px-6 text-[13px] font-black tracking-tight transition-all duration-300"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-4">
                     <Label
                       htmlFor="bio"
-                      className="text-muted-foreground flex items-center gap-2 text-xs font-medium tracking-wider uppercase"
+                      className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
                     >
-                      <Globe className="h-3 w-3" /> {t('profile:bio')}
+                      <Globe className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:bio')}
                     </Label>
                     <Textarea
                       id="bio"
@@ -234,17 +239,17 @@ export function SettingsView() {
                       onChange={(e) =>
                         setProfile({ ...profile, bio: e.target.value })
                       }
-                      className="bg-background/50 border-border/10 resize-none rounded-xl"
+                      className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background min-h-[140px] resize-none rounded-xl p-6 text-[13px] font-black tracking-tight transition-all duration-300 leading-relaxed"
                     />
                   </div>
 
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
+                  <div className="grid gap-10 md:grid-cols-2">
+                    <div className="space-y-4">
                       <Label
                         htmlFor="phone"
-                        className="text-muted-foreground flex items-center gap-2 text-xs font-medium tracking-wider uppercase"
+                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
                       >
-                        <Phone className="h-3 w-3" /> {t('profile:phoneNumber')}
+                        <Phone className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:phoneNumber')}
                       </Label>
                       <Input
                         id="phone"
@@ -253,15 +258,15 @@ export function SettingsView() {
                         onChange={(e) =>
                           setProfile({ ...profile, phone: e.target.value })
                         }
-                        className="bg-background/50 border-border/10 rounded-xl"
+                        className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background h-14 rounded-2xl px-6 text-[13px] font-black tracking-tight transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                       <Label
                         htmlFor="location"
-                        className="text-muted-foreground flex items-center gap-2 text-xs font-medium tracking-wider uppercase"
+                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
                       >
-                        <MapPin className="h-3 w-3" /> {t('profile:location')}
+                        <MapPin className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:location')}
                       </Label>
                       <Input
                         id="location"
@@ -269,7 +274,7 @@ export function SettingsView() {
                         onChange={(e) =>
                           setProfile({ ...profile, location: e.target.value })
                         }
-                        className="bg-background/50 border-border/10 rounded-xl"
+                        className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background h-14 rounded-2xl px-6 text-[13px] font-black tracking-tight transition-all duration-300"
                       />
                     </div>
                   </div>
@@ -280,25 +285,35 @@ export function SettingsView() {
             {activeTab === 'security' && (
               <motion.div
                 key="security"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                className="col-span-12 grid grid-cols-12 gap-6"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.05, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-12"
               >
                 <BentoTile
                   colSpan={12}
-                  className="bg-card border-border flex min-h-[400px] flex-col items-center justify-center p-8 text-center"
+                  className="bg-card relative overflow-hidden rounded-2xl border border-border p-10 shadow-md"
                 >
-                  <Shield className="text-primary/40 mb-4 h-16 w-16" />
-                  <h3 className="mb-2 text-xl font-bold">
-                    {t('profile:securitySettings')}
-                  </h3>
-                  <p className="text-muted-foreground mb-8 max-w-md">
-                    {t('profile:security.description')}
-                  </p>
+                  <div className="bg-primary/10 absolute -right-20 -top-20 h-64 w-64 rounded-full blur-[100px] opacity-40 animate-pulse" />
+                  <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+                    <div className="space-y-4">
+                      <div className="bg-primary shadow-primary/20 flex h-16 w-16 items-center justify-center rounded-xl shadow-lg">
+                        <SettingsIcon className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-muted-foreground ml-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
+                          {t('profile:settingsSubtitle', { defaultValue: 'Configure your profile' })}
+                        </p>
+                        <h1 className="text-foreground text-5xl font-black tracking-tighter uppercase sm:text-6xl">
+                          {t('dashboard:settings')}
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
                   <Button
                     variant="outline"
-                    className="border-primary/20 hover:bg-primary/10 rounded-xl"
+                    className="border-primary/10 hover:bg-primary hover:text-white h-14 rounded-xl px-12 text-[10px] font-black tracking-[0.2em] uppercase transition-all active:scale-95"
                   >
                     {t('profile:changePassword')}
                   </Button>
@@ -309,23 +324,26 @@ export function SettingsView() {
             {activeTab === 'notifications' && (
               <motion.div
                 key="notifications"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                className="col-span-12 grid grid-cols-12 gap-6"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.05, y: -20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-12"
               >
                 <BentoTile
                   colSpan={12}
-                  className="bg-card border-border flex min-h-[400px] flex-col items-center justify-center p-8 text-center"
+                  className="bg-card flex min-h-[500px] flex-col items-center justify-center rounded-2xl border border-border p-16 text-center shadow-md"
                 >
-                  <Bell className="text-primary/40 mb-4 h-16 w-16" />
-                  <h3 className="mb-2 text-xl font-bold">
+                  <div className="bg-primary/5 border-primary/5 shadow-inner mb-10 flex h-24 w-24 items-center justify-center rounded-xl border transition-transform duration-700 hover:scale-110">
+                    <Bell className="text-primary/20 h-10 w-10 stroke-3" />
+                  </div>
+                  <h3 className="text-foreground text-3xl font-black tracking-tighter uppercase mb-3">
                     {t('profile:notificationSettings')}
                   </h3>
-                  <p className="text-muted-foreground mb-8 max-w-md">
+                  <p className="text-primary/40 mx-auto mb-12 max-w-md text-xs font-black tracking-[0.2em] uppercase leading-relaxed">
                     {t('profile:notifications.description')}
                   </p>
-                  <div className="w-full max-w-sm space-y-4 text-left">
+                  <div className="w-full max-w-md space-y-6">
                     <NotificationToggle
                       label={t('profile:emailNotifications')}
                       enabled={true}
@@ -367,13 +385,15 @@ function TabButton({
       aria-selected={active}
       aria-label={label}
       className={cn(
-        'flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200',
+        'group flex h-11 items-center gap-3 rounded-[1.25rem] px-5 text-[9px] font-black tracking-[0.2em] uppercase transition-all duration-300 active:scale-95',
         active
-          ? 'bg-primary text-primary-foreground shadow-sm'
-          : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
+          ? 'bg-primary text-primary-foreground shadow-xl shadow-primary/20'
+          : 'text-primary/40 hover:bg-primary/5 hover:text-primary'
       )}
     >
-      {icon}
+      <span className={cn('transition-transform duration-300 group-hover:scale-110', active ? 'text-white' : 'opacity-50')}>
+        {icon}
+      </span>
       {label}
     </button>
   )
@@ -388,12 +408,12 @@ function NotificationToggle({
 }) {
   const [isOn, setIsOn] = useState(enabled)
   return (
-    <div className="bg-muted/5 border-border/5 flex items-center justify-between rounded-xl border p-4">
-      <div className="flex items-center gap-2">
-        <span className="font-medium">{label}</span>
+    <div className="bg-primary/5 group flex items-center justify-between rounded-xl border border-border p-5 transition-all duration-300 hover:border-primary/20">
+      <div className="flex items-center gap-4">
+        <span className="text-[11px] font-black tracking-widest uppercase text-foreground/80">{label}</span>
         <Badge
           variant="secondary"
-          className="bg-primary/10 text-primary h-3 border-none px-1 py-0 text-[8px] tracking-wider uppercase"
+          className="bg-primary/10 text-primary h-5 border-none px-2 py-0 text-[8px] font-black tracking-widest uppercase"
         >
           Soon
         </Badge>
@@ -404,14 +424,14 @@ function NotificationToggle({
         aria-checked={isOn}
         aria-label={label}
         className={cn(
-          'relative h-5 w-10 rounded-full transition-colors',
-          isOn ? 'bg-primary' : 'bg-muted/30'
+          'relative h-7 w-13 rounded-full transition-all duration-500 shadow-inner',
+          isOn ? 'bg-primary' : 'bg-primary/10'
         )}
       >
         <div
           className={cn(
-            'bg-background absolute top-1 h-3 w-3 rounded-full transition-all',
-            isOn ? 'right-1' : 'left-1'
+            'bg-white absolute top-1 h-5 w-5 rounded-full transition-all duration-500 shadow-sm',
+            isOn ? 'right-1 translate-x-0' : 'left-1 translate-x-0 shadow-none'
           )}
         />
       </button>

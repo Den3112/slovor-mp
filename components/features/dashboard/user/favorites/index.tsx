@@ -14,37 +14,49 @@ export function FavoritesView({ favoriteListings }: FavoritesViewProps) {
   const { t } = useTranslation(['common', 'profile', 'dashboard'])
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-12 duration-700">
       {/* Premium Header */}
-      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <div>
-          <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
-            {t('dashboard:favorites')}
-          </h1>
-          <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase opacity-70">
-            {t('profile:favoritesDescription')}
-          </p>
-        </div>
-        <div className="bg-primary/5 text-primary border-primary/10 hidden h-10 items-center justify-center rounded-xl border px-4 text-[10px] font-bold tracking-widest uppercase md:flex">
-          {favoriteListings.length} {t('common:saved')}
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-md">
+        <div className="bg-primary/10 absolute -right-20 -top-20 h-64 w-64 rounded-full blur-[100px] opacity-40 animate-pulse" />
+        <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div className="space-y-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-border bg-card shadow-lg backdrop-blur-xl">
+              <Heart className="text-primary h-8 w-8" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-muted-foreground ml-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
+                {t('profile:favoritesDescription')}
+              </p>
+              <h1 className="text-foreground text-5xl font-black tracking-tighter uppercase sm:text-6xl">
+                {t('dashboard:favorites')}
+              </h1>
+            </div>
+          </div>
+          <div className="relative hidden h-16 items-center justify-center rounded-xl border border-border bg-card px-8 text-xs font-black uppercase shadow-md md:flex">
+            <span className="text-primary mr-2 text-xl">{favoriteListings.length}</span>
+            <span className="opacity-40">{t('common:saved')}</span>
+          </div>
         </div>
       </div>
 
       {favoriteListings.length > 0 ? (
-        <div className="grid gap-4 sm:gap-6">
+        <div className="grid gap-6">
           {favoriteListings.map((listing) => (
             <DashboardFavoriteItem key={listing.id} listing={listing} />
           ))}
         </div>
       ) : (
-        <div className="border-border/50 bg-background flex flex-col items-center justify-center rounded-2xl border p-12 text-center shadow-xs">
-          <div className="bg-primary/5 ring-primary/10 mb-6 flex h-20 w-20 items-center justify-center rounded-full ring-1">
-            <Heart className="text-primary/40 h-10 w-10" />
+        <div className="glass-panel border-primary/10 bg-background/20 relative overflow-hidden rounded-[2.5rem] p-20 text-center shadow-2xl shadow-primary/5">
+          <div className="bg-primary/5 border-primary/10 relative z-10 mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[2rem] border shadow-inner">
+            <Heart className="text-primary/20 h-10 w-10" />
           </div>
-          <EmptyState
-            title={t('profile:noFavorites')}
-            description={t('profile:noFavoritesDesc')}
-          />
+          <div className="relative z-10">
+            <EmptyState
+              title={t('profile:noFavorites')}
+              description={t('profile:noFavoritesDesc')}
+            />
+          </div>
+          <div className="bg-primary/5 absolute inset-0 blur-3xl opacity-30" />
         </div>
       )}
     </div>

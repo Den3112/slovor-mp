@@ -41,26 +41,28 @@
   --font-size-2xs: 0.625rem;
   --font-size-3xs: 0.5625rem;
 
-  /* Shadows - EXACT FROM MASTERPLAN */
-  --shadow-card: var(--shadow-card);
-  --shadow-primary: var(--shadow-primary);
-  --shadow-dropdown: var(--shadow-dropdown);
+  /* Shadows - PRO MAX (Enhanced Depth) */
+  --shadow-soft-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  --shadow-soft-md: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  --shadow-soft-lg: 0 20px 50px -15px rgba(0, 0, 0, 0.1);
+  --shadow-primary-glow: 0 0 20px 0 rgba(99, 102, 241, 0.15);
 
   /* Layout constants */
   --sidebar-width: 280px;
   --sidebar-collapsed-width: 72px;
-  --header-height: 64px;
-  --mobile-header-height: 56px;
+  --header-height: 72px;
+  --mobile-header-height: 64px;
   --bottom-nav-height: 72px;
 
-  /* Border radius scale - CRM Pro Max Standard */
+  /* Border radius scale - UI UX PRO MAX Standard */
+  --radius-4xl: 32px;
   --radius-3xl: 24px;
   --radius-2xl: 20px;
-  --radius-xl: 12px;
-  --radius-lg: 8px;
-  --radius-md: 6px;
-  --radius-sm: 4px;
-  --radius: 12px;
+  --radius-xl: 16px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 6px;
+  --radius: 16px;
 }
 
 @layer base {
@@ -123,10 +125,10 @@
     --step-3: 24 94% 50%;
     /* Orange-500 equivalent */
 
-    /* Shadows - MODIFIED FOR SOLID AESTHETIC (Reduced blur) */
-    --shadow-card: 0 4px 8px 0 rgba(0, 0, 0, 0.04);
-    --shadow-primary: 0 4px 10px 0 rgba(99, 102, 241, 0.2);
-    --shadow-dropdown: 0 8px 16px 0 rgba(99, 102, 241, 0.12);
+    /* Shadows - PRO MAX PREMIUM */
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+    --shadow-primary: 0 10px 25px -5px rgba(99, 102, 241, 0.25);
+    --shadow-dropdown: 0 20px 40px -12px rgba(99, 102, 241, 0.12);
   }
 
   .dark {
@@ -327,6 +329,34 @@
 
 @utility card-interactive {
   @apply card-base transition-shadow duration-200 hover:shadow-md;
+}
+
+  /* Pro Max Solid Utilities */
+  @utility panel-base {
+    @apply bg-card border border-border;
+  }
+
+  @utility panel-elevated {
+    @apply bg-card border border-border shadow-soft-md;
+  }
+
+/* Premium Card - Pro Max style */
+@utility card-pro {
+  @apply transition-all duration-300 hover:shadow-soft-lg hover:-translate-y-1 rounded-2xl;
+}
+
+/* Soft Tints Button variants */
+@utility btn-soft-primary {
+  @apply bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all font-bold;
+}
+
+/* Mesh Gradient Background */
+@utility bg-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, hsla(239, 84%, 67%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(271, 91%, 65%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(221, 83%, 53%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(24, 94%, 50%, 0.05) 0px, transparent 50%);
 }
 
 /* Data Table Styles */

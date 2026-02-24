@@ -15,42 +15,44 @@ export function CurrentSubscription({ currentSub }: CurrentSubscriptionProps) {
   return (
     <div
       className={cn(
-        'rounded-xl border p-4 transition-all',
+        'glass-panel relative overflow-hidden rounded-[2.5rem] border-none p-10',
         currentSub.plan_type === 'free'
-          ? 'border-blue-200 bg-blue-500/5 dark:border-blue-900/50'
-          : 'border-primary bg-primary/5 shadow-sm'
+          ? 'bg-blue-500/3'
+          : 'bg-primary/3'
       )}
     >
-      <div className="flex gap-3">
-        <AlertCircle
+      <div className="flex gap-4">
+        <div
           className={cn(
-            'h-5 w-5 shrink-0',
+            'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border shadow-xl',
             currentSub.plan_type === 'free'
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-primary'
+              ? 'border-blue-500/20 bg-blue-500/10 text-blue-400'
+              : 'border-primary/20 bg-primary/10 text-primary'
           )}
-        />
-        <div className="flex-1">
+        >
+          <AlertCircle className="h-6 w-6" />
+        </div>
+        <div className="flex-1 space-y-1">
           <p
             className={cn(
-              'text-sm font-bold',
+              'text-lg font-black tracking-tight',
               currentSub.plan_type === 'free'
-                ? 'text-blue-900 dark:text-blue-300'
+                ? 'text-blue-400'
                 : 'text-foreground'
             )}
           >
             {currentSub.plan_type === 'free'
               ? t('dashboard:subscriptions.upgradePrompt')
               : t('dashboard:subscriptions.currentPlanInfo', {
-                  plan: currentSub.plan_type.toUpperCase(),
-                })}
+                plan: currentSub.plan_type.toUpperCase(),
+              })}
           </p>
-          <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
             <p
               className={cn(
-                'text-[10px] font-bold tracking-widest uppercase',
+                'text-[10px] font-black tracking-widest uppercase',
                 currentSub.plan_type === 'free'
-                  ? 'text-blue-600 dark:text-blue-400'
+                  ? 'text-blue-500'
                   : 'text-primary'
               )}
             >
@@ -59,7 +61,7 @@ export function CurrentSubscription({ currentSub }: CurrentSubscriptionProps) {
               })}
             </p>
             {currentSub.current_period_end && (
-              <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+              <p className="text-muted-foreground/40 text-[10px] font-black tracking-[0.3em] uppercase">
                 {t('dashboard:subscriptions.endsOn', {
                   date: new Date(
                     currentSub.current_period_end

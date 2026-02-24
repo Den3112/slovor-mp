@@ -51,91 +51,91 @@ export function ListingsRow({
   return (
     <TableRow
       className={cn(
-        'hover:bg-accent/40 border-border/40 group border-b transition-colors',
-        selected && 'bg-primary/5'
+        'group border-primary/5 transition-all duration-500 hover:bg-primary/5',
+        selected && 'bg-primary/[0.03]'
       )}
     >
-      <TableCell className="w-12 px-4 py-3 text-center">
+      <TableCell className="w-12 px-6 py-5 text-center">
         <Checkbox
           checked={selected}
           onCheckedChange={() => onToggle()}
-          className="border-border/60 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+          className="border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground h-5 w-5 rounded-md transition-all duration-300"
         />
       </TableCell>
-      <TableCell className="px-4 py-3">
-        <div className="flex items-center gap-3">
-          <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl border">
+      <TableCell className="px-6 py-5">
+        <div className="flex items-center gap-4">
+          <div className="bg-primary/5 border-primary/10 relative h-14 w-14 shrink-0 overflow-hidden rounded-[1rem] border shadow-inner transition-transform duration-500 group-hover:scale-110">
             {listing.images?.[0] ? (
               <Image
                 src={listing.images[0]}
                 alt={listing.title}
                 fill
                 className="object-cover"
-                sizes="48px"
+                sizes="56px"
                 unoptimized
               />
             ) : (
-              <Package className="text-muted-foreground/60 m-auto h-6 w-6" />
+              <Package className="text-primary/20 m-auto h-7 w-7" />
             )}
           </div>
-          <div className="flex min-w-0 flex-col">
+          <div className="flex min-w-0 flex-col gap-1">
             <Link
               href={`/${locale}/listings/${listing.id}`}
-              className="hover:text-primary max-w-[240px] truncate text-sm font-bold tracking-tight transition-colors"
+              className="text-foreground hover:text-primary max-w-[280px] truncate text-[13px] font-black tracking-tight transition-colors"
             >
               {listing.title}
             </Link>
-            <span className="text-muted-foreground/50 text-[10px] font-bold tracking-widest uppercase">
+            <span className="text-primary/30 text-[9px] font-black tracking-[0.2em] uppercase">
               {isMounted
-                ? new Date(listing.created_at).toLocaleDateString()
+                ? new Date(listing.created_at).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })
                 : '...'}
             </span>
           </div>
         </div>
       </TableCell>
-      <TableCell className="px-6 py-4">
-        <div className="flex flex-col">
-          <span className="font-heading text-base font-bold tracking-tight">
+      <TableCell className="px-6 py-5">
+        <div className="flex flex-col gap-1">
+          <span className="font-heading text-lg font-black tracking-tighter text-foreground">
             {listing.price} {listing.currency}
           </span>
-          <span className="text-muted-foreground/60 text-[10px] font-bold tracking-widest uppercase">
+          <span className="text-primary/30 text-[9px] font-black tracking-widest uppercase">
             {t('createListing:price')}
           </span>
         </div>
       </TableCell>
-      <TableCell className="px-6 py-4">
+      <TableCell className="px-6 py-5">
         <Badge
           className={cn(
-            'rounded-sm border px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase shadow-sm',
+            'h-5 rounded-xl border px-2 py-0 text-[8px] font-black tracking-[0.15em] uppercase shadow-sm transition-all duration-500',
             statusConfig[listing.status as keyof typeof statusConfig]?.className
           )}
         >
           {t(`listing:status.${listing.status}`)}
         </Badge>
       </TableCell>
-      <TableCell className="px-6 py-4 text-right">
-        <div className="text-muted-foreground flex items-center justify-end gap-2">
-          <div className="flex min-w-[50px] items-center justify-end gap-1">
-            <Eye className="text-muted-foreground/60 h-4 w-4" />
-            <span className="text-xs leading-none font-bold">
+      <TableCell className="px-6 py-5 text-right">
+        <div className="flex items-center justify-end gap-3 text-foreground/60">
+          <div className="group/stat flex min-w-[50px] items-center justify-end gap-1.5 transition-colors hover:text-primary">
+            <Eye className="h-4 w-4 transition-transform duration-500 group-hover/stat:scale-110" />
+            <span className="text-xs font-black tracking-tighter">
               {listing.views_count || 0}
             </span>
           </div>
-          <div className="flex min-w-[50px] items-center justify-end gap-1">
-            <Heart className="text-muted-foreground/60 h-4 w-4" />
-            <span className="text-xs leading-none font-bold">
+          <div className="group/stat flex min-w-[50px] items-center justify-end gap-1.5 transition-colors hover:text-rose-500">
+            <Heart className="h-4 w-4 transition-transform duration-500 group-hover/stat:scale-110" />
+            <span className="text-xs font-black tracking-tighter">
               {listing.favorites_count || 0}
             </span>
           </div>
         </div>
       </TableCell>
-      <TableCell className="px-6 py-4 text-right">
-        <div className="flex items-center justify-end gap-2">
+      <TableCell className="px-6 py-5 text-right">
+        <div className="flex items-center justify-end gap-3">
           <Button
             variant="outline"
             size="sm"
             asChild
-            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/20 h-8 rounded-xl text-[9px] font-bold tracking-widest uppercase"
+            className="hover:bg-primary hover:text-white border-primary/10 h-9 rounded-2xl px-5 text-[9px] font-black tracking-[0.15em] uppercase transition-all duration-500 active:scale-95"
           >
             <Link href={`/${locale}/post?edit=${listing.id}`}>
               {t('common:edit')}
@@ -145,10 +145,10 @@ export function ListingsRow({
             variant="ghost"
             size="icon"
             asChild
-            className="hover:bg-primary/10 hover:text-primary h-8 w-8 rounded-xl transition-all"
+            className="hover:bg-primary/10 hover:text-primary h-9 w-9 rounded-2xl transition-all duration-500 active:scale-90"
           >
             <Link href={`/${locale}/listings/${listing.id}`}>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
         </div>

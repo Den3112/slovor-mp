@@ -41,7 +41,7 @@ export function Footer() {
     }
     toast.success(
       t('footer:subscribeSuccess') ||
-        'Successfully subscribed to our newsletter!'
+      'Successfully subscribed to our newsletter!'
     )
     setEmail('')
   }
@@ -78,14 +78,14 @@ export function Footer() {
       links:
         latestPosts.length > 0
           ? latestPosts.map((post) => ({
-              label: post.title,
-              href: `/${locale}/blog/${post.slug}`,
-            }))
+            label: post.title,
+            href: `/${locale}/blog/${post.slug}`,
+          }))
           : [
-              { label: t('common:sellingTips'), href: `/${locale}/blog` },
-              { label: t('common:safetyGuide'), href: `/${locale}/blog` },
-              { label: t('common:marketTrends'), href: `/${locale}/blog` },
-            ],
+            { label: t('common:sellingTips'), href: `/${locale}/blog` },
+            { label: t('common:safetyGuide'), href: `/${locale}/blog` },
+            { label: t('common:marketTrends'), href: `/${locale}/blog` },
+          ],
     },
     {
       title: t('footer:info'),
@@ -120,38 +120,31 @@ export function Footer() {
   // Global footer used everywhere
 
   return (
-    <footer className="border-border bg-muted/30 text-muted-foreground border-t pt-16 pb-32 md:pt-20 md:pb-12">
-      <Container>
-        <div className="mb-12 grid grid-cols-1 gap-8 md:mb-16 md:grid-cols-2 md:gap-12 lg:mb-20 lg:grid-cols-12 lg:gap-12">
+    <footer className="bg-card border-border border-t pt-20 pb-20 antialiased md:pt-28 md:pb-12">
+      {/* Decorative background grid */}
+      <div className="bg-grid-slate-200/50 mask-[linear-gradient(to_bottom,white,transparent)] absolute inset-0 opacity-10" />
+
+      <Container className="relative z-10">
+        <div className="mb-20 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Brand Info */}
-          <div className="space-y-6 lg:col-span-4">
-            <Logo size="lg" />
-            <p className="text-muted-foreground max-w-xs text-base leading-relaxed font-medium">
+          <div className="flex flex-col items-center space-y-8 text-center lg:col-span-4 lg:items-start lg:text-left">
+            <div className="transition-transform hover:scale-105 duration-500">
+              <Logo size="lg" />
+            </div>
+            <p className="text-muted-foreground max-w-sm text-lg leading-relaxed font-medium transition-colors hover:text-foreground/80">
               {t('footer:description')}
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               {[
-                {
-                  icon: <Facebook className="h-5 w-5" />,
-                  href: '#',
-                  label: 'Facebook',
-                },
-                {
-                  icon: <Instagram className="h-5 w-5" />,
-                  href: '#',
-                  label: 'Instagram',
-                },
-                {
-                  icon: <Twitter className="h-5 w-5" />,
-                  href: '#',
-                  label: 'Twitter',
-                },
+                { icon: <Facebook className="w-5 h-5" />, href: '#', label: 'Facebook' },
+                { icon: <Instagram className="w-5 h-5" />, href: '#', label: 'Instagram' },
+                { icon: <Twitter className="w-5 h-5" />, href: '#', label: 'Twitter' },
               ].map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
                   aria-label={social.label}
-                  className="social-icon-btn"
+                  className="social-icon-btn group flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-muted/50 text-muted-foreground transition-all duration-500 hover:bg-primary hover:text-white hover:scale-110 active:scale-90 shadow-sm"
                 >
                   {social.icon}
                 </a>
@@ -161,19 +154,20 @@ export function Footer() {
 
           {/* Navigation Groups */}
           <div className="lg:col-span-8">
-            <div className="hidden grid-cols-3 gap-8 md:grid lg:gap-12">
+            <div className="hidden grid-cols-3 gap-12 md:grid">
               {navGroups.map((group, i) => (
-                <div key={i}>
-                  <h4 className="text-foreground mb-6 text-[11px] font-bold tracking-widest uppercase">
+                <div key={i} className="space-y-8">
+                  <h4 className="text-foreground text-[11px] font-black tracking-[0.3em] uppercase opacity-70">
                     {group.title}
                   </h4>
-                  <ul className="space-y-3">
+                  <ul className="space-y-4">
                     {group.links.map((link, j) => (
                       <li key={j}>
                         <Link
                           href={link.href}
-                          className="link-primary flex items-center gap-1.5 text-base transition-colors"
+                          className="group text-foreground/60 hover:text-primary flex items-center gap-2 text-base font-bold transition-all duration-300"
                         >
+                          <span className="bg-primary/0 group-hover:bg-primary h-1.5 w-0 rounded-full transition-all group-hover:w-1.5" />
                           <span className="transition-transform group-hover:translate-x-1">
                             {link.label}
                           </span>
@@ -186,40 +180,39 @@ export function Footer() {
             </div>
 
             {/* Mobile Accordion */}
-            <div className="space-y-2 md:hidden">
+            <div className="space-y-3 md:hidden">
               {navGroups.map((group, i) => (
-                <div key={i} className="border-border border-b">
+                <div key={i} className="border-border overflow-hidden border rounded-2xl">
                   <Button
                     variant="ghost"
                     onClick={() => toggleSection(i)}
-                    className="flex h-auto w-full items-center justify-between px-0 py-4 text-left hover:bg-transparent"
+                    className="flex h-auto w-full items-center justify-between px-5 py-6 text-left hover:bg-white/5"
                   >
-                    <span className="text-foreground text-sm font-bold tracking-wider uppercase">
+                    <span className="text-foreground text-sm font-black tracking-widest uppercase">
                       {group.title}
                     </span>
                     <ChevronDown
                       className={cn(
-                        'text-muted-foreground h-5 w-5 transition-transform',
-                        openSection === i && 'rotate-180'
+                        'text-muted-foreground h-5 w-5 transition-transform duration-500',
+                        openSection === i && 'rotate-180 text-primary'
                       )}
                     />
                   </Button>
                   <div
                     className={cn(
-                      'grid transition-all duration-300',
-                      openSection === i
-                        ? 'grid-rows-[1fr] pb-4'
-                        : 'grid-rows-[0fr]'
+                      'grid transition-all duration-500 ease-out-expo',
+                      openSection === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                     )}
                   >
                     <div className="overflow-hidden">
-                      <ul className="space-y-3">
+                      <ul className="space-y-4 px-5 pb-6">
                         {group.links.map((link, j) => (
                           <li key={j}>
                             <Link
                               href={link.href}
-                              className="text-muted-foreground hover:text-primary block text-base font-medium"
+                              className="text-foreground/60 hover:text-primary flex items-center gap-3 text-base font-bold"
                             >
+                              <div className="bg-primary h-1.5 w-1.5 rounded-full opacity-40" />
                               {link.label}
                             </Link>
                           </li>
@@ -233,30 +226,34 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Newsletter */}
-        <div className="group border-border bg-card mb-12 flex flex-col items-center justify-between gap-6 rounded-2xl border p-6 shadow-sm transition-colors duration-500 md:mb-16 md:gap-8 md:p-8 lg:mb-20 lg:flex-row lg:p-10">
-          <div className="w-full text-center lg:max-w-md lg:text-left">
-            <h3 className="text-foreground mb-2 text-xl font-bold md:text-2xl">
+        {/* Newsletter - PRO MAX */}
+        <div className="group relative mb-20 flex flex-col items-center justify-between gap-8 rounded-2xl border border-border bg-card p-8 shadow-card transition-all duration-700 hover:border-primary/30 md:mb-24 md:p-12 lg:flex-row lg:p-14">
+          <div className="bg-primary/5 absolute -inset-1 rounded-2xl blur-2xl opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
+
+          <div className="relative z-10 w-full text-center lg:max-w-md lg:text-left">
+            <h3 className="text-foreground mb-4 text-3xl font-black tracking-tight lg:text-4xl">
               {t('footer:newsletterTitle')}
             </h3>
-            <p className="text-muted-foreground text-base font-medium">
+            <p className="text-muted-foreground text-lg font-medium leading-relaxed">
               {t('footer:newsletterSubtitle')}
             </p>
           </div>
-          <div className="flex w-full flex-col gap-3 lg:max-w-md lg:flex-row">
+
+          <div className="relative z-10 flex w-full flex-col gap-4 lg:max-w-md lg:flex-row">
             <div className="relative flex-1">
-              <Mail className="text-muted-foreground absolute top-1/2 left-4 z-10 h-5 w-5 -translate-y-1/2" />
+              <Mail className="text-muted-foreground absolute top-1/2 left-5 z-10 h-6 w-6 -translate-y-1/2 transition-colors group-focus-within:text-primary" />
               <Input
                 type="email"
                 placeholder={t('footer:newsletterPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary h-12 w-full rounded-xl border py-6 pr-4 pl-11 text-base font-medium shadow-sm transition-all"
+                className="border-input bg-card text-foreground placeholder:text-muted-foreground h-16 w-full rounded-xl py-6 pr-6 pl-14 text-lg font-bold transition-all focus-visible:border-primary/50 focus-visible:ring-primary/20"
               />
             </div>
             <Button
               onClick={handleSubscribe}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 w-full shrink-0 rounded-xl px-6 text-base font-bold shadow-md transition-all active:scale-95 lg:w-auto"
+              size="lg"
+              className="shadow-primary/20 h-16 w-full shrink-0 rounded-xl px-10 text-lg font-black tracking-widest uppercase transition-all hover:scale-105 active:scale-95 lg:w-auto"
             >
               {t('footer:subscribe')}
             </Button>
@@ -264,34 +261,37 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-border border-t pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
-              © {new Date().getFullYear()} Slovor Marketplace.{' '}
-              {t('footer:rights')}.
+        <div className="border-border/40 border-t pt-10">
+          <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+            <p className="text-muted-foreground text-[11px] font-black tracking-[0.2em] uppercase opacity-60">
+              © {new Date().getFullYear()} Slovor Marketplace. {t('footer:rights')}.
             </p>
-            <div className="flex items-center gap-6">
-              <span className="bg-muted text-muted-foreground border-border/50 flex h-6 items-center gap-2 rounded-md border px-3 text-[10px] font-bold tracking-wider uppercase">
-                <div className="h-1.5 w-1.5 rounded-sm bg-emerald-500" />
+
+            <div className="flex flex-wrap items-center justify-center gap-8">
+              <span className="border-border bg-muted/50 flex h-8 items-center gap-3 rounded-full border px-4 text-[10px] font-black tracking-widest uppercase">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
                 {mounted && !isLoading
                   ? `${geoLocation?.country || 'Slovakia'} / ${CURRENCIES[currency]?.code || 'EUR'}`
                   : '...'}
               </span>
-              <div className="flex gap-4">
-                <Link
-                  href={`/${locale}/terms`}
-                  className="text-muted-foreground hover:text-primary text-[10px] font-bold tracking-wider uppercase"
-                  data-testid="footer-terms-link"
-                >
-                  {t('footer:transparency') || 'Transparency'}
-                </Link>
-                <Link
-                  href={`/${locale}/privacy`}
-                  className="text-muted-foreground hover:text-primary text-[10px] font-bold tracking-wider uppercase"
-                  data-testid="footer-privacy-link"
-                >
-                  {t('footer:privacyPolicy') || 'Privacy Policy'}
-                </Link>
+
+              <div className="flex gap-6">
+                {[
+                  { label: t('footer:transparency') || 'Transparency', href: `/${locale}/terms`, id: 'footer-terms-link' },
+                  { label: t('footer:privacyPolicy') || 'Privacy Policy', href: `/${locale}/privacy`, id: 'footer-privacy-link' },
+                ].map((link, i) => (
+                  <Link
+                    key={i}
+                    href={link.href}
+                    className="text-foreground/40 hover:text-primary text-[10px] font-black tracking-widest uppercase transition-colors"
+                    data-testid={link.id}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

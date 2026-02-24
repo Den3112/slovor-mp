@@ -19,7 +19,7 @@ export function useUnreadMessages() {
 
     fetchCount()
 
-    // Subscribe to NEW messages to update count
+    // Subscribe to NEW messages where current user is the receiver
     const channel = supabase
       .channel(`unread-messages:${user.id}`)
       .on(
@@ -28,12 +28,10 @@ export function useUnreadMessages() {
           event: 'INSERT',
           schema: 'public',
           table: 'messages',
+          filter: `receiver_id=eq.${user.id}`,
         },
-        (payload) => {
-          // Only fetch if we are not the sender
-          if (payload.new.sender_id !== user.id) {
-            fetchCount()
-          }
+        () => {
+          fetchCount()
         }
       )
       .subscribe()
