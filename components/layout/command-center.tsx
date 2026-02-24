@@ -263,7 +263,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
 
             <div className="bg-muted/50 border-border/40 flex items-center justify-between border-t px-4 py-3">
               <span className="text-muted-foreground text-[10px] font-medium">
-                Tip: Use filters to narrow down your search
+                {t('common:searchTip')}
               </span>
               <button
                 onClick={() => setIsOpen(false)}

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { notificationsApi, type Notification } from '@/lib/api/notifications'
 import { useAuth } from '@/components/providers/auth-provider'
 import { useTranslation } from '@/lib/i18n'
-import { Check, Loader2 } from 'lucide-react'
+import { Bell, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { NotificationList } from './notification-list'
@@ -65,35 +65,44 @@ export function NotificationsView() {
   }
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
-      {/* Header */}
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <div>
-          <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
-            {t('dashboard:notifications.title')}
-          </h1>
-          <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
-            {t('dashboard:notifications.subtitle')}
-          </p>
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-12 duration-700">
+      {/* Premium Header */}
+      <div className="bg-card relative overflow-hidden rounded-2xl border border-border p-10 shadow-md">
+        <div className="bg-primary/10 absolute -right-20 -top-20 h-64 w-64 rounded-full blur-[100px] opacity-40 animate-pulse" />
+        <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div className="space-y-4">
+            <div className="bg-primary shadow-primary/20 flex h-16 w-16 items-center justify-center rounded-xl shadow-lg">
+              <Bell className="h-8 w-8 text-white" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-muted-foreground ml-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
+                {t('profile:notificationsSubtitle', { defaultValue: 'Stay updated' })}
+              </p>
+              <h1 className="text-foreground text-5xl font-black tracking-tighter uppercase sm:text-6xl">
+                {t('dashboard:notifications')}
+              </h1>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <Button
+              variant="outline"
+              className="border-border hover:bg-primary/5 h-12 rounded-xl
+ px-6 text-[10px] font-black tracking-widest uppercase transition-all"
+              onClick={handleMarkAllAsRead} // Re-added onClick handler
+            >
+              {t('common:markAllAsRead')}
+            </Button>
+          </div>
         </div>
-        {notifications.some((n) => !n.is_read) && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleMarkAllAsRead}
-            className="border-border/60 h-10 rounded-xl px-6 text-[10px] font-bold tracking-widest uppercase"
-          >
-            <Check className="mr-2 h-4 w-4" />
-            {t('dashboard:notifications.markAllRead')}
-          </Button>
-        )}
       </div>
 
-      <NotificationList
-        notifications={notifications}
-        onMarkAsRead={handleMarkAsRead}
-        onDelete={handleDelete}
-      />
+      <div className="glass-panel border-primary/10 bg-background/10 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-primary/5">
+        <NotificationList
+          notifications={notifications}
+          onMarkAsRead={handleMarkAsRead}
+          onDelete={handleDelete}
+        />
+      </div>
     </div>
   )
 }

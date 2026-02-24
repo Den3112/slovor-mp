@@ -53,12 +53,12 @@ export function StepImages({
 
   return (
     <div className="animate-in fade-in slide-in-from-right-8 space-y-8 duration-500">
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-xl font-bold">
+          <h3 className="text-foreground text-2xl font-black tracking-tight">
             {t('uploadPhotos')}
           </h3>
-          <span className="text-muted-foreground text-sm font-medium">
+          <span className="text-primary/60 text-[10px] font-black tracking-[0.2em] uppercase">
             {formData.images.length} / 10
           </span>
         </div>
@@ -68,15 +68,15 @@ export function StepImages({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           animate={{
-            borderColor: isDragActive ? 'var(--primary)' : 'var(--border)',
-            backgroundColor: isDragActive ? 'var(--accent)' : 'transparent',
-            scale: isDragActive ? 1.01 : 1,
+            borderColor: isDragActive ? 'var(--primary)' : 'rgba(var(--primary-rgb), 0.1)',
+            backgroundColor: isDragActive ? 'rgba(var(--primary-rgb), 0.05)' : 'rgba(var(--primary-rgb), 0.02)',
+            scale: isDragActive ? 1.02 : 1,
           }}
           className={cn(
-            'group relative flex min-h-[280px] flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all duration-200',
+            'group relative flex min-h-[320px] flex-col items-center justify-center rounded-[2.5rem] border-2 border-dashed transition-all duration-500',
             isUploading
-              ? 'border-primary/50 bg-primary/5 cursor-wait'
-              : 'bg-card hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-primary/10 transition-all focus-within:ring-2'
+              ? 'border-primary/50 cursor-wait'
+              : 'glass-panel hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-primary/20 transition-all focus-within:ring-4 shadow-xl shadow-primary/5'
           )}
         >
           <input
@@ -91,10 +91,11 @@ export function StepImages({
             aria-label={t('uploadPhotos')}
           />
 
-          <div className="pointer-events-none flex flex-col items-center gap-4 p-8 text-center">
+          <div className="pointer-events-none flex flex-col items-center gap-6 p-8 text-center text-primary">
             <motion.div
-              animate={isDragActive ? { y: -10 } : { y: 0 }}
-              className="bg-primary/10 text-primary flex h-20 w-20 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+              animate={isDragActive ? { y: -15, scale: 1.15 } : { y: 0, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="bg-primary shadow-primary/20 flex h-24 w-24 items-center justify-center rounded-[2rem] text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-primary/30"
             >
               {isUploading ? (
                 <Loader2 className="h-10 w-10 animate-spin" />
@@ -102,24 +103,24 @@ export function StepImages({
                 <Upload className="h-10 w-10" />
               )}
             </motion.div>
-            <div className="space-y-2">
-              <p className="text-foreground text-lg font-bold">
+            <div className="space-y-3">
+              <p className="text-foreground text-xl font-black tracking-tight">
                 {isUploading
                   ? t('uploading')
                   : isDragActive
                     ? 'Drop images here'
                     : t('dragDrop')}
               </p>
-              <p className="text-muted-foreground max-w-xs text-sm leading-relaxed">
+              <p className="text-muted-foreground max-w-xs text-[10px] font-black tracking-[0.15em] leading-relaxed uppercase opacity-60">
                 {t('maxSize')}
               </p>
             </div>
             {!isUploading && (
               <Button
                 type="button"
-                variant="secondary"
+                variant="outline"
                 onClick={() => fileInputRef.current?.click()}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-auto mt-2 rounded-xl px-8 shadow-sm transition-all active:scale-95"
+                className="bg-primary/5 border-primary/20 text-primary hover:bg-primary/10 pointer-events-auto mt-4 h-12 rounded-2xl px-10 font-black tracking-widest uppercase transition-all active:scale-95"
                 disabled={formData.images.length >= 10}
               >
                 {t('selectImages')}
@@ -132,33 +133,33 @@ export function StepImages({
       <AnimatePresence>
         {uploadProgress && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-muted/30 border-border rounded-xl border p-5 shadow-sm"
+            className="glass-panel border-primary/10 rounded-2xl border p-6 shadow-2xl shadow-primary/5"
           >
-            <div className="text-muted-foreground mb-3 flex w-full items-center justify-between text-[10px] font-bold tracking-widest uppercase">
-              <span className="flex items-center gap-2">
-                <Loader2 className="h-3 w-3 animate-spin" />
+            <div className="text-primary/60 mb-4 flex w-full items-center justify-between text-[10px] font-black tracking-[0.3em] uppercase">
+              <span className="flex items-center gap-3">
+                <Loader2 className="h-4 w-4 animate-spin" />
                 {uploadProgress.fileName
                   ? `Uploading: ${uploadProgress.fileName}`
                   : `${t('uploading')}...`}
               </span>
-              <span>
+              <span className="text-foreground">
                 {Math.round(
                   (uploadProgress.current / uploadProgress.total) * 100
                 )}
                 %
               </span>
             </div>
-            <div className="bg-muted h-2 w-full overflow-hidden rounded-xl">
+            <div className="bg-primary/5 h-3 w-full overflow-hidden rounded-full p-0.5">
               <motion.div
-                className="bg-primary h-full"
+                className="bg-primary shadow-primary/30 h-full rounded-full shadow-lg"
                 initial={{ width: 0 }}
                 animate={{
                   width: `${(uploadProgress.current / uploadProgress.total) * 100}%`,
                 }}
-                transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
+                transition={{ type: 'spring', bounce: 0, duration: 0.6 }}
               />
             </div>
           </motion.div>
@@ -167,12 +168,12 @@ export function StepImages({
 
       {/* Image Preview Grid with Reorder */}
       {formData.images.length > 0 && (
-        <div className="space-y-4 pt-4">
-          <div className="flex items-center justify-between px-1">
-            <h4 className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+        <div className="space-y-6 pt-4">
+          <div className="flex items-center justify-between px-2">
+            <h4 className="text-primary/60 text-[10px] font-black tracking-[0.3em] uppercase">
               Manage & Reorder
             </h4>
-            <p className="text-muted-foreground hidden text-[10px] sm:block">
+            <p className="text-muted-foreground/60 hidden text-[10px] font-black tracking-widest uppercase sm:block">
               Drag to change order. First image is the cover.
             </p>
           </div>
@@ -181,24 +182,24 @@ export function StepImages({
             axis="y"
             values={formData.images}
             onReorder={onReorderImages}
-            className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+            className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4"
           >
             {formData.images.map((img, idx) => (
               <Reorder.Item
                 key={img}
                 value={img}
-                className="group border-border bg-muted relative aspect-square cursor-grab overflow-hidden rounded-xl border shadow-sm active:cursor-grabbing"
+                className="group glass-panel border-primary/5 relative aspect-square cursor-grab overflow-hidden rounded-[2rem] border-2 shadow-xl shadow-primary/5 transition-all duration-500 active:cursor-grabbing hover:scale-[1.02] hover:border-primary/20"
               >
                 <Image
                   src={img}
                   alt="preview"
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                   unoptimized
                 />
 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/40 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/40 opacity-0 transition-opacity duration-300 backdrop-blur-[2px] group-hover:opacity-100">
                   <Button
                     size="icon"
                     variant="destructive"
@@ -206,11 +207,11 @@ export function StepImages({
                       e.stopPropagation()
                       onRemoveImage(idx)
                     }}
-                    className="h-10 w-10 rounded-xl shadow-sm"
+                    className="h-12 w-12 rounded-2xl shadow-xl transition-all active:scale-90"
                   >
                     <Trash2 className="h-5 w-5" />
                   </Button>
-                  <div className="rounded-xl bg-white/20 p-2.5 text-white">
+                  <div className="glass-panel rounded-2xl border-white/20 bg-white/10 p-3.5 text-white shadow-xl backdrop-blur-md">
                     <GripHorizontal className="h-5 w-5" />
                   </div>
                 </div>
@@ -220,16 +221,16 @@ export function StepImages({
                   {idx === 0 && (
                     <motion.div
                       key="cover-badge"
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      className="bg-primary absolute top-3 left-3 rounded-xl px-3 py-1 text-[9px] font-bold tracking-widest text-white uppercase shadow-sm"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="bg-primary absolute top-4 left-4 rounded-xl px-4 py-2 text-[10px] font-black tracking-[0.2em] text-white uppercase shadow-xl shadow-primary/20 backdrop-blur-md"
                     >
                       Cover
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                <div className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-xl border border-white/10 bg-black/70 text-[10px] font-bold text-white uppercase transition-all md:opacity-0 md:group-hover:opacity-100">
+                <div className="glass-panel absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-xl border-white/20 bg-black/60 text-[10px] font-black text-white backdrop-blur-md transition-all md:opacity-0 md:group-hover:opacity-100">
                   {idx + 1}
                 </div>
               </Reorder.Item>

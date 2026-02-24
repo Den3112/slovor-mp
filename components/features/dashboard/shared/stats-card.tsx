@@ -38,30 +38,30 @@ export function StatsCard({
     >
       <Card
         className={cn(
-          'group border-border hover:border-primary/40 shadow-card bg-card relative h-full overflow-hidden transition-all duration-300',
+          'glass-panel bg-background/40 border-primary/10 group shadow-xl shadow-primary/5 relative h-full overflow-hidden rounded-2xl transition-all duration-500 hover:border-primary/30',
           className
         )}
       >
-        <CardContent className="relative z-10 p-6">
+        <CardContent className="relative z-10 p-7">
           <div className="flex items-center justify-between">
-            <div className="min-w-0 space-y-1.5">
-              <p className="text-muted-foreground text-[10px] leading-none font-bold tracking-widest uppercase">
+            <div className="min-w-0 space-y-2">
+              <p className="text-primary/40 text-[10px] leading-none font-black tracking-[0.2em] uppercase">
                 {label}
               </p>
-              <p className="text-foreground text-[28px] leading-none font-bold tracking-tight">
+              <p className="text-foreground text-3xl leading-none font-black tracking-tight">
                 {value}
               </p>
               {(description || trend) && (
-                <div className="mt-1.5 flex items-center gap-2">
+                <div className="mt-2.5 flex items-center gap-2">
                   {trend && (
                     <div
                       className={cn(
-                        'flex items-center gap-0.5 text-[10px] font-bold tracking-tight uppercase',
+                        'flex items-center gap-0.5 rounded-xl border px-1.5 py-0.5 text-[10px] font-black tracking-tight uppercase',
                         trend.direction === 'up'
-                          ? 'text-success'
+                          ? 'border-success/10 bg-success/5 text-success'
                           : trend.direction === 'down'
-                            ? 'text-destructive'
-                            : 'text-amber-500'
+                            ? 'border-destructive/10 bg-destructive/5 text-destructive'
+                            : 'border-amber-500/10 bg-amber-500/5 text-amber-500'
                       )}
                     >
                       {trend.direction === 'up' && (
@@ -77,12 +77,12 @@ export function StatsCard({
                     </div>
                   )}
                   {description && (
-                    <span className="text-muted-foreground truncate text-[10px] font-bold tracking-widest uppercase">
+                    <span className="text-primary/40 truncate text-[10px] font-black tracking-widest uppercase">
                       {description}
                     </span>
                   )}
                   {trend?.label && !description && (
-                    <span className="text-muted-foreground truncate text-[10px] font-bold tracking-widest uppercase">
+                    <span className="text-primary/40 truncate text-[10px] font-black tracking-widest uppercase">
                       {trend.label}
                     </span>
                   )}
@@ -90,8 +90,8 @@ export function StatsCard({
               )}
             </div>
             {Icon && (
-              <div className="bg-primary/10 text-primary rounded-xl p-2.5 transition-transform duration-300 group-hover:scale-110">
-                <Icon className="h-5 w-5" />
+              <div className="bg-primary/5 text-primary border-primary/10 rounded-2xl border p-3 shadow-inner transition-all duration-500 group-hover:scale-110 group-hover:shadow-primary/20">
+                <Icon className="h-6 w-6" />
               </div>
             )}
           </div>

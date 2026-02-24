@@ -63,22 +63,22 @@ export function WalletWidget({
         icon: Plus,
         onClick: () => router.push(`/${locale}/dashboard/wallet`),
       }}
-      className="bg-card text-card-foreground border-border"
+      className="glass-panel border-primary/10 bg-background/20 shadow-2xl shadow-primary/5"
     >
-      <div className="relative z-10 flex h-full flex-col justify-between p-6">
-        <div className="space-y-1">
-          <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+      <div className="relative z-10 flex h-full flex-col justify-between p-8">
+        <div className="space-y-2">
+          <p className="text-primary/40 text-[10px] font-black tracking-[0.2em] uppercase">
             {t('dashboard:walletDetails.availableBalance')}
           </p>
           <div className="flex items-baseline gap-2">
-            <h2 className="text-4xl font-bold tracking-tighter tabular-nums">
+            <h2 className="font-heading text-4xl font-black tracking-tighter tabular-nums text-foreground">
               {formatPrice(balance, currency)}
             </h2>
           </div>
         </div>
 
         {/* Mini Chart */}
-        <div className="-mx-2 mt-4 h-[60px] w-full opacity-50">
+        <div className="-mx-2 mt-6 h-[70px] w-full opacity-60">
           {mounted && (
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData}>
@@ -87,7 +87,7 @@ export function WalletWidget({
                     <stop
                       offset="5%"
                       stopColor="var(--primary)"
-                      stopOpacity={0.3}
+                      stopOpacity={0.4}
                     />
                     <stop
                       offset="95%"
@@ -100,7 +100,7 @@ export function WalletWidget({
                   type="monotone"
                   dataKey="value"
                   stroke="var(--primary)"
-                  strokeWidth={2}
+                  strokeWidth={3}
                   fillOpacity={1}
                   fill="url(#colorValue)"
                 />
@@ -109,27 +109,27 @@ export function WalletWidget({
           )}
         </div>
 
-        <div className="border-border/40 mt-4 flex items-center justify-between border-t pt-4">
-          <div className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
+        <div className="border-primary/5 mt-6 flex items-center justify-between border-t pt-5">
+          <div className="text-primary/40 text-[9px] font-black tracking-[0.2em] uppercase">
             {t('dashboard:walletDetails.defaultMethod')}
           </div>
           <Button
             variant="ghost"
             size="sm"
             asChild
-            className="hover:bg-primary/5 hover:text-primary h-8 w-8 rounded-full p-0"
+            className="hover:bg-primary/5 hover:text-primary h-10 w-10 rounded-2xl p-0 transition-all active:scale-90"
             aria-label={t('profile:wallet')}
           >
             <Link href={`/${locale}/dashboard/wallet`}>
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-5 w-5" />
             </Link>
           </Button>
         </div>
       </div>
 
       {/* Background Decor */}
-      <div className="pointer-events-none absolute top-0 right-0 z-0 p-8 opacity-5">
-        <CreditCard size={120} />
+      <div className="pointer-events-none absolute top-4 right-4 z-0 p-8 opacity-5">
+        <CreditCard size={140} strokeWidth={1} />
       </div>
     </HubWidget>
   )

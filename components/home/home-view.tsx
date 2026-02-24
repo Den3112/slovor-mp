@@ -33,6 +33,14 @@ export function HomeView({
 
       {!categoriesError ? (
         <CategoriesGrid categories={categories} />
+      ) : categories.length === 0 && !categoriesError ? (
+        <Container className="py-20">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className="animate-shimmer h-40 rounded-2xl bg-muted/20" />
+            ))}
+          </div>
+        </Container>
       ) : (
         <Container className="py-20">
           <div className="border-destructive/20 bg-destructive/5 text-destructive rounded-2xl border p-12 text-center font-bold">

@@ -41,21 +41,24 @@ export function SubscriptionView({
   }
 
   return (
-    <div className="animate-in fade-in space-y-8 duration-700">
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
       {/* Header Section */}
-      <div className="bg-card border-border flex flex-col gap-2 rounded-xl border p-6 shadow-sm">
-        <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
-          {t('profile:subscription')}
-        </h1>
-        <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
-          {t('dashboard:subscriptions.subtitle')}
-        </p>
+      <div className="relative overflow-hidden rounded-[2rem] p-8">
+        <div className="bg-primary/5 absolute inset-0 -z-10 blur-3xl opacity-50" />
+        <div className="flex flex-col gap-2">
+          <h1 className="text-foreground text-4xl font-black tracking-tighter uppercase">
+            {t('profile:subscription')}
+          </h1>
+          <p className="text-muted-foreground/60 text-xs font-bold tracking-[0.3em] uppercase">
+            {t('dashboard:subscriptions.subtitle')}
+          </p>
+        </div>
       </div>
 
       <CurrentSubscription currentSub={currentSub} />
 
       {/* Plans Grid */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {SUBSCRIPTION_PLANS.map((plan) => (
           <PlanCard
             key={plan.id}
@@ -68,20 +71,20 @@ export function SubscriptionView({
       </div>
 
       {/* Comparison Table Footer Info */}
-      <div className="border-border mt-12 grid grid-cols-1 gap-8 border-t pt-12 md:grid-cols-2">
+      <div className="border-border/10 mt-16 grid grid-cols-1 gap-12 border-t pt-16 md:grid-cols-2">
         <div className="space-y-4">
-          <h4 className="text-foreground text-sm font-bold tracking-widest uppercase">
+          <h4 className="text-foreground text-[11px] font-black tracking-[0.4em] uppercase opacity-40">
             {t('dashboard:subscriptions.whyUpgrade')}
           </h4>
-          <p className="text-muted-foreground text-sm leading-relaxed font-bold">
+          <p className="text-muted-foreground/80 text-sm leading-relaxed font-bold tracking-tight">
             {t('dashboard:subscriptions.upgradeDesc')}
           </p>
         </div>
         <div className="space-y-4">
-          <h4 className="text-foreground text-sm font-bold tracking-widest uppercase">
+          <h4 className="text-foreground text-[11px] font-black tracking-[0.4em] uppercase opacity-40">
             {t('dashboard:subscriptions.paymentSafety')}
           </h4>
-          <p className="text-muted-foreground text-sm leading-relaxed font-bold">
+          <p className="text-muted-foreground/80 text-sm leading-relaxed font-bold tracking-tight">
             {t('dashboard:subscriptions.paymentSafetyDesc')}
           </p>
         </div>

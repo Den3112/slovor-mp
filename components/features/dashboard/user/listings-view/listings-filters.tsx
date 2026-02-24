@@ -32,24 +32,24 @@ export function ListingsFilters({
   return (
     <motion.div
       variants={item}
-      className="bg-card border-border/60 flex flex-col items-start justify-between gap-4 rounded-xl border p-4 shadow-sm lg:flex-row lg:items-center"
+      className="flex flex-col items-start justify-between gap-6 p-6 lg:flex-row lg:items-center"
     >
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="w-full lg:w-auto"
       >
-        <TabsList className="bg-muted/50 border-border/20 h-auto flex-wrap justify-start rounded-xl border p-1">
+        <TabsList className="bg-primary/5 border-primary/5 h-auto flex-wrap justify-start rounded-2xl border p-1.5">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.value}
               value={tab.value}
-              className="data-[state=active]:bg-background data-[state=active]:text-primary h-auto rounded-md px-4 py-2 text-[9px] font-bold tracking-widest uppercase transition-all data-[state=active]:shadow-sm"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary h-10 rounded-xl px-5 text-[9px] font-black tracking-[0.15em] uppercase transition-all duration-300 data-[state=active]:shadow-lg active:scale-95"
             >
-              {tab.label}
+              <span className="mr-2.5">{tab.label}</span>
               <Badge
                 variant="secondary"
-                className="bg-muted/80 ml-2 h-4 min-w-5 border-transparent px-1.5 py-0 text-[8px] font-bold"
+                className="bg-primary/10 text-primary h-5 min-w-6 border-transparent px-1.5 py-0 text-[10px] font-black tabular-nums transition-colors group-data-[state=active]:bg-primary/20"
               >
                 {tab.count}
               </Badge>
@@ -58,14 +58,16 @@ export function ListingsFilters({
         </TabsList>
       </Tabs>
 
-      <div className="flex w-full gap-2 lg:w-auto">
-        <div className="relative flex-1 lg:w-72">
-          <Search className="text-muted-foreground/60 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+      <div className="flex w-full gap-3 lg:w-auto">
+        <div className="relative flex-1 lg:w-80">
+          <div className="absolute top-1/2 left-4 -translate-y-1/2">
+            <Search className="text-primary/40 h-4 w-4 transition-colors" />
+          </div>
           <Input
             placeholder={t('common:search')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border-border/60 focus:ring-primary/20 h-10 rounded-xl pl-9 text-xs font-bold"
+            className="border-primary/10 bg-primary/5 focus:ring-primary/20 h-12 rounded-2xl pl-11 text-[11px] font-black tracking-widest uppercase transition-all focus:bg-background"
           />
         </div>
       </div>

@@ -29,17 +29,13 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false)
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     setMobileMenuOpen(false)
   }, [pathname])
 
-  if (!mounted) return null
+  // No early return on !mounted to prevent CLS
+  // Initial state is handled by CSS to ensure layout remains stable
 
   // Ensure header is visible everywhere as per user request
 
@@ -47,7 +43,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          'bg-background border-border sticky top-0 z-50 h-(--header-height) w-full border-b antialiased transition-all duration-300'
+          'bg-card sticky top-0 z-50 h-(--header-height) w-full border-b antialiased transition-all duration-300'
         )}
       >
         <Container className="h-full px-4 sm:px-6">
@@ -89,7 +85,7 @@ export function Header() {
                 (pathname === '/' ||
                   pathname === `/${locale}` ||
                   pathname === `/${locale}/`) &&
-                  'hidden!'
+                'hidden!'
               )}
             >
               <div className="group relative w-full">

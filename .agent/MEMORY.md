@@ -36,13 +36,16 @@
 - **Пути к артефактам**: `/home/creator/.gemini/antigravity/brain/65635806-d4c4-4dbb-8448-3e1d6c2419cb/walkthrough.md`
 
 ### Текущий статус по фазам
-- **Phase 10 (Deep UI Audit)**: ✅ Исправлено. Радиусы (20px/12px) и SEO нормализованы.
-- **Security Hardening**: ✅ Подготовлена миграция `20260210000000_security_hardening.sql`.
+- **Phase 10 (Deep UI Audit)**: ✅ Исправлено. Радиусы (20px/12px) и SEO нормализованы. Окончательно исключены `rounded-3xl` и `rounded-xl` в пользу стандарта `rounded-2xl` (20px) и `rounded-lg` (12px).
+- **Security Hardening**: ✅ Подготовлена миграция `20260210000000_security_hardening.sql`. Устранены XSS-уязвимости в `[slug]` и блоге (интегрирован `isomorphic-dompurify`).
+- **Performance & API**: ✅ Устранён бесконечный цикл `getUnreadCount` (Supabase Realtime) и ошибка PGRST116 (`.maybeSingle()`).
 
 ### Глобальная нормализация
-- **Border Radius**: ✅ **ВОССТАНОВЛЕНО**. 20px (карточки) и 12px (элементы).
+- **Border Radius**: ✅ **ВОССТАНОВЛЕНО**. 20px (карточки) и 12px (элементы). Жёсткий запрет на `rounded-3xl`.
 - **SEO**: ✅ `title` и мета-теги восстановлены.
 - **Auth**: ✅ Валидация ролей в Admin Settings.
+- **I18n**: ✅ Локализованы хардкод-строки (`Tip: Use filters...`) и добавлены missing keys для 404 страницы во все локали.
+
 
 ---
 

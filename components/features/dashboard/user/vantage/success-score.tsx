@@ -18,7 +18,7 @@ export function SuccessScore({ score, percentile, trend }: SuccessScoreProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-card border-border/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-3xl border p-8 shadow-xl"
+      className="bg-card border-border/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-2xl border p-8 shadow-xl"
     >
       {/* Decorative background pulse */}
       <div className="bg-primary/5 absolute inset-0 animate-pulse" />

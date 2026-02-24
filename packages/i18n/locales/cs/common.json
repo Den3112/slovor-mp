@@ -126,5 +126,12 @@
   "showResults_one": "Zobrazit {{count}} inzerát",
   "showResults_few": "Zobrazit {{count}} inzeráty",
   "showResults_many": "Zobrazit {{count}} inzerátů",
-  "showResults_other": "Zobrazit {{count}} inzerátů"
+  "showResults_other": "Zobrazit {{count}} inzerátů",
+  "searchTip": "Tip: Pro upřesnění vyhledávání použijte filtry",
+  "404": {
+    "title": "Stránka nebyla nalezena",
+    "description": "Litujeme, ale stránku, kterou hledáte, jsme nenašli.",
+    "goHome": "Domů",
+    "browse": "Procházet inzeráty"
+  }
 }

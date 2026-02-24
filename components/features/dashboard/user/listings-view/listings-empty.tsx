@@ -9,21 +9,23 @@ export function ListingsEmpty() {
   const { t, locale } = useTranslation(['common', 'dashboard', 'createListing'])
 
   return (
-    <div className="flex flex-col items-center justify-center p-12 text-center">
-      <div className="bg-muted mb-6 flex h-16 w-16 items-center justify-center rounded-full">
-        <Package className="text-muted-foreground/40 h-8 w-8" />
+    <div className="flex flex-col items-center justify-center p-20 text-center">
+      <div className="bg-primary/5 border-primary/5 shadow-inner mb-8 flex h-24 w-24 items-center justify-center rounded-[2rem] border transition-transform duration-700 hover:scale-110">
+        <Package className="text-primary/20 h-10 w-10" />
       </div>
-      <h3 className="text-foreground mb-2 text-lg font-bold tracking-widest uppercase">
+      <h3 className="text-foreground mb-3 text-2xl font-black tracking-tighter uppercase">
         {t('dashboard:noListingsYet')}
       </h3>
-      <p className="text-muted-foreground mx-auto mb-8 max-w-xs text-sm font-medium">
+      <p className="text-foreground/40 mx-auto mb-10 max-w-xs text-[13px] font-black tracking-tight leading-relaxed uppercase">
         {t('dashboard:noListingsDesc')}
       </p>
       <Button
         asChild
-        className="shadow-primary/20 h-12 rounded-xl px-8 text-[10px] font-bold tracking-widest uppercase shadow-lg"
+        className="shadow-primary/20 hover:bg-primary/90 h-14 rounded-2xl px-10 text-[10px] font-black tracking-[0.2em] uppercase shadow-2xl transition-all active:scale-95"
       >
-        <Link href={`/${locale}/post`}>{t('createListing:publish')}</Link>
+        <Link href={`/${locale}/post`}>
+          {t('createListing:publish')}
+        </Link>
       </Button>
     </div>
   )

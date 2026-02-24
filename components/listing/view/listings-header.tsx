@@ -13,12 +13,18 @@ export function ListingsHeader({
   const { t } = useTranslation(['common', 'categories'])
 
   return (
-    <div className="relative mb-8 overflow-hidden border-b border-white/5 pt-24 pb-10 md:mb-12 md:pt-32 md:pb-16">
-      <div className="bg-primary/5 absolute inset-0 z-0" />
+    <div className="relative mb-8 overflow-hidden border-b border-white/5 pt-28 pb-12 md:mb-16 md:pt-40 md:pb-20">
+      <div className="bg-mesh absolute inset-0 z-0 opacity-40" />
+
+      {/* Aurora Background Glows - PRO MAX */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="bg-primary/5 absolute top-0 -left-[10%] h-[500px] w-[500px] rounded-full blur-[100px] animate-pulse" />
+        <div className="bg-primary/5 absolute bottom-0 -right-[10%] h-[500px] w-[500px] rounded-full blur-[100px]" />
+      </div>
 
       <Container>
-        <div className="relative z-10 flex flex-col gap-4 md:gap-8">
-          <div className="border-primary/20 bg-primary/10 text-primary inline-flex w-fit items-center gap-2 rounded-xl border px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] uppercase">
+        <div className="relative z-10 flex flex-col gap-6 md:gap-10">
+          <div className="glass-panel text-primary shadow-primary/10 inline-flex w-fit items-center gap-2.5 rounded-full border-primary/20 bg-white/50 px-5 py-2 text-[10px] font-black tracking-[0.25em] uppercase backdrop-blur-md">
             <Search className="h-3.5 w-3.5" />
             {t('common:explorer')}
           </div>
@@ -33,14 +39,15 @@ export function ListingsHeader({
             ]}
           />
 
-          <h1 className="font-heading text-foreground max-w-4xl text-4xl font-bold tracking-tight md:text-6xl">
+          <h1 className="font-heading text-foreground max-w-5xl text-5xl font-black tracking-tight uppercase md:text-8xl">
             {searchQuery
-              ? `${t('common:search')}: ${searchQuery}`
+              ? searchQuery
               : t('common:allListings')}
           </h1>
-          <div className="flex flex-wrap items-center gap-4">
-            <p className="text-muted-foreground flex items-center gap-2 text-lg font-medium md:text-xl">
-              <span className="font-heading text-foreground font-bold">
+
+          <div className="flex flex-wrap items-center gap-6">
+            <p className="text-muted-foreground flex items-center gap-3 text-xl font-medium md:text-2xl">
+              <span className="font-heading text-foreground font-black">
                 {t('common:listings', { count: totalCount })}
               </span>
               {filters?.search && (
@@ -49,7 +56,7 @@ export function ListingsHeader({
                 </span>
               )}
             </p>
-            <div className="bg-border mx-2 hidden h-6 w-px md:block" />
+            <div className="bg-border/40 mx-2 hidden h-8 w-px md:block" />
             <SaveSearchButton
               filters={filters || {}}
               searchQuery={searchQuery}

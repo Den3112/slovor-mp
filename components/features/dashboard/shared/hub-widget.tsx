@@ -44,13 +44,15 @@ export function HubWidget({
     <BentoTile
       colSpan={colSpan}
       rowSpan={rowSpan}
-      className={cn('flex flex-col', className)}
+      className={cn('bg-card border-border flex flex-col shadow-md', className)}
     >
       {/* Widget Header */}
-      <div className="flex items-center justify-between p-4 pb-2">
-        <div className="flex items-center gap-2">
-          {Icon && <Icon className="text-primary h-4 w-4" />}
-          <h3 className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+      <div className="border-primary/5 bg-primary/5 flex items-center justify-between border-b p-5">
+        <div className="flex items-center gap-3">
+          <div className="bg-primary shadow-primary/20 flex h-7 w-7 items-center justify-center rounded-xl shadow-lg">
+            {Icon && <Icon className="h-4 w-4 text-white" />}
+          </div>
+          <h3 className="text-primary/40 text-[10px] font-black tracking-[0.25em] uppercase">
             {title}
           </h3>
         </div>
@@ -59,9 +61,9 @@ export function HubWidget({
             variant={action.variant || 'ghost'}
             size="sm"
             onClick={action.onClick}
-            className="h-6 gap-1.5 px-2 text-[10px] font-bold tracking-wider uppercase"
+            className="hover:bg-primary/10 hover:text-primary h-8 gap-2 rounded-xl px-4 text-[9px] font-black tracking-[0.15em] uppercase transition-all"
           >
-            {action.icon && <action.icon className="h-3 w-3" />}
+            {action.icon && <action.icon className="h-3.5 w-3.5" />}
             {action.label}
           </Button>
         )}
@@ -71,18 +73,20 @@ export function HubWidget({
       <div
         className={cn(
           'relative min-h-0 flex-1',
-          !noPadding && 'p-4 pt-2',
+          !noPadding && 'p-6',
           contentClassName
         )}
       >
         {loading ? (
-          <div className="bg-background absolute inset-0 flex items-center justify-center">
-            <Loader2 className="text-primary h-6 w-6 animate-spin" />
+          <div className="bg-background/20 absolute inset-0 flex items-center justify-center backdrop-blur-sm">
+            <Loader2 className="text-primary h-8 w-8 animate-spin" />
           </div>
         ) : error ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
-            <AlertCircle className="text-destructive h-6 w-6" />
-            <p className="text-muted-foreground text-xs">{error}</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
+            <div className="bg-destructive/10 rounded-full p-3">
+              <AlertCircle className="text-destructive h-6 w-6" />
+            </div>
+            <p className="text-muted-foreground text-xs font-medium">{error}</p>
           </div>
         ) : (
           children
@@ -91,7 +95,7 @@ export function HubWidget({
 
       {/* Widget Footer */}
       {footer && (
-        <div className="border-border/40 bg-muted/20 border-t p-3 text-xs">
+        <div className="border-primary/5 bg-primary/5 border-t p-4 text-[10px] font-medium tracking-wide">
           {footer}
         </div>
       )}
