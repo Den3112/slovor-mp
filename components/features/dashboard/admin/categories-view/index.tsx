@@ -122,7 +122,7 @@ export function AdminCategoriesView() {
       color: formData.color || null,
     }
 
-    console.log('[FIX] Saving category', payload)
+
 
     try {
       if (editingCategory) {

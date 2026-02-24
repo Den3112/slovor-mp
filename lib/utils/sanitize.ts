@@ -1,23 +1,39 @@
+import filterXSS from 'xss'
+
 /**
- * Lightweight HTML sanitizer for admin-originated CMS content.
- * No external dependencies — works in both Server and Client components.
- *
- * Strips dangerous tags (script, iframe, object, embed, form)
- * and event handler attributes (onclick, onerror, etc.)
+ * Robust HTML sanitizer for admin-originated CMS content.
+ * Uses 'xss' library to prevent XSS attacks while allowing safe formatting.
  */
-
-const DANGEROUS_TAGS =
-  /<\s*\/?\s*(script|iframe|object|embed|form|applet|base|link(?=\s))[^>]*>/gi
-
-const EVENT_HANDLERS = /\s+on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi
-
-const JAVASCRIPT_URLS = /\s+(href|src|action)\s*=\s*["']?\s*javascript\s*:/gi
-
 export function sanitizeHtml(html: string): string {
   if (!html) return ''
 
-  return html
-    .replace(DANGEROUS_TAGS, '')
-    .replace(EVENT_HANDLERS, '')
-    .replace(JAVASCRIPT_URLS, '')
+  return filterXSS(html, {
+    whiteList: {
+      a: ['href', 'title', 'target', 'rel'],
+      b: [],
+      i: [],
+      u: [],
+      strong: [],
+      em: [],
+      p: [],
+      br: [],
+      ul: [],
+      ol: [],
+      li: [],
+      span: ['style', 'class'],
+      div: ['style', 'class'],
+      h1: [],
+      h2: [],
+      h3: [],
+      h4: [],
+      h5: [],
+      h6: [],
+      img: ['src', 'alt', 'width', 'height', 'style', 'class'],
+      blockquote: [],
+      code: [],
+      pre: [],
+    },
+    stripIgnoreTag: true,
+    stripIgnoreTagBody: ['script', 'style', 'iframe', 'object', 'embed', 'form'],
+  })
 }

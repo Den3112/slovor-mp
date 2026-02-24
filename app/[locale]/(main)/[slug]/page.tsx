@@ -6,13 +6,13 @@ import { FileText, Clock } from 'lucide-react'
 import { sanitizeHtml } from '@/lib/utils/sanitize'
 
 interface StaticPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default async function PublicStaticPage({ params }: StaticPageProps) {
-  const { slug } = params
+  const { slug } = await params
 
   // Fetch page from database
   const { data: page, error } = await pagesApi.getBySlug(slug)
@@ -45,7 +45,7 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
               {page.updated_at && (
                 <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm font-bold">
                   <Clock className="h-4 w-4" />
-                  Updated: {new Date(page.updated_at).toLocaleDateString()}
+                  Updated: {new Date(page.updated_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
                 </div>
               )}
             </div>

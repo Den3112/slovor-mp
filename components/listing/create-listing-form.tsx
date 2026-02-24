@@ -23,8 +23,7 @@ import { useAuth } from '@/components/providers/auth-provider'
 function CreateListingFormContent() {
   const { state, actions, flags, t, locale } = useCreateListing()
   const router = useRouter()
-  const { user, isLoading: authLoading } = useAuth()
-  console.log('CreateListingForm: RENDER', { user: !!user, authLoading })
+  useAuth() // Ensure auth context is available
 
   const {
     step,

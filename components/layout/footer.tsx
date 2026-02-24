@@ -29,37 +29,57 @@ export function Footer() {
   const [latestPosts, setLatestPosts] = useState<BlogPost[]>([])
   const [dynamicPages, setDynamicPages] = useState<StaticPage[]>([])
   const [openSection, setOpenSection] = useState<number | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [email, setEmail] = useState('')
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
     if (!email || !email.includes('@')) {
       toast.error(
         t('footer:subscribeError') || 'Please enter a valid email address.'
       )
       return
     }
-    toast.success(
-      t('footer:subscribeSuccess') ||
-      'Successfully subscribed to our newsletter!'
-    )
-    setEmail('')
+
+    setIsSubmitting(true)
+    try {
+      // Simulation of API request
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      toast.success(
+        t('footer:subscribeSuccess') ||
+        'Successfully subscribed to our newsletter!'
+      )
+      setEmail('')
+    } catch (error) {
+      toast.error(t('common:error.generic'))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   useEffect(() => {
     setMounted(true)
-  }, [])
 
-  useEffect(() => {
-    Promise.all([
-      categoriesApi.getAll(),
-      blogApi.listPosts({ limit: 4 }),
-      pagesApi.getAll(),
-    ]).then(([catRes, blogRes, pagesRes]) => {
-      if (catRes.data) setCategories(catRes.data)
-      if (blogRes.data) setLatestPosts(blogRes.data)
-      if (pagesRes.data) setDynamicPages(pagesRes.data)
-    })
+    // Initial data fetch
+    const fetchData = async () => {
+      try {
+        const [catRes, blogRes, pagesRes] = await Promise.all([
+          categoriesApi.getAll(),
+          blogApi.listPosts({ limit: 4 }),
+          pagesApi.getAll(),
+        ])
+
+        if (catRes.data) setCategories(catRes.data)
+        if (blogRes.data) setLatestPosts(blogRes.data)
+        if (pagesRes.data) setDynamicPages(pagesRes.data)
+      } catch (err) {
+        console.error('Footer data fetch failed:', err)
+      }
+    }
+
+    fetchData()
   }, [])
 
   const uniqueCategories = getUniqueCategories(categories, locale, t)
@@ -115,7 +135,7 @@ export function Footer() {
     setOpenSection(openSection === index ? null : index)
   }
 
-  if (!mounted) return null
+  // if (!mounted) return null (Removed to fix CLS)
 
   // Global footer used everywhere
 
@@ -136,9 +156,9 @@ export function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: <Facebook className="w-5 h-5" />, href: '#', label: 'Facebook' },
-                { icon: <Instagram className="w-5 h-5" />, href: '#', label: 'Instagram' },
-                { icon: <Twitter className="w-5 h-5" />, href: '#', label: 'Twitter' },
+                { icon: <Facebook className="w-5 h-5" />, href: 'https://facebook.com/slovor', label: 'Facebook' },
+                { icon: <Instagram className="w-5 h-5" />, href: 'https://instagram.com/slovor', label: 'Instagram' },
+                { icon: <Twitter className="w-5 h-5" />, href: 'https://twitter.com/slovor', label: 'Twitter' },
               ].map((social, i) => (
                 <a
                   key={i}
@@ -239,11 +259,12 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="relative z-10 flex w-full flex-col gap-4 lg:max-w-md lg:flex-row">
+          <form onSubmit={handleSubscribe} className="relative z-10 flex w-full flex-col gap-4 lg:max-w-md lg:flex-row">
             <div className="relative flex-1">
               <Mail className="text-muted-foreground absolute top-1/2 left-5 z-10 h-6 w-6 -translate-y-1/2 transition-colors group-focus-within:text-primary" />
               <Input
                 type="email"
+                required
                 placeholder={t('footer:newsletterPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -251,13 +272,18 @@ export function Footer() {
               />
             </div>
             <Button
-              onClick={handleSubscribe}
+              type="submit"
+              disabled={isSubmitting}
               size="lg"
               className="shadow-primary/20 h-16 w-full shrink-0 rounded-xl px-10 text-lg font-black tracking-widest uppercase transition-all hover:scale-105 active:scale-95 lg:w-auto"
             >
-              {t('footer:subscribe')}
+              {isSubmitting ? (
+                <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              ) : (
+                t('footer:subscribe')
+              )}
             </Button>
-          </div>
+          </form>
         </div>
 
         {/* Bottom Bar */}

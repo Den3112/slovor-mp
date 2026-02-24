@@ -31,9 +31,13 @@ export function HomeView({
     <div className="flex flex-col scroll-smooth">
       <Hero />
 
-      {!categoriesError ? (
-        <CategoriesGrid categories={categories} />
-      ) : categories.length === 0 && !categoriesError ? (
+      {categoriesError ? (
+        <Container className="py-20">
+          <div className="border-destructive/20 bg-destructive/5 text-destructive rounded-2xl border p-12 text-center font-bold">
+            {categoriesError}
+          </div>
+        </Container>
+      ) : categories.length === 0 ? (
         <Container className="py-20">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {[...Array(10)].map((_, i) => (
@@ -42,11 +46,7 @@ export function HomeView({
           </div>
         </Container>
       ) : (
-        <Container className="py-20">
-          <div className="border-destructive/20 bg-destructive/5 text-destructive rounded-2xl border p-12 text-center font-bold">
-            {categoriesError}
-          </div>
-        </Container>
+        <CategoriesGrid categories={categories} />
       )}
 
       <RegionsSection />

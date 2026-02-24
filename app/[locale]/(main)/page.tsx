@@ -21,7 +21,7 @@ export async function generateMetadata({
   const titles: Record<string, string> = {
     en: 'Slovor - Premium Marketplace in Slovakia',
     sk: 'Slovor - Prémiový bazár na Slovensku',
-    cs: 'Slovor - Premiový bazar на Slovensku', // Standardizing typo fixed later? No, stick to original if possible or fix it.
+    cs: 'Slovor - Premiový bazar na Slovensku',
     ru: 'Slovor - Премиум маркетплейс в Словакии',
   }
 

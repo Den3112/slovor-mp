@@ -33,10 +33,7 @@ export function LanguageSelector() {
     <div className="relative">
       <button
         onClick={() => setShowLangMenu(!showLangMenu)}
-        onBlur={() => {
-          // Controlled close without race condition
-          setTimeout(() => setShowLangMenu(false), 200)
-        }}
+        onBlur={() => setShowLangMenu(false)}
         aria-label={t('common:aria.selectLanguage')}
         aria-expanded={showLangMenu}
         className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-xl border px-3 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"
@@ -65,7 +62,11 @@ export function LanguageSelector() {
             {SUPPORTED_LOCALES.map((lang) => (
               <button
                 key={lang.code}
-                onClick={() => setLocale(lang.code)}
+                onMouseDown={(e) => {
+                  e.preventDefault() // Prevent onBlur from closing menu before click
+                  setLocale(lang.code)
+                  setShowLangMenu(false)
+                }}
                 className={cn(
                   'flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition-all',
                   locale === lang.code
