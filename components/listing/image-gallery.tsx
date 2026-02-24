@@ -101,7 +101,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="group bg-muted relative aspect-4/3 w-full overflow-hidden"
+        className="bg-card group relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-border shadow-md"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -115,9 +115,8 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           src={validImages[currentIndex] || '/images/placeholder.jpg'}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
-          className={`object-cover transition-opacity duration-300 ${
-            loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
-          }`}
+          className={`object-cover transition-all duration-700 group-hover:scale-105 ${loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
+            }`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
           priority={currentIndex === 0}
           onError={() => {
@@ -135,7 +134,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
               variant="ghost"
               size="icon"
               onClick={goToPrevious}
-              className="absolute top-1/2 left-4 z-20 h-10 w-10 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
+              className="absolute top-1/2 left-4 z-20 h-12 w-12 -translate-y-1/2 rounded-xl border border-white/20 bg-black/40 p-2 text-white opacity-0 transition-all group-hover:opacity-100 hover:bg-black/60 hover:text-white md:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
@@ -144,7 +143,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
               variant="ghost"
               size="icon"
               onClick={goToNext}
-              className="absolute top-1/2 right-4 z-20 h-10 w-10 -translate-y-1/2 rounded-xl bg-black/50 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70 hover:text-white md:opacity-100"
+              className="absolute top-1/2 right-4 z-20 h-12 w-12 -translate-y-1/2 rounded-xl border border-white/20 bg-black/40 p-2 text-white opacity-0 transition-all group-hover:opacity-100 hover:bg-black/60 hover:text-white md:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />
@@ -154,7 +153,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 
         {/* Image Counter */}
         {validImages.length > 1 && (
-          <div className="absolute right-4 bottom-4 z-20 rounded-xl bg-black/70 px-2 py-1 text-xs font-medium text-white">
+          <div className="absolute right-4 bottom-4 z-20 rounded-xl bg-black/60 px-3 py-1.5 text-[10px] font-black tracking-widest text-white uppercase">
             {currentIndex + 1} / {validImages.length}
           </div>
         )}
@@ -173,11 +172,10 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 p-0 transition-all hover:bg-transparent ${
-                  index === currentIndex
-                    ? 'border-primary ring-primary/10 opacity-100 ring-2 ring-offset-1'
-                    : 'hover:border-border border-transparent opacity-70 hover:opacity-100'
-                }`}
+                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 p-0 transition-all hover:bg-transparent ${index === currentIndex
+                  ? 'border-primary ring-primary/20 opacity-100 ring-4 ring-offset-2'
+                  : 'hover:border-primary/50 border-transparent opacity-60 hover:opacity-100'
+                  }`}
                 aria-label={`View image ${index + 1}`}
               >
                 {loadingImages.has(index) && (

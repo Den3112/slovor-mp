@@ -118,29 +118,54 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
   }
 
   return (
-    <div className="space-y-8">
-      <CategorySelect
-        categories={categories}
-        value={category}
-        onChange={setCategory}
-        locale={locale}
-      />
+    <div className="bg-card space-y-10 rounded-2xl border border-border p-8 shadow-card">
+      <div className="space-y-2">
+        <h3 className="text-foreground text-xs font-black tracking-[0.2em] uppercase opacity-70">
+          {t('filters:category')}
+        </h3>
+        <CategorySelect
+          categories={categories}
+          value={category}
+          onChange={setCategory}
+          locale={locale}
+        />
+      </div>
 
       <div className="bg-border/40 h-px w-full" />
 
-      <div className="space-y-6">
-        <LocationSelect value={location} onChange={setLocation} />
+      <div className="space-y-10">
+        <div className="space-y-2">
+          <h3 className="text-foreground text-xs font-black tracking-[0.2em] uppercase opacity-70">
+            {t('filters:location')}
+          </h3>
+          <LocationSelect value={location} onChange={setLocation} />
+        </div>
 
-        <PriceRange
-          min={priceMin}
-          max={priceMax}
-          onMinChange={setPriceMin}
-          onMaxChange={setPriceMax}
-        />
+        <div className="space-y-2">
+          <h3 className="text-foreground text-xs font-black tracking-[0.2em] uppercase opacity-70">
+            {t('filters:priceRange')}
+          </h3>
+          <PriceRange
+            min={priceMin}
+            max={priceMax}
+            onMinChange={setPriceMin}
+            onMaxChange={setPriceMax}
+          />
+        </div>
 
-        <ConditionToggle value={condition} onChange={setCondition} />
+        <div className="space-y-2">
+          <h3 className="text-foreground text-xs font-black tracking-[0.2em] uppercase opacity-70">
+            {t('filters:condition')}
+          </h3>
+          <ConditionToggle value={condition} onChange={setCondition} />
+        </div>
 
-        <SortSelect value={sort} onChange={setSort} options={sortOptions} />
+        <div className="space-y-2">
+          <h3 className="text-foreground text-xs font-black tracking-[0.2em] uppercase opacity-70">
+            {t('filters:sortBy')}
+          </h3>
+          <SortSelect value={sort} onChange={setSort} options={sortOptions} />
+        </div>
 
         <DynamicAttributes
           category={category}
@@ -150,11 +175,12 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
         />
       </div>
 
-      <div className="flex flex-col gap-2 pt-4">
+      <div className="flex flex-col gap-4 pt-6">
         <Button
           onClick={applyFilters}
           disabled={isPending}
-          className="shadow-primary/20 h-11 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase shadow-lg"
+          size="lg"
+          className="h-14 w-full rounded-xl text-[11px] font-black tracking-widest uppercase shadow-md transition-all hover:scale-105 active:scale-95"
         >
           {isPending ? t('common:loading') : t('filters:apply')}
         </Button>
@@ -162,7 +188,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
           variant="ghost"
           onClick={resetFilters}
           disabled={isPending}
-          className="hover:bg-destructive/5 hover:text-destructive h-10 w-full rounded-xl text-[10px] font-bold tracking-widest uppercase transition-colors"
+          className="hover:bg-destructive/5 hover:text-destructive h-12 w-full rounded-xl text-[11px] font-black tracking-widest uppercase transition-colors"
         >
           {t('common:reset')}
         </Button>

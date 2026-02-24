@@ -52,13 +52,13 @@ export function ListingsTable({
     <div className="space-y-6">
       <motion.div
         variants={item}
-        className="border-border/60 bg-card overflow-hidden rounded-xl border shadow-sm"
+        className="overflow-hidden"
       >
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/20 hover:bg-muted/20 border-border/40 border-b">
-                <TableHead className="h-10 w-12 px-4 text-center">
+              <TableRow className="border-primary/5 hover:bg-transparent">
+                <TableHead className="w-12 px-6 py-5 text-center">
                   <div className="flex items-center justify-center">
                     <Checkbox
                       checked={
@@ -66,29 +66,26 @@ export function ListingsTable({
                         listings.length > 0
                       }
                       onCheckedChange={onToggleSelectAll}
-                      className="border-border/60 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                      className="border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground h-5 w-5 rounded-md transition-all duration-300"
                     />
                   </div>
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-primary/40 h-auto px-6 py-5 text-[10px] font-black tracking-[0.25em] uppercase">
                   {t('common:title')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-primary/40 h-auto px-6 py-5 text-[10px] font-black tracking-[0.25em] uppercase">
                   {t('createListing:price')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-primary/40 h-auto px-6 py-5 text-[10px] font-black tracking-[0.25em] uppercase">
                   {t('dashboard:status')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <TableHead className="text-primary/40 h-auto px-6 py-5 text-[10px] font-black tracking-[0.25em] uppercase">
                   {t('dashboard:stats')}
                 </TableHead>
-                <TableHead className="text-muted-foreground/50 h-10 px-6 text-[10px] font-bold tracking-[0.2em] uppercase">
-                  {t('common:date')}
-                </TableHead>
-                <TableHead className="h-10 px-6 text-right"></TableHead>
+                <TableHead className="h-auto px-6 py-5 text-right"></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="border-primary/5 border-t">
               {paginatedListings.length > 0 ? (
                 paginatedListings.map((listing) => (
                   <ListingsRow
@@ -100,7 +97,7 @@ export function ListingsTable({
                   />
                 ))
               ) : (
-                <TableRow>
+                <TableRow className="hover:bg-transparent">
                   <TableCell colSpan={7} className="p-0">
                     <ListingsEmpty />
                   </TableCell>

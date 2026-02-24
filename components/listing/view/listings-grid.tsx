@@ -38,32 +38,34 @@ export function ListingsGrid({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="border-border bg-card flex flex-col items-center justify-center rounded-2xl border p-8 py-32 text-center shadow-sm"
+            className="card-pro border-border/40 relative flex flex-col items-center justify-center p-8 py-32 text-center shadow-lg"
           >
-            <div className="bg-primary/5 ring-primary/10 flex h-20 w-20 items-center justify-center rounded-2xl ring-1">
-              <PackageSearch className="text-primary/60 h-10 w-10" />
+            <div className="bg-primary/5 shadow-primary/10 flex h-24 w-24 items-center justify-center rounded-[2rem] shadow-xl backdrop-blur-md">
+              <PackageSearch className="text-primary h-12 w-12 opacity-40" />
             </div>
-            <h3 className="font-heading text-foreground mt-6 mb-2 text-2xl font-bold">
+            <h3 className="font-heading text-foreground mt-8 mb-3 text-3xl font-black tracking-tight uppercase">
               {t('common:noResults')}
             </h3>
-            <p className="text-muted-foreground max-w-xs text-center font-medium">
+            <p className="text-muted-foreground max-w-xs text-center text-lg font-medium opacity-60">
               {t('common:tryDifferentFilters')}
             </p>
           </motion.div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+              className="grid grid-cols-2 gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4"
             >
               {listings.map((listing, idx) => (
                 <motion.div
                   key={listing.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    delay: Math.min(idx % ITEMS_PER_PAGE, 10) * 0.05,
+                    duration: 0.8,
+                    delay: Math.min(idx % ITEMS_PER_PAGE, 10) * 0.1,
+                    ease: [0.16, 1, 0.3, 1],
                   }}
                 >
                   <ListingCard listing={listing} />
@@ -72,10 +74,10 @@ export function ListingsGrid({
             </motion.div>
 
             {/* Infinite Scroll Loader & Sentinel */}
-            <div ref={observerTarget} className="flex justify-center py-8">
+            <div ref={observerTarget} className="flex justify-center py-12">
               {loading && (
-                <div className="bg-card text-muted-foreground border-border flex items-center gap-2 rounded-xl border px-4 py-2 text-xs font-bold tracking-widest uppercase shadow-sm">
-                  <Loader2 className="h-3 w-3 animate-spin" />
+                <div className="glass-panel text-primary border-primary/20 flex items-center gap-3 rounded-full border bg-white/50 px-6 py-3 text-[10px] font-black tracking-[0.2em] uppercase shadow-lg backdrop-blur-md">
+                  <Loader2 className="h-4 w-4 animate-spin" />
                   {t('common:loading') || 'Loading more...'}
                 </div>
               )}
@@ -83,13 +85,17 @@ export function ListingsGrid({
 
             {/* All loaded indicator */}
             {!hasMore && listings.length > ITEMS_PER_PAGE && (
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-muted-foreground text-center text-sm"
+                className="flex items-center justify-center gap-4 py-8"
               >
-                {t('common:allLoaded') || 'All listings loaded'} ✓
-              </motion.p>
+                <div className="bg-border/40 h-px w-12" />
+                <p className="text-muted-foreground text-[10px] font-black tracking-[0.3em] uppercase opacity-40">
+                  {t('common:allLoaded') || 'All listings loaded'}
+                </p>
+                <div className="bg-border/40 h-px w-12" />
+              </motion.div>
             )}
           </div>
         )}

@@ -12,36 +12,35 @@ export function HomeCTA() {
 
   return (
     <section className="relative overflow-hidden py-32">
-      {/* Background patterns */}
-      <div className="bg-muted/20 absolute inset-0" />
-      <div className="bg-border/40 absolute top-0 left-0 h-px w-full" />
-      <div className="bg-border/40 absolute bottom-0 left-0 h-px w-full" />
+      {/* Background patterns - Premium Mesh */}
+      <div className="bg-mesh absolute inset-0 opacity-40" />
+      <div className="bg-linear-to-b from-transparent via-background/50 to-background absolute inset-0" />
 
       <Container>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: 'circOut' }}
-          className="relative overflow-hidden rounded-2xl border border-white/5 bg-slate-950 px-6 py-20 text-center text-white md:px-16 md:py-32"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="bg-card relative overflow-hidden rounded-2xl border border-border px-6 py-24 text-center text-white md:px-16 md:py-32 shadow-card transition-all duration-700 hover:border-primary/30"
         >
-          {/* Animated decorative elements */}
-          <div className="bg-primary/10 absolute -top-24 -right-24 h-64 w-64 rounded-full blur-[100px]" />
-          <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/10 blur-[100px]" />
+          {/* Animated decorative elements - Deep Glows */}
+          <div className="bg-primary/10 absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full blur-[120px] animate-pulse" />
+          <div className="bg-indigo-500/5 absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full blur-[120px]" />
 
-          <div className="absolute inset-0 bg-white/2" />
+          <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none" />
 
-          <div className="relative z-10 mx-auto max-w-4xl space-y-8">
+          <div className="relative z-10 mx-auto max-w-4xl space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <span className="badge-pill bg-primary/10 border-primary/20 text-primary mb-6">
+              <span className="badge-pill bg-white/5 border-white/10 text-primary-foreground mb-8">
                 {t('common:getStarted')}
               </span>
-              <h2 className="font-heading text-4xl leading-[1.1] font-bold tracking-tight uppercase md:text-7xl">
+              <h2 className="font-heading text-5xl leading-[1.05] font-black tracking-tight uppercase md:text-8xl">
                 {t('ctaTitle')}
               </h2>
             </motion.div>
@@ -51,7 +50,7 @@ export function HomeCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="mx-auto max-w-2xl text-lg leading-relaxed font-medium text-slate-400 md:text-xl"
+              className="mx-auto max-w-2xl text-xl leading-relaxed font-medium text-slate-400 md:text-2xl"
             >
               {t('ctaSubtitle')}
             </motion.p>
@@ -61,15 +60,16 @@ export function HomeCTA() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="pt-4"
+              className="pt-6"
             >
               <Button
                 asChild
-                size="lg"
-                className="shadow-primary/20 bg-primary hover:bg-primary/90 h-16 rounded-xl border-0 px-12 text-lg font-bold tracking-widest uppercase shadow-xl transition-all hover:scale-105 active:scale-95"
+                variant="default"
+                size="xl"
+                className="shadow-primary/20 h-20 rounded-xl px-16 text-xl font-black tracking-widest uppercase transition-all hover:scale-105 active:scale-95"
               >
                 <Link href={`/${locale}/post`}>
-                  <Plus className="mr-3 h-6 w-6" />
+                  <Plus className="mr-4 h-8 w-8" />
                   {t('common:postAd')}
                 </Link>
               </Button>

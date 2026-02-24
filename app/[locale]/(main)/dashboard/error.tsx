@@ -22,8 +22,8 @@ export default function DashboardError({
 
   return (
     <Container className="flex min-h-[50vh] flex-col items-center justify-center p-4">
-      <div className="bg-destructive/10 relative mb-6 flex h-24 w-24 items-center justify-center rounded-3xl">
-        <div className="bg-destructive/20 absolute inset-0 animate-ping rounded-3xl" />
+      <div className="bg-destructive/10 relative mb-6 flex h-24 w-24 items-center justify-center rounded-2xl">
+        <div className="bg-destructive/20 absolute inset-0 animate-ping rounded-2xl" />
         <AlertCircle className="text-destructive relative z-10 h-12 w-12" />
       </div>
 

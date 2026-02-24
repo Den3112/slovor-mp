@@ -65,13 +65,13 @@ export function StepDetails({
           id={titleId}
           value={formData.title}
           onChange={(e) => updateField('title', e.target.value)}
-          className="h-16 px-6 text-xl font-bold"
+          className="h-16 rounded-2xl border-primary/10 px-6 text-xl font-black tracking-tight shadow-sm transition-all focus:ring-4 focus:ring-primary/20"
           placeholder={t('titlePlaceholder')}
           aria-invalid={!!fieldErrors.title}
         />
       </FormField>
 
-      <div className="flex flex-col gap-6 md:flex-row">
+      <div className="flex flex-col gap-8 md:flex-row">
         <FormField
           label={t('price')}
           error={fieldErrors.price}
@@ -79,7 +79,7 @@ export function StepDetails({
           inputId={priceId}
         >
           <div className="relative">
-            <span className="text-muted-foreground absolute top-1/2 left-6 -translate-y-1/2 text-xl font-bold">
+            <span className="text-primary/40 absolute top-1/2 left-6 -translate-y-1/2 text-2xl font-black">
               €
             </span>
             <Input
@@ -87,18 +87,18 @@ export function StepDetails({
               type="number"
               value={formData.price}
               onChange={(e) => updateField('price', e.target.value)}
-              className="h-16 pr-6 pl-12 text-2xl font-bold tracking-tight"
+              className="h-16 rounded-2xl border-primary/10 pr-6 pl-12 text-2xl font-black tracking-tight shadow-sm transition-all focus:ring-4 focus:ring-primary/20"
               placeholder="0"
               aria-invalid={!!fieldErrors.price}
             />
           </div>
         </FormField>
 
-        <div className="pointer-events-none w-full space-y-2.5 opacity-50 grayscale md:w-32">
-          <label className="text-muted-foreground/80 ml-1 text-[10px] font-bold tracking-[0.2em] uppercase">
+        <div className="w-full space-y-2.5 opacity-50 md:w-32">
+          <label className="text-primary/60 ml-1 text-[10px] font-black tracking-[0.3em] uppercase">
             {t('currency')}
           </label>
-          <div className="text-muted-foreground border-border bg-muted/50 flex h-16 items-center justify-center rounded-xl border font-bold">
+          <div className="glass-panel border-primary/5 flex h-16 items-center justify-center rounded-2xl border bg-primary/2 font-black tracking-widest uppercase">
             EUR
           </div>
         </div>
@@ -113,7 +113,7 @@ export function StepDetails({
           id={descriptionId}
           value={formData.description}
           onChange={(e) => updateField('description', e.target.value)}
-          className="h-48 resize-none p-6 text-lg leading-relaxed"
+          className="min-h-48 resize-none rounded-2xl border-primary/10 p-6 text-lg leading-relaxed font-bold shadow-sm transition-all focus:ring-4 focus:ring-primary/20"
           placeholder={t('descPlaceholder')}
           aria-invalid={!!fieldErrors.description}
         />
@@ -130,16 +130,20 @@ export function StepDetails({
           onChange={(value) => updateField('location', value)}
           error={fieldErrors.location}
           placeholder={t('locationPlaceholder')}
+          className="h-16 rounded-2xl font-black tracking-tight"
         />
       </FormField>
 
       {/* Dynamic Category Attributes */}
       {categoryAttributes && categoryAttributes.length > 0 && (
-        <div className="animate-in fade-in slide-in-from-bottom-4 border-primary/10 bg-primary/3 space-y-6 rounded-2xl border p-6 duration-700">
-          <h3 className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase">
-            {t('additionalDetails') || 'Additional Details'}
-          </h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="animate-in fade-in slide-in-from-bottom-8 glass-panel border-primary/10 bg-primary/2 space-y-8 rounded-[2.5rem] p-8 shadow-2xl shadow-primary/5 duration-700">
+          <div className="space-y-1">
+            <h3 className="text-primary text-[10px] font-black tracking-[0.3em] uppercase">
+              {t('additionalDetails') || 'Additional Details'}
+            </h3>
+            <div className="bg-linear-to-r from-primary to-primary/0 h-1 w-12 rounded-full" />
+          </div>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {categoryAttributes.map((attr) => (
               <FormField
                 key={attr.id}
@@ -161,14 +165,18 @@ export function StepDetails({
                   >
                     <SelectTrigger
                       id={`attr-${attr.id}`}
-                      className="bg-card h-14 px-6 font-bold"
+                      className="h-14 rounded-2xl border-primary/10 bg-background px-6 font-black tracking-tight shadow-sm transition-all focus:ring-4 focus:ring-primary/20"
                     >
                       <SelectValue placeholder={t('common:select')} />
                     </SelectTrigger>
 
-                    <SelectContent>
+                    <SelectContent className="rounded-2xl">
                       {attr.options?.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>
+                        <SelectItem
+                          key={opt.value}
+                          value={opt.value}
+                          className="rounded-xl font-bold"
+                        >
                           {opt.label[locale] || opt.label['en']}
                         </SelectItem>
                       ))}
@@ -193,11 +201,11 @@ export function StepDetails({
                           [attr.id]: e.target.value,
                         })
                       }
-                      className="h-14 px-6 font-bold"
+                      className="h-14 rounded-2xl border-primary/10 px-6 font-black tracking-tight shadow-sm transition-all focus:ring-4 focus:ring-primary/20"
                       placeholder={attr.unit ? `0 ${attr.unit}` : ''}
                     />
                     {attr.unit && (
-                      <span className="text-muted-foreground/40 absolute top-1/2 right-6 -translate-y-1/2 text-xs font-bold uppercase">
+                      <span className="text-primary/40 absolute top-1/2 right-6 -translate-y-1/2 text-[10px] font-black tracking-widest uppercase">
                         {attr.unit}
                       </span>
                     )}

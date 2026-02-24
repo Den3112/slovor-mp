@@ -30,7 +30,7 @@ function getLocale(request: NextRequest): string {
   }
 }
 
-export async function proxy(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // 1. Check if pathname is missing locale
@@ -94,8 +94,6 @@ export async function proxy(request: NextRequest) {
 
   // 5. Basic In-Memory Rate Limiting for API routes
   if (pathname.startsWith('/api/')) {
-    // Rate limiting would go here. For Edge Middleware, we rely on basic rate limiting
-    // using cookies or headers, or an external KV like Upstash. We add a placeholder header.
     response.headers.set('X-RateLimit-Limit', '100')
   }
 
@@ -111,6 +109,7 @@ export const config = {
      * - favicon.ico (favicon file)
      * - images (public images)
      * - api (API routes)
+     * - files with extensions (svg, png, jpg, etc)
      */
     '/((?!_next/static|_next/image|favicon.ico|api|images|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],

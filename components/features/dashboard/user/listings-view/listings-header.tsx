@@ -21,22 +21,28 @@ export function ListingsHeader({ count }: ListingsHeaderProps) {
   return (
     <motion.div
       variants={item}
-      className="flex flex-col justify-between gap-4 md:flex-row md:items-end"
+      className="flex flex-col justify-between gap-6 md:flex-row md:items-end"
     >
-      <div>
-        <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
+      <div className="space-y-1">
+        <h1 className="text-foreground text-4xl font-black tracking-tighter uppercase">
           {t('dashboard:myListings')}
         </h1>
-        <p className="text-muted-foreground mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
-          {t('dashboard:manageListings')} •{' '}
-          <span className="text-primary">
+        <div className="flex items-center gap-2">
+          <p className="text-primary/40 text-[10px] font-black tracking-[0.25em] uppercase">
+            {t('dashboard:manageListings')}
+          </p>
+          <div className="bg-primary/10 h-1 w-1 rounded-full" />
+          <p className="text-primary text-[10px] font-black tracking-[0.25em] uppercase">
             {t('common:listings', { count })}
-          </span>
-        </p>
+          </p>
+        </div>
       </div>
-      <Button asChild className="shadow-primary/20 shadow-lg">
+      <Button
+        asChild
+        className="shadow-primary/20 hover:bg-primary/90 h-12 rounded-2xl px-6 font-black tracking-widest uppercase shadow-xl transition-all active:scale-95"
+      >
         <Link href={`/${locale}/post`}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 h-4.5 w-4.5 stroke-3" />
           {t('createListing:publish')}
         </Link>
       </Button>
