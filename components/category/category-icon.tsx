@@ -58,7 +58,7 @@ export function CategoryIcon({
     xl: {
       container: 'h-24 w-24',
       icon: 'h-12 w-12',
-      rounded: 'rounded-3xl',
+      rounded: 'rounded-2xl',
       pad: 'p-6',
     },
   }

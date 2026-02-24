@@ -29,7 +29,7 @@ export function FormField({
       <div className="flex items-center justify-between px-1">
         <Label
           htmlFor={inputId}
-          className="text-muted-foreground/80 text-[10px] font-bold tracking-[0.2em] uppercase"
+          className="text-primary/60 text-[10px] font-black tracking-[0.3em] uppercase"
         >
           {label}
           {required && <span className="text-primary ml-1">*</span>}
@@ -40,7 +40,7 @@ export function FormField({
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="text-destructive text-[10px] font-bold tracking-wider uppercase"
+              className="text-destructive text-[10px] font-black tracking-widest uppercase"
             >
               {error}
             </motion.span>

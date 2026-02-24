@@ -46,6 +46,10 @@ interface UnifiedSidebarProps {
 
 // --- Component ---
 
+import { motion } from 'framer-motion'
+
+// ... (types remains same)
+
 export function UnifiedSidebar({
   config,
   className,
@@ -63,14 +67,9 @@ export function UnifiedSidebar({
 
   const isActiveLink = (href: string) => {
     const cleanPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/')
-
-    // Exact match for main dashboard/admin entry points
     if (href === '/dashboard' || href === '/admin') {
       return cleanPathname === href || cleanPathname === href + '/'
     }
-
-    // For sub-pages, ensure we don't match partial paths like /admin/users with /admin
-    // unless they are explicitly meant to be sub-items
     return cleanPathname === href || cleanPathname.startsWith(href + '/')
   }
 
@@ -85,8 +84,8 @@ export function UnifiedSidebar({
     return (
       <div
         className={cn(
-          'bg-card border-border border-r',
-          isCollapsed ? 'w-20' : 'w-64'
+          'bg-card border-r border-border',
+          isCollapsed ? 'w-20' : 'w-72'
         )}
       />
     )
@@ -94,8 +93,8 @@ export function UnifiedSidebar({
   return (
     <div
       className={cn(
-        'bg-card border-border flex h-full flex-col border-r transition-all duration-300',
-        isCollapsed ? 'w-20' : 'w-64',
+        'bg-card flex h-full flex-col border-r border-border transition-all duration-500 ease-out-expo',
+        isCollapsed ? 'w-20' : 'w-72',
         !isMobile && 'h-full',
         className
       )}
@@ -104,10 +103,10 @@ export function UnifiedSidebar({
       {/* Header / Logo Area */}
       <div
         className={cn(
-          'flex items-center px-6 transition-all',
+          'flex items-center px-8 transition-all',
           !hideLogo &&
-            'border-border h-(--header-height) justify-between border-b',
-          hideLogo && 'h-10 justify-end',
+          'h-(--header-height) justify-between border-b border-border',
+          hideLogo && 'h-16 justify-end',
           isCollapsed && 'justify-center px-0'
         )}
       >
@@ -119,36 +118,36 @@ export function UnifiedSidebar({
             variant="ghost"
             size="icon"
             onClick={onToggleCollapse}
-            className="text-muted-foreground/60 hover:text-primary hover:bg-primary/5 h-8 w-8 transition-all"
+            className="text-primary/40 hover:text-primary hover:bg-primary/5 h-9 w-9 rounded-xl transition-all active:scale-90"
           >
             {isCollapsed ? (
-              <ChevronRight size={16} />
+              <ChevronRight size={18} />
             ) : (
-              <ChevronLeft size={16} />
+              <ChevronLeft size={18} />
             )}
           </Button>
         )}
       </div>
 
       {/* Scrollable Nav Area */}
-      <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto px-4 py-6">
-        <nav className="space-y-6">
+      <div className="scrollbar-hide flex-1 overflow-y-auto px-4 py-8">
+        <nav className="space-y-10">
           {config.sections.map((section, sectionIdx) => (
-            <div key={section.title || sectionIdx} className="space-y-1">
+            <div key={section.title || sectionIdx} className="space-y-4">
               {section.title && !isCollapsed && (
-                <h3 className="text-muted-foreground/50 mb-3 px-4 pt-4 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <h3 className="text-primary/40 px-5 text-[10px] font-black tracking-[0.3em] uppercase">
                   {section.title}
                 </h3>
               )}
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 {section.items.map((link) => {
                   const Icon = link.icon
                   const active = isActiveLink(link.href)
                   const localePrefix = `/${locale}`
                   const localizedHref =
                     link.href.startsWith('http') ||
-                    link.external ||
-                    link.href.startsWith(localePrefix)
+                      link.external ||
+                      link.href.startsWith(localePrefix)
                       ? link.href
                       : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 
@@ -158,23 +157,35 @@ export function UnifiedSidebar({
                       href={localizedHref}
                       onClick={onNavigate}
                       className={cn(
-                        'group relative flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-[11px] font-bold tracking-widest uppercase transition-all',
+                        'group relative flex h-12 items-center gap-3 overflow-hidden rounded-xl px-5 transition-all duration-300',
                         active
-                          ? 'bg-primary/10 text-primary shadow-primary/20 shadow-sm'
-                          : 'text-muted-foreground hover:bg-accent hover:text-foreground',
+                          ? 'text-white'
+                          : 'text-muted-foreground hover:bg-primary/5 hover:text-primary',
                         isCollapsed && 'justify-center px-0'
                       )}
                       title={isCollapsed ? link.label : undefined}
                     >
+                      {active && (
+                        <motion.div
+                          layoutId="sidebar-active"
+                          className="bg-primary absolute inset-0 z-0 shadow-sm"
+                          transition={{
+                            type: 'spring',
+                            stiffness: 300,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+
                       <Icon
                         className={cn(
-                          'h-4 w-4 shrink-0 transition-transform group-hover:scale-110',
+                          'relative z-10 h-4 w-4 shrink-0 transition-transform duration-500 group-hover:scale-110',
                           isCollapsed ? 'mx-auto' : ''
                         )}
                       />
 
                       {!isCollapsed && (
-                        <span className="flex-1 leading-tight whitespace-normal">
+                        <span className="relative z-10 flex-1 text-[11px] font-black tracking-widest leading-tight whitespace-normal uppercase">
                           {link.label}
                         </span>
                       )}
@@ -185,19 +196,15 @@ export function UnifiedSidebar({
                         !isCollapsed && (
                           <span
                             className={cn(
-                              'ml-auto rounded-sm border px-2 py-0.5 text-[9px] font-bold transition-colors',
+                              'relative z-10 ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-xl border px-1.5 text-[10px] font-black transition-colors',
                               active
-                                ? 'border-white/30 bg-white/20 text-white'
+                                ? 'border-white/20 bg-white/20 text-white'
                                 : 'bg-primary/5 text-primary border-primary/10'
                             )}
                           >
                             {link.badgeCount}
                           </span>
                         )}
-
-                      {active && !isCollapsed && (
-                        <div className="bg-primary absolute top-1/2 left-0 h-5 w-1 -translate-y-1/2 rounded-full" />
-                      )}
                     </Link>
                   )
                 })}
@@ -208,20 +215,20 @@ export function UnifiedSidebar({
       </div>
 
       {/* Sign Out Section */}
-      <div className="border-border/40 border-t p-3 pb-8 sm:pb-3">
+      <div className="border-primary/5 border-t p-4 pb-10 sm:pb-6">
         <Button
           variant="ghost"
           onClick={handleSignOut}
           className={cn(
-            'group hover:bg-destructive/5 hover:text-destructive flex h-auto w-full items-center justify-start gap-3 rounded-xl px-3 py-2',
+            'group hover:bg-destructive/10 hover:text-destructive h-14 w-full items-center justify-start gap-3 rounded-xl px-4 transition-all active:scale-95',
             isCollapsed && 'justify-center px-2'
           )}
         >
-          <div className="bg-muted/50 group-hover:bg-destructive/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-colors">
+          <div className="bg-primary/5 group-hover:bg-destructive/20 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors">
             <LogOut className="h-4 w-4" />
           </div>
           {!isCollapsed && (
-            <span className="text-muted-foreground group-hover:text-destructive text-[10px] font-bold tracking-widest uppercase transition-colors">
+            <span className="text-primary/60 group-hover:text-destructive text-[10px] font-black tracking-[0.2em] uppercase transition-colors">
               {config.signOutLabel}
             </span>
           )}

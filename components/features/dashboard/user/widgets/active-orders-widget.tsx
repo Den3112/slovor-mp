@@ -47,36 +47,38 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
       colSpan={4}
       rowSpan={2}
       noPadding
+      className="overflow-hidden border-border bg-card shadow-md"
       action={{
         label: t('common:viewAll'),
         icon: ArrowRight,
         onClick: () => router.push(`/${locale}/dashboard/orders`),
       }}
     >
-      <div className="divide-border/40 divide-y">
+      <div className="divide-primary/5 divide-y">
         {orders.slice(0, 3).map((order) => (
           <div
             key={order.id}
-            className="hover:bg-muted/5 group flex items-center justify-between p-4 transition-colors"
+            className="hover:bg-primary/5 group flex items-center justify-between p-5 transition-all duration-500"
           >
-            <div className="flex items-center gap-3">
-              <div className="bg-muted/10 border-border/20 rounded-xl border p-2">
+            <div className="flex items-center gap-4">
+              <div className="bg-primary/5 border-primary/5 shadow-inner flex h-8 w-8 items-center justify-center rounded-xl
+ border transition-transform duration-500 group-hover:scale-110">
                 {getStatusIcon(order.status)}
               </div>
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 <Link
                   href={`/${locale}/dashboard/orders/${order.id}`}
-                  className="text-foreground hover:text-primary block max-w-[150px] truncate text-sm font-bold transition-colors"
+                  className="text-foreground hover:text-primary block max-w-[150px] truncate text-[13px] font-black tracking-tight transition-colors"
                 >
                   {order.title}
                 </Link>
                 <div className="flex items-center gap-2">
-                  <span className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
+                  <span className="text-primary/40 text-[9px] font-black tracking-widest uppercase">
                     {order.date}
                   </span>
                   <Badge
                     variant="outline"
-                    className="border-border/40 h-4 px-1 py-0 text-[9px] uppercase"
+                    className="border-primary/10 bg-primary/5 h-4.5 px-1.5 py-0 text-[8px] font-black uppercase tracking-widest"
                   >
                     {t(`dashboard:orderStatuses.${order.status}`)}
                   </Badge>
@@ -84,10 +86,10 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
               </div>
             </div>
             <div className="text-right">
-              <span className="font-heading block text-sm font-bold">
+              <span className="font-heading block text-[13px] font-black tracking-tight text-foreground">
                 {order.price}
               </span>
-              <span className="text-muted-foreground text-[9px] tracking-widest uppercase">
+              <span className="text-primary/30 text-[9px] font-black tracking-widest uppercase">
                 #{order.id.slice(0, 6)}
               </span>
             </div>
@@ -95,9 +97,11 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
         ))}
 
         {orders.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <ShoppingBag className="text-muted-foreground/20 mb-3 h-8 w-8" />
-            <p className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="bg-primary/5 mb-4 rounded-full p-4">
+              <ShoppingBag className="text-primary/20 h-8 w-8" />
+            </div>
+            <p className="text-primary/40 text-[10px] font-black tracking-[0.2em] uppercase">
               {t('dashboard:noOrders')}
             </p>
           </div>

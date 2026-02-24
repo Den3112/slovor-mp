@@ -7,9 +7,9 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
   output: 'standalone',
 
-  // Ignore TypeScript errors during build (they're checked in CI separately)
+  // TypeScript errors are checked in CI
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 
   // Experimental features for performance
@@ -129,16 +129,6 @@ const nextConfig: NextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Content-Security-Policy',
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://*.supabase.co https://images.unsplash.com https://picsum.photos https://loremflickr.com https://api.dicebear.com https://res.cloudinary.com; font-src 'self' data:; connect-src 'self' https://*.supabase.co https://open.er-api.com https://vitals.vercel-insights.com; frame-ancestors 'none'; upgrade-insecure-requests;",
-          },
-          {
-            key: 'Permissions-Policy',
-            value:
-              'camera=(), microphone=(), geolocation=(), browsing-topics=()',
           },
         ],
       },

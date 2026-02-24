@@ -8,7 +8,6 @@ import { CategoryIcon } from '@/components/category/category-icon'
 import { useTranslation } from '@/lib/i18n'
 import type { Category } from '@/lib/types/database'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
-import { Badge } from '@/components/ui/badge'
 
 interface CategoriesGridProps {
   categories: Category[]
@@ -56,25 +55,26 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
             >
               <Link
                 href={`/${locale}/categories/${category.slug}`}
-                className="group border-border bg-card hover:border-primary/40 shadow-card flex flex-col items-center justify-center gap-3 rounded-3xl border p-4 text-center transition-all hover:-translate-y-1 active:scale-[0.98] sm:p-6 md:p-8"
+                prefetch={true}
+                className="card-pro group relative flex flex-col items-center justify-center gap-4 overflow-hidden border-border/40 p-6 text-center shadow-lg sm:p-8 md:p-10"
               >
-                <CategoryIcon
-                  slug={category.slug}
-                  className="h-8 w-8 transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10"
-                />
-                <div className="space-y-1 px-1">
-                  <h3 className="group-hover:text-primary line-clamp-1 text-[10px] font-bold tracking-tight uppercase transition-colors sm:text-xs">
+                {/* Hover Glow */}
+                <div className="bg-primary/5 absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div className="relative z-10">
+                  <CategoryIcon
+                    slug={category.slug}
+                    className="h-10 w-10 transition-transform duration-500 ease-out-expo group-hover:scale-125 sm:h-12 sm:w-12 md:h-14 md:w-14"
+                  />
+                </div>
+
+                <div className="relative z-10 space-y-2">
+                  <h3 className="text-foreground group-hover:text-primary line-clamp-1 text-xs font-bold tracking-widest uppercase transition-colors sm:text-sm">
                     {getLocalizedCategoryName(category, locale, t)}
                   </h3>
-                  <div className="flex items-center justify-center gap-1.5">
-                    <Badge
-                      variant="secondary"
-                      className="bg-muted h-4 border-0 px-1.5 text-[10px] font-bold tracking-widest uppercase sm:h-5"
-                    >
-                      {category.listing_count || 0}
-                    </Badge>
-                    <span className="text-muted-foreground/40 hidden text-[9px] font-bold tracking-widest uppercase sm:inline">
-                      Ads
+                  <div className="flex items-center justify-center">
+                    <span className="bg-primary/10 text-primary rounded-full px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      {category.listing_count || 0} {t('common:ads', 'Ads')}
                     </span>
                   </div>
                 </div>
@@ -91,16 +91,18 @@ export function CategoriesGrid({ categories }: CategoriesGridProps) {
           >
             <Link
               href={`/${locale}/categories`}
-              className="group border-primary/20 bg-primary/5 hover:border-primary/50 hover:bg-primary/10 flex flex-col items-center justify-center gap-4 rounded-3xl border p-4 text-center transition-all hover:-translate-y-1 active:scale-[0.98] sm:p-6 md:p-8"
+              className="card-pro group relative flex flex-col items-center justify-center gap-4 overflow-hidden border-primary/20 bg-primary/5 p-6 text-center shadow-lg transition-all active:scale-[0.98] sm:p-8 md:p-10"
             >
-              <div className="bg-primary shadow-primary/20 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-lg transition-all duration-300 sm:h-20 sm:w-20">
-                <LayoutGrid className="h-8 w-8 sm:h-10 sm:w-10" />
+              <div className="bg-primary/90 absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+              <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-white shadow-xl transition-all duration-500 group-hover:bg-white group-hover:text-primary sm:h-20 sm:w-20">
+                <LayoutGrid className="h-8 w-8 transition-transform duration-500 group-hover:rotate-12 sm:h-10 sm:w-10" />
               </div>
-              <div className="space-y-1 px-1">
-                <h3 className="text-primary line-clamp-1 text-[10px] font-bold tracking-tight uppercase sm:text-xs">
+              <div className="relative z-10 space-y-2 px-1">
+                <h3 className="line-clamp-1 text-xs font-bold tracking-widest uppercase transition-colors group-hover:text-white sm:text-sm">
                   {t('common:viewAll')}
                 </h3>
-                <p className="text-primary/60 text-[9px] font-bold tracking-widest uppercase">
+                <p className="text-primary/60 text-[10px] font-bold tracking-[0.2em] uppercase transition-colors group-hover:text-white/80">
                   +20 {t('home:categoriesGrid')}
                 </p>
               </div>

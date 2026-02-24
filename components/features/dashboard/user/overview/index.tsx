@@ -13,7 +13,6 @@ import { MarketInsightsTile } from './market-insights-tile'
 import { SuccessScore } from '../vantage/success-score'
 import { SmartNudges } from '../vantage/smart-nudges'
 import { BentoGrid, BentoTile } from '@/components/ui/bento'
-import { PremiumBackground } from '@/components/ui/premium-background'
 import { formatPrice } from '@/lib/utils/formatting'
 import { formatDistanceToNow } from 'date-fns'
 import { ru, enUS, sk, cs } from 'date-fns/locale'
@@ -70,20 +69,20 @@ export function UserOverviewView({
   }))
 
   return (
-    <PremiumBackground variant="mesh" className="min-h-screen p-4 md:p-8">
+    <div className="min-h-full">
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="mx-auto max-w-7xl space-y-8"
+        className="mx-auto max-w-7xl animate-in fade-in slide-in-from-bottom-4 space-y-10 duration-1000"
         data-testid="profile-overview-view"
       >
         <BentoGrid>
           {/* Main Hero Section - Command Center */}
           <BentoTile
             colSpan={12}
-            rowSpan={2} // Increased height for better visual hierarchy
-            className="bg-card border-border lg:col-span-8"
+            rowSpan={2}
+            className="bg-card border-border shadow-md lg:col-span-8"
           >
             <DashboardHero user={user} stats={stats} />
           </BentoTile>
@@ -124,11 +123,19 @@ export function UserOverviewView({
           </BentoTile>
 
           {/* Market Insights & Performance */}
-          <BentoTile colSpan={12} rowSpan={2} className="lg:col-span-8">
+          <BentoTile
+            colSpan={12}
+            rowSpan={2}
+            className="bg-card border-border shadow-md lg:col-span-8"
+          >
             <PerformanceCard data={chartData} />
           </BentoTile>
 
-          <BentoTile colSpan={12} rowSpan={2} className="lg:col-span-4">
+          <BentoTile
+            colSpan={12}
+            rowSpan={2}
+            className="bg-card border-border shadow-md lg:col-span-4"
+          >
             <MarketInsightsTile />
           </BentoTile>
 
@@ -138,12 +145,12 @@ export function UserOverviewView({
             rowSpan={2}
             className="border-none bg-transparent shadow-none"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               <RecentActivityTable listings={userListings} />
             </div>
           </BentoTile>
         </BentoGrid>
       </motion.div>
-    </PremiumBackground>
+    </div>
   )
 }

@@ -33,7 +33,10 @@ export function LanguageSelector() {
     <div className="relative">
       <button
         onClick={() => setShowLangMenu(!showLangMenu)}
-        onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
+        onBlur={() => {
+          // Controlled close without race condition
+          setTimeout(() => setShowLangMenu(false), 200)
+        }}
         aria-label={t('common:aria.selectLanguage')}
         aria-expanded={showLangMenu}
         className="border-border/40 bg-muted/20 text-foreground hover:bg-muted/40 flex items-center gap-2 rounded-xl border px-3 py-2.5 text-[10px] font-bold tracking-widest uppercase transition-all"

@@ -14,27 +14,27 @@ export function PerformanceCard({ data }: PerformanceChartProps) {
   const { t } = useTranslation(['dashboard'])
 
   return (
-    <motion.div variants={item} className="space-y-4">
-      <Card className="border-border/40 flex flex-col overflow-hidden rounded-2xl bg-card shadow-card transition-all duration-300 hover:shadow-md">
-        <CardHeader className="border-border/10 bg-muted/5 border-b px-6 py-4">
+    <motion.div variants={item} className="h-full space-y-4">
+      <Card className="bg-card border-border flex h-full flex-col overflow-hidden rounded-2xl border shadow-md transition-all duration-500">
+        <CardHeader className="bg-muted/30 border-border/40 border-b px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+              <CardTitle className="text-primary/40 text-[10px] font-black tracking-[0.3em] uppercase">
                 {t('dashboard:performance')}
               </CardTitle>
-              <p className="text-muted-foreground/40 mt-1 text-[10px] font-bold tracking-[0.2em] uppercase">
+              <p className="text-foreground mt-1 text-lg font-black tracking-tight">
                 {t('dashboard:viewsOverTime')}
               </p>
             </div>
             <Badge
               variant="outline"
-              className="border-border/20 bg-background px-3 py-1 text-[9px] font-bold tracking-widest uppercase"
+              className="border-primary/10 bg-primary/5 px-4 py-1.5 text-[9px] font-black tracking-[0.2em] uppercase"
             >
               {t('dashboard:last7Days')}
             </Badge>
           </div>
         </CardHeader>
-        <CardContent className="min-h-[320px] p-6 pt-8">
+        <CardContent className="flex-1 p-8 pt-10">
           <AnalyticsChart data={data} />
         </CardContent>
       </Card>

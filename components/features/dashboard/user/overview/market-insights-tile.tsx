@@ -22,36 +22,40 @@ export function MarketInsightsTile() {
   ]
 
   return (
-    <div className="flex h-full flex-col justify-between p-6">
+    <div className="flex h-full flex-col justify-between p-8">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <BarChart3 className="text-primary h-5 w-5" />
-          <h3 className="text-sm font-bold tracking-tight uppercase opacity-60">
+        <div className="flex items-center gap-3">
+          <div className="bg-primary/5 rounded-xl p-2">
+            <BarChart3 className="text-primary h-5 w-5" />
+          </div>
+          <h3 className="text-primary/40 text-[10px] font-black tracking-[0.25em] uppercase">
             {t('dashboard:marketInsights')}
           </h3>
         </div>
       </div>
 
-      <div className="mt-4 space-y-4">
+      <div className="mt-6 space-y-4">
         {trends.map((trend, idx) => (
           <div
             key={idx}
-            className="bg-background/40 border-border/20 flex items-center justify-between rounded-xl border p-3"
+            className="glass-panel bg-background/20 border-primary/5 flex items-center justify-between rounded-2xl border p-4 transition-all duration-500 hover:border-primary/20"
           >
-            <div className="flex items-center gap-3">
-              <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-xl">
-                <trend.icon className={`h-4 w-4 ${trend.color}`} />
+            <div className="flex items-center gap-4">
+              <div className="bg-primary/5 flex h-10 w-10 items-center justify-center rounded-[0.9rem] border border-primary/10 shadow-inner">
+                <trend.icon className={`h-5 w-5 ${trend.color}`} />
               </div>
-              <span className="text-sm font-medium">{trend.label}</span>
+              <span className="text-foreground text-xs font-black tracking-tight uppercase">
+                {trend.label}
+              </span>
             </div>
-            <span className={`text-sm font-bold ${trend.color}`}>
+            <span className={`text-xs font-black ${trend.color} tracking-tighter`}>
               {trend.growth}
             </span>
           </div>
         ))}
       </div>
 
-      <p className="text-muted-foreground mt-4 text-[10px] leading-relaxed italic">
+      <p className="text-primary/30 mt-6 text-[10px] font-medium leading-relaxed italic tracking-wide">
         {t('dashboard:marketInsightsNote')}
       </p>
     </div>

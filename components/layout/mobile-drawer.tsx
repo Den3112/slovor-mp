@@ -128,7 +128,7 @@ export function MobileDrawer({
                           href={`/${locale}${item.href === '/' ? '' : item.href}`}
                           onClick={() => onOpenChange(false)}
                           className={cn(
-                            'group flex items-center justify-between rounded-2xl px-4 py-3.5 transition-all active:scale-[0.98]',
+                            'group flex items-center justify-between rounded-xl px-4 py-3.5 transition-all active:scale-[0.98]',
                             isActive(item.href)
                               ? 'bg-primary/5 text-primary border-primary/10 border'
                               : 'hover:bg-muted/50 text-foreground/80'
@@ -299,20 +299,20 @@ export function MobileDrawer({
                           {config.app.adminEmails.includes(
                             user.email || ''
                           ) && (
-                            <Link
-                              href={`/${locale}/admin`}
-                              onClick={() => onOpenChange(false)}
-                              className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
-                            >
-                              <div className="flex items-center gap-4">
-                                <ShieldAlert className="h-5 w-5" />
-                                <span className="text-sm font-bold tracking-tight">
-                                  {t('common:adminPanel')}
-                                </span>
-                              </div>
-                              <ChevronRight className="h-4 w-4 text-amber-500/30" />
-                            </Link>
-                          )}
+                              <Link
+                                href={`/${locale}/admin`}
+                                onClick={() => onOpenChange(false)}
+                                className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
+                              >
+                                <div className="flex items-center gap-4">
+                                  <ShieldAlert className="h-5 w-5" />
+                                  <span className="text-sm font-bold tracking-tight">
+                                    {t('common:adminPanel')}
+                                  </span>
+                                </div>
+                                <ChevronRight className="h-4 w-4 text-amber-500/30" />
+                              </Link>
+                            )}
 
                           <button
                             onClick={() => {

@@ -12,24 +12,26 @@ export default function NotFound() {
       <div className="text-center">
         <h1 className="text-primary mb-4 text-9xl font-bold">404</h1>
         <h2 className="text-foreground mb-4 text-4xl font-bold">
-          {t('404:title') || 'Page Not Found'}
+          {t('common:404.title') || 'Page Not Found'}
         </h2>
         <p className="text-muted-foreground mx-auto mb-8 max-w-md text-xl">
-          {t('404:description') ||
+          {t('common:404.description') ||
             "Sorry, we couldn't find the page you're looking for."}
         </p>
         <div className="flex justify-center gap-4">
-          <Button asChild size="lg" className="rounded-xl font-bold">
-            <Link href={`/${locale}/`}>{t('404:goHome') || 'Go Home'}</Link>
+          <Button asChild size="lg" className="rounded-lg font-bold">
+            <Link href={`/${locale}/`}>
+              {t('common:404.goHome') || 'Go Home'}
+            </Link>
           </Button>
           <Button
             asChild
             variant="outline"
             size="lg"
-            className="rounded-xl font-bold"
+            className="rounded-lg font-bold"
           >
             <Link href={`/${locale}/listings`}>
-              {t('404:browse') || 'Browse Listings'}
+              {t('common:404.browse') || 'Browse Listings'}
             </Link>
           </Button>
         </div>

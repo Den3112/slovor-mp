@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 
 export function Hero() {
   const { t, locale } = useTranslation(['home', 'common'])
@@ -26,31 +25,37 @@ export function Hero() {
   }
 
   return (
-    <section className="bg-background relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-32 lg:pt-36 lg:pb-48">
-      {/* Clean Background - SaaS Style */}
-      <div className="bg-background absolute inset-0" />
+    <section className="bg-mesh relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-32 lg:pt-36 lg:pb-48">
+      {/* Aurora Background Glows - PRO MAX */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="bg-primary/10 absolute -top-[20%] -left-[10%] h-[800px] w-[800px] rounded-full blur-[120px] animate-pulse" />
+        <div className="bg-primary/5 absolute top-[10%] -right-[15%] h-[600px] w-[600px] rounded-full blur-[100px]" />
+      </div>
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
+            className="mb-8"
           >
-            <span className="badge-pill bg-primary/10 text-primary-hover border-primary/20 dark:text-primary mb-8">
-              <Sparkles className="h-3.5 w-3.5" />
+            <span className="badge-pill border-primary/20 bg-primary/5 text-primary px-4 py-2">
+              <Sparkles className="mr-2 h-4 w-4" />
               {t('heroTagline')}
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-foreground mb-6 text-4xl leading-tight font-bold tracking-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="font-heading text-foreground mb-6 text-5xl leading-tight font-extrabold tracking-tight sm:text-6xl md:mb-8 md:text-7xl lg:text-8xl"
           >
             {t('heroTitleMain')} <br className="hidden sm:block" />
-            <span className="text-primary">{t('heroTitleHighlight')}</span>
+            <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              {t('heroTitleHighlight')}
+            </span>
           </motion.h1>
 
           <motion.p
@@ -63,24 +68,19 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative mx-auto max-w-3xl px-2 sm:px-0"
           >
             <div className="group relative">
-              {/* Clean Search Box - Solid Style */}
-              <motion.div
-                whileHover={{ scale: 1.005 }}
-                whileTap={{ scale: 0.995 }}
-                className="bg-card border-border hover:border-primary/40 ring-primary/10 relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border p-2 shadow-sm transition-all duration-300 hover:shadow-md sm:flex-row sm:items-center sm:focus-within:ring-4"
-              >
+              {/* Dynamic Search Box - Pro Max Glass */}
+              <div className="bg-primary/20 absolute -inset-1 rounded-[2.5rem] blur-2xl opacity-0 transition duration-1000 group-hover:opacity-40 group-focus-within:opacity-60" />
+
+              <div className="bg-card relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-card transition-all duration-500 hover:border-primary/30 sm:flex-row sm:items-center">
                 <div className="flex w-full items-center px-4 py-1 sm:flex-1 sm:py-2 sm:pl-6">
-                  <label htmlFor="hero-search" className="sr-only">
-                    Search
-                  </label>
                   <Search
-                    className="text-muted-foreground h-5 w-5 shrink-0 transition-transform group-focus-within:scale-110 md:h-6 md:w-6"
+                    className="text-muted-foreground h-5 w-5 shrink-0 transition-all duration-500 group-focus-within:text-primary group-focus-within:scale-110 md:h-6 md:w-6"
                     aria-hidden="true"
                   />
                   <Input
@@ -89,24 +89,20 @@ export function Hero() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={t('searchPlaceholder')}
-                    aria-label={t('searchPlaceholder')}
-                    className="placeholder:text-muted-foreground text-foreground h-12 w-full border-none bg-transparent px-3 py-3 text-base font-semibold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:h-auto sm:py-4 md:px-4 md:text-lg"
+                    className="placeholder:text-muted-foreground text-foreground h-14 w-full border-none bg-transparent px-3 py-3 text-lg font-bold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:h-auto sm:py-4 md:px-4 md:text-xl"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        handleSearch()
-                      }
+                      if (e.key === 'Enter') handleSearch()
                     }}
                   />
                 </div>
-
                 <Button
                   onClick={handleSearch}
-                  className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-primary h-12 w-full shrink-0 rounded-xl text-base font-bold transition-all active:scale-[0.98] sm:h-14 sm:w-auto sm:px-8 md:px-10"
+                  className="h-14 rounded-xl px-10 text-lg font-bold shadow-md active:scale-95 sm:w-auto"
                 >
                   {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 
@@ -116,18 +112,21 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-10 flex flex-wrap items-center justify-center gap-3 px-2"
           >
-            <span className="mb-2 w-full text-center text-[10px] font-bold tracking-widest text-slate-400 uppercase sm:mr-2 sm:mb-0 sm:w-auto">
+            <span className="mb-2 w-full text-center text-[10px] font-bold tracking-[0.3em] text-slate-400 uppercase sm:mr-4 sm:mb-0 sm:w-auto">
               {t('home:popularSearches.title')}
             </span>
-            <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-3">
               {popularSearches.map((term) => (
-                <Link
+                <button
                   key={term}
-                  href={`/${locale}/listings?search=${term}`}
-                  className="bg-card text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary border-border truncate rounded-xl border px-4 py-1.5 text-sm font-semibold transition-colors"
+                  onClick={() => {
+                    setQuery(term)
+                    router.push(`/${locale}/listings?search=${encodeURIComponent(term)}`)
+                  }}
+                  className="bg-primary/5 border-primary/10 hover:border-primary/30 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-full border px-6 py-2 text-sm font-bold transition-all hover:shadow-lg active:scale-95"
                 >
                   {term}
-                </Link>
+                </button>
               ))}
             </div>
           </motion.div>

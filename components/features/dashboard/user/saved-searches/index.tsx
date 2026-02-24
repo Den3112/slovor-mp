@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { savedSearchesApi, type SavedSearch } from '@/lib/api'
 import { useTranslation } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
-import { EmptyState } from '@/components/ui/empty-state'
 import {
   Bell,
   BellOff,
@@ -90,122 +89,135 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
   }
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-8 duration-700">
-      <div className="bg-card border-border flex flex-col justify-between gap-4 rounded-xl border p-6 shadow-sm sm:flex-row sm:items-center">
-        <div className="space-y-1">
-          <h1 className="text-foreground text-3xl font-bold tracking-tight uppercase">
-            {t('dashboard:savedSearches')}
-          </h1>
-          <p className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
-            {t('profile:savedSearchesDescription')}
-          </p>
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-12 duration-700">
+      <div className="bg-card relative overflow-hidden rounded-2xl border border-border p-10 shadow-md">
+        <div className="bg-primary/10 absolute -right-20 -top-20 h-64 w-64 rounded-full blur-[100px] opacity-40 animate-pulse" />
+        <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div className="space-y-4">
+            <div className="bg-primary shadow-primary/20 flex h-16 w-16 items-center justify-center rounded-xl shadow-lg">
+              <Search className="h-8 w-8 text-white" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-muted-foreground ml-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
+                {t('profile:savedSearchesDescription')}
+              </p>
+              <h1 className="text-foreground text-5xl font-black tracking-tighter uppercase sm:text-6xl">
+                {t('dashboard:savedSearches')}
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
 
       {searches.length === 0 ? (
-        <div className="bg-card border-border rounded-xl border p-12 shadow-sm">
-          <EmptyState
-            icon={Search}
-            title={t('profile:noSavedSearches')}
-            description={t('profile:noSavedSearchesDesc')}
-            actionLabel={t('common:browseListings')}
-            actionHref="/listings"
-          />
+        <div className="bg-card flex flex-col items-center justify-center rounded-2xl border border-border py-32 text-center shadow-md">
+          <div className="bg-primary/5 border-primary/10 mb-8 flex h-24 w-24 items-center justify-center rounded-xl shadow-inner">
+            <Search className="text-primary/30 h-10 w-10" />
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-foreground text-3xl font-black tracking-tighter uppercase">
+              {t('profile:noSavedSearches')}
+            </h3>
+            <p className="text-muted-foreground/60 mx-auto max-w-sm text-[10px] font-black tracking-[0.3em] uppercase">
+              {t('profile:noSavedSearchesDesc')}
+            </p>
+          </div>
+          <Button
+            asChild
+            className="group shadow-primary/20 relative h-16 rounded-xl px-10 text-xs font-black tracking-[0.2em] uppercase shadow-md transition-all duration-500 hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90"
+          >
+            <Link href="/listings">{t('common:browseListings')}</Link>
+          </Button>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-6">
           {searches.map((search) => (
             <div
               key={search.id}
-              className="group border-border bg-card hover:border-primary/30 relative overflow-hidden rounded-xl border p-6 transition-all hover:shadow-md"
+              className="bg-card group relative overflow-hidden rounded-2xl border border-border p-8 shadow-md transition-all duration-500 hover:bg-primary/5 hover:shadow-lg"
             >
-              <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
+              <div className="absolute inset-y-0 left-0 w-1 bg-primary/0 transition-all group-hover:bg-primary/40" />
+
+              <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-center">
                 <div className="min-w-0 flex-1">
-                  <div className="mb-2 flex items-center gap-3">
-                    <h3 className="text-foreground truncate text-base font-bold tracking-tight uppercase">
+                  <div className="mb-4 flex items-center gap-4">
+                    <h3 className="text-foreground truncate text-2xl font-black tracking-tighter uppercase transition-colors group-hover:text-primary">
                       {search.name}
                     </h3>
-                    <Badge
-                      variant="outline"
-                      className="border-border/60 bg-muted/20 rounded text-[9px] font-bold tracking-widest uppercase"
-                    >
+                    <Badge className="bg-primary/10 text-primary border-primary/20 rounded-xl px-2.5 py-1 text-[9px] font-black tracking-widest uppercase shadow-sm">
                       {search.frequency}
                     </Badge>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {search.query && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
-                        <Search className="h-3 w-3" />
+                      <span className="bg-muted/30 text-muted-foreground/60 border-white/5 inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-[10px] font-black tracking-[0.15em] uppercase shadow-sm">
+                        <Search className="h-3.5 w-3.5" />
                         {search.query}
                       </span>
                     )}
                     {search.category?.name && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
-                        <Tag className="h-3 w-3" />
+                      <span className="bg-muted/30 text-muted-foreground/60 border-white/5 inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-[10px] font-black tracking-[0.15em] uppercase shadow-sm">
+                        <Tag className="h-3.5 w-3.5" />
                         {search.category.name}
                       </span>
                     )}
                     {search.location && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
-                        <MapPin className="h-3 w-3" />
+                      <span className="bg-muted/30 text-muted-foreground/60 border-white/5 inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-[10px] font-black tracking-[0.15em] uppercase shadow-sm">
+                        <MapPin className="h-3.5 w-3.5" />
                         {search.location}
                       </span>
                     )}
                     {(search.min_price || search.max_price) && (
-                      <span className="bg-muted/40 text-muted-foreground border-border/40 inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      <span className="bg-muted/30 text-muted-foreground/60 border-white/5 inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-[10px] font-black tracking-[0.15em] uppercase shadow-sm">
                         €{search.min_price || 0} -{' '}
                         {search.max_price ? `€${search.max_price}` : '∞'}
                       </span>
                     )}
                   </div>
 
-                  <div className="text-muted-foreground/50 mt-4 flex items-center gap-4 text-[10px] font-bold tracking-widest uppercase">
-                    <span
+                  <div className="mt-6 flex items-center gap-6">
+                    <button
+                      onClick={() => handleToggleNotifications(search)}
                       className={cn(
-                        'flex items-center gap-1.5 rounded px-2 py-1 transition-colors',
+                        'flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[10px] font-black tracking-[0.15em] uppercase transition-all duration-300',
                         search.notify_email
-                          ? 'text-primary bg-primary/5'
-                          : 'text-muted-foreground/60 bg-muted/40'
+                          ? 'bg-primary/10 text-primary shadow-lg shadow-primary/5'
+                          : 'bg-muted/30 text-muted-foreground/40'
                       )}
                     >
                       {search.notify_email ? (
-                        <Bell className="h-3 w-3" />
+                        <Bell className="h-3.5 w-3.5" />
                       ) : (
-                        <BellOff className="h-3 w-3" />
+                        <BellOff className="h-3.5 w-3.5" />
                       )}
                       {search.notify_email
                         ? t('dashboard:emailStatusOn')
                         : t('dashboard:emailStatusOff')}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="text-muted-foreground/20 h-3 w-3" />
+                    </button>
+                    <span className="text-muted-foreground/20 flex items-center gap-2.5 text-[10px] font-black tracking-[0.15em] uppercase">
+                      <Calendar className="h-3.5 w-3.5" />
                       {new Date(search.created_at).toLocaleDateString()}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-2">
+                <div className="flex shrink-0 items-center justify-end gap-3 sm:flex-col lg:flex-row">
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => handleToggleNotifications(search)}
                     className={cn(
-                      'h-11 w-11 rounded-xl border border-transparent transition-all',
+                      'h-14 w-14 rounded-2xl border transition-all duration-500',
                       search.notify_email
-                        ? 'bg-primary/5 text-primary hover:bg-primary/10 border-primary/10'
-                        : 'bg-muted/40 text-muted-foreground hover:bg-muted/60 border-border/40'
+                        ? 'bg-primary/10 text-primary border-primary/20 shadow-md shadow-primary/10'
+                        : 'bg-primary/5 text-muted-foreground/40 border-border hover:border-primary/20 hover:bg-primary/5 hover:text-primary'
                     )}
-                    title={
-                      search.notify_email
-                        ? t('dashboard:disableNotifications')
-                        : t('dashboard:enableNotifications')
-                    }
                   >
                     {search.notify_email ? (
-                      <Bell className="h-4.5 w-4.5" />
+                      <Bell className="h-6 w-6" />
                     ) : (
-                      <BellOff className="h-4.5 w-4.5" />
+                      <BellOff className="h-6 w-6" />
                     )}
                   </Button>
 
@@ -213,10 +225,10 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                     variant="ghost"
                     size="icon"
                     asChild
-                    className="bg-muted/40 hover:bg-primary/10 hover:text-primary border-border/40 h-11 w-11 rounded-xl border transition-all"
+                    className="border-border hover:bg-primary/5 h-16 w-16 rounded-xl p-0 transition-all hover:scale-105"
                   >
                     <Link href={buildSearchUrl(search)}>
-                      <ExternalLink className="h-4.5 w-4.5" />
+                      <ExternalLink className="h-6 w-6" />
                     </Link>
                   </Button>
 
@@ -225,12 +237,12 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
                     size="icon"
                     onClick={() => setDeleteId(search.id)}
                     disabled={isDeleting === search.id}
-                    className="hover:bg-destructive/10 hover:text-destructive text-muted-foreground/20 hover:border-destructive/10 h-11 w-11 rounded-xl border border-transparent transition-all"
+                    className="hover:bg-destructive/10 hover:text-destructive text-muted-foreground/40 border-border h-14 w-14 rounded-xl border transition-all duration-500 hover:scale-110 active:scale-95 shadow-md"
                   >
                     {isDeleting === search.id ? (
-                      <Loader2 className="text-destructive h-4 w-4 animate-spin" />
+                      <Loader2 className="h-5 w-5 animate-spin" />
                     ) : (
-                      <Trash2 className="h-4.5 w-4.5" />
+                      <Trash2 className="h-6 w-6" />
                     )}
                   </Button>
                 </div>

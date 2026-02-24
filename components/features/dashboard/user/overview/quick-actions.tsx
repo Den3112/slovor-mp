@@ -15,35 +15,35 @@ export function QuickActionsAndActivity() {
   const { t, locale } = useTranslation(['common', 'dashboard', 'createListing'])
 
   return (
-    <motion.div variants={item} className="space-y-6">
+    <motion.div variants={item} className="h-full space-y-6">
       {/* Quick Actions */}
-      <Card className="border-border/40 bg-card overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md">
-        <CardHeader className="border-border/10 bg-muted/5 flex-row items-center justify-between space-y-0 border-b px-6 py-4">
-          <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+      <Card className="bg-card overflow-hidden rounded-2xl border border-border shadow-md transition-all duration-500">
+        <CardHeader className="bg-muted/30 flex-row items-center justify-between space-y-0 border-b border-border/40 px-8 py-5">
+          <CardTitle className="text-primary/40 text-[10px] font-black tracking-[0.3em] uppercase">
             {t('dashboard:quickActions')}
           </CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-2 p-3">
+        <CardContent className="grid gap-3 p-4">
           <Button
             variant="outline"
-            className="border-border/60 hover:bg-primary/5 hover:text-primary hover:border-primary/30 group/btn h-11 justify-start gap-3 rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all"
+            className="border-border hover:bg-primary hover:text-white group/btn h-14 justify-start gap-4 rounded-xl bg-primary/5 px-5 text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-500 active:scale-95"
             asChild
           >
             <Link href={`/${locale}/post`}>
-              <div className="from-primary/10 to-primary/5 text-primary group-hover/btn:bg-primary rounded-xl bg-linear-to-br p-1.5 transition-all group-hover/btn:text-white">
-                <Plus className="h-3.5 w-3.5" />
+              <div className="bg-primary shadow-primary/20 flex h-8 w-8 items-center justify-center rounded-xl shadow-md transition-all group-hover/btn:scale-110 group-hover/btn:bg-white group-hover/btn:text-primary">
+                <Plus className="h-4 w-4" />
               </div>
               {t('createListing:publish')}
             </Link>
           </Button>
           <Button
             variant="outline"
-            className="border-border/60 hover:bg-success/5 hover:text-success hover:border-success/30 group/btn h-11 justify-start gap-3 rounded-xl text-[10px] font-bold tracking-widest uppercase transition-all"
+            className="border-border hover:bg-success hover:text-white group/btn h-14 justify-start gap-4 rounded-xl bg-success/5 px-5 text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-500 active:scale-95"
             asChild
           >
             <Link href={`/${locale}/dashboard/promote`}>
-              <div className="from-success/10 to-success/5 text-success group-hover/btn:bg-success rounded-xl bg-linear-to-br p-1.5 transition-all group-hover/btn:text-white">
-                <TrendingUp className="h-3.5 w-3.5" />
+              <div className="bg-success shadow-success/20 flex h-8 w-8 items-center justify-center rounded-xl shadow-md transition-all group-hover/btn:scale-110 group-hover/btn:bg-white group-hover/btn:text-success">
+                <TrendingUp className="h-4 w-4" />
               </div>
               {t('dashboard:promoteListings')}
             </Link>
@@ -51,23 +51,23 @@ export function QuickActionsAndActivity() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/40 bg-card flex h-full flex-col overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md">
-        <CardHeader className="border-border/10 bg-muted/5 flex-row items-center justify-between space-y-0 border-b px-6 py-4">
-          <CardTitle className="text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+      <Card className="bg-card flex flex-col overflow-hidden rounded-2xl border border-border shadow-md transition-all duration-500">
+        <CardHeader className="bg-muted/30 flex-row items-center justify-between space-y-0 border-b border-border/40 px-8 py-5">
+          <CardTitle className="text-primary/40 text-[10px] font-black tracking-[0.3em] uppercase">
             {t('dashboard:activityFeed')}
           </CardTitle>
           <Button
             variant="ghost"
             size="sm"
             asChild
-            className="hover:bg-primary/5 hover:text-primary h-8 px-2 text-[10px] font-bold tracking-widest uppercase"
+            className="hover:bg-primary/10 hover:text-primary h-8 rounded-xl px-4 text-[9px] font-black tracking-[0.2em] uppercase transition-all"
           >
             <Link href={`/${locale}/dashboard/messages`}>
               {t('common:viewAll')}
             </Link>
           </Button>
         </CardHeader>
-        <CardContent className="max-h-[450px] flex-1 overflow-auto p-4">
+        <CardContent className="scrollbar-hide max-h-[480px] flex-1 overflow-auto p-6">
           <ActivityFeed />
         </CardContent>
       </Card>

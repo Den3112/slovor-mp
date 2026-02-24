@@ -67,15 +67,15 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               { label: t('allListings'), href: `/${locale}/listings` },
               ...(listing.category
                 ? [
-                    {
-                      label: getLocalizedCategoryName(
-                        listing.category,
-                        locale,
-                        t
-                      ),
-                      href: `/${locale}/categories/${listing.category.slug}`,
-                    },
-                  ]
+                  {
+                    label: getLocalizedCategoryName(
+                      listing.category,
+                      locale,
+                      t
+                    ),
+                    href: `/${locale}/categories/${listing.category.slug}`,
+                  },
+                ]
                 : []),
               { label: displayTitle },
             ]}
@@ -84,10 +84,10 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
           {/* Main Content */}
-          <div className="space-y-8 lg:col-span-8">
+          <div className="space-y-12 lg:col-span-8">
             {/* Image Gallery */}
             <div className="hidden md:block">
-              <div className="bg-card border-border overflow-hidden rounded-xl border shadow-sm">
+              <div className="overflow-hidden rounded-2xl border border-border">
                 <ImageGallery
                   images={listing.images || []}
                   title={displayTitle}
@@ -102,7 +102,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               />
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-12">
               <ListingDescription description={displayDescription} />
               <ListingDetailsGrid listing={listing} />
             </div>
@@ -116,7 +116,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
           </div>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-20">
           <RecentlyViewed />
         </div>
       </Container>
@@ -124,20 +124,20 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       {/* Mobile Sticky Action Bar - Adjusted bottom to clear global BottomNavBar */}
       <div className="fixed right-0 bottom-0 left-0 z-40 flex flex-col md:hidden">
         {/* Added safe area padding and increased margin to clear bottom nav */}
-        <div className="bg-background mb-[var(--bottom-nav-height,72px)] border-t p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)]">
+        <div className="bg-card mb-(--bottom-nav-height,72px) border-t border-border p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] shadow-card">
           <div className="mx-auto flex max-w-lg items-center justify-between gap-4">
             <div className="flex flex-col">
-              <span className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+              <span className="text-primary/60 text-[10px] font-black tracking-[0.2em] uppercase">
                 {t('common:price')}
               </span>
               <PriceDisplay
                 amount={listing.price}
                 baseCurrency={listing.currency}
-                className="text-foreground text-2xl font-bold tracking-tight"
+                className="text-foreground text-2xl font-black tracking-tight"
               />
             </div>
             <Button
-              className="shadow-primary/20 h-14 flex-1 rounded-xl text-lg font-bold shadow-lg"
+              className="h-14 flex-1 rounded-xl text-lg font-black tracking-tight shadow-md transition-all active:scale-95"
               onClick={() => {
                 const sidebarButton = document.querySelector(
                   '[data-action="contact"]'
