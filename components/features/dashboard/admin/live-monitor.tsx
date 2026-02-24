@@ -13,7 +13,7 @@ export function LiveMonitor({ stats }: { stats?: any }) {
 
   useEffect(() => {
     if (stats) {
-      console.log('LiveMonitor received stats:', stats.totalUsers)
+      // Stats received - proceed with log loading
     }
     const loadLogs = async () => {
       const { data } = await adminApi.getActivityLogs(10)

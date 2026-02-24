@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { sanitizeHtml } from '@/lib/utils/sanitize'
 import { generateBlogMetadata } from '@/lib/utils/blog-metadata'
 import { getTranslationServer } from '@/lib/i18n/server'
+import { BlogNewsletter } from '@/components/blog/blog-newsletter'
 
 interface BlogPostProps {
   params: Promise<{
@@ -17,6 +18,20 @@ interface BlogPostProps {
 }
 
 export const generateMetadata = generateBlogMetadata
+
+export async function generateStaticParams() {
+  const { data: posts } = await blogApi.listPosts({ limit: 10, offset: 0 })
+  if (!posts) return []
+
+  const locales = ['en', 'sk', 'cs', 'ru']
+
+  return locales.flatMap(locale =>
+    posts.map((post) => ({
+      slug: post.slug,
+      locale: locale
+    }))
+  )
+}
 
 export default async function BlogPostPage({ params }: BlogPostProps) {
   const { slug, locale } = await params
@@ -133,6 +148,8 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   size="icon"
                   variant="outline"
                   className="border-border hover:bg-muted h-12 w-12 rounded-xl"
+                  onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`, '_blank', 'noopener')}
+                  aria-label="Share on Twitter"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
@@ -142,6 +159,8 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   size="icon"
                   variant="outline"
                   className="border-border hover:bg-muted h-12 w-12 rounded-xl"
+                  onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}`, '_blank', 'noopener')}
+                  aria-label="Share on Facebook"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
@@ -150,17 +169,13 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
               </div>
             </div>
 
-            <div className="bg-primary text-primary-foreground shadow-primary/10 rounded-xl p-10 text-center shadow-lg">
-              <h3 className="mb-4 text-2xl font-bold tracking-tight uppercase">
-                {t('blog:joinInsights')}
-              </h3>
-              <p className="mb-8 text-sm leading-relaxed font-medium opacity-80">
-                {t('blog:subscribeDesc')}
-              </p>
-              <Button className="text-primary w-full rounded-xl bg-white font-bold tracking-widest uppercase shadow-sm hover:bg-zinc-100">
-                {t('blog:subscribe')}
-              </Button>
-            </div>
+            <BlogNewsletter
+              title={t('blog:joinInsights')}
+              description={t('blog:subscribeDesc')}
+              buttonText={t('blog:subscribe')}
+              errorMsg={t('common:error.invalidEmail')}
+              successMsg={t('blog:subscribeSuccess')}
+            />
           </aside>
         </div>
       </Container>

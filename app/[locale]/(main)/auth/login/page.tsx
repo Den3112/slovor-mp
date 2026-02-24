@@ -5,7 +5,8 @@ import { z } from 'zod'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Sparkles } from 'lucide-react'
+import { toast } from 'sonner'
 import { AuthSocial } from './components/auth-social'
 import { AuthForm } from './components/auth-form'
 import { useTranslation } from '@/lib/i18n'
@@ -77,7 +78,7 @@ function LoginContent() {
           },
         })
         if (error) throw error
-        alert(t('auth:registrationSuccess'))
+        toast.success(t('auth:registrationSuccess'))
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -126,7 +127,7 @@ function LoginContent() {
 
       <div className="mb-8 text-center">
         <div className="bg-primary/10 text-primary mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl">
-          <span className="text-2xl">✨</span>
+          <Sparkles className="text-primary h-6 w-6" />
         </div>
         <h1 className="font-heading text-foreground mb-2 text-2xl font-bold tracking-tight md:text-3xl">
           {isRegistering ? t('auth:joinSlovor') : t('auth:welcomeBack')}
