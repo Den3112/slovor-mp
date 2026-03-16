@@ -8,9 +8,14 @@ import { useTranslation } from '@/lib/i18n'
 interface StructuredDataProps {
   locale: string
   extraSchema?: any
+  nonce?: string
 }
 
-export function StructuredData({ locale, extraSchema }: StructuredDataProps) {
+export function StructuredData({
+  locale,
+  extraSchema,
+  nonce,
+}: StructuredDataProps) {
   const pathname = usePathname()
   const { t } = useTranslation('common')
   const [mounted, setMounted] = useState(false)
@@ -84,20 +89,24 @@ export function StructuredData({ locale, extraSchema }: StructuredDataProps) {
       {breadcrumbs.length > 0 && (
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       )}
       <script
         type="application/ld+json"
+        nonce={nonce}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(navSchema) }}
       />
       <script
         type="application/ld+json"
+        nonce={nonce}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       {extraSchema && (
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(extraSchema) }}
         />
       )}

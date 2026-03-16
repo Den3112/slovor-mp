@@ -8,14 +8,27 @@ import {
   corsHeaders,
 } from '../../utils'
 
+import { z } from 'zod'
+
+const LoginSchema = z.object({
+  email: z.string().email('Invalid email format'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+})
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { email, password } = body
+    const result = LoginSchema.safeParse(body)
 
-    if (!email || !password) {
-      return createErrorResponse('Email and password are required', 400)
+    if (!result.success) {
+      return createErrorResponse(
+        'Validation failed: ' +
+          result.error.issues.map((e) => e.message).join(', '),
+        400
+      )
     }
+
+    const { email, password } = result.data
 
     const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
 

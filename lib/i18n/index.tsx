@@ -12,7 +12,7 @@ import {
 import { useTranslation as useI18nextTranslation } from 'react-i18next'
 import '@/packages/i18n/client'
 
-export type Locale = 'en' | 'sk' | 'cs' | 'ru'
+export type Locale = 'en' | 'sk' | 'cs'
 
 interface I18nContextValue {
   locale: Locale
@@ -55,7 +55,6 @@ export function I18nProvider({
         en: 'en_US',
         sk: 'sk_SK',
         cs: 'cs_CZ',
-        ru: 'ru_RU',
       }
       metaLang.setAttribute('content', localeMap[newLocale])
 
@@ -73,7 +72,7 @@ export function I18nProvider({
 
   // Sync with URL lang prop
   useEffect(() => {
-    if (lang && ['en', 'sk', 'cs', 'ru'].includes(lang)) {
+    if (lang && ['en', 'sk', 'cs'].includes(lang)) {
       const newLocale = lang as Locale
       if (i18n.language !== newLocale) {
         i18n.changeLanguage(newLocale)

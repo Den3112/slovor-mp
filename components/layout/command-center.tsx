@@ -17,6 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
 
 import { useListingSearch } from '@/lib/hooks/use-listing-search'
@@ -142,13 +143,14 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                 </div>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   {quickCategories.map((cat) => (
-                    <button
+                    <Link
                       key={cat.id}
+                      href={`/${locale}${cat.href}`}
                       onClick={() => {
-                        router.push(`/${locale}${cat.href}`)
                         setIsOpen(false)
+                        onClose?.()
                       }}
-                      className="hover:bg-muted border-border/40 flex flex-col items-center gap-2 rounded-xl border p-3 transition-all hover:scale-105"
+                      className="hover:bg-muted border-border/40 flex flex-col items-center gap-2 rounded-xl border p-3 transition-all hover:scale-105 active:scale-95"
                     >
                       <div
                         className={cn(
@@ -161,11 +163,10 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                       <span className="line-clamp-1 w-full px-1 text-center text-[10px] font-bold sm:text-[11px]">
                         {t(cat.label)}
                       </span>
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>
-
               {/* Search Results or Quick/Mock Suggestions */}
               <div className="space-y-1">
                 {isSearching ? (
@@ -190,7 +191,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                             setIsOpen(false)
                             onClose?.()
                           }}
-                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors"
+                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all active:scale-95"
                         >
                           {item.images?.[0] ? (
                             <div className="bg-muted relative h-8 w-8 overflow-hidden rounded-md">
@@ -248,7 +249,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                           onClick={() => {
                             setQuery(label)
                           }}
-                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-colors"
+                          className="hover:bg-muted group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-all active:scale-95"
                         >
                           <Icon className="text-muted-foreground group-hover:text-primary h-4 w-4" />
                           <span className="text-sm font-medium">{label}</span>

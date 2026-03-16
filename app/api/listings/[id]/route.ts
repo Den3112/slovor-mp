@@ -8,6 +8,7 @@ import {
   getAuthenticatedClient,
   corsHeaders,
 } from '../../utils'
+import { z } from 'zod'
 
 export async function GET(
   _: NextRequest,
@@ -45,6 +46,18 @@ export async function GET(
   }
 }
 
+const ListingUpdateSchema = z.object({
+  title: z.string().min(3).max(100).optional(),
+  description: z.string().min(10).max(5000).optional(),
+  price: z.number().nonnegative().optional(),
+  currency: z.string().length(3).optional(),
+  category_id: z.string().uuid().optional(),
+  location: z.string().min(2).optional(),
+  images: z.array(z.string().url()).optional(),
+  condition: z.enum(['new', 'used']).optional(),
+  attributes: z.record(z.string(), z.any()).optional(),
+})
+
 export async function PUT(
   req: NextRequest,
   props: { params: Promise<{ id: string }> }
@@ -58,6 +71,15 @@ export async function PUT(
     const params = await props.params
     const { id } = params
     const body = await req.json()
+    const result = ListingUpdateSchema.safeParse(body)
+
+    if (!result.success) {
+      return createErrorResponse(
+        'Validation failed: ' + result.error.message,
+        400
+      )
+    }
+
     const {
       data: { user },
     } = await supabase.auth.getUser()
@@ -75,7 +97,11 @@ export async function PUT(
       return createErrorResponse('Forbidden', 403)
     }
 
-    const { error } = await supabase.from('listings').update(body).eq('id', id)
+    // Only allow updating validated fields
+    const { error } = await supabase
+      .from('listings')
+      .update(result.data)
+      .eq('id', id)
 
     if (error) {
       return createErrorResponse(error.message, 400)

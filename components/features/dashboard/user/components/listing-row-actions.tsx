@@ -75,7 +75,11 @@ export function ListingRowActions({ listing }: ListingRowActionsProps) {
             asChild
             className="h-10 cursor-pointer rounded-xl px-3"
           >
-            <Link href={`/${locale}/listings/${listing.id}`} target="_blank">
+            <Link
+              href={`/${locale}/listings/${listing.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Eye className="text-muted-foreground mr-2 h-4 w-4" />
               <span className="text-[11px] font-bold tracking-wider uppercase">
                 {t('common:view')}

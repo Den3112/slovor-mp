@@ -45,11 +45,11 @@ export function Footer() {
     setIsSubmitting(true)
     try {
       // Simulation of API request
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
       toast.success(
         t('footer:subscribeSuccess') ||
-        'Successfully subscribed to our newsletter!'
+          'Successfully subscribed to our newsletter!'
       )
       setEmail('')
     } catch (error) {
@@ -98,14 +98,14 @@ export function Footer() {
       links:
         latestPosts.length > 0
           ? latestPosts.map((post) => ({
-            label: post.title,
-            href: `/${locale}/blog/${post.slug}`,
-          }))
+              label: post.title,
+              href: `/${locale}/blog/${post.slug}`,
+            }))
           : [
-            { label: t('common:sellingTips'), href: `/${locale}/blog` },
-            { label: t('common:safetyGuide'), href: `/${locale}/blog` },
-            { label: t('common:marketTrends'), href: `/${locale}/blog` },
-          ],
+              { label: t('common:sellingTips'), href: `/${locale}/blog` },
+              { label: t('common:safetyGuide'), href: `/${locale}/blog` },
+              { label: t('common:marketTrends'), href: `/${locale}/blog` },
+            ],
     },
     {
       title: t('footer:info'),
@@ -142,29 +142,43 @@ export function Footer() {
   return (
     <footer className="bg-card border-border border-t pt-20 pb-20 antialiased md:pt-28 md:pb-12">
       {/* Decorative background grid */}
-      <div className="bg-grid-slate-200/50 mask-[linear-gradient(to_bottom,white,transparent)] absolute inset-0 opacity-10" />
+      <div className="bg-grid-slate-200/50 absolute inset-0 mask-[linear-gradient(to_bottom,white,transparent)] opacity-10" />
 
       <Container className="relative z-10">
         <div className="mb-20 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Brand Info */}
           <div className="flex flex-col items-center space-y-8 text-center lg:col-span-4 lg:items-start lg:text-left">
-            <div className="transition-transform hover:scale-105 duration-500">
+            <div className="transition-transform duration-500 hover:scale-105">
               <Logo size="lg" />
             </div>
-            <p className="text-muted-foreground max-w-sm text-lg leading-relaxed font-medium transition-colors hover:text-foreground/80">
+            <p className="text-muted-foreground hover:text-foreground/80 max-w-sm text-lg leading-relaxed font-medium transition-colors">
               {t('footer:description')}
             </p>
             <div className="flex gap-4">
               {[
-                { icon: <Facebook className="w-5 h-5" />, href: 'https://facebook.com/slovor', label: 'Facebook' },
-                { icon: <Instagram className="w-5 h-5" />, href: 'https://instagram.com/slovor', label: 'Instagram' },
-                { icon: <Twitter className="w-5 h-5" />, href: 'https://twitter.com/slovor', label: 'Twitter' },
+                {
+                  icon: <Facebook className="h-5 w-5" />,
+                  href: 'https://facebook.com/slovor',
+                  label: 'Facebook',
+                },
+                {
+                  icon: <Instagram className="h-5 w-5" />,
+                  href: 'https://instagram.com/slovor',
+                  label: 'Instagram',
+                },
+                {
+                  icon: <Twitter className="h-5 w-5" />,
+                  href: 'https://twitter.com/slovor',
+                  label: 'Twitter',
+                },
               ].map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="social-icon-btn group flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-muted/50 text-muted-foreground transition-all duration-500 hover:bg-primary hover:text-white hover:scale-110 active:scale-90 shadow-sm"
+                  className="social-icon-btn group border-border bg-muted/50 text-muted-foreground hover:bg-primary flex h-12 w-12 items-center justify-center rounded-2xl border shadow-sm transition-all duration-500 hover:scale-110 hover:text-white active:scale-90"
                 >
                   {social.icon}
                 </a>
@@ -202,7 +216,10 @@ export function Footer() {
             {/* Mobile Accordion */}
             <div className="space-y-3 md:hidden">
               {navGroups.map((group, i) => (
-                <div key={i} className="border-border overflow-hidden border rounded-2xl">
+                <div
+                  key={i}
+                  className="border-border overflow-hidden rounded-2xl border"
+                >
                   <Button
                     variant="ghost"
                     onClick={() => toggleSection(i)}
@@ -214,14 +231,16 @@ export function Footer() {
                     <ChevronDown
                       className={cn(
                         'text-muted-foreground h-5 w-5 transition-transform duration-500',
-                        openSection === i && 'rotate-180 text-primary'
+                        openSection === i && 'text-primary rotate-180'
                       )}
                     />
                   </Button>
                   <div
                     className={cn(
-                      'grid transition-all duration-500 ease-out-expo',
-                      openSection === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      'ease-out-expo grid transition-all duration-500',
+                      openSection === i
+                        ? 'grid-rows-[1fr] opacity-100'
+                        : 'grid-rows-[0fr] opacity-0'
                     )}
                   >
                     <div className="overflow-hidden">
@@ -247,28 +266,31 @@ export function Footer() {
         </div>
 
         {/* Newsletter - PRO MAX */}
-        <div className="group relative mb-20 flex flex-col items-center justify-between gap-8 rounded-2xl border border-border bg-card p-8 shadow-card transition-all duration-700 hover:border-primary/30 md:mb-24 md:p-12 lg:flex-row lg:p-14">
-          <div className="bg-primary/5 absolute -inset-1 rounded-2xl blur-2xl opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
+        <div className="group border-border bg-card shadow-card hover:border-primary/30 relative mb-20 flex flex-col items-center justify-between gap-8 rounded-2xl border p-8 transition-all duration-700 md:mb-24 md:p-12 lg:flex-row lg:p-14">
+          <div className="bg-primary/5 absolute -inset-1 rounded-2xl opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-30" />
 
           <div className="relative z-10 w-full text-center lg:max-w-md lg:text-left">
             <h3 className="text-foreground mb-4 text-3xl font-black tracking-tight lg:text-4xl">
               {t('footer:newsletterTitle')}
             </h3>
-            <p className="text-muted-foreground text-lg font-medium leading-relaxed">
+            <p className="text-muted-foreground text-lg leading-relaxed font-medium">
               {t('footer:newsletterSubtitle')}
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} className="relative z-10 flex w-full flex-col gap-4 lg:max-w-md lg:flex-row">
+          <form
+            onSubmit={handleSubscribe}
+            className="relative z-10 flex w-full flex-col gap-4 lg:max-w-md lg:flex-row"
+          >
             <div className="relative flex-1">
-              <Mail className="text-muted-foreground absolute top-1/2 left-5 z-10 h-6 w-6 -translate-y-1/2 transition-colors group-focus-within:text-primary" />
+              <Mail className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-5 z-10 h-6 w-6 -translate-y-1/2 transition-colors" />
               <Input
                 type="email"
                 required
                 placeholder={t('footer:newsletterPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border-input bg-card text-foreground placeholder:text-muted-foreground h-16 w-full rounded-xl py-6 pr-6 pl-14 text-lg font-bold transition-all focus-visible:border-primary/50 focus-visible:ring-primary/20"
+                className="border-input bg-card text-foreground placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-primary/20 h-16 w-full rounded-xl py-6 pr-6 pl-14 text-lg font-bold transition-all"
               />
             </div>
             <Button
@@ -290,7 +312,8 @@ export function Footer() {
         <div className="border-border/40 border-t pt-10">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
             <p className="text-muted-foreground text-[11px] font-black tracking-[0.2em] uppercase opacity-60">
-              © {new Date().getFullYear()} Slovor Marketplace. {t('footer:rights')}.
+              © {new Date().getFullYear()} Slovor Marketplace.{' '}
+              {t('footer:rights')}.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-8">
@@ -306,8 +329,16 @@ export function Footer() {
 
               <div className="flex gap-6">
                 {[
-                  { label: t('footer:transparency') || 'Transparency', href: `/${locale}/terms`, id: 'footer-terms-link' },
-                  { label: t('footer:privacyPolicy') || 'Privacy Policy', href: `/${locale}/privacy`, id: 'footer-privacy-link' },
+                  {
+                    label: t('footer:transparency') || 'Transparency',
+                    href: `/${locale}/terms`,
+                    id: 'footer-terms-link',
+                  },
+                  {
+                    label: t('footer:privacyPolicy') || 'Privacy Policy',
+                    href: `/${locale}/privacy`,
+                    id: 'footer-privacy-link',
+                  },
                 ].map((link, i) => (
                   <Link
                     key={i}

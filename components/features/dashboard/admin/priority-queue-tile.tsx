@@ -117,7 +117,7 @@ export function PriorityQueueTile() {
               <Link
                 href={item.link}
                 key={item.id}
-                className="bg-background/40 hover:bg-background/60 border-border/20 group flex cursor-pointer items-center justify-between rounded-xl border p-3 transition-all hover:scale-[1.02]"
+                className="bg-background/40 hover:bg-background/60 border-border/20 group flex cursor-pointer items-center justify-between rounded-xl border p-3 transition-all hover:-translate-y-0.5 active:scale-95"
               >
                 <div className="flex items-center gap-3">
                   <div

@@ -2,6 +2,8 @@ import { createClient } from '@supabase/supabase-js'
 import { env } from '@/lib/env'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
+import { z } from 'zod'
+import { filterXSS } from 'xss'
 import {
   createErrorResponse,
   createSuccessResponse,
@@ -22,7 +24,7 @@ export async function GET(
     const { data, error } = await supabase
       .from('reviews')
       .select(
-        '*, reviewer:profiles!reviews_buyer_id_fkey(full_name, avatar_url)'
+        '*, reviewer:profiles!reviews_buyer_id_fkey(display_name, avatar_url)'
       ) // Assuming buyer is reviewer, verify foreign key name if possible, or just 'profiles'
       .eq('seller_id', id)
       .order('created_at', { ascending: false })
@@ -57,23 +59,33 @@ export async function POST(
     const params = await props.params
     const { id: targetUserId } = params
     const body = await req.json()
-    const { rating, comment, listing_id } = body
-
     const {
       data: { user },
     } = await supabase.auth.getUser()
     if (!user) return createErrorResponse('Unauthorized', 401)
 
-    // Check if review already exists or allowed?
-    // Insert into reviews (seller_id = target, buyer_id = me)
+    const ReviewSchema = z.object({
+      rating: z.number().min(1).max(5),
+      comment: z.string().min(2).max(1000),
+      listing_id: z.string().uuid().nullable().optional(),
+    })
+
+    const result = ReviewSchema.safeParse(body)
+    if (!result.success) {
+      return createErrorResponse('Invalid input: ' + result.error.message, 400)
+    }
+
+    // Sanitize comment to prevent XSS
+    const sanitizedComment = filterXSS(result.data.comment)
+
     const { data, error } = await supabase
       .from('reviews')
       .insert({
         seller_id: targetUserId,
         buyer_id: user.id,
-        rating,
-        comment,
-        listing_id: listing_id || null,
+        rating: result.data.rating,
+        comment: sanitizedComment,
+        listing_id: result.data.listing_id || null,
       })
       .select()
       .single()

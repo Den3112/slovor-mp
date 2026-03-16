@@ -23,12 +23,12 @@ export async function generateStaticParams() {
   const { data: posts } = await blogApi.listPosts({ limit: 10, offset: 0 })
   if (!posts) return []
 
-  const locales = ['en', 'sk', 'cs', 'ru']
+  const locales = ['en', 'sk', 'cs']
 
-  return locales.flatMap(locale =>
+  return locales.flatMap((locale) =>
     posts.map((post) => ({
       slug: post.slug,
-      locale: locale
+      locale: locale,
     }))
   )
 }
@@ -148,7 +148,13 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   size="icon"
                   variant="outline"
                   className="border-border hover:bg-muted h-12 w-12 rounded-xl"
-                  onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`, '_blank', 'noopener')}
+                  onClick={() =>
+                    window.open(
+                      `https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`,
+                      '_blank',
+                      'noopener'
+                    )
+                  }
                   aria-label="Share on Twitter"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -159,7 +165,13 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   size="icon"
                   variant="outline"
                   className="border-border hover:bg-muted h-12 w-12 rounded-xl"
-                  onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}`, '_blank', 'noopener')}
+                  onClick={() =>
+                    window.open(
+                      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}`,
+                      '_blank',
+                      'noopener'
+                    )
+                  }
                   aria-label="Share on Facebook"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">

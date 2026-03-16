@@ -9,7 +9,6 @@ export function formatDate(dateStr: string) {
 export function formatPrice(amount: number, currency = 'EUR') {
   // Use appropriate locale for specific currencies
   const localeMap: Record<string, string> = {
-    RUB: 'ru-RU',
     EUR: 'sk-SK',
     USD: 'en-US',
     GBP: 'en-GB',

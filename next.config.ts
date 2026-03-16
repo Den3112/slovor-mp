@@ -7,8 +7,11 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
   output: 'standalone',
 
-  // TypeScript errors are checked in CI
   typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
     ignoreBuildErrors: false,
   },
 
@@ -40,31 +43,32 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    // Allow external image domains
+    // Allow external image domains (production only)
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
-      {
-        protocol: 'https',
-        hostname: 'loremflickr.com',
-      },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
-        hostname: 'api.dicebear.com',
+        hostname: 'hnkhwvhjwygolvwvxnor.supabase.co',
       },
       {
         protocol: 'https',
-        hostname: 'hnkhwvhjwygolvwvxnor.supabase.co',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fastly.picsum.photos',
       },
     ],
-    // Enable SVG support for Dicebear avatars
-    dangerouslyAllowSVG: true,
+    // SVG support disabled for security (XSS vector)
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
     // Disable optimization for faster loading of external images
     unoptimized: false,
@@ -77,24 +81,24 @@ const nextConfig: NextConfig = {
     return [
       // Static files - prevent locale prefix issues
       {
-        source: '/:lang(en|sk|cs|ru)/manifest.json',
+        source: '/:lang(en|sk|cs)/manifest.json',
         destination: '/manifest.json',
       },
       {
-        source: '/:lang(en|sk|cs|ru)/favicon.ico',
+        source: '/:lang(en|sk|cs)/favicon.ico',
         destination: '/favicon.ico',
       },
       {
-        source: '/:lang(en|sk|cs|ru)/logo.png',
+        source: '/:lang(en|sk|cs)/logo.png',
         destination: '/logo.png',
       },
       // Auth rewrites - cleaner URLs
       {
-        source: '/:lang(en|sk|cs|ru)/login',
+        source: '/:lang(en|sk|cs)/login',
         destination: '/:lang/auth/login',
       },
       {
-        source: '/:lang(en|sk|cs|ru)/register',
+        source: '/:lang(en|sk|cs)/register',
         destination: '/:lang/auth/register',
       },
     ]
@@ -120,7 +124,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
+            value: 'DENY',
           },
           {
             key: 'X-XSS-Protection',
@@ -129,6 +133,11 @@ const nextConfig: NextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value:
+              'camera=(), microphone=(), geolocation=(), browsing-topics=()',
           },
         ],
       },
@@ -143,12 +152,12 @@ const nextConfig: NextConfig = {
       // Redirects handled in middleware
 
       {
-        source: '/:lang(en|sk|cs|ru)/profile',
+        source: '/:lang(en|sk|cs)/profile',
         destination: '/:lang/dashboard',
         permanent: true,
       },
       {
-        source: '/:lang(en|sk|cs|ru)/profile/:path*',
+        source: '/:lang(en|sk|cs)/profile/:path*',
         destination: '/:lang/dashboard/:path*',
         permanent: true,
       },
@@ -156,14 +165,14 @@ const nextConfig: NextConfig = {
 
       // Legacy paths
       {
-        source: '/:lang(en|sk|cs|ru)/create-ad',
+        source: '/:lang(en|sk|cs)/create-ad',
         destination: '/:lang/post',
         permanent: true,
       },
       // Redirects handled in middleware
 
       {
-        source: '/:lang(en|sk|cs|ru)/dashboard/purchases/:path*',
+        source: '/:lang(en|sk|cs)/dashboard/purchases/:path*',
         destination: '/:lang/dashboard/orders/:path*',
         permanent: true,
       },

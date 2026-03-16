@@ -10,12 +10,13 @@
 7. **Unsure?**: ASK the user. Do not guess.
 8. **URGENT**: If user uses CAPS, pay SPECIAL ATTENTION.
 
-> **Last Updated**: 2026-02-22
-> **Status**: ✅ AI FACTORY INTEGRATED & SERVER VERIFIED.
+> **Last Updated**: 2026-03-12
+> **Status**: ✅ PYTHON ENV FIXED & SMART CHROME PROXY ACTIVE.
 
 ## ⚡ Active RAM
-- **Status**: AI Factory fully integrated. Server is running and verified. Docker infrastructure updated and hardened to standard.
-- **Next Step**: Monitor for user requests via AI Factory workflows.
+- **Status**: Проект переведен на Docker-окружение. Окружение Python исправлено (используется `python3`, установлен `python-is-python3`). Настроен `Pylance`.
+- **Active Fix**: Исправлен Smart Chrome Proxy (bind error fixed, IPv4 0.0.0.0).
+- **Next Step**: Продолжить разработку фич или исправление багов.
 
 ---
 
@@ -33,7 +34,8 @@
 - **API & Logic**:
   - Исправлен `categoriesApi.getAll` (в тесте `categories.test.ts` обновлены моки под Resource Embedding).
   - Добавлен `withRetry` в `profilesApi` для предотвращения клиентских ошибок `Failed to fetch`.
-- **Пути к артефактам**: `/home/creator/.gemini/antigravity/brain/65635806-d4c4-4dbb-8448-3e1d6c2419cb/walkthrough.md`
+  - **Python Fix**: Установлен `python-is-python3`, настроен `Pylance` в VS Code, исправлен `smart_chrome_proxy.py` (IPv4).
+- **Пути к артефактам**: `/home/creator/.gemini/antigravity/brain/e05e3fc5-9204-4406-88e7-4b3e083d9518/walkthrough.md`
 
 ### Текущий статус по фазам
 - **Phase 10 (Deep UI Audit)**: ✅ Исправлено. Радиусы (20px/12px) и SEO нормализованы. Окончательно исключены `rounded-3xl` и `rounded-xl` в пользу стандарта `rounded-2xl` (20px) и `rounded-lg` (12px).

@@ -112,7 +112,7 @@ export function AdminReportsView() {
               row.listing.images && row.listing.images[0] ? (
                 <Image
                   src={row.listing.images[0]}
-                  alt=""
+                  alt={row.listing?.title || 'Listing image'}
                   fill
                   className="object-cover"
                 />
@@ -125,7 +125,7 @@ export function AdminReportsView() {
               row.reported_user.avatar_url ? (
                 <Image
                   src={row.reported_user.avatar_url}
-                  alt=""
+                  alt={row.reported_user?.display_name || 'User avatar'}
                   fill
                   className="object-cover"
                 />

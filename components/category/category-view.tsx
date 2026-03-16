@@ -35,7 +35,7 @@ export function CategoryView({
     <div className="container mx-auto min-h-screen overflow-x-hidden px-4 pt-24 pb-12 md:pt-32">
       <Breadcrumbs
         items={[
-          { label: t('common:categories'), href: '/listings' },
+          { label: t('common:categories'), href: `/${locale}/categories` },
           { label: categoryName },
         ]}
       />
@@ -55,7 +55,8 @@ export function CategoryView({
             <div className="flex items-center gap-3">
               <div className="border-primary/20 bg-primary/5 text-primary inline-flex items-center gap-2 rounded-xl border px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase">
                 <div className="bg-primary h-2 w-2 animate-pulse rounded-sm" />
-                {totalCount} {t('common:listings')} {t('common:found')}
+                {t('common:listings', { count: totalCount })}{' '}
+                {t('common:found')}
               </div>
             </div>
           </div>

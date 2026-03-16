@@ -85,7 +85,7 @@ export function Header() {
                 (pathname === '/' ||
                   pathname === `/${locale}` ||
                   pathname === `/${locale}/`) &&
-                'hidden!'
+                  'hidden!'
               )}
             >
               <div className="group relative w-full">
@@ -143,7 +143,7 @@ export function Header() {
                 ) : (
                   <Link
                     href={`/${locale}/auth/login`}
-                    className="text-muted-foreground/80 hover:text-primary px-3 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
+                    className="text-muted-foreground/80 hover:text-primary px-3 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all active:scale-95"
                   >
                     {t('common:signIn')}
                   </Link>

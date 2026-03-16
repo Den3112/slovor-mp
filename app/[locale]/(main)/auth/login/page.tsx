@@ -118,9 +118,9 @@ function LoginContent() {
       <div className="mb-6">
         <Link
           href={`/${locale}/`}
-          className="text-muted-foreground hover:text-primary flex items-center gap-2 text-sm font-medium transition-colors"
+          className="text-muted-foreground hover:text-primary group flex items-center gap-2 text-sm font-medium transition-all"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           <span>{t('auth:backToHome')}</span>
         </Link>
       </div>

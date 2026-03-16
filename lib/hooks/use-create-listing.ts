@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/providers/auth-provider'
-import { createClient } from '@/lib/supabase/client'
 import { categoriesApi, listingsApi, storageApi } from '@/lib/api'
 import { updateListingAction } from '@/lib/actions/listings'
 import { generateListingTranslations } from '@/lib/services/translation'
@@ -27,7 +26,6 @@ export function useCreateListing() {
   const { t, locale } = useTranslation(['createListing', 'common', 'home'])
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
-  const supabase = createClient()
   const searchParams = useSearchParams()
   const editId = searchParams.get('edit')
 
@@ -192,16 +190,10 @@ export function useCreateListing() {
     try {
       let res
       if (isEditing && editId) {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession()
-        if (!session?.access_token) throw new Error('Session expired')
-
-        res = await updateListingAction(
-          editId,
-          { ...formData, ...translations },
-          session.access_token
-        )
+        res = await updateListingAction(editId, {
+          ...formData,
+          ...translations,
+        })
       } else {
         res = await listingsApi.create({
           ...formData,

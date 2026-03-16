@@ -60,7 +60,11 @@ export function DashboardProfileHub({
             </p>
           </div>
           <div className="flex flex-wrap gap-4">
-            <Link href={`/${locale}/seller/${seller.id}`} target="_blank">
+            <Link
+              href={`/${locale}/seller/${seller.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button
                 variant="outline"
                 className="border-border hover:bg-primary h-12 gap-3 rounded-xl px-6 text-[10px] font-black tracking-[0.15em] uppercase transition-all hover:text-white active:scale-95"
@@ -107,11 +111,11 @@ export function DashboardProfileHub({
                     {t('seller:activeListings')}
                   </h2>
                 </div>
-                <Link href={`/${locale}/dashboard/my-listings`}>
+                <Link href={`/${locale}/dashboard/listings`}>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="hover:bg-primary/5 hover:text-primary h-8 rounded-xl px-4 text-[9px] font-black tracking-[0.2em] uppercase transition-all"
+                    className="hover:bg-primary/5 hover:text-primary h-8 rounded-xl px-4 text-[9px] font-black tracking-[0.2em] uppercase transition-all active:scale-95"
                   >
                     {t('common:viewAll')}
                   </Button>
@@ -138,7 +142,7 @@ export function DashboardProfileHub({
                         'Create your first listing to start selling.',
                     })}
                   </p>
-                  <Link href={`/${locale}/listings/create`}>
+                  <Link href={`/${locale}/listings/page`}>
                     <Button className="shadow-primary/20 hover:bg-primary/90 h-12 rounded-xl px-10 text-[10px] font-black tracking-[0.2em] uppercase shadow-md transition-all active:scale-95">
                       {t('common:createListing', {
                         defaultValue: 'Create Listing',

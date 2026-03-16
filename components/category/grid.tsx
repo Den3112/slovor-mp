@@ -34,7 +34,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           <div className="group flex h-full flex-col gap-4">
             <Link
               href={`/${locale}/categories/${category.slug}`}
-              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-2xl border p-10 shadow-sm transition-all duration-500"
+              className="hover:shadow-premium group/card border-border/50 bg-card hover:border-primary/50 relative flex h-full flex-col items-center justify-center overflow-hidden rounded-2xl border p-10 shadow-sm transition-all duration-500 active:scale-[0.98]"
             >
               {/* Decorative Pattern */}
               <div className="bg-primary/5 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl transition-transform duration-700 group-hover/card:scale-150" />

@@ -1,12 +1,19 @@
 import type { Metadata, Viewport } from 'next'
 import { StructuredData } from '@/components/layout/structured-data'
 import { Providers } from '../providers'
-import { GlobalCommandPalette } from '@/components/features/vantage/command-palette'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+import dynamic from 'next/dynamic'
+
+const GlobalCommandPalette = dynamic(() =>
+  import('@/components/features/vantage/command-palette').then(
+    (mod) => mod.GlobalCommandPalette
+  )
+)
+// import { Analytics } from '@vercel/analytics/react'
+// import { SpeedInsights } from '@vercel/speed-insights/next'
 import '../globals.css'
 import { cn } from '@/lib/utils'
 
+/*
 import { Inter, JetBrains_Mono } from 'next/font/google'
 
 const inter = Inter({
@@ -20,6 +27,9 @@ const jetBrainsMono = JetBrains_Mono({
   display: 'swap',
   variable: '--font-mono',
 })
+*/
+const inter = { variable: 'font-sans' }
+const jetBrainsMono = { variable: 'font-mono' }
 
 export const viewport: Viewport = {
   themeColor: '#6366F1',
@@ -40,14 +50,12 @@ export async function generateMetadata({
     en: 'Slovor - Premium Marketplace in Slovakia',
     sk: 'Slovor - Prémiový bazár na Slovensku',
     cs: 'Slovor - Premiový bazar na Slovensku',
-    ru: 'Slovor - Премиум маркетплейс в Словакии',
   }
 
   const descriptions: Record<string, string> = {
     en: 'Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.',
     sk: 'Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku.',
     cs: 'Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku.',
-    ru: 'Покупайте и продавайте электронику, недвижимость, автомобили и многое другое. Самый современный маркетплейс в Словакии.',
   }
 
   const defaultTitle =
@@ -77,7 +85,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'website',
-      locale: locale === 'ru' ? 'ru_RU' : locale === 'en' ? 'en_US' : 'sk_SK',
+      locale: locale === 'en' ? 'en_US' : locale === 'sk' ? 'sk_SK' : 'cs_CZ',
       url: `/${locale}`,
       siteName: 'Slovor',
       images: [
@@ -106,6 +114,8 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  const nonce =
+    (await (await import('next/headers')).headers()).get('x-nonce') || undefined
 
   return (
     <html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
@@ -122,11 +132,11 @@ export default async function RootLayout({
         )}
       >
         <Providers lang={locale}>
-          <StructuredData locale={locale} />
+          <StructuredData locale={locale} nonce={nonce} />
           <GlobalCommandPalette />
           {children}
-          <Analytics />
-          <SpeedInsights />
+          {/* <Analytics /> */}
+          {/* <SpeedInsights /> */}
         </Providers>
       </body>
     </html>

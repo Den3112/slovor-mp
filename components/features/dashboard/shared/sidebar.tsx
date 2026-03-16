@@ -84,7 +84,7 @@ export function UnifiedSidebar({
     return (
       <div
         className={cn(
-          'bg-card border-r border-border',
+          'bg-card border-border border-r',
           isCollapsed ? 'w-20' : 'w-72'
         )}
       />
@@ -93,7 +93,7 @@ export function UnifiedSidebar({
   return (
     <div
       className={cn(
-        'bg-card flex h-full flex-col border-r border-border transition-all duration-500 ease-out-expo',
+        'bg-card border-border ease-out-expo flex h-full flex-col border-r transition-all duration-500',
         isCollapsed ? 'w-20' : 'w-72',
         !isMobile && 'h-full',
         className
@@ -105,7 +105,7 @@ export function UnifiedSidebar({
         className={cn(
           'flex items-center px-8 transition-all',
           !hideLogo &&
-          'h-(--header-height) justify-between border-b border-border',
+            'border-border h-(--header-height) justify-between border-b',
           hideLogo && 'h-16 justify-end',
           isCollapsed && 'justify-center px-0'
         )}
@@ -146,8 +146,8 @@ export function UnifiedSidebar({
                   const localePrefix = `/${locale}`
                   const localizedHref =
                     link.href.startsWith('http') ||
-                      link.external ||
-                      link.href.startsWith(localePrefix)
+                    link.external ||
+                    link.href.startsWith(localePrefix)
                       ? link.href
                       : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 
@@ -157,7 +157,7 @@ export function UnifiedSidebar({
                       href={localizedHref}
                       onClick={onNavigate}
                       className={cn(
-                        'group relative flex h-12 items-center gap-3 overflow-hidden rounded-xl px-5 transition-all duration-300',
+                        'group relative flex h-12 items-center gap-3 overflow-hidden rounded-xl px-5 transition-all duration-300 active:scale-95',
                         active
                           ? 'text-white'
                           : 'text-muted-foreground hover:bg-primary/5 hover:text-primary',
@@ -185,7 +185,7 @@ export function UnifiedSidebar({
                       />
 
                       {!isCollapsed && (
-                        <span className="relative z-10 flex-1 text-[11px] font-black tracking-widest leading-tight whitespace-normal uppercase">
+                        <span className="relative z-10 flex-1 text-[11px] leading-tight font-black tracking-widest whitespace-normal uppercase">
                           {link.label}
                         </span>
                       )}

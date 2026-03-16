@@ -1,5 +1,5 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
@@ -34,5 +34,7 @@
     "editor.defaultFormatter": "vscode.css-language-features"
   },
   "css.lint.unknownAtRules": "ignore",
-  "markdown.validate.enabled": true
+  "markdown.validate.enabled": true,
+  "python.defaultInterpreterPath": "python3",
+  "python.languageServer": "Pylance"
 }

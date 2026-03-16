@@ -281,7 +281,9 @@ export function OrderDetailsView({
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-bold">
-                      {order.seller?.full_name || 'Anonymous User'}
+                      {order.seller?.display_name ||
+                        order.seller?.username ||
+                        'Anonymous User'}
                     </p>
                     <p className="text-muted-foreground truncate text-[10px] font-bold">
                       @{order.seller?.id.split('-')[0]}
@@ -313,7 +315,9 @@ export function OrderDetailsView({
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-bold">
-                      {order.buyer?.full_name || 'Anonymous User'}
+                      {order.buyer?.display_name ||
+                        order.buyer?.username ||
+                        'Anonymous User'}
                     </p>
                     <p className="text-muted-foreground truncate text-[10px] font-bold">
                       @{order.buyer?.id.split('-')[0]}

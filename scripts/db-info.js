@@ -1,7 +1,12 @@
 // Check database contents
 // Run with: node scripts/db-info.js
 
-require('dotenv').config({ path: '.env.local' })
+const fs = require('fs')
+if (fs.existsSync('.env.local')) {
+  require('dotenv').config({ path: '.env.local' })
+} else {
+  require('dotenv').config({ path: '.env' })
+}
 const { createClient } = require('@supabase/supabase-js')
 
 const supabase = createClient(

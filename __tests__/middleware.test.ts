@@ -35,6 +35,14 @@ vi.mock('next/server', () => ({
   },
 }))
 
+vi.mock('@/lib/config', () => ({
+  config: {
+    app: {
+      adminEmails: ['admin@example.com'],
+    },
+  },
+}))
+
 describe('middleware utility', () => {
   const mockRequest = (pathname: string) => {
     const urlObj = new URL('http://localhost:3000' + pathname)
@@ -74,9 +82,6 @@ describe('middleware utility', () => {
     const req = mockRequest('/dashboard')
     await updateSession(req)
     expect(NextResponse.redirect).toHaveBeenCalled()
-    // Verify redirect URL ends with /auth/login
-    // The implementation might assume relative or absolute.
-    // My implementation: url.pathname = '/auth/login'.
   })
 
   it('redirects to /dashboard if user is authenticated on auth route', async () => {
@@ -84,7 +89,6 @@ describe('middleware utility', () => {
     const req = mockRequest('/auth/login')
     await updateSession(req)
     expect(NextResponse.redirect).toHaveBeenCalled()
-    // Verify redirect to /dashboard
   })
 
   it('redirects guests attempting to access /admin', async () => {
@@ -135,15 +139,6 @@ describe('middleware utility', () => {
       error: null,
     })
     mockSingle.mockResolvedValue({ data: { role: 'user' }, error: null })
-
-    // Mock @/lib/config for the fallback check
-    vi.doMock('@/lib/config', () => ({
-      config: {
-        app: {
-          adminEmails: [adminEmail],
-        },
-      },
-    }))
 
     const req = mockRequest('/admin')
     await updateSession(req)
