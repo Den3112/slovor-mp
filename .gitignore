@@ -31,6 +31,9 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.bak
+.env.backup
+*.env.bak
 
 # vercel
 .vercel
@@ -60,3 +63,25 @@ eslint_config_dump.json
 squirrel_report*.xml
 test_dir/
 test_write
+
+# Clutter & Logs
+*.log
+dev_logs.txt
+dev_logs_v2.txt
+dev_output.log
+dev_output_v3.txt
+dev_playwright.log
+audit.log
+push_out.txt
+policies.txt
+
+# Backups & Old Build Files
+.env.bak
+.next_old/
+.next_slovor/
+next_old/
+tsconfig.tsbuildinfo
+
+# Remote Sync Files
+remote_schema.sql
+schema_dump.sql
