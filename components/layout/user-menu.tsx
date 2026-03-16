@@ -78,7 +78,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               {config.app.adminEmails.includes(user.email || '') && (
                 <Link
                   href={`/${locale}/admin`}
-                  className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-amber-500 transition-all hover:bg-amber-500/10 hover:text-amber-600"
+                  className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-amber-500 transition-all hover:translate-x-1 hover:bg-amber-500/10 hover:text-amber-600 active:scale-95"
                   onClick={() => setShowUserMenu(false)}
                 >
                   <ShieldAlert className="h-4 w-4 transition-transform group-hover:scale-110" />
@@ -88,7 +88,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <Link
                 href={`/${locale}/dashboard`}
-                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:translate-x-1 active:scale-95"
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
@@ -97,7 +97,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <Link
                 href={`/${locale}/dashboard/listings`}
-                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:translate-x-1 active:scale-95"
                 onClick={() => setShowUserMenu(false)}
               >
                 <Store className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
@@ -106,7 +106,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <Link
                 href={`/${locale}/dashboard/favorites`}
-                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:translate-x-1 active:scale-95"
                 onClick={() => setShowUserMenu(false)}
               >
                 <Heart className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
@@ -115,7 +115,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <Link
                 href={`/${locale}/dashboard/saved-searches`}
-                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:translate-x-1 active:scale-95"
                 onClick={() => setShowUserMenu(false)}
               >
                 <LayoutDashboard className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
@@ -126,7 +126,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <Link
                 href={`/${locale}/dashboard/profile`}
-                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:translate-x-1 active:scale-95"
                 onClick={() => setShowUserMenu(false)}
               >
                 <Eye className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
@@ -135,7 +135,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <Link
                 href={`/${locale}/dashboard/settings`}
-                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="group text-foreground hover:bg-primary/5 hover:text-primary flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:translate-x-1 active:scale-95"
                 onClick={() => setShowUserMenu(false)}
               >
                 <Settings className="text-muted-foreground group-hover:text-primary h-4 w-4 transition-transform group-hover:scale-110" />
@@ -146,7 +146,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
 
               <button
                 onClick={() => signOut()}
-                className="text-destructive hover:bg-destructive/5 flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all"
+                className="text-destructive hover:bg-destructive/5 flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold transition-all active:scale-95"
               >
                 <LogOut className="h-4 w-4" />
                 {t('auth:signOut')}

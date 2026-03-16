@@ -2,6 +2,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { languages } from '@/packages/i18n/settings'
 import { env } from '@/lib/env'
+import { config } from '@/lib/config'
 
 export async function updateSession(
   request: NextRequest,
@@ -109,7 +110,6 @@ export async function updateSession(
 
     if (!profile || profile.role !== 'admin') {
       // Fallback for E2E or recovery
-      const { config } = await import('@/lib/config')
       if (!config.app.adminEmails.includes(user.email || '')) {
         return NextResponse.redirect(getRedirectUrl('/'))
       }

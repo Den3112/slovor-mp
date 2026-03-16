@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 import {
   Activity,
   Globe,
@@ -24,7 +25,7 @@ interface Event {
 }
 
 export function LiveMonitor() {
-  const { t } = useTranslation(['admin'])
+  const { t, locale } = useTranslation(['admin'])
   const [events, setEvents] = useState<Event[]>([])
 
   // Use real data from logs for initial pulse
@@ -185,12 +186,13 @@ export function LiveMonitor() {
       </div>
 
       <div className="bg-muted/30 border-border/10 border-t px-4 py-2">
-        <button
-          className="text-primary hover:text-primary-foreground hover:bg-primary flex w-full items-center justify-center gap-2 rounded-xl py-1.5 text-[10px] font-bold tracking-widest uppercase transition-all"
+        <Link
+          href={`/${locale}/admin/monitor`}
+          className="text-primary hover:text-primary-foreground hover:bg-primary flex w-full items-center justify-center gap-2 rounded-xl py-2 text-[10px] font-bold tracking-widest uppercase transition-all active:scale-95"
           aria-label={t('admin:viewDetailStream') || 'View Detail Stream'}
         >
           {t('admin:viewDetailStream') || 'View Detail Stream'}
-        </button>
+        </Link>
       </div>
     </div>
   )

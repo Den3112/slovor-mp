@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { History, ArrowRight, User, Terminal, Info, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import {
+  History,
+  ArrowRight,
+  User,
+  Terminal,
+  Info,
+  Loader2,
+} from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { adminApi } from '@/lib/api/admin'
@@ -33,9 +41,17 @@ export function ActionStream() {
           const mappedActions: Action[] = data.map((log: any) => {
             // Determine status based on action type
             let status: Action['status'] = 'info'
-            if (log.action.includes('error') || log.action.includes('fail') || log.action.includes('ban')) {
+            if (
+              log.action.includes('error') ||
+              log.action.includes('fail') ||
+              log.action.includes('ban')
+            ) {
               status = 'warning'
-            } else if (log.action.includes('success') || log.action.includes('create') || log.action.includes('verify')) {
+            } else if (
+              log.action.includes('success') ||
+              log.action.includes('create') ||
+              log.action.includes('verify')
+            ) {
               status = 'success'
             }
 
@@ -46,9 +62,9 @@ export function ActionStream() {
               target: log.metadata?.target || log.metadata?.path || '-',
               timestamp: formatDistanceToNow(new Date(log.created_at), {
                 addSuffix: true,
-                locale: locale === 'ru' ? ru : enUS
+                locale: locale === 'ru' ? ru : enUS,
               }),
-              status
+              status,
             }
           })
           setActions(mappedActions)
@@ -97,11 +113,11 @@ export function ActionStream() {
                 className={cn(
                   'flex h-2 w-2 rounded-full',
                   action.status === 'success' &&
-                  'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]',
+                    'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.4)]',
                   action.status === 'warning' &&
-                  'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.4)]',
+                    'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.4)]',
                   action.status === 'info' &&
-                  'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.4)]'
+                    'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.4)]'
                 )}
               />
 
@@ -125,7 +141,7 @@ export function ActionStream() {
               </div>
 
               <button
-                className="bg-muted text-muted-foreground/60 group-hover:bg-primary group-hover:text-primary-foreground flex h-6 w-6 items-center justify-center rounded-md opacity-0 transition-all group-hover:opacity-100"
+                className="bg-muted text-muted-foreground/60 group-hover:bg-primary group-hover:text-primary-foreground flex h-6 w-6 items-center justify-center rounded-md opacity-0 transition-all group-hover:opacity-100 active:scale-90"
                 aria-label={t('admin:viewDetails') || 'View Details'}
               >
                 <Info className="h-3 w-3" />
@@ -139,9 +155,12 @@ export function ActionStream() {
         )}
       </div>
 
-      <button className="bg-muted/20 text-muted-foreground hover:bg-muted flex w-full items-center justify-center py-3 text-[10px] font-bold tracking-widest uppercase transition-all">
+      <Link
+        href={`/${locale}/admin/monitor`}
+        className="bg-muted/20 text-muted-foreground hover:bg-muted flex w-full items-center justify-center py-4 text-[10px] font-bold tracking-widest uppercase transition-all active:scale-[0.98]"
+      >
         {t('admin:fullAuditLog') || 'Full Audit Log'}
-      </button>
+      </Link>
     </div>
   )
 }

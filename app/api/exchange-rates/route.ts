@@ -40,6 +40,10 @@ export async function GET() {
     const data: ExchangeRateApiResponse = await response.json()
 
     if (data.result !== 'success' || !data.conversion_rates) {
+      console.error(
+        'Exchange rate lookup failed payload:',
+        JSON.stringify(data).substring(0, 500)
+      )
       throw new Error('Exchange rate lookup failed')
     }
 
@@ -51,7 +55,6 @@ export async function GET() {
       PLN: data.conversion_rates.PLN ?? FALLBACK_RATES.PLN,
       UAH: data.conversion_rates.UAH ?? FALLBACK_RATES.UAH,
       GBP: data.conversion_rates.GBP ?? FALLBACK_RATES.GBP,
-      RUB: data.conversion_rates.RUB ?? FALLBACK_RATES.RUB,
     }
 
     // Update cache

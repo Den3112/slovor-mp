@@ -177,7 +177,7 @@ export default function PromoteListingPage({ params }: Props) {
 
                   <div className="flex items-baseline gap-1">
                     <span className="text-foreground text-4xl font-bold">
-                      {formatPrice(plan.price, 'RUB')}
+                      {formatPrice(plan.price, 'EUR')}
                     </span>
                   </div>
 

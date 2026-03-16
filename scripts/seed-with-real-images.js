@@ -1060,7 +1060,7 @@ async function ensureTestSeller() {
     const { error } = await supabase.from('users').insert({
       id: userId,
       username: 'test_seller',
-      full_name: 'Test Seller',
+      display_name: 'Test Seller',
       verified: true,
       avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=testseller',
     })

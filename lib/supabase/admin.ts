@@ -1,18 +1,26 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { env } from '@/lib/env'
+import { serverEnv } from '@/lib/env.server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+/**
+ * Creates a Supabase Admin client with Service Role Key.
+ * Uses lazy initialization to avoid module-level singleton leak.
+ * MUST only be called from Server Actions / API Routes.
+ */
+export function createAdminClient(): SupabaseClient {
+  const supabaseUrl = env.SUPABASE_URL
+  const supabaseServiceRoleKey = serverEnv.SERVICE_ROLE_KEY
 
-if (!supabaseUrl || !supabaseServiceRoleKey) {
-  // Only throw in production or when actually trying to use it
-  if (process.env.NODE_ENV === 'production') {
-    console.error('Missing Supabase Admin credentials')
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    throw new Error(
+      'Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL'
+    )
   }
-}
 
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
-  },
-})
+  return createClient(supabaseUrl, supabaseServiceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  })
+}

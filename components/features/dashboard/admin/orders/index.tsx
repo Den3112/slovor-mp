@@ -23,8 +23,8 @@ import { toast } from 'sonner'
 import { type Order } from '@/lib/types/database'
 
 interface AdminOrder extends Omit<Order, 'listing' | 'buyer' | 'seller'> {
-  buyer: { full_name: string } | null
-  seller: { full_name: string } | null
+  buyer: { display_name: string } | null
+  seller: { display_name: string } | null
   listing: { title: string } | null
 }
 
@@ -40,8 +40,12 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
   const filteredOrders = orders.filter(
     (o) =>
       o.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      o.buyer?.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      o.seller?.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      o.buyer?.display_name
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      o.seller?.display_name
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
       o.listing?.title?.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
@@ -91,7 +95,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
         <div className="flex items-center gap-2">
           <User className="text-muted-foreground/60 h-3 w-3" />
           <span className="text-xs font-bold">
-            {row.buyer?.full_name || t('admin:system')}
+            {row.buyer?.display_name || t('admin:system')}
           </span>
         </div>
       ),
@@ -103,7 +107,7 @@ export function AdminOrdersView({ initialOrders = [] }: AdminOrdersViewProps) {
         <div className="flex items-center gap-2">
           <User className="text-muted-foreground/60 h-3 w-3" />
           <span className="text-xs font-bold">
-            {row.seller?.full_name || t('admin:system')}
+            {row.seller?.display_name || t('admin:system')}
           </span>
         </div>
       ),

@@ -54,7 +54,7 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                         <Link
                           href={`/${locale}/categories/${category.id}`}
                           onClick={onClose}
-                          className="group flex items-center gap-3 transition-all"
+                          className="group flex items-center gap-3 transition-all active:scale-95"
                         >
                           <div
                             className={cn(
@@ -78,11 +78,11 @@ export function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                           {category.popularSubcategories?.map((sub) => (
                             <li key={sub}>
                               <Link
-                                href={`/${locale}/categories/${category.id}/${sub}`}
+                                href={`/${locale}/categories/${category.id}?subcategory=${sub}`}
                                 onClick={onClose}
-                                className="text-muted-foreground/70 hover:text-primary flex items-center gap-2 text-xs font-bold transition-all hover:translate-x-1"
+                                className="text-muted-foreground/70 hover:text-primary flex items-center gap-2 text-xs font-bold transition-all hover:translate-x-1 active:scale-95"
                               >
-                                <span className="bg-border h-1 w-1 rounded-full" />
+                                <span className="bg-border group-hover:bg-primary h-1 w-1 rounded-full transition-colors" />
                                 {t(sub)}
                               </Link>
                             </li>

@@ -93,16 +93,19 @@ export function SettingsView() {
   }
 
   return (
-    <PremiumBackground variant="mesh" className="min-h-screen py-10 px-4 md:px-8">
+    <PremiumBackground
+      variant="mesh"
+      className="min-h-screen px-4 py-10 md:px-8"
+    >
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
         className="mx-auto max-w-6xl space-y-12"
       >
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between px-2">
+        <div className="flex flex-col gap-6 px-2 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
-            <h1 className="text-foreground text-4xl font-black tracking-tighter uppercase sm:text-5xl lg:text-6xl text-gradient">
+            <h1 className="text-foreground text-gradient text-4xl font-black tracking-tighter uppercase sm:text-5xl lg:text-6xl">
               {t('profile:settings')}
             </h1>
             <p className="text-primary/40 text-xs font-black tracking-[0.2em] uppercase">
@@ -123,7 +126,7 @@ export function SettingsView() {
           </Button>
         </div>
 
-        <div className="glass-panel border-primary/10 bg-primary/5 flex w-fit gap-2 rounded-[2rem] border p-1.5 shadow-2xl shadow-primary/5">
+        <div className="glass-panel border-primary/10 bg-primary/5 shadow-primary/5 flex w-fit gap-2 rounded-[2rem] border p-1.5 shadow-2xl">
           <TabButton
             active={activeTab === 'profile'}
             onClick={() => setActiveTab('profile')}
@@ -158,39 +161,44 @@ export function SettingsView() {
                 {/* Avatar Section */}
                 <BentoTile
                   colSpan={12}
-                  className="bg-card flex flex-col items-center justify-center rounded-2xl border border-border p-12 shadow-md transition-all duration-500 hover:shadow-lg md:col-span-4"
+                  className="bg-card border-border flex flex-col items-center justify-center rounded-2xl border p-12 shadow-md transition-all duration-500 hover:shadow-lg md:col-span-4"
                 >
                   <div className="group relative cursor-pointer">
-                    <div className="absolute -inset-4 rounded-full bg-primary/20 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
+                    <div className="bg-primary/20 absolute -inset-4 rounded-full opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
                     <Avatar className="ring-primary/10 group-hover:ring-primary/40 h-44 w-44 rounded-full border-0 ring-8 ring-offset-0 transition-all duration-700 group-hover:scale-105">
-                      <AvatarImage src={profile?.avatar_url} className="object-cover" />
-                      <AvatarFallback className="bg-primary/5 text-4xl font-black text-primary">
+                      <AvatarImage
+                        src={profile?.avatar_url}
+                        className="object-cover"
+                      />
+                      <AvatarFallback className="bg-primary/5 text-primary text-4xl font-black">
                         {profile?.display_name?.charAt(0) ||
                           user?.email?.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="bg-primary/80 absolute inset-0 flex items-center justify-center rounded-full opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:opacity-100">
-                      <Camera className="text-white h-10 w-10 stroke-3" />
+                      <Camera className="h-10 w-10 stroke-3 text-white" />
                     </div>
                   </div>
-                  <div className="mt-8 text-center space-y-1">
-                    <h3 className="text-foreground text-xl font-black tracking-tighter uppercase leading-none">
+                  <div className="mt-8 space-y-1 text-center">
+                    <h3 className="text-foreground text-xl leading-none font-black tracking-tighter uppercase">
                       {profile?.display_name || 'User'}
                     </h3>
-                    <p className="text-primary/40 text-[10px] font-black tracking-widest uppercase">{user?.email}</p>
+                    <p className="text-primary/40 text-[10px] font-black tracking-widest uppercase">
+                      {user?.email}
+                    </p>
                   </div>
                 </BentoTile>
 
                 {/* Info Form */}
                 <BentoTile
                   colSpan={12}
-                  className="bg-card space-y-10 rounded-2xl border border-border p-12 shadow-md md:col-span-8"
+                  className="bg-card border-border space-y-10 rounded-2xl border p-12 shadow-md md:col-span-8"
                 >
                   <div className="grid gap-10 md:grid-cols-2">
                     <div className="space-y-4">
                       <Label
                         htmlFor="display_name"
-                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
+                        className="text-primary/40 flex items-center gap-3 pl-1 text-[10px] font-black tracking-[0.25em] uppercase"
                       >
                         <UserIcon className="h-4 w-4 stroke-3 opacity-50" />{' '}
                         {t('profile:displayName')}
@@ -207,30 +215,15 @@ export function SettingsView() {
                         className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background h-14 rounded-2xl px-6 text-[13px] font-black tracking-tight transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-4">
-                      <Label
-                        htmlFor="full_name"
-                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
-                      >
-                        <UserIcon className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:fullName')}
-                      </Label>
-                      <Input
-                        id="full_name"
-                        value={profile?.full_name || ''}
-                        onChange={(e) =>
-                          setProfile({ ...profile, full_name: e.target.value })
-                        }
-                        className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background h-14 rounded-2xl px-6 text-[13px] font-black tracking-tight transition-all duration-300"
-                      />
-                    </div>
                   </div>
 
                   <div className="space-y-4">
                     <Label
                       htmlFor="bio"
-                      className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
+                      className="text-primary/40 flex items-center gap-3 pl-1 text-[10px] font-black tracking-[0.25em] uppercase"
                     >
-                      <Globe className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:bio')}
+                      <Globe className="h-4 w-4 stroke-3 opacity-50" />{' '}
+                      {t('profile:bio')}
                     </Label>
                     <Textarea
                       id="bio"
@@ -239,7 +232,7 @@ export function SettingsView() {
                       onChange={(e) =>
                         setProfile({ ...profile, bio: e.target.value })
                       }
-                      className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background min-h-[140px] resize-none rounded-xl p-6 text-[13px] font-black tracking-tight transition-all duration-300 leading-relaxed"
+                      className="bg-primary/5 border-primary/10 hover:border-primary/20 focus:bg-background min-h-[140px] resize-none rounded-xl p-6 text-[13px] leading-relaxed font-black tracking-tight transition-all duration-300"
                     />
                   </div>
 
@@ -247,9 +240,10 @@ export function SettingsView() {
                     <div className="space-y-4">
                       <Label
                         htmlFor="phone"
-                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
+                        className="text-primary/40 flex items-center gap-3 pl-1 text-[10px] font-black tracking-[0.25em] uppercase"
                       >
-                        <Phone className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:phoneNumber')}
+                        <Phone className="h-4 w-4 stroke-3 opacity-50" />{' '}
+                        {t('profile:phoneNumber')}
                       </Label>
                       <Input
                         id="phone"
@@ -264,9 +258,10 @@ export function SettingsView() {
                     <div className="space-y-4">
                       <Label
                         htmlFor="location"
-                        className="text-primary/40 flex items-center gap-3 text-[10px] font-black tracking-[0.25em] uppercase pl-1"
+                        className="text-primary/40 flex items-center gap-3 pl-1 text-[10px] font-black tracking-[0.25em] uppercase"
                       >
-                        <MapPin className="h-4 w-4 stroke-3 opacity-50" /> {t('profile:location')}
+                        <MapPin className="h-4 w-4 stroke-3 opacity-50" />{' '}
+                        {t('profile:location')}
                       </Label>
                       <Input
                         id="location"
@@ -293,9 +288,9 @@ export function SettingsView() {
               >
                 <BentoTile
                   colSpan={12}
-                  className="bg-card relative overflow-hidden rounded-2xl border border-border p-10 shadow-md"
+                  className="bg-card border-border relative overflow-hidden rounded-2xl border p-10 shadow-md"
                 >
-                  <div className="bg-primary/10 absolute -right-20 -top-20 h-64 w-64 rounded-full blur-[100px] opacity-40 animate-pulse" />
+                  <div className="bg-primary/10 absolute -top-20 -right-20 h-64 w-64 animate-pulse rounded-full opacity-40 blur-[100px]" />
                   <div className="relative z-10 flex flex-col justify-between gap-8 md:flex-row md:items-end">
                     <div className="space-y-4">
                       <div className="bg-primary shadow-primary/20 flex h-16 w-16 items-center justify-center rounded-xl shadow-lg">
@@ -303,7 +298,9 @@ export function SettingsView() {
                       </div>
                       <div className="space-y-1">
                         <p className="text-muted-foreground ml-1 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">
-                          {t('profile:settingsSubtitle', { defaultValue: 'Configure your profile' })}
+                          {t('profile:settingsSubtitle', {
+                            defaultValue: 'Configure your profile',
+                          })}
                         </p>
                         <h1 className="text-foreground text-5xl font-black tracking-tighter uppercase sm:text-6xl">
                           {t('dashboard:settings')}
@@ -313,7 +310,7 @@ export function SettingsView() {
                   </div>
                   <Button
                     variant="outline"
-                    className="border-primary/10 hover:bg-primary hover:text-white h-14 rounded-xl px-12 text-[10px] font-black tracking-[0.2em] uppercase transition-all active:scale-95"
+                    className="border-primary/10 hover:bg-primary h-14 rounded-xl px-12 text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:text-white active:scale-95"
                   >
                     {t('profile:changePassword')}
                   </Button>
@@ -332,15 +329,15 @@ export function SettingsView() {
               >
                 <BentoTile
                   colSpan={12}
-                  className="bg-card flex min-h-[500px] flex-col items-center justify-center rounded-2xl border border-border p-16 text-center shadow-md"
+                  className="bg-card border-border flex min-h-[500px] flex-col items-center justify-center rounded-2xl border p-16 text-center shadow-md"
                 >
-                  <div className="bg-primary/5 border-primary/5 shadow-inner mb-10 flex h-24 w-24 items-center justify-center rounded-xl border transition-transform duration-700 hover:scale-110">
+                  <div className="bg-primary/5 border-primary/5 mb-10 flex h-24 w-24 items-center justify-center rounded-xl border shadow-inner transition-transform duration-700 hover:scale-110">
                     <Bell className="text-primary/20 h-10 w-10 stroke-3" />
                   </div>
-                  <h3 className="text-foreground text-3xl font-black tracking-tighter uppercase mb-3">
+                  <h3 className="text-foreground mb-3 text-3xl font-black tracking-tighter uppercase">
                     {t('profile:notificationSettings')}
                   </h3>
-                  <p className="text-primary/40 mx-auto mb-12 max-w-md text-xs font-black tracking-[0.2em] uppercase leading-relaxed">
+                  <p className="text-primary/40 mx-auto mb-12 max-w-md text-xs leading-relaxed font-black tracking-[0.2em] uppercase">
                     {t('profile:notifications.description')}
                   </p>
                   <div className="w-full max-w-md space-y-6">
@@ -387,11 +384,16 @@ function TabButton({
       className={cn(
         'group flex h-11 items-center gap-3 rounded-[1.25rem] px-5 text-[9px] font-black tracking-[0.2em] uppercase transition-all duration-300 active:scale-95',
         active
-          ? 'bg-primary text-primary-foreground shadow-xl shadow-primary/20'
+          ? 'bg-primary text-primary-foreground shadow-primary/20 shadow-xl'
           : 'text-primary/40 hover:bg-primary/5 hover:text-primary'
       )}
     >
-      <span className={cn('transition-transform duration-300 group-hover:scale-110', active ? 'text-white' : 'opacity-50')}>
+      <span
+        className={cn(
+          'transition-transform duration-300 group-hover:scale-110',
+          active ? 'text-white' : 'opacity-50'
+        )}
+      >
         {icon}
       </span>
       {label}
@@ -408,9 +410,11 @@ function NotificationToggle({
 }) {
   const [isOn, setIsOn] = useState(enabled)
   return (
-    <div className="bg-primary/5 group flex items-center justify-between rounded-xl border border-border p-5 transition-all duration-300 hover:border-primary/20">
+    <div className="bg-primary/5 group border-border hover:border-primary/20 flex items-center justify-between rounded-xl border p-5 transition-all duration-300">
       <div className="flex items-center gap-4">
-        <span className="text-[11px] font-black tracking-widest uppercase text-foreground/80">{label}</span>
+        <span className="text-foreground/80 text-[11px] font-black tracking-widest uppercase">
+          {label}
+        </span>
         <Badge
           variant="secondary"
           className="bg-primary/10 text-primary h-5 border-none px-2 py-0 text-[8px] font-black tracking-widest uppercase"
@@ -424,13 +428,13 @@ function NotificationToggle({
         aria-checked={isOn}
         aria-label={label}
         className={cn(
-          'relative h-7 w-13 rounded-full transition-all duration-500 shadow-inner',
+          'relative h-7 w-13 rounded-full shadow-inner transition-all duration-500',
           isOn ? 'bg-primary' : 'bg-primary/10'
         )}
       >
         <div
           className={cn(
-            'bg-white absolute top-1 h-5 w-5 rounded-full transition-all duration-500 shadow-sm',
+            'absolute top-1 h-5 w-5 rounded-full bg-white shadow-sm transition-all duration-500',
             isOn ? 'right-1 translate-x-0' : 'left-1 translate-x-0 shadow-none'
           )}
         />

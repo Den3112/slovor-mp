@@ -41,7 +41,7 @@ export function ListingCard({
     return (
       <Link
         href={`/${locale}/listings/${listing.id}`}
-        className="card-pro group border-border/40 relative flex gap-4 overflow-hidden p-3 transition-all active:scale-[0.98] shadow-sm hover:shadow-md"
+        className="card-pro group border-border/40 relative flex gap-4 overflow-hidden p-3 shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
       >
         {/* Compact Image */}
         <div className="bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-[1.25rem] sm:h-28 sm:w-28">
@@ -70,7 +70,7 @@ export function ListingCard({
 
           {/* Condition Badge */}
           {listing.condition === 'new' && (
-            <div className="bg-card text-primary absolute top-1.5 left-1.5 flex items-center gap-1 rounded-xl border border-primary/20 px-2 py-0.5 text-[8px] font-black uppercase shadow-sm">
+            <div className="bg-card text-primary border-primary/20 absolute top-1.5 left-1.5 flex items-center gap-1 rounded-xl border px-2 py-0.5 text-[8px] font-black uppercase shadow-sm">
               <Sparkles className="fill-primary h-2.5 w-2.5" />
               {t('new')}
             </div>
@@ -121,8 +121,9 @@ export function ListingCard({
     <Link
       href={`/${locale}/listings/${listing.id}`}
       className={cn(
-        'card-pro group ring-primary/0 border-border/40 relative block overflow-hidden transition-all duration-500 hover:ring-8 hover:ring-primary/5 active:scale-[0.99] shadow-md hover:shadow-primary/10',
-        (listing.is_highlighted || featured) && 'border-primary/40 bg-primary/2'
+        'card-pro group ring-primary/0 border-border/40 hover:shadow-primary/5 relative block overflow-hidden shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl active:scale-[0.99]',
+        (listing.is_highlighted || featured) &&
+          'border-primary/40 from-primary/5 bg-linear-to-b to-transparent'
       )}
     >
       {/* Glow Effect on Hover */}
@@ -142,7 +143,7 @@ export function ListingCard({
               alt={localizedTitle}
               fill
               className={cn(
-                'object-cover transition-transform duration-1000 ease-out-expo group-hover:scale-110',
+                'ease-out-expo object-cover transition-transform duration-1000 group-hover:scale-110',
                 isLoading ? 'opacity-0' : 'opacity-100'
               )}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -169,14 +170,14 @@ export function ListingCard({
         {/* Badges - Floating Style */}
         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
           {(featured || listing.is_highlighted) && (
-            <div className="bg-primary text-white shadow-primary/20 flex items-center gap-2 rounded-full border border-white/20 px-3 py-1.5 text-[10px] font-black tracking-widest uppercase shadow-md">
+            <div className="bg-primary shadow-primary/20 flex items-center gap-2 rounded-full border border-white/20 px-3 py-1.5 text-[10px] font-black tracking-widest text-white uppercase shadow-md">
               <Sparkles className="h-3 w-3 fill-white" />
               {t('featured')}
             </div>
           )}
 
           {listing.condition === 'new' && (
-            <div className="bg-card text-foreground flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-[10px] font-black tracking-widest uppercase shadow-md">
+            <div className="bg-card text-foreground border-border flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-black tracking-widest uppercase shadow-md">
               <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               {t('new')}
             </div>
@@ -234,7 +235,7 @@ export function ListingCard({
               .map(([key, value]) => (
                 <div
                   key={key}
-                  className="bg-muted/40 border border-border/40 flex items-center gap-1.5 rounded-full px-3 py-1 text-[9px] font-black tracking-wide uppercase"
+                  className="bg-muted/40 border-border/40 flex items-center gap-1.5 rounded-full border px-3 py-1 text-[9px] font-black tracking-wide uppercase"
                 >
                   <span className="text-muted-foreground opacity-60">
                     {key}:
@@ -258,7 +259,7 @@ export function ListingCard({
           </div>
 
           {listing.location && (
-            <div className="bg-muted/40 border border-border/40 flex items-center gap-2 rounded-full px-3 py-2 transition-colors group-hover:bg-primary/5">
+            <div className="bg-muted/40 border-border/40 group-hover:bg-primary/5 flex items-center gap-2 rounded-full border px-3 py-2 transition-colors">
               <MapPin className="text-primary h-3.5 w-3.5" />
               <span className="max-w-[100px] truncate text-[11px] font-black tracking-widest uppercase opacity-70">
                 {listing.location.split(',')[0]}

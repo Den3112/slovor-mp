@@ -2,7 +2,7 @@
 
 **Last Updated:** December 21, 2025, 21:30 EET
 **Branch:** `dev`
-**Overall Progress:** ~45%
+**Overall Progress:** ~95%
 
 ---
 
@@ -190,12 +190,12 @@ slovor-mp/
 │   ├── page.tsx                 ✅ Home page
 │   ├── listings/
 │   │   └── page.tsx             ✅ All listings (basic)
-│   ├── listing/[id]/page.tsx    ❌ TODO: detail page
-│   ├── post/page.tsx            ❌ TODO: create listing
+│   ├── listing/[id]/page.tsx    ✅ detail page
+│   ├── post/page.tsx            ✅ create listing
 │   ├── auth/
-│   │   ├── login/page.tsx       ❌ TODO: login
-│   │   └── register/page.tsx    ❌ TODO: register
-│   └── profile/page.tsx         ❌ TODO: user profile
+│   │   ├── login/page.tsx       ✅ login
+│   │   └── register/page.tsx    ✅ register
+│   └── profile/page.tsx         ✅ user profile
 ├── components/
 │   ├── category/
 │   │   ├── CategoryGrid.tsx    ✅
@@ -309,7 +309,7 @@ Use for:
 - ✅ All infrastructure configured
 - ✅ Database working with real Slovak data
 - ✅ UI framework ready and looks good
-- ❌ Need to complete: auth + CRUD + detail pages
+- ✅ Core features implemented: auth + CRUD + detail pages
 
 **Ready for next development phase!** 💪
 

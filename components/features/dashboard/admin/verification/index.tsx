@@ -157,7 +157,7 @@ export function AdminVerificationView() {
             {row.profile?.avatar_url ? (
               <Image
                 src={row.profile.avatar_url}
-                alt=""
+                alt={row.profile?.display_name || 'User avatar'}
                 fill
                 sizes="40px"
                 className="object-cover"

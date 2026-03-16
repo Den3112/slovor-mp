@@ -31,6 +31,8 @@ export function ReviewItem({
   const userDisplay =
     activeTab === 'received' ? review.author : (review as any).recipient
 
+  const [avatarError, setAvatarError] = useState(false)
+
   const handleSubmitReply = async () => {
     if (!replyText.trim()) return
     setIsSubmitting(true)
@@ -50,13 +52,14 @@ export function ReviewItem({
       <div className="flex flex-col gap-6 sm:flex-row">
         {/* Avatar */}
         <div className="border-border/40 bg-muted/50 relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md">
-          {userDisplay?.avatar_url ? (
+          {userDisplay?.avatar_url && !avatarError ? (
             <Image
               src={userDisplay.avatar_url}
               alt={userDisplay.display_name || ''}
               fill
               className="object-cover"
               unoptimized
+              onError={() => setAvatarError(true)}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">

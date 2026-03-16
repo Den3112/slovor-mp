@@ -20,7 +20,7 @@ export async function GET(
     const { data, error } = await supabase
       .from('profiles')
       .select(
-        'id, full_name, avatar_url, rating, review_count, bio, is_verified, verification_level, created_at'
+        'id, display_name, avatar_url, rating, review_count, bio, is_verified, verification_level, created_at'
       )
       .eq('id', id)
       .single()

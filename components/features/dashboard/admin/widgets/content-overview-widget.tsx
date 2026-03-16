@@ -87,7 +87,7 @@ export function ContentOverviewWidget() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="hover:bg-muted/5 group flex items-center justify-between p-4 transition-colors"
+              className="hover:bg-muted/10 group flex items-center justify-between p-4 transition-all active:scale-[0.99]"
             >
               <div className="flex items-center gap-3">
                 <div className="bg-muted/20 border-border/20 rounded-xl border p-2">

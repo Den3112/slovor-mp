@@ -75,7 +75,7 @@ describe('API Listings Route', () => {
         type: 'websearch',
         config: 'english',
       })
-      expect(mockFrom.gte).toHaveBeenCalledWith('price', '100')
+      expect(mockFrom.gte).toHaveBeenCalledWith('price', 100)
     })
 
     it('handles db error', async () => {
@@ -114,7 +114,13 @@ describe('API Listings Route', () => {
 
       const req = new NextRequest('http://localhost/api/listings', {
         method: 'POST',
-        body: JSON.stringify({ title: 'New' }),
+        body: JSON.stringify({
+          title: 'New',
+          description: 'This is a test description that is long enough.',
+          price: 100,
+          category_id: '00000000-0000-0000-0000-000000000000',
+          location: 'Test Location',
+        }),
       })
 
       const res = await POST(req)

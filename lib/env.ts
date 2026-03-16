@@ -19,13 +19,7 @@ const envSchema = z.object({
     .enum(['development', 'test', 'production'])
     .default('development'),
   NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
-
-  // Server-only - Required
-  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
 })
-
-// Helper to determine if we are on the server
-const isServer = typeof window === 'undefined'
 
 // Validate all environment variables
 const processEnv = {
@@ -33,16 +27,9 @@ const processEnv = {
   NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-  SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
 }
 
-// Selection of schema based on environment
-// On client, we don't want to enforce server-only keys
-const schema = isServer
-  ? envSchema
-  : envSchema.partial({ SUPABASE_SERVICE_ROLE_KEY: true })
-
-const parsed = schema.safeParse(processEnv)
+const parsed = envSchema.safeParse(processEnv)
 
 if (!parsed.success) {
   if (process.env.NODE_ENV === 'development') {
@@ -51,8 +38,6 @@ if (!parsed.success) {
       parsed.error.flatten().fieldErrors
     )
   }
-  // In development, we might not want to throw to avoid breaking the IDE helper
-  // But for the app to function, these are REQUIRED.
 }
 
 const envData = parsed.success ? parsed.data : (processEnv as any)
@@ -64,7 +49,6 @@ export const env = {
   // Supabase
   SUPABASE_URL: envData.NEXT_PUBLIC_SUPABASE_URL || '',
   SUPABASE_ANON_KEY: envData.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-  SERVICE_ROLE_KEY: envData.SUPABASE_SERVICE_ROLE_KEY || '',
 
   // App
   NODE_ENV: envData.NODE_ENV || 'development',

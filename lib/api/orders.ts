@@ -16,8 +16,8 @@ export const ordersApi = {
           `
                     *,
                     listing:listings(title, images),
-                    buyer:profiles!orders_buyer_id_fkey(full_name, avatar_url),
-                    seller:profiles!orders_seller_id_fkey(full_name, avatar_url)
+                    buyer:profiles!orders_buyer_id_fkey(display_name, avatar_url),
+                    seller:profiles!orders_seller_id_fkey(display_name, avatar_url)
                 `
         )
         .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
@@ -52,8 +52,8 @@ export const ordersApi = {
           `
                     *,
                     listing:listings(title, id),
-                    buyer:profiles!orders_buyer_id_fkey(full_name, avatar_url),
-                    seller:profiles!orders_seller_id_fkey(full_name, avatar_url)
+                    buyer:profiles!orders_buyer_id_fkey(display_name, avatar_url),
+                    seller:profiles!orders_seller_id_fkey(display_name, avatar_url)
                 `
         )
         .order('created_at', { ascending: false })

@@ -124,7 +124,8 @@ export function ModerationCard({
           <Link
             href={`/${locale}/listings/${listing.id}`}
             target="_blank"
-            className="text-primary flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase hover:opacity-70"
+            rel="noopener noreferrer"
+            className="text-primary flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase transition-all hover:opacity-70 active:scale-95"
           >
             {t('admin:fullDetails')} <ChevronRight className="h-3.5 w-3.5" />
           </Link>

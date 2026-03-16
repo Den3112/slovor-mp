@@ -48,7 +48,7 @@ export function AdminActivityLogView() {
             {row.profiles?.avatar_url ? (
               <Image
                 src={row.profiles.avatar_url}
-                alt=""
+                alt={row.profiles?.display_name || 'User avatar'}
                 fill
                 className="object-cover"
                 unoptimized

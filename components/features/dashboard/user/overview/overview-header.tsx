@@ -30,7 +30,9 @@ export function OverviewHeader({ user }: OverviewHeaderProps) {
         <p className="text-muted-foreground mt-1 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
           {t('dashboard:welcomeBack')},{' '}
           <span className="text-foreground">
-            {user.user_metadata?.full_name || user.email?.split('@')[0]}
+            {user.user_metadata?.display_name ||
+              user.user_metadata?.full_name ||
+              user.email?.split('@')[0]}
           </span>
         </p>
       </div>

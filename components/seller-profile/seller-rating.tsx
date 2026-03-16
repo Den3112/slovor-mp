@@ -233,7 +233,7 @@ export function SellerRating({
                 {review.author?.avatar_url ? (
                   <Image
                     src={review.author.avatar_url}
-                    alt=""
+                    alt={review.author?.display_name || 'User avatar'}
                     width={40}
                     height={40}
                     className="rounded-full object-cover"

@@ -5,7 +5,6 @@ export interface User {
   id: string
   username: string | null
   display_name: string | null
-  full_name: string | null
   avatar_url: string | null
   bio: string | null
   phone: string | null
@@ -41,7 +40,13 @@ export interface Category {
   listings_count?: number // Aligned with getCategoriesWithCounts API
 }
 
-export type ListingStatus = 'active' | 'pending' | 'rejected' | 'sold' | 'expired' | 'draft';
+export type ListingStatus =
+  | 'active'
+  | 'pending'
+  | 'rejected'
+  | 'sold'
+  | 'expired'
+  | 'draft'
 
 export interface Listing {
   id: string
@@ -141,7 +146,16 @@ export interface Transaction {
   wallet_id: string
   amount: number
   currency: string
-  type: 'deposit' | 'withdrawal' | 'promotion' | 'promotion_top' | 'promotion_highlight' | 'subscription' | 'payout' | 'refill' | 'purchase'
+  type:
+    | 'deposit'
+    | 'withdrawal'
+    | 'promotion'
+    | 'promotion_top'
+    | 'promotion_highlight'
+    | 'subscription'
+    | 'payout'
+    | 'refill'
+    | 'purchase'
   status: 'pending' | 'completed' | 'failed' | 'refunded'
   description?: string | null
   metadata: Record<string, any>
@@ -152,7 +166,13 @@ export interface Promotion {
   id: string
   listing_id: string
   user_id: string
-  type: 'highlight' | 'top_search' | 'urgent' | 'homepage_featured' | 'promotion_top' | 'promotion_highlight'
+  type:
+    | 'highlight'
+    | 'top_search'
+    | 'urgent'
+    | 'homepage_featured'
+    | 'promotion_top'
+    | 'promotion_highlight'
   starts_at: string
   ends_at: string
   cost: number

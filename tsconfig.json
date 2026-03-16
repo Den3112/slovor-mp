@@ -2,11 +2,7 @@
   "compilerOptions": {
     // JavaScript Support
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     // Type Checking - STRICT MODE
@@ -42,12 +38,8 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@i18n/*": [
-        "./packages/i18n/*"
-      ]
+      "@/*": ["./*"],
+      "@i18n/*": ["./packages/i18n/*"]
     }
   },
   "include": [
@@ -55,10 +47,20 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".next_creator/types/**/*.ts",
+    ".next_creator/dev/types/**/*.ts",
+    ".next_final/types/**/*.ts",
+    ".next_final/dev/types/**/*.ts",
+    ".next_slovor/types/**/*.ts",
+    ".next_slovor/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
+    ".next",
+    ".next_creator",
+    ".next_final",
+    ".next_slovor",
     "e2e",
     "playwright.config.ts"
   ]

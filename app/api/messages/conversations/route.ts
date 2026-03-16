@@ -34,7 +34,11 @@ export async function GET(req: NextRequest) {
     const { data, error } = await supabase
       .from('conversations')
       .select(
-        '*, participant1:profiles!conversations_participant1_id_fkey(full_name, avatar_url), participant2:profiles!conversations_participant2_id_fkey(full_name, avatar_url)'
+        `
+        *,
+        participant1:profiles!conversations_participant1_id_fkey(id, display_name, avatar_url),
+        participant2:profiles!conversations_participant2_id_fkey(id, display_name, avatar_url)
+      `
       )
       // Logic depends on schema of conversations. Assuming it tracks pairs.
       // If ambiguous, fallback to reading messages.

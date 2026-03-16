@@ -19,7 +19,7 @@ import { RotateCcw, MapPin, DollarSign, ArrowUpDown } from 'lucide-react'
  */
 
 export function Filters() {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['filters', 'common'])
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -158,7 +158,7 @@ export function Filters() {
         <div className="flex items-end gap-3 lg:col-span-1">
           <Button
             onClick={applyFilters}
-            className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-xl font-bold shadow-lg"
+            className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-xl font-bold shadow-lg transition-all active:scale-[0.98]"
           >
             {t('filters:apply')}
           </Button>
@@ -166,7 +166,7 @@ export function Filters() {
             onClick={resetFilters}
             variant="outline"
             size="icon"
-            className="border-border/50 text-muted-foreground hover:bg-muted hover:text-foreground h-12 w-12 rounded-xl bg-transparent"
+            className="border-border/50 text-muted-foreground hover:bg-muted hover:text-foreground h-12 w-12 rounded-xl bg-transparent transition-all active:scale-90"
           >
             <RotateCcw className="h-5 w-5" />
           </Button>

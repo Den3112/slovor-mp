@@ -29,12 +29,10 @@ describe('API Users Me Route', () => {
     mockSupabase = {
       from: vi.fn(() => mockFrom),
       auth: {
-        getUser: vi
-          .fn()
-          .mockResolvedValue({
-            data: { user: { id: 'u1', email: 'e@mail.com' } },
-            error: null,
-          }),
+        getUser: vi.fn().mockResolvedValue({
+          data: { user: { id: 'u1', email: 'e@mail.com' } },
+          error: null,
+        }),
       },
     }
   })
@@ -79,12 +77,12 @@ describe('API Users Me Route', () => {
 
       const req = new NextRequest('http://api/users/me', {
         method: 'PUT',
-        body: JSON.stringify({ name: 'New' }),
+        body: JSON.stringify({ display_name: 'New' }),
       })
       const res = await PUT(req)
 
       expect(res.status).toBe(200)
-      expect(mockFrom.update).toHaveBeenCalledWith({ name: 'New' })
+      expect(mockFrom.update).toHaveBeenCalledWith({ display_name: 'New' })
       expect(mockFrom.eq).toHaveBeenCalledWith('id', 'u1')
     })
 

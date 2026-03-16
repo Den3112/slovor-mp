@@ -8,7 +8,7 @@ import { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string, locale: string }>
+  params: Promise<{ slug: string; locale: string }>
 }): Promise<Metadata> {
   const { slug, locale } = await params
   const supabase = createStaticClient()
@@ -21,17 +21,15 @@ export async function generateMetadata({
   }
 
   const browseTexts: Record<string, string> = {
-    en: 'Browse',
-    sk: 'Prehliadať',
-    cs: 'Prohlížet',
-    ru: 'Посмотреть'
+    en: 'View',
+    sk: 'Zobraziť',
+    cs: 'Zobrazit',
   }
 
   const findTexts: Record<string, string> = {
     en: 'Find the best deals in Slovakia.',
     sk: 'Nájdite najlepšie ponuky na Slovensku.',
     cs: 'Najděte nejlepší nabídky na Slovensku.',
-    ru: 'Найдите лучшие предложения в Словакии.'
   }
 
   const browse = browseTexts[locale] || browseTexts.en

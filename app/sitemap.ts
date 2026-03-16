@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const supabase = createStaticClient()
 
-  const languages = ['en', 'sk', 'cs', 'ru']
+  const languages = ['en', 'sk', 'cs']
 
   // Static routes for each language
   const routes = languages

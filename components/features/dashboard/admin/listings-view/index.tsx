@@ -258,6 +258,7 @@ export function AdminListingsView({
             <Link
               href={`/${locale}/listings/${row.id}`}
               target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-primary line-clamp-1 flex items-center gap-2 text-sm leading-tight font-bold tracking-tight transition-colors"
             >
               {row.title}

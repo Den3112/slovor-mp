@@ -19,11 +19,12 @@ services:
     networks:
       - frontend
       - backend
-    command: npm run dev
+    command: npm run dev -- -H 0.0.0.0
     deploy:
       resources:
         limits:
-          memory: 2G
+          cpus: '8.0'
+          memory: 8G
 
   db:
     ports:

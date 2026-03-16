@@ -95,7 +95,11 @@ export function AdminListingDetailView({
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" asChild>
-            <Link href={`/listings/${listing.id}`} target="_blank">
+            <Link
+              href={`/listings/${listing.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <ExternalLink className="mr-2 h-4 w-4" />
               {t('common:viewPublic')}
             </Link>
@@ -232,7 +236,7 @@ export function AdminListingDetailView({
                   {listing.user?.avatar_url ? (
                     <Image
                       src={listing.user.avatar_url}
-                      alt=""
+                      alt={listing.user?.display_name || 'Seller avatar'}
                       fill
                       className="object-cover"
                     />

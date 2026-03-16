@@ -6,6 +6,7 @@ import {
   getAuthenticatedClient,
   corsHeaders,
 } from '../../utils'
+import { z } from 'zod'
 
 export async function GET(req: NextRequest) {
   const supabase = getAuthenticatedClient(req)
@@ -65,9 +66,24 @@ export async function PUT(req: NextRequest) {
       return createErrorResponse('Unauthorized', 401)
     }
 
+    // Whitelist allowed fields for update (Security Fix: Mass Assignment)
+    const ProfileUpdateSchema = z.object({
+      display_name: z.string().min(2).max(50).optional(),
+      avatar_url: z.string().url().optional().or(z.literal('')),
+      bio: z.string().max(500).optional(),
+      location: z.string().max(100).optional(),
+      phone_number: z.string().max(20).optional(),
+      website: z.string().url().optional().or(z.literal('')),
+    })
+
+    const result = ProfileUpdateSchema.safeParse(body)
+    if (!result.success) {
+      return createErrorResponse('Invalid input: ' + result.error.message, 400)
+    }
+
     const { error: updateError } = await supabase
       .from('profiles')
-      .update(body)
+      .update(result.data)
       .eq('id', user.id)
 
     if (updateError) {

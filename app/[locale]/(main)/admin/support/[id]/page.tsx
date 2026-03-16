@@ -435,7 +435,7 @@ export default function AdminTicketDetailPage({
         {/* Sidebar Details */}
         <div className="space-y-6">
           <Card className="border-border/60 overflow-hidden rounded-2xl shadow-sm">
-            <div className="from-primary/50 h-1 w-full bg-gradient-to-r to-indigo-500/50" />
+            <div className="from-primary/50 h-1 w-full bg-linear-to-r to-indigo-500/50" />
             <CardHeader>
               <CardTitle className="text-sm font-bold tracking-widest uppercase">
                 Ticket Details

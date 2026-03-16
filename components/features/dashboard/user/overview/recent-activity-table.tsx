@@ -35,6 +35,12 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
     setIsMounted(true)
   }, [])
 
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+
+  const handleImageError = (listingId: string) => {
+    setImageErrors((prev) => ({ ...prev, [listingId]: true }))
+  }
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'active':
@@ -110,7 +116,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 overflow-hidden">
                         <div className="bg-muted border-border/10 relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border">
-                          {listing.images?.[0] ? (
+                          {listing.images?.[0] && !imageErrors[listing.id] ? (
                             <Image
                               src={listing.images[0]}
                               alt={listing.title}
@@ -118,9 +124,12 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                               className="object-cover"
                               sizes="48px"
                               unoptimized
+                              onError={() => handleImageError(listing.id)}
                             />
                           ) : (
-                            <Package className="text-muted-foreground/60 m-auto h-6 w-6" />
+                            <div className="flex h-full w-full items-center justify-center">
+                              <Package className="text-muted-foreground/40 h-6 w-6" />
+                            </div>
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
@@ -210,7 +219,7 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                       <TableCell className="px-6 py-4">
                         <div className="flex items-center gap-4">
                           <div className="bg-muted border-border/10 relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border">
-                            {listing.images?.[0] ? (
+                            {listing.images?.[0] && !imageErrors[listing.id] ? (
                               <Image
                                 src={listing.images[0]}
                                 alt={listing.title}
@@ -218,9 +227,12 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                                 className="object-cover"
                                 sizes="40px"
                                 unoptimized
+                                onError={() => handleImageError(listing.id)}
                               />
                             ) : (
-                              <Package className="text-muted-foreground/40 m-auto h-5 w-5" />
+                              <div className="flex h-full w-full items-center justify-center">
+                                <Package className="text-muted-foreground/40 h-5 w-5" />
+                              </div>
                             )}
                           </div>
                           <Link

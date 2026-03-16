@@ -17,7 +17,10 @@ interface DashboardHeroProps {
 
 export function DashboardHero({ user, stats }: DashboardHeroProps) {
   const { t } = useTranslation(['dashboard', 'common'])
-  const userName = user.user_metadata?.full_name || user.email?.split('@')[0]
+  const userName =
+    user.user_metadata?.display_name ||
+    user.user_metadata?.full_name ||
+    user.email?.split('@')[0]
   const [greeting, setGreeting] = useState('')
 
   useEffect(() => {

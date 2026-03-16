@@ -1,7 +1,10 @@
+export const runtime = 'edge'
+
 import { createClient } from '@supabase/supabase-js'
 import { env } from '@/lib/env'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
+import { z } from 'zod'
 import {
   createErrorResponse,
   createSuccessResponse,
@@ -9,54 +12,89 @@ import {
   corsHeaders,
 } from '../utils'
 
+const QuerySchema = z.object({
+  page: z
+    .string()
+    .optional()
+    .transform((v) => parseInt(v || '1')),
+  limit: z
+    .string()
+    .optional()
+    .transform((v) => parseInt(v || '10')),
+  search: z.string().optional(),
+  category: z.string().optional(),
+  min_price: z
+    .string()
+    .optional()
+    .transform((v) => (v ? parseFloat(v) : undefined)),
+  max_price: z
+    .string()
+    .optional()
+    .transform((v) => (v ? parseFloat(v) : undefined)),
+  location: z.string().optional(),
+  sort_by: z.enum(['created_at', 'price']).default('created_at'),
+  order: z.enum(['asc', 'desc']).default('desc'),
+})
+
 export async function GET(req: NextRequest) {
   try {
     const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
 
-    const searchParams = req.nextUrl.searchParams
-    const page = parseInt(searchParams.get('page') || '1')
-    const limit = parseInt(searchParams.get('limit') || '10')
+    const searchParams = Object.fromEntries(req.nextUrl.searchParams)
+    const result = QuerySchema.safeParse(searchParams)
+
+    if (!result.success) {
+      return createErrorResponse(
+        'Invalid query parameters: ' +
+          result.error.issues.map((e) => e.message).join(', '),
+        400
+      )
+    }
+
+    const {
+      page,
+      limit,
+      search,
+      category,
+      min_price,
+      max_price,
+      location,
+      sort_by,
+      order,
+    } = result.data
     const offset = (page - 1) * limit
 
     // Filters
     const query = supabase
       .from('listings')
-      .select('*, profiles(full_name, avatar_url)', { count: 'exact' })
+      .select('*, profiles(display_name, avatar_url)', { count: 'exact' })
       .eq('status', 'active')
 
-    if (searchParams.get('search')) {
-      const searchTerm = searchParams.get('search') || ''
-      // Use textSearch for better results instead of basic ilike
-      // The config 'english' is used here, but ideally should match the locale.
-      query.textSearch('title', searchTerm, {
+    if (search) {
+      query.textSearch('title', search, {
         type: 'websearch',
         config: 'english',
       })
     }
 
-    if (searchParams.get('category')) {
-      // Assuming category is slug, need lookup or passed ID. Using ID for simplicity as standard query param
-      // If slug needed, would require join or separate lookup.
-      // Let's assume ID for now based on standard filter patterns, or we could handle slug if we added a join
-      query.eq('category_id', searchParams.get('category') || '')
+    if (category) {
+      query.eq('category_id', category)
     }
 
-    if (searchParams.get('min_price')) {
-      query.gte('price', searchParams.get('min_price') || '0')
+    if (min_price !== undefined) {
+      query.gte('price', min_price)
     }
 
-    if (searchParams.get('max_price')) {
-      query.lte('price', searchParams.get('max_price') || '0')
+    if (max_price !== undefined) {
+      query.lte('price', max_price)
     }
 
-    if (searchParams.get('location')) {
-      query.ilike('location', `%${searchParams.get('location') || ''}%`)
+    if (location) {
+      query.ilike('location', `%${location}%`)
     }
 
     // Sort
-    const sort = searchParams.get('sort_by') || 'created_at'
-    const order = searchParams.get('order') === 'asc' ? true : false
-    query.order(sort, { ascending: order })
+    query.order(sort_by, { ascending: order === 'asc' })
 
     // Pagination
     query.range(offset, offset + limit - 1)
@@ -98,8 +136,33 @@ export async function POST(req: NextRequest) {
       return createErrorResponse('Unauthorized', 401)
     }
 
-    // Add user_id to body
-    const listingData = { ...body, user_id: user.id, status: 'active' }
+    // Whitelist allowed fields for creation (Security Fix: Mass Assignment)
+    const ListingSchema = z.object({
+      title: z.string().min(3).max(100),
+      description: z.string().min(10).max(5000),
+      price: z.number().nonnegative(),
+      currency: z.string().length(3).default('EUR'),
+      category_id: z.string().uuid(),
+      location: z.string().min(2),
+      images: z.array(z.string().url()).default([]),
+      condition: z.enum(['new', 'used']).default('used'),
+      attributes: z.record(z.string(), z.any()).default({}),
+    })
+
+    const result = ListingSchema.safeParse(body)
+    if (!result.success) {
+      return createErrorResponse('Invalid input: ' + result.error.message, 400)
+    }
+
+    // Set secure fields from server state (not from body)
+    const listingData = {
+      ...result.data,
+      user_id: user.id,
+      status: 'active',
+      views_count: 0,
+      is_highlighted: false,
+      promoted_until: null,
+    }
 
     const { data, error } = await supabase
       .from('listings')

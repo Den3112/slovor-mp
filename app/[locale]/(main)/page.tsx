@@ -22,14 +22,12 @@ export async function generateMetadata({
     en: 'Slovor - Premium Marketplace in Slovakia',
     sk: 'Slovor - Prémiový bazár na Slovensku',
     cs: 'Slovor - Premiový bazar na Slovensku',
-    ru: 'Slovor - Премиум маркетплейс в Словакии',
   }
 
   const descriptions: Record<string, string> = {
     en: 'Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia.',
-    sk: 'Kupujte a predávajte elektroniku, reality, autá a veľa ďalšieho. Najpokročilejší bazár na Slovensku.',
-    cs: 'Nakupujte a prodávejte elektroniku, reality, auta a další. Nejmodernější bazar na Slovensku.',
-    ru: 'Покупайте и продавайте электронику, недвижимость, автомобили и многое другое. Самый современный маркетплейс в Словакии.',
+    sk: 'Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku.',
+    cs: 'Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku.',
   }
 
   return {
