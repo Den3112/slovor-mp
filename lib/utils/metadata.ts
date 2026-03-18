@@ -19,9 +19,6 @@ export async function generateListingMetadata({
     }
   }
 
-  if (process.env.SKIP_ENV_VALIDATION === '1') {
-    return { title: 'Listing | Slovor' }
-  }
 
   const { data: listing } = await listingsApi.getById(id)
 

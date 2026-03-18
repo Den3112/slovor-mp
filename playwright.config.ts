@@ -17,15 +17,15 @@ export default defineConfig({
     timeout: 30000, // 30s for assertions
   },
   use: {
-    baseURL: 'http://localhost:3005',
+    baseURL: 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     actionTimeout: 300000,
     navigationTimeout: 300000,
-    storageState: 'e2e/.auth/user.json',
+    // storageState: 'e2e/.auth/user.json',
   },
-  globalSetup: require.resolve('./e2e/global-setup'),
+  // globalSetup: require.resolve('./e2e/global-setup'),
 
   // Only Chromium - focused on functionality, not cross-browser
   projects: [

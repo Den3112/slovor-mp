@@ -85,7 +85,19 @@ export function AdminOverviewView({ userEmail }: { userEmail: string }) {
     )
   }
 
-  if (!stats) return null
+  if (!stats) {
+    return (
+      <div className="flex h-[calc(100vh-200px)] flex-col items-center justify-center gap-4">
+        <p className="text-destructive font-medium">Failed to load admin statistics</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="bg-primary text-primary-foreground rounded-md px-4 py-2 text-sm"
+        >
+          Retry
+        </button>
+      </div>
+    )
+  }
 
   return (
     <PremiumBackground

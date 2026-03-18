@@ -35,7 +35,6 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           NEXT_TELEMETRY_DISABLED: 1
-          SKIP_ENV_VALIDATION: 1
         run: |
           # Use local env mapping to satisfy linter and run deployment sequence
           PROD_FLAG=""

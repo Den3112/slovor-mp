@@ -35,7 +35,11 @@ export async function updateSession(
           value,
           ...options,
         })
-        response = NextResponse.next()
+        response = NextResponse.next({
+          request: {
+            headers: new Headers(request.headers),
+          },
+        })
         response.cookies.set({
           name,
           value,
@@ -48,7 +52,11 @@ export async function updateSession(
           value: '',
           ...options,
         })
-        response = NextResponse.next()
+        response = NextResponse.next({
+          request: {
+            headers: new Headers(request.headers),
+          },
+        })
         response.cookies.set({
           name,
           value: '',
