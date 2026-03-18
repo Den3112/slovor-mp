@@ -1,18 +1,23 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Search, ArrowRight, Sparkles } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Search, ArrowRight, Sparkles, TrendingUp } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
+import { useListingSearch } from '@/lib/hooks/use-listing-search'
+import { cn } from '@/lib/utils'
 
 export function Hero() {
   const { t, locale } = useTranslation(['home', 'common'])
   const router = useRouter()
-  const [query, setQuery] = useState('')
+  const { query, setQuery, results, isSearching } = useListingSearch()
+  const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const popularSearches = (t('home:popularSearches.items', {
     returnObjects: true,
@@ -21,8 +26,23 @@ export function Hero() {
   const handleSearch = () => {
     if (query.trim()) {
       router.push(`/${locale}/listings?search=${encodeURIComponent(query)}`)
+      setIsOpen(false)
     }
   }
+
+  // Handle click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
     <section className="bg-mesh relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-32 lg:pt-36 lg:pb-48">
