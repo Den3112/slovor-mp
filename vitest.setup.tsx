@@ -132,4 +132,19 @@ if (typeof globalThis !== 'undefined') {
     unobserve() {}
     disconnect() {}
   }
+  ;(globalThis as any).IntersectionObserver = class IntersectionObserver {
+    constructor(
+      callback: IntersectionObserverCallback,
+      options?: IntersectionObserverInit
+    ) {}
+    root: Element | Document | null = null
+    rootMargin: string = ''
+    thresholds: ReadonlyArray<number> = []
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() {
+      return []
+    }
+  }
 }

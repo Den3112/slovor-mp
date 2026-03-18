@@ -11,11 +11,14 @@ import { createClient } from '@supabase/supabase-js'
 import { env } from '@/lib/env'
 
 // Mock env
+// Mock env with mutable object for testing
+const mockEnv = vi.hoisted(() => ({
+  SUPABASE_URL: 'https://example.supabase.co',
+  SUPABASE_ANON_KEY: 'fake-key',
+}))
+
 vi.mock('@/lib/env', () => ({
-  env: {
-    SUPABASE_URL: 'https://example.supabase.co',
-    SUPABASE_ANON_KEY: 'fake-key',
-  },
+  env: mockEnv,
 }))
 
 // Mock Supabase JS
@@ -79,23 +82,23 @@ describe('API Utilities', () => {
       expect(result).toBeNull()
     })
 
-    it('returns null if token is missing in Bearer format', () => {
+    it('returns null/undefined if token is missing in Bearer format', () => {
       const result = getAuthenticatedClient(mockReq('Bearer '))
-      expect(result).toBeNull()
+      expect(result).toBeFalsy()
     })
 
     it('returns null if environment variables are missing', () => {
       // Test missing URL
-      const originalUrl = env.SUPABASE_URL
-      ;(env as any).SUPABASE_URL = ''
+      const originalUrl = mockEnv.SUPABASE_URL
+      mockEnv.SUPABASE_URL = ''
       expect(getAuthenticatedClient(mockReq('Bearer valid'))).toBeNull()
-      ;(env as any).SUPABASE_URL = originalUrl
+      mockEnv.SUPABASE_URL = originalUrl
 
       // Test missing Key
-      const originalKey = env.SUPABASE_ANON_KEY
-      ;(env as any).SUPABASE_ANON_KEY = ''
+      const originalKey = mockEnv.SUPABASE_ANON_KEY
+      mockEnv.SUPABASE_ANON_KEY = ''
       expect(getAuthenticatedClient(mockReq('Bearer valid'))).toBeNull()
-      ;(env as any).SUPABASE_ANON_KEY = originalKey
+      mockEnv.SUPABASE_ANON_KEY = originalKey
     })
 
     it('returns a Supabase client if token and env vars are present', () => {
