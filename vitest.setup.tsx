@@ -134,8 +134,8 @@ if (typeof globalThis !== 'undefined') {
   }
   ;(globalThis as any).IntersectionObserver = class IntersectionObserver {
     constructor(
-      callback: IntersectionObserverCallback,
-      options?: IntersectionObserverInit
+      _callback: IntersectionObserverCallback,
+      _options?: IntersectionObserverInit
     ) {}
     root: Element | Document | null = null
     rootMargin: string = ''
