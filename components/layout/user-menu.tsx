@@ -75,7 +75,7 @@ export function UserMenu({ user, signOut }: UserMenuProps) {
               </p>
             </div>
             <div className="space-y-0.5 p-2">
-              {config.app.adminEmails.includes(user.email || '') && (
+              {(config.app.adminEmails as readonly string[]).includes(user.email || '') && (
                 <Link
                   href={`/${locale}/admin`}
                   className="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-bold text-amber-500 transition-all hover:translate-x-1 hover:bg-amber-500/10 hover:text-amber-600 active:scale-95"

@@ -72,6 +72,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
                       src={image}
                       alt={`${alt} - ${index + 1}`}
                       fill
+                      sizes="(max-width: 768px) 100vw, 800px"
                       className="object-cover"
                       priority={index === 0}
                       onError={() => handleImageError(index)}
@@ -164,6 +165,7 @@ export function MobileImageGallery({ images, alt }: MobileImageGalleryProps) {
                     src={image}
                     alt={`${alt} thumbnail ${index + 1}`}
                     fill
+                    sizes="96px"
                     className="object-cover"
                   />
                 ) : (

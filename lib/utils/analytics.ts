@@ -1,5 +1,4 @@
-// Analytics Utility
-// Unified event tracking for user actions
+import { track } from '@vercel/analytics'
 
 type EventName =
   | 'listing_view'
@@ -7,11 +6,16 @@ type EventName =
   | 'listing_contact_click'
   | 'contact_click'
   | 'search_performed'
+  | 'search_results_empty'
   | 'filter_applied'
   | 'message_sent'
   | 'report_submitted'
   | 'review_submitted'
   | 'favorite_toggle'
+  | 'auth_login'
+  | 'auth_signup'
+  | 'listing_creation_start'
+  | 'listing_creation_success'
 
 interface EventPayload {
   listing_id?: string
@@ -19,13 +23,15 @@ interface EventPayload {
   type?: string
   query?: string
   filters?: Record<string, unknown>
+  method?: string
+  error?: string
   [key: string]: unknown
 }
 
 /**
  * Track an analytics event.
  * In development: logs to console.
- * In production: can be extended to send to GA4, Plausible, etc.
+ * In production: sends to Vercel Analytics.
  */
 export function trackEvent(name: EventName, payload?: EventPayload) {
   const isServer = typeof window === 'undefined'
@@ -37,18 +43,15 @@ export function trackEvent(name: EventName, payload?: EventPayload) {
       `[Analytics]${isServer ? '[SSR]' : ''} ${name}`,
       payload ? JSON.stringify(payload) : ''
     )
+  } else if (!isServer) {
+    // Send to Vercel Analytics in production
+    try {
+      track(name, payload as any)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('[Analytics] Failed to track event:', error)
+    }
   }
-
-  // Future: Send to external analytics service
-  // Example Google Analytics 4:
-  // if (typeof window !== 'undefined' && window.gtag) {
-  //   window.gtag('event', name, payload)
-  // }
-
-  // Example Plausible:
-  // if (typeof window !== 'undefined' && window.plausible) {
-  //   window.plausible(name, { props: payload })
-  // }
 
   // Store in sessionStorage for debugging (dev only)
   if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {

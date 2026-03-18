@@ -23,7 +23,7 @@ import {
   ShoppingBag,
   ShieldCheck,
 } from 'lucide-react'
-import { config } from '@/lib/config'
+import { CONFIG } from '@/lib/config'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n'
 import { Drawer } from 'vaul'
@@ -104,62 +104,77 @@ export function MobileDrawer({
                       {t('home:megaMenu.title') || 'MAIN MENU'}
                     </h3>
                     <div className="grid grid-cols-1 gap-1">
-                      {[
-                        { icon: Home, label: t('nav:home'), href: '/' },
-                        {
-                          icon: Search,
-                          label: t('nav:search'),
-                          href: '/search',
-                        },
-                        {
-                          icon: Heart,
-                          label: t('nav:favorites'),
-                          href: '/dashboard/favorites',
-                        },
-                        {
-                          icon: MessageSquare,
-                          label: t('nav:messages'),
-                          href: '/dashboard/messages',
-                          badge: unreadCount,
-                        },
-                      ].map((item) => (
-                        <Link
+                      {(
+                        [
+                          {
+                            icon: Home,
+                            label: t('nav:home'),
+                            href: '/',
+                            badge: undefined,
+                          },
+                          {
+                            icon: Search,
+                            label: t('nav:search'),
+                            href: '/search',
+                            badge: undefined,
+                          },
+                          {
+                            icon: Heart,
+                            label: t('nav:favorites'),
+                            href: '/dashboard/favorites',
+                            badge: undefined,
+                          },
+                          {
+                            icon: MessageSquare,
+                            label: t('nav:messages'),
+                            href: '/dashboard/messages',
+                            badge: unreadCount,
+                          },
+                        ] as const
+                      ).map((item, index) => (
+                        <motion.div
                           key={item.href}
-                          href={`/${locale}${item.href === '/' ? '' : item.href}`}
-                          onClick={() => onOpenChange(false)}
-                          className={cn(
-                            'group flex items-center justify-between rounded-xl px-4 py-3.5 transition-all active:scale-[0.98]',
-                            isActive(item.href)
-                              ? 'bg-primary/5 text-primary border-primary/10 border'
-                              : 'hover:bg-muted/50 text-foreground/80'
-                          )}
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: index * 0.05 + 0.1 }}
                         >
-                          <div className="flex items-center gap-4">
-                            <item.icon
-                              className={cn(
-                                'h-5 w-5',
-                                isActive(item.href)
-                                  ? 'text-primary'
-                                  : 'text-muted-foreground/60'
-                              )}
-                            />
-                            <span
-                              className={cn(
-                                'text-sm font-bold tracking-tight',
-                                isActive(item.href) && 'text-primary'
-                              )}
-                            >
-                              {item.label}
-                            </span>
-                          </div>
-                          {item.badge ? (
-                            <Badge className="bg-primary flex h-5 min-w-5 items-center justify-center rounded-sm border-0 text-[9px] font-bold text-white">
-                              {item.badge}
-                            </Badge>
-                          ) : (
-                            <ChevronRight className="text-muted-foreground/30 h-4 w-4" />
-                          )}
-                        </Link>
+                          <Link
+                            href={`/${locale}${item.href === '/' ? '' : item.href}`}
+                            onClick={() => onOpenChange(false)}
+                            className={cn(
+                              'group flex items-center justify-between rounded-xl px-4 py-3.5 transition-all active:scale-[0.98]',
+                              isActive(item.href)
+                                ? 'bg-primary/5 text-primary border-primary/10 border'
+                                : 'hover:bg-muted/50 text-foreground/80'
+                            )}
+                          >
+                            <div className="flex items-center gap-4">
+                              <item.icon
+                                className={cn(
+                                  'h-5 w-5',
+                                  isActive(item.href)
+                                    ? 'text-primary'
+                                    : 'text-muted-foreground/60'
+                                )}
+                              />
+                              <span
+                                className={cn(
+                                  'text-sm font-bold tracking-tight',
+                                  isActive(item.href) && 'text-primary'
+                                )}
+                              >
+                                {item.label}
+                              </span>
+                            </div>
+                            {item.badge ? (
+                              <Badge className="bg-primary flex h-5 min-w-5 items-center justify-center rounded-sm border-0 text-[9px] font-bold text-white">
+                                {item.badge}
+                              </Badge>
+                            ) : (
+                              <ChevronRight className="text-muted-foreground/30 h-4 w-4" />
+                            )}
+                          </Link>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -296,23 +311,23 @@ export function MobileDrawer({
                             </Link>
                           ))}
 
-                          {config.app.adminEmails.includes(
-                            user.email || ''
-                          ) && (
-                              <Link
-                                href={`/${locale}/admin`}
-                                onClick={() => onOpenChange(false)}
-                                className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
-                              >
-                                <div className="flex items-center gap-4">
-                                  <ShieldAlert className="h-5 w-5" />
-                                  <span className="text-sm font-bold tracking-tight">
-                                    {t('common:adminPanel')}
-                                  </span>
-                                </div>
-                                <ChevronRight className="h-4 w-4 text-amber-500/30" />
-                              </Link>
-                            )}
+                          {(
+                            CONFIG.app.adminEmails as readonly string[]
+                          ).includes(user.email || '') && (
+                            <Link
+                              href={`/${locale}/admin`}
+                              onClick={() => onOpenChange(false)}
+                              className="group flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/5 px-4 py-3.5 text-amber-600 transition-all active:scale-[0.98]"
+                            >
+                              <div className="flex items-center gap-4">
+                                <ShieldAlert className="h-5 w-5" />
+                                <span className="text-sm font-bold tracking-tight">
+                                  {t('common:adminPanel')}
+                                </span>
+                              </div>
+                              <ChevronRight className="h-4 w-4 text-amber-500/30" />
+                            </Link>
+                          )}
 
                           <button
                             onClick={() => {

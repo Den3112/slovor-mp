@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { createClient } from '@/lib/supabase/server'
 import type { Listing, ApiResponse } from '@/lib/types/database'
 import { logError } from '@/lib/utils/logger'
@@ -12,37 +13,37 @@ export const serverListingsApi = {
   /**
    * Fetches listings for Server Components using shared filtering logic
    */
-  async getAll(
-    options?: ListingFilterOptions
-  ): Promise<ApiResponse<Listing[]>> {
-    try {
-      const supabase = await createClient()
+  getAll: cache(
+    async (options?: ListingFilterOptions): Promise<ApiResponse<Listing[]>> => {
+      try {
+        const supabase = await createClient()
 
-      let query = supabase
-        .from('listings')
-        .select('*, category:categories(*)')
-        .eq('status', 'active')
+        let query = supabase
+          .from('listings')
+          .select('*, category:categories(*)')
+          .eq('status', 'active')
 
-      // Use unified filtering logic
-      query = applyListingFilters(query, options)
-      query = applyListingSorting(query, options?.sort)
-      query = applyListingPagination(query, options)
+        // Use unified filtering logic
+        query = applyListingFilters(query, options)
+        query = applyListingSorting(query, options?.sort)
+        query = applyListingPagination(query, options)
 
-      const { data, error } = await query
+        const { data, error } = await query
 
-      if (error) throw error
+        if (error) throw error
 
-      return { data: data || [], error: null }
-    } catch (error) {
-      logError('serverListingsApi.getAll', error)
-      return { data: null, error: (error as Error).message }
+        return { data: data || [], error: null }
+      } catch (error) {
+        logError('serverListingsApi.getAll', error)
+        return { data: null, error: (error as Error).message }
+      }
     }
-  },
+  ),
 
   /**
    * Fetches featured listings using shared logic
    */
-  async getFeatured(limit = 8): Promise<ApiResponse<Listing[]>> {
+  getFeatured: cache(async (limit = 8): Promise<ApiResponse<Listing[]>> => {
     try {
       const supabase = await createClient()
 
@@ -63,12 +64,12 @@ export const serverListingsApi = {
       logError('serverListingsApi.getFeatured', error)
       return { data: null, error: (error as Error).message }
     }
-  },
+  }),
 
   /**
    * Fetches recent listings
    */
-  async getRecent(limit = 8): Promise<ApiResponse<Listing[]>> {
+  getRecent: cache(async (limit = 8): Promise<ApiResponse<Listing[]>> => {
     try {
       const supabase = await createClient()
 
@@ -88,6 +89,5 @@ export const serverListingsApi = {
       logError('serverListingsApi.getRecent', error)
       return { data: null, error: (error as Error).message }
     }
-  },
+  }),
 }
-

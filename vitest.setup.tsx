@@ -25,17 +25,52 @@ vi.mock('next/navigation', () => ({
 
 // Mock next/image
 vi.mock('next/image', () => ({
-  default: ({ src, alt, priority, fill, unoptimized, ...props }: { src: string; alt: string; priority?: boolean; fill?: boolean; unoptimized?: boolean }) => {
+  default: ({
+    src,
+    alt,
+    priority,
+    fill,
+    unoptimized,
+    ...props
+  }: {
+    src: string
+    alt: string
+    priority?: boolean
+    fill?: boolean
+    unoptimized?: boolean
+  }) => {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt} {...props} />
   },
+}))
+
+// Mock API services
+export const mockCategoriesApi = {
+  getAll: vi.fn().mockResolvedValue({ data: [], error: null }),
+  getById: vi.fn().mockResolvedValue({ data: null, error: null }),
+}
+
+export const mockListingsApi = {
+  getAll: vi.fn().mockResolvedValue({ data: [], error: null }),
+  getById: vi.fn().mockResolvedValue({ data: null, error: null }),
+  getFeatured: vi.fn().mockResolvedValue({ data: [], error: null }),
+  create: vi.fn().mockResolvedValue({ data: null, error: null }),
+  update: vi.fn().mockResolvedValue({ data: null, error: null }),
+  delete: vi.fn().mockResolvedValue({ data: null, error: null }),
+}
+
+vi.mock('@/lib/api', () => ({
+  categoriesApi: mockCategoriesApi,
+  listingsApi: mockListingsApi,
 }))
 
 // Mock Supabase client
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
     auth: {
-      getSession: vi.fn().mockResolvedValue({ data: { session: null }, error: null }),
+      getSession: vi
+        .fn()
+        .mockResolvedValue({ data: { session: null }, error: null }),
       getUser: vi.fn().mockResolvedValue({ data: { user: null }, error: null }),
     },
     from: vi.fn(() => ({
@@ -86,9 +121,9 @@ vi.mock('@/lib/supabase/client', () => ({
 
 // Mock ResizeObserver
 if (typeof globalThis !== 'undefined') {
-  (globalThis as any).ResizeObserver = class ResizeObserver {
-    observe() { }
-    unobserve() { }
-    disconnect() { }
+  ;(globalThis as any).ResizeObserver = class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
   }
 }

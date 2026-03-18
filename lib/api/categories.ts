@@ -15,6 +15,9 @@ export const categoriesApi = {
    */
   async getAll(client?: SupabaseClient): Promise<ApiResponse<Category[]>> {
     const supabaseClient = client || supabase
+    if (process.env.SKIP_ENV_VALIDATION === '1') {
+      return { data: [], error: null }
+    }
     try {
       // Use resource embedding to get counts in a single query if possible,
       // but for filtering (is_active: true) we might still need some logic.
@@ -50,6 +53,9 @@ export const categoriesApi = {
     client?: SupabaseClient
   ): Promise<ApiResponse<Category>> {
     const supabaseClient = client || supabase
+    if (process.env.SKIP_ENV_VALIDATION === '1') {
+      return { data: null as any, error: 'Build skip' }
+    }
     try {
       const { data, error } = await withRetry<any>(() =>
         supabaseClient

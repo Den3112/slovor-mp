@@ -4,7 +4,7 @@ import { FALLBACK_RATES, type CurrencyCode } from '@/lib/types/currency'
 interface ExchangeRateApiResponse {
   result: string
   base_code: string
-  conversion_rates: Record<string, number>
+  rates: Record<string, number>
 }
 
 // Cache exchange rates in memory (server-side)
@@ -27,8 +27,7 @@ export async function GET() {
       })
     }
 
-    // Fetch from exchangerate-api.com (free tier: 1500 req/month)
-    // Using open.er-api.com which is free and doesn't require API key
+    // Fetch from open.er-api.com (free, no API key required)
     const response = await fetch('https://open.er-api.com/v6/latest/EUR', {
       next: { revalidate: 3600 }, // Cache for 1 hour
     })
@@ -39,7 +38,8 @@ export async function GET() {
 
     const data: ExchangeRateApiResponse = await response.json()
 
-    if (data.result !== 'success' || !data.conversion_rates) {
+    // open.er-api.com returns { result: "success", rates: { ... } }
+    if (data.result !== 'success' || !data.rates) {
       console.error(
         'Exchange rate lookup failed payload:',
         JSON.stringify(data).substring(0, 500)
@@ -50,11 +50,11 @@ export async function GET() {
     // Extract only the currencies we support
     const rates: Partial<Record<CurrencyCode, number>> = {
       EUR: 1,
-      USD: data.conversion_rates.USD ?? FALLBACK_RATES.USD,
-      CZK: data.conversion_rates.CZK ?? FALLBACK_RATES.CZK,
-      PLN: data.conversion_rates.PLN ?? FALLBACK_RATES.PLN,
-      UAH: data.conversion_rates.UAH ?? FALLBACK_RATES.UAH,
-      GBP: data.conversion_rates.GBP ?? FALLBACK_RATES.GBP,
+      USD: data.rates.USD ?? FALLBACK_RATES.USD,
+      CZK: data.rates.CZK ?? FALLBACK_RATES.CZK,
+      PLN: data.rates.PLN ?? FALLBACK_RATES.PLN,
+      UAH: data.rates.UAH ?? FALLBACK_RATES.UAH,
+      GBP: data.rates.GBP ?? FALLBACK_RATES.GBP,
     }
 
     // Update cache

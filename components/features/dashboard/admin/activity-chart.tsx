@@ -35,12 +35,14 @@ export function ActivityChart({ data: initialData }: ActivityChartProps) {
           let total = 0
           if (transactions) {
             total = transactions
-              .filter(t => t.created_at.startsWith(dateStr))
-              .reduce((sum, t) => sum + Number(t.amount), 0)
+              .filter((t: any) => t.created_at.startsWith(dateStr))
+              .reduce((sum: number, t: any) => sum + Number(t.amount), 0)
           }
 
           return {
-            date: date.toLocaleDateString(locale || undefined, { weekday: 'short' }),
+            date: date.toLocaleDateString(locale || 'en-US', {
+              weekday: 'short',
+            }),
             value: total,
           }
         })

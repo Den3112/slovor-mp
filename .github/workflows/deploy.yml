@@ -1,0 +1,49 @@
+name: Vercel Deployment
+
+on:
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          NEXT_TELEMETRY_DISABLED: 1
+          SKIP_ENV_VALIDATION: 1
+        run: |
+          # Use local env mapping to satisfy linter and run deployment sequence
+          PROD_FLAG=""
+          ENV_TYPE="preview"
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            PROD_FLAG="--prod"
+            ENV_TYPE="production"
+          fi
+          vercel pull --yes --environment=$ENV_TYPE --token=$VERCEL_TOKEN
+          vercel build $PROD_FLAG --token=$VERCEL_TOKEN
+          vercel deploy --prebuilt $PROD_FLAG --token=$VERCEL_TOKEN

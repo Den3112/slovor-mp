@@ -161,7 +161,6 @@ export function AdminVerificationView() {
                 fill
                 sizes="40px"
                 className="object-cover"
-                unoptimized
               />
             ) : (
               <User className="text-muted-foreground/30 absolute top-1/2 left-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2" />
@@ -362,7 +361,6 @@ export function AdminVerificationView() {
                     alt="Document"
                     fill
                     className="object-contain transition-transform duration-500 group-hover/doc:scale-105"
-                    unoptimized
                   />
                 ) : (
                   <div className="text-muted-foreground/40 flex flex-col items-center gap-3">

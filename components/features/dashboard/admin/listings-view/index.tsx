@@ -92,20 +92,26 @@ export function AdminListingsView({
   }
 
   const handleBulkAction = async (status: 'active' | 'rejected') => {
-    toast.promise(
-      Promise.all(selectedIds.map((id) => listingsApi.update(id, { status }))),
-      {
-        loading: t('admin:processingBulk'),
-        success: () => {
-          setListings((prev) =>
-            prev.map((l) => (selectedIds.includes(l.id) ? { ...l, status } : l))
-          )
-          setSelectedIds([])
-          return t('admin:bulkSuccess')
-        },
-        error: t('admin:bulkError'),
-      }
-    )
+    toast.promise(listingsApi.bulkUpdateStatus(selectedIds, status), {
+      loading: t('admin:processingBulk'),
+      success: () => {
+        setListings((prev) =>
+          prev.map((l) => (selectedIds.includes(l.id) ? { ...l, status } : l))
+        )
+
+        // Log the bulk action
+        adminApi.logAction({
+          target_id: selectedIds.join(','),
+          target_type: 'listing',
+          action_type: status === 'active' ? 'approve' : 'reject',
+          reason: `Bulk ${status} of ${selectedIds.length} items`,
+        })
+
+        setSelectedIds([])
+        return t('admin:bulkSuccess')
+      },
+      error: t('admin:bulkError'),
+    })
   }
 
   const toggleSelect = (id: string) => {
@@ -125,30 +131,37 @@ export function AdminListingsView({
   // Suspicion Logic
   const getSuspicion = (listing: Listing): SuspicionIssue[] => {
     const issues: SuspicionIssue[] = []
-    if (listing.price < 50 && listing.price > 0 && listing.currency === 'EUR') {
+
+    // Low price threshold
+    if (listing.price < 10 && listing.price > 0 && listing.currency === 'EUR') {
       issues.push({
         label: t('admin:suspiciousPrice'),
-        color: 'bg-amber-500',
+        color: 'bg-amber-600',
         icon: AlertTriangle,
       })
     }
+
+    // Missing visuals
     if (!listing.images || listing.images.length === 0) {
       issues.push({
         label: t('admin:noImages'),
-        color: 'bg-destructive',
+        color: 'bg-rose-600',
         icon: Tag,
       })
     }
+
+    // Fresh account logic
     const userCreatedAt = listing.user?.created_at
     const createdDate = userCreatedAt ? new Date(userCreatedAt) : null
     const daysOld =
       createdDate && !isNaN(createdDate.getTime())
         ? (Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24)
-        : 100 // Assume old if no valid date
-    if (daysOld < 2) {
+        : 100
+
+    if (daysOld < 1) {
       issues.push({
         label: t('admin:newSeller'),
-        color: 'bg-blue-500',
+        color: 'bg-indigo-600',
         icon: UserPlus,
       })
     }
@@ -246,7 +259,6 @@ export function AdminListingsView({
                 alt={row.title}
                 fill
                 className="object-cover"
-                unoptimized
               />
             ) : (
               <div className="text-muted-foreground/30 flex h-full w-full items-center justify-center">

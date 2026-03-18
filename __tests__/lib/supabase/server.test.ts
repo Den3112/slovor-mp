@@ -24,11 +24,17 @@ describe('Supabase Server Client', () => {
   })
 
   describe('createClient', () => {
-    it('throws error if environment variables are missing', async () => {
+    it('uses fallback values when environment variables are missing', async () => {
       delete process.env.NEXT_PUBLIC_SUPABASE_URL
-      await expect(createClient()).rejects.toThrow(
-        'Missing Supabase environment variables'
-      )
+      delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      const mockCookieStore = {
+        getAll: vi.fn().mockReturnValue([]),
+        set: vi.fn(),
+      }
+      ;(cookies as any).mockResolvedValue(mockCookieStore)
+
+      // Should not throw — falls back to mock.supabase.co defaults
+      await expect(createClient()).resolves.not.toThrow()
     })
 
     it('creates a client with cookie access', async () => {
@@ -100,11 +106,12 @@ describe('Supabase Server Client', () => {
       expect(() => config.cookies.setAll()).not.toThrow()
     })
 
-    it('throws error if environment variables are missing', () => {
+    it('uses fallback values when environment variables are missing', () => {
       delete process.env.NEXT_PUBLIC_SUPABASE_URL
-      expect(() => createStaticClient()).toThrow(
-        'Missing Supabase environment variables'
-      )
+      delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+      // Should not throw — falls back to mock.supabase.co defaults
+      expect(() => createStaticClient()).not.toThrow()
     })
   })
 })

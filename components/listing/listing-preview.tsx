@@ -93,7 +93,6 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
               alt={localizedTitle}
               fill
               className="object-cover"
-              unoptimized
             />
           </>
         ) : (

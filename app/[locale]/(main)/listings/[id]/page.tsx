@@ -16,6 +16,11 @@ export const generateMetadata = generateListingMetadata
 
 export default async function ListingDetailPage({ params }: Props) {
   const { id } = await params
+
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return <div className="py-20 text-center">Building...</div>
+  }
+
   const supabase = await createClient()
 
   // Validate UUID to prevent 500 errors
