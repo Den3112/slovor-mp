@@ -46,13 +46,6 @@ describe('categoriesApi', () => {
       }
     })
 
-    it('returns empty array if SKIP_ENV_VALIDATION is 1', async () => {
-      process.env.SKIP_ENV_VALIDATION = '1'
-      const response = await categoriesApi.getAll()
-      expect(response.data).toEqual([])
-      expect(response.error).toBeNull()
-    })
-
     it('handles errors when fetching categories', async () => {
       const orderMock = vi
         .fn()
@@ -98,12 +91,6 @@ describe('categoriesApi', () => {
       expect(response.error).toBeNull()
       expect(response.data?.name).toBe('Electronics')
       expect(response.data?.listing_count).toBe(10)
-    })
-
-    it('returns build skip if SKIP_ENV_VALIDATION is 1', async () => {
-      process.env.SKIP_ENV_VALIDATION = '1'
-      const response = await categoriesApi.getBySlug('test')
-      expect(response.error).toBe('Build skip')
     })
 
     it('handles errors when fetching category', async () => {

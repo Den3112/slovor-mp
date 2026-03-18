@@ -55,16 +55,33 @@ describe('draft-storage utility', () => {
 
   it('handles storage errors', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-    const setItemSpy = vi
-      .spyOn(localStorage, 'setItem')
-      .mockImplementation(() => {
+
+    // Completely mock localStorage for this test
+    const originalLocalStorage = window.localStorage
+    const mockStorage = {
+      setItem: vi.fn(() => {
         throw new Error('Full')
-      })
+      }),
+      getItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
+      length: 0,
+      key: vi.fn(),
+    }
+
+    Object.defineProperty(window, 'localStorage', {
+      value: mockStorage,
+      configurable: true,
+    })
 
     saveListingDraft(mockUser, mockData)
     expect(errorSpy).toHaveBeenCalled()
 
+    // Restore original localStorage
+    Object.defineProperty(window, 'localStorage', {
+      value: originalLocalStorage,
+      configurable: true,
+    })
     errorSpy.mockRestore()
-    setItemSpy.mockRestore()
   })
 })
