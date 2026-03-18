@@ -10,13 +10,17 @@ const parsed = serverEnvSchema.safeParse({
 })
 
 if (!parsed.success) {
-  console.error(
-    '❌ Missing or invalid server environment variables:',
-    parsed.error.flatten().fieldErrors
-  )
-  throw new Error('Invalid server environment variables')
+  if (process.env.NODE_ENV !== 'test') {
+    console.error(
+      '❌ Missing or invalid server environment variables:',
+      parsed.error.flatten().fieldErrors
+    )
+    throw new Error('Invalid server environment variables')
+  }
 }
 
 export const serverEnv = {
-  SERVICE_ROLE_KEY: parsed.data.SUPABASE_SERVICE_ROLE_KEY,
+  SERVICE_ROLE_KEY: parsed.success
+    ? parsed.data.SUPABASE_SERVICE_ROLE_KEY
+    : process.env.SUPABASE_SERVICE_ROLE_KEY || '',
 } as const

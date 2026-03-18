@@ -40,6 +40,10 @@ if (!parsed.success) {
       parsed.error.flatten().fieldErrors
     )
   }
+  // In test environment, we don't want to fail if variables are missing
+  if (process.env.NODE_ENV !== 'test' && !parsed.success) {
+    // console.warn('Missing public env vars ignored in non-dev/non-test');
+  }
 }
 
 const envData = parsed.success ? parsed.data : (processEnv as any)
@@ -57,7 +61,9 @@ export const env = {
   APP_URL: envData.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
 
   // Admin
-  ADMIN_EMAILS: (envData.ADMIN_EMAILS || 'admin@slovor.sk').split(',').map((email: string) => email.trim()),
+  ADMIN_EMAILS: (envData.ADMIN_EMAILS || 'admin@slovor.sk')
+    .split(',')
+    .map((email: string) => email.trim()),
 
   // Legacy aliases (if any)
   isDev: (envData.NODE_ENV || process.env.NODE_ENV) === 'development',
