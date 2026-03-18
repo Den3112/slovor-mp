@@ -11,9 +11,6 @@ vi.mock('@vercel/analytics', () => ({
 }))
 
 describe('analytics utility', () => {
-  const originalEnv = process.env.NODE_ENV
-  const originalWindow = global.window
-
   beforeEach(() => {
     vi.clearAllMocks()
     vi.stubGlobal('sessionStorage', {
@@ -21,11 +18,11 @@ describe('analytics utility', () => {
       setItem: vi.fn(),
       removeItem: vi.fn(),
     })
-    process.env.NODE_ENV = 'development'
+    vi.stubEnv('NODE_ENV', 'development')
   })
 
   afterEach(() => {
-    process.env.NODE_ENV = originalEnv
+    vi.unstubAllEnvs()
     vi.unstubAllGlobals()
   })
 
@@ -69,7 +66,7 @@ describe('analytics utility', () => {
     })
 
     it('calls vercel analytics in production client-side', () => {
-      process.env.NODE_ENV = 'production'
+      vi.stubEnv('NODE_ENV', 'production')
       vi.stubGlobal('window', {})
 
       trackEvent('listing_created', { listing_id: '456' })
@@ -80,7 +77,7 @@ describe('analytics utility', () => {
     })
 
     it('does not call vercel analytics in production server-side', () => {
-      process.env.NODE_ENV = 'production'
+      vi.stubEnv('NODE_ENV', 'production')
       vi.stubGlobal('window', undefined)
 
       trackEvent('listing_created')
@@ -88,7 +85,7 @@ describe('analytics utility', () => {
     })
 
     it('handles track errors gracefully in production', () => {
-      process.env.NODE_ENV = 'production'
+      vi.stubEnv('NODE_ENV', 'production')
       vi.stubGlobal('window', {})
       vi.mocked(track).mockImplementation(() => {
         throw new Error('Vercel Down')
