@@ -15,8 +15,8 @@
 
 ## ⚡ Active RAM
 - **Status**: Проект переведен на Docker-окружение. Окружение Python исправлено (используется `python3`, установлен `python-is-python3`). Настроен `Pylance`.
-- **Active Fix**: Исправлен Smart Chrome Proxy (bind error fixed, IPv4 0.0.0.0).
-- **Next Step**: Продолжить разработку фич или исправление багов.
+- **Active Fix**: Все изменения проверены (npm run verify), закомичены и отправлены в PR на ветку `dev`.
+- **Next Step**: Дальнейшая разработка (ожидание следующих задач).
 
 ---
 
