@@ -29,6 +29,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Diagnostic - Check Env
+        run: |
+          echo "Checking if critical env vars are set (names only)..."
+          [ -z "$NEXT_PUBLIC_SUPABASE_URL" ] && echo "NEXT_PUBLIC_SUPABASE_URL is MISSING" || echo "NEXT_PUBLIC_SUPABASE_URL is set"
+          [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ] && echo "NEXT_PUBLIC_SUPABASE_ANON_KEY is MISSING" || echo "NEXT_PUBLIC_SUPABASE_ANON_KEY is set"
+          [ -z "$SUPABASE_SERVICE_ROLE_KEY" ] && echo "SUPABASE_SERVICE_ROLE_KEY is MISSING" || echo "SUPABASE_SERVICE_ROLE_KEY is set"
+
       - name: Run Unit Tests
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
