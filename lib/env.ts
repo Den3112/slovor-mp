@@ -34,18 +34,17 @@ const processEnv = {
 const parsed = envSchema.safeParse(processEnv)
 
 if (!parsed.success) {
+  // Only error out in development to help the developer fix their .env
   if (process.env.NODE_ENV === 'development') {
     console.error(
       '❌ Invalid environment variables:',
       parsed.error.flatten().fieldErrors
     )
   }
-  // In test environment, we don't want to fail if variables are missing
-  if (process.env.NODE_ENV !== 'test' && !parsed.success) {
-    // console.warn('Missing public env vars ignored in non-dev/non-test');
-  }
 }
 
+// In non-test environments, we might want to know if validation failed,
+// but we don't block execution here for client-side safe variables.
 const envData = parsed.success ? parsed.data : (processEnv as any)
 
 /**
