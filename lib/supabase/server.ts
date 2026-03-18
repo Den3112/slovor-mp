@@ -8,12 +8,6 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mock.supabase.co'
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock'
 
-  if (process.env.SKIP_ENV_VALIDATION === '1') {
-    return createServerClient(supabaseUrl, supabaseAnonKey, {
-      cookies: { getAll: () => [], setAll: () => {} },
-    })
-  }
-
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error('Missing Supabase environment variables')
   }
@@ -42,12 +36,6 @@ export function createStaticClient() {
   const supabaseUrl =
     process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mock.supabase.co'
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'mock'
-
-  if (process.env.SKIP_ENV_VALIDATION === '1') {
-    return createServerClient(supabaseUrl, supabaseAnonKey, {
-      cookies: { getAll: () => [], setAll: () => {} },
-    })
-  }
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error('Missing Supabase environment variables')
