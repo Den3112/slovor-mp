@@ -1,17 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 describe('env utility logic', () => {
-  const originalEnv = { ...process.env }
 
   beforeEach(() => {
     vi.resetModules()
-    process.env = { ...originalEnv }
+  })
+
+  afterEach(() => {
+    vi.unstubAllEnvs()
   })
 
   it('correctly identifies dev and prod environments', async () => {
-    process.env.NODE_ENV = 'development'
-    process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321'
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key'
+    vi.stubEnv('NODE_ENV', 'development')
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'http://localhost:54321')
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'test-key')
 
     const { env } = await import('@/lib/env')
     expect(env.isDev).toBe(true)
@@ -19,9 +21,9 @@ describe('env utility logic', () => {
   })
 
   it('correctly identifies production environment', async () => {
-    process.env.NODE_ENV = 'production'
-    process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://live.supabase.co'
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'live-key'
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://live.supabase.co')
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'live-key')
 
     const { env } = await import('@/lib/env')
     expect(env.isProd).toBe(true)
@@ -47,8 +49,9 @@ describe('env utility logic', () => {
   })
 
   it('handles invalid env vars gracefully in development', async () => {
-    process.env.NODE_ENV = 'development'
-    delete process.env.NEXT_PUBLIC_SUPABASE_URL // Missing required
+    vi.stubEnv('NODE_ENV', 'development')
+    // @ts-ignore
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', undefined)
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     const { env } = await import('@/lib/env')

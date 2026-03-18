@@ -16,6 +16,7 @@ type EventName =
   | 'auth_signup'
   | 'listing_creation_start'
   | 'listing_creation_success'
+  | 'new_event'
 
 interface EventPayload {
   listing_id?: string
