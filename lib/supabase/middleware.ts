@@ -17,7 +17,7 @@ export async function updateSession(
     existingResponse ||
     NextResponse.next({
       request: {
-        headers: request.headers,
+        headers: new Headers(request.headers),
       },
     })
 

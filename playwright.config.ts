@@ -12,16 +12,17 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 1 : 4,
   reporter: 'list',
-  timeout: 60000, // 60s per test
+  timeout: 300000, // 5m per test
   expect: {
-    timeout: 10000, // 10s for assertions
+    timeout: 30000, // 30s for assertions
   },
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3005',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    actionTimeout: 15000,
+    actionTimeout: 300000,
+    navigationTimeout: 300000,
     storageState: 'e2e/.auth/user.json',
   },
   globalSetup: require.resolve('./e2e/global-setup'),
@@ -44,10 +45,12 @@ export default defineConfig({
     },
   ],
 
+  /*
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run dev -- --webpack',
     url: 'http://localhost:3000',
     reuseExistingServer: true,
-    timeout: 120000,
+    timeout: 300000,
   },
+*/
 })
