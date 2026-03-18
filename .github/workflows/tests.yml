@@ -31,10 +31,14 @@ jobs:
 
       - name: Diagnostic - Check Env
         run: |
-          echo "Checking if critical env vars are set (names only)..."
-          [ -z "$NEXT_PUBLIC_SUPABASE_URL" ] && echo "NEXT_PUBLIC_SUPABASE_URL is MISSING" || echo "NEXT_PUBLIC_SUPABASE_URL is set"
-          [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ] && echo "NEXT_PUBLIC_SUPABASE_ANON_KEY is MISSING" || echo "NEXT_PUBLIC_SUPABASE_ANON_KEY is set"
-          [ -z "$SUPABASE_SERVICE_ROLE_KEY" ] && echo "SUPABASE_SERVICE_ROLE_KEY is MISSING" || echo "SUPABASE_SERVICE_ROLE_KEY is set"
+          echo "Checking if critical env vars are set (lengths only)..."
+          echo "NEXT_PUBLIC_SUPABASE_URL length: ${#NEXT_PUBLIC_SUPABASE_URL}"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY length: ${#NEXT_PUBLIC_SUPABASE_ANON_KEY}"
+          echo "SUPABASE_SERVICE_ROLE_KEY length: ${#SUPABASE_SERVICE_ROLE_KEY}"
+          echo "Node version: $(node -v)"
+          echo "Npm version: $(npm -v)"
+          if [[ "${NEXT_PUBLIC_SUPABASE_URL}" == \"*\" ]]; then echo "WARNING: NEXT_PUBLIC_SUPABASE_URL has quotes"; fi
+          if [[ "${NEXT_PUBLIC_SUPABASE_ANON_KEY}" == \"*\" ]]; then echo "WARNING: NEXT_PUBLIC_SUPABASE_ANON_KEY has quotes"; fi
 
       - name: Run Unit Tests
         env:
