@@ -1,35 +1,64 @@
-import { describe, it, expect, vi } from 'vitest'
-import { env } from '@/lib/env'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-// Mock the environment module to avoid process.env dependency issues in test
-vi.mock('@/lib/env', () => ({
-  env: {
-    SUPABASE_URL: 'https://mock.supabase.co',
-    SUPABASE_ANON_KEY: 'mock-key',
-    NODE_ENV: 'test',
-    APP_URL: 'http://localhost:3000',
-  },
-}))
+describe('env utility logic', () => {
+  const originalEnv = { ...process.env }
 
-describe('Environment Variables', () => {
-  it('exports env object', () => {
-    expect(env).toBeDefined()
+  beforeEach(() => {
+    vi.resetModules()
+    process.env = { ...originalEnv }
   })
 
-  it('has SUPABASE_URL property', () => {
-    expect(env.SUPABASE_URL).toBeDefined()
+  it('correctly identifies dev and prod environments', async () => {
+    process.env.NODE_ENV = 'development'
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321'
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key'
+
+    const { env } = await import('@/lib/env')
+    expect(env.isDev).toBe(true)
+    expect(env.isProd).toBe(false)
   })
 
-  it('has SUPABASE_ANON_KEY property', () => {
-    expect(env.SUPABASE_ANON_KEY).toBeDefined()
+  it('correctly identifies production environment', async () => {
+    process.env.NODE_ENV = 'production'
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://live.supabase.co'
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'live-key'
+
+    const { env } = await import('@/lib/env')
+    expect(env.isProd).toBe(true)
+    expect(env.isDev).toBe(false)
   })
 
-  it('has NODE_ENV property with default', () => {
-    expect(env.NODE_ENV).toBeDefined()
+  it('splits ADMIN_EMAILS correctly', async () => {
+    process.env.ADMIN_EMAILS = 'a@test.com, b@test.com '
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321'
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key'
+
+    const { env } = await import('@/lib/env')
+    expect(env.ADMIN_EMAILS).toEqual(['a@test.com', 'b@test.com'])
   })
 
-  it('has APP_URL property with default', () => {
-    expect(env.APP_URL).toBeDefined()
-    expect(env.APP_URL).toContain('http')
+  it('uses default ADMIN_EMAILS if not provided', async () => {
+    delete process.env.ADMIN_EMAILS
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321'
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-key'
+
+    const { env } = await import('@/lib/env')
+    expect(env.ADMIN_EMAILS).toEqual(['admin@slovor.sk'])
+  })
+
+  it('handles invalid env vars gracefully in development', async () => {
+    process.env.NODE_ENV = 'development'
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL // Missing required
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    const { env } = await import('@/lib/env')
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Invalid environment variables'),
+      expect.any(Object)
+    )
+    // Should fallback to raw processEnv values
+    expect(env.NODE_ENV).toBe('development')
+    consoleSpy.mockRestore()
   })
 })

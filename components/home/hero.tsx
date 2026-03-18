@@ -88,6 +88,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
+            ref={containerRef}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -97,21 +98,36 @@ export function Hero() {
               {/* Dynamic Search Box - Pro Max Glass */}
               <div className="bg-primary/20 absolute -inset-1 rounded-[2.5rem] opacity-0 blur-2xl transition duration-1000 group-focus-within:opacity-60 group-hover:opacity-40" />
 
-              <div className="bg-card border-border shadow-card hover:border-primary/30 relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border p-2 transition-all duration-500 sm:flex-row sm:items-center md:rounded-4xl">
+              <div
+                className={cn(
+                  'bg-card border-border shadow-card relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border p-2 transition-all duration-500 sm:flex-row sm:items-center md:rounded-4xl',
+                  isOpen ? 'border-primary/50 shadow-2xl' : 'hover:border-primary/30'
+                )}
+              >
                 <div className="flex w-full items-center px-4 py-1 sm:flex-1 sm:py-2 sm:pl-6">
                   <Search
-                    className="text-muted-foreground group-focus-within:text-primary h-5 w-5 shrink-0 transition-all duration-500 group-focus-within:scale-110 md:h-6 md:w-6"
+                    className={cn(
+                      'h-5 w-5 shrink-0 transition-all duration-500 md:h-6 md:w-6',
+                      isOpen
+                        ? 'text-primary scale-110'
+                        : 'text-muted-foreground group-hover:text-primary/70'
+                    )}
                     aria-hidden="true"
                   />
                   <Input
                     id="hero-search"
                     type="text"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                      setQuery(e.target.value)
+                      setIsOpen(true)
+                    }}
+                    onFocus={() => setIsOpen(true)}
                     placeholder={t('searchPlaceholder')}
                     className="placeholder:text-muted-foreground text-foreground h-14 w-full border-none bg-transparent px-3 py-3 text-lg font-bold shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 sm:h-auto sm:py-4 md:px-4 md:text-xl"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') handleSearch()
+                      if (e.key === 'Escape') setIsOpen(false)
                     }}
                   />
                 </div>
@@ -123,6 +139,83 @@ export function Hero() {
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </div>
+
+              {/* Live Search Results Dropsdown */}
+              <AnimatePresence>
+                {isOpen && (query.length >= 2 || isSearching) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 4, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                    className="border-primary/20 bg-background/95 absolute top-full left-0 z-50 mt-4 w-full overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl"
+                  >
+                    <div className="max-h-[400px] overflow-y-auto p-4 custom-scrollbar">
+                      {isSearching ? (
+                        <div className="flex flex-col items-center justify-center py-10">
+                          <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+                          <p className="text-muted-foreground mt-4 text-sm font-medium">
+                            {t('common:searching')}...
+                          </p>
+                        </div>
+                      ) : results.length > 0 ? (
+                        <div className="space-y-2">
+                          <div className="text-muted-foreground mb-3 flex items-center gap-2 px-3 text-[10px] font-bold tracking-[0.2em] uppercase">
+                            <TrendingUp className="h-3 w-3" />
+                            {t('common:searchResults')}
+                          </div>
+                          {results.map((item) => (
+                            <button
+                              key={item.id}
+                              onClick={() => {
+                                router.push(`/${locale}/listings/${item.id}`)
+                                setIsOpen(false)
+                              }}
+                              className="hover:bg-primary/5 group flex w-full items-center gap-4 rounded-2xl p-3 text-left transition-all active:scale-[0.98]"
+                            >
+                              <div className="bg-muted relative h-12 w-12 shrink-0 overflow-hidden rounded-xl">
+                                {item.images?.[0] ? (
+                                  <Image
+                                    src={item.images[0]}
+                                    alt={item.title || ''}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                  />
+                                ) : (
+                                  <div className="flex h-full w-full items-center justify-center">
+                                    <Search className="text-muted-foreground h-5 w-5" />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 overflow-hidden">
+                                <h4 className="text-foreground line-clamp-1 font-bold transition-colors group-hover:text-primary">
+                                  {item.title}
+                                </h4>
+                                <div className="flex items-center gap-2">
+                                  <p className="text-primary text-sm font-extrabold">
+                                    {item.price?.toLocaleString()} €
+                                  </p>
+                                  <span className="text-muted-foreground text-[10px]">•</span>
+                                  <p className="text-muted-foreground truncate text-xs font-medium">
+                                    {item.category?.name || t('common:others')}
+                                  </p>
+                                </div>
+                              </div>
+                              <ArrowRight className="text-primary hidden h-4 w-4 opacity-0 transition-all -translate-x-2 group-hover:block group-hover:opacity-100 group-hover:translate-x-0" />
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="py-10 text-center">
+                          <p className="text-muted-foreground text-sm font-medium">
+                            {t('common:noResultsFound')} &quot;{query}&quot;
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 

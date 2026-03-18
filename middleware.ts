@@ -39,7 +39,7 @@ const isRateLimitConfigured =
 const ratelimit = isRateLimitConfigured
   ? new Ratelimit({
       redis: Redis.fromEnv(),
-      limiter: Ratelimit.slidingWindow(50, '60 s'),
+      limiter: Ratelimit.slidingWindow(10, '10 s'),
       analytics: true,
       prefix: '@upstash/ratelimit/slovor',
     })
@@ -75,8 +75,20 @@ export default async function proxy(request: NextRequest) {
       }
     }
 
-    // 2. Update Session
-    const response = await updateSession(request)
+    // 2. Generate Nonce for CSP and Server Components
+    const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-nonce', nonce)
+
+    // 3. Create initial response with injected request headers
+    const initialResponse = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    })
+
+    // 4. Update Session using the safe initialResponse
+    const response = await updateSession(request, initialResponse)
 
     // 3. Set locale header for server components
     const locale = languages.find(
@@ -88,7 +100,6 @@ export default async function proxy(request: NextRequest) {
     }
 
     // 4. Secure CSP with Nonce
-    const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
     const cspHeader = `
         default-src 'self';
         script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://va.vercel-scripts.com;
@@ -104,8 +115,7 @@ export default async function proxy(request: NextRequest) {
       .replace(/\s{2,}/g, ' ')
       .trim()
 
-    // Pass nonce via request header for server components (not response header)
-    response.headers.set('x-nonce', nonce)
+    // Apply CSP and Permissions-Policy to the response
     response.headers.set('Content-Security-Policy', cspHeader)
     response.headers.set(
       'Permissions-Policy',
