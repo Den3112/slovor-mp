@@ -123,7 +123,6 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                               fill
                               className="object-cover"
                               sizes="48px"
-                              unoptimized
                               onError={() => handleImageError(listing.id)}
                             />
                           ) : (
@@ -226,7 +225,6 @@ export function RecentActivityTable({ listings }: RecentActivityTableProps) {
                                 fill
                                 className="object-cover"
                                 sizes="40px"
-                                unoptimized
                                 onError={() => handleImageError(listing.id)}
                               />
                             ) : (

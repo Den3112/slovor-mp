@@ -101,7 +101,7 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="bg-card group relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-border shadow-md"
+        className="bg-card group border-border relative aspect-4/3 w-full overflow-hidden rounded-4xl border shadow-md"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -115,8 +115,9 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
           src={validImages[currentIndex] || '/images/placeholder.jpg'}
           alt={`${title} - Image ${currentIndex + 1}`}
           fill
-          className={`object-cover transition-all duration-700 group-hover:scale-105 ${loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
-            }`}
+          className={`object-cover transition-all duration-700 group-hover:scale-105 ${
+            loadingImages.has(currentIndex) ? 'opacity-0' : 'opacity-100'
+          }`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
           priority={currentIndex === 0}
           onError={() => {
@@ -124,7 +125,6 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
             if (current) handleImageError(images.indexOf(current))
           }}
           onLoad={() => handleImageLoad(currentIndex)}
-          unoptimized
         />
 
         {/* Navigation Arrows */}
@@ -172,10 +172,11 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   setCurrentIndex(index)
                   setLoadingImages((prev) => new Set([...prev, index]))
                 }}
-                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 p-0 transition-all hover:bg-transparent ${index === currentIndex
-                  ? 'border-primary ring-primary/20 opacity-100 ring-4 ring-offset-2'
-                  : 'hover:border-primary/50 border-transparent opacity-60 hover:opacity-100'
-                  }`}
+                className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-3xl border-2 p-0 transition-all hover:bg-transparent ${
+                  index === currentIndex
+                    ? 'border-primary ring-primary/20 opacity-100 ring-4 ring-offset-2'
+                    : 'hover:border-primary/50 border-transparent opacity-60 hover:opacity-100'
+                }`}
                 aria-label={`View image ${index + 1}`}
               >
                 {loadingImages.has(index) && (
@@ -189,7 +190,6 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
                   sizes="80px"
                   onError={() => handleImageError(originalIndex)}
                   onLoad={() => handleImageLoad(index)}
-                  unoptimized
                 />
               </Button>
             )

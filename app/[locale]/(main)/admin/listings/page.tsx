@@ -24,17 +24,18 @@ export default async function AdminListingsPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user || !config.app.adminEmails.includes(user.email || '')) {
+  if (
+    !user ||
+    !(config.app.adminEmails as readonly string[]).includes(user.email || '')
+  ) {
     redirect('/')
   }
 
   // Pre-fetch listings (optional, component also fetches)
   const { data: listings } = await supabase
     .from('listings')
-    .select(
-      '*, user:profiles(display_name, avatar_url), category:categories(*)'
-    )
+    .select('*, user:profiles(*), category:categories(*)')
     .order('created_at', { ascending: false })
 
-  return <AdminListingsView initialListings={listings || []} />
+  return <AdminListingsView initialListings={(listings as any) || []} />
 }

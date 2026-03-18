@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
@@ -20,12 +21,15 @@ import { Logo } from '@/components/ui/logo'
 import { Heart, MessageCircle, ChevronDown } from 'lucide-react'
 import { useUnreadMessages } from '@/lib/hooks/use-unread-messages'
 import { MegaMenu } from './mega-menu'
+import { useOnlineStatus } from '@/hooks/use-online-status'
+import { WifiOff } from 'lucide-react'
 
 export function Header() {
   const { t, locale } = useTranslation(['common', 'nav'])
   const { user, signOut } = useAuth()
   const pathname = usePathname()
   const unreadCount = useUnreadMessages()
+  const isOnline = useOnlineStatus()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false)
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
@@ -43,7 +47,8 @@ export function Header() {
     <>
       <header
         className={cn(
-          'bg-card sticky top-0 z-50 h-(--header-height) w-full border-b antialiased transition-all duration-300'
+          'bg-background/80 supports-backdrop-blur:bg-background/60 sticky top-0 z-50 h-(--header-height) w-full backdrop-blur-xl antialiased transition-all duration-300',
+          'border-b border-border/40 px-safe-top'
         )}
       >
         <Container className="h-full px-4 sm:px-6">
@@ -51,6 +56,17 @@ export function Header() {
             {/* Logo area with Category Trigger */}
             <div className="flex shrink-0 items-center gap-4 sm:gap-8">
               <Logo locale={locale} />
+              
+              {!isOnline && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-destructive/10 text-destructive flex h-8 w-8 items-center justify-center rounded-lg backdrop-blur-md"
+                  title={t('common:offlineMode')}
+                >
+                  <WifiOff className="h-4 w-4" />
+                </motion.div>
+              )}
 
               <button
                 className={cn(

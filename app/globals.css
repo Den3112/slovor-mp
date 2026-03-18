@@ -554,6 +554,24 @@
 }
 
 /* Hide Next.js dev indicators in dashboard */
+/* ============================================
+   PREMIUM MICRO-INTERACTIONS
+   ============================================ */
+
+@layer utilities {
+  .btn-premium {
+    @apply transition-all duration-300 active:scale-95 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20;
+  }
+  
+  .glass-premium {
+    @apply bg-background/40 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)];
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-br from-indigo-500/20 via-sky-500/20 to-emerald-500/20 blur-3xl opacity-50;
+  }
+}
+
 .dashboard-view [data-nextjs-toast],
 .dashboard-view [data-nextjs-portal],
 .dashboard-view .nextjs-static-indicator {

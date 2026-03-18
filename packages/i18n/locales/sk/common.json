@@ -122,6 +122,10 @@
     "switchToDark": "Prepnúť na tmavý režim",
     "language": "Jazyk"
   },
+  "meta": {
+    "title": "Slovor - Prémiový bazár na Slovensku",
+    "description": "Kupujte a predávajte elektroniku, nehnuteľnosti, autá a viac. Najmodernejší bazár na Slovensku."
+  },
   "showResults": "Zobraziť {{count}} inzerátov",
   "showResults_one": "Zobraziť {{count}} inzerát",
   "showResults_few": "Zobraziť {{count}} inzeráty",

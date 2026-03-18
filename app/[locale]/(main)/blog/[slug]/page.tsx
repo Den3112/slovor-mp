@@ -20,6 +20,9 @@ interface BlogPostProps {
 export const generateMetadata = generateBlogMetadata
 
 export async function generateStaticParams() {
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return []
+  }
   const { data: posts } = await blogApi.listPosts({ limit: 10, offset: 0 })
   if (!posts) return []
 
@@ -35,6 +38,11 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: BlogPostProps) {
   const { slug, locale } = await params
+  
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return <div className="py-20 text-center">Building...</div>
+  }
+
   const { t } = await getTranslationServer(['common', 'blog'])
 
   // Fetch post from database

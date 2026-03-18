@@ -14,7 +14,9 @@ import { listingsApi } from '@/lib/api/listings'
 import { formatDistanceToNow } from 'date-fns'
 import { ru, cs, sk, enUS } from 'date-fns/locale'
 
-export function ContentOverviewWidget() {
+import type { AdminStats } from '@/lib/api/admin'
+
+export function ContentOverviewWidget({ stats }: { stats: AdminStats }) {
   const { t, locale } = useTranslation(['admin'])
   const [items, setItems] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -67,7 +69,7 @@ export function ContentOverviewWidget() {
 
   return (
     <HubWidget
-      title={t('admin:content') || 'RECENT CONTENT'}
+      title={`${t('admin:content') || 'RECENT CONTENT'} (${stats.totalListings})`}
       icon={Layers}
       colSpan={4}
       rowSpan={2}

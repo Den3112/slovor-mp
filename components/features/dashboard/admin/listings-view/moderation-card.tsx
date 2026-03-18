@@ -63,7 +63,6 @@ export function ModerationCard({
               alt={listing.title}
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-110"
-              unoptimized
             />
           ) : (
             <Tag className="text-muted-foreground/20 absolute inset-0 m-auto h-8 w-8" />

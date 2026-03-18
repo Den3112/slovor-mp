@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/lib/i18n'
+import { trackEvent } from '@/lib/utils/analytics'
 
 interface FavoriteButtonProps {
   listingId: string
@@ -93,6 +94,11 @@ export function FavoriteButton({
           .insert({ listing_id: listingId, user_id: user.id })
         if (error && error.code !== '23505') throw error
       }
+
+      trackEvent('favorite_toggle', {
+        listing_id: listingId,
+        is_favorited: !previousState,
+      })
       router.refresh()
     } catch (error) {
       console.error('Error toggling favorite:', error)

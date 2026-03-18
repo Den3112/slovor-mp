@@ -81,7 +81,6 @@ export function ChatHeader({
                   fill
                   sizes="32px"
                   className="object-cover transition-transform group-hover:scale-110"
-                  unoptimized
                 />
               ) : (
                 <div className="bg-muted h-full w-full" />

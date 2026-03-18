@@ -47,7 +47,7 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
       colSpan={4}
       rowSpan={2}
       noPadding
-      className="overflow-hidden border-border bg-card shadow-md"
+      className="border-border bg-card hover:border-primary/20 overflow-hidden shadow-md transition-all duration-500"
       action={{
         label: t('common:viewAll'),
         icon: ArrowRight,
@@ -61,8 +61,7 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
             className="hover:bg-primary/5 group flex items-center justify-between p-5 transition-all duration-500"
           >
             <div className="flex items-center gap-4">
-              <div className="bg-primary/5 border-primary/5 shadow-inner flex h-8 w-8 items-center justify-center rounded-xl
- border transition-transform duration-500 group-hover:scale-110">
+              <div className="bg-primary/5 border-primary/5 flex h-8 w-8 items-center justify-center rounded-xl border shadow-inner transition-transform duration-500 group-hover:scale-110">
                 {getStatusIcon(order.status)}
               </div>
               <div className="space-y-1">
@@ -78,7 +77,7 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
                   </span>
                   <Badge
                     variant="outline"
-                    className="border-primary/10 bg-primary/5 h-4.5 px-1.5 py-0 text-[8px] font-black uppercase tracking-widest"
+                    className="border-primary/10 bg-primary/5 h-4.5 px-1.5 py-0 text-[8px] font-black tracking-widest uppercase"
                   >
                     {t(`dashboard:orderStatuses.${order.status}`)}
                   </Badge>
@@ -86,7 +85,7 @@ export function ActiveOrdersWidget({ orders }: ActiveOrdersWidgetProps) {
               </div>
             </div>
             <div className="text-right">
-              <span className="font-heading block text-[13px] font-black tracking-tight text-foreground">
+              <span className="font-heading text-foreground block text-[13px] font-black tracking-tight">
                 {order.price}
               </span>
               <span className="text-primary/30 text-[9px] font-black tracking-widest uppercase">

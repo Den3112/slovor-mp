@@ -58,7 +58,6 @@ export function ReviewItem({
               alt={userDisplay.display_name || ''}
               fill
               className="object-cover"
-              unoptimized
               onError={() => setAvatarError(true)}
             />
           ) : (

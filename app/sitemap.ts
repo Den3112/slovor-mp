@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next'
-import { createStaticClient } from '@/lib/supabase/server'
-import { categoriesApi } from '@/lib/api'
+// import { createStaticClient } from '@/lib/supabase/server'
+// import { categoriesApi } from '@/lib/api'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-  const supabase = createStaticClient()
+  // const supabase = createStaticClient()
 
   const languages = ['en', 'sk', 'cs']
 
@@ -27,21 +27,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }))
 
-  // Dynamic routes: Categories
+  // Dynamic routes: Categories (Disabled during Docker build)
   let categoryRoutes: MetadataRoute.Sitemap = []
-  try {
-    const { data: categories } = await categoriesApi.getAll(supabase)
-    categoryRoutes = (categories || []).flatMap((category) =>
-      languages.map((lang) => ({
-        url: `${baseUrl}/${lang}/categories/${category.slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily' as const,
-        priority: 0.8,
-      }))
-    )
-  } catch (error) {
-    console.error('Failed to fetch categories for sitemap:', error)
+  /*
+  if (process.env.SKIP_ENV_VALIDATION !== '1') {
+    try {
+      const { data: categories } = await categoriesApi.getAll(supabase)
+      categoryRoutes = (categories || []).flatMap((category) =>
+        languages.map((lang) => ({
+          url: `${baseUrl}/${lang}/categories/${category.slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'daily' as const,
+          priority: 0.8,
+        }))
+      )
+    } catch (error) {
+      console.error('Failed to fetch categories for sitemap:', error)
+    }
   }
+  */
 
   return [...routes, ...categoryRoutes]
 }

@@ -11,6 +11,8 @@ interface StaticPageProps {
   }>
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function PublicStaticPage({ params }: StaticPageProps) {
   const { slug } = await params
 
@@ -45,7 +47,12 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
               {page.updated_at && (
                 <div className="text-muted-foreground mt-1 flex items-center gap-2 text-sm font-bold">
                   <Clock className="h-4 w-4" />
-                  Updated: {new Date(page.updated_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                  Updated:{' '}
+                  {new Date(page.updated_at).toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
                 </div>
               )}
             </div>

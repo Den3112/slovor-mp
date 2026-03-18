@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import type { Listing } from '@/lib/api'
 import { MapPin, Eye, Sparkles, ImageOff } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n'
@@ -19,7 +19,7 @@ interface ListingCardProps {
   variant?: 'default' | 'compact'
 }
 
-export function ListingCard({
+export const ListingCard = memo(function ListingCard({
   listing,
   featured,
   variant = 'default',
@@ -60,7 +60,6 @@ export function ListingCard({
                 setIsLoading(false)
               }}
               onLoad={() => setIsLoading(false)}
-              unoptimized
             />
           ) : (
             <div className="bg-muted text-muted-foreground/30 flex h-full w-full items-center justify-center">
@@ -152,7 +151,6 @@ export function ListingCard({
                 setIsLoading(false)
               }}
               onLoad={() => setIsLoading(false)}
-              unoptimized
               priority={featured}
             />
             {/* Subtle overlay */}
@@ -270,4 +268,6 @@ export function ListingCard({
       </div>
     </Link>
   )
-}
+})
+
+ListingCard.displayName = 'ListingCard'

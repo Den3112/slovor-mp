@@ -122,6 +122,10 @@
     "switchToDark": "Switch to dark mode",
     "language": "Language"
   },
+  "meta": {
+    "title": "Slovor - Premium Marketplace in Slovakia",
+    "description": "Buy and sell electronics, real estate, cars and more. The most advanced marketplace for Slovakia."
+  },
   "showResults": "Show {{count}} listings",
   "showResults_one": "Show {{count}} listing",
   "showResults_other": "Show {{count}} listings",
@@ -131,5 +135,11 @@
     "description": "Sorry, we couldn't find the page you're looking for.",
     "goHome": "Go Home",
     "browse": "Browse Listings"
-  }
+  },
+  "onlineMode": "Back Online",
+  "onlineModeDesc": "Restored connection to the server.",
+  "offlineMode": "Offline Mode",
+  "offlineModeDesc": "Some features may be limited without connection.",
+  "offline": "Offline",
+  "online": "Online"
 }

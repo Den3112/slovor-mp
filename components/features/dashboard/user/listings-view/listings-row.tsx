@@ -51,8 +51,8 @@ export function ListingsRow({
   return (
     <TableRow
       className={cn(
-        'group border-primary/5 transition-all duration-500 hover:bg-primary/5',
-        selected && 'bg-primary/[0.03]'
+        'group border-primary/5 hover:bg-primary/5 transition-all duration-500',
+        selected && 'bg-primary/5'
       )}
     >
       <TableCell className="w-12 px-6 py-5 text-center">
@@ -72,7 +72,6 @@ export function ListingsRow({
                 fill
                 className="object-cover"
                 sizes="56px"
-                unoptimized
               />
             ) : (
               <Package className="text-primary/20 m-auto h-7 w-7" />
@@ -87,7 +86,11 @@ export function ListingsRow({
             </Link>
             <span className="text-primary/30 text-[9px] font-black tracking-[0.2em] uppercase">
               {isMounted
-                ? new Date(listing.created_at).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' })
+                ? new Date(listing.created_at).toLocaleDateString(locale, {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                  })
                 : '...'}
             </span>
           </div>
@@ -95,7 +98,7 @@ export function ListingsRow({
       </TableCell>
       <TableCell className="px-6 py-5">
         <div className="flex flex-col gap-1">
-          <span className="font-heading text-lg font-black tracking-tighter text-foreground">
+          <span className="font-heading text-foreground text-lg font-black tracking-tighter">
             {listing.price} {listing.currency}
           </span>
           <span className="text-primary/30 text-[9px] font-black tracking-widest uppercase">
@@ -114,8 +117,8 @@ export function ListingsRow({
         </Badge>
       </TableCell>
       <TableCell className="px-6 py-5 text-right">
-        <div className="flex items-center justify-end gap-3 text-foreground/60">
-          <div className="group/stat flex min-w-[50px] items-center justify-end gap-1.5 transition-colors hover:text-primary">
+        <div className="text-foreground/60 flex items-center justify-end gap-3">
+          <div className="group/stat hover:text-primary flex min-w-[50px] items-center justify-end gap-1.5 transition-colors">
             <Eye className="h-4 w-4 transition-transform duration-500 group-hover/stat:scale-110" />
             <span className="text-xs font-black tracking-tighter">
               {listing.views_count || 0}
@@ -135,7 +138,7 @@ export function ListingsRow({
             variant="outline"
             size="sm"
             asChild
-            className="hover:bg-primary hover:text-white border-primary/10 h-9 rounded-2xl px-5 text-[9px] font-black tracking-[0.15em] uppercase transition-all duration-500 active:scale-95"
+            className="hover:bg-primary border-primary/10 h-9 rounded-2xl px-5 text-[9px] font-black tracking-[0.15em] uppercase transition-all duration-500 hover:text-white active:scale-95"
           >
             <Link href={`/${locale}/post?edit=${listing.id}`}>
               {t('common:edit')}
