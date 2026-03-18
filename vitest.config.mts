@@ -13,7 +13,7 @@ const dirname =
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'happy-dom',
+    environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest.setup.tsx'],
     include: ['**/*.test.{ts,tsx}'],
@@ -27,7 +27,7 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'unit',
-          environment: 'happy-dom',
+          environment: 'jsdom',
           include: ['__tests__/**/*.test.{ts,tsx}'],
         },
       },
