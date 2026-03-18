@@ -205,7 +205,6 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
                                 alt={otherUser.display_name || ''}
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                unoptimized
                               />
                             ) : (
                               <div className="bg-muted text-muted-foreground/50 flex h-full w-full items-center justify-center">

@@ -69,7 +69,6 @@ export function BlogPostsTable({
                             className="object-cover"
                             alt=""
                             fill
-                            unoptimized
                           />
                         ) : (
                           <FileText className="text-muted-foreground/30 absolute top-1/2 left-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2" />

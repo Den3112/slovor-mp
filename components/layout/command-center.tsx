@@ -19,6 +19,7 @@ import { useTranslation } from '@/lib/i18n'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { NAV_LINKS } from '@/lib/constants/nav-links'
+import { trackEvent } from '@/lib/utils/analytics'
 
 import { useListingSearch } from '@/lib/hooks/use-listing-search'
 
@@ -43,6 +44,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (query.trim()) {
+      trackEvent('search_performed', { query: query.trim() })
       router.push(`/${locale}/listings?search=${encodeURIComponent(query)}`)
       setIsOpen(false)
       onClose?.()
@@ -221,7 +223,10 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
                       ))
                     ) : (
                       <div className="text-muted-foreground py-4 text-center text-sm">
-                        {t('common:noResults')}
+                        {(() => {
+                          trackEvent('search_results_empty', { query })
+                          return t('common:noResults')
+                        })()}
                       </div>
                     )}
                   </>

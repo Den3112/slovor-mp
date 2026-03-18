@@ -9,6 +9,9 @@ import { CategoryGrid } from '@/components/category/grid'
 import { createClient } from '@/lib/supabase/server'
 
 async function CategoryGridWrapper() {
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return null
+  }
   const supabase = await createClient()
   const { data: categories, error } = await categoriesApi.getAll(supabase)
 
@@ -20,6 +23,9 @@ async function CategoryGridWrapper() {
 }
 
 export default async function CategoriesPage() {
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return <div className="py-20 text-center">Building...</div>
+  }
   const { t } = await getTranslationServer(['common', 'categories'])
 
   return (

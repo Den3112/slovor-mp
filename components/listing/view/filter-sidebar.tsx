@@ -2,8 +2,11 @@ import { SlidersHorizontal } from 'lucide-react'
 import { ListingFilters } from '../filters'
 import { useTranslation } from '@/lib/i18n'
 import { FilterSidebarProps } from './types'
+import { memo } from 'react'
 
-export function FilterSidebar({ categories }: FilterSidebarProps) {
+export const FilterSidebar = memo(function FilterSidebar({
+  categories,
+}: FilterSidebarProps) {
   const { t } = useTranslation(['filters'])
 
   return (
@@ -21,4 +24,6 @@ export function FilterSidebar({ categories }: FilterSidebarProps) {
       </div>
     </aside>
   )
-}
+})
+
+FilterSidebar.displayName = 'FilterSidebar'

@@ -3,15 +3,49 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BarChart3, Loader2 } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import { useTranslation } from '@/lib/i18n'
-import { ActivityChart } from '../activity-chart'
-import { LiveMonitor } from '../vantage/live-monitor'
-import { ActionStream } from '../vantage/action-stream'
-import { PriorityQueueTile } from '../priority-queue-tile'
 import { AdminHero } from '../admin-hero'
 import { RevenueWidget, ContentOverviewWidget } from '../widgets'
+
+const ActivityChart = dynamic(
+  () => import('../activity-chart').then((mod) => mod.ActivityChart),
+  {
+    loading: () => (
+      <div className="bg-muted/20 h-[300px] w-full animate-pulse rounded-xl" />
+    ),
+  }
+)
+
+const LiveMonitor = dynamic(
+  () => import('../vantage/live-monitor').then((mod) => mod.LiveMonitor),
+  {
+    loading: () => (
+      <div className="bg-muted/20 h-[400px] w-full animate-pulse rounded-xl" />
+    ),
+  }
+)
+
+const ActionStream = dynamic(
+  () => import('../vantage/action-stream').then((mod) => mod.ActionStream),
+  {
+    loading: () => (
+      <div className="bg-muted/20 h-[400px] w-full animate-pulse rounded-xl" />
+    ),
+  }
+)
+
+const PriorityQueueTile = dynamic(
+  () => import('../priority-queue-tile').then((mod) => mod.PriorityQueueTile),
+  {
+    loading: () => (
+      <div className="bg-muted/20 h-[200px] w-full animate-pulse rounded-xl" />
+    ),
+  }
+)
 import { BentoGrid, BentoTile } from '@/components/ui/bento'
 import { PremiumBackground } from '@/components/ui/premium-background'
+import { adminApi, type AdminStats } from '@/lib/api/admin'
 
 const container = {
   hidden: { opacity: 0 },
@@ -25,13 +59,22 @@ const container = {
 
 export function AdminOverviewView({ userEmail }: { userEmail: string }) {
   const { t } = useTranslation(['common', 'admin'])
-  // const [stats, setStats] = useState<AdminStats | null>(null)
+  const [stats, setStats] = useState<AdminStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading for now to show Skeleton/Loading state if needed
-    const timer = setTimeout(() => setIsLoading(false), 1000)
-    return () => clearTimeout(timer)
+    async function fetchStats() {
+      try {
+        const { data, error } = await adminApi.getDashboardStats()
+        if (error) throw new Error(error)
+        if (data) setStats(data)
+      } catch (err) {
+        console.error('Failed to fetch admin stats:', err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchStats()
   }, [])
 
   if (isLoading) {
@@ -42,7 +85,7 @@ export function AdminOverviewView({ userEmail }: { userEmail: string }) {
     )
   }
 
-  // if (!stats) return null // Removing this to allow rendering even without stats for now
+  if (!stats) return null
 
   return (
     <PremiumBackground
@@ -67,7 +110,7 @@ export function AdminOverviewView({ userEmail }: { userEmail: string }) {
           </BentoTile>
 
           {/* Revenue & Critical Monitor */}
-          <RevenueWidget />
+          <RevenueWidget stats={stats} />
 
           <BentoTile
             colSpan={12}
@@ -77,7 +120,7 @@ export function AdminOverviewView({ userEmail }: { userEmail: string }) {
             <PriorityQueueTile />
           </BentoTile>
 
-          <ContentOverviewWidget />
+          <ContentOverviewWidget stats={stats} />
 
           {/* Activity Dynamics */}
           <BentoTile colSpan={12} rowSpan={3} className="lg:col-span-8">

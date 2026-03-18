@@ -16,6 +16,11 @@ export default async function BlogPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return <div className="py-20 text-center">Building...</div>
+  }
+
   const { data: blogPosts } = await blogApi.listPosts({ limit: 12 })
 
   const posts = blogPosts || []
@@ -76,6 +81,7 @@ export default async function BlogPage({
                     src={featuredPost.cover_image}
                     alt={featuredPost.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (
@@ -128,6 +134,7 @@ export default async function BlogPage({
                     src={post.cover_image}
                     alt={post.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 ) : (

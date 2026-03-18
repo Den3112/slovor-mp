@@ -12,11 +12,13 @@ import { ReportDialog } from '@/components/ui/report-dialog'
 import { ListingActionButtons } from '@/components/listing/shared/listing-action-buttons'
 import { ListingOwnerActions } from '@/components/listing/listing-owner-actions'
 import { SellerInfoCard } from './seller-info'
+import { SafetyTips } from './safety-tips'
 import { useAuth } from '@/components/providers/auth-provider'
 import { messagesApi } from '@/lib/api/messages'
 import type { Listing } from '@/lib/types/database'
 import { getLocalizedTitle } from '@/lib/utils/listing-utils'
 import { CheckoutDialog } from '@/components/features/checkout/checkout-dialog'
+import { trackEvent } from '@/lib/utils/analytics'
 
 interface ListingSidebarProps {
   listing: Listing
@@ -48,6 +50,10 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
     }
 
     setIsContacting(true)
+    trackEvent('listing_contact_click', {
+      listing_id: listing.id,
+      category: listing.category?.slug,
+    })
     try {
       const { data, error } = await messagesApi.getOrCreateConversation(
         listing.id,
@@ -92,19 +98,19 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
   }
 
   return (
-    <div className="bg-card sticky top-28 space-y-8 rounded-2xl border border-border p-6 shadow-card md:p-8">
+    <div className="bg-card border-border shadow-card sticky top-28 space-y-8 rounded-4xl border p-6 md:p-8">
       <div className="border-border/40 space-y-3 border-b pb-6">
         <span className="text-primary/60 text-[10px] font-black tracking-[0.3em] uppercase">
           {t('price')}
         </span>
 
         {listing.status !== 'active' && (
-          <div className="bg-amber-500/10 mb-4 animate-pulse rounded-xl border border-amber-500/20 p-4">
-            <h4 className="flex items-center gap-2 font-black text-amber-600 uppercase tracking-tight">
+          <div className="mb-4 animate-pulse rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
+            <h4 className="flex items-center gap-2 font-black tracking-tight text-amber-600 uppercase">
               <ShieldCheck className="h-5 w-5" />
               Listing Inactive
             </h4>
-            <p className="mt-1 text-[11px] font-bold text-amber-600/80 leading-relaxed">
+            <p className="mt-1 text-[11px] leading-relaxed font-bold text-amber-600/80">
               This listing is currently hidden from public search results.
             </p>
           </div>
@@ -125,7 +131,9 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
       )}
 
       <div className="space-y-4 pt-2">
-        <h3 className="font-heading text-xl font-black tracking-tight leading-tight">{displayTitle}</h3>
+        <h3 className="font-heading text-xl leading-tight font-black tracking-tight">
+          {displayTitle}
+        </h3>
         <div className="text-muted-foreground flex items-center gap-4 text-[10px] font-black tracking-widest uppercase opacity-60">
           <div className="flex items-center gap-1.5">
             <Eye className="h-3.5 w-3.5" />
@@ -183,11 +191,15 @@ export function ListingSidebar({ listing }: ListingSidebarProps) {
             variant="ghost"
             size="sm"
             onClick={() => setShowReportModal(true)}
-            className="text-destructive hover:text-destructive hover:bg-destructive/10 gap-2 font-bold tracking-tight opacity-50 hover:opacity-100 transition-opacity"
+            className="text-destructive hover:text-destructive hover:bg-destructive/10 gap-2 font-bold tracking-tight opacity-50 transition-opacity hover:opacity-100"
           >
             <Flag className="h-3.5 w-3.5" />
             {t('listing:reportListing')}
           </Button>
+        </div>
+
+        <div className="pt-6">
+          <SafetyTips />
         </div>
 
         <ReportDialog

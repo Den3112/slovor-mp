@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button'
 import { ListingFilters } from '../filters'
 import { useTranslation } from '@/lib/i18n'
 import { MobileFilterDrawerProps } from './types'
+import { memo } from 'react'
 
-export function MobileFilterDrawer({
+export const MobileFilterDrawer = memo(function MobileFilterDrawer({
   categories,
   totalCount,
   isOpen,
@@ -62,4 +63,6 @@ export function MobileFilterDrawer({
       </Drawer.Root>
     </div>
   )
-}
+})
+
+MobileFilterDrawer.displayName = 'MobileFilterDrawer'

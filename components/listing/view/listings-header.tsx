@@ -4,8 +4,9 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { SaveSearchButton } from '../save-search-button'
 import { useTranslation } from '@/lib/i18n'
 import { ListingsHeaderProps } from './types'
+import { memo } from 'react'
 
-export function ListingsHeader({
+export const ListingsHeader = memo(function ListingsHeader({
   searchQuery,
   totalCount,
   filters,
@@ -18,13 +19,13 @@ export function ListingsHeader({
 
       {/* Aurora Background Glows - PRO MAX */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="bg-primary/5 absolute top-0 -left-[10%] h-[500px] w-[500px] rounded-full blur-[100px] animate-pulse" />
-        <div className="bg-primary/5 absolute bottom-0 -right-[10%] h-[500px] w-[500px] rounded-full blur-[100px]" />
+        <div className="bg-primary/5 absolute top-0 -left-[10%] h-[500px] w-[500px] animate-pulse rounded-full blur-[100px]" />
+        <div className="bg-primary/5 absolute -right-[10%] bottom-0 h-[500px] w-[500px] rounded-full blur-[100px]" />
       </div>
 
       <Container>
         <div className="relative z-10 flex flex-col gap-6 md:gap-10">
-          <div className="glass-panel text-primary shadow-primary/10 inline-flex w-fit items-center gap-2.5 rounded-full border-primary/20 bg-white/50 px-5 py-2 text-[10px] font-black tracking-[0.25em] uppercase backdrop-blur-md">
+          <div className="glass-panel text-primary shadow-primary/10 border-primary/20 inline-flex w-fit items-center gap-2.5 rounded-full bg-white/50 px-5 py-2 text-[10px] font-black tracking-[0.25em] uppercase backdrop-blur-md">
             <Search className="h-3.5 w-3.5" />
             {t('common:explorer')}
           </div>
@@ -40,9 +41,7 @@ export function ListingsHeader({
           />
 
           <h1 className="font-heading text-foreground max-w-5xl text-5xl font-black tracking-tight uppercase md:text-8xl">
-            {searchQuery
-              ? searchQuery
-              : t('common:allListings')}
+            {searchQuery ? searchQuery : t('common:allListings')}
           </h1>
 
           <div className="flex flex-wrap items-center gap-6">
@@ -66,4 +65,6 @@ export function ListingsHeader({
       </Container>
     </div>
   )
-}
+})
+
+ListingsHeader.displayName = 'ListingsHeader'

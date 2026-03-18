@@ -122,6 +122,10 @@
     "switchToDark": "Přepnout na tmavý režim",
     "language": "Jazyk"
   },
+  "meta": {
+    "title": "Slovor - Premiový bazar na Slovensku",
+    "description": "Kupujte a prodávejte elektroniku, nemovitosti, auta a více. Nejmodernější bazar na Slovensku."
+  },
   "showResults": "Zobrazit {{count}} inzerátů",
   "showResults_one": "Zobrazit {{count}} inzerát",
   "showResults_few": "Zobrazit {{count}} inzeráty",

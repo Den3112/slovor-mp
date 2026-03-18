@@ -20,6 +20,20 @@ import { ListingSidebar } from './details/listing-sidebar'
 import { ListingDescription } from './details/listing-description'
 import { Button } from '@/components/ui/button'
 import { PriceDisplay } from '@/components/ui/price-display'
+import { trackEvent } from '@/lib/utils/analytics'
+import dynamic from 'next/dynamic'
+
+const RelatedListings = dynamic(
+  () =>
+    import('@/components/listing/related-listings').then(
+      (mod) => mod.RelatedListings
+    ),
+  {
+    loading: () => (
+      <div className="bg-muted/20 h-[400px] w-full animate-pulse rounded-2xl" />
+    ),
+  }
+)
 
 interface ListingDetailViewProps {
   listing: Listing
@@ -54,6 +68,10 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
 
   useEffect(() => {
     addItem(listing)
+    trackEvent('listing_view', {
+      listing_id: listing.id,
+      category: listing.category?.slug,
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listing.id])
 
@@ -67,15 +85,15 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
               { label: t('allListings'), href: `/${locale}/listings` },
               ...(listing.category
                 ? [
-                  {
-                    label: getLocalizedCategoryName(
-                      listing.category,
-                      locale,
-                      t
-                    ),
-                    href: `/${locale}/categories/${listing.category.slug}`,
-                  },
-                ]
+                    {
+                      label: getLocalizedCategoryName(
+                        listing.category,
+                        locale,
+                        t
+                      ),
+                      href: `/${locale}/categories/${listing.category.slug}`,
+                    },
+                  ]
                 : []),
               { label: displayTitle },
             ]}
@@ -87,7 +105,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
           <div className="space-y-12 lg:col-span-8">
             {/* Image Gallery */}
             <div className="hidden md:block">
-              <div className="overflow-hidden rounded-2xl border border-border">
+              <div className="border-border overflow-hidden rounded-4xl border">
                 <ImageGallery
                   images={listing.images || []}
                   title={displayTitle}
@@ -117,6 +135,13 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
         </div>
 
         <div className="mt-20">
+          <RelatedListings
+            categoryId={listing.category_id ?? undefined}
+            currentListingId={listing.id}
+          />
+        </div>
+
+        <div className="mt-20">
           <RecentlyViewed />
         </div>
       </Container>
@@ -124,7 +149,7 @@ export function ListingDetailView({ listing }: ListingDetailViewProps) {
       {/* Mobile Sticky Action Bar - Adjusted bottom to clear global BottomNavBar */}
       <div className="fixed right-0 bottom-0 left-0 z-40 flex flex-col md:hidden">
         {/* Added safe area padding and increased margin to clear bottom nav */}
-        <div className="bg-card mb-(--bottom-nav-height,72px) border-t border-border p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] shadow-card">
+        <div className="bg-card border-border shadow-card mb-(--bottom-nav-height,72px) border-t p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)]">
           <div className="mx-auto flex max-w-lg items-center justify-between gap-4">
             <div className="flex flex-col">
               <span className="text-primary/60 text-[10px] font-black tracking-[0.2em] uppercase">
