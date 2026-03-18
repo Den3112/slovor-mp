@@ -11,9 +11,10 @@ import { Metadata } from 'next'
 
 export async function generateMetadata({
   searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>
-}): Promise<Metadata> {
+}: any): Promise<Metadata> {
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return { title: 'Search | Slovor' }
+  }
   const { q } = await searchParams
   const { t } = await getTranslationServer(['search', 'common'])
 
@@ -31,6 +32,9 @@ async function SearchResults({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) {
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return null
+  }
   const {
     q,
     category,

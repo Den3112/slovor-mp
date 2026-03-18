@@ -28,7 +28,6 @@ export function DashboardFavoriteItem({
             alt={listing.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
-            unoptimized
           />
         ) : (
           <div className="bg-muted/50 flex h-full w-full items-center justify-center">

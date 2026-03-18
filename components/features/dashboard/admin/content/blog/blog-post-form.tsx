@@ -90,7 +90,6 @@ export function BlogPostForm({
                   className="object-cover"
                   alt=""
                   fill
-                  unoptimized
                 />
               ) : (
                 <ImageIcon className="text-muted-foreground/40 h-4 w-4" />

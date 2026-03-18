@@ -92,7 +92,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
           <div
             key={plan.id}
             className={cn(
-              "glass-panel border-primary/10 bg-background/20 relative overflow-hidden rounded-[2rem] p-8 transition-all duration-500 hover:scale-[1.02]",
+              'glass-panel border-primary/10 bg-background/20 relative overflow-hidden rounded-[2rem] p-8 transition-all duration-500 hover:scale-[1.02]',
               plan.glow
             )}
           >
@@ -127,18 +127,18 @@ export function PromoteView({ userId }: PromoteViewProps) {
                 </p>
               </div>
             </div>
-            <div className="bg-primary/5 absolute -right-6 -bottom-6 h-32 w-32 rounded-full blur-3xl opacity-50" />
+            <div className="bg-primary/5 absolute -right-6 -bottom-6 h-32 w-32 rounded-full opacity-50 blur-3xl" />
           </div>
         ))}
       </div>
 
       {/* Main Section */}
-      <div className="glass-panel border-primary/10 bg-background/10 rounded-[2.5rem] p-10 overflow-hidden shadow-2xl shadow-primary/5">
+      <div className="glass-panel border-primary/10 bg-background/10 shadow-primary/5 overflow-hidden rounded-[2.5rem] p-10 shadow-2xl">
         <div className="flex flex-col gap-10">
           {/* Header & Search */}
           <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
             <div className="space-y-2">
-              <h2 className="text-foreground flex items-center gap-3 text-2xl font-black tracking-tighter uppercase whitespace-nowrap">
+              <h2 className="text-foreground flex items-center gap-3 text-2xl font-black tracking-tighter whitespace-nowrap uppercase">
                 <Rocket className="text-primary h-7 w-7" />
                 {t('dashboard:promote.selectListing')}
                 <Badge
@@ -149,7 +149,9 @@ export function PromoteView({ userId }: PromoteViewProps) {
                 </Badge>
               </h2>
               <p className="text-muted-foreground text-[10px] font-black tracking-[0.2em] uppercase opacity-60">
-                {t('dashboard:promote.selectDescription', { defaultValue: 'Choose a listing to boost its visibility' })}
+                {t('dashboard:promote.selectDescription', {
+                  defaultValue: 'Choose a listing to boost its visibility',
+                })}
               </p>
             </div>
 
@@ -160,12 +162,12 @@ export function PromoteView({ userId }: PromoteViewProps) {
                 placeholder={t('dashboard:searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="glass-panel border-primary/10 focus-visible:ring-primary/20 h-16 rounded-2xl bg-background/50 pl-14 text-sm font-black shadow-inner"
+                className="glass-panel border-primary/10 focus-visible:ring-primary/20 bg-background/50 h-16 rounded-2xl pl-14 text-sm font-black shadow-inner"
               />
             </div>
           </div>
 
-          <div className="h-px bg-linear-to-r from-transparent via-primary/10 to-transparent" />
+          <div className="via-primary/10 h-px bg-linear-to-r from-transparent to-transparent" />
 
           {/* Listings Grid */}
           {filteredListings.length > 0 ? (
@@ -181,7 +183,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                     onClick={() =>
                       router.push(`/${locale}/listings/${listing.id}/promote`)
                     }
-                    className="group glass-panel border-primary/5 bg-background/20 hover:border-primary/30 hover:shadow-primary/10 cursor-pointer overflow-hidden rounded-[2rem] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-soft hover:shadow-2xl"
+                    className="group glass-panel border-primary/5 bg-background/20 hover:border-primary/30 hover:shadow-primary/10 shadow-soft cursor-pointer overflow-hidden rounded-[2rem] transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98]"
                   >
                     <div className="flex h-full flex-col">
                       <div className="relative aspect-video w-full overflow-hidden">
@@ -191,7 +193,6 @@ export function PromoteView({ userId }: PromoteViewProps) {
                             alt={listing.title}
                             fill
                             className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                            unoptimized
                           />
                         ) : (
                           <div className="bg-primary/5 flex h-full w-full items-center justify-center">
@@ -200,15 +201,17 @@ export function PromoteView({ userId }: PromoteViewProps) {
                         )}
                         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                        {listing.is_highlighted && (
-                          <div className="glass-panel absolute top-4 left-4 z-10 rounded-xl bg-amber-500/90 border-amber-400/50 px-3 py-1.5 text-[9px] font-black tracking-widest text-white uppercase shadow-lg shadow-amber-500/40 backdrop-blur-md">
+                        {(listing.is_highlighted && (
+                          <div className="glass-panel absolute top-4 left-4 z-10 rounded-xl border-amber-400/50 bg-amber-500/90 px-3 py-1.5 text-[9px] font-black tracking-widest text-white uppercase shadow-lg shadow-amber-500/40 backdrop-blur-md">
                             {t('dashboard:promoted')}
                           </div>
-                        ) || (
-                            <div className="glass-panel absolute top-4 left-4 z-10 rounded-xl bg-primary/20 border-white/20 px-3 py-1.5 text-[9px] font-black tracking-widest text-white uppercase backdrop-blur-md opacity-0 transition-opacity group-hover:opacity-100">
-                              {t('dashboard:promote.available', { defaultValue: 'Ready to Boost' })}
-                            </div>
-                          )}
+                        )) || (
+                          <div className="glass-panel bg-primary/20 absolute top-4 left-4 z-10 rounded-xl border-white/20 px-3 py-1.5 text-[9px] font-black tracking-widest text-white uppercase opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+                            {t('dashboard:promote.available', {
+                              defaultValue: 'Ready to Boost',
+                            })}
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex flex-1 flex-col space-y-6 p-8">
@@ -217,7 +220,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                             {listing.title}
                           </h3>
                           <div className="text-muted-foreground/60 flex items-center gap-3 text-[10px] font-black tracking-[0.2em] uppercase">
-                            <Calendar className="mt-[-2px] h-3.5 w-3.5 text-primary/40" />
+                            <Calendar className="text-primary/40 mt-[-2px] h-3.5 w-3.5" />
                             {new Date(listing.created_at).toLocaleDateString()}
                           </div>
                         </div>
@@ -234,7 +237,7 @@ export function PromoteView({ userId }: PromoteViewProps) {
                               )}
                             </span>
                           </div>
-                          <div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:scale-110 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:text-white shadow-soft group-hover:shadow-primary/30 group-hover:rotate-12">
+                          <div className="bg-primary/10 text-primary group-hover:bg-primary shadow-soft group-hover:shadow-primary/30 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 group-hover:text-white">
                             <ArrowRight className="h-6 w-6" />
                           </div>
                         </div>

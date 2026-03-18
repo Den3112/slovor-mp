@@ -63,7 +63,7 @@ export function WalletWidget({
         icon: Plus,
         onClick: () => router.push(`/${locale}/dashboard/wallet`),
       }}
-      className="glass-panel border-primary/10 bg-background/20 shadow-2xl shadow-primary/5"
+      className="glass-panel border-primary/10 bg-background/20 shadow-primary/5 hover:border-primary/30 shadow-2xl transition-all duration-500"
     >
       <div className="relative z-10 flex h-full flex-col justify-between p-8">
         <div className="space-y-2">
@@ -71,7 +71,7 @@ export function WalletWidget({
             {t('dashboard:walletDetails.availableBalance')}
           </p>
           <div className="flex items-baseline gap-2">
-            <h2 className="font-heading text-4xl font-black tracking-tighter tabular-nums text-foreground">
+            <h2 className="font-heading text-foreground text-4xl font-black tracking-tighter tabular-nums">
               {formatPrice(balance, currency)}
             </h2>
           </div>

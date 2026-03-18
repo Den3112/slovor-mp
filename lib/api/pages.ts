@@ -9,6 +9,9 @@ export const pagesApi = {
    * List all static pages
    */
   async getAll(): Promise<ApiResponse<StaticPage[]>> {
+    if (process.env.SKIP_ENV_VALIDATION === '1') {
+      return { data: [], error: null }
+    }
     try {
       const { data, error } = await supabase
         .from('static_pages')
@@ -27,6 +30,9 @@ export const pagesApi = {
    * Get a single page by slug
    */
   async getBySlug(slug: string): Promise<ApiResponse<StaticPage>> {
+    if (process.env.SKIP_ENV_VALIDATION === '1') {
+      return { data: null as any, error: 'Build skip' }
+    }
     try {
       const { data, error } = await supabase
         .from('static_pages')

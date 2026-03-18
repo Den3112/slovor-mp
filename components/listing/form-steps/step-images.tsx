@@ -68,15 +68,19 @@ export function StepImages({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           animate={{
-            borderColor: isDragActive ? 'var(--primary)' : 'rgba(var(--primary-rgb), 0.1)',
-            backgroundColor: isDragActive ? 'rgba(var(--primary-rgb), 0.05)' : 'rgba(var(--primary-rgb), 0.02)',
+            borderColor: isDragActive
+              ? 'var(--primary)'
+              : 'rgba(var(--primary-rgb), 0.1)',
+            backgroundColor: isDragActive
+              ? 'rgba(var(--primary-rgb), 0.05)'
+              : 'rgba(var(--primary-rgb), 0.02)',
             scale: isDragActive ? 1.02 : 1,
           }}
           className={cn(
             'group relative flex min-h-[320px] flex-col items-center justify-center rounded-[2.5rem] border-2 border-dashed transition-all duration-500',
             isUploading
               ? 'border-primary/50 cursor-wait'
-              : 'glass-panel hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-primary/20 transition-all focus-within:ring-4 shadow-xl shadow-primary/5'
+              : 'glass-panel hover:border-primary/40 focus-within:border-primary/40 focus-within:ring-primary/20 shadow-primary/5 shadow-xl transition-all focus-within:ring-4'
           )}
         >
           <input
@@ -91,11 +95,13 @@ export function StepImages({
             aria-label={t('uploadPhotos')}
           />
 
-          <div className="pointer-events-none flex flex-col items-center gap-6 p-8 text-center text-primary">
+          <div className="text-primary pointer-events-none flex flex-col items-center gap-6 p-8 text-center">
             <motion.div
-              animate={isDragActive ? { y: -15, scale: 1.15 } : { y: 0, scale: 1 }}
+              animate={
+                isDragActive ? { y: -15, scale: 1.15 } : { y: 0, scale: 1 }
+              }
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="bg-primary shadow-primary/20 flex h-24 w-24 items-center justify-center rounded-[2rem] text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-primary/30"
+              className="bg-primary shadow-primary/20 group-hover:shadow-primary/30 flex h-24 w-24 items-center justify-center rounded-[2rem] text-white shadow-2xl transition-all duration-500 group-hover:scale-110"
             >
               {isUploading ? (
                 <Loader2 className="h-10 w-10 animate-spin" />
@@ -111,7 +117,7 @@ export function StepImages({
                     ? 'Drop images here'
                     : t('dragDrop')}
               </p>
-              <p className="text-muted-foreground max-w-xs text-[10px] font-black tracking-[0.15em] leading-relaxed uppercase opacity-60">
+              <p className="text-muted-foreground max-w-xs text-[10px] leading-relaxed font-black tracking-[0.15em] uppercase opacity-60">
                 {t('maxSize')}
               </p>
             </div>
@@ -136,7 +142,7 @@ export function StepImages({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="glass-panel border-primary/10 rounded-2xl border p-6 shadow-2xl shadow-primary/5"
+            className="glass-panel border-primary/10 shadow-primary/5 rounded-2xl border p-6 shadow-2xl"
           >
             <div className="text-primary/60 mb-4 flex w-full items-center justify-between text-[10px] font-black tracking-[0.3em] uppercase">
               <span className="flex items-center gap-3">
@@ -188,18 +194,18 @@ export function StepImages({
               <Reorder.Item
                 key={img}
                 value={img}
-                className="group glass-panel border-primary/5 relative aspect-square cursor-grab overflow-hidden rounded-[2rem] border-2 shadow-xl shadow-primary/5 transition-all duration-500 active:cursor-grabbing hover:scale-[1.02] hover:border-primary/20"
+                className="group glass-panel border-primary/5 shadow-primary/5 hover:border-primary/20 relative aspect-square cursor-grab overflow-hidden rounded-[2rem] border-2 shadow-xl transition-all duration-500 hover:scale-[1.02] active:cursor-grabbing"
               >
                 <Image
                   src={img}
                   alt="preview"
                   fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  unoptimized
                 />
 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/40 opacity-0 transition-opacity duration-300 backdrop-blur-[2px] group-hover:opacity-100">
+                <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/40 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
                   <Button
                     size="icon"
                     variant="destructive"
@@ -223,7 +229,7 @@ export function StepImages({
                       key="cover-badge"
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="bg-primary absolute top-4 left-4 rounded-xl px-4 py-2 text-[10px] font-black tracking-[0.2em] text-white uppercase shadow-xl shadow-primary/20 backdrop-blur-md"
+                      className="bg-primary shadow-primary/20 absolute top-4 left-4 rounded-xl px-4 py-2 text-[10px] font-black tracking-[0.2em] text-white uppercase shadow-xl backdrop-blur-md"
                     >
                       Cover
                     </motion.div>

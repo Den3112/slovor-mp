@@ -11,6 +11,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>
 }): Promise<Metadata> {
   const { slug, locale } = await params
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return { title: 'Slovor Marketplace' }
+  }
   const supabase = createStaticClient()
   const { data: category } = await categoriesApi.getBySlug(slug, supabase)
 
@@ -73,6 +76,9 @@ export const revalidate = 120
 import { createClient, createStaticClient } from '@/lib/supabase/server'
 
 export async function generateStaticParams() {
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return []
+  }
   const supabase = createStaticClient()
   const categoriesRes = await categoriesApi.getAll(supabase)
 
@@ -104,6 +110,11 @@ export default async function CategoryPage({
 }: CategoryPageProps) {
   const { slug } = await params
   const query = await searchParams
+  
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return <div className="py-20 text-center">Building...</div>
+  }
+
   const supabase = await createClient()
 
   // Pagination settings

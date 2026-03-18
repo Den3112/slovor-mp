@@ -25,7 +25,6 @@ export function ProfileCard({
 
   return (
     <div className="group bg-card border-border relative flex flex-col overflow-hidden rounded-2xl border shadow-lg transition-all duration-500 hover:shadow-xl dark:shadow-none">
-
       <div className="relative z-10 space-y-8 p-8">
         {/* Avatar & Verification */}
         <div className="flex flex-col items-center text-center">
@@ -37,7 +36,6 @@ export function ProfileCard({
                 alt={seller.display_name ?? seller.username ?? ''}
                 width={112}
                 height={112}
-                unoptimized
                 className="relative h-28 w-28 rounded-full border-4 border-white/20 object-cover shadow-lg transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
@@ -75,8 +73,8 @@ export function ProfileCard({
           )}
 
           {/* Stats - Glass Row */}
-          <div className="mt-8 grid w-full grid-cols-2 gap-4 border-t border-border pt-8">
-            <div className="group/stat bg-muted/30 border-border rounded-2xl border p-4 text-center transition-colors hover:bg-muted/50">
+          <div className="border-border mt-8 grid w-full grid-cols-2 gap-4 border-t pt-8">
+            <div className="group/stat bg-muted/30 border-border hover:bg-muted/50 rounded-2xl border p-4 text-center transition-colors">
               <p className="text-foreground text-3xl font-black tracking-tight">
                 {listingsCount}
               </p>
@@ -84,7 +82,7 @@ export function ProfileCard({
                 {t('seller:activeListings')}
               </p>
             </div>
-            <div className="group/stat bg-muted/30 border-border rounded-2xl border p-4 text-center transition-colors hover:bg-muted/50">
+            <div className="group/stat bg-muted/30 border-border hover:bg-muted/50 rounded-2xl border p-4 text-center transition-colors">
               <div className="flex items-center justify-center gap-2">
                 <span className="text-foreground text-3xl leading-none font-black tracking-tight">
                   {ratingData?.averageRating || '—'}

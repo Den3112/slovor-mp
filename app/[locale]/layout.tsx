@@ -114,8 +114,12 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const nonce =
-    (await (await import('next/headers')).headers()).get('x-nonce') || undefined
+  let nonce: string | undefined = undefined
+  try {
+    nonce = (await (await import('next/headers')).headers()).get('x-nonce') || undefined
+  } catch (e) {
+    // During static generation (ISR/Build), headers() throws. This is expected.
+  }
 
   return (
     <html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">

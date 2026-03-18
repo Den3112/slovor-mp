@@ -40,6 +40,7 @@ export function RecentlyViewed() {
                       src={item.image}
                       alt={item.title}
                       fill
+                      sizes="200px"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (

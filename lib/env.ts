@@ -19,6 +19,7 @@ const envSchema = z.object({
     .enum(['development', 'test', 'production'])
     .default('development'),
   NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
+  ADMIN_EMAILS: z.string().optional().default('admin@slovor.sk'),
 })
 
 // Validate all environment variables
@@ -27,6 +28,7 @@ const processEnv = {
   NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  ADMIN_EMAILS: process.env.ADMIN_EMAILS,
 }
 
 const parsed = envSchema.safeParse(processEnv)
@@ -53,6 +55,9 @@ export const env = {
   // App
   NODE_ENV: envData.NODE_ENV || 'development',
   APP_URL: envData.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+
+  // Admin
+  ADMIN_EMAILS: (envData.ADMIN_EMAILS || 'admin@slovor.sk').split(',').map((email: string) => email.trim()),
 
   // Legacy aliases (if any)
   isDev: (envData.NODE_ENV || process.env.NODE_ENV) === 'development',

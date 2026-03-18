@@ -28,7 +28,7 @@ export function Hero() {
     <section className="bg-mesh relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-32 lg:pt-36 lg:pb-48">
       {/* Aurora Background Glows - PRO MAX */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="bg-primary/10 absolute -top-[20%] -left-[10%] h-[800px] w-[800px] rounded-full blur-[120px] animate-pulse" />
+        <div className="bg-primary/10 absolute -top-[20%] -left-[10%] h-[800px] w-[800px] animate-pulse rounded-full blur-[120px]" />
         <div className="bg-primary/5 absolute top-[10%] -right-[15%] h-[600px] w-[600px] rounded-full blur-[100px]" />
       </div>
 
@@ -53,7 +53,7 @@ export function Hero() {
             className="font-heading text-foreground mb-6 text-5xl leading-tight font-extrabold tracking-tight sm:text-6xl md:mb-8 md:text-7xl lg:text-8xl"
           >
             {t('heroTitleMain')} <br className="hidden sm:block" />
-            <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <span className="from-primary to-primary/60 bg-linear-to-r bg-clip-text text-transparent">
               {t('heroTitleHighlight')}
             </span>
           </motion.h1>
@@ -75,12 +75,12 @@ export function Hero() {
           >
             <div className="group relative">
               {/* Dynamic Search Box - Pro Max Glass */}
-              <div className="bg-primary/20 absolute -inset-1 rounded-[2.5rem] blur-2xl opacity-0 transition duration-1000 group-hover:opacity-40 group-focus-within:opacity-60" />
+              <div className="bg-primary/20 absolute -inset-1 rounded-[2.5rem] opacity-0 blur-2xl transition duration-1000 group-focus-within:opacity-60 group-hover:opacity-40" />
 
-              <div className="bg-card relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-border p-2 shadow-card transition-all duration-500 hover:border-primary/30 sm:flex-row sm:items-center">
+              <div className="bg-card border-border shadow-card hover:border-primary/30 relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border p-2 transition-all duration-500 sm:flex-row sm:items-center md:rounded-4xl">
                 <div className="flex w-full items-center px-4 py-1 sm:flex-1 sm:py-2 sm:pl-6">
                   <Search
-                    className="text-muted-foreground h-5 w-5 shrink-0 transition-all duration-500 group-focus-within:text-primary group-focus-within:scale-110 md:h-6 md:w-6"
+                    className="text-muted-foreground group-focus-within:text-primary h-5 w-5 shrink-0 transition-all duration-500 group-focus-within:scale-110 md:h-6 md:w-6"
                     aria-hidden="true"
                   />
                   <Input
@@ -97,7 +97,7 @@ export function Hero() {
                 </div>
                 <Button
                   onClick={handleSearch}
-                  className="h-14 rounded-xl px-10 text-lg font-bold shadow-md active:scale-95 sm:w-auto"
+                  className="h-14 rounded-2xl px-10 text-lg font-bold shadow-md active:scale-95 sm:w-auto"
                 >
                   {t('common:search')}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -121,7 +121,9 @@ export function Hero() {
                   key={term}
                   onClick={() => {
                     setQuery(term)
-                    router.push(`/${locale}/listings?search=${encodeURIComponent(term)}`)
+                    router.push(
+                      `/${locale}/listings?search=${encodeURIComponent(term)}`
+                    )
                   }}
                   className="bg-primary/5 border-primary/10 hover:border-primary/30 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-full border px-6 py-2 text-sm font-bold transition-all hover:shadow-lg active:scale-95"
                 >

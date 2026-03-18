@@ -8,6 +8,8 @@ import { VantageProvider } from '@/components/providers/vantage-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { useEffect } from 'react'
 
+import { QueryProvider } from '@/components/providers/query-provider'
+
 export function Providers({
   children,
   lang,
@@ -29,18 +31,20 @@ export function Providers({
       disableTransitionOnChange
       storageKey="slovor-theme"
     >
-      <AuthProvider>
-        <CurrencyProvider>
-          <VantageProvider>
-            <I18nProvider lang={lang}>
-              {/* Welcome modal disabled mostly for dev annoyance reduction, uncomment in prod */}
-              {/* <LocaleWelcomeModal /> */}
-              {children}
-              <Toaster />
-            </I18nProvider>
-          </VantageProvider>
-        </CurrencyProvider>
-      </AuthProvider>
+      <QueryProvider>
+        <AuthProvider>
+          <CurrencyProvider>
+            <VantageProvider>
+              <I18nProvider lang={lang}>
+                {/* Welcome modal disabled mostly for dev annoyance reduction, uncomment in prod */}
+                {/* <LocaleWelcomeModal /> */}
+                {children}
+                <Toaster />
+              </I18nProvider>
+            </VantageProvider>
+          </CurrencyProvider>
+        </AuthProvider>
+      </QueryProvider>
     </ThemeProvider>
   )
 }

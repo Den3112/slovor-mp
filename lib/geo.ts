@@ -31,6 +31,7 @@ export async function getGeoByIp(ip: string | null): Promise<GeoData> {
     ip === '127.0.0.1' ||
     ip === '::1' ||
     ip.startsWith('192.168.') ||
+    ip.startsWith('172.') ||
     ip.startsWith('10.')
 
   // API URL: If local, query own IP (no param). If remote, query that IP.
@@ -55,7 +56,7 @@ export async function getGeoByIp(ip: string | null): Promise<GeoData> {
 
     const currency: CurrencyCode =
       COUNTRY_CURRENCY_MAP[
-      data.countryCode as keyof typeof COUNTRY_CURRENCY_MAP
+        data.countryCode as keyof typeof COUNTRY_CURRENCY_MAP
       ] || DEFAULT_CURRENCY
 
     return {

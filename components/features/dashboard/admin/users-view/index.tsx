@@ -11,7 +11,8 @@ import {
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useTranslation } from '@/lib/i18n'
-import { profilesApi, adminApi, type User } from '@/lib/api'
+import { profilesApi, adminApi } from '@/lib/api'
+import type { User } from '@/lib/types/database'
 import { Button } from '@/components/ui/button'
 import {
   DataGrid,
@@ -181,7 +182,6 @@ export function AdminUsersView({ initialUsers = [] }: AdminUsersViewProps) {
                 fill
                 sizes="40px"
                 className="object-cover"
-                unoptimized
               />
             ) : (
               <div className="text-muted-foreground/30 flex h-full w-full items-center justify-center">
