@@ -63,8 +63,10 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
+          mkdir -p .vercel
+          echo "{\"orgId\":\"$VERCEL_ORG_ID\",\"projectId\":\"$VERCEL_PROJECT_ID\"}" > .vercel/project.json
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            vercel deploy --prod --yes --force --debug --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID --project-id=$VERCEL_PROJECT_ID
+            vercel deploy --prod --yes --token=$VERCEL_TOKEN
           else
-            vercel deploy --yes --force --debug --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID --project-id=$VERCEL_PROJECT_ID
+            vercel deploy --yes --token=$VERCEL_TOKEN
           fi
