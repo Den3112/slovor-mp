@@ -1,4 +1,4 @@
-name: Unit Tests
+name: CI Checklist
 
 on:
   push:
@@ -13,9 +13,10 @@ concurrency:
 
 permissions:
   contents: read
+  deployments: write
 
 jobs:
-  test:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,26 +30,41 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Diagnostic - Check Env
+      - name: Lint & Type Check
+        run: npm run verify
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
-        run: |
-          echo "Checking if critical env vars are set (lengths only)..."
-          echo "NEXT_PUBLIC_SUPABASE_URL length: ${#NEXT_PUBLIC_SUPABASE_URL}"
-          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY length: ${#NEXT_PUBLIC_SUPABASE_ANON_KEY}"
-          echo "SUPABASE_SERVICE_ROLE_KEY length: ${#SUPABASE_SERVICE_ROLE_KEY}"
-          echo "Node version: $(node -v)"
-          echo "Npm version: $(npm -v)"
-          if [[ "${NEXT_PUBLIC_SUPABASE_URL}" == \"*\" ]]; then echo "WARNING: NEXT_PUBLIC_SUPABASE_URL has quotes"; fi
-          if [[ "${NEXT_PUBLIC_SUPABASE_ANON_KEY}" == \"*\" ]]; then echo "WARNING: NEXT_PUBLIC_SUPABASE_ANON_KEY has quotes"; fi
 
       - name: Run Unit Tests
+        run: npm run test:run -- --project unit
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           NEXT_PUBLIC_APP_URL: "http://localhost:3000"
-        run: npm run test:run -- --project unit
+
+  deploy:
+    needs: verify
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            vercel deploy --prod --yes --token=$VERCEL_TOKEN
+          else
+            vercel deploy --yes --token=$VERCEL_TOKEN
+          fi
