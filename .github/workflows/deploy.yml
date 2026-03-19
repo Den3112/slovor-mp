@@ -36,13 +36,8 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           NEXT_TELEMETRY_DISABLED: 1
         run: |
-          # Use local env mapping to satisfy linter and run deployment sequence
-          PROD_FLAG=""
-          ENV_TYPE="preview"
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            PROD_FLAG="--prod"
-            ENV_TYPE="production"
+            vercel deploy --prod --yes --token=$VERCEL_TOKEN
+          else
+            vercel deploy --yes --token=$VERCEL_TOKEN
           fi
-          vercel pull --yes --environment=$ENV_TYPE --token=$VERCEL_TOKEN
-          vercel build $PROD_FLAG --token=$VERCEL_TOKEN
-          vercel deploy --prebuilt $PROD_FLAG --token=$VERCEL_TOKEN
