@@ -1,9 +1,0 @@
-{
-  "title": "Slovor Wallet",
-  "description": "Securely manage your earnings, request payouts, and view detailed transaction history.",
-  "addFunds": "Add Funds",
-  "refillBalance": "Refill Balance",
-  "amount": "Amount",
-  "selectMethod": "Select Payment Method",
-  "confirmPayment": "Confirm Payment"
-}

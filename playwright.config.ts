@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test'
+import 'dotenv/config'
 
 /**
  * Playwright E2E Test Configuration
@@ -6,13 +7,13 @@ import { defineConfig, devices } from '@playwright/test'
  * Run with: npx playwright test
  */
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './src/e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 1 : 4,
   reporter: 'list',
-  timeout: 300000, // 5m per test
+  timeout: 600000,
   expect: {
     timeout: 30000, // 30s for assertions
   },

@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "skills": {
+    "aif": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "81746874b0e348b44010b0532c7ca933059dafc2e2d152896c00942df798900a"
+    },
+    "aif-architecture": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "2a40bd019a1a3fa8d95056dde78cb87773a0055112436562d6fdfee44aabf067"
+    },
+    "aif-best-practices": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "de3e6d984c5bc76ac16b77b511e123d6273f709cb22351e6b94a11c9befbffc8"
+    },
+    "aif-build-automation": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "30fd710076fa9e13a98707fa1211217d8ff5e03d954930f995be8e87e750d6a4"
+    },
+    "aif-ci": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "ee7119e3ab42d9dbce28305a53ff5b853e5035c01b082abb863e302f824b087c"
+    },
+    "aif-commit": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "e123a58b4d0d47f98bf3adadbab4bc137727c5ebef930cc00d1add9c6de0f5f5"
+    },
+    "aif-dockerize": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "c2e4675ecb2100adc288c0c7e0bc161064554f1c0d9b3fea13bb3a659986c66d"
+    },
+    "aif-docs": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "9780e5bb884ba49395fea966474f9df745a7cfc22b1f935a2cd380932058b1e8"
+    },
+    "aif-evolve": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "305631c6c3a389ec01136e2c1a8aa7b62cc16d7d57d44df5741e3a66fb6da901"
+    },
+    "aif-explore": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "6a1734d4dec346966de7898de0c04fb5a4746dfec954b3d9311ec93a9b544d81"
+    },
+    "aif-fix": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "dc03b4fa779406d80e095f1c64ca8a7e37ddbefda17c5841803451412df07f80"
+    },
+    "aif-grounded": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "354cdf293440e9e44ac748ef18822d7d8af4f8cdcd71f12bbbec073baf403ad1"
+    },
+    "aif-implement": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "dfb4a90d44e148452c181af44f13b01776ff40a0f4a80a31a043692e544e2e6f"
+    },
+    "aif-improve": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "16180949b139ede83941e3ef174a3df1c658671bb143d4aaa14417dcfde9acff"
+    },
+    "aif-loop": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "19546313978dafa655b4091c2f09686798f51560bf4055aa072aea1d10bd9c1b"
+    },
+    "aif-plan": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "cac0a6985e5424de7623b9124c4f945611d37a2857d907db9b90ac498f48458c"
+    },
+    "aif-reference": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "ffa63cc7b6e52820476864afe8a3269ac7ca2da3469db561a863077ed261b3f5"
+    },
+    "aif-review": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "2bba62cb884d956f4568260d0a507d0d49935b72590f873d74d7bc54f2073109"
+    },
+    "aif-roadmap": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "b21b2c186ccaceda40b4fe7ec1423f28f04d34057303108211e1011768912732"
+    },
+    "aif-rules": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "6868ad1fd2ed295630becd4bfe9b902ffd70e429af27c7f246b1b4a8d3a30773"
+    },
+    "aif-security-checklist": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "f8d53912ef7e2e80aa7d6817640d9254430992459f6810f0127e0ada955043ca"
+    },
+    "aif-skill-generator": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "e9a82004d9a70be69e65874cb34d7a2d6dff94e0e525f6593b8e99684f055e62"
+    },
+    "aif-verify": {
+      "source": "lee-to/ai-factory",
+      "sourceType": "github",
+      "computedHash": "4d5b71a19ea017bc45fbcbb58d040551f7b349d475693f3dd29649d2649e0857"
+    }
+  }
+}

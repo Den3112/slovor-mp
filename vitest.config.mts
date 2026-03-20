@@ -15,8 +15,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./vitest.setup.tsx'],
-    include: ['**/*.test.{ts,tsx}'],
+    setupFiles: ['./src/vitest.setup.tsx'],
+    include: ['src/**/*.test.{ts,tsx}'],
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'json', 'html'],
@@ -28,8 +28,8 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'jsdom',
-          setupFiles: ['./vitest.setup.tsx'],
-          include: ['__tests__/**/*.test.{ts,tsx}'],
+          setupFiles: ['./src/vitest.setup.tsx'],
+          include: ['src/__tests__/**/*.test.{ts,tsx}'],
         },
       },
       {
@@ -60,7 +60,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(dirname, './'),
+      "@": path.resolve(dirname, "./src"),
     },
   },
 })

@@ -1,20 +1,28 @@
-# Slovor MP Development Rules
+# RULES.md
 
-## 1. Profiles & Names
-> [!IMPORTANT]
-> The database table `profiles` uses `display_name` as the primary column for user names.
+> Набор обязательных правил для ИИ-агентов, работающих над Slovor Marketplace.
 
-- **DO NOT** use `full_name` alone in SQL queries; it is missing in the production schema.
-- **Always** use `display_name`.
-- In UI components, use: `{user.user_metadata?.display_name || user.user_metadata?.full_name || user.email?.split('@')[0]}` to ensure maximum reliability during transitions.
+## Общие принципы
+1. **Язык общения**: Всегда отвечать пользователю на русском языке (если не указано иное). В коде использовать английские комментарии.
+2. **Безопасность**: Никогда не отключать RLS в Supabase. Предпочитать серверные компоненты для работы с данными.
+3. **Чистота кода**: Следовать DRY, SOLID и принципам "Clean Code".
 
-## 2. API Runtime
-- Lightweight API routes (listings, search) should use `export const runtime = 'edge'` to save costs and avoid cold starts.
+## Стандарты UI (Tailwind CSS 4)
+- **Скругления**: Всегда использовать `rounded-2xl` для основных блоков (стандарт 20px). Избегать `rounded-3xl` или `rounded-lg` для контента.
+- **Цвета**: Использовать только токены из дизайн-системы (динамические HSL переменные).
+- **Анимации**: Использовать `framer-motion` для премиальных переходов.
 
-## 3. Rate Limiting
-- Physical rate limiting is handled via Upstash Redis in `middleware.ts`.
-- Limits are set to 10 requests per 10 seconds for `/api/*` routes.
-- Monitor Upstash dashboard for quota usage.
+## Работа с файлами
+- **Местоположение**: Всегда создавать новые файлы в `src/`.
+- **Импорты**: Использовать алиас `@/` для импортов из корня `src/`.
+- **i18n**: Весь пользовательский текст должен быть обернут в функции перевода (`t('key')`).
 
-## 4. RLS & JWT Claims
-- Role-based access control MUST use JWT claims (`auth.jwt() -> 'role'`) instead of `is_staff()` database functions to keep latency low.
+## Bash команды
+- Никогда не объединять команды через `&&`, `||` или `;`. Каждый шаг — отдельный вызов инструмента `Bash`.
+- Пример:
+  - ❌ `npm install && npm run build`
+  - ✅ Сначала `npm install`, затем `npm run build`.
+
+## Документация
+- Поддерживать `AGENTS.md` в актуальном состоянии.
+- Добавлять новые архитектурные решения в `.ai-factory/ARCHITECTURE.md`.
