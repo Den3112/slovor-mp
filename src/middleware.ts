@@ -68,12 +68,15 @@ export default async function proxy(request: NextRequest) {
         pathname.includes('.')
 
       if (!isPublic) {
-        const locale = getLocale(request)
+        const lang = getLocale(request)
+        console.debug(
+          `[Middleware] Path is missing lang, redirecting to: /${lang}${pathname === '/' ? '' : pathname}`
+        )
 
-        // Redirect to the URL with locale prefix
+        // Redirect to the URL with lang prefix
         return NextResponse.redirect(
           new URL(
-            `/${locale}${pathname === '/' ? '' : pathname}${request.nextUrl.search}`,
+            `/${lang}${pathname === '/' ? '' : pathname}${request.nextUrl.search}`,
             request.url
           )
         )
@@ -95,13 +98,16 @@ export default async function proxy(request: NextRequest) {
     // 4. Update Session using the safe initialResponse
     const response = await updateSession(request, initialResponse)
 
-    // 3. Set locale header for server components
-    const locale = languages.find(
+    // 3. Set lang header for server components
+    const lang = languages.find(
       (l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
     )
 
-    if (locale) {
-      response.headers.set('x-slovor-locale', locale)
+    if (lang) {
+      console.debug(
+        `[Middleware] Detected lang from path: ${lang} for ${pathname}`
+      )
+      response.headers.set('x-slovor-lang', lang)
     }
 
     // 4. Secure CSP with Nonce

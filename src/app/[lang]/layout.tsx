@@ -42,9 +42,9 @@ export const viewport: Viewport = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ lang: string }>
 }): Promise<Metadata> {
-  const { locale } = await params
+  const { lang } = await params
 
   const titles: Record<string, string> = {
     en: 'Slovor - Premium Marketplace in Slovakia',
@@ -59,8 +59,8 @@ export async function generateMetadata({
   }
 
   const defaultTitle =
-    titles[locale] || titles.en || 'Slovor - Premium Marketplace in Slovakia'
-  const defaultDescription = descriptions[locale] || descriptions.en
+    titles[lang] || titles.en || 'Slovor - Premium Marketplace in Slovakia'
+  const defaultDescription = descriptions[lang] || descriptions.en
 
   return {
     title: {
@@ -85,8 +85,8 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'website',
-      locale: locale === 'en' ? 'en_US' : locale === 'sk' ? 'sk_SK' : 'cs_CZ',
-      url: `/${locale}`,
+      locale: lang === 'en' ? 'en_US' : lang === 'sk' ? 'sk_SK' : 'cs_CZ',
+      url: `/${lang}`,
       siteName: 'Slovor',
       images: [
         {
@@ -111,9 +111,9 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ locale: string }>
+  params: Promise<{ lang: string }>
 }) {
-  const { locale } = await params
+  const { lang } = await params
   let nonce: string | undefined = undefined
   try {
     nonce =
@@ -124,7 +124,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang={lang} suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <meta charSet="utf-8" />
       </head>
@@ -137,8 +137,8 @@ export default async function RootLayout({
           '--font-heading'
         )}
       >
-        <Providers lang={locale}>
-          <StructuredData locale={locale} nonce={nonce} />
+        <Providers lang={lang}>
+          <StructuredData locale={lang} nonce={nonce} />
           <GlobalCommandPalette />
           {children}
           {/* <Analytics /> */}
