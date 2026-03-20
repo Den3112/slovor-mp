@@ -24,7 +24,7 @@ import { MegaMenu } from './mega-menu'
 import { useOnlineStatus } from '@/hooks/use-online-status'
 import { WifiOff } from 'lucide-react'
 
-export function Header({ lang }: { lang?: string }) {
+export function Header() {
   const { t, locale } = useTranslation(['common', 'nav'])
   const { user, signOut } = useAuth()
   const pathname = usePathname()
