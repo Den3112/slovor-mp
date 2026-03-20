@@ -20,7 +20,7 @@ import { CURRENCIES } from '@/lib/types/currency'
 
 import { Logo } from '@/components/ui/logo'
 
-export function Footer({ lang }: { lang?: string }) {
+export function Footer() {
   const { t, i18n } = useTranslation(['common', 'footer', 'categories'])
 
   const locale = i18n.language
