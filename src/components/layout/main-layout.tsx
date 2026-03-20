@@ -3,14 +3,16 @@ import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 
-const Footer = dynamic(() => import('./footer').then((mod) => mod.Footer))
-const BottomTabBar = dynamic(() =>
+const Footer = dynamic<{ lang?: string }>(() =>
+  import('./footer').then((mod) => mod.Footer)
+)
+const BottomTabBar = dynamic<{ lang?: string }>(() =>
   import('./bottom-tab-bar').then((mod) => mod.BottomTabBar)
 )
 
 interface MainLayoutProps {
   children: React.ReactNode
-  lang: string
+  lang?: string
   showFooter?: boolean
   showBottomTab?: boolean
   showHeader?: boolean
