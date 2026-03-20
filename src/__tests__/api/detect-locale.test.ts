@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { GET } from '@/app/api/detect-locale/route'
+import { GET } from '@/app/api/detect-lang/route'
 
 // Mock headers
 vi.mock('next/headers', () => ({
@@ -11,8 +11,8 @@ describe('API: Detect Locale', () => {
     vi.clearAllMocks()
   })
 
-  describe('GET /api/detect-locale', () => {
-    it('should detect locale from Vercel geo headers (Slovakia)', async () => {
+  describe('GET /api/detect-lang', () => {
+    it('should detect lang from Vercel geo headers (Slovakia)', async () => {
       const { headers } = await import('next/headers')
       vi.mocked(headers).mockReturnValue({
         get: vi.fn((key) => {
@@ -26,13 +26,13 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(200)
       expect(data).toEqual({
-        locale: 'sk',
+        lang: 'sk',
         country: 'SK',
         source: 'ip',
       })
     })
 
-    it('should detect locale from Vercel geo headers (Czech Republic)', async () => {
+    it('should detect lang from Vercel geo headers (Czech Republic)', async () => {
       const { headers } = await import('next/headers')
       vi.mocked(headers).mockReturnValue({
         get: vi.fn((key) => {
@@ -46,13 +46,13 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(200)
       expect(data).toEqual({
-        locale: 'cs',
+        lang: 'cs',
         country: 'CZ',
         source: 'ip',
       })
     })
 
-    it('should detect locale from Cloudflare headers', async () => {
+    it('should detect lang from Cloudflare headers', async () => {
       const { headers } = await import('next/headers')
       vi.mocked(headers).mockReturnValue({
         get: vi.fn((key) => {
@@ -66,7 +66,7 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(200)
       expect(data).toEqual({
-        locale: 'en',
+        lang: 'en',
         country: 'GB',
         source: 'ip',
       })
@@ -86,7 +86,7 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(200)
       expect(data).toEqual({
-        locale: 'sk',
+        lang: 'sk',
         country: null,
         source: 'browser',
       })
@@ -103,7 +103,7 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(200)
       expect(data).toEqual({
-        locale: 'en',
+        lang: 'en',
         country: null,
         source: 'default',
       })
@@ -124,7 +124,7 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(200)
       expect(data).toEqual({
-        locale: 'cs',
+        lang: 'cs',
         country: null,
         source: 'browser',
       })
@@ -141,8 +141,8 @@ describe('API: Detect Locale', () => {
 
       expect(response.status).toBe(500)
       expect(data).toEqual({
-        locale: 'en',
-        error: 'Failed to detect locale',
+        lang: 'en',
+        error: 'Failed to detect lang',
       })
     })
 

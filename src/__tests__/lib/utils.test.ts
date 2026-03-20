@@ -31,7 +31,7 @@ describe('cn utility', () => {
 })
 
 describe('formatDate', () => {
-  it('formats date in Slovak locale', () => {
+  it('formats date in Slovak lang', () => {
     const date = '2024-12-25T10:00:00Z'
     const result = formatDate(date)
     expect(result).toContain('25')
@@ -64,7 +64,7 @@ describe('formatPrice', () => {
   it('formats price with custom currency', () => {
     const result = formatPrice(50, 'USD')
     expect(result).toContain('50')
-    // sk-SK locale formats USD as "50 USD" not "$50"
+    // sk-SK lang formats USD as "50 USD" not "$50"
     expect(result).toMatch(/USD|\$/)
   })
 

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 
-// Map countries to supported locales
-const COUNTRY_TO_LOCALE: Record<string, string> = {
+// Map countries to supported languages
+const COUNTRY_TO_LANG: Record<string, string> = {
   SK: 'sk', // Slovakia
   CZ: 'cs', // Czech Republic
   US: 'en', // United States
@@ -22,9 +22,9 @@ export async function GET() {
       headersList.get('cf-ipcountry') || // Cloudflare
       null
 
-    if (country && COUNTRY_TO_LOCALE[country]) {
+    if (country && COUNTRY_TO_LANG[country]) {
       return NextResponse.json({
-        locale: COUNTRY_TO_LOCALE[country],
+        lang: COUNTRY_TO_LANG[country],
         country,
         source: 'ip',
       })
@@ -38,7 +38,7 @@ export async function GET() {
         const browserLang = parts[0].split('-')[0]?.toLowerCase()
         if (browserLang && ['sk', 'cs', 'en'].includes(browserLang)) {
           return NextResponse.json({
-            locale: browserLang,
+            lang: browserLang,
             country: null,
             source: 'browser',
           })
@@ -48,14 +48,14 @@ export async function GET() {
 
     // Default to English
     return NextResponse.json({
-      locale: 'en',
+      lang: 'en',
       country: null,
       source: 'default',
     })
   } catch (error) {
-    console.error('Error detecting locale:', error)
+    console.error('Error detecting language:', error)
     return NextResponse.json(
-      { locale: 'en', error: 'Failed to detect locale' },
+      { lang: 'en', error: 'Failed to detect language' },
       { status: 500 }
     )
   }

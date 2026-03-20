@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { GET } from '@/app/api/detect-locale/route'
+import { GET } from '@/app/api/detect-lang/route'
 import { headers } from 'next/headers'
 
 // Mock next/headers
@@ -12,26 +12,26 @@ describe('API Detect Locale Route', () => {
     vi.clearAllMocks()
   })
 
-  it('detects locale from IP country (SK)', async () => {
+  it('detects lang from IP country (SK)', async () => {
     const headersMock = new Map([['x-vercel-ip-country', 'SK']])
     vi.mocked(headers).mockResolvedValue(headersMock as any)
 
     const response = await GET()
     const data = await response.json()
 
-    expect(data.locale).toBe('sk')
+    expect(data.lang).toBe('sk')
     expect(data.country).toBe('SK')
     expect(data.source).toBe('ip')
   })
 
-  it('detects locale from IP country (CZ)', async () => {
+  it('detects lang from IP country (CZ)', async () => {
     const headersMock = new Map([['cf-ipcountry', 'CZ']])
     vi.mocked(headers).mockResolvedValue(headersMock as any)
 
     const response = await GET()
     const data = await response.json()
 
-    expect(data.locale).toBe('cs')
+    expect(data.lang).toBe('cs')
     expect(data.country).toBe('CZ')
   })
 
@@ -44,7 +44,7 @@ describe('API Detect Locale Route', () => {
     const response = await GET()
     const data = await response.json()
 
-    expect(data.locale).toBe('sk')
+    expect(data.lang).toBe('sk')
     expect(data.source).toBe('browser')
   })
 
@@ -55,7 +55,7 @@ describe('API Detect Locale Route', () => {
     const response = await GET()
     const data = await response.json()
 
-    expect(data.locale).toBe('en')
+    expect(data.lang).toBe('en')
     expect(data.source).toBe('default')
   })
 })

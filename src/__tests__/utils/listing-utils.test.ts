@@ -18,7 +18,7 @@ describe('listing-utils', () => {
     expect(getLocalizedTitle(base as any, 'sk')).toBe('SK title')
   })
 
-  it('falls back to default title when locale missing', () => {
+  it('falls back to default title when lang missing', () => {
     const item = { ...base }
     delete (item as any).title_cs
     expect(getLocalizedTitle(item as any, 'cs')).toBe('Default')

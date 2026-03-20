@@ -7,16 +7,16 @@ export default async function DashboardLayout({
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ locale: string }>
+  params: Promise<{ lang: string }>
 }) {
-  const { locale } = await params
+  const { lang } = await params
   const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect(`/${locale}/auth/login`)
+    redirect(`/${lang}/auth/login`)
   }
 
   const { getDashboardStats } = await import('@/lib/api/dashboard-stats')

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { AuthForm } from '@/app/[locale]/(main)/auth/login/components/auth-form'
+import { AuthForm } from '@/app/[lang]/(main)/auth/login/components/auth-form'
 
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({
