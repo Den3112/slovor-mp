@@ -10,6 +10,7 @@ const BottomTabBar = dynamic(() =>
 
 interface MainLayoutProps {
   children: React.ReactNode
+  lang: string
   showFooter?: boolean
   showBottomTab?: boolean
   showHeader?: boolean
@@ -17,6 +18,7 @@ interface MainLayoutProps {
 
 export function MainLayout({
   children,
+  lang,
   showFooter = true,
   showBottomTab = true,
   showHeader = true,
@@ -29,14 +31,14 @@ export function MainLayout({
             <div className="bg-background border-border h-16 border-b" />
           }
         >
-          <Header />
+          <Header lang={lang} />
         </Suspense>
       )}
       <main className="flex-1 pb-16 md:pb-0">
         <PullToRefresh>{children}</PullToRefresh>
       </main>
-      {showBottomTab && <BottomTabBar />}
-      {showFooter && <Footer />}
+      {showBottomTab && <BottomTabBar lang={lang} />}
+      {showFooter && <Footer lang={lang} />}
     </div>
   )
 }

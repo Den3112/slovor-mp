@@ -9,7 +9,7 @@ import { useAuth } from '@/components/providers/auth-provider'
 import { useUnreadMessages } from '@/lib/hooks/use-unread-messages'
 import { motion } from 'framer-motion'
 
-export function BottomTabBar() {
+export function BottomTabBar({ lang }: { lang?: string }) {
   const { t, locale } = useTranslation(['common', 'nav'])
   const { user } = useAuth()
   const pathname = usePathname()

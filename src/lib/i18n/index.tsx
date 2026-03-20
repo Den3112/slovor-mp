@@ -24,8 +24,8 @@ export const I18nContext = createContext<I18nContextValue | undefined>(
   undefined
 )
 
-const LOCALE_STORAGE_KEY = 'slovor-locale'
-const LOCALE_COOKIE_KEY = 'slovor-locale'
+const LANG_STORAGE_KEY = 'slovor-lang'
+const LANG_COOKIE_KEY = 'slovor-lang'
 
 export function I18nProvider({
   children,
@@ -80,8 +80,8 @@ export function I18nProvider({
       setLocaleState(newLocale)
       updateHtmlLang(newLocale)
       // Update storage to match URL
-      localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
-      document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
+      localStorage.setItem(LANG_STORAGE_KEY, newLocale)
+      document.cookie = `${LANG_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
     }
   }, [lang, i18n, updateHtmlLang])
 
@@ -89,8 +89,8 @@ export function I18nProvider({
     async (newLocale: Locale) => {
       setLocaleState(newLocale)
       await i18n.changeLanguage(newLocale)
-      localStorage.setItem(LOCALE_STORAGE_KEY, newLocale)
-      document.cookie = `${LOCALE_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
+      localStorage.setItem(LANG_STORAGE_KEY, newLocale)
+      document.cookie = `${LANG_COOKIE_KEY}=${newLocale}; path=/; max-age=31536000`
       updateHtmlLang(newLocale)
     },
     [i18n, updateHtmlLang]

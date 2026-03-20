@@ -30,7 +30,7 @@ describe('CategorySelect', () => {
       <CategorySelect
         categories={mockCategories}
         value=""
-        locale="sk"
+        lang="sk"
         onChange={vi.fn()}
       />
     )
@@ -43,7 +43,7 @@ describe('CategorySelect', () => {
       <CategorySelect
         categories={mockCategories}
         value="electronics"
-        locale="sk"
+        lang="sk"
         onChange={vi.fn()}
       />
     )
@@ -56,7 +56,7 @@ describe('CategorySelect', () => {
       <CategorySelect
         categories={mockCategories}
         value=""
-        locale="sk"
+        lang="sk"
         onChange={onChange}
       />
     )

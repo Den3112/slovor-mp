@@ -84,20 +84,20 @@ export async function updateSession(
 
   let path = request.nextUrl.pathname
 
-  // Check for locale in path and strip it for RBAC checks
-  const currentLocale = languages.find(
-    (locale) => path.startsWith(`/${locale}/`) || path === `/${locale}`
+  // Check for language in path and strip it for RBAC checks
+  const currentLang = languages.find(
+    (l) => path.startsWith(`/${l}/`) || path === `/${l}`
   )
 
-  // Normalize path for RBAC (remove locale)
-  if (currentLocale) {
-    path = path.replace(new RegExp(`^/${currentLocale}`), '') || '/'
+  // Normalize path for RBAC (remove lang)
+  if (currentLang) {
+    path = path.replace(new RegExp(`^/${currentLang}`), '') || '/'
   }
 
-  // Helper to preserve locale in redirects
+  // Helper to preserve language in redirects
   const getRedirectUrl = (targetPath: string) => {
-    const localePrefix = currentLocale ? `/${currentLocale}` : ''
-    return new URL(`${localePrefix}${targetPath}`, request.url)
+    const langPrefix = currentLang ? `/${currentLang}` : ''
+    return new URL(`${langPrefix}${targetPath}`, request.url)
   }
 
   // 0. Legacy Redirects (Moved to Dashboard)
