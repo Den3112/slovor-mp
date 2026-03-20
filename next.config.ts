@@ -92,15 +92,6 @@ const nextConfig: NextConfig = {
         source: '/:lang(en|sk|cs)/logo.png',
         destination: '/logo.png',
       },
-      // Auth rewrites - cleaner URLs
-      {
-        source: '/:lang(en|sk|cs)/login',
-        destination: '/:lang/auth/login',
-      },
-      {
-        source: '/:lang(en|sk|cs)/register',
-        destination: '/:lang/auth/register',
-      },
     ]
   },
 
@@ -114,10 +105,10 @@ const nextConfig: NextConfig = {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
           },
-          {
+          /* {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
-          },
+          }, */
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',

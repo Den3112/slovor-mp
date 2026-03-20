@@ -1,22 +1,19 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
   "entry": [
-    "app/[locale]/**/page.tsx",
-    "app/[locale]/**/layout.tsx",
-    "app/api/**/route.ts"
+    "src/app/[locale]/**/page.tsx",
+    "src/app/[locale]/**/layout.tsx",
+    "src/app/api/**/route.ts"
   ],
-  "project": [
-    "**/*.{ts,tsx}"
-  ],
+  "project": ["src/**/*.{ts,tsx}"],
   "ignore": [
     "node_modules",
     ".next",
     "public",
     "scripts",
-    "e2e",
     ".agent",
-    "components/ui/v0/**",
-    "lib/types/database.ts"
+    "src/components/ui/v0/**",
+    "src/lib/types/database.ts"
   ],
   "ignoreDependencies": []
 }

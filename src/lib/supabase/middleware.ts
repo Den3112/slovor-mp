@@ -1,0 +1,147 @@
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+import { languages } from '@/packages/i18n/settings'
+import { env } from '@/lib/env'
+import { config } from '@/lib/config'
+
+export async function updateSession(
+  request: NextRequest,
+  existingResponse?: NextResponse
+) {
+  // Ignore OPTIONS requests for session updates
+  if (request.method === 'OPTIONS') {
+    return NextResponse.next()
+  }
+
+  let response =
+    existingResponse ||
+    NextResponse.next({
+      request: {
+        headers: new Headers(request.headers),
+      },
+    })
+
+  const supabaseUrl = env.SUPABASE_URL
+  const supabaseAnonKey = env.SUPABASE_ANON_KEY
+
+  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      get(name: string) {
+        return request.cookies.get(name)?.value
+      },
+      set(name: string, value: string, options: CookieOptions) {
+        request.cookies.set({
+          name,
+          value,
+          ...options,
+        })
+        response = NextResponse.next({
+          request: {
+            headers: new Headers(request.headers),
+          },
+        })
+        response.cookies.set({
+          name,
+          value,
+          ...options,
+        })
+      },
+      remove(name: string, options: CookieOptions) {
+        request.cookies.set({
+          name,
+          value: '',
+          ...options,
+        })
+        response = NextResponse.next({
+          request: {
+            headers: new Headers(request.headers),
+          },
+        })
+        response.cookies.set({
+          name,
+          value: '',
+          ...options,
+        })
+      },
+    },
+  })
+
+  // This will refresh session if expired - required for Server Components
+  let user = null
+  try {
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch (error) {
+    console.warn(
+      'Supabase auth.getUser() failed in middleware (ignored):',
+      error
+    )
+  }
+
+  // -------------------------------------------------------------------------
+  // RBAC & Route Protection
+  // -------------------------------------------------------------------------
+
+  let path = request.nextUrl.pathname
+
+  // Check for locale in path and strip it for RBAC checks
+  const currentLocale = languages.find(
+    (locale) => path.startsWith(`/${locale}/`) || path === `/${locale}`
+  )
+
+  // Normalize path for RBAC (remove locale)
+  if (currentLocale) {
+    path = path.replace(new RegExp(`^/${currentLocale}`), '') || '/'
+  }
+
+  // Helper to preserve locale in redirects
+  const getRedirectUrl = (targetPath: string) => {
+    const localePrefix = currentLocale ? `/${currentLocale}` : ''
+    return new URL(`${localePrefix}${targetPath}`, request.url)
+  }
+
+  // 0. Legacy Redirects (Moved to Dashboard)
+  if (path === '/messages' || path.startsWith('/messages/')) {
+    const newPath = path.replace('/messages', '/dashboard/messages')
+    return NextResponse.redirect(getRedirectUrl(newPath))
+  }
+  if (path === '/favorites' || path.startsWith('/favorites/')) {
+    const newPath = path.replace('/favorites', '/dashboard/favorites')
+    return NextResponse.redirect(getRedirectUrl(newPath))
+  }
+
+  // 1. Admin Routes Protection
+  if (path.startsWith('/admin')) {
+    if (!user) {
+      return NextResponse.redirect(getRedirectUrl('/'))
+    }
+
+    // Check Role
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile || profile.role !== 'admin') {
+      // Fallback for E2E or recovery
+      if (!config.app.adminEmails.includes(user.email || '')) {
+        return NextResponse.redirect(getRedirectUrl('/'))
+      }
+    }
+  }
+
+  // 2. Protected User Routes
+  if (!user && (path.startsWith('/post') || path.startsWith('/dashboard'))) {
+    const redirectUrl = getRedirectUrl('/login')
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  // 3. Redirect to dashboard if logged in and trying to access login/register
+  if (user && (path === '/login' || path === '/register')) {
+    const redirectUrl = getRedirectUrl('/dashboard')
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  return response
+}
