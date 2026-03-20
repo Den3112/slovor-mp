@@ -31,12 +31,14 @@ export async function runUniversalHealthCheck(page: Page) {
   await expect(page.locator('main').first()).toBeVisible()
 
   // 4. Check for layout overflows
+  /*
   const hasOverflow = await page.evaluate(() => {
     return (
       document.documentElement.scrollWidth >
       document.documentElement.clientWidth
     )
   })
+  */
   // Note: Only enforce this for mobile test runs or specific pages
   // For now, we just log it or assert if critical
 
@@ -60,13 +62,13 @@ export async function runUniversalHealthCheck(page: Page) {
       linkChecks.push(
         page.request
           .get(absoluteUrl)
-          .then((response) => {
+          .then((response: any) => {
             expect(
               response.status(),
               `Broken link detected: ${href}`
             ).toBeLessThan(400)
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.warn(`Link check failed for ${absoluteUrl}: ${err.message}`)
           })
       )

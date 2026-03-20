@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 // Use the auth state from global setup
 test.use({ storageState: 'e2e/.auth/user.json' })
 
-async function ensureAuthenticated(page) {
+async function ensureAuthenticated(page: any) {
   await page.goto('/en/dashboard')
   await page.waitForLoadState('domcontentloaded')
 
