@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 // Validate environment variables at build-time
-import './lib/env.ts'
+import './src/lib/env.ts'
 
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker optimization
