@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { useTranslation } from '@/packages/i18n/client'
-import { signIn } from '../../app/[locale]/(auth)/actions'
+import { signIn } from '@/app/[lang]/(auth)/actions'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -17,11 +17,11 @@ import { Eye, EyeOff, Mail, Lock, ArrowRight, Chrome } from 'lucide-react'
 import { trackEvent } from '@/lib/utils/analytics'
 
 interface LoginFormProps {
-  locale: string
+  lang: string
 }
 
-export function LoginForm({ locale }: LoginFormProps) {
-  const { t } = useTranslation(locale, 'auth')
+export function LoginForm({ lang }: LoginFormProps) {
+  const { t } = useTranslation(lang, 'auth')
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
@@ -41,13 +41,13 @@ export function LoginForm({ locale }: LoginFormProps) {
     formData.append('password', data.password)
 
     try {
-      const result = await signIn(formData, locale)
+      const result = await signIn(formData, lang)
       if (result?.error) {
         toast.error(result.error)
       } else {
         trackEvent('auth_login', { method: 'credentials' })
         toast.success(t('welcomeBack'))
-        router.push(`/${locale}/dashboard`)
+        router.push(`/${lang}/dashboard`)
         router.refresh()
       }
     } catch (error) {
@@ -114,7 +114,7 @@ export function LoginForm({ locale }: LoginFormProps) {
             <div className="flex items-center justify-between">
               <Label htmlFor="password">{t('password')}</Label>
               <Link
-                href={`/${locale}/forgot-password`}
+                href={`/${lang}/forgot-password`}
                 className="text-primary text-xs hover:underline"
               >
                 {t('forgotPassword')}
@@ -173,7 +173,7 @@ export function LoginForm({ locale }: LoginFormProps) {
         <p className="text-muted-foreground">
           {t('dontHaveAccount')}{' '}
           <Link
-            href={`/${locale}/register`}
+            href={`/${lang}/register`}
             className="text-primary font-semibold hover:underline"
           >
             {t('signUp')}
