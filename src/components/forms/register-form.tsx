@@ -9,18 +9,18 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { useTranslation } from '@/packages/i18n/client'
-import { signUp } from '../../app/[locale]/(auth)/actions'
+import { signUp } from '@/app/[lang]/(auth)/actions'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Mail, User, UserPlus, Eye, EyeOff, Lock } from 'lucide-react'
 import { trackEvent } from '@/lib/utils/analytics'
 
 interface RegisterFormProps {
-  locale: string
+  lang: string
 }
 
-export function RegisterForm({ locale }: RegisterFormProps) {
-  const { t } = useTranslation(locale, 'auth')
+export function RegisterForm({ lang }: RegisterFormProps) {
+  const { t } = useTranslation(lang, 'auth')
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -43,7 +43,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
     formData.append('lastName', data.lastName)
 
     try {
-      const result = await signUp(formData, locale)
+      const result = await signUp(formData, lang)
       if (result?.error) {
         toast.error(result.error)
       } else {
@@ -63,7 +63,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="glass-card shadow-premium relative w-full max-w-lg space-y-6 overflow-hidden rounded-4xl border border-white/10 p-8 text-center"
+        className="glass-card shadow-premium max-lg relative w-full space-y-6 overflow-hidden rounded-4xl border border-white/10 p-8 text-center"
       >
         <div className="bg-primary/10 mx-auto flex h-20 w-20 items-center justify-center rounded-full">
           <Mail className="text-primary h-10 w-10" />
@@ -74,7 +74,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
           follow the instructions to complete your registration.
         </p>
         <Button asChild className="h-12 w-full">
-          <Link href={`/${locale}/login`}>{t('signIn')}</Link>
+          <Link href={`/${lang}/login`}>{t('signIn')}</Link>
         </Button>
       </motion.div>
     )
@@ -215,7 +215,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
         <p className="text-muted-foreground">
           {t('alreadyHaveAccount')}{' '}
           <Link
-            href={`/${locale}/login`}
+            href={`/${lang}/login`}
             className="text-primary font-semibold hover:underline"
           >
             {t('signIn')}
