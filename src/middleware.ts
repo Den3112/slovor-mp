@@ -96,7 +96,9 @@ export default async function proxy(request: NextRequest) {
     })
 
     // 4. Update Session using the safe initialResponse
+    console.log('[DEBUG] Middleware started for:', request.nextUrl.pathname)
     const response = await updateSession(request, initialResponse)
+    console.log('[DEBUG] Middleware: session updated, status:', response.status)
 
     // 3. Set lang header for server components
     const lang = languages.find(
