@@ -118,14 +118,6 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>
 }) {
   const { lang } = await params
-  let nonce: string | undefined = undefined
-  try {
-    nonce =
-      (await (await import('next/headers')).headers()).get('x-nonce') ||
-      undefined
-  } catch (e) {
-    // During static generation (ISR/Build), headers() throws. This is expected.
-  }
 
   return (
     <html lang={lang} suppressHydrationWarning data-scroll-behavior="smooth">
@@ -142,7 +134,7 @@ export default async function RootLayout({
         )}
       >
         <Providers lang={lang}>
-          <StructuredData locale={lang} nonce={nonce} />
+          <StructuredData locale={lang} />
           <GlobalCommandPalette />
           {children}
           {/* <Analytics /> */}
