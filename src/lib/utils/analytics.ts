@@ -1,5 +1,4 @@
-// import { track } from '@vercel/analytics'
-const track = (..._args: any[]) => {}
+import { track } from '@vercel/analytics'
 
 type EventName =
   | 'listing_view'

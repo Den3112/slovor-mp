@@ -3,19 +3,17 @@ import { listingsApi } from '@/lib/api'
 import { ErrorState } from '@/components/ui/error-state'
 import { ListingDetailView } from '@/components/features/listing/ui/listing-detail-view'
 import { createClient } from '@/lib/supabase/server'
-
-interface Props {
-  params: Promise<{
-    id: string
-  }>
-}
-
 import { generateListingMetadata } from '@/lib/utils/metadata'
 
 export const generateMetadata = generateListingMetadata
 
-export default async function ListingDetailPage({ params }: Props) {
-  const { id } = await params
+export default async function ListingPage({
+  params,
+}: {
+  params: Promise<{ id: string; lang: string }>
+}) {
+  const { id, lang } = await params
+  console.log(`[Page] Rendering ListingPage for id: ${id}, lang: ${lang}`)
 
   if (process.env.SKIP_ENV_VALIDATION === '1') {
     return <div className="py-20 text-center">Building...</div>

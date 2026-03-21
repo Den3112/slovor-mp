@@ -86,7 +86,7 @@ describe('middleware utility', () => {
 
   it('redirects to /dashboard if user is authenticated on auth route', async () => {
     mockGetUser.mockResolvedValue({ data: { user: { id: '1' } }, error: null })
-    const req = mockRequest('/auth/login')
+    const req = mockRequest('/login')
     await updateSession(req)
     expect(NextResponse.redirect).toHaveBeenCalled()
   })
