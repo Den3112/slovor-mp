@@ -5,7 +5,7 @@ import { OrderDetailsView } from '@/components/features/dashboard/shared/order-d
 
 interface OrderDetailsPageProps {
   params: {
-    locale: string
+    lang: string
     id: string
   }
 }
@@ -13,13 +13,13 @@ interface OrderDetailsPageProps {
 export default async function OrderDetailsPage({
   params,
 }: OrderDetailsPageProps) {
-  const { id } = params
+  const { id, lang } = params
   const supabase = await createClient()
 
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  if (!user) redirect('/auth/login')
+  if (!user) redirect(`/${lang}/auth/login`)
 
   const { data: order, error } = await ordersApi.getById(supabase, id)
 
@@ -30,7 +30,7 @@ export default async function OrderDetailsPage({
 
   // Security: Check if user is part of the order
   if (order.buyer_id !== user.id && order.seller_id !== user.id) {
-    redirect('/dashboard/orders')
+    redirect(`/${lang}/dashboard/orders`)
   }
 
   return (

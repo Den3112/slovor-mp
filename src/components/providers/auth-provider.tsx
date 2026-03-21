@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const params = useParams()
-  const locale = (params?.locale as string) || 'en'
+  const lang = (params?.lang as string) || 'en'
 
   useEffect(() => {
     // Get initial session
@@ -47,13 +47,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession(session)
       setIsLoading(false)
       if (_event === 'SIGNED_OUT') {
-        router.push(`/${locale}/`)
+        router.push(`/${lang}/`)
         router.refresh()
       }
     })
 
     return () => subscription.unsubscribe()
-  }, [router, locale])
+  }, [router, lang])
 
   // Heartbeat: Update last_seen every 5 minutes
   useEffect(() => {

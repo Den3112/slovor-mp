@@ -4,19 +4,19 @@ import { getGeoByIp } from '@/lib/geo'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ locale: string }> }
+  { params }: { params: Promise<{ lang: string }> }
 ) {
-  const { locale } = await params
+  const { lang } = await params
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? `/${locale}/dashboard`
+  const next = searchParams.get('next') ?? `/${lang}/dashboard`
 
   if (code) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseAnonKey) {
-      return NextResponse.redirect(`${origin}/${locale}/auth/auth-code-error`)
+      return NextResponse.redirect(`${origin}/${lang}/auth/auth-code-error`)
     }
 
     const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
@@ -59,8 +59,8 @@ export async function GET(
 
       // Ensure next path is localized if it's an internal path
       const redirectUrl =
-        next.startsWith('/') && !next.startsWith(`/${locale}`)
-          ? `${origin}/${locale}${next === '/' ? '' : next}`
+        next.startsWith('/') && !next.startsWith(`/${lang}`)
+          ? `${origin}/${lang}${next === '/' ? '' : next}`
           : `${origin}${next}`
 
       return NextResponse.redirect(redirectUrl)
@@ -68,5 +68,5 @@ export async function GET(
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/${locale}/auth/auth-code-error`)
+  return NextResponse.redirect(`${origin}/${lang}/auth/auth-code-error`)
 }

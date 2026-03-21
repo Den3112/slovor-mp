@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { listingsApi } from '@/lib/api'
-import { ListingCard } from '@/components/listings/listing-card'
+import { ListingCard } from '@/components/features/listing/ui/card'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/types/database'
 import { motion } from 'framer-motion'

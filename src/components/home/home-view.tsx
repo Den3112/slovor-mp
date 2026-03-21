@@ -17,6 +17,7 @@ interface HomeViewProps {
   categoriesError: string | null
   children?: React.ReactNode
   recentListings?: React.ReactNode
+  lang?: string
 }
 
 export function HomeView({

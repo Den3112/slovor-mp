@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { ListingCard } from '@/components/listing/card'
+import { ListingCard } from '@/components/features/listing/ui/card'
 
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({

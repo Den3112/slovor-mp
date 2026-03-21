@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { CategorySelect } from '@/components/listing/filters/category-select'
+import { CategorySelect } from '@/components/features/listing/ui/filters/category-select'
 
 // Mock i18n
 vi.mock('@/lib/i18n', () => ({
@@ -30,7 +30,7 @@ describe('CategorySelect', () => {
       <CategorySelect
         categories={mockCategories}
         value=""
-        lang="sk"
+        locale="sk"
         onChange={vi.fn()}
       />
     )
@@ -43,7 +43,7 @@ describe('CategorySelect', () => {
       <CategorySelect
         categories={mockCategories}
         value="electronics"
-        lang="sk"
+        locale="sk"
         onChange={vi.fn()}
       />
     )
@@ -56,7 +56,7 @@ describe('CategorySelect', () => {
       <CategorySelect
         categories={mockCategories}
         value=""
-        lang="sk"
+        locale="sk"
         onChange={onChange}
       />
     )

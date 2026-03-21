@@ -3,7 +3,7 @@
 import { Container } from '@/components/ui/container'
 import { Button } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/empty-state'
-import { ListingCard } from '@/components/listing/card'
+import { ListingCard } from '@/components/features/listing/ui/card'
 import { SellerRating } from '@/components/seller-profile/seller-rating'
 import { ProfileCard } from '@/components/seller-profile/profile-card'
 import { PremiumBackground } from '@/components/ui/premium-background'

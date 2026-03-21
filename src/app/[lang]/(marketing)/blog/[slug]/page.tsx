@@ -13,7 +13,7 @@ import { BlogNewsletter } from '@/components/blog/blog-newsletter'
 interface BlogPostProps {
   params: Promise<{
     slug: string
-    locale: string
+    lang: string
   }>
 }
 
@@ -26,18 +26,18 @@ export async function generateStaticParams() {
   const { data: posts } = await blogApi.listPosts({ limit: 10, offset: 0 })
   if (!posts) return []
 
-  const locales = ['en', 'sk', 'cs']
+  const languages = ['en', 'sk', 'cs']
 
-  return locales.flatMap((locale) =>
+  return languages.flatMap((lang) =>
     posts.map((post) => ({
       slug: post.slug,
-      locale: locale,
+      lang: lang,
     }))
   )
 }
 
 export default async function BlogPostPage({ params }: BlogPostProps) {
-  const { slug, locale } = await params
+  const { slug, lang } = await params
 
   if (process.env.SKIP_ENV_VALIDATION === '1') {
     return <div className="py-20 text-center">Building...</div>
@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
       {/* Header Section */}
       <div className="bg-muted border-border border-b pt-32 pb-16">
         <Container>
-          <Link href={`/${locale}/blog`} className="mb-8 inline-block">
+          <Link href={`/${lang}/blog`} className="mb-8 inline-block">
             <Button
               variant="outline"
               size="sm"
@@ -158,7 +158,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   className="border-border hover:bg-muted h-12 w-12 rounded-xl"
                   onClick={() =>
                     window.open(
-                      `https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`,
+                      `https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://slovor.sk/${lang}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`,
                       '_blank',
                       'noopener'
                     )
@@ -175,7 +175,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
                   className="border-border hover:bg-muted h-12 w-12 rounded-xl"
                   onClick={() =>
                     window.open(
-                      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://slovor.sk/${locale}/blog/${slug}`)}`,
+                      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://slovor.sk/${lang}/blog/${slug}`)}`,
                       '_blank',
                       'noopener'
                     )

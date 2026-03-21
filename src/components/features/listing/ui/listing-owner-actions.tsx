@@ -19,7 +19,7 @@ export function ListingOwnerActions({
   const { user } = useAuth()
   const router = useRouter()
   const params = useParams()
-  const locale = (params?.locale as string) || 'en'
+  const lang = (params?.lang as string) || 'en'
 
   if (!user || user.id !== ownerId) {
     return null
@@ -30,7 +30,7 @@ export function ListingOwnerActions({
       variant="outline"
       size="lg"
       className={className}
-      onClick={() => router.push(`/${locale}/post?edit=${listingId}`)}
+      onClick={() => router.push(`/${lang}/post?edit=${listingId}`)}
     >
       <Pencil className="mr-2 h-5 w-5" />
       Edit Listing

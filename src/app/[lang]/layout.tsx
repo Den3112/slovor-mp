@@ -39,6 +39,10 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
+export function generateStaticParams() {
+  return [{ lang: 'sk' }, { lang: 'en' }, { lang: 'cs' }]
+}
+
 export async function generateMetadata({
   params,
 }: {

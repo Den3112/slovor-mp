@@ -17,7 +17,7 @@ function getIP(request: NextRequest): string {
  */
 function getLocale(request: NextRequest): string {
   // 1. Check cookie first (user's explicit choice)
-  const cookieLocale = request.cookies.get('slovor-locale')?.value
+  const cookieLocale = request.cookies.get('slovor-lang')?.value
   if (cookieLocale && languages.includes(cookieLocale as any)) {
     return cookieLocale
   }

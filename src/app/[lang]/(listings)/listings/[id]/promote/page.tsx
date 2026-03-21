@@ -23,13 +23,13 @@ import { formatPrice } from '@/lib/utils/formatting'
 interface Props {
   params: Promise<{
     id: string
-    locale: string
+    lang: string
   }>
 }
 
 export default function PromoteListingPage({ params }: Props) {
   const { t } = useTranslation(['dashboard', 'common'])
-  const { id, locale } = use(params)
+  const { id, lang } = use(params)
   const { user } = useAuth()
   const router = useRouter()
   const [selectedPlan, setSelectedPlan] = useState<
@@ -79,7 +79,7 @@ export default function PromoteListingPage({ params }: Props) {
   const handlePromote = async () => {
     if (!user || !selectedPlan) return
     if (selectedPlan === 'free') {
-      router.push(`/${locale}/listings/${id}`)
+      router.push(`/${lang}/listings/${id}`)
       return
     }
 
@@ -98,7 +98,7 @@ export default function PromoteListingPage({ params }: Props) {
       if (promoteError) throw new Error(promoteError)
 
       toast.success(t('dashboard:promote.success'))
-      router.push(`/${locale}/listings/${id}`)
+      router.push(`/${lang}/listings/${id}`)
       router.refresh()
     } catch (error) {
       console.error('Promotion failed:', error)

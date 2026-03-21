@@ -2,7 +2,7 @@
 // Shows all listings with search and filters
 
 import { listingsApi, categoriesApi } from '@/lib/api'
-import { ListingsView } from '@/components/listing/view'
+import { ListingsView } from '@/components/features/listing/ui/view'
 
 export const revalidate = 60
 

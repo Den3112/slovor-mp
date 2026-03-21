@@ -4,13 +4,13 @@ import { listingsApi } from '@/lib/api/listings'
 import { DashboardProfileHub } from '@/components/features/dashboard/user/dashboard-profile-hub'
 
 interface DashboardProfilePageProps {
-  params: Promise<{ locale: string }>
+  params: Promise<{ lang: string }>
 }
 
 export default async function DashboardProfilePage({
   params,
 }: DashboardProfilePageProps) {
-  const { locale } = await params
+  const { lang } = await params
   const supabase = await createClient()
 
   // Verify auth
@@ -19,7 +19,7 @@ export default async function DashboardProfilePage({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect(`/${locale}/auth/login`)
+    redirect(`/${lang}/auth/login`)
   }
 
   // Fetch full profile
@@ -30,7 +30,7 @@ export default async function DashboardProfilePage({
     .single()
 
   if (!profile) {
-    redirect(`/${locale}/auth/login`)
+    redirect(`/${lang}/auth/login`)
   }
 
   // Get active listings for the user
