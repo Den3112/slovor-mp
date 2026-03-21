@@ -4,8 +4,7 @@ import type { NextConfig } from 'next'
 import './src/lib/env.ts'
 
 const nextConfig: NextConfig = {
-  // Enable standalone output for Docker optimization
-  output: 'standalone',
+  // output: 'standalone', - Disabled to fix manifests singleton issue
 
   typescript: {
     // !! WARN !!
@@ -13,33 +12,6 @@ const nextConfig: NextConfig = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: false,
-  },
-
-  // Experimental features for performance
-  experimental: {
-    // Optimize package imports for faster builds
-    optimizePackageImports: [
-      'lucide-react',
-      'framer-motion',
-      'sonner',
-      'date-fns',
-      '@radix-ui/react-icons',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-scroll-area',
-      '@radix-ui/react-select',
-      '@radix-ui/react-tabs',
-      '@radix-ui/react-avatar',
-      '@radix-ui/react-popover',
-      '@radix-ui/react-label',
-      '@radix-ui/react-checkbox',
-      '@radix-ui/react-switch',
-      '@radix-ui/react-slider',
-    ],
-    // Server Actions limitations for security
-    serverActions: {
-      bodySizeLimit: '2mb',
-    },
   },
 
   images: {
@@ -186,15 +158,9 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
 }
 
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-})
-
+// const withPWA = ... - Removed for stability
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-export default withBundleAnalyzer(withPWA(nextConfig))
+export default withBundleAnalyzer(nextConfig)
