@@ -15,7 +15,7 @@ import { motion } from 'framer-motion'
 
 interface HomeViewProps {
   categories: Category[]
-  categoriesError: string | null
+  categoriesError?: string | null
   featuredListings?: Listing[]
   recentListings?: Listing[]
   lang?: string
@@ -23,7 +23,7 @@ interface HomeViewProps {
 
 export function HomeView({
   categories,
-  categoriesError,
+  categoriesError = null,
   featuredListings = [],
   recentListings = [],
 }: HomeViewProps) {
