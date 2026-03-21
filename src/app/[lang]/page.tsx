@@ -8,9 +8,7 @@ export default async function Home({
 }: {
   params: Promise<{ lang: string }>
 }) {
-  console.log('[DEBUG] Home Page Component Started')
   const { lang = 'sk' } = await params
-  console.log('[DEBUG] Home Page Params Awaited:', lang)
 
   const [featuredResult, recentResult, categoriesResult] = await Promise.all([
     listingsApi.getAll({ limit: 4, isFeatured: true }),

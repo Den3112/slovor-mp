@@ -11,6 +11,7 @@ WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV SKIP_ENV_VALIDATION=1
+ENV NEXT_PRIVATE_SKIP_TURBOPACK=1
 
 # ===========================================
 # Dependencies
