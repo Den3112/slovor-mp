@@ -41,33 +41,3 @@ jobs:
         run: npm run test:run -- --project unit
         env:
           NEXT_PUBLIC_APP_URL: "http://localhost:3000"
-
-  deploy:
-    needs: verify
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
-    runs-on: ubuntu-latest
-    env:
-      VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
-      VERCEL_ORG_ID: "${{ secrets.VERCEL_ORG_ID }}"
-      VERCEL_PROJECT_ID: "${{ secrets.VERCEL_PROJECT_ID }}"
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-      - name: Debug Deployment Info
-        run: |
-          echo "Checking environment variables (presence only)..."
-          if [ -n "$VERCEL_TOKEN" ]; then echo "VERCEL_TOKEN is set"; else echo "VERCEL_TOKEN is NOT set"; fi
-          if [ -n "$VERCEL_ORG_ID" ]; then echo "VERCEL_ORG_ID is set"; else echo "VERCEL_ORG_ID is NOT set"; fi
-          if [ -n "$VERCEL_PROJECT_ID" ]; then echo "VERCEL_PROJECT_ID is set"; else echo "VERCEL_PROJECT_ID is NOT set"; fi
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: "${{ secrets.VERCEL_TOKEN }}"
-          vercel-org-id: "${{ secrets.VERCEL_ORG_ID }}"
-          vercel-project-id: "${{ secrets.VERCEL_PROJECT_ID }}"
-          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
-          working-directory: ./
