@@ -34,9 +34,18 @@ export const supportApi = {
     ticket: Omit<SupportTicket, 'id' | 'created_at' | 'updated_at' | 'status'>
   ): Promise<ApiResponse<SupportTicket>> {
     try {
+      let userId = ticket.user_id
+      if (!userId) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+        if (!user) throw new Error('Not authenticated')
+        userId = user.id
+      }
+
       const { data, error } = await supabase
         .from('support_tickets')
-        .insert([{ ...ticket, status: 'open' }])
+        .insert([{ ...ticket, user_id: userId, status: 'open' }])
         .select()
         .single()
 
