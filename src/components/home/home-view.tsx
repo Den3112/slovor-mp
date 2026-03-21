@@ -8,23 +8,24 @@ import { HomeCTA } from './home-cta'
 import { ArrowRight } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { useTranslation } from '@/lib/i18n'
-import type { Category } from '@/lib/types/database'
+import type { Category, Listing } from '@/lib/types/database'
+import { ListingCard } from '@/components/features/listing/ui/card'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 interface HomeViewProps {
   categories: Category[]
   categoriesError: string | null
-  children?: React.ReactNode
-  recentListings?: React.ReactNode
+  featuredListings?: Listing[]
+  recentListings?: Listing[]
   lang?: string
 }
 
 export function HomeView({
   categories,
   categoriesError,
-  children,
-  recentListings,
+  featuredListings = [],
+  recentListings = [],
 }: HomeViewProps) {
   const { t, locale } = useTranslation(['home', 'common'])
 
@@ -82,7 +83,11 @@ export function HomeView({
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            {children}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {featuredListings.map((listing) => (
+                <ListingCard key={listing.id} listing={listing} featured />
+              ))}
+            </div>
           </motion.div>
         </Container>
       </section>
@@ -114,7 +119,11 @@ export function HomeView({
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            {recentListings}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {recentListings.map((listing) => (
+                <ListingCard key={listing.id} listing={listing} />
+              ))}
+            </div>
           </motion.div>
         </Container>
       </section>
