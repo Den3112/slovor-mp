@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { ImageGallery } from '@/components/listing/image-gallery'
+import { ImageGallery } from '@/components/features/listing/ui/image-gallery'
 
 describe('ImageGallery', () => {
   const mockImages = [

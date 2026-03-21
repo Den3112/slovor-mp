@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { CreateListingForm } from '@/components/listing/create-listing-form'
+import { CreateListingForm } from '@/components/features/listing/ui/create-listing-form'
 
 // Mock useAuth
 vi.mock('@/components/providers/auth-provider', () => ({
@@ -104,7 +104,7 @@ vi.mock('@/lib/supabase/client', () => ({
   }),
 }))
 
-vi.mock('@/components/listing/form-steps/step-category', () => ({
+vi.mock('@/components/features/listing/ui/form-steps/step-category', () => ({
   StepCategory: ({ categories, updateField }: any) => (
     <div>
       {categories?.map((cat: any) => (
@@ -117,14 +117,14 @@ vi.mock('@/components/listing/form-steps/step-category', () => ({
     </div>
   ),
 }))
-vi.mock('@/components/listing/form-steps/step-details', () => ({
+vi.mock('@/components/features/listing/ui/form-steps/step-details', () => ({
   StepDetails: () => <div data-testid="step-details">Step Details Form</div>,
 }))
-vi.mock('@/components/listing/form-steps/step-images', () => ({
+vi.mock('@/components/features/listing/ui/form-steps/step-images', () => ({
   StepImages: () => <div data-testid="step-images">Step Images Form</div>,
 }))
 
-vi.mock('@/components/listing/listing-preview', () => ({
+vi.mock('@/components/features/listing/ui/listing-preview', () => ({
   ListingPreview: () => (
     <div data-testid="listing-preview">Listing Preview</div>
   ),

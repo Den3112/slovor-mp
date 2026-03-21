@@ -1,6 +1,6 @@
 'use client'
 
-import { ListingGrid } from '@/components/listing/grid'
+import { ListingGrid } from '@/components/features/listing/ui/grid'
 import { ErrorState } from '@/components/ui/error-state'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { Filters } from '@/components/category/filters'

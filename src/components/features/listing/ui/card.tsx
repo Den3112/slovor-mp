@@ -9,7 +9,7 @@ import { useTranslation } from '@/lib/i18n'
 import { getLocalizedTitle } from '@/lib/utils/listing-utils'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import { cn } from '@/lib/utils/cn'
-import { FavoriteButton } from '@/components/listing/favorite-button'
+import { FavoriteButton } from '@/components/features/listing/ui/favorite-button'
 import { PriceDisplay } from '@/components/ui/price-display'
 import { CheckCircle2 } from 'lucide-react'
 

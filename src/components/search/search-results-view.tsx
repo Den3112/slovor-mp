@@ -1,7 +1,7 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { ListingCard } from '@/components/listing/card'
+import { ListingCard } from '@/components/features/listing/ui/card'
 import { Pagination } from '@/components/category/pagination'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/api'

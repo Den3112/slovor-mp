@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { ListingActionButtons } from '@/components/listing/shared/listing-action-buttons'
+import { ListingActionButtons } from '@/components/features/listing/ui/shared/listing-action-buttons'
 
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({

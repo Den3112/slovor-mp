@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server'
-import { getTranslationServer } from '@/lib/i18n/server'
 import { listingsApi, ordersApi } from '@/lib/api'
 import { getDashboardStats } from '@/lib/api/dashboard-stats'
 import { transactionsApi } from '@/lib/api/transactions'
@@ -21,7 +20,12 @@ const UserOverviewView = dynamic(
   }
 )
 
-export default async function DashboardOverviewPage() {
+export default async function DashboardOverviewPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}) {
+  const { lang } = await params
   const supabase = await createClient()
   const {
     data: { user },
@@ -31,7 +35,6 @@ export default async function DashboardOverviewPage() {
     return null // Layout handles redirect
   }
 
-  const { locale } = await getTranslationServer()
   const stats = await getDashboardStats(user.id)
   const userListings = await listingsApi.getByUser(user.id, supabase)
   const transactions = await transactionsApi.getForUser(user.id)
@@ -54,7 +57,7 @@ export default async function DashboardOverviewPage() {
       )
 
     return {
-      date: date.toLocaleDateString(locale || undefined, { weekday: 'short' }),
+      date: date.toLocaleDateString(lang || undefined, { weekday: 'short' }),
       value:
         dayTotal ||
         Math.floor((stats.totalViews / 10) * (0.8 + Math.random() * 0.4)),

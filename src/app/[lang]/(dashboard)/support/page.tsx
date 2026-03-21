@@ -11,10 +11,11 @@ import { cn } from '@/lib/utils'
 import { StatusBadge } from '@/components/features/dashboard/shared/status-badge'
 
 export default function SupportDashboardPage({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string }
+  params: { lang: string }
 }) {
+  const { lang } = params
   const { t } = useTranslation(['common', 'dashboard', 'admin'])
   const [tickets, setTickets] = useState<SupportTicket[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -66,7 +67,7 @@ export default function SupportDashboardPage({
             asChild
             className="shadow-primary/20 h-14 rounded-2xl px-10 text-[11px] font-black tracking-[0.2em] uppercase shadow-2xl transition-all hover:scale-105 active:scale-95"
           >
-            <Link href={`/${locale}/dashboard/support/create`}>
+            <Link href={`/${lang}/dashboard/support/create`}>
               <Plus className="mr-3 h-5 w-5 stroke-3" />
               {t('dashboard:createTicket')}
             </Link>
@@ -102,7 +103,7 @@ export default function SupportDashboardPage({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <Link href={`/${locale}/dashboard/support/${ticket.id}`}>
+                <Link href={`/${lang}/dashboard/support/${ticket.id}`}>
                   <div className="glass-panel hover:bg-primary/2 group cursor-pointer border-none p-6 transition-all duration-300">
                     <div className="bg-primary/0 group-hover:bg-primary/40 absolute inset-y-0 left-0 w-1 transition-all" />
 

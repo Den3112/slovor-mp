@@ -28,9 +28,9 @@ import {
 import { toast } from 'sonner'
 
 export default function CreateTicketPage({
-  params: { locale },
+  params: { lang },
 }: {
-  params: { locale: string }
+  params: { lang: string }
 }) {
   const { t } = useTranslation(['common', 'dashboard', 'admin'])
   const router = useRouter()
@@ -60,7 +60,7 @@ export default function CreateTicketPage({
       if (error) throw new Error(error)
 
       toast.success(t('dashboard:ticketCreated'))
-      router.push(`/${locale}/dashboard/support`)
+      router.push(`/${lang}/dashboard/support`)
       router.refresh()
     } catch (error) {
       toast.error(t('dashboard:ticketCreateError'))
@@ -73,7 +73,7 @@ export default function CreateTicketPage({
     <div className="mx-auto max-w-2xl space-y-6 p-4 md:p-8">
       <div className="mb-8 flex items-center gap-4">
         <Button variant="ghost" size="icon" asChild className="rounded-xl">
-          <Link href={`/${locale}/dashboard/support`}>
+          <Link href={`/${lang}/dashboard/support`}>
             <ChevronLeft className="h-5 w-5" />
           </Link>
         </Button>

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { listingsApi } from '@/lib/api'
 import { ErrorState } from '@/components/ui/error-state'
-import { ListingDetailView } from '@/components/listing/listing-detail-view'
+import { ListingDetailView } from '@/components/features/listing/ui/listing-detail-view'
 import { createClient } from '@/lib/supabase/server'
 
 interface Props {

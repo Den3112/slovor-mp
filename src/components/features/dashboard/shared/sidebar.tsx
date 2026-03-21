@@ -62,7 +62,7 @@ export function UnifiedSidebar({
   const pathname = usePathname()
   const router = useRouter()
   const params = useParams()
-  const locale = (params?.locale as string) || 'en'
+  const lang = (params?.lang as string) || 'en'
   const isMounted = useMounted()
 
   const isActiveLink = (href: string) => {
@@ -76,7 +76,7 @@ export function UnifiedSidebar({
   const handleSignOut = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push(`/${locale}/`)
+    router.push(`/${lang}/`)
     router.refresh()
   }
 
@@ -143,13 +143,13 @@ export function UnifiedSidebar({
                 {section.items.map((link) => {
                   const Icon = link.icon
                   const active = isActiveLink(link.href)
-                  const localePrefix = `/${locale}`
+                  const langPrefix = `/${lang}`
                   const localizedHref =
                     link.href.startsWith('http') ||
                     link.external ||
-                    link.href.startsWith(localePrefix)
+                    link.href.startsWith(langPrefix)
                       ? link.href
-                      : `${localePrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
+                      : `${langPrefix}${link.href.startsWith('/') ? '' : '/'}${link.href}`
 
                   return (
                     <Link

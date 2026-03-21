@@ -8,9 +8,9 @@ import { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string; locale: string }>
+  params: Promise<{ slug: string; lang: string }>
 }): Promise<Metadata> {
-  const { slug, locale } = await params
+  const { slug, lang } = await params
   if (process.env.SKIP_ENV_VALIDATION === '1') {
     return { title: 'Slovor Marketplace' }
   }
@@ -35,8 +35,8 @@ export async function generateMetadata({
     cs: 'Najděte nejlepší nabídky na Slovensku.',
   }
 
-  const browse = browseTexts[locale] || browseTexts.en
-  const find = findTexts[locale] || findTexts.en
+  const browse = browseTexts[lang] || browseTexts.en
+  const find = findTexts[lang] || findTexts.en
 
   return {
     title: `${category.name} | Slovor Marketplace`,

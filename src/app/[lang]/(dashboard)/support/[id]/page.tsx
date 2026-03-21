@@ -23,10 +23,11 @@ import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
 export default function TicketDetailPage({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string }
+  params: { lang: string }
 }) {
+  const { lang } = params
   const { id } = useParams()
   const [ticket, setTicket] = useState<SupportTicket | null>(null)
   const [messages, setMessages] = useState<SupportMessage[]>([])
@@ -98,9 +99,7 @@ export default function TicketDetailPage({
         <AlertCircle className="text-muted-foreground mb-4 h-12 w-12" />
         <h2 className="text-xl font-bold">{t('dashboard:ticketNotFound')}</h2>
         <Button asChild className="mt-4" variant="outline">
-          <Link href={`/${locale}/dashboard/support`}>
-            {t('common:goBack')}
-          </Link>
+          <Link href={`/${lang}/dashboard/support`}>{t('common:goBack')}</Link>
         </Button>
       </div>
     )
@@ -114,7 +113,7 @@ export default function TicketDetailPage({
           asChild
           className="border-border/40 rounded-xl border"
         >
-          <Link href={`/${locale}/dashboard/support`}>
+          <Link href={`/${lang}/dashboard/support`}>
             <ChevronLeft className="h-5 w-5" />
           </Link>
         </Button>

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { StepImages } from '@/components/listing/form-steps/step-images'
+import { StepImages } from '@/components/features/listing/ui/form-steps/step-images'
 
 // Mock useTranslation
 vi.mock('@/lib/i18n', () => ({

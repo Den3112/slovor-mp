@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
-import { RelatedListings } from '@/components/listing/related-listings'
+import { RelatedListings } from '@/components/features/listing/ui/related-listings'
 
 // 1. Define dummy mock storage
 const mocks = vi.hoisted(() => ({
@@ -15,7 +15,7 @@ vi.mock('@/lib/api', () => ({
 }))
 
 // 3. Other mocks
-vi.mock('@/components/listings/listing-card', () => ({
+vi.mock('@/components/features/listing/ui/card', () => ({
   ListingCard: ({ listing }: any) => (
     <div data-testid={`listing-card-${listing.id}`}>{listing.title}</div>
   ),

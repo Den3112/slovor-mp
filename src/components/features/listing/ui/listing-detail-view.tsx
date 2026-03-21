@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { StructuredData } from '@/components/layout/structured-data'
-import { ImageGallery } from '@/components/listing/image-gallery'
-import { MobileImageGallery } from '@/components/listing/mobile-image-gallery'
+import { ImageGallery } from '@/components/features/listing/ui/image-gallery'
+import { MobileImageGallery } from '@/components/features/listing/ui/mobile-image-gallery'
 import { Container } from '@/components/ui/container'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { useTranslation } from '@/lib/i18n'
@@ -14,7 +14,7 @@ import {
 } from '@/lib/utils/listing-utils'
 import { getLocalizedCategoryName } from '@/lib/utils/category-i18n'
 import { useRecentlyViewed } from '@/lib/hooks/use-recently-viewed'
-import { RecentlyViewed } from '@/components/listing/recently-viewed'
+import { RecentlyViewed } from '@/components/features/listing/ui/recently-viewed'
 import { ListingDetailsGrid } from './details/listing-attributes'
 import { ListingSidebar } from './details/listing-sidebar'
 import { ListingDescription } from './details/listing-description'
@@ -25,7 +25,7 @@ import dynamic from 'next/dynamic'
 
 const RelatedListings = dynamic(
   () =>
-    import('@/components/listing/related-listings').then(
+    import('@/components/features/listing/ui/related-listings').then(
       (mod) => mod.RelatedListings
     ),
   {

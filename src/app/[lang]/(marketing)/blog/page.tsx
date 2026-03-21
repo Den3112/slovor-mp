@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 export default async function BlogPage({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ lang: string }>
 }) {
-  const { locale } = await params
+  const { lang } = await params
 
   if (process.env.SKIP_ENV_VALIDATION === '1') {
     return <div className="py-20 text-center">Building...</div>
@@ -71,7 +71,7 @@ export default async function BlogPage({
         {/* Featured Post */}
         {featuredPost && (
           <Link
-            href={`/${locale}/blog/${featuredPost.slug}`}
+            href={`/${lang}/blog/${featuredPost.slug}`}
             className="group border-border bg-card hover:border-primary/50 hover:shadow-primary/5 mb-20 block overflow-hidden rounded-xl border shadow-sm transition-all duration-500 hover:shadow-xl"
           >
             <div className="grid gap-0 md:grid-cols-2">
@@ -125,7 +125,7 @@ export default async function BlogPage({
           {otherPosts.map((post) => (
             <Link
               key={post.id}
-              href={`/${locale}/blog/${post.slug}`}
+              href={`/${lang}/blog/${post.slug}`}
               className="group border-border bg-card hover:border-primary/50 hover:shadow-primary/5 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-xl"
             >
               <div className="relative aspect-video overflow-hidden">

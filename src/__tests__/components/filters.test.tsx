@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { ListingFilters } from '@/components/listing/filters'
+import { ListingFilters } from '@/components/features/listing/ui/filters'
 
 const mockPush = vi.fn()
 

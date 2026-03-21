@@ -14,7 +14,7 @@ export function RecentlyViewed() {
   const { items } = useRecentlyViewed()
   const { t } = useTranslation(['listing'])
   const params = useParams()
-  const locale = (params?.locale as string) || 'en'
+  const lang = (params?.lang as string) || 'en'
 
   if (items.length === 0) return null
 
@@ -30,7 +30,7 @@ export function RecentlyViewed() {
           {items.map((item) => (
             <Link
               key={item.id}
-              href={`/${locale}/listings/${item.id}`}
+              href={`/${lang}/listings/${item.id}`}
               className="group w-[200px] flex-none snap-start"
             >
               <Card className="border-border/50 bg-card hover:border-primary/20 h-full overflow-hidden transition-all hover:shadow-md">
