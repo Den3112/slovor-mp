@@ -142,7 +142,7 @@ describe('API: Detect Locale', () => {
       expect(response.status).toBe(500)
       expect(data).toEqual({
         lang: 'en',
-        error: 'Failed to detect lang',
+        error: 'Failed to detect language',
       })
     })
 
