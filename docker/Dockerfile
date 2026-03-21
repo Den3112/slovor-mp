@@ -37,7 +37,7 @@ ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the app (output: standalone)
+# Build the app (output: standard build for stability)
 RUN npm run build
 
 # ===========================================
@@ -53,12 +53,11 @@ ENV HOSTNAME="0.0.0.0"
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Copy public assets
+# Copy built application and dependencies
 COPY --from=builder /app/public ./public
-
-# Copy standalone output — this is the self-contained server
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
 # Create cache directory for Next.js image optimization
 RUN mkdir -p .next/cache && chown -R nextjs:nodejs .next/cache
@@ -67,4 +66,6 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+ENV PORT=3000
+# Use next start instead of standalone server.js to avoid manifests singleton bugs in Next.js 16
+CMD ["./node_modules/.bin/next", "start"]
