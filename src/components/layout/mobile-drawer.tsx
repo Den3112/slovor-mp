@@ -98,7 +98,7 @@ export function MobileDrawer({
 
               <ScrollArea className="flex-1 px-4">
                 <div className="space-y-8 pb-32">
-                  {/* ГЛАВНОЕ / MAIN */}
+                  {/* MAIN */}
                   <div className="space-y-4">
                     <h3 className="text-muted-foreground/40 px-4 text-[10px] font-bold tracking-[0.2em] uppercase">
                       {t('home:megaMenu.title') || 'MAIN MENU'}
@@ -179,7 +179,7 @@ export function MobileDrawer({
                     </div>
                   </div>
 
-                  {/* КАТЕГОРИИ / CATEGORIES */}
+                  {/* CATEGORIES */}
                   <div className="space-y-4">
                     <div className="flex items-center justify-between px-4">
                       <h3 className="text-muted-foreground/40 text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -220,7 +220,7 @@ export function MobileDrawer({
                     </div>
                   </div>
 
-                  {/* АККАУНТ / ACCOUNT */}
+                  {/* ACCOUNT */}
                   <div className="space-y-4">
                     <h3 className="text-muted-foreground/40 px-4 text-[10px] font-bold tracking-[0.2em] uppercase">
                       {t('common:account') || 'MY ACCOUNT'}

@@ -1,6 +1,7 @@
 import { UserDashboardLayout } from '@/components/features/dashboard/user/user-dashboard-layout'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { MainLayout } from '@/components/layout/main-layout'
 
 export default async function DashboardLayout({
   children,
@@ -22,5 +23,9 @@ export default async function DashboardLayout({
   const { getDashboardStats } = await import('@/lib/api/dashboard-stats')
   const stats = await getDashboardStats(user.id)
 
-  return <UserDashboardLayout stats={stats}>{children}</UserDashboardLayout>
+  return (
+    <MainLayout>
+      <UserDashboardLayout stats={stats}>{children}</UserDashboardLayout>
+    </MainLayout>
+  )
 }

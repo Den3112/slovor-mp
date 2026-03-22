@@ -99,7 +99,7 @@ test.describe('Exhaustive Interactive E2E Test (Docker Verification)', () => {
 
       // Click "Categories" button to test JS Hydration
       const categoriesBtn = page
-        .getByRole('button', { name: /Categories|Категории/i })
+        .getByRole('button', { name: /Categories|Categories|Kategórie/i })
         .first()
       await expect(categoriesBtn).toBeVisible()
       // Use force click because the backdrop might intercept it during hover
@@ -107,7 +107,7 @@ test.describe('Exhaustive Interactive E2E Test (Docker Verification)', () => {
       await page.waitForTimeout(500) // Small delay to catch potential errors
 
       const postAdBtn = page
-        .getByRole('link', { name: /Post Ad|Добавить/i })
+        .getByRole('link', { name: /Post Ad|Post Ad|Pridať/i })
         .first()
       await expect(postAdBtn).toBeVisible()
       expect(await postAdBtn.isEnabled()).toBeTruthy()
@@ -191,9 +191,9 @@ test.describe('Exhaustive Interactive E2E Test (Docker Verification)', () => {
 
       // Test admin sidebar links
       const adminLinks = [
-        { name: /Users|Пользователи/i, url: '**/admin/users*' },
-        { name: /Listings|Объявления/i, url: '**/admin/listings*' },
-        { name: /System|Система/i, url: '**/admin/system*' },
+        { name: /Users|Users|Používatelia/i, url: '**/admin/users*' },
+        { name: /Listings|Listings|Inzeráty/i, url: '**/admin/listings*' },
+        { name: /System|System|Systém/i, url: '**/admin/system*' },
       ]
 
       for (const link of adminLinks) {

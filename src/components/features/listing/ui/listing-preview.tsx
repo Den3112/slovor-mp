@@ -136,7 +136,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
             </div>
           </div>
           <h3 className="font-heading text-foreground line-clamp-2 text-base leading-tight font-bold transition-colors duration-300 md:text-xl">
-            {localizedTitle || 'Название объявления'}
+            {localizedTitle || t('listing:noTitle')}
           </h3>
         </div>
 

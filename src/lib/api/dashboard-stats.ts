@@ -81,7 +81,7 @@ export async function getDashboardStats(
         .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
         .order('updated_at', { ascending: false })
         .limit(3),
-      supabase.from('wallets').select('*').eq('user_id', userId).single(),
+      supabase.from('wallets').select('*').eq('user_id', userId).maybeSingle(),
       supabase
         .from('orders')
         .select('id', { count: 'exact' })

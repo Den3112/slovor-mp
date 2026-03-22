@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/container'
 import { ListingGrid } from '@/components/features/listing/ui/grid'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { getTranslationServer } from '@/lib/i18n/server'
 
 export default async function SellerListingsPage({
   params,
@@ -18,6 +19,8 @@ export default async function SellerListingsPage({
     redirect(`/${lang}/auth/login`)
   }
 
+  const { t } = await getTranslationServer(['common', 'dashboard'])
+
   // Fetch only user's listings
   const { data: listings } = await supabase
     .from('listings')
@@ -28,9 +31,9 @@ export default async function SellerListingsPage({
   return (
     <Container className="py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Мои объявления</h1>
+        <h1 className="text-3xl font-bold">{t('dashboard:myListings')}</h1>
         <p className="text-muted-foreground">
-          Управляйте вашими активными и архивными объявлениями
+          {t('dashboard:manageListingsDesc')}
         </p>
       </div>
 
@@ -38,9 +41,9 @@ export default async function SellerListingsPage({
         <ListingGrid listings={listings} />
       ) : (
         <div className="border-border/50 bg-muted/30 flex min-h-[400px] flex-col items-center justify-center rounded-xl border-2 border-dashed text-center">
-          <p className="text-xl font-medium">У вас пока нет объявлений</p>
+          <p className="text-xl font-medium">{t('dashboard:noListingsYet')}</p>
           <p className="text-muted-foreground mt-2">
-            Опубликуйте свое первое объявление прямо сейчас
+            {t('dashboard:noListingsDesc')}
           </p>
         </div>
       )}
