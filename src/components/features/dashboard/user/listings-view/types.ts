@@ -1,23 +1,7 @@
-export type ListingStatus =
-  | 'active'
-  | 'sold'
-  | 'draft'
-  | 'pending'
-  | 'rejected'
-  | 'expired'
+import type { Listing } from '@/lib/types/database'
 
-export interface Listing {
-  id: string
-  title: string
-  price: number
-  currency: string
-  status: ListingStatus
-  created_at: string
-  images: string[]
-  views_count: number
-  favorites_count: number
-}
+export type { Listing, ListingWithProfile } from '@/types/listing'
 
 export interface UserListingsViewProps {
-  initialListings: any[]
+  initialListings?: Listing[]
 }

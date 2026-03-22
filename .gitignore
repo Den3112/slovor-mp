@@ -80,8 +80,28 @@ policies.txt
 .next_old/
 .next_slovor/
 next_old/
-tsconfig.tsbuildinfo
+# next-sitemap
+next-sitemap.config.js
+public/sitemap*.xml
+public/robots.txt
 
 # Remote Sync Files
 remote_schema.sql
 schema_dump.sql
+
+# E2E
+/src/e2e/screenshots/
+/src/e2e/.auth/user.json
+/src/e2e/test-results/
+
+# More Logs & Temp
+*.log
+*-final.log
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+node_modules/
+.next/
+out/
+build/
+dist/

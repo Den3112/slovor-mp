@@ -1,16 +1,25 @@
 import { Suspense } from 'react'
 import { Container } from '@/components/ui/container'
 import { categoriesApi } from '@/lib/api/categories'
-import { CategoryCard } from '@/components/features/listing/categories/category-card'
+import { CategoryCard } from '@/components/category/category-card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 async function CategoriesList() {
-  const categories = await categoriesApi.getAll()
+  const { data: categories, error } = await categoriesApi.getAll()
+
+  if (error || !categories) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <h2 className="text-2xl font-bold">Failed to load categories</h2>
+        <p className="text-muted-foreground mt-2">{error}</p>
+      </div>
+    )
+  }
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-      {categories.map((category) => (
-        <CategoryCard key={category.id} category={category} />
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {categories.map((category, idx) => (
+        <CategoryCard key={category.id} category={category} idx={idx} />
       ))}
     </div>
   )
