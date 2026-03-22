@@ -54,13 +54,7 @@ export function SellerProfileView({
 
   // Calculate member since date
   const memberSince = new Date(seller.created_at).toLocaleDateString(
-    locale === 'sk'
-      ? 'sk-SK'
-      : locale === 'cs'
-        ? 'cs-CZ'
-        : locale === 'ru'
-          ? 'ru-RU'
-          : 'en-US',
+    locale === 'sk' ? 'sk-SK' : locale === 'cs' ? 'cs-CZ' : 'en-US',
     {
       month: 'long',
       year: 'numeric',

@@ -18,32 +18,6 @@ const BANNED_PATTERNS: RegExp[] = [
   /\bd+a+m+n+/gi,
   /\bba+st+a+rd+/gi,
 
-  // Russian/Ukrainian profanity (transliterated)
-  /\bsuk+a+/gi,
-  /\bb+l+y+a+[td]+/gi,
-  /\bhu+[iyj]+/gi,
-  /\bp+i+z+d+/gi,
-  /\beb+a+[nt]+/gi,
-  /\bmud+a+k+/gi,
-  /\bdeb+i+l+/gi,
-  /\bid+i+o+t+/gi,
-  /\bzh+o+p+a+/gi,
-  /\bgov+n+o+/gi,
-  /\bder+[ьi]?m+o+/gi,
-
-  // Cyrillic profanity (common roots)
-  /сук[аи]/gi,
-  /бля[дть]/gi,
-  /[хx]у[йиеёя]/gi,
-  /пизд/gi,
-  /еб[аиоу]/gi,
-  /муда[кч]/gi,
-  /дебил/gi,
-  /идиот/gi,
-  /жоп[аеуы]/gi,
-  /говн[оаеу]/gi,
-  /дерьм[оаеу]/gi,
-
   // Slovak profanity
   /\bjeb+a+[ntť]+/gi,
   /\bkurv+a+/gi,

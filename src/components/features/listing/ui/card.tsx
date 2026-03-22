@@ -31,6 +31,7 @@ export const ListingCard = memo(function ListingCard({
 
   const imageUrl = listing.images?.[0] || ''
   const hasValidImage = imageUrl && !imageError
+
   const localizedTitle = getLocalizedTitle(listing, locale)
   const categoryName = listing.category
     ? getLocalizedCategoryName(listing.category, locale, t)
