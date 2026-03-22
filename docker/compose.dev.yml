@@ -1,12 +1,12 @@
 services:
   app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
       target: deps
     # Mount local files for hot-reloading
     volumes:
-      - .:/app:delegated
+      - ..:/app:delegated
       - /app/node_modules
       - /app/.next
     environment:

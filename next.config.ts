@@ -4,7 +4,7 @@ import type { NextConfig } from 'next'
 import './src/lib/env.ts'
 
 const nextConfig: NextConfig = {
-  // output: 'standalone', - Disabled to fix manifests singleton issue
+  output: 'standalone',
 
   typescript: {
     // !! WARN !!

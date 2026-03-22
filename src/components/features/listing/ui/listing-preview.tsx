@@ -58,6 +58,7 @@ export function ListingPreview({ formData, categories }: ListingPreviewProps) {
     images: formData.images,
     condition: formData.condition,
     views_count: 0,
+    favorites_count: 0,
     status: 'active',
     attributes: {},
     is_active: true,

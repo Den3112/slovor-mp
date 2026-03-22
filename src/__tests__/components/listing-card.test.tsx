@@ -75,6 +75,7 @@ const mockListing = {
   featured: false,
   views: 0,
   views_count: 0,
+  favorites_count: 0,
   images: ['https://example.com/image.jpg'],
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),

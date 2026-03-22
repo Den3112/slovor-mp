@@ -68,6 +68,8 @@ export interface Listing {
 
   views_count: number // Renamed from views
   views?: number // Legacy support
+  favorites_count: number
+  favorites?: number // Legacy support
 
   status: ListingStatus
   is_active: boolean // Legacy support, derived from status === 'active'

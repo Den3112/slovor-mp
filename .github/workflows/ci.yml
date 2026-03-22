@@ -38,6 +38,6 @@ jobs:
         run: npm run verify
 
       - name: Run Unit Tests
-        run: npm run test:run -- --project unit
+        run: npm run test:run
         env:
           NEXT_PUBLIC_APP_URL: "http://localhost:3000"

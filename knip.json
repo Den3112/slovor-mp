@@ -1,8 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
   "entry": [
-    "src/app/[locale]/**/page.tsx",
-    "src/app/[locale]/**/layout.tsx",
+    "src/app/[lang]/**/page.tsx",
+    "src/app/[lang]/**/layout.tsx",
     "src/app/api/**/route.ts"
   ],
   "project": ["src/**/*.{ts,tsx}"],
