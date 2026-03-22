@@ -28,16 +28,6 @@ describe('Content Filter', () => {
       expect(result.flaggedWords).toContain('kokot')
     })
 
-    it('detects profanity (Russian Cyrillic)', () => {
-      const result = filterContent('Это блядь тест')
-      // Note: Cyrillic pattern for блядь matches 'бля' + [дть]
-      expect(result.isClean).toBe(false)
-      expect(result.hasProfanity).toBe(true)
-      expect(result.flaggedWords).toEqual(
-        expect.arrayContaining([expect.stringContaining('бля')])
-      )
-    })
-
     it('detects spam (repeated characters)', () => {
       const result = filterContent('Heeeeeeeeeeelp')
       expect(result.isClean).toBe(false)
