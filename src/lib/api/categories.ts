@@ -64,6 +64,10 @@ export const categoriesApi = {
         throw error
       }
 
+      if (!data) {
+        return { data: null, error: null }
+      }
+
       // Get listing count for this category
       const { count } = await withRetry<any>(() =>
         supabaseClient
