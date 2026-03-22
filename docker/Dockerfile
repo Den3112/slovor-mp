@@ -38,6 +38,9 @@ ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Force remove any potentially leaked Next.js build cache from host
+RUN rm -rf .next node_modules/.cache
+
 # Build the app (output: standard build for stability)
 RUN npm run build
 
@@ -59,6 +62,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/next.config.ts ./next.config.ts
+COPY --from=builder --chown=nextjs:nodejs /app/src/lib/env.ts ./src/lib/env.ts
 
 # Create cache directory for Next.js image optimization
 RUN mkdir -p .next/cache && chown -R nextjs:nodejs .next/cache
