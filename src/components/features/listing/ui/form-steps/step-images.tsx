@@ -230,6 +230,7 @@ export function StepImages({
                       e.stopPropagation()
                       onRemoveImage(idx)
                     }}
+                    data-testid={`remove-image-${idx}`}
                     className="h-12 w-12 rounded-2xl shadow-xl transition-all active:scale-90"
                   >
                     <Trash2 className="h-5 w-5" />
