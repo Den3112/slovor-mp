@@ -9,8 +9,9 @@ export interface DashboardStats {
   messages: number // unread count
   savedSearches: number
   reviews: number
+  totalInquiries: number
   recentConversations?: Conversation[]
-  walletBalance?: number
+  walletBalance: number
   walletCurrency?: string
   rating?: number
 }
@@ -145,6 +146,8 @@ export async function getDashboardStats(
       }
     })
 
+    const totalInquiries = conversationIds.length
+
     return {
       activeListings,
       totalViews,
@@ -153,6 +156,7 @@ export async function getDashboardStats(
       messages: unreadMessages,
       savedSearches,
       reviews: totalReviews,
+      totalInquiries,
       recentConversations,
       walletBalance: walletRes.data?.balance || 0,
       walletCurrency: walletRes.data?.currency || 'EUR',
@@ -168,6 +172,8 @@ export async function getDashboardStats(
       messages: 0,
       savedSearches: 0,
       reviews: 0,
+      totalInquiries: 0,
+      walletBalance: 0,
       recentConversations: [],
     }
   }
