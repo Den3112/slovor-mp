@@ -65,7 +65,7 @@ export const categoriesApi = {
       }
 
       if (!data) {
-        return { data: null, error: null }
+        return { data: null, error: 'Category not found' }
       }
 
       // Get listing count for this category
