@@ -3,6 +3,9 @@ import { getTranslationServer } from '@/lib/i18n/server'
 import { Sparkles, Target, Star } from 'lucide-react'
 import { Metadata } from 'next'
 
+export const dynamic = 'force-static'
+export const revalidate = 3600 // 1 hour
+
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getTranslationServer(['about'])
   return {

@@ -1,6 +1,8 @@
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { getTranslationServer } from '@/lib/i18n/server'
+export const dynamic = "force-static";
+export const revalidate = 3600;
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'

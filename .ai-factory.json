@@ -2,8 +2,8 @@
   "version": "2.1.0",
   "agents": [
     {
-      "skillsDir": ".agent/skills",
       "id": "antigravity",
+      "skillsDir": ".agent/skills",
       "installedSkills": [
         "aif",
         "aif-architecture",

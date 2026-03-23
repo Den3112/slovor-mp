@@ -142,6 +142,17 @@ const nextConfig: NextConfig = {
       // Redirects handled in middleware
 
       // Dashboard profile cleanup - REMOVED redundant redirects to allow /dashboard/profile preview
+
+      // [P3-01] Redirect /test in production
+      ...(process.env.NODE_ENV === 'production'
+        ? [
+            {
+              source: '/:lang(en|sk|cs)/test',
+              destination: '/:lang',
+              permanent: false,
+            },
+          ]
+        : []),
     ]
   },
 
