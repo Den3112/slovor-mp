@@ -69,9 +69,6 @@ export default async function proxy(request: NextRequest) {
 
       if (!isPublic) {
         const lang = getLocale(request)
-        console.debug(
-          `[Middleware] Path is missing lang, redirecting to: /${lang}${pathname === '/' ? '' : pathname}`
-        )
 
         // Redirect to the URL with lang prefix
         return NextResponse.redirect(
@@ -104,9 +101,6 @@ export default async function proxy(request: NextRequest) {
     )
 
     if (lang) {
-      console.debug(
-        `[Middleware] Detected lang from path: ${lang} for ${pathname}`
-      )
       response.headers.set('x-slovor-lang', lang)
     }
 
