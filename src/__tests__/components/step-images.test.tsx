@@ -12,6 +12,7 @@ vi.mock('@/lib/i18n', () => ({
         selectImages: 'Select images',
         uploading: 'Uploading...',
         addMockImage: 'Add Mock Image',
+        clearAll: 'Clear All',
       }
       return translations[key] || key
     },
@@ -83,5 +84,22 @@ describe('StepImages', () => {
     fireEvent.click(removeButton)
 
     expect(onRemoveImage).toHaveBeenCalledWith(0)
+  })
+
+  it('calls onClearImages when clear all button is clicked', () => {
+    const onClearImages = vi.fn()
+    const images = ['https://example.com/1.jpg', 'https://example.com/2.jpg']
+    render(
+      <StepImages
+        {...defaultProps}
+        formData={{ images } as any}
+        onClearImages={onClearImages}
+      />
+    )
+
+    const clearButton = screen.getByText(/Clear All/i)
+    fireEvent.click(clearButton)
+
+    expect(onClearImages).toHaveBeenCalled()
   })
 })
