@@ -62,7 +62,7 @@ describe('useChat', () => {
     vi.mocked(ReactQuery.useQueryClient).mockReturnValue(mockQueryClient)
 
     // Default Query Mock with argument capture
-    vi.mocked(ReactQuery.useQuery).mockImplementation((args: any) => ({
+    vi.mocked(ReactQuery.useQuery).mockImplementation(() => ({
       data: [{ id: 'm1', content: 'hello' }],
       isLoading: false,
     } as any))
@@ -99,7 +99,9 @@ describe('useChat', () => {
     renderHook(() => useChat(mockConversationId, mockUserId))
     
     const useQueryMock = vi.mocked(ReactQuery.useQuery)
-    const callArgs = useQueryMock.mock.calls[0][0] as any
+    const firstCall = useQueryMock.mock.calls[0]
+    if (!firstCall) throw new Error('useQuery not called')
+    const callArgs = firstCall[0] as any
     expect(callArgs.queryFn).toBeDefined()
 
     // Test error case
