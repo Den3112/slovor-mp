@@ -18,9 +18,18 @@ export default defineConfig({
     setupFiles: ['./src/vitest.setup.tsx'],
     include: ['src/**/*.test.{ts,tsx}'],
     coverage: {
-      provider: 'istanbul',
+      provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', '.next/'],
+      exclude: [
+        'node_modules/',
+        '.next/',
+        '**/*.d.ts',
+        '**/*.json',
+        'src/packages/i18n/locales/**',
+        'src/__tests__/**',
+        'src/vitest.setup.tsx',
+        'src/vitest.shims.d.ts',
+      ],
     },
   },
   resolve: {

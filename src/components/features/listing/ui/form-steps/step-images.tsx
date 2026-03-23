@@ -16,6 +16,7 @@ interface StepImagesProps {
   onFilesSelected: (files: FileList | null) => void
   onRemoveImage: (index: number) => void
   onReorderImages: (newImages: string[]) => void
+  onClearImages: () => void
 }
 
 export function StepImages({
@@ -25,6 +26,7 @@ export function StepImages({
   onFilesSelected,
   onRemoveImage,
   onReorderImages,
+  onClearImages,
 }: StepImagesProps) {
   const { t } = useTranslation(['createListing', 'common'])
   const [isDragActive, setIsDragActive] = useState(false)
@@ -62,6 +64,21 @@ export function StepImages({
             {formData.images.length} / 10
           </span>
         </div>
+
+        {formData.images.length > 0 && (
+          <div className="flex justify-end">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={onClearImages}
+              className="text-muted-foreground hover:text-destructive flex items-center gap-2 text-[10px] font-black tracking-widest uppercase transition-colors"
+            >
+              <Trash2 className="h-3 w-3" />
+              {t('clearAll', { defaultValue: 'Clear All' })}
+            </Button>
+          </div>
+        )}
 
         <motion.div
           onDragOver={handleDragOver}

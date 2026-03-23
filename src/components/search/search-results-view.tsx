@@ -1,11 +1,12 @@
 'use client'
 
-import { Search } from 'lucide-react'
 import { ListingCard } from '@/components/features/listing/ui/card'
 import { Pagination } from '@/components/category/pagination'
 import { useTranslation } from '@/lib/i18n'
 import type { Listing } from '@/lib/api'
 import { SortSelect } from '@/components/search/sort-select'
+import { ZeroResultsDiscovery } from '@/components/search/zero-results-discovery'
+import { useParams, useSearchParams } from 'next/navigation'
 
 interface SearchResultsViewProps {
   listings: Listing[]
@@ -19,22 +20,13 @@ export function SearchResultsView({
   itemsPerPage,
 }: SearchResultsViewProps) {
   const { t } = useTranslation()
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const query = searchParams.get('q') || undefined
+  const locale = (params.lang as string) || 'en'
 
   if (listings.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="bg-muted text-primary mb-4 rounded-full p-6">
-          <Search className="h-10 w-10 opacity-50" />
-        </div>
-        <h2 className="mb-2 text-xl font-bold">
-          {t('common:noResults') || 'No results found'}
-        </h2>
-        <p className="text-muted-foreground">
-          {t('common:tryDifferentFilters') ||
-            'Try adjusting your filters or search terms.'}
-        </p>
-      </div>
-    )
+    return <ZeroResultsDiscovery query={query} locale={locale} />
   }
 
   return (

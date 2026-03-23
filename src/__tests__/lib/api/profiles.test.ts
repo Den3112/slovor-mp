@@ -93,6 +93,22 @@ describe('profilesApi', () => {
       expect(response.data?.id).toBe('1')
       expect(response.data?.display_name).toBe('test')
     })
+
+    it('handles errors in getOrCreate', async () => {
+      const maybeSingleMock = vi
+        .fn()
+        .mockResolvedValue({ data: null, error: { message: 'GetOrCreate Error' } })
+      const eqMock = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
+
+      vi.mocked(supabase.from).mockImplementation((table: string) => {
+        if (table === 'profiles') return { select: selectMock } as any
+        return {} as any
+      })
+
+      const response = await profilesApi.getOrCreate('1')
+      expect(response.error).toBe('GetOrCreate Error')
+    })
   })
 
   describe('update', () => {
@@ -236,6 +252,72 @@ describe('profilesApi', () => {
 
       const response = await profilesApi.getRecentActivity('user-1')
       expect(response.error).toBe('Fetch Fail')
+    })
+  })
+
+  describe('getAdminAll', () => {
+    it('fetches all profiles for admin', async () => {
+      const mockProfiles = [{ id: '1', display_name: 'User 1' }]
+      const orderMock = vi.fn().mockResolvedValue({ data: mockProfiles, error: null })
+      const selectMock = vi.fn().mockReturnValue({ order: orderMock })
+
+      vi.mocked(supabase.from).mockImplementation((table) => {
+        if (table === 'profiles') return { select: selectMock } as any
+        return {} as any
+      })
+
+      const response = await profilesApi.getAdminAll()
+      expect(response.error).toBeNull()
+      expect(response.data).toEqual(mockProfiles)
+    })
+
+    it('handles errors in getAdminAll', async () => {
+      const orderMock = vi.fn().mockResolvedValue({ data: null, error: { message: 'Admin Error' } })
+      const selectMock = vi.fn().mockReturnValue({ order: orderMock })
+
+      vi.mocked(supabase.from).mockImplementation((table) => {
+        if (table === 'profiles') return { select: selectMock } as any
+        return {} as any
+      })
+
+      const response = await profilesApi.getAdminAll()
+      expect(response.error).toBe('Admin Error')
+    })
+  })
+
+  describe('update failure paths', () => {
+    it('handles update failure when no data returned', async () => {
+      const maybeSingleMock = vi.fn().mockResolvedValue({ data: null, error: null })
+      const selectMock = vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock })
+      const upsertMock = vi.fn().mockReturnValue({ select: selectMock })
+
+      vi.mocked(supabase.from).mockImplementation((table) => {
+        if (table === 'profiles') return { upsert: upsertMock } as any
+        return {} as any
+      })
+
+      const response = await profilesApi.update('1', {})
+      expect(response.error).toBe('Profile update failed')
+    })
+  })
+
+  describe('getStats error paths', () => {
+    it('handles favorites query error', async () => {
+      const mockListings = [{ views: 10, is_active: true }]
+      const listingsEqMock = vi.fn().mockResolvedValue({ data: mockListings, error: null })
+      const listingsSelectMock = vi.fn().mockReturnValue({ eq: listingsEqMock })
+
+      const favoritesEqMock = vi.fn().mockResolvedValue({ count: 0, error: { message: 'Favorites Error' } })
+      const favoritesSelectMock = vi.fn().mockReturnValue({ eq: favoritesEqMock })
+
+      vi.mocked(supabase.from).mockImplementation((table) => {
+        if (table === 'listings') return { select: listingsSelectMock } as any
+        if (table === 'favorites') return { select: favoritesSelectMock } as any
+        return {} as any
+      })
+
+      const response = await profilesApi.getStats('user-1')
+      expect(response.error).toBe('Favorites Error')
     })
   })
 })

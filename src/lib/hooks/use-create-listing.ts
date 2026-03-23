@@ -249,6 +249,12 @@ export function useCreateListing() {
     updateField('images', newImages)
   }
 
+  const handleClearImages = () => {
+    if (confirm(t('confirmClearImages', { defaultValue: 'Are you sure you want to remove all images?' }))) {
+      updateField('images', [])
+    }
+  }
+
   const handleFilesSelected = async (files: FileList | null) => {
     if (!files || files.length === 0) return
 
@@ -262,8 +268,18 @@ export function useCreateListing() {
     setUploadProgress({ current: 0, total: files.length })
 
     const fileArray = Array.from(files)
+
+    // Optimization Step
+    let optimizedFiles = fileArray
+    try {
+      const { optimizeImages } = await import('@/lib/utils/image-optimization')
+      optimizedFiles = await optimizeImages(fileArray)
+    } catch (optErr) {
+      console.warn('Image optimization failed, proceeding with original files', optErr)
+    }
+
     const result = await storageApi.uploadImages(
-      fileArray,
+      optimizedFiles,
       user.id,
       (current, total, fileName) =>
         setUploadProgress({ current, total, fileName })
@@ -305,6 +321,7 @@ export function useCreateListing() {
       handleFilesSelected,
       handleRemoveImage,
       handleReorderImages,
+      handleClearImages,
       setStep,
     },
     flags: {

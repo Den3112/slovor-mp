@@ -115,16 +115,35 @@ describe('useChat', () => {
     expect(data).toBe(mockData)
   })
 
-  it('should handle real-time postgres_changes', () => {
+  it('should handle real-time postgres_changes and update query data', () => {
     renderHook(() => useChat(mockConversationId, mockUserId))
     
     const channel = mockSupabase.channel()
     const postgresCall = channel.on.mock.calls.find((c: any) => c[0] === 'postgres_changes')
     const postgresCallback = postgresCall?.[2]
     
+    // Test the setQueryData callback behavior
     act(() => {
       postgresCallback({ new: { id: 'm2', content: 'new', sender_id: 'user2' } })
     })
+    
+    const setQueryDataCall = mockQueryClient.setQueryData.mock.calls[0]
+    const updateFn = setQueryDataCall[1]
+    
+    // Case 1: Message already exists
+    const existing = [{ id: 'm2' }]
+    expect(updateFn(existing)).toBe(existing)
+    
+    // Case 2: Message is new
+    const old = [{ id: 'm1' }]
+    const result = updateFn(old)
+    expect(result).toHaveLength(2)
+    expect(result[1].id).toBe('m2')
+
+    // Case 3: old is null
+    const resultNull = updateFn(null)
+    expect(resultNull).toHaveLength(1)
+    expect(resultNull[0].id).toBe('m2')
     
     expect(mockQueryClient.setQueryData).toHaveBeenCalled()
   })

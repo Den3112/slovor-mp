@@ -36,6 +36,8 @@ vi.mock('@/lib/supabase/server', () => {
 describe('Server Listings API', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Reset default implementation to avoid leakage between tests
+    mockFrom().then.mockImplementation((cb: any) => cb({ data: [], error: null }))
   })
 
   describe('serverListingsApi.getAll', () => {
@@ -73,10 +75,55 @@ describe('Server Listings API', () => {
     })
   })
 
+  describe('serverListingsApi.getAll error', () => {
+    it('should handle errors', async () => {
+      const { createClient } = await import('@/lib/supabase/server')
+      const mockClient = await createClient()
+      const mockFrom = mockClient.from as any
+      mockFrom().then.mockImplementation((cb: any) =>
+        cb({ data: null, error: { message: 'GetAll Error' } })
+      )
+
+      const result = await serverListingsApi.getAll()
+      expect(result.error).toBe('GetAll Error')
+    })
+  })
+
   describe('serverListingsApi.getFeatured', () => {
     it('should fetch featured listings', async () => {
       const result = await serverListingsApi.getFeatured()
       expect(result.error).toBeNull()
+    })
+
+    it('should handle errors in getFeatured', async () => {
+      const { createClient } = await import('@/lib/supabase/server')
+      const mockClient = await createClient()
+      const mockFrom = mockClient.from as any
+      mockFrom().then.mockImplementation((cb: any) =>
+        cb({ data: null, error: { message: 'Featured Error' } })
+      )
+
+      const result = await serverListingsApi.getFeatured()
+      expect(result.error).toBe('Featured Error')
+    })
+  })
+
+  describe('serverListingsApi.getRecent', () => {
+    it('should fetch recent listings', async () => {
+      const result = await serverListingsApi.getRecent()
+      expect(result.error).toBeNull()
+    })
+
+    it('should handle errors in getRecent', async () => {
+      const { createClient } = await import('@/lib/supabase/server')
+      const mockClient = await createClient()
+      const mockFrom = mockClient.from as any
+      mockFrom().then.mockImplementation((cb: any) =>
+        cb({ data: null, error: { message: 'Recent Error' } })
+      )
+
+      const result = await serverListingsApi.getRecent()
+      expect(result.error).toBe('Recent Error')
     })
   })
 })
