@@ -66,9 +66,9 @@ export interface Listing {
   images: string[] // Array of image URLs
   condition: 'new' | 'used' // Product condition
 
-  views_count: number // Renamed from views
+  views_count?: number // Renamed from views
   views?: number // Legacy support
-  favorites_count: number
+  favorites_count?: number
   favorites?: number // Legacy support
 
   status: ListingStatus
