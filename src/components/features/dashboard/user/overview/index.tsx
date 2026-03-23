@@ -10,6 +10,7 @@ import { DashboardHero } from './dashboard-hero'
 import { QuickActionsAndActivity } from './quick-actions'
 
 import { MarketInsightsTile } from './market-insights-tile'
+import { QuickStatsGrid } from './quick-stats'
 import { SuccessScore } from '../vantage/success-score'
 import { SmartNudges } from '../vantage/smart-nudges'
 import { BentoGrid, BentoTile } from '@/components/ui/bento'
@@ -74,9 +75,11 @@ export function UserOverviewView({
         variants={container}
         initial="hidden"
         animate="show"
-        className="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-7xl space-y-10 duration-1000"
+        className="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-7xl space-y-8 duration-1000"
         data-testid="profile-overview-view"
       >
+        <QuickStatsGrid stats={stats} />
+
         <BentoGrid>
           {/* Main Hero Section - Command Center */}
           <BentoTile

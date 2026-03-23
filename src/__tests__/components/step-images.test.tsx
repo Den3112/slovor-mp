@@ -26,6 +26,7 @@ describe('StepImages', () => {
     onFilesSelected: vi.fn(),
     onRemoveImage: vi.fn(),
     onReorderImages: vi.fn(),
+    onClearImages: vi.fn(),
   }
 
   it('renders upload area', () => {
