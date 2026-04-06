@@ -16,14 +16,14 @@ describe('useImageUpload', () => {
     // Mock FileReader
     // @ts-ignore
     global.FileReader = class {
+      onload: any = null
       readAsDataURL() {
         setTimeout(() => {
-          // @ts-ignore
           if (this.onload)
             this.onload({ target: { result: 'data:image/png;base64,xxxx' } })
         }, 0)
       }
-    }
+    } as any
 
     // Mock Image
     // @ts-ignore
