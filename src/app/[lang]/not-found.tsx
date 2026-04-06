@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { useTranslation } from '@/lib/i18n'
+import { Button } from '@/shared/ui/button'
+import { useTranslation } from '@/shared/lib/i18n'
 
 export default function NotFound() {
   const { t, locale } = useTranslation('common')

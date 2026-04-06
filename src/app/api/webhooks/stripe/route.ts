@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe'
-import { createClient } from '@/lib/supabase/server'
+import { stripe } from '@/shared/lib/stripe'
+import { createClient } from '@/shared/lib/supabase/server'
 import Stripe from 'stripe'
 
 export async function POST(req: Request) {

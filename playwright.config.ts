@@ -18,9 +18,9 @@ export default defineConfig({
     timeout: 30000, // 30s for assertions
   },
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'http://127.0.0.1:3001',
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    screenshot: 'on',
     video: 'retain-on-failure',
     actionTimeout: 300000,
     navigationTimeout: 300000,

@@ -1,12 +1,12 @@
-import { createClient } from '@/lib/supabase/server'
-import { savedSearchesApi } from '@/lib/api'
+import { createClient } from '@/shared/lib/supabase/server'
+import { savedSearchesApi } from '@/shared/lib/api'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 const SavedSearchesView = dynamic(
   () =>
-    import('@/components/features/dashboard/user/saved-searches').then(
+    import('@/features/dashboard/user/saved-searches').then(
       (mod) => mod.SavedSearchesView
     ),
   {

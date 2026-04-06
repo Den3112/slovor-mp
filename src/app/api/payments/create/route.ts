@@ -5,8 +5,8 @@ import {
   createSuccessResponse,
   getAuthenticatedClient,
   corsHeaders,
-} from '../../utils'
-import { stripe } from '@/lib/stripe'
+} from '@/app/api/utils'
+import { stripe } from '@/shared/lib/stripe'
 
 export async function POST(req: NextRequest) {
   const supabase = getAuthenticatedClient(req)
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     const origin =
       req.headers.get('origin') ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      'http://localhost:3000'
+      'https://slovor.sk'
 
     // Feature Name mapping
     const featureName =

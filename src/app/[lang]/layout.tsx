@@ -1,17 +1,16 @@
 import type { Metadata, Viewport } from 'next'
-import { StructuredData } from '@/components/layout/structured-data'
+import { StructuredData } from '@/widgets/structured-data'
 import { Providers } from '../providers'
 import dynamic from 'next/dynamic'
+import { config } from '@/shared/lib/config'
 
 const GlobalCommandPalette = dynamic(() =>
-  import('@/components/features/vantage/command-palette').then(
-    (mod) => mod.GlobalCommandPalette
-  )
+  import('@/features/vantage').then((mod) => mod.GlobalCommandPalette)
 )
 // import { Analytics } from '@vercel/analytics/react'
 // import { SpeedInsights } from '@vercel/speed-insights/next'
 import '../globals.css'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 
 /*
 import { Inter, JetBrains_Mono } from 'next/font/google'
@@ -72,7 +71,7 @@ export async function generateMetadata({
       template: `%s | Slovor`,
     },
     description: defaultDescription,
-    metadataBase: new URL('https://slovor.sk'),
+    metadataBase: new URL(config.site.url),
     manifest: '/manifest.json',
     icons: {
       icon: '/favicon.ico',

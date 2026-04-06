@@ -1,7 +1,7 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/shared/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { listingsApi } from '@/lib/api/listings'
-import { DashboardProfileHub } from '@/components/features/dashboard/user/dashboard-profile-hub'
+import { listingsApi } from '@/entities/listing/api'
+import { DashboardProfileHub } from '@/features/dashboard/user/dashboard-profile-hub'
 
 interface DashboardProfilePageProps {
   params: Promise<{ lang: string }>

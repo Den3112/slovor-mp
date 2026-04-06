@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test.describe('Authentication Flow & UI', () => {
   test.beforeEach(async ({ page }) => {
     // Start at English login page
-    await page.goto('/en/auth/login')
+    await page.goto('/en/login')
   })
 
   test('Login page renders correctly with new UI fixes', async ({ page }) => {
@@ -44,7 +44,7 @@ test.describe('Authentication Flow & UI', () => {
 
     // Protected route redirect
     await page.goto('/dashboard')
-    await expect(page.url()).toContain('/auth/login')
+    await expect(page.url()).toContain('/login')
   })
 
   test('Invalid login shows error', async ({ page }) => {

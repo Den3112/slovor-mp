@@ -92,7 +92,7 @@ test.describe('Public Pages - Load & Display', () => {
 
 test.describe('Authentication Flow', () => {
   test('Login page displays form', async ({ page }) => {
-    await page.goto('/en/auth/login')
+    await page.goto('/en/login')
     await page.waitForLoadState('networkidle')
 
     // Check form exists - login page has a form with email/password
@@ -103,7 +103,7 @@ test.describe('Authentication Flow', () => {
   })
 
   test('Register redirects to login with mode', async ({ page }) => {
-    await page.goto('/en/auth/register')
+    await page.goto('/en/register')
     await page.waitForURL(/\/auth\/login/)
     await expect(page).toHaveURL(/mode=register/)
   })
@@ -121,7 +121,7 @@ test.describe('Authentication Flow', () => {
 
     // Should either show form (if somehow auth persists) or redirect
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       await expect(page).toHaveURL(/\/auth\/login/)
     } else {
       // If we're still on /post, form should be visible
@@ -357,7 +357,7 @@ test.describe('Create Listing Form', () => {
     const url = page.url()
 
     // If redirected to login, test passes (auth required)
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       await expect(page).toHaveURL(/\/auth\/login/)
       return
     }
@@ -377,7 +377,7 @@ test.describe('Create Listing Form', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       // Auth required - test passes
       return
     }
@@ -395,7 +395,7 @@ test.describe('Create Listing Form', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -423,7 +423,7 @@ test.describe('Create Listing Form', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -441,7 +441,7 @@ test.describe('Create Listing Form', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -459,7 +459,7 @@ test.describe('Create Listing Form', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -477,7 +477,7 @@ test.describe('Create Listing Form', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -514,7 +514,7 @@ test.describe('Listing Preview Component', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -543,7 +543,7 @@ test.describe('Listing Preview Component', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 
@@ -571,7 +571,7 @@ test.describe('Listing Preview Component', () => {
     await page.waitForLoadState('networkidle')
 
     const url = page.url()
-    if (url.includes('/auth/login')) {
+    if (url.includes('/login')) {
       return
     }
 

@@ -1,7 +1,7 @@
 import { test } from '@playwright/test'
 
 test('Debug Cookies', async ({ page }) => {
-  await page.goto('/en/auth/login')
+  await page.goto('/en/login')
   await page.getByTestId('auth-email-input').fill('test.seller@slovor.sk')
   await page.getByTestId('auth-password-input').fill('password123') // Assuming this is set up
   await page.getByTestId('auth-submit-btn').click()

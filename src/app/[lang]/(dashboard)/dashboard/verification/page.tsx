@@ -1,11 +1,11 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/shared/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 
 const VerificationView = dynamic(
   () =>
-    import('@/components/features/dashboard/user/verification').then(
+    import('@/features/dashboard/user/verification').then(
       (mod) => mod.VerificationView
     ),
   {

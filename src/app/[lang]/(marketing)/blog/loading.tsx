@@ -1,4 +1,4 @@
-import { Container } from '@/components/ui/container'
+import { Container } from '@/shared/ui/container'
 
 export default function BlogLoading() {
   return (

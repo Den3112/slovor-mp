@@ -41,8 +41,8 @@ test.describe('Login Only Debug', () => {
   })
 
   test('Simple Login Attempt', async ({ page }) => {
-    console.log(`Navigating to ${BASE_URL}/en/auth/login...`)
-    await page.goto(`${BASE_URL}/en/auth/login`, { timeout: 90000 })
+    console.log(`Navigating to ${BASE_URL}/en/login...`)
+    await page.goto(`${BASE_URL}/en/login`, { timeout: 90000 })
     await page.waitForLoadState('domcontentloaded')
     console.log(`Current URL: ${page.url()}`)
 

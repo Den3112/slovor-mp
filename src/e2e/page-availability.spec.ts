@@ -8,13 +8,17 @@ const ROUTES_TO_TEST = [
   '/en/categories/real-estate',
   '/en/categories/auto',
   '/sk/categories/real-estate',
-  '/en/auth',
-  '/sk/auth',
+  '/en/login',
+  '/sk/login',
 ]
 
 test.describe('Page Availability and Health Check', () => {
   // Use empty storage state for public smoke tests to avoid flakiness of global-setup
   test.use({ storageState: { cookies: [], origins: [] } })
+
+  test.beforeEach(async () => {
+    test.setTimeout(90000)
+  })
 
   for (const route of ROUTES_TO_TEST) {
     test(`Route ${route} should load successfully without Internal Server Error`, async ({

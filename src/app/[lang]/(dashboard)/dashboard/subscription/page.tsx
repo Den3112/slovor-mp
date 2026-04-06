@@ -1,12 +1,12 @@
-import { createClient } from '@/lib/supabase/server'
-import { subscriptionsApi } from '@/lib/api'
+import { createClient } from '@/shared/lib/supabase/server'
+import { subscriptionsApi } from '@/shared/lib/api'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 const SubscriptionView = dynamic(
   () =>
-    import('@/components/features/dashboard/user/subscription').then(
+    import('@/features/dashboard/user/subscription').then(
       (mod) => mod.SubscriptionView
     ),
   {

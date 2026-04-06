@@ -20,7 +20,7 @@ export class AuthPage {
   }
 
   async goto(locale: string = 'en') {
-    await this.page.goto(`/${locale}/auth/login`)
+    await this.page.goto(`/${locale}/login`)
     await this.page.waitForLoadState('networkidle')
   }
 

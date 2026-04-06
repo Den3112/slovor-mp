@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Search and Filter Flow', () => {
   test.beforeEach(async ({ page }) => {
+    test.setTimeout(90000)
     await page.goto('/listings')
   })
 

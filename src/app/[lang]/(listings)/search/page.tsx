@@ -1,12 +1,14 @@
 import { Suspense } from 'react'
-import { SearchLayout } from '@/components/search/search-layout'
-import { SearchFilters } from '@/components/search/search-filters'
-import { listingsApi } from '@/lib/api'
-import { Container } from '@/components/ui/container'
-import { Skeleton } from '@/components/ui/skeleton'
-import { SearchResultsView } from '@/components/search/search-results-view'
-import { SearchHeader } from '@/components/search/search-header'
-import { getTranslationServer } from '@/lib/i18n/server'
+import {
+  SearchLayout,
+  SearchFilters,
+  SearchResultsView,
+  SearchHeader,
+} from '@/features/search'
+import { listingsApi } from '@/shared/lib/api'
+import { Container } from '@/shared/ui/container'
+import { Skeleton } from '@/shared/ui/skeleton'
+import { getTranslationServer } from '@/shared/lib/i18n/server'
 import { Metadata } from 'next'
 
 export async function generateMetadata({

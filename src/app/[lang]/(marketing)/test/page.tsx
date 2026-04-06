@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
+import { Badge } from '@/shared/ui/badge'
 import {
   Card,
   CardContent,
@@ -10,21 +10,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
+} from '@/shared/ui/card'
+import { Label } from '@/shared/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import { Textarea } from '@/components/ui/textarea'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Skeleton } from '@/components/ui/skeleton'
+} from '@/shared/ui/select'
+import { Switch } from '@/shared/ui/switch'
+import { Textarea } from '@/shared/ui/textarea'
+import { Checkbox } from '@/shared/ui/checkbox'
+import { Skeleton } from '@/shared/ui/skeleton'
 
-import { SearchBar } from '@/components/ui/search-bar'
+import { SearchBar } from '@/shared/ui/search-bar'
 import { useState } from 'react'
 
 export default function DesignSystemKitchenSink() {

@@ -93,6 +93,7 @@ schema_dump.sql
 /src/e2e/screenshots/
 /src/e2e/.auth/user.json
 /src/e2e/test-results/
+/src/e2e/visual.spec.ts-snapshots/
 
 # More Logs & Temp
 *.log
@@ -106,3 +107,12 @@ out/
 build/
 dist/
 .env.*.local
+/reports/
+knip-results.json
+coverage.json
+all_source_files.txt
+all_test_files.txt
+playwright_output.txt
+test_results.json
+untested_files.txt
+

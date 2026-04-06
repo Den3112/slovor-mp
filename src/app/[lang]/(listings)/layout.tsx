@@ -1,4 +1,4 @@
-import { MainLayout } from '@/components/layout/main-layout'
+import { MainLayout } from '@/widgets/main-layout'
 
 export default async function ListingsLayout({
   children,

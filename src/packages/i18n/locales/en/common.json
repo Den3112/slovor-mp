@@ -141,5 +141,6 @@
   "offlineMode": "Offline Mode",
   "offlineModeDesc": "Some features may be limited without connection.",
   "offline": "Offline",
-  "online": "Online"
+  "online": "Online",
+  "errorLoadingMarketplace": "Connection error"
 }

@@ -1,11 +1,11 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/shared/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
 
 const MarketInsightsView = dynamic(
   () =>
-    import('@/components/features/dashboard/user/market-insights').then(
+    import('@/features/dashboard/user/market-insights').then(
       (mod) => mod.MarketInsightsView
     ),
   {

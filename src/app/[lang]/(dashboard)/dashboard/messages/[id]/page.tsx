@@ -1,6 +1,6 @@
 'use client'
 
-import { ChatView } from '@/components/features/dashboard/user/messages/chat-view'
+import { ChatView } from '@/features/dashboard/user/messages/chat-view'
 import { useParams } from 'next/navigation'
 
 export default function MessagesPage() {

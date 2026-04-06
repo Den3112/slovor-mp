@@ -9,7 +9,7 @@ import { runUniversalHealthCheck } from './utils/health-check'
 
 const publicRoutes = [
   '/',
-  '/auth/login',
+  '/login',
   '/categories',
   '/listings',
   '/about',
@@ -62,7 +62,7 @@ test.describe('Global Website Audit', () => {
 test.describe('Admin & Dashboard Audit', () => {
   test.beforeEach(async ({ page }) => {
     // Minimal bypass if possible, or just attempt navigation
-    await page.goto('/en/auth/login')
+    await page.goto('/en/login')
   })
 
   test('Admin Dashboard Visibility', async ({ page }) => {

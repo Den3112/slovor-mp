@@ -5,7 +5,7 @@ import {
   createSuccessResponse,
   getAuthenticatedClient,
   corsHeaders,
-} from '../../../utils'
+} from '@/app/api/utils'
 
 export async function PUT(
   req: NextRequest,

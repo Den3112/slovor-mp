@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { AlertCircle, RotateCcw } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useTranslation } from '@/lib/i18n'
+import { Button } from '@/shared/ui/button'
+import { useTranslation } from '@/shared/lib/i18n'
 
 export default function Error({
   error,

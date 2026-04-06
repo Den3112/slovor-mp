@@ -1,14 +1,14 @@
 import { notFound } from 'next/navigation'
-import { blogApi } from '@/lib/api'
-import { Container } from '@/components/ui/container'
+import { blogApi } from '@/shared/lib/api'
+import { Container } from '@/shared/ui/container'
 import { Calendar, User, ChevronLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { sanitizeHtml } from '@/lib/utils/sanitize'
-import { generateBlogMetadata } from '@/lib/utils/blog-metadata'
-import { getTranslationServer } from '@/lib/i18n/server'
-import { BlogNewsletter } from '@/components/blog/blog-newsletter'
+import { Button } from '@/shared/ui/button'
+import { sanitizeHtml } from '@/shared/lib/utils/sanitize'
+import { generateBlogMetadata } from '@/shared/lib/utils/blog-metadata'
+import { getTranslationServer } from '@/shared/lib/i18n/server'
+import { BlogNewsletter } from '@/entities/blog'
 
 interface BlogPostProps {
   params: Promise<{

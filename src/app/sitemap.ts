@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next'
-// import { createStaticClient } from '@/lib/supabase/server'
-// import { categoriesApi } from '@/lib/api'
+// import { createStaticClient } from '@/shared/lib/supabase/server'
+// import { categoriesApi } from '@/shared/lib/api'
+import { config } from '@/shared/lib/config'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const baseUrl = config.site.url
   // const supabase = createStaticClient()
 
   const languages = ['en', 'sk', 'cs']
@@ -17,8 +18,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       `/${lang}/faq`,
       `/${lang}/categories`,
       `/${lang}/search`,
-      `/${lang}/auth/login`,
-      `/${lang}/auth/register`,
+      `/${lang}/login`,
+      `/${lang}/register`,
     ])
     .map((route) => ({
       url: `${baseUrl}${route}`,

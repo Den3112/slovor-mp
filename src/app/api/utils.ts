@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
-import { env } from '@/lib/env'
+import { env } from '@/shared/lib/env'
 import { type NextRequest, NextResponse } from 'next/server'
 
-const allowedOrigin = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+const allowedOrigin = env.APP_URL
 
 export const corsHeaders = {
   'Access-Control-Allow-Origin': allowedOrigin,

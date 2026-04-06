@@ -1,14 +1,15 @@
 'use client'
 
-import { I18nProvider } from '@/lib/i18n'
-import { AuthProvider } from '@/components/providers/auth-provider'
-import { ThemeProvider } from '@/components/providers/theme-provider'
-import { CurrencyProvider } from '@/components/providers/currency-provider'
-import { VantageProvider } from '@/components/providers/vantage-provider'
-import { Toaster } from '@/components/ui/sonner'
+import { I18nProvider } from '@/shared/lib/i18n'
+import { AuthProvider } from '@/app/providers/auth-provider'
+import { ThemeProvider } from '@/app/providers/theme-provider'
+import { CurrencyProvider } from '@/app/providers/currency-provider'
+import { VantageProvider } from '@/app/providers/vantage-provider'
+import { Toaster } from '@/shared/ui/sonner'
 import { useEffect } from 'react'
 
-import { QueryProvider } from '@/components/providers/query-provider'
+import { QueryProvider } from '@/app/providers/query-provider'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 export function Providers({
   children,
@@ -38,7 +39,7 @@ export function Providers({
               <I18nProvider lang={lang}>
                 {/* Welcome modal disabled mostly for dev annoyance reduction, uncomment in prod */}
                 {/* <LocaleWelcomeModal /> */}
-                {children}
+                <NuqsAdapter>{children}</NuqsAdapter>
                 <Toaster />
               </I18nProvider>
             </VantageProvider>

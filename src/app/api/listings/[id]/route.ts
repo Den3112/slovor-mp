@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { env } from '@/lib/env'
+import { env } from '@/shared/lib/env'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 import {
@@ -7,7 +7,7 @@ import {
   createSuccessResponse,
   getAuthenticatedClient,
   corsHeaders,
-} from '../../utils'
+} from '@/app/api/utils'
 import { z } from 'zod'
 
 export async function GET(

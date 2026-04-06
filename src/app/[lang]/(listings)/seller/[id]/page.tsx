@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
-import { ErrorState } from '@/components/ui/error-state'
-import { SellerProfileView } from '@/components/seller-profile/seller-profile-view'
+import { createClient } from '@/shared/lib/supabase/server'
+import { ErrorState } from '@/shared/ui/error-state'
+import { SellerProfileView } from '@/features/seller-profile'
 
 interface Props {
   params: Promise<{

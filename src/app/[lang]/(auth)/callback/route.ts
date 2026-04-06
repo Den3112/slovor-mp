@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
-import { getGeoByIp } from '@/lib/geo'
+import { getGeoByIp } from '@/entities/listing'
 
 export async function GET(
   request: NextRequest,

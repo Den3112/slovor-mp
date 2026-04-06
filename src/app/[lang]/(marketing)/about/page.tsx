@@ -1,5 +1,5 @@
-import { Container } from '@/components/ui/container'
-import { getTranslationServer } from '@/lib/i18n/server'
+import { Container } from '@/shared/ui/container'
+import { getTranslationServer } from '@/shared/lib/i18n/server'
 import { Sparkles, Target, Star } from 'lucide-react'
 import { Metadata } from 'next'
 

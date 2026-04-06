@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Plus, MessageSquare, Clock, ChevronRight, Loader2 } from 'lucide-react'
-import { useTranslation } from '@/lib/i18n'
-import { supportApi, type SupportTicket } from '@/lib/api'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { StatusBadge } from '@/components/features/dashboard/shared/status-badge'
+import { useTranslation } from '@/shared/lib/i18n'
+import { supportApi, type SupportTicket } from '@/shared/lib/api'
+import { Button } from '@/shared/ui/button'
+import { cn } from '@/shared/lib/utils'
+import { StatusBadge } from '@/features/dashboard/shared/status-badge'
 
 export default function SupportDashboardPage({
   params,

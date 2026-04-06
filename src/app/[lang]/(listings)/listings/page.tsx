@@ -1,8 +1,8 @@
 // All Listings Page - Server Component
 // Shows all listings with search and filters
 
-import { listingsApi, categoriesApi } from '@/lib/api'
-import { ListingsView } from '@/components/features/listing/ui/view'
+import { listingsApi, categoriesApi } from '@/shared/lib/api'
+import { ListingsView } from '@/widgets/listings-catalog'
 
 export const revalidate = 60
 

@@ -2,9 +2,9 @@
 
 import { useState, use } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/components/providers/auth-provider'
-import { listingsApi } from '@/lib/api'
-import { useTranslation } from '@/lib/i18n'
+import { useAuth } from '@/app/providers/auth-provider'
+import { listingsApi } from '@/shared/lib/api'
+import { useTranslation } from '@/shared/lib/i18n'
 import { toast } from 'sonner'
 import {
   Zap,
@@ -15,10 +15,10 @@ import {
   Loader2,
   Rocket,
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Container } from '@/components/ui/container'
-import { formatPrice } from '@/lib/utils/formatting'
+import { cn } from '@/shared/lib/utils'
+import { Button } from '@/shared/ui/button'
+import { Container } from '@/shared/ui/container'
+import { formatPrice } from '@/shared/lib/utils/formatting'
 
 interface Props {
   params: Promise<{

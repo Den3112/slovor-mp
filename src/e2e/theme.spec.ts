@@ -54,7 +54,7 @@ test.describe('Theme Switching (Dark/Light Mode)', () => {
     test(`Dark Mode persists CSS variables on ${locale} Login Page`, async ({
       page,
     }) => {
-      await page.goto(`/${locale}/auth/login`)
+      await page.goto(`/${locale}/login`)
 
       // Force Dark Mode
       const html = page.locator('html')

@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { env } from '@/lib/env'
+import { env } from '@/shared/lib/env'
 import { createServerClient } from '@supabase/ssr'
-import { getGeoByIp } from '@/lib/geo'
+import { getGeoByIp } from '@/entities/listing'
 
 export async function POST(request: NextRequest) {
   const supabaseUrl = env.SUPABASE_URL

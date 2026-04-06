@@ -1,8 +1,8 @@
-import { Container } from '@/components/ui/container'
-import { getTranslationServer } from '@/lib/i18n/server'
+import { Container } from '@/shared/ui/container'
+import { getTranslationServer } from '@/shared/lib/i18n/server'
 import { HelpCircle, ChevronRight } from 'lucide-react'
-export const dynamic = "force-static";
-export const revalidate = 3600;
+export const dynamic = 'force-static'
+export const revalidate = 3600
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {

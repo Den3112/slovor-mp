@@ -10,8 +10,8 @@ const publicRoutes = [
   '/contact',
   '/faq',
   '/search',
-  '/auth/login',
-  '/auth/register',
+  '/login',
+  '/register',
   '/categories',
   '/terms',
   '/privacy',
@@ -104,7 +104,7 @@ test.describe('Visual Regression - 100% Coverage', () => {
           await page.goto(url, { waitUntil: 'networkidle' })
 
           // Ensure we didn't get redirected to login (basic check)
-          if (page.url().includes('/auth/login')) {
+          if (page.url().includes('/login')) {
             console.warn(
               `Redirected to login for ${route}. Global setup might have failed or session expired.`
             )

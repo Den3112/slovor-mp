@@ -5,7 +5,7 @@ import {
   createSuccessResponse,
   getAuthenticatedClient,
   corsHeaders,
-} from '../../utils'
+} from '@/app/api/utils'
 import { z } from 'zod'
 
 export async function GET(req: NextRequest) {

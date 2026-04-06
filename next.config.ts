@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 // Validate environment variables at build-time
-import './src/lib/env.ts'
+import './src/shared/lib/env.ts'
 
 const nextConfig: NextConfig = {
   output: 'standalone',

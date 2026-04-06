@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
-import { listingsApi } from '@/lib/api'
-import { ErrorState } from '@/components/ui/error-state'
-import { ListingDetailView } from '@/components/features/listing/ui/listing-detail-view'
-import { createClient } from '@/lib/supabase/server'
-import { generateListingMetadata } from '@/lib/utils/metadata'
+import { listingsApi } from '@/shared/lib/api'
+import { ErrorState } from '@/shared/ui/error-state'
+import { ListingDetailsWidget } from '@/widgets/listing-details/ui/listing-details-widget'
+import { createClient } from '@/shared/lib/supabase/server'
+import { generateListingMetadata } from '@/shared/lib/utils/metadata'
 
 export const generateMetadata = generateListingMetadata
 
@@ -53,5 +53,5 @@ export default async function ListingPage({
     notFound()
   }
 
-  return <ListingDetailView listing={result.data} />
+  return <ListingDetailsWidget listing={result.data} />
 }

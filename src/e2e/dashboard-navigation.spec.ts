@@ -7,7 +7,7 @@ async function ensureAuthenticated(page: Page) {
   // Wait for network to be idle or specific element to ensure we are loaded
   await page.waitForLoadState('domcontentloaded')
 
-  if (page.url().includes('/auth/login')) {
+  if (page.url().includes('/login')) {
     // Fallback login
     await page.getByTestId('auth-email-input').fill('test.seller@slovor.sk')
     await page.getByTestId('auth-password-input').fill('password123')

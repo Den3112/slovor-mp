@@ -12,14 +12,18 @@ import {
   MessageSquare,
   AlertCircle,
 } from 'lucide-react'
-import { useTranslation } from '@/lib/i18n'
-import { supportApi, type SupportTicket, type SupportMessage } from '@/lib/api'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { StatusBadge } from '@/components/features/dashboard/shared/status-badge'
+import { useTranslation } from '@/shared/lib/i18n'
+import {
+  supportApi,
+  type SupportTicket,
+  type SupportMessage,
+} from '@/shared/lib/api'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
+import { StatusBadge } from '@/features/dashboard/shared/status-badge'
 import { toast } from 'sonner'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 import { motion } from 'framer-motion'
 
 export default function TicketDetailPage({

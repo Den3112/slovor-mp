@@ -17,7 +17,10 @@ async function globalSetup(config: FullConfig) {
 
   const browser = await chromium.launch()
   const page = await browser.newPage()
-  const baseURL = config.projects?.[0]?.use?.baseURL || 'http://localhost:3000'
+  const baseURL =
+    config.projects?.[0]?.use?.baseURL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    'http://localhost:3000'
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const testEmail = process.env.TEST_USER_EMAIL || 'test.seller@slovor.sk'
@@ -219,7 +222,7 @@ async function globalSetup(config: FullConfig) {
         'Global Setup: ⚠️ SUPABASE_SERVICE_ROLE_KEY not found. Falling back to manual form login (Subject to Rate Limits).'
       )
       // Fallback to manual login
-      await page.goto(baseURL + '/en/auth/login', { timeout: 300000 })
+      await page.goto(baseURL + '/en/login', { timeout: 300000 })
       if (await page.getByTestId('auth-email-input').isVisible()) {
         await page.getByTestId('auth-email-input').fill(testEmail)
         await page

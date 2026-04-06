@@ -1,6 +1,6 @@
 'use client'
 
-import { MessagesLayout } from '@/components/features/dashboard/user/messages/messages-layout'
+import { MessagesLayout } from '@/features/dashboard/user/messages/messages-layout'
 
 export default function MessagesLayoutPage({
   children,

@@ -10,7 +10,7 @@ async function ensureAuthenticated(page: any) {
   let currentUrl = page.url()
   console.log(`Ensuring auth at: ${currentUrl}`)
 
-  if (currentUrl.includes('/auth/login')) {
+  if (currentUrl.includes('/login')) {
     console.warn(
       'Session invalid, attempting manual login fallback with password123...'
     )
@@ -46,8 +46,8 @@ test.describe('Profile Functionality', () => {
       .filter({ hasText: /Sign Out|Logout|Odhlásiť/i })
       .first()
     await logoutBtn.click()
-    await page.waitForURL('**/auth/login', { timeout: 15000 })
-    expect(page.url()).toContain('/auth/login')
+    await page.waitForURL('**/login', { timeout: 15000 })
+    expect(page.url()).toContain('/login')
   })
 
   test('Update profile bio', async ({ page }) => {

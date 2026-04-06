@@ -1,9 +1,9 @@
-import { Container } from '@/components/ui/container'
+import { Container } from '@/shared/ui/container'
 import { FileText, Clock } from 'lucide-react'
-import { Breadcrumbs } from '@/components/ui/breadcrumbs'
-export const dynamic = "force-static";
-export const revalidate = 3600;
-import { getTranslationServer } from '@/lib/i18n/server'
+import { Breadcrumbs } from '@/shared/ui/breadcrumbs'
+export const dynamic = 'force-static'
+export const revalidate = 3600
+import { getTranslationServer } from '@/shared/lib/i18n/server'
 
 export default async function TermsPage() {
   const { t } = await getTranslationServer(['common', 'footer', 'legal'])

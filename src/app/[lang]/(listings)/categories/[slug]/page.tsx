@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
-import { ErrorState } from '@/components/ui/error-state'
-import { CategoryView } from '@/components/category/category-view'
-import { categoriesApi, listingsApi } from '@/lib/api'
+import { ErrorState } from '@/shared/ui/error-state'
+import { CategoryView } from '@/entities/category'
+import { categoriesApi, listingsApi } from '@/shared/lib/api'
 import { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -73,7 +73,7 @@ export const revalidate = 120
  * 2. Creates static HTML for each category
  * 3. Combined with ISR, updates every 120 seconds
  */
-import { createClient, createStaticClient } from '@/lib/supabase/server'
+import { createClient, createStaticClient } from '@/shared/lib/supabase/server'
 
 export async function generateStaticParams() {
   if (process.env.SKIP_ENV_VALIDATION === '1') {

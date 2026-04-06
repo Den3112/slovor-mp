@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Container } from '@/components/ui/container'
+import { Container } from '@/shared/ui/container'
 import { Sparkles, Clock, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { blogApi } from '@/lib/api'
+import { blogApi } from '@/shared/lib/api'
 
 export const metadata: Metadata = {
   title: 'Blog - Slovor Marketplace',

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getGeoByIp } from '@/lib/geo'
+import { getGeoByIp } from '@/entities/listing/api/geo'
 
 export const dynamic = 'force-dynamic'
 

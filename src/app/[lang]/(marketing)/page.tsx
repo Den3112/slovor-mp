@@ -1,5 +1,5 @@
-import { HomeView } from '@/components/home/home-view'
-import { listingsApi, categoriesApi } from '@/lib/api'
+import { HomeView } from '@/widgets/home-hero'
+import { listingsApi, categoriesApi } from '@/shared/lib/api'
 
 export const revalidate = 3600
 

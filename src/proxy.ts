@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { updateSession } from './lib/supabase/middleware'
+import { updateSession } from '@/shared/lib/supabase/middleware'
 import { languages, fallbackLng } from '@/packages/i18n/settings'
 import { match } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
@@ -94,6 +94,11 @@ export default async function proxy(request: NextRequest) {
 
     // 4. Update Session using the safe initialResponse
     const response = await updateSession(request, initialResponse)
+
+    if (!response) {
+      console.error('Middleware: updateSession failed to return a response')
+      return initialResponse
+    }
 
     // 3. Set lang header for server components
     const lang = languages.find(

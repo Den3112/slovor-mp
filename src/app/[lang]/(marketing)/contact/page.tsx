@@ -1,11 +1,11 @@
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
-import { Container } from '@/components/ui/container'
-import { getTranslationServer } from '@/lib/i18n/server'
-export const dynamic = "force-static";
-export const revalidate = 3600;
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { Container } from '@/shared/ui/container'
+import { getTranslationServer } from '@/shared/lib/i18n/server'
+export const dynamic = 'force-static'
+export const revalidate = 3600
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
+import { Textarea } from '@/shared/ui/textarea'
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {

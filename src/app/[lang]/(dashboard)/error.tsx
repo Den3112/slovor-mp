@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 import { AlertCircle, RefreshCcw } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useTranslation } from '@/lib/i18n'
-import { Container } from '@/components/ui/container'
+import { Button } from '@/shared/ui/button'
+import { useTranslation } from '@/shared/lib/i18n'
+import { Container } from '@/shared/ui/container'
 
 export default function DashboardError({
   error,

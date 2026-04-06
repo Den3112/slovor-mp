@@ -16,6 +16,8 @@ process.env.NEXT_PUBLIC_ENABLE_PAYMENTS =
   process.env.NEXT_PUBLIC_ENABLE_PAYMENTS || 'true'
 
 // Mock next/navigation
+vi.mock('server-only', () => ({}))
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: vi.fn(),
@@ -65,13 +67,13 @@ export const mockListingsApi = {
   delete: vi.fn().mockResolvedValue({ data: null, error: null }),
 }
 
-vi.mock('@/lib/api', () => ({
+vi.mock('@/shared/lib/api', () => ({
   categoriesApi: mockCategoriesApi,
   listingsApi: mockListingsApi,
 }))
 
 // Mock Supabase client
-vi.mock('@/lib/supabase/client', () => ({
+vi.mock('@/shared/lib/supabase/client', () => ({
   createClient: () => ({
     auth: {
       getSession: vi
@@ -148,3 +150,34 @@ if (typeof globalThis !== 'undefined') {
     }
   }
 }
+
+// Mock global fetch
+global.fetch = vi.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({}),
+    text: () => Promise.resolve(''),
+    ok: true,
+    status: 200,
+  } as Response)
+)
+
+// Mock sonner
+vi.mock('sonner', () => ({
+  toast: {
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warning: vi.fn(),
+  },
+}))
+
+// Mock i18n
+vi.mock('@/shared/lib/i18n', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    i18n: {
+      changeLanguage: vi.fn(),
+      language: 'en',
+    },
+  }),
+}))

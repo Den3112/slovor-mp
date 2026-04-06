@@ -1,14 +1,14 @@
-import { createClient } from '@/lib/supabase/server'
-import { listingsApi, ordersApi } from '@/lib/api'
-import { getDashboardStats } from '@/lib/api/dashboard-stats'
-import { transactionsApi } from '@/lib/api/transactions'
+import { createClient } from '@/shared/lib/supabase/server'
+import { listingsApi, ordersApi } from '@/shared/lib/api'
+import { getDashboardStats } from '@/entities/dashboard/api'
+import { transactionsApi } from '@/entities/transaction/api'
 import dynamic from 'next/dynamic'
 import { Loader2 } from 'lucide-react'
-import { Transaction, Order } from '@/lib/types/database'
+import { Transaction, Order } from '@/shared/lib/types/database'
 
 const UserOverviewView = dynamic(
   () =>
-    import('@/components/features/dashboard/user/overview').then(
+    import('@/features/dashboard/user/overview').then(
       (mod) => mod.UserOverviewView
     ),
   {
@@ -58,9 +58,7 @@ export default async function DashboardOverviewPage({
 
     return {
       date: date.toLocaleDateString(lang || undefined, { weekday: 'short' }),
-      value:
-        dayTotal ||
-        Math.floor((stats.totalViews / 10) * (0.8 + Math.random() * 0.4)),
+      value: dayTotal || Math.floor((stats.totalViews / 10) * (0.8 + i * 0.05)),
     }
   })
 

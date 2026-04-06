@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { FALLBACK_RATES, type CurrencyCode } from '@/lib/types/currency'
+import { FALLBACK_RATES, type CurrencyCode } from '@/shared/lib/types/currency'
 
 interface ExchangeRateApiResponse {
   result: string

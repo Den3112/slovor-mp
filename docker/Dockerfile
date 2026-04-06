@@ -16,7 +16,8 @@ FROM base AS deps
 RUN apk add --no-cache python3 make g++
 COPY package.json package-lock.json* ./
 # Используем ci для стабильности, отключаем ненужные проверки
-RUN npm ci --legacy-peer-deps --no-audit --no-fund
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --legacy-peer-deps --no-audit --no-fund
 
 # --- Этап 2: Сборка приложения ---
 FROM base AS builder
@@ -34,7 +35,8 @@ ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
 ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
 # Сборка Next.js (создаст .next/standalone и .next/static)
-RUN npm run build
+RUN --mount=type=cache,target=/app/.next/cache \
+    npm run build
 
 # --- Этап 3: Финальный образ (Runner) ---
 FROM base AS runner

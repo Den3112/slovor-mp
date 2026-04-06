@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
-import { pagesApi } from '@/lib/api'
-import { Container } from '@/components/ui/container'
-import { Breadcrumbs } from '@/components/ui/breadcrumbs'
+import { pagesApi } from '@/shared/lib/api'
+import { Container } from '@/shared/ui/container'
+import { Breadcrumbs } from '@/shared/ui/breadcrumbs'
 import { FileText, Clock } from 'lucide-react'
-import { sanitizeHtml } from '@/lib/utils/sanitize'
+import { sanitizeHtml } from '@/shared/lib/utils/sanitize'
 
 interface StaticPageProps {
   params: Promise<{

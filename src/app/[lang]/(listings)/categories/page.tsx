@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
-import { Container } from '@/components/ui/container'
-import { categoriesApi } from '@/lib/api/categories'
-import { CategoryCard } from '@/components/category/category-card'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Container } from '@/shared/ui/container'
+import { categoriesApi } from '@/entities/category/api'
+import { CategoryCard } from '@/entities/category'
+import { Skeleton } from '@/shared/ui/skeleton'
 
 async function CategoriesList() {
   const { data: categories, error } = await categoriesApi.getAll()
