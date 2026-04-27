@@ -27,9 +27,12 @@ export function LocationSelect({ value, onChange }: LocationSelectProps) {
     <div className="space-y-3">
       <Select
         value={value || 'all'}
-        onValueChange={(v) => onChange(v === 'all' ? '' : v)}
+        onValueChange={(v: string) => onChange(v === 'all' ? '' : v)}
       >
-        <SelectTrigger className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold">
+        <SelectTrigger 
+          className="border-border/60 bg-muted/20 h-11 w-full rounded-xl font-bold"
+          aria-label={t('filters:location')}
+        >
           <SelectValue placeholder={t('filters:allLocations')} />
         </SelectTrigger>
         <SelectContent>

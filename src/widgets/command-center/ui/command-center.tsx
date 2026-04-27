@@ -110,6 +110,7 @@ export function CommandCenter({ locale, onClose }: CommandCenterProps) {
         <input
           type="text"
           placeholder={t('common:searchPlaceholder')}
+          aria-label={t('common:searchPlaceholder')}
           className="w-full bg-transparent px-3 py-3.5 text-sm font-medium focus:outline-hidden"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

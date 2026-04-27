@@ -55,7 +55,7 @@ describe('categoriesApi', () => {
         createMockQuery({ data: mockCategories, error: null })
       )
 
-      const { data, error } = await categoriesApi.getAll()
+      const { data, error } = await categoriesApi.getAll(supabase as any)
 
       expect(error).toBeNull()
       expect(data).not.toBeNull()
@@ -73,7 +73,7 @@ describe('categoriesApi', () => {
         )
         .mockReturnValueOnce(createMockQuery({ count: 42, error: null }))
 
-      const { data, error } = await categoriesApi.getBySlug('music')
+      const { data, error } = await categoriesApi.getBySlug('music', supabase as any)
 
       expect(error).toBeNull()
       expect(data).not.toBeNull()
@@ -85,7 +85,7 @@ describe('categoriesApi', () => {
     it('returns "Not Found" if category does not exist', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: null }))
 
-      const { error } = await categoriesApi.getBySlug('unknown')
+      const { error } = await categoriesApi.getBySlug('unknown', supabase as any)
       expect(error).toBe('Category not found')
     })
   })
@@ -99,7 +99,7 @@ describe('categoriesApi', () => {
       const { data } = await categoriesApi.create({
         name: 'New',
         slug: 'new',
-      } as any)
+      } as any, supabase as any)
       expect(data?.id).toBe('new-id')
     })
   })
@@ -110,7 +110,7 @@ describe('categoriesApi', () => {
         createMockQuery({ data: { id: '1', name: 'Updated' }, error: null })
       )
 
-      const { data } = await categoriesApi.update('1', { name: 'Updated' })
+      const { data } = await categoriesApi.update('1', { name: 'Updated' }, supabase as any)
       expect(data?.name).toBe('Updated')
     })
   })
@@ -119,7 +119,7 @@ describe('categoriesApi', () => {
     it('deletes category', async () => {
       mockFrom.mockReturnValue(createMockQuery({ error: null }))
 
-      const { error } = await categoriesApi.delete('1')
+      const { error } = await categoriesApi.delete('1', supabase as any)
       expect(error).toBeNull()
     })
   })

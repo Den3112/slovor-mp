@@ -1,15 +1,38 @@
-import { createBrowserClient } from '@supabase/ssr'
+'use client'
+
+import { createBrowserClient as createSupabaseBrowserClient } from '@supabase/ssr'
 import { env } from '@/shared/lib/env'
 
-const supabaseUrl = env.SUPABASE_URL
-const supabaseAnonKey = env.SUPABASE_ANON_KEY
+let browserServiceRole: ReturnType<typeof createSupabaseBrowserClient> | null = null
 
-if (!supabaseUrl || !supabaseUrl.startsWith('https://')) {
-  console.error('CRITICAL: Supabase URL is missing or invalid:', supabaseUrl)
+/**
+ * Singleton client for browser use with lazy initialization
+ */
+export function getBrowserClient() {
+  if (browserServiceRole) return browserServiceRole
+
+  const supabaseUrl = env.SUPABASE_URL
+  const supabaseAnonKey = env.SUPABASE_ANON_KEY
+
+  if (!supabaseUrl) {
+    if (typeof window !== 'undefined') {
+      console.warn('Supabase URL is missing')
+    }
+  }
+
+  browserServiceRole = createSupabaseBrowserClient(supabaseUrl, supabaseAnonKey)
+  return browserServiceRole
 }
 
-export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)
-
+/**
+ * Legacy compatibility factory
+ */
 export function createClient() {
-  return createBrowserClient(supabaseUrl, supabaseAnonKey)
+  return getBrowserClient()
 }
+
+/**
+ * Singleton client for browser/client-side use.
+ * Safe to import anywhere, but will use environment variables from the browser context.
+ */
+export const supabase = getBrowserClient()

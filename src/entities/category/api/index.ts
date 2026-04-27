@@ -1,7 +1,9 @@
 // Categories API
 // Centralized API layer for categories management
 
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import { withRetry } from '@/shared/lib/supabase/utils'
 import type { Category, ApiResponse } from '@/shared/lib/types/database'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -13,9 +15,9 @@ export const categoriesApi = {
    * @param client - Optional Supabase client (provide server client for server components)
    * @returns Array of categories ordered by name
    */
-  async getAll(client?: SupabaseClient): Promise<ApiResponse<Category[]>> {
-    const supabaseClient = client || supabase
+  async getAll(client: SupabaseClient): Promise<ApiResponse<Category[]>> {
     try {
+      const supabaseClient = client
       // Use resource embedding to get counts in a single query if possible,
       // but for filtering (is_active: true) we might still need some logic.
       // Let's try the simple approach first that fetches all at once.
@@ -47,10 +49,10 @@ export const categoriesApi = {
    */
   async getBySlug(
     slug: string,
-    client?: SupabaseClient
+    client: SupabaseClient
   ): Promise<ApiResponse<Category>> {
-    const supabaseClient = client || supabase
     try {
+      const supabaseClient = client
       const { data, error } = await withRetry<any>(() =>
         supabaseClient
           .from('categories')
@@ -92,11 +94,12 @@ export const categoriesApi = {
   /**
    * Creates a new category
    */
-  async create(
-    category: Omit<Category, 'id' | 'created_at'>
+   async create(
+    category: Omit<Category, 'id' | 'created_at'>,
+    client: SupabaseClient
   ): Promise<ApiResponse<Category>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('categories')
         .insert(category)
         .select()
@@ -114,10 +117,11 @@ export const categoriesApi = {
    */
   async update(
     id: string,
-    updates: Partial<Category>
+    updates: Partial<Category>,
+    client: SupabaseClient
   ): Promise<ApiResponse<Category>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('categories')
         .update(updates)
         .eq('id', id)
@@ -134,9 +138,9 @@ export const categoriesApi = {
   /**
    * Deletes a category
    */
-  async delete(id: string): Promise<ApiResponse<void>> {
+  async delete(id: string, client: SupabaseClient): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase.from('categories').delete().eq('id', id)
+      const { error } = await client.from('categories').delete().eq('id', id)
 
       if (error) throw error
       return { data: undefined, error: null }

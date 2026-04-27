@@ -1,15 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { adminApi } from '@/entities/admin/api'
-import { createClient } from '@/shared/lib/supabase/client'
 import { withRetry } from '@/shared/lib/supabase/utils'
 
 // Mock dependencies
-vi.mock('@/shared/lib/supabase/client', () => ({
-  createClient: vi.fn(),
-}))
-
 vi.mock('@/shared/lib/supabase/utils', () => ({
-  withRetry: vi.fn((fn) => fn()),
+  withRetry: vi.fn((fn: any) => fn()),
 }))
 
 vi.mock('@/shared/lib/utils/logger', () => ({
@@ -28,11 +23,10 @@ describe('adminApi', () => {
     auth: {
       getUser: vi.fn(),
     },
-  }
+  } as any
 
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(createClient as any).mockReturnValue(mockSupabase)
   })
 
   describe('getDashboardStats', () => {
@@ -56,7 +50,7 @@ describe('adminApi', () => {
 
       ;(withRetry as any).mockResolvedValue(mockResponses)
 
-      const result = await adminApi.getDashboardStats()
+      const result = await adminApi.getDashboardStats(mockSupabase)
 
       expect(result.data).toEqual({
         totalUsers: 100,
@@ -73,7 +67,7 @@ describe('adminApi', () => {
       ;(withRetry as any).mockImplementationOnce(() => {
         throw new Error('Stats Error')
       })
-      const result = await adminApi.getDashboardStats()
+      const result = await adminApi.getDashboardStats(mockSupabase)
       expect(result.error).toBe('Stats Error')
     })
   })
@@ -96,7 +90,7 @@ describe('adminApi', () => {
         reason: 'ok',
       }
 
-      const result = await adminApi.logAction(action)
+      const result = await adminApi.logAction(mockSupabase, action)
 
       expect(result.error).toBeNull()
       expect(mockSupabase.from).toHaveBeenCalledWith('admin_actions')
@@ -110,7 +104,7 @@ describe('adminApi', () => {
 
     it('throws error if not authenticated', async () => {
       mockSupabase.auth.getUser.mockResolvedValue({ data: { user: null } })
-      const result = await adminApi.logAction({
+      const result = await adminApi.logAction(mockSupabase, {
         target_id: '1',
         target_type: 'user',
         action_type: 'ban',
@@ -129,10 +123,11 @@ describe('adminApi', () => {
       }
       ;(mockSupabase.from as any).mockReturnValue(mockChain)
 
-      const result = await adminApi.getActivityLogs(10)
+      const result = await adminApi.getActivityLogs(mockSupabase, 10)
 
       expect(result.data).toEqual(mockLogs)
       expect(mockChain.limit).toHaveBeenCalledWith(10)
     })
   })
 })
+

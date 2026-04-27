@@ -112,8 +112,8 @@ export default async function proxy(request: NextRequest) {
     // 4. Secure CSP with Nonce
     const cspHeader = `
         default-src 'self';
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com;
+        style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com;
         img-src 'self' blob: data: https://*.supabase.co https://images.unsplash.com https://res.cloudinary.com https://picsum.photos https://fastly.picsum.photos;
         font-src 'self' data: https://fonts.gstatic.com;
         connect-src 'self' https://*.supabase.co wss://*.supabase.co https://open.er-api.com https://vitals.vercel-insights.com https://api.stripe.com;

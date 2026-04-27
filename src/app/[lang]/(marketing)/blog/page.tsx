@@ -4,6 +4,7 @@ import { Sparkles, Clock, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { blogApi } from '@/shared/lib/api'
+import { createClient } from '@/shared/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Blog - Slovor Marketplace',
@@ -21,7 +22,8 @@ export default async function BlogPage({
     return <div className="py-20 text-center">Building...</div>
   }
 
-  const { data: blogPosts } = await blogApi.listPosts({ limit: 12 })
+  const supabase = await createClient()
+  const { data: blogPosts } = await blogApi.listPosts(supabase, { limit: 12 })
 
   const posts = blogPosts || []
   const featuredPost = posts[0]

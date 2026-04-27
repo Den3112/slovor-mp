@@ -1,15 +1,21 @@
 // Transactions API
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse, Transaction } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export const transactionsApi = {
   /**
    * Gets all transactions for a user
    */
-  async getForUser(userId: string): Promise<ApiResponse<Transaction[]>> {
+  async getForUser(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<Transaction[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('transactions')
         .select('*')
         .eq('user_id', userId)
@@ -27,9 +33,9 @@ export const transactionsApi = {
   /**
    * Gets all transactions (for admin dashboard stats)
    */
-  async getAll(): Promise<ApiResponse<Transaction[]>> {
+  async getAll(client: SupabaseClient): Promise<ApiResponse<Transaction[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('transactions')
         .select('*')
         .order('created_at', { ascending: false })
@@ -47,10 +53,11 @@ export const transactionsApi = {
    * Creates a new transaction (usually from a payment webhook or success)
    */
   async create(
+    client: SupabaseClient,
     transaction: Omit<Transaction, 'id' | 'created_at'>
   ): Promise<ApiResponse<Transaction>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('transactions')
         .insert(transaction)
         .select()
@@ -68,20 +75,23 @@ export const transactionsApi = {
   /**
    * Gets stats for the admin dashboard
    */
-  async getAdminStats(): Promise<
+  async getAdminStats(client: SupabaseClient): Promise<
     ApiResponse<{ total_revenue: number; count: number }>
   > {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('transactions')
         .select('amount')
         .eq('status', 'completed')
 
       if (error) throw error
 
-      const total = data.reduce((sum, t) => sum + Number(t.amount), 0)
+      const total = (data || []).reduce(
+        (sum: number, t: any) => sum + Number(t.amount),
+        0
+      )
       return {
-        data: { total_revenue: total, count: data.length },
+        data: { total_revenue: total, count: (data || []).length },
         error: null,
       }
     } catch (error) {

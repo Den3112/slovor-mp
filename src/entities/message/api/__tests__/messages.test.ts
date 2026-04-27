@@ -40,7 +40,7 @@ describe('messagesApi', () => {
       }
       ;(supabase.from as any).mockReturnValue(mockChain)
 
-      const result = await messagesApi.getOrCreateConversation('l1', 'b1', 's1')
+      const result = await messagesApi.getOrCreateConversation(supabase, 'l1', 'b1', 's1')
 
       expect(result.data).toEqual(mockConv)
       expect(supabase.from).toHaveBeenCalledWith('conversations')
@@ -64,7 +64,7 @@ describe('messagesApi', () => {
         .mockReturnValueOnce(mockChainFind)
         .mockReturnValueOnce(mockChainCreate)
 
-      const result = await messagesApi.getOrCreateConversation('l1', 'b1', 's1')
+      const result = await messagesApi.getOrCreateConversation(supabase, 'l1', 'b1', 's1')
 
       expect(result.data).toEqual(mockNewConv)
     })
@@ -83,7 +83,7 @@ describe('messagesApi', () => {
       }
       ;(supabase.from as any).mockReturnValue(mockChain)
 
-      const result = await messagesApi.getConversationsForUser('user-1')
+      const result = await messagesApi.getConversationsForUser(supabase, 'user-1')
 
       expect(result.data).toHaveLength(2)
       expect(result.data?.[0]?.last_message?.content).toBe('hi')
@@ -109,7 +109,7 @@ describe('messagesApi', () => {
         .mockReturnValueOnce(mockInsertChain)
         .mockReturnValueOnce(mockUpdateChain)
 
-      const result = await messagesApi.sendMessage('c1', 'u1', ' hello ')
+      const result = await messagesApi.sendMessage(supabase, 'c1', 'u1', ' hello ')
 
       expect(result.data?.content).toBe('hello') // trimmed
       expect(supabase.from).toHaveBeenCalledWith('messages')
@@ -117,7 +117,7 @@ describe('messagesApi', () => {
     })
 
     it('returns error for empty message', async () => {
-      const result = await messagesApi.sendMessage('c1', 'u1', '  ')
+      const result = await messagesApi.sendMessage(supabase, 'c1', 'u1', '  ')
       expect(result.error).toBe('Message cannot be empty')
     })
   })
@@ -141,7 +141,7 @@ describe('messagesApi', () => {
         .mockReturnValueOnce(mockConvChain)
         .mockReturnValueOnce(mockMsgChain)
 
-      const result = await messagesApi.getUnreadCount('user-1')
+      const result = await messagesApi.getUnreadCount(supabase, 'user-1')
 
       expect(result.data).toBe(3)
     })
@@ -153,7 +153,7 @@ describe('messagesApi', () => {
       }
       ;(supabase.from as any).mockReturnValue(mockConvChain)
 
-      const result = await messagesApi.getUnreadCount('user-1')
+      const result = await messagesApi.getUnreadCount(supabase, 'user-1')
 
       expect(result.data).toBe(0)
     })

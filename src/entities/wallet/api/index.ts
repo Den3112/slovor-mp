@@ -1,18 +1,17 @@
-import { createClient } from '@/shared/lib/supabase/client'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const walletsApi = {
   /**
    * Get the current user's wallet
    */
-  async getMyWallet() {
-    const supabase = createClient()
+  async getMyWallet(client: SupabaseClient) {
     const {
       data: { user },
-    } = await supabase.auth.getUser()
+    } = await client.auth.getUser()
 
     if (!user) return { data: null, error: 'Not authenticated' }
 
-    return supabase
+    return client
       .from('wallets')
       .select('*')
       .eq('user_id', user.id)
@@ -22,9 +21,8 @@ export const walletsApi = {
   /**
    * Get wallet transactions
    */
-  async getTransactions(walletId: string, limit = 10) {
-    const supabase = createClient()
-    return supabase
+  async getTransactions(client: SupabaseClient, walletId: string, limit = 10) {
+    return client
       .from('transactions')
       .select('*')
       .eq('wallet_id', walletId)
@@ -35,14 +33,13 @@ export const walletsApi = {
   /**
    * Create wallet if doesn't exist (safety)
    */
-  async ensureWallet() {
-    const supabase = createClient()
+  async ensureWallet(client: SupabaseClient) {
     const {
       data: { user },
-    } = await supabase.auth.getUser()
+    } = await client.auth.getUser()
     if (!user) return { data: null, error: 'Not authenticated' }
 
-    const { data: wallet } = await supabase
+    const { data: wallet } = await client
       .from('wallets')
       .select('*')
       .eq('user_id', user.id)
@@ -50,7 +47,7 @@ export const walletsApi = {
 
     if (wallet) return { data: wallet, error: null }
 
-    return supabase
+    return client
       .from('wallets')
       .insert({ user_id: user.id, balance: 0.0, currency: 'EUR' })
       .select()

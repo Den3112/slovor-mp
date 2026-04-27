@@ -1,17 +1,23 @@
 // Favorites API
 // Centralized API layer for managing favorited listings
 
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { Listing, ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export const favoritesApi = {
   /**
    * Fetches all favorited listings for a specific user
    */
-  async getByUser(userId: string): Promise<ApiResponse<Listing[]>> {
+  async getByUser(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<Listing[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('favorites')
         .select(
           `
@@ -45,12 +51,13 @@ export const favoritesApi = {
    * Toggles favorite status for a listing
    */
   async toggle(
+    client: SupabaseClient,
     listingId: string,
     userId: string
   ): Promise<ApiResponse<{ isFavorited: boolean }>> {
     try {
       // Check if already favorited
-      const { data: existing, error: fetchError } = await supabase
+      const { data: existing, error: fetchError } = await client
         .from('favorites')
         .select('id')
         .eq('listing_id', listingId)
@@ -63,7 +70,7 @@ export const favoritesApi = {
 
       if (existing) {
         // Remove from favorites
-        const { error: deleteError } = await supabase
+        const { error: deleteError } = await client
           .from('favorites')
           .delete()
           .eq('id', existing.id)
@@ -75,7 +82,7 @@ export const favoritesApi = {
         return { data: { isFavorited: false }, error: null }
       } else {
         // Add to favorites
-        const { error: insertError } = await supabase.from('favorites').insert({
+        const { error: insertError } = await client.from('favorites').insert({
           listing_id: listingId,
           user_id: userId,
           created_at: new Date().toISOString(),
@@ -97,11 +104,12 @@ export const favoritesApi = {
    * Checks if a listing is favorited by a user
    */
   async isFavorited(
+    client: SupabaseClient,
     listingId: string,
     userId: string
   ): Promise<ApiResponse<boolean>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('favorites')
         .select('id')
         .eq('listing_id', listingId)

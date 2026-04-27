@@ -1,6 +1,9 @@
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import { withRetry } from '@/shared/lib/supabase/utils'
 import type { User, ApiResponse, Listing } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 export type { User }
 import { logError } from '@/shared/lib/utils/logger'
 
@@ -17,11 +20,11 @@ export const profilesApi = {
   /**
    * Fetches a single profile by user ID
    */
-  async getById(id: string): Promise<ApiResponse<User>> {
+  async getById(client: SupabaseClient, id: string): Promise<ApiResponse<User>> {
     try {
-      const { data, error } = await withRetry(() =>
-        supabase.from('profiles').select('*').eq('id', id).maybeSingle()
-      )
+      const { data, error } = (await withRetry(() =>
+        client.from('profiles').select('*').eq('id', id).maybeSingle()
+      )) as any
 
       if (error) {
         throw error
@@ -41,11 +44,15 @@ export const profilesApi = {
   /**
    * Fetches a profile by user ID, or returns empty profile data (for new users)
    */
-  async getOrCreate(id: string, email?: string): Promise<ApiResponse<User>> {
+  async getOrCreate(
+    client: SupabaseClient,
+    id: string,
+    email?: string
+  ): Promise<ApiResponse<User>> {
     try {
-      const { data, error } = await withRetry(() =>
-        supabase.from('profiles').select('*').eq('id', id).maybeSingle()
-      )
+      const { data, error } = (await withRetry(() =>
+        client.from('profiles').select('*').eq('id', id).maybeSingle()
+      )) as any
 
       if (error) {
         throw error
@@ -74,19 +81,23 @@ export const profilesApi = {
   /**
    * Updates a user profile (creates if doesn't exist)
    */
-  async update(id: string, updates: Partial<User>): Promise<ApiResponse<User>> {
+  async update(
+    client: SupabaseClient,
+    id: string,
+    updates: Partial<User>
+  ): Promise<ApiResponse<User>> {
     try {
       // Remove sensitive or read-only fields
       const { id: _, created_at: __, updated_at: ___, ...safeUpdates } = updates
 
       // Use upsert to create profile if it doesn't exist
-      const { data, error } = await withRetry(() =>
-        supabase
+      const { data, error } = (await withRetry(() =>
+        client
           .from('profiles')
           .upsert({ id, ...safeUpdates }, { onConflict: 'id' })
           .select()
           .maybeSingle()
-      )
+      )) as any
 
       if (error) {
         throw error
@@ -106,15 +117,15 @@ export const profilesApi = {
   /**
    * Fetches comprehensive profile statistics for a user
    */
-  async getStats(userId: string): Promise<ApiResponse<ProfileStats>> {
+  async getStats(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<ProfileStats>> {
     try {
       // Get all user's listings
-      const { data: listings, error: listingsError } = await withRetry(() =>
-        supabase
-          .from('listings')
-          .select('views, is_active')
-          .eq('user_id', userId)
-      )
+      const { data: listings, error: listingsError } = (await withRetry(() =>
+        client.from('listings').select('views, is_active').eq('user_id', userId)
+      )) as any
 
       if (listingsError) {
         throw listingsError
@@ -122,21 +133,22 @@ export const profilesApi = {
 
       // Calculate statistics
       const totalListings = listings?.length || 0
-      const activeListings = listings?.filter((l) => l.is_active).length || 0
-      const inactiveListings = listings?.filter((l) => !l.is_active).length || 0
+      const activeListings = listings?.filter((l: any) => l.is_active).length || 0
+      const inactiveListings =
+        listings?.filter((l: any) => !l.is_active).length || 0
       const totalViews =
-        listings?.reduce((sum, l) => sum + (l.views || 0), 0) || 0
+        listings?.reduce((sum: number, l: any) => sum + (l.views || 0), 0) || 0
       const avgViewsPerListing =
         totalListings > 0 ? Math.round(totalViews / totalListings) : 0
 
       // Get favorites count
-      const { count: favoritesCount, error: favoritesError } = await withRetry(
+      const { count: favoritesCount, error: favoritesError } = (await withRetry(
         () =>
-          supabase
+          client
             .from('favorites')
             .select('*', { count: 'exact', head: true })
             .eq('user_id', userId)
-      )
+      )) as any
 
       if (favoritesError) {
         throw favoritesError
@@ -162,18 +174,19 @@ export const profilesApi = {
    * Fetches recent activity for a user
    */
   async getRecentActivity(
+    client: SupabaseClient,
     userId: string,
     limit = 5
   ): Promise<ApiResponse<Listing[]>> {
     try {
-      const { data, error } = await withRetry(() =>
-        supabase
+      const { data, error } = (await withRetry(() =>
+        client
           .from('listings')
           .select('*')
           .eq('user_id', userId)
           .order('updated_at', { ascending: false })
           .limit(limit)
-      )
+      )) as any
 
       if (error) {
         throw error
@@ -185,14 +198,15 @@ export const profilesApi = {
       return { data: null, error: (error as Error).message }
     }
   },
-  async getAdminAll(): Promise<ApiResponse<User[]>> {
+
+  async getAdminAll(client: SupabaseClient): Promise<ApiResponse<User[]>> {
     try {
-      const { data, error } = await withRetry(() =>
-        supabase
+      const { data, error } = (await withRetry(() =>
+        client
           .from('profiles')
           .select('*')
           .order('created_at', { ascending: false })
-      )
+      )) as any
       if (error) throw error
       return { data: data || [], error: null }
     } catch (error) {

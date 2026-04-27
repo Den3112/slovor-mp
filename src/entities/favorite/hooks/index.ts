@@ -46,7 +46,7 @@ export function useFavorites(userId?: string) {
         .eq('user_id', userId)
 
       if (error) throw error
-      return data.map((f) => f.listing_id)
+      return (data as any[]).map((f: { listing_id: string }) => f.listing_id)
     },
     enabled: !!userId,
   })

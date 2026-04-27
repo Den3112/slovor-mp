@@ -8,7 +8,7 @@ import { getTranslationServer } from '@/shared/lib/i18n/server'
 export default async function PrivacyPage() {
   const { t } = await getTranslationServer(['common', 'footer', 'legal'])
   return (
-    <main className="bg-background relative min-h-screen pb-24">
+    <section className="bg-background relative min-h-screen pb-24">
       <Container className="pt-32 md:pt-40">
         <div className="mx-auto max-w-4xl">
           <div className="animate-in fade-in slide-in-from-top-4 mb-12 flex items-center gap-6 duration-700">
@@ -59,6 +59,6 @@ export default async function PrivacyPage() {
           </div>
         </div>
       </Container>
-    </main>
+    </section>
   )
 }

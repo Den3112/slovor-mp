@@ -17,7 +17,7 @@ export function ListingsGrid({
   const { t } = useTranslation()
 
   return (
-    <main className="lg:col-span-9">
+    <div className="lg:col-span-9">
       <ActiveFilters />
       <AnimatePresence mode="wait">
         {error ? (
@@ -100,6 +100,6 @@ export function ListingsGrid({
           </div>
         )}
       </AnimatePresence>
-    </main>
+    </div>
   )
 }

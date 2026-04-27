@@ -34,8 +34,7 @@ export async function signUp(formData: FormData) {
     password,
     options: {
       data: {
-        first_name: firstName,
-        last_name: lastName,
+        display_name: `${firstName} ${lastName}`.trim(),
       },
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
     },
@@ -52,7 +51,7 @@ export async function signOut(lang: string) {
   const supabase = await createClient()
   await supabase.auth.signOut()
   revalidatePath('/', 'layout')
-  redirect(`/${lang}/auth/login`)
+  redirect(`/${lang}/login`)
 }
 
 export async function signInWithGoogle() {

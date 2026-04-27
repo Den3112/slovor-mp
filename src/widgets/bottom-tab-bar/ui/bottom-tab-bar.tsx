@@ -40,7 +40,7 @@ export function BottomTabBar() {
     {
       icon: User,
       label: user ? 'Dashboard' : t('common:signIn'),
-      href: user ? '/dashboard' : '/auth/login',
+      href: user ? '/dashboard' : '/login',
     },
   ]
 
@@ -98,7 +98,7 @@ export function BottomTabBar() {
                       )}
                       strokeWidth={active ? 2.5 : 2}
                     />
-                    {tab.href === (user ? '/dashboard' : '/auth/login') &&
+                    {tab.href === (user ? '/dashboard' : '/login') &&
                       unreadCount > 0 && (
                         <span className="bg-primary ring-card absolute -top-1 -right-1 z-20 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold text-white shadow-sm ring-2">
                           {unreadCount > 9 ? '9+' : unreadCount}

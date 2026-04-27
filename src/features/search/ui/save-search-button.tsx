@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/app/providers/auth-provider'
 import { savedSearchesApi } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 import { Label } from '@/shared/ui/label'
@@ -38,7 +39,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
 
   const handleSave = async () => {
     if (!user) {
-      router.push(`/${locale}/auth/login`)
+      router.push(`/${locale}/login`)
       return
     }
 
@@ -46,7 +47,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
 
     setLoading(true)
     try {
-      const { error } = await savedSearchesApi.create({
+      const { error } = await savedSearchesApi.create(supabase, {
         name: name.trim(),
         query: searchQuery,
         category_id: filters.categoryId,
@@ -76,7 +77,7 @@ export function SaveSearchButton({ filters, searchQuery }: Props) {
         variant="outline"
         size="sm"
         className="gap-2 rounded-xl"
-        onClick={() => router.push(`/${locale}/auth/login`)}
+        onClick={() => router.push(`/${locale}/login`)}
       >
         <BookmarkPlus className="h-4 w-4" />
         {t('dashboard:savedSearchesDetails.saveButton')}

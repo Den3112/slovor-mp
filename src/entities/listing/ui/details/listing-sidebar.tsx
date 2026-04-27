@@ -1,4 +1,6 @@
 'use client'
+ 
+import { supabase } from '@/shared/lib/supabase/client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -41,7 +43,7 @@ export function ListingSidebar({ listing, checkoutSlot }: ListingSidebarProps) {
 
   const handleContact = async () => {
     if (!user) {
-      router.push(`/${locale}/auth/login?redirect=/listings/${listing.id}`)
+      router.push(`/${locale}/login?redirect=/listings/${listing.id}`)
       return
     }
 
@@ -57,6 +59,7 @@ export function ListingSidebar({ listing, checkoutSlot }: ListingSidebarProps) {
     })
     try {
       const { data, error } = await messagesApi.getOrCreateConversation(
+        supabase,
         listing.id,
         user.id,
         listing.user_id
@@ -86,7 +89,7 @@ export function ListingSidebar({ listing, checkoutSlot }: ListingSidebarProps) {
 
   const handleBuy = () => {
     if (!user) {
-      router.push(`/${locale}/auth/login?redirect=/listings/${listing.id}`)
+      router.push(`/${locale}/login?redirect=/listings/${listing.id}`)
       return
     }
 
@@ -132,9 +135,9 @@ export function ListingSidebar({ listing, checkoutSlot }: ListingSidebarProps) {
       )}
 
       <div className="space-y-4 pt-2">
-        <h3 className="font-heading text-xl leading-tight font-black tracking-tight">
+        <h1 className="font-heading text-xl leading-tight font-black tracking-tight">
           {displayTitle}
-        </h3>
+        </h1>
         <div className="text-muted-foreground flex items-center gap-4 text-[10px] font-black tracking-widest uppercase opacity-60">
           <div className="flex items-center gap-1.5">
             <Eye className="h-3.5 w-3.5" />

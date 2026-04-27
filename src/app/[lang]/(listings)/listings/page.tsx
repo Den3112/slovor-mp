@@ -3,6 +3,7 @@
 
 import { listingsApi, categoriesApi } from '@/shared/lib/api'
 import { ListingsView } from '@/widgets/listings-catalog'
+import { createClient } from '@/shared/lib/supabase/server'
 
 export const revalidate = 60
 
@@ -22,6 +23,7 @@ interface Props {
 
 export default async function ListingsPage({ searchParams }: Props) {
   const params = await searchParams
+  const supabase = await createClient()
 
   // Extract and group dynamic attributes (attr_*)
   const attributes: Record<string, any> = {}
@@ -53,9 +55,9 @@ export default async function ListingsPage({ searchParams }: Props) {
 
   // Fetch listings, total count and categories in parallel
   const [listingsResult, countResult, categoriesResult] = await Promise.all([
-    listingsApi.getAll({ ...filterOptions, limit: ITEMS_PER_PAGE }),
-    listingsApi.getCount(filterOptions),
-    categoriesApi.getAll(),
+    listingsApi.getAll(supabase, { ...filterOptions, limit: ITEMS_PER_PAGE }),
+    listingsApi.getCount(supabase, filterOptions),
+    categoriesApi.getAll(supabase),
   ])
 
   return (

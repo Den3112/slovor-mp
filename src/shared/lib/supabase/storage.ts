@@ -1,8 +1,8 @@
 // Storage API
 // Centralized API layer for Supabase Storage operations
 
-import { supabase } from '@/shared/lib/supabase/client'
 import type { ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export interface UploadedFile {
   path: string
@@ -23,6 +23,7 @@ export const storageApi = {
    * @returns Public URL or error
    */
   async uploadImage(
+    client: SupabaseClient,
     file: File,
     userId: string,
     bucket: string = 'listings-images'
@@ -55,7 +56,7 @@ export const storageApi = {
       const fileName = `${userId}/${timestamp}-${randomStr}.${extension}`
 
       // Upload file
-      const { data, error: uploadError } = await supabase.storage
+      const { data, error: uploadError } = await client.storage
         .from(bucket)
         .upload(fileName, file, {
           cacheControl: '3600',
@@ -69,7 +70,7 @@ export const storageApi = {
       // Get public URL
       const {
         data: { publicUrl },
-      } = supabase.storage.from(bucket).getPublicUrl(fileName)
+      } = client.storage.from(bucket).getPublicUrl(fileName)
 
       const uploadedFile: UploadedFile = {
         path: data.path,
@@ -91,6 +92,7 @@ export const storageApi = {
    * @returns Array of uploaded files or error
    */
   async uploadImages(
+    client: SupabaseClient,
     files: File[],
     userId: string,
     onProgress?: (current: number, total: number, fileName?: string) => void
@@ -109,7 +111,7 @@ export const storageApi = {
           onProgress(i, files.length, file.name)
         }
 
-        const result = await this.uploadImage(file, userId)
+        const result = await this.uploadImage(client, file, userId)
 
         if (result.error) {
           errors.push(`File ${file.name}: ${result.error}`)
@@ -142,9 +144,12 @@ export const storageApi = {
    * Deletes an image from Supabase Storage
    * @param path - File path in storage
    */
-  async deleteImage(path: string): Promise<ApiResponse<void>> {
+  async deleteImage(
+    client: SupabaseClient,
+    path: string
+  ): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase.storage
+      const { error } = await client.storage
         .from('listings-images')
         .remove([path])
 
@@ -162,9 +167,12 @@ export const storageApi = {
    * Deletes multiple images
    * @param paths - Array of file paths
    */
-  async deleteImages(paths: string[]): Promise<ApiResponse<void>> {
+  async deleteImages(
+    client: SupabaseClient,
+    paths: string[]
+  ): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase.storage
+      const { error } = await client.storage
         .from('listings-images')
         .remove(paths)
 

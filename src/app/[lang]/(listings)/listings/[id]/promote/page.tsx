@@ -19,6 +19,7 @@ import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/ui/button'
 import { Container } from '@/shared/ui/container'
 import { formatPrice } from '@/shared/lib/utils/formatting'
+import { supabase } from '@/shared/lib/supabase/client'
 
 interface Props {
   params: Promise<{
@@ -89,6 +90,7 @@ export default function PromoteListingPage({ params }: Props) {
     try {
       const duration = plan.id === 'top' ? 7 : 14
       const { error: promoteError } = await listingsApi.promote(
+        supabase,
         id,
         plan.type as any,
         duration,

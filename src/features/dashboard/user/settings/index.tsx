@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/shared/lib/i18n'
 import { useAuth } from '@/app/providers/auth-provider'
+import { supabase } from '@/shared/lib/supabase/client'
 import { profilesApi } from '@/entities/user/api'
 import { PremiumBackground } from '@/shared/ui/premium-background'
 import { BentoGrid, BentoTile } from '@/shared/ui/bento'
@@ -50,7 +51,7 @@ export function SettingsView() {
 
   const loadProfile = React.useCallback(async () => {
     try {
-      const { data, error } = await profilesApi.getById(user!.id)
+      const { data, error } = await profilesApi.getById(supabase, user!.id)
       if (error) throw new Error(error)
       setProfile(data)
     } catch (err: any) {
@@ -70,7 +71,7 @@ export function SettingsView() {
     if (!user?.id) return
     setIsSaving(true)
     try {
-      const { error } = await profilesApi.update(user.id, profile)
+      const { error } = await profilesApi.update(supabase, user.id, profile)
       if (error) throw new Error(error)
 
       // Refresh state to ensure UI is in sync

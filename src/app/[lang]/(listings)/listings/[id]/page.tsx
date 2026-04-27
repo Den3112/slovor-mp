@@ -29,7 +29,7 @@ export default async function ListingPage({
   }
 
   // Try public fetch first (active only)
-  let result = await listingsApi.getById(id)
+  let result = await listingsApi.getById(supabase, id)
 
   // If not found, check if it's the owner's inactive listing
   if (!result.data) {
@@ -38,7 +38,7 @@ export default async function ListingPage({
     } = await supabase.auth.getUser()
 
     if (user) {
-      const ownerResult = await listingsApi.getForOwner(id, user.id)
+      const ownerResult = await listingsApi.getForOwner(supabase, id, user.id)
       if (ownerResult.data) {
         result = ownerResult
       }

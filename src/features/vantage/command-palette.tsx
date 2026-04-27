@@ -21,6 +21,7 @@ import { useTranslation } from '@/shared/lib/i18n'
 import { useVantage } from '@/app/providers/vantage-provider'
 import { cn } from '@/shared/lib/utils'
 import { profilesApi, listingsApi } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 import type { User, Listing } from '@/shared/lib/types/database'
 import { Loader2 } from 'lucide-react'
 
@@ -152,8 +153,8 @@ export function GlobalCommandPalette() {
       setIsSearching(true)
       try {
         const [usersRes, listingsRes] = await Promise.all([
-          profilesApi.getAdminAll(), // For now, simple search. In real case we would have searchByName
-          listingsApi.getAll({ search: query, limit: 5 }),
+          profilesApi.getAdminAll(supabase), // For now, simple search. In real case we would have searchByName
+          listingsApi.getAll(supabase, { search: query, limit: 5 }),
         ])
 
         // Mock search for users as we don't have dedicated search endpoint yet

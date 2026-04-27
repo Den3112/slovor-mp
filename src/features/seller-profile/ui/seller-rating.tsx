@@ -6,6 +6,7 @@ import {
   reviewsApi,
   type SellerRating as SellerRatingData,
 } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 import { useTranslation } from '@/shared/lib/i18n'
 import { useAuth } from '@/app/providers/auth-provider'
 import { Button } from '@/shared/ui/button'
@@ -46,7 +47,7 @@ export function SellerRating({
 
   const loadRating = async () => {
     setIsLoading(true)
-    const { data } = await reviewsApi.getForSeller(sellerId)
+    const { data } = await reviewsApi.getForSeller(supabase, sellerId)
     if (data) {
       setRatingData(data)
     }
@@ -55,7 +56,7 @@ export function SellerRating({
 
   const checkIfReviewed = async () => {
     if (!user) return
-    const { data } = await reviewsApi.hasReviewed(sellerId, user.id)
+    const { data } = await reviewsApi.hasReviewed(supabase, sellerId, user.id)
     if (data !== null) {
       setHasReviewed(data)
     }
@@ -67,7 +68,7 @@ export function SellerRating({
     setIsSubmitting(true)
     setSubmitMessage(null)
 
-    const { error } = await reviewsApi.create({
+    const { error } = await reviewsApi.create(supabase, {
       recipient_id: sellerId,
       author_id: user.id,
       rating: newRating,

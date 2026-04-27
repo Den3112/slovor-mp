@@ -39,7 +39,7 @@ describe('favoritesApi', () => {
       }
       ;(supabase.from as any).mockReturnValue(mockChain)
 
-      const result = await favoritesApi.getByUser('user-1')
+      const result = await favoritesApi.getByUser(supabase, 'user-1')
 
       expect(result.data).toHaveLength(2)
       expect(result.data?.[0]?.id).toBe('l1')
@@ -67,7 +67,7 @@ describe('favoritesApi', () => {
         .mockReturnValueOnce(mockCheckChain)
         .mockReturnValueOnce(mockDeleteChain)
 
-      const result = await favoritesApi.toggle('l1', 'u1')
+      const result = await favoritesApi.toggle(supabase, 'l1', 'u1')
 
       expect(result.data?.isFavorited).toBe(false)
       expect(supabase.from).toHaveBeenCalledWith('favorites')
@@ -88,7 +88,7 @@ describe('favoritesApi', () => {
         .mockReturnValueOnce(mockCheckChain)
         .mockReturnValueOnce(mockInsertChain)
 
-      const result = await favoritesApi.toggle('l2', 'u2')
+      const result = await favoritesApi.toggle(supabase, 'l2', 'u2')
 
       expect(result.data?.isFavorited).toBe(true)
     })
@@ -105,7 +105,7 @@ describe('favoritesApi', () => {
       }
       ;(supabase.from as any).mockReturnValue(mockChain)
 
-      const result = await favoritesApi.isFavorited('l1', 'u1')
+      const result = await favoritesApi.isFavorited(supabase, 'l1', 'u1')
       expect(result.data).toBe(true)
     })
 
@@ -117,7 +117,7 @@ describe('favoritesApi', () => {
       }
       ;(supabase.from as any).mockReturnValue(mockChain)
 
-      const result = await favoritesApi.isFavorited('l1', 'u1')
+      const result = await favoritesApi.isFavorited(supabase, 'l1', 'u1')
       expect(result.data).toBe(false)
     })
   })

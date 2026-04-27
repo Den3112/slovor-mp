@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { listingsApi } from '@/shared/lib/api'
+import { createClient } from '@/shared/lib/supabase/client'
 import { useTranslation } from '@/shared/lib/i18n'
 import type { Listing } from '@/shared/lib/types/database'
 import {
@@ -36,8 +37,8 @@ export function PromoteView({ userId }: PromoteViewProps) {
 
   useEffect(() => {
     async function fetchListings() {
-      if (!userId) return
-      const { data } = await listingsApi.getByUser(userId)
+      const supabase = createClient()
+      const { data } = await listingsApi.getByUser(supabase, userId)
       if (data) {
         // Only show active listings for promotion
         setListings(data.filter((l: Listing) => l.status === 'active'))

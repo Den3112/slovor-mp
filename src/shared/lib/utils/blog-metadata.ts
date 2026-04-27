@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { blogApi } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -14,7 +15,7 @@ export async function generateBlogMetadata({
     return { title: 'Blog Post | Slovor' }
   }
 
-  const { data: post } = await blogApi.getPostBySlug(slug)
+  const { data: post } = await blogApi.getPostBySlug(slug, supabase)
 
   if (!post) {
     return {

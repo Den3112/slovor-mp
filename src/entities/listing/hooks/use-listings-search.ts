@@ -38,7 +38,7 @@ export function useListingsSearch() {
     let query = supabase
       .from('listings')
       .select(
-        '*, profiles(first_name, last_name, avatar_url), listings_images(*)',
+        '*, user:profiles(display_name, avatar_url)',
         { count: 'exact' }
       )
       .eq('status', 'active')

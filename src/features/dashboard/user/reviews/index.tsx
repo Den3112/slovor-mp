@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { reviewsApi, type SellerRating, type Review } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 import { Star, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/shared/lib/i18n'
 import { Button } from '@/shared/ui/button'
@@ -32,8 +33,8 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
 
       try {
         const [receivedRes, givenRes] = await Promise.all([
-          reviewsApi.getForSeller(userId),
-          reviewsApi.getByAuthor(userId),
+          reviewsApi.getForSeller(supabase, userId),
+          reviewsApi.getByAuthor(supabase, userId),
         ])
 
         if (receivedRes.data) setRatingData(receivedRes.data)
@@ -49,7 +50,7 @@ export function UserReviewsView({ userId }: UserReviewsViewProps) {
   }, [userId])
 
   const handleReplySubmit = async (reviewId: string, replyText: string) => {
-    const { data, error } = await reviewsApi.reply(reviewId, replyText)
+    const { data, error } = await reviewsApi.reply(supabase, reviewId, replyText)
     if (error) throw new Error(error)
 
     if (data && ratingData) {

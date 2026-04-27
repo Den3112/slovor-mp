@@ -1,4 +1,6 @@
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes. 
+// Every method must now receive a SupabaseClient as an argument.
 import type { Listing, ApiResponse } from '@/shared/lib/types/database'
 import type { SupabaseClient } from '@supabase/supabase-js'
 export type { Listing }
@@ -16,11 +18,10 @@ export * from './geo'
 export type { ListingFilterOptions }
 
 function buildListingsQuery(
-  options?: ListingFilterOptions,
-  client?: SupabaseClient
+  client: SupabaseClient,
+  options?: ListingFilterOptions
 ) {
-  const supabaseClient = client || supabase
-  let query = supabaseClient
+  let query = client
     .from('listings')
     .select('*, category:categories(*)')
     .eq('status', 'active')
@@ -34,11 +35,11 @@ function buildListingsQuery(
 
 export const listingsApi = {
   async getAll(
-    options?: ListingFilterOptions,
-    client?: SupabaseClient
+    client: SupabaseClient,
+    options?: ListingFilterOptions
   ): Promise<ApiResponse<Listing[]>> {
     try {
-      const query = buildListingsQuery(options, client)
+      const query = buildListingsQuery(client, options)
       const { data, error } = await query
       if (error) {
         if (
@@ -56,9 +57,10 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
-  async getAdminAll(): Promise<ApiResponse<Listing[]>> {
+
+  async getAdminAll(client: SupabaseClient): Promise<ApiResponse<Listing[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .select('*, category:categories(*), user:profiles(*)')
         .order('created_at', { ascending: false })
@@ -71,12 +73,11 @@ export const listingsApi = {
   },
 
   async getCount(
-    options?: Omit<ListingFilterOptions, 'limit' | 'offset' | 'sort'>,
-    client?: SupabaseClient
+    client: SupabaseClient,
+    options: Omit<ListingFilterOptions, 'limit' | 'offset' | 'sort'> | undefined
   ): Promise<ApiResponse<number>> {
     try {
-      const supabaseClient = client || supabase
-      let query = supabaseClient
+      let query = client
         .from('listings')
         .select('id', { count: 'exact', head: true })
         .eq('status', 'active')
@@ -99,9 +100,9 @@ export const listingsApi = {
     }
   },
 
-  async getPendingCount(): Promise<ApiResponse<number>> {
+  async getPendingCount(client: SupabaseClient): Promise<ApiResponse<number>> {
     try {
-      const { count, error } = await supabase
+      const { count, error } = await client
         .from('listings')
         .select('id', { count: 'exact', head: true })
         .eq('status', 'pending')
@@ -114,9 +115,12 @@ export const listingsApi = {
     }
   },
 
-  async getFeatured(limit: number = 6): Promise<ApiResponse<Listing[]>> {
+  async getFeatured(
+    client: SupabaseClient,
+    limit: number = 6
+  ): Promise<ApiResponse<Listing[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .select('*, category:categories(*)')
         .eq('status', 'active')
@@ -132,9 +136,12 @@ export const listingsApi = {
     }
   },
 
-  async getById(id: string): Promise<ApiResponse<Listing>> {
+  async getById(
+    client: SupabaseClient,
+    id: string
+  ): Promise<ApiResponse<Listing>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .select('*, category:categories(*), user:profiles(*)')
         .eq('id', id)
@@ -144,10 +151,13 @@ export const listingsApi = {
       if (error) throw error
       if (!data) return { data: null, error: 'Listing not found' }
 
-      await supabase
+      // Analytics: increment view count (optional, can be done asynchronously)
+      client
         .from('listings')
         .update({ views_count: (data.views_count || 0) + 1 })
         .eq('id', id)
+        .then(() => {}) // fire and forget
+
       return { data, error: null }
     } catch (error) {
       logError('listingsApi.getById', error)
@@ -155,9 +165,12 @@ export const listingsApi = {
     }
   },
 
-  async getForEdit(id: string): Promise<ApiResponse<Listing>> {
+  async getForEdit(
+    client: SupabaseClient,
+    id: string
+  ): Promise<ApiResponse<Listing>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .select('*')
         .eq('id', id)
@@ -172,7 +185,10 @@ export const listingsApi = {
     }
   },
 
-  async create(listing: Partial<Listing>): Promise<ApiResponse<Listing>> {
+  async create(
+    client: SupabaseClient,
+    listing: Partial<Listing>
+  ): Promise<ApiResponse<Listing>> {
     try {
       const contentCheck = validateListingContent(
         listing.title || '',
@@ -185,7 +201,7 @@ export const listingsApi = {
           error: contentCheck.error || 'Content validation failed',
         }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .insert({
           ...listing,
@@ -207,13 +223,12 @@ export const listingsApi = {
   },
 
   async update(
+    client: SupabaseClient,
     id: string,
     updates: Partial<Listing>
   ): Promise<ApiResponse<Listing>> {
     try {
       if (updates.title || updates.description || updates.location) {
-        // To properly validate, we might need current state, but for now validate new values
-        // If title is not updated, it's fine to leave empty or fetch current
         const contentCheck = validateListingContent(
           updates.title || '',
           updates.description || '',
@@ -233,7 +248,7 @@ export const listingsApi = {
           delete updateData[key as keyof typeof updateData]
       )
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .update(updateData)
         .eq('id', id)
@@ -249,9 +264,9 @@ export const listingsApi = {
     }
   },
 
-  async delete(id: string): Promise<ApiResponse<null>> {
+  async delete(client: SupabaseClient, id: string): Promise<ApiResponse<null>> {
     try {
-      const { error } = await supabase.from('listings').delete().eq('id', id)
+      const { error } = await client.from('listings').delete().eq('id', id)
       if (error) throw error
       return { data: null, error: null }
     } catch (error) {
@@ -261,12 +276,11 @@ export const listingsApi = {
   },
 
   async getByUser(
-    userId: string,
-    client?: SupabaseClient
+    client: SupabaseClient,
+    userId: string
   ): Promise<ApiResponse<Listing[]>> {
     try {
-      const supabaseClient = client || supabase
-      const { data, error } = await supabaseClient
+      const { data, error } = await client
         .from('listings')
         .select('*, category:categories(*)')
         .eq('user_id', userId)
@@ -279,9 +293,13 @@ export const listingsApi = {
     }
   },
 
-  async getForOwner(id: string, userId: string): Promise<ApiResponse<Listing>> {
+  async getForOwner(
+    client: SupabaseClient,
+    id: string,
+    userId: string
+  ): Promise<ApiResponse<Listing>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('listings')
         .select('*, category:categories(*), user:profiles(*)')
         .eq('id', id)
@@ -296,9 +314,12 @@ export const listingsApi = {
     }
   },
 
-  async incrementContactClicks(id: string): Promise<ApiResponse<boolean>> {
+  async incrementContactClicks(
+    client: SupabaseClient,
+    id: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase.rpc('increment_contact_clicks', {
+      const { error } = await client.rpc('increment_contact_clicks', {
         listing_id: id,
       })
       if (error) throw error
@@ -310,13 +331,14 @@ export const listingsApi = {
   },
 
   async promote(
+    client: SupabaseClient,
     id: string,
     type: string,
     duration: number,
     cost: number
   ): Promise<ApiResponse<void>> {
     try {
-      const { error } = await supabase.rpc('promote_listing', {
+      const { error } = await client.rpc('promote_listing', {
         p_listing_id: id,
         p_promo_type: type,
         p_duration_days: duration,
@@ -329,9 +351,13 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
-  async bulkDelete(ids: string[]): Promise<ApiResponse<null>> {
+
+  async bulkDelete(
+    client: SupabaseClient,
+    ids: string[]
+  ): Promise<ApiResponse<null>> {
     try {
-      const { error } = await supabase.from('listings').delete().in('id', ids)
+      const { error } = await client.from('listings').delete().in('id', ids)
       if (error) throw error
       return { data: null, error: null }
     } catch (error) {
@@ -339,12 +365,14 @@ export const listingsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
+
   async bulkUpdateStatus(
+    client: SupabaseClient,
     ids: string[],
     status: Listing['status']
   ): Promise<ApiResponse<null>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('listings')
         .update({ status, updated_at: new Date().toISOString() })
         .in('id', ids)

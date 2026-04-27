@@ -9,6 +9,7 @@ import { supportApi, type SupportTicket } from '@/shared/lib/api'
 import { Button } from '@/shared/ui/button'
 import { cn } from '@/shared/lib/utils'
 import { StatusBadge } from '@/features/dashboard/shared/status-badge'
+import { supabase } from '@/shared/lib/supabase/client'
 
 export default function SupportDashboardPage({
   params,
@@ -23,7 +24,7 @@ export default function SupportDashboardPage({
   useEffect(() => {
     async function loadTickets() {
       try {
-        const { data } = await supportApi.getMyTickets()
+        const { data } = await supportApi.getMyTickets(supabase)
         if (data) setTickets(data)
       } catch (error) {
         console.error('Failed to load tickets', error)

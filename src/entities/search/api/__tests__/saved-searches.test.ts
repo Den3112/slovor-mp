@@ -24,7 +24,7 @@ describe('savedSearchesApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await savedSearchesApi.getAll()
+      const response = await savedSearchesApi.getAll(supabase)
       expect(response.data).toEqual(mockData)
     })
 
@@ -33,7 +33,7 @@ describe('savedSearchesApi', () => {
         data: { user: null },
         error: null,
       } as any)
-      const response = await savedSearchesApi.getAll()
+      const response = await savedSearchesApi.getAll(supabase)
       expect(response.error).toBe('Not authenticated')
     })
 
@@ -45,7 +45,7 @@ describe('savedSearchesApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await savedSearchesApi.getAll()
+      const response = await savedSearchesApi.getAll(supabase)
       expect(response.error).toBe('DB Error')
     })
   })
@@ -61,7 +61,7 @@ describe('savedSearchesApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
 
-      const response = await savedSearchesApi.create(mockSearch)
+      const response = await savedSearchesApi.create(supabase, mockSearch)
       expect(response.data?.id).toBe('1')
     })
 
@@ -70,7 +70,7 @@ describe('savedSearchesApi', () => {
         data: { user: null },
         error: null,
       } as any)
-      const response = await savedSearchesApi.create({ name: 'Test' })
+      const response = await savedSearchesApi.create(supabase, { name: 'Test' })
       expect(response.error).toBe('Not authenticated')
     })
 
@@ -82,7 +82,7 @@ describe('savedSearchesApi', () => {
       const insertMock = vi.fn().mockReturnValue({ select: selectMock })
       vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
 
-      const response = await savedSearchesApi.create({ name: 'Test' })
+      const response = await savedSearchesApi.create(supabase, { name: 'Test' })
       expect(response.error).toBe('Insert Error')
     })
   })
@@ -98,7 +98,7 @@ describe('savedSearchesApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
 
-      const response = await savedSearchesApi.update('1', { name: 'Updated' })
+      const response = await savedSearchesApi.update(supabase, '1', { name: 'Updated' })
       expect(response.data?.id).toBe('1')
     })
 
@@ -111,7 +111,9 @@ describe('savedSearchesApi', () => {
       const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
 
-      const response = await savedSearchesApi.update('1', { name: 'Updated' })
+      const response = await savedSearchesApi.update(supabase, '1', {
+        name: 'Updated',
+      })
       expect(response.error).toBe('Update Error')
     })
   })
@@ -123,7 +125,7 @@ describe('savedSearchesApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ delete: deleteMock } as any)
 
-      const response = await savedSearchesApi.delete('1')
+      const response = await savedSearchesApi.delete(supabase, '1')
       expect(response.data).toBe(true)
     })
 
@@ -134,7 +136,7 @@ describe('savedSearchesApi', () => {
       const deleteMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ delete: deleteMock } as any)
 
-      const response = await savedSearchesApi.delete('1')
+      const response = await savedSearchesApi.delete(supabase, '1')
       expect(response.error).toBe('Delete Error')
     })
   })
@@ -145,7 +147,7 @@ describe('savedSearchesApi', () => {
         .spyOn(savedSearchesApi, 'create')
         .mockResolvedValue({ data: {} as any, error: null })
 
-      await savedSearchesApi.saveCurrentSearch('My Search', {
+      await savedSearchesApi.saveCurrentSearch(supabase, 'My Search', {
         query: 'laptop',
         category: 'cat1',
         location: 'Bratislava',
@@ -153,7 +155,7 @@ describe('savedSearchesApi', () => {
         maxPrice: 500,
       })
 
-      expect(createSpy).toHaveBeenCalledWith({
+      expect(createSpy).toHaveBeenCalledWith(supabase, {
         name: 'My Search',
         query: 'laptop',
         category_id: 'cat1',

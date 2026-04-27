@@ -1,8 +1,11 @@
 // Reviews API
 // Centralized API layer for seller reviews management
 
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse, Review } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export type { Review } from '@/shared/lib/types/database'
@@ -17,13 +20,16 @@ export const reviewsApi = {
   /**
    * Creates a new review for a seller
    */
-  async create(review: {
-    recipient_id: string
-    author_id: string
-    listing_id?: string
-    rating: number
-    comment?: string
-  }): Promise<ApiResponse<Review>> {
+  async create(
+    client: SupabaseClient,
+    review: {
+      recipient_id: string
+      author_id: string
+      listing_id?: string
+      rating: number
+      comment?: string
+    }
+  ): Promise<ApiResponse<Review>> {
     try {
       // Prevent self-reviews
       if (review.recipient_id === review.author_id) {
@@ -35,7 +41,7 @@ export const reviewsApi = {
         return { data: null, error: 'Rating must be between 1 and 5' }
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reviews')
         .insert({
           seller_id: review.recipient_id,
@@ -61,9 +67,12 @@ export const reviewsApi = {
   /**
    * Gets all reviews and average rating for a seller
    */
-  async getForSeller(sellerId: string): Promise<ApiResponse<SellerRating>> {
+  async getForSeller(
+    client: SupabaseClient,
+    sellerId: string
+  ): Promise<ApiResponse<SellerRating>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reviews')
         .select(
           `
@@ -109,12 +118,13 @@ export const reviewsApi = {
    * Checks if a user has already reviewed a seller for a specific listing
    */
   async hasReviewed(
+    client: SupabaseClient,
     recipientId: string,
     authorId: string,
     listingId?: string
   ): Promise<ApiResponse<boolean>> {
     try {
-      let query = supabase
+      let query = client
         .from('reviews')
         .select('id')
         .eq('seller_id', recipientId)
@@ -141,11 +151,12 @@ export const reviewsApi = {
    * Deletes a review (only by the original buyer)
    */
   async delete(
+    client: SupabaseClient,
     reviewId: string,
     authorId: string
   ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('reviews')
         .delete()
         .eq('id', reviewId)
@@ -165,9 +176,12 @@ export const reviewsApi = {
   /**
    * Gets reviews written by a specific buyer
    */
-  async getByAuthor(authorId: string): Promise<ApiResponse<Review[]>> {
+  async getByAuthor(
+    client: SupabaseClient,
+    authorId: string
+  ): Promise<ApiResponse<Review[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reviews')
         .select(
           `
@@ -197,12 +211,14 @@ export const reviewsApi = {
       return { data: null, error: (error as Error).message }
     }
   },
-  /**
-   * Adds or updates a seller reply to a review
-   */
-  async reply(reviewId: string, reply: string): Promise<ApiResponse<Review>> {
+
+  async reply(
+    client: SupabaseClient,
+    reviewId: string,
+    reply: string
+  ): Promise<ApiResponse<Review>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reviews')
         .update({
           seller_reply: reply,

@@ -1,0 +1,24 @@
+src/app/providers/auth-provider.tsx(38,48): error TS7031: Binding element 'session' implicitly has an 'any' type.
+src/app/providers/auth-provider.tsx(46,42): error TS7006: Parameter '_event' implicitly has an 'any' type.
+src/app/providers/auth-provider.tsx(46,50): error TS7006: Parameter 'session' implicitly has an 'any' type.
+src/entities/chat/hooks/index.ts(52,10): error TS7006: Parameter 'payload' implicitly has an 'any' type.
+src/entities/chat/hooks/index.ts(65,48): error TS7031: Binding element 'payload' implicitly has an 'any' type.
+src/entities/listing/ui/details/listing-sidebar.tsx(59,49): error TS2554: Expected 4 arguments, but got 3.
+src/entities/support/api/index.ts(159,15): error TS2353: Object literal may only specify known properties, and 'user_id' does not exist in type 'SupabaseClient<any, "public", "public", any, any>'.
+src/features/dashboard/user/messages/chat-view/chat-view.tsx(83,16): error TS7006: Parameter 'payload' implicitly has an 'any' type.
+src/shared/lib/api/__tests__/base.test.ts(208,62): error TS2345: Argument of type 'string' is not assignable to parameter of type 'SupabaseClient<any, "public", "public", any, any>'.
+src/shared/lib/supabase/__tests__/storage.test.ts(22,41): error TS2554: Expected 3-4 arguments, but got 2.
+src/shared/lib/supabase/__tests__/storage.test.ts(28,41): error TS2554: Expected 3-4 arguments, but got 2.
+src/shared/lib/supabase/__tests__/storage.test.ts(46,41): error TS2554: Expected 3-4 arguments, but got 2.
+src/shared/lib/supabase/__tests__/storage.test.ts(67,41): error TS2554: Expected 3-4 arguments, but got 2.
+src/shared/lib/supabase/__tests__/storage.test.ts(87,9): error TS2345: Argument of type 'File[]' is not assignable to parameter of type 'SupabaseClient<any, "public", "public", any, any>'.
+  Type 'File[]' is missing the following properties from type 'SupabaseClient<any, "public", "public", any, any>': supabaseUrl, supabaseKey, auth, realtime, and 21 more.
+src/shared/lib/supabase/__tests__/storage.test.ts(106,41): error TS2554: Expected 3-4 arguments, but got 2.
+src/shared/lib/supabase/__tests__/storage.test.ts(122,41): error TS2554: Expected 3-4 arguments, but got 2.
+src/shared/lib/supabase/__tests__/storage.test.ts(137,41): error TS2554: Expected 2 arguments, but got 1.
+src/shared/lib/supabase/__tests__/storage.test.ts(150,41): error TS2554: Expected 2 arguments, but got 1.
+src/shared/lib/supabase/__tests__/storage.test.ts(162,41): error TS2554: Expected 2 arguments, but got 1.
+src/shared/lib/utils/blog-metadata.ts(17,40): error TS2554: Expected 2 arguments, but got 1.
+src/shared/lib/utils/metadata.ts(22,47): error TS2554: Expected 2 arguments, but got 1.
+src/shared/ui/report-dialog.tsx(50,40): error TS2554: Expected 2 arguments, but got 1.
+src/widgets/listings-catalog/ui/listings-view.tsx(63,9): error TS2353: Object literal may only specify known properties, and 'page' does not exist in type 'SupabaseClient<any, "public", "public", any, any>'.

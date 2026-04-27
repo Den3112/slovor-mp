@@ -13,7 +13,10 @@ export function SortSelect({ value, onChange, options }: SortSelectProps) {
 
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className="border-border bg-muted/30 focus:ring-primary h-12 w-full rounded-xl font-medium">
+      <SelectTrigger 
+        className="border-border bg-muted/30 focus:ring-primary h-12 w-full rounded-xl font-medium"
+        aria-label={t('filters:sortBy')}
+      >
         <SelectValue placeholder={t('filters:sort')} />
       </SelectTrigger>
       <SelectContent>

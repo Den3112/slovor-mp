@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { savedSearchesApi, type SavedSearch } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 import { useTranslation } from '@/shared/lib/i18n'
 import { Button } from '@/shared/ui/button'
 import {
@@ -45,7 +46,7 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
 
     setIsDeleting(deleteId)
     try {
-      const { error } = await savedSearchesApi.delete(deleteId)
+      const { error } = await savedSearchesApi.delete(supabase, deleteId)
       if (error) throw new Error(error)
 
       setSearches((prev) => prev.filter((s) => s.id !== deleteId))
@@ -60,9 +61,13 @@ export function SavedSearchesView({ initialSearches }: SavedSearchesViewProps) {
 
   const handleToggleNotifications = async (search: SavedSearch) => {
     try {
-      const { data, error } = await savedSearchesApi.update(search.id, {
-        notify_email: !search.notify_email,
-      })
+      const { data, error } = await savedSearchesApi.update(
+        supabase,
+        search.id,
+        {
+          notify_email: !search.notify_email,
+        }
+      )
       if (error) throw new Error(error)
 
       if (data) {

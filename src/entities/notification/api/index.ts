@@ -1,8 +1,11 @@
 // Notifications API
 // Centralized API layer for user notifications
 
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export type NotificationType =
@@ -29,9 +32,12 @@ export const notificationsApi = {
   /**
    * Gets all notifications for a user
    */
-  async getNotifications(userId: string): Promise<ApiResponse<Notification[]>> {
+  async getNotifications(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<Notification[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('notifications')
         .select('*')
         .eq('user_id', userId)
@@ -50,9 +56,12 @@ export const notificationsApi = {
   /**
    * Gets unread notification count
    */
-  async getUnreadCount(userId: string): Promise<ApiResponse<number>> {
+  async getUnreadCount(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<number>> {
     try {
-      const { count, error } = await supabase
+      const { count, error } = await client
         .from('notifications')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', userId)
@@ -70,9 +79,12 @@ export const notificationsApi = {
   /**
    * Marks notification as read
    */
-  async markAsRead(notificationId: string): Promise<ApiResponse<boolean>> {
+  async markAsRead(
+    client: SupabaseClient,
+    notificationId: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('notifications')
         .update({ is_read: true })
         .eq('id', notificationId)
@@ -89,9 +101,12 @@ export const notificationsApi = {
   /**
    * Marks all notifications as read
    */
-  async markAllAsRead(userId: string): Promise<ApiResponse<boolean>> {
+  async markAllAsRead(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('notifications')
         .update({ is_read: true })
         .eq('user_id', userId)
@@ -109,9 +124,12 @@ export const notificationsApi = {
   /**
    * Deletes a notification
    */
-  async delete(notificationId: string): Promise<ApiResponse<boolean>> {
+  async delete(
+    client: SupabaseClient,
+    notificationId: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('notifications')
         .delete()
         .eq('id', notificationId)
@@ -129,10 +147,11 @@ export const notificationsApi = {
    * Creates a new notification
    */
   async create(
+    client: SupabaseClient,
     notification: Omit<Notification, 'id' | 'created_at' | 'is_read'>
   ): Promise<ApiResponse<Notification>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('notifications')
         .insert([{ ...notification, is_read: false }])
         .select()

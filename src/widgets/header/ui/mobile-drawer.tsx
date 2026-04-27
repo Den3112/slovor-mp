@@ -345,14 +345,14 @@ export function MobileDrawer({
                       ) : (
                         <div className="grid grid-cols-2 gap-3 px-2 pt-2">
                           <Link
-                            href={`/${locale}/auth/login`}
+                            href={`/${locale}/login`}
                             onClick={() => onOpenChange(false)}
                             className="bg-primary text-primary-foreground shadow-primary/20 flex items-center justify-center rounded-xl py-3 text-[10px] font-bold tracking-widest uppercase shadow-lg transition-all active:scale-95"
                           >
                             {t('common:signIn')}
                           </Link>
                           <Link
-                            href={`/${locale}/auth/register`}
+                            href={`/${locale}/register`}
                             onClick={() => onOpenChange(false)}
                             className="bg-muted text-foreground border-border/40 flex items-center justify-center rounded-xl border py-3 text-[10px] font-bold tracking-widest uppercase transition-all active:scale-95"
                           >

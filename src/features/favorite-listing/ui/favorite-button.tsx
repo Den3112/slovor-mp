@@ -76,7 +76,7 @@ export function FavoriteButton({
     if (!user) {
       setIsFavorited(previousState)
       setIsLoading(false)
-      router.push(`/${locale}/auth/login`)
+      router.push(`/${locale}/login`)
       return
     }
 

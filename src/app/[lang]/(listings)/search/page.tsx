@@ -9,7 +9,8 @@ import { listingsApi } from '@/shared/lib/api'
 import { Container } from '@/shared/ui/container'
 import { Skeleton } from '@/shared/ui/skeleton'
 import { getTranslationServer } from '@/shared/lib/i18n/server'
-import { Metadata } from 'next'
+import { createClient } from '@/shared/lib/supabase/server'
+import type { Metadata } from 'next'
 
 export async function generateMetadata({
   searchParams,
@@ -58,6 +59,8 @@ async function SearchResults({
     }
   })
 
+  const supabase = await createClient()
+
   const filterOptions = {
     page: Number(page) || 1,
     limit: itemsPerPage,
@@ -72,8 +75,8 @@ async function SearchResults({
   }
 
   const [{ data: listings }, { data: total }] = await Promise.all([
-    listingsApi.getAll(filterOptions),
-    listingsApi.getCount(filterOptions),
+    listingsApi.getAll(supabase, filterOptions),
+    listingsApi.getCount(supabase, filterOptions),
   ])
 
   const items = listings || []

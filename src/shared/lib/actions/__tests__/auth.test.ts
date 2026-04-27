@@ -88,8 +88,7 @@ describe('Auth Server Actions', () => {
         password: 'password123',
         options: {
           data: {
-            first_name: 'John',
-            last_name: 'Doe',
+            display_name: 'John Doe',
           },
           emailRedirectTo: expect.stringContaining('/api/auth/callback'),
         },
@@ -119,7 +118,7 @@ describe('Auth Server Actions', () => {
 
       expect(mockSupabase.auth.signOut).toHaveBeenCalled()
       expect(revalidatePath).toHaveBeenCalledWith('/', 'layout')
-      expect(redirect).toHaveBeenCalledWith('/en/auth/login')
+      expect(redirect).toHaveBeenCalledWith('/en/login')
     })
   })
 })

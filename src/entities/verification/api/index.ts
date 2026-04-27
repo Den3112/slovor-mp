@@ -1,5 +1,8 @@
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export interface VerificationStatus {
@@ -13,10 +16,13 @@ export const verificationApi = {
   /**
    * Gets the verification status of the current user
    */
-  async getStatus(userId: string): Promise<ApiResponse<VerificationStatus>> {
+  async getStatus(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<VerificationStatus>> {
     try {
       // Fetch profile for phone and level
-      const { data: profile, error: profileError } = await supabase
+      const { data: profile, error: profileError } = await client
         .from('profiles')
         .select('is_verified, verification_level, phone')
         .eq('id', userId)
@@ -26,7 +32,7 @@ export const verificationApi = {
 
       // Fetch latest document verification request
       const { data: latestVerification, error: verificationError } =
-        await supabase
+        await client
           .from('verifications')
           .select('status')
           .eq('user_id', userId)
@@ -58,12 +64,13 @@ export const verificationApi = {
    * Submits a request for document verification
    */
   async submitDocuments(
+    client: SupabaseClient,
     userId: string,
     documentUrls: string[]
   ): Promise<ApiResponse<boolean>> {
     try {
       // 1. Create verification request
-      const { error: insertError } = await supabase
+      const { error: insertError } = await client
         .from('verifications')
         .insert({
           user_id: userId,
@@ -77,7 +84,7 @@ export const verificationApi = {
       // 2. Update profile level to show pending status if needed,
       // but usually we keep verification_level as the LAST COMPLETED level.
       // Let's just update the metadata if we want to track it there too.
-      await supabase
+      await client
         .from('profiles')
         .update({
           metadata: {
@@ -97,12 +104,13 @@ export const verificationApi = {
    * Admin: Approves a verification request
    */
   async approveVerification(
+    client: SupabaseClient,
     verificationId: string,
     userId: string
   ): Promise<ApiResponse<boolean>> {
     try {
       // 1. Update verification request status
-      const { error: verifError } = await supabase
+      const { error: verifError } = await client
         .from('verifications')
         .update({ status: 'approved', reviewed_at: new Date().toISOString() }) // status verified -> approved, verified_at -> reviewed_at
         .eq('id', verificationId)
@@ -110,7 +118,7 @@ export const verificationApi = {
       if (verifError) throw verifError
 
       // 2. Update user profile
-      const { error: profileError } = await supabase
+      const { error: profileError } = await client
         .from('profiles')
         .update({ verification_level: 'documents', is_verified: true })
         .eq('id', userId)
@@ -128,10 +136,11 @@ export const verificationApi = {
    * Admin: Rejects a verification request
    */
   async rejectVerification(
+    client: SupabaseClient,
     verificationId: string
   ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('verifications')
         .update({ status: 'rejected' })
         .eq('id', verificationId)
@@ -147,9 +156,9 @@ export const verificationApi = {
   /**
    * Admin: Fetches all verification requests
    */
-  async getAdminAll(): Promise<ApiResponse<any[]>> {
+  async getAdminAll(client: SupabaseClient): Promise<ApiResponse<any[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('verifications')
         .select(
           '*, profile:profiles!user_id(id, display_name, avatar_url, phone)'

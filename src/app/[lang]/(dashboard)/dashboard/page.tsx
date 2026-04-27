@@ -35,9 +35,9 @@ export default async function DashboardOverviewPage({
     return null // Layout handles redirect
   }
 
-  const stats = await getDashboardStats(user.id)
-  const userListings = await listingsApi.getByUser(user.id, supabase)
-  const transactions = await transactionsApi.getForUser(user.id)
+  const stats = await getDashboardStats(supabase, user.id)
+  const userListings = await listingsApi.getByUser(supabase, user.id)
+  const transactions = await transactionsApi.getForUser(supabase, user.id)
   const recentOrders = await ordersApi.getMyOrders(supabase)
 
   // Generate chart data from real transactions
@@ -68,7 +68,7 @@ export default async function DashboardOverviewPage({
       stats={stats}
       userListings={userListings.data || []}
       chartData={chartData}
-      recentOrders={(recentOrders.data || []).slice(0, 5) as unknown as Order[]}
+      recentOrders={((recentOrders.data || []) as Order[]).slice(0, 5)}
       transactions={(transactions.data || []).slice(0, 7) as Transaction[]}
     />
   )

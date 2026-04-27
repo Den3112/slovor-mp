@@ -1,11 +1,13 @@
 import { Suspense } from 'react'
 import { Container } from '@/shared/ui/container'
 import { categoriesApi } from '@/entities/category/api'
+import { createClient } from '@/shared/lib/supabase/server'
 import { CategoryCard } from '@/entities/category'
 import { Skeleton } from '@/shared/ui/skeleton'
 
 async function CategoriesList() {
-  const { data: categories, error } = await categoriesApi.getAll()
+  const supabase = await createClient()
+  const { data: categories, error } = await categoriesApi.getAll(supabase)
 
   if (error || !categories) {
     return (

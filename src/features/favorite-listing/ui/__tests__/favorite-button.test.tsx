@@ -95,7 +95,7 @@ describe('FavoriteButton', () => {
     fireEvent.click(button)
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('/en/auth/login')
+      expect(mockPush).toHaveBeenCalledWith('/en/login')
     })
   })
 

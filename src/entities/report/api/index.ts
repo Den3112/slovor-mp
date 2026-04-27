@@ -1,4 +1,4 @@
-import { createClient } from '@/shared/lib/supabase/client'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 import type { ApiResponse, ListingReport } from '@/shared/lib/types/database'
 
@@ -29,18 +29,20 @@ export interface ReportWithDetails extends ListingReport {
 }
 
 export const reportsApi = {
-  async getAll(): Promise<ApiResponse<ReportWithDetails[]>> {
-    return this.list()
+  async getAll(client: SupabaseClient): Promise<ApiResponse<ReportWithDetails[]>> {
+    return this.list(client)
   },
 
-  async list(options?: {
-    status?: string
-    limit?: number
-    offset?: number
-  }): Promise<ApiResponse<ReportWithDetails[]>> {
-    const supabase = createClient()
+  async list(
+    client: SupabaseClient,
+    options?: {
+      status?: string
+      limit?: number
+      offset?: number
+    }
+  ): Promise<ApiResponse<ReportWithDetails[]>> {
     try {
-      let query = supabase
+      let query = client
         .from('reports')
         .select(
           '*, listing:listings(id, title, images), reporter:profiles!reporter_id(display_name, avatar_url), reported_user:profiles!reported_user_id(display_name, avatar_url)',
@@ -72,12 +74,12 @@ export const reportsApi = {
   },
 
   async hasReported(
+    client: SupabaseClient,
     reporterId: string,
     listingId: string
   ): Promise<ApiResponse<boolean>> {
-    const supabase = createClient()
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reports')
         .select('id')
         .eq('reporter_id', reporterId)
@@ -93,12 +95,12 @@ export const reportsApi = {
   },
 
   async updateStatus(
+    client: SupabaseClient,
     id: string,
     status: 'resolved' | 'dismissed'
   ): Promise<ApiResponse<ListingReport>> {
-    const supabase = createClient()
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reports')
         .update({ status })
         .eq('id', id)
@@ -114,10 +116,9 @@ export const reportsApi = {
   },
 
   async create(
+    client: SupabaseClient,
     report: Partial<ListingReport>
   ): Promise<ApiResponse<ListingReport>> {
-    const supabase = createClient()
-
     // Validate request
     if (!report.listing_id && !report.reported_user_id) {
       return { data: null, error: 'Must report either a listing or a user' }
@@ -132,7 +133,7 @@ export const reportsApi = {
     }
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('reports')
         .insert([report])
         .select()
@@ -146,3 +147,4 @@ export const reportsApi = {
     }
   },
 }
+

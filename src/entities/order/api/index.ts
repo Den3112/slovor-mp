@@ -3,10 +3,10 @@ import { withRetry } from '@/shared/lib/supabase/utils'
 import type { Order } from '@/shared/lib/types/database'
 
 export const ordersApi = {
-  async getMyOrders(supabase: SupabaseClient) {
+  async getMyOrders(supabase: SupabaseClient): Promise<{ data: Order[] | null; error: any }> {
     const {
       data: { user },
-    } = await withRetry(() => supabase.auth.getUser())
+    } = await withRetry<{ data: { user: any }; error: any }>(() => supabase.auth.getUser() as any)
     if (!user) return { data: null, error: 'Not authenticated' }
 
     return withRetry(() =>
@@ -22,11 +22,10 @@ export const ordersApi = {
         )
         .or(`buyer_id.eq.${user.id},seller_id.eq.${user.id}`)
         .order('created_at', { ascending: false })
-        .then((res) => res)
-    )
+    ) as any
   },
 
-  async getById(supabase: SupabaseClient, id: string) {
+  async getById(supabase: SupabaseClient, id: string): Promise<{ data: Order | null; error: any }> {
     return withRetry(() =>
       supabase
         .from('orders')
@@ -40,11 +39,10 @@ export const ordersApi = {
         )
         .eq('id', id)
         .single()
-        .then((res) => res)
-    )
+    ) as any
   },
 
-  async getAll(supabase: SupabaseClient) {
+  async getAll(supabase: SupabaseClient): Promise<{ data: Order[] | null; error: any }> {
     return withRetry(() =>
       supabase
         .from('orders')
@@ -57,22 +55,20 @@ export const ordersApi = {
                 `
         )
         .order('created_at', { ascending: false })
-        .then((res) => res)
-    )
+    ) as any
   },
 
-  async create(supabase: SupabaseClient, order: Partial<Order>) {
+  async create(supabase: SupabaseClient, order: Partial<Order>): Promise<{ data: Order | null; error: any }> {
     return withRetry(() =>
       supabase
         .from('orders')
         .insert(order)
         .select()
         .single()
-        .then((res) => res)
-    )
+    ) as any
   },
 
-  async updateStatus(supabase: SupabaseClient, id: string, status: string) {
+  async updateStatus(supabase: SupabaseClient, id: string, status: string): Promise<{ data: Order | null; error: any }> {
     return withRetry(() =>
       supabase
         .from('orders')
@@ -80,19 +76,16 @@ export const ordersApi = {
         .eq('id', id)
         .select()
         .single()
-        .then((res) => res)
-    )
+    ) as any
   },
 
   async purchase(supabase: SupabaseClient, listingId: string, amount: number) {
     return withRetry(() =>
-      supabase
-        .rpc('purchase_listing', {
-          p_listing_id: listingId,
-          p_amount: amount,
-          p_payment_method: 'wallet',
-        })
-        .then((res) => res)
+      supabase.rpc('purchase_listing', {
+        p_listing_id: listingId,
+        p_amount: amount,
+        p_payment_method: 'wallet',
+      })
     )
   },
 }

@@ -18,7 +18,7 @@ const createMockQuery = (resolvedValue: any = { data: null, error: null }) => {
   }
   Object.keys(query).forEach((k) => query[k].mockReturnValue(query))
 
-  query.then = vi.fn().mockImplementation((onFulfilled) => {
+  query.then = vi.fn().mockImplementation((onFulfilled: any) => {
     return Promise.resolve(onFulfilled(resolvedValue))
   })
 
@@ -40,7 +40,7 @@ describe('profilesApi', () => {
         createMockQuery({ data: mockProfile, error: null })
       )
 
-      const { data, error } = await profilesApi.getById(userId)
+      const { data, error } = await profilesApi.getById(supabase, userId)
       expect(error).toBeNull()
       expect(data).toEqual(mockProfile)
     })
@@ -48,7 +48,7 @@ describe('profilesApi', () => {
     it('returns error if profile not found', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: null }))
 
-      const { data, error } = await profilesApi.getById(userId)
+      const { data, error } = await profilesApi.getById(supabase, userId)
       expect(data).toBeNull()
       expect(error).toBe('Profile not found')
     })
@@ -61,14 +61,14 @@ describe('profilesApi', () => {
         createMockQuery({ data: mockProfile, error: null })
       )
 
-      const { data } = await profilesApi.getOrCreate(userId)
+      const { data } = await profilesApi.getOrCreate(supabase, userId)
       expect(data).toEqual(mockProfile)
     })
 
     it('returns default profile if it does not exist', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: null }))
 
-      const { data } = await profilesApi.getOrCreate(userId, 'test@example.com')
+      const { data } = await profilesApi.getOrCreate(supabase, userId, 'test@example.com')
       expect(data?.display_name).toBe('test')
     })
   })
@@ -80,7 +80,7 @@ describe('profilesApi', () => {
       const query = createMockQuery({ data: mockResult, error: null })
       mockFrom.mockReturnValue(query)
 
-      const { data, error } = await profilesApi.update(userId, updates as any)
+      const { data, error } = await profilesApi.update(supabase, userId, updates as any)
 
       expect(error).toBeNull()
       expect(data).toEqual(mockResult)
@@ -107,7 +107,7 @@ describe('profilesApi', () => {
         .mockReturnValueOnce(listingsQuery)
         .mockReturnValueOnce(favoritesQuery)
 
-      const { data } = await profilesApi.getStats(userId)
+      const { data } = await profilesApi.getStats(supabase, userId)
       expect(data?.totalViews).toBe(30)
       expect(data?.favoritesCount).toBe(5)
       expect(data?.totalListings).toBe(2)
@@ -120,7 +120,7 @@ describe('profilesApi', () => {
         .mockReturnValueOnce(createMockQuery({ data: [], error: null }))
         .mockReturnValueOnce(createMockQuery({ count: 0, error: null }))
 
-      const { data } = await profilesApi.getStats(userId)
+      const { data } = await profilesApi.getStats(supabase, userId)
       expect(data?.totalListings).toBe(0)
       expect(data?.avgViewsPerListing).toBe(0)
     })
@@ -133,7 +133,7 @@ describe('profilesApi', () => {
         createMockQuery({ data: mockListings, error: null })
       )
 
-      const { data, error } = await profilesApi.getRecentActivity(userId)
+      const { data, error } = await profilesApi.getRecentActivity(supabase, userId)
       expect(error).toBeNull()
       expect(data).toHaveLength(2)
     })
@@ -146,7 +146,7 @@ describe('profilesApi', () => {
         createMockQuery({ data: mockProfiles, error: null })
       )
 
-      const { data, error } = await profilesApi.getAdminAll()
+      const { data, error } = await profilesApi.getAdminAll(supabase)
       expect(error).toBeNull()
       expect(data).toHaveLength(2)
     })
@@ -157,31 +157,31 @@ describe('profilesApi', () => {
 
     it('catches and logs errors in getById', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: dbError }))
-      const { error } = await profilesApi.getById(userId)
+      const { error } = await profilesApi.getById(supabase, userId)
       expect(error).toBe(dbError.message)
     })
 
     it('catches errors in getOrCreate', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: dbError }))
-      const { error } = await profilesApi.getOrCreate(userId)
+      const { error } = await profilesApi.getOrCreate(supabase, userId)
       expect(error).toBe(dbError.message)
     })
 
     it('catches errors in update', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: dbError }))
-      const { error } = await profilesApi.update(userId, {})
+      const { error } = await profilesApi.update(supabase, userId, {})
       expect(error).toBe(dbError.message)
     })
 
     it('handles failed update (no data)', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: null }))
-      const { error } = await profilesApi.update(userId, {})
+      const { error } = await profilesApi.update(supabase, userId, {})
       expect(error).toBe('Profile update failed')
     })
 
     it('catches errors in getStats', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: dbError }))
-      const { error } = await profilesApi.getStats(userId)
+      const { error } = await profilesApi.getStats(supabase, userId)
       expect(error).toBe(dbError.message)
     })
 
@@ -190,19 +190,19 @@ describe('profilesApi', () => {
         .mockReturnValueOnce(createMockQuery({ data: [], error: null }))
         .mockReturnValueOnce(createMockQuery({ count: null, error: dbError }))
 
-      const { error } = await profilesApi.getStats(userId)
+      const { error } = await profilesApi.getStats(supabase, userId)
       expect(error).toBe(dbError.message)
     })
 
     it('catches errors in getRecentActivity', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: dbError }))
-      const { error } = await profilesApi.getRecentActivity(userId)
+      const { error } = await profilesApi.getRecentActivity(supabase, userId)
       expect(error).toBe(dbError.message)
     })
 
     it('catches errors in getAdminAll', async () => {
       mockFrom.mockReturnValue(createMockQuery({ data: null, error: dbError }))
-      const { error } = await profilesApi.getAdminAll()
+      const { error } = await profilesApi.getAdminAll(supabase)
       expect(error).toBe(dbError.message)
     })
   })

@@ -57,7 +57,7 @@ describe('API Health Checks', () => {
       }
       fromSpy.mockReturnValue(mockQuery as any)
 
-      const result = await listingsApi.getAll()
+      const result = await listingsApi.getAll(supabase as any)
       expect(result.data).toEqual(mockData)
       expect(fromSpy).toHaveBeenCalledWith('listings')
     })

@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from '@/shared/ui/select'
 import { toast } from 'sonner'
+import { supabase } from '@/shared/lib/supabase/client'
 
 export default function CreateTicketPage({
   params: { lang },
@@ -55,7 +56,7 @@ export default function CreateTicketPage({
         category: formData.category as any,
         priority: formData.priority as any,
         user_id: '', // API handles this from auth
-      })
+      }, supabase)
 
       if (error) throw new Error(error)
 
@@ -119,7 +120,7 @@ export default function CreateTicketPage({
                   <Label>{t('dashboard:category')}</Label>
                   <Select
                     value={formData.category}
-                    onValueChange={(val) =>
+                    onValueChange={(val: string) =>
                       setFormData({ ...formData, category: val })
                     }
                   >
@@ -147,7 +148,7 @@ export default function CreateTicketPage({
                   <Label>{t('dashboard:priority')}</Label>
                   <Select
                     value={formData.priority}
-                    onValueChange={(val) =>
+                    onValueChange={(val: string) =>
                       setFormData({ ...formData, priority: val })
                     }
                   >

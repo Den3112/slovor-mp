@@ -19,11 +19,15 @@ COPY package.json package-lock.json* ./
 RUN --mount=type=cache,target=/root/.npm \
     npm ci --legacy-peer-deps --no-audit --no-fund
 
-# --- Этап 2: Сборка приложения ---
+# --- Этап 2: Подготовка исходного кода ---
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# --- Этап 3: Сборка приложения ---
+FROM builder AS production-builder
+WORKDIR /app
 
 # Переменные среды для сборки (публичные)
 ARG NEXT_PUBLIC_SUPABASE_URL
@@ -38,7 +42,7 @@ ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 RUN --mount=type=cache,target=/app/.next/cache \
     npm run build
 
-# --- Этап 3: Финальный образ (Runner) ---
+# --- Этап 4: Финальный образ (Runner) ---
 FROM base AS runner
 WORKDIR /app
 
@@ -51,12 +55,13 @@ RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
 # Копируем только необходимые файлы из standalone билда
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=production-builder /app/public ./public
+COPY --from=production-builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=production-builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Важно: Копируем остальные артефакты, если они нужны (обычно standalone их включает)
-# В Next.js 16 standalone сервер уже содержит необходимые node_modules внутри себя.
+# Проверка состояния контейнера
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
 
 USER nextjs
 EXPOSE 3000

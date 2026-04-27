@@ -11,6 +11,9 @@ vi.mock('@/shared/lib/api', () => ({
     hasReviewed: vi.fn(),
     create: vi.fn(),
   },
+  supabase: {
+    from: vi.fn(),
+  },
 }))
 
 vi.mock('@/app/providers/auth-provider', () => ({
@@ -123,7 +126,7 @@ describe('SellerRating', () => {
     fireEvent.click(screen.getByText('reviews:submitReview'))
 
     await waitFor(() => {
-      expect(reviewsApi.create).toHaveBeenCalledWith({
+      expect(reviewsApi.create).toHaveBeenCalledWith(expect.anything(), {
         recipient_id: mockSellerId,
         author_id: mockUser.id,
         rating: 5,

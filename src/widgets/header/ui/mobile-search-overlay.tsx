@@ -77,6 +77,7 @@ export function MobileSearchOverlay({
                     ref={inputRef}
                     type="text"
                     placeholder={t('common:searchPlaceholder')}
+                    aria-label={t('common:searchPlaceholder')}
                     className="h-auto w-full border-none bg-transparent px-3 py-1 text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}

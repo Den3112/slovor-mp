@@ -1,13 +1,13 @@
 import 'server-only'
-import { createClient } from '@/shared/lib/supabase/server'
+import { SupabaseClient } from '@supabase/supabase-js'
 import type { DashboardStats } from './types'
 
 export type { DashboardStats }
 
 export async function getDashboardStats(
+  supabase: SupabaseClient,
   userId: string
 ): Promise<DashboardStats> {
-  const supabase = await createClient()
 
   try {
     // Parallelize fetch for performance
@@ -78,10 +78,10 @@ export async function getDashboardStats(
     ])
 
     // Process Listings Data
-    const listings = listingsRes.data || []
-    const activeListings = listings.filter((l) => l.status === 'active').length
+    const listings = (listingsRes.data || []) as any[]
+    const activeListings = listings.filter((l: any) => l.status === 'active').length
     const totalViews = listings.reduce(
-      (acc, curr) => acc + (curr.views_count || 0),
+      (acc: number, curr: any) => acc + (curr.views_count || 0),
       0
     )
 
@@ -92,13 +92,13 @@ export async function getDashboardStats(
     const totalReviews = reviews.length
     const averageRating =
       totalReviews > 0
-        ? reviews.reduce((acc, curr) => acc + (curr.rating || 0), 0) /
+        ? (reviews as any[]).reduce((acc: number, curr: any) => acc + (curr.rating || 0), 0) /
           totalReviews
         : 5.0
     const totalOrders = ordersRes.count || 0
 
     // Process Conversations
-    const recentConversations = (conversationsRes.data || []).map((c) => ({
+    const recentConversations = (conversationsRes.data || []).map((c: any) => ({
       ...c,
       last_message: c.messages?.[0] || null,
     }))
@@ -109,7 +109,7 @@ export async function getDashboardStats(
       .select('id')
       .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
 
-    const conversationIds = convData?.map((c) => c.id) || []
+    const conversationIds = (convData || []).map((c: any) => c.id)
 
     let unreadMessages = 0
     if (conversationIds.length > 0) {
@@ -124,7 +124,7 @@ export async function getDashboardStats(
     }
 
     // Sort messages
-    recentConversations.forEach((c) => {
+    recentConversations.forEach((c: any) => {
       if (c.messages && Array.isArray(c.messages)) {
         c.messages.sort(
           (a: { created_at: string }, b: { created_at: string }) =>

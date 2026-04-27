@@ -37,8 +37,8 @@ export function ChatView({ conversationId }: ChatViewProps) {
 
       try {
         const [convRes, msgsRes] = await Promise.all([
-          messagesApi.getConversation(conversationId),
-          messagesApi.getMessages(conversationId),
+          messagesApi.getConversation(supabase, conversationId),
+          messagesApi.getMessages(supabase, conversationId),
         ])
 
         if (convRes.error || !convRes.data) {
@@ -55,7 +55,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
         setMessages(msgsRes.data || [])
 
         // Mark as read
-        await messagesApi.markAsRead(conversationId, user.id)
+        await messagesApi.markAsRead(supabase, conversationId, user.id)
       } catch (error) {
         console.error('Error loading chat:', error)
       } finally {
@@ -80,7 +80,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
           table: 'messages',
           filter: `conversation_id=eq.${conversationId}`,
         },
-        async (payload) => {
+        async (payload: any) => {
           const newMessage = payload.new as Message
 
           // Fetch sender details if needed, or just append
@@ -90,7 +90,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
           setMessages((prev) => [...prev, newMessage])
 
           if (newMessage.sender_id !== user?.id) {
-            await messagesApi.markAsRead(conversationId, user!.id)
+            await messagesApi.markAsRead(supabase, conversationId, user!.id)
           }
 
           // Scroll to bottom
@@ -119,6 +119,7 @@ export function ChatView({ conversationId }: ChatViewProps) {
     setIsSending(true)
     try {
       const { error } = await messagesApi.sendMessage(
+        supabase,
         conversationId,
         user.id,
         inputValue

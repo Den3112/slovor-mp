@@ -106,6 +106,14 @@ export async function generateMetadata({
       description: defaultDescription,
       images: ['/og-image.png'],
     },
+    alternates: {
+      canonical: `/${lang}`,
+      languages: {
+        en: '/en',
+        sk: '/sk',
+        cs: '/cs',
+      },
+    },
   }
 }
 
@@ -120,9 +128,6 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning data-scroll-behavior="smooth">
-      <head>
-        <meta charSet="utf-8" />
-      </head>
       <body
         suppressHydrationWarning
         className={cn(

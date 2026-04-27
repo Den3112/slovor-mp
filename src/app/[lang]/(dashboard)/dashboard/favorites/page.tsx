@@ -25,7 +25,7 @@ export default async function DashboardFavoritesPage() {
     .order('created_at', { ascending: false })
 
   const favoriteListings =
-    (favorites?.map((f) => f.listing).filter(Boolean) as any[]) || []
+    (favorites?.map((f: any) => f.listing).filter(Boolean) as any[]) || []
 
   return <FavoritesView favoriteListings={favoriteListings} />
 }

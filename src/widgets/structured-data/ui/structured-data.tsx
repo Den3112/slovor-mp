@@ -25,7 +25,7 @@ export function StructuredData({
   // 1. BreadcrumbList Schema
   // We extract segments from pathname to build breadcrumbs
   const segments = pathname?.split('/').filter(Boolean).slice(1) || [] // Remove locale
-  const breadcrumbs = segments.map((segment, index) => {
+  const breadcrumbs = segments.map((segment: string, index: number) => {
     const url = `/${locale}/${segments.slice(0, index + 1).join('/')}`
 
     // Attempt to find a label in NAV_LINKS or fallback to title case
@@ -49,7 +49,7 @@ export function StructuredData({
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbs.map((bc, i) => ({
+    itemListElement: breadcrumbs.map((bc: { name: string; item: string }, i: number) => ({
       '@type': 'ListItem',
       position: i + 1,
       name: bc.name,

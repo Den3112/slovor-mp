@@ -8,6 +8,7 @@ import { SellerRating } from './seller-rating'
 import { ProfileCard } from './profile-card'
 import { PremiumBackground } from '@/shared/ui/premium-background'
 import { useTranslation } from '@/shared/lib/i18n'
+import { supabase } from '@/shared/lib/supabase/client'
 import Link from 'next/link'
 import {
   ArrowLeft,
@@ -46,7 +47,7 @@ export function SellerProfileView({
 
   useEffect(() => {
     import('@/shared/lib/api').then(({ reviewsApi }) => {
-      reviewsApi.getForSeller(seller.id).then(({ data }) => {
+      reviewsApi.getForSeller(supabase, seller.id).then(({ data }) => {
         if (data) setRatingData(data)
       })
     })
@@ -66,7 +67,7 @@ export function SellerProfileView({
 
   const handleContact = async () => {
     if (!user) {
-      router.push(`/${locale}/auth/login?redirect=/seller/${seller.id}`)
+      router.push(`/${locale}/login?redirect=/seller/${seller.id}`)
       return
     }
 
@@ -86,6 +87,7 @@ export function SellerProfileView({
     setIsContacting(true)
     try {
       const { data, error } = await messagesApi.getOrCreateConversation(
+        supabase,
         contextListing.id,
         user.id,
         seller.id

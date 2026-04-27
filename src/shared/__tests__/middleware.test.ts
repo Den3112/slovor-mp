@@ -78,7 +78,7 @@ describe('middleware utility', () => {
     expect(NextResponse.redirect).not.toHaveBeenCalled()
   })
 
-  it('redirects to /auth/login if user is not authenticated on protected route (/dashboard)', async () => {
+  it('redirects to /login if user is not authenticated on protected route (/dashboard)', async () => {
     const req = mockRequest('/dashboard')
     await updateSession(req)
     expect(NextResponse.redirect).toHaveBeenCalled()

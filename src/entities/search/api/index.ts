@@ -1,7 +1,9 @@
 // Saved Searches API
 // API for managing search subscriptions and notifications
 
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse } from '@/shared/lib/types/database'
 import { logError } from '@/shared/lib/utils/logger'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -44,17 +46,16 @@ export const savedSearchesApi = {
   /**
    * Get all saved searches for current user
    */
-  async getAll(client?: SupabaseClient): Promise<ApiResponse<SavedSearch[]>> {
+  async getAll(client: SupabaseClient): Promise<ApiResponse<SavedSearch[]>> {
     try {
-      const supabaseClient = client || supabase
       const {
         data: { user },
-      } = await supabaseClient.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) {
         return { data: null, error: 'Not authenticated' }
       }
 
-      const { data, error } = await supabaseClient
+      const { data, error } = await client
         .from('saved_searches')
         .select(
           `
@@ -78,19 +79,18 @@ export const savedSearchesApi = {
    * Create a new saved search
    */
   async create(
-    input: CreateSavedSearchInput,
-    client?: SupabaseClient
+    client: SupabaseClient,
+    input: CreateSavedSearchInput
   ): Promise<ApiResponse<SavedSearch>> {
     try {
-      const supabaseClient = client || supabase
       const {
         data: { user },
-      } = await supabaseClient.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) {
         return { data: null, error: 'Not authenticated' }
       }
 
-      const { data, error } = await supabaseClient
+      const { data, error } = await client
         .from('saved_searches')
         .insert({
           user_id: user.id,
@@ -120,11 +120,12 @@ export const savedSearchesApi = {
    * Update a saved search
    */
   async update(
+    client: SupabaseClient,
     id: string,
     input: Partial<CreateSavedSearchInput>
   ): Promise<ApiResponse<SavedSearch>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('saved_searches')
         .update({
           ...input,
@@ -146,9 +147,12 @@ export const savedSearchesApi = {
   /**
    * Delete a saved search
    */
-  async delete(id: string): Promise<ApiResponse<boolean>> {
+  async delete(
+    client: SupabaseClient,
+    id: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('saved_searches')
         .delete()
         .eq('id', id)
@@ -166,6 +170,7 @@ export const savedSearchesApi = {
    * Save current search filters as a saved search
    */
   saveCurrentSearch(
+    client: SupabaseClient,
     name: string,
     filters: {
       query?: string
@@ -175,7 +180,7 @@ export const savedSearchesApi = {
       maxPrice?: number
     }
   ): Promise<ApiResponse<SavedSearch>> {
-    return this.create({
+    return this.create(client, {
       name,
       query: filters.query,
       category_id: filters.category,

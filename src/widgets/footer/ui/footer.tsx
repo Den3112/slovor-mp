@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { categoriesApi } from '@/entities/category'
 import { blogApi } from '@/entities/blog'
 import { pagesApi } from '@/entities/page'
+import { createClient } from '@/shared/lib/supabase/client'
 import type {
   Category,
   BlogPost,
@@ -70,11 +71,12 @@ export function Footer() {
 
     // Initial data fetch
     const fetchData = async () => {
+      const supabase = createClient()
       try {
         const [catRes, blogRes, pagesRes] = await Promise.all([
-          categoriesApi.getAll(),
-          blogApi.listPosts({ limit: 4 }),
-          pagesApi.getAll(),
+          categoriesApi.getAll(supabase),
+          blogApi.listPosts(supabase, { limit: 4 }),
+          pagesApi.getAll(supabase),
         ])
 
         if (catRes.data) setCategories(catRes.data)

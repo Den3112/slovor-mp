@@ -9,7 +9,7 @@ import {
   useCallback,
 } from 'react'
 import { supabase } from '@/shared/lib/supabase/client'
-import type { Session, User } from '@supabase/supabase-js'
+import type { Session, User, AuthChangeEvent } from '@supabase/supabase-js'
 import { useRouter, useParams } from 'next/navigation'
 
 interface AuthContextType {
@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
       setSession(session)
       setIsLoading(false)
     })
@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Listen for changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
       setSession(session)
       setIsLoading(false)
       if (_event === 'SIGNED_OUT') {

@@ -25,6 +25,7 @@ import { StatusBadge } from '@/features/dashboard/shared/status-badge'
 import { toast } from 'sonner'
 import { cn } from '@/shared/lib/utils'
 import { motion } from 'framer-motion'
+import { supabase } from '@/shared/lib/supabase/client'
 
 export default function TicketDetailPage({
   params,
@@ -50,8 +51,8 @@ export default function TicketDetailPage({
       setIsLoading(true)
       try {
         const [ticketRes, messagesRes] = await Promise.all([
-          supportApi.getTicket(id as string),
-          supportApi.getMessages(id as string),
+          supportApi.getTicket(id as string, supabase),
+          supportApi.getMessages(id as string, supabase),
         ])
         if (ticketRes.data) setTicket(ticketRes.data)
         if (messagesRes.data) setMessages(messagesRes.data)
@@ -77,6 +78,7 @@ export default function TicketDetailPage({
       const { data, error } = await supportApi.sendMessage(
         id as string,
         reply,
+        supabase,
         false
       )
       if (error) throw new Error(error)

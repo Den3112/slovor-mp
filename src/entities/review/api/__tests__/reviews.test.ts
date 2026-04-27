@@ -25,13 +25,13 @@ describe('reviewsApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
 
-      const response = await reviewsApi.create(input)
+      const response = await reviewsApi.create(supabase, input)
       expect(response.error).toBeNull()
       expect(response.data).toEqual(mockReview)
     })
 
     it('prevents self-review', async () => {
-      const response = await reviewsApi.create({
+      const response = await reviewsApi.create(supabase, {
         recipient_id: 'u1',
         author_id: 'u1',
         rating: 5,
@@ -40,7 +40,7 @@ describe('reviewsApi', () => {
     })
 
     it('validates rating range', async () => {
-      const response = await reviewsApi.create({
+      const response = await reviewsApi.create(supabase, {
         recipient_id: 's1',
         author_id: 'b1',
         rating: 6,
@@ -64,7 +64,7 @@ describe('reviewsApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await reviewsApi.getForSeller('s1')
+      const response = await reviewsApi.getForSeller(supabase, 's1')
 
       expect(response.data?.totalReviews).toBe(2)
       expect(response.data?.averageRating).toBe(4) // (5+3)/2
@@ -76,7 +76,7 @@ describe('reviewsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await reviewsApi.getForSeller('s1')
+      const response = await reviewsApi.getForSeller(supabase, 's1')
       expect(response.data?.averageRating).toBe(0)
       expect(response.data?.totalReviews).toBe(0)
     })
@@ -89,7 +89,7 @@ describe('reviewsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await reviewsApi.getForSeller('s1')
+      const response = await reviewsApi.getForSeller(supabase, 's1')
       expect(response.error).toBe('Fetch Error')
     })
   })
@@ -112,7 +112,7 @@ describe('reviewsApi', () => {
         select: selectMock,
       } as any)
 
-      const response = await reviewsApi.hasReviewed('s1', 'b1', 'l1')
+      const response = await reviewsApi.hasReviewed(supabase, 's1', 'b1', 'l1')
       expect(response.data).toBe(true)
     })
 
@@ -129,7 +129,7 @@ describe('reviewsApi', () => {
         select: vi.fn().mockReturnValue(chain),
       } as any)
 
-      const response = await reviewsApi.hasReviewed('s1', 'b1')
+      const response = await reviewsApi.hasReviewed(supabase, 's1', 'b1')
       expect(response.data).toBe(false)
     })
 
@@ -146,7 +146,7 @@ describe('reviewsApi', () => {
         select: vi.fn().mockReturnValue(chain),
       } as any)
 
-      const response = await reviewsApi.hasReviewed('s1', 'b1')
+      const response = await reviewsApi.hasReviewed(supabase, 's1', 'b1')
       expect(response.error).toBe('Check Error')
     })
   })
@@ -163,7 +163,7 @@ describe('reviewsApi', () => {
         delete: vi.fn().mockReturnValue(thenable),
       } as any)
 
-      const response = await reviewsApi.delete('r1', 'b1')
+      const response = await reviewsApi.delete(supabase, 'r1', 'b1')
       expect(response.data).toBe(true)
     })
 
@@ -177,7 +177,7 @@ describe('reviewsApi', () => {
         delete: vi.fn().mockReturnValue(thenable),
       } as any)
 
-      const response = await reviewsApi.delete('r1', 'b1')
+      const response = await reviewsApi.delete(supabase, 'r1', 'b1')
       expect(response.error).toBe('Delete Error')
     })
   })
@@ -193,7 +193,7 @@ describe('reviewsApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await reviewsApi.getByAuthor('b1')
+      const response = await reviewsApi.getByAuthor(supabase, 'b1')
       expect(response.data).toHaveLength(1)
     })
 
@@ -206,7 +206,7 @@ describe('reviewsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ select: selectMock } as any)
 
-      const response = await reviewsApi.getByAuthor('b1')
+      const response = await reviewsApi.getByAuthor(supabase, 'b1')
       expect(response.error).toBe('Author Reviews Error')
     })
   })
@@ -223,7 +223,7 @@ describe('reviewsApi', () => {
 
       vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
 
-      const response = await reviewsApi.reply('r1', 'Thanks')
+      const response = await reviewsApi.reply(supabase, 'r1', 'Thanks')
       expect(response.data?.seller_reply).toBe('Thanks')
     })
 
@@ -236,7 +236,7 @@ describe('reviewsApi', () => {
       const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
       vi.mocked(supabase.from).mockReturnValue({ update: updateMock } as any)
 
-      const response = await reviewsApi.reply('r1', 'Thanks')
+      const response = await reviewsApi.reply(supabase, 'r1', 'Thanks')
       expect(response.error).toBe('Reply Error')
     })
   })
@@ -252,7 +252,7 @@ describe('reviewsApi', () => {
       })
       vi.mocked(supabase.from).mockReturnValue({ insert: insertMock } as any)
 
-      const response = await reviewsApi.create({
+      const response = await reviewsApi.create(supabase, {
         recipient_id: 's',
         author_id: 'a',
         rating: 5,

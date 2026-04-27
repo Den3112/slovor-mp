@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslation } from '@/shared/lib/i18n'
+import { supabase } from '@/shared/lib/supabase/client'
 import { subscriptionsApi } from '@/shared/lib/api'
 import { toast } from 'sonner'
 import type { UserSubscription } from '@/shared/lib/types/database'
@@ -26,7 +27,10 @@ export function SubscriptionView({
 
     setIsSubmitting(planId)
     try {
-      const { data, error } = await subscriptionsApi.subscribe(planId as any)
+      const { data, error } = await subscriptionsApi.subscribe(
+        supabase,
+        planId as any
+      )
       if (error) throw new Error(error)
 
       if (data) {

@@ -37,13 +37,13 @@ describe('reportsApi', () => {
 
       mockFrom.mockReturnValue({ insert: insertMock } as any)
 
-      const response = await reportsApi.create(reportData)
+      const response = await reportsApi.create(mockSupabase as any, reportData)
       expect(response.error).toBeNull()
       expect(response.data).toEqual(mockReport)
     })
 
     it('fails if neither listing nor user reported', async () => {
-      const response = await reportsApi.create({
+      const response = await reportsApi.create(mockSupabase as any, {
         reporter_id: 'user1',
         reason: 'spam',
       })
@@ -51,7 +51,7 @@ describe('reportsApi', () => {
     })
 
     it('fails if reporting self', async () => {
-      const response = await reportsApi.create({
+      const response = await reportsApi.create(mockSupabase as any, {
         reporter_id: 'user1',
         reported_user_id: 'user1',
         reason: 'spam',
@@ -67,7 +67,7 @@ describe('reportsApi', () => {
       const insertMock = vi.fn().mockReturnValue({ select: selectMock })
       mockFrom.mockReturnValue({ insert: insertMock } as any)
 
-      const response = await reportsApi.create({
+      const response = await reportsApi.create(mockSupabase as any, {
         reporter_id: 'u1',
         listing_id: 'l1',
         reason: 'spam',
@@ -86,14 +86,18 @@ describe('reportsApi', () => {
         range: vi.fn().mockReturnThis(),
         then: vi
           .fn()
-          .mockImplementation((resolves) =>
+          .mockImplementation((resolves: any) =>
             Promise.resolve({ data: [], count: 0, error: null }).then(resolves)
           ),
       }
 
       mockFrom.mockReturnValue(mockChain as any)
 
-      await reportsApi.list({ status: 'pending', limit: 10, offset: 5 })
+      await reportsApi.list(mockSupabase as any, {
+        status: 'pending',
+        limit: 10,
+        offset: 5,
+      })
 
       expect(mockChain.select).toHaveBeenCalledWith(
         '*, listing:listings(id, title, images), reporter:profiles!reporter_id(display_name, avatar_url), reported_user:profiles!reported_user_id(display_name, avatar_url)',
@@ -114,7 +118,7 @@ describe('reportsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ order: orderMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      await reportsApi.list()
+      await reportsApi.list(mockSupabase as any)
       expect(orderMock).toHaveBeenCalled()
     })
 
@@ -125,7 +129,7 @@ describe('reportsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ order: orderMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await reportsApi.list()
+      const response = await reportsApi.list(mockSupabase as any)
       expect(response.error).toBe('List Error')
     })
 
@@ -133,7 +137,7 @@ describe('reportsApi', () => {
       const listSpy = vi
         .spyOn(reportsApi, 'list')
         .mockResolvedValue({ data: [], error: null })
-      await reportsApi.getAll()
+      await reportsApi.getAll(mockSupabase as any)
       expect(listSpy).toHaveBeenCalled()
     })
   })
@@ -150,7 +154,11 @@ describe('reportsApi', () => {
 
       mockFrom.mockReturnValue({ update: updateMock } as any)
 
-      const response = await reportsApi.updateStatus('1', 'resolved')
+      const response = await reportsApi.updateStatus(
+        mockSupabase as any,
+        '1',
+        'resolved'
+      )
       expect(response.data?.status).toBe('resolved')
       expect(updateMock).toHaveBeenCalledWith(
         expect.objectContaining({ status: 'resolved' })
@@ -166,7 +174,11 @@ describe('reportsApi', () => {
       const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ update: updateMock } as any)
 
-      const response = await reportsApi.updateStatus('1', 'resolved')
+      const response = await reportsApi.updateStatus(
+        mockSupabase as any,
+        '1',
+        'resolved'
+      )
       expect(response.error).toBe('Update Error')
     })
   })
@@ -182,7 +194,7 @@ describe('reportsApi', () => {
 
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await reportsApi.hasReported('u1', 'l1')
+      const response = await reportsApi.hasReported(mockSupabase as any, 'u1', 'l1')
       expect(response.data).toBe(true)
     })
 
@@ -196,7 +208,7 @@ describe('reportsApi', () => {
 
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await reportsApi.hasReported('u1', 'l1')
+      const response = await reportsApi.hasReported(mockSupabase as any, 'u1', 'l1')
       expect(response.data).toBe(false)
     })
 
@@ -209,7 +221,7 @@ describe('reportsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock1 })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await reportsApi.hasReported('u1', 'l1')
+      const response = await reportsApi.hasReported(mockSupabase as any, 'u1', 'l1')
       expect(response.error).toBe('Check Error')
     })
   })

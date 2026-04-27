@@ -1,19 +1,21 @@
 // Static Pages API
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse, StaticPage } from '@/shared/lib/types/database'
-export type { StaticPage } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export const pagesApi = {
   /**
    * List all static pages
    */
-  async getAll(): Promise<ApiResponse<StaticPage[]>> {
+  async getAll(client: SupabaseClient): Promise<ApiResponse<StaticPage[]>> {
     if (process.env.SKIP_ENV_VALIDATION === '1') {
       return { data: [], error: null }
     }
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('static_pages')
         .select('*')
         .order('title', { ascending: true })
@@ -29,12 +31,15 @@ export const pagesApi = {
   /**
    * Get a single page by slug
    */
-  async getBySlug(slug: string): Promise<ApiResponse<StaticPage>> {
+  async getBySlug(
+    client: SupabaseClient,
+    slug: string
+  ): Promise<ApiResponse<StaticPage>> {
     if (process.env.SKIP_ENV_VALIDATION === '1') {
       return { data: null as any, error: 'Build skip' }
     }
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('static_pages')
         .select('*')
         .eq('slug', slug)
@@ -51,9 +56,12 @@ export const pagesApi = {
   /**
    * Admin: Create a new static page
    */
-  async create(page: Partial<StaticPage>): Promise<ApiResponse<StaticPage>> {
+  async create(
+    client: SupabaseClient,
+    page: Partial<StaticPage>
+  ): Promise<ApiResponse<StaticPage>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('static_pages')
         .insert(page)
         .select()
@@ -71,11 +79,12 @@ export const pagesApi = {
    * Admin: Update a static page
    */
   async update(
+    client: SupabaseClient,
     id: string,
     page: Partial<StaticPage>
   ): Promise<ApiResponse<StaticPage>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('static_pages')
         .update({ ...page, updated_at: new Date().toISOString() })
         .eq('id', id)
@@ -93,12 +102,12 @@ export const pagesApi = {
   /**
    * Admin: Delete a static page
    */
-  async delete(id: string): Promise<ApiResponse<boolean>> {
+  async delete(
+    client: SupabaseClient,
+    id: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
-        .from('static_pages')
-        .delete()
-        .eq('id', id)
+      const { error } = await client.from('static_pages').delete().eq('id', id)
 
       if (error) throw error
       return { data: true, error: null }

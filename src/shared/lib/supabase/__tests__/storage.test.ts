@@ -19,13 +19,13 @@ describe('storageApi', () => {
   describe('uploadImage', () => {
     it('validates file type', async () => {
       const file = createMockFile('test.txt', 'text/plain')
-      const response = await storageApi.uploadImage(file, 'user-1')
+      const response = await storageApi.uploadImage(supabase, file, 'user-1')
       expect(response.error).toContain('Invalid file type')
     })
 
     it('validates file size', async () => {
       const file = createMockFile('large.jpg', 'image/jpeg', 11 * 1024 * 1024) // 11MB
-      const response = await storageApi.uploadImage(file, 'user-1')
+      const response = await storageApi.uploadImage(supabase, file, 'user-1')
       expect(response.error).toContain('File size')
     })
 
@@ -43,7 +43,7 @@ describe('storageApi', () => {
         getPublicUrl: getUrlMock,
       } as any)
 
-      const response = await storageApi.uploadImage(file, 'user-1')
+      const response = await storageApi.uploadImage(supabase, file, 'user-1')
 
       expect(response.error).toBeNull()
       expect(response.data?.url).toBe('http://url/img.jpg')
@@ -64,7 +64,7 @@ describe('storageApi', () => {
         upload: uploadMock,
       } as any)
 
-      const response = await storageApi.uploadImage(file, 'user-1')
+      const response = await storageApi.uploadImage(supabase, file, 'user-1')
       expect(response.error).toBe('Upload Failed')
     })
   })
@@ -84,6 +84,7 @@ describe('storageApi', () => {
       const progressSpy = vi.fn()
 
       const response = await storageApi.uploadImages(
+        supabase,
         files,
         'user-1',
         progressSpy
@@ -103,7 +104,7 @@ describe('storageApi', () => {
         error: 'Fail',
       })
 
-      const response = await storageApi.uploadImages(files, 'user-1')
+      const response = await storageApi.uploadImages(supabase, files, 'user-1')
       expect(response.error).toContain('Fail')
     })
 
@@ -119,7 +120,7 @@ describe('storageApi', () => {
 
       const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-      const response = await storageApi.uploadImages(files, 'user-1')
+      const response = await storageApi.uploadImages(supabase, files, 'user-1')
 
       expect(response.error).toBeNull() // Partial success returns data
       expect(response.data).toHaveLength(1)
@@ -134,7 +135,7 @@ describe('storageApi', () => {
         remove: removeMock,
       } as any)
 
-      const response = await storageApi.deleteImage('path/img.jpg')
+      const response = await storageApi.deleteImage(supabase, 'path/img.jpg')
       expect(response.error).toBeNull()
       expect(removeMock).toHaveBeenCalledWith(['path/img.jpg'])
     })
@@ -147,7 +148,7 @@ describe('storageApi', () => {
         remove: removeMock,
       } as any)
 
-      const response = await storageApi.deleteImage('path')
+      const response = await storageApi.deleteImage(supabase, 'path')
       expect(response.error).toBe('Remove Failed')
     })
   })
@@ -159,7 +160,7 @@ describe('storageApi', () => {
         remove: removeMock,
       } as any)
 
-      const response = await storageApi.deleteImages(['p1', 'p2'])
+      const response = await storageApi.deleteImages(supabase, ['p1', 'p2'])
       expect(response.error).toBeNull()
       expect(removeMock).toHaveBeenCalledWith(['p1', 'p2'])
     })

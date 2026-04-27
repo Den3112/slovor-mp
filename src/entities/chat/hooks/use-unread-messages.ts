@@ -13,7 +13,7 @@ export function useUnreadMessages() {
     if (!user) return
 
     const fetchCount = async () => {
-      const { data } = await messagesApi.getUnreadCount(user.id)
+      const { data } = await messagesApi.getUnreadCount(supabase, user.id)
       if (data !== null) setUnreadCount(data)
     }
 

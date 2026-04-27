@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { activityApi, type ActivityLog } from '@/entities/activity/api'
+import { supabase } from '@/shared/lib/supabase/client'
 import { useAuth } from '@/app/providers/auth-provider'
 import { useTranslation } from '@/shared/lib/i18n'
 import {
@@ -29,7 +30,7 @@ export function ActivityLogView() {
 
   const loadLogs = async () => {
     setIsLoading(true)
-    const { data } = await activityApi.getMyLogs(50)
+    const { data } = await activityApi.getMyLogs(supabase, 50)
     if (data) setLogs(data)
     setIsLoading(false)
   }

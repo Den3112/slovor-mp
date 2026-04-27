@@ -1,4 +1,4 @@
-import { createClient } from '@/shared/lib/supabase/client'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import type { ApiResponse } from '@/shared/lib/types/database'
 import { logError } from '@/shared/lib/utils/logger'
 
@@ -12,10 +12,9 @@ export const platformSettingsApi = {
   /**
    * Get all platform settings
    */
-  async getAll(): Promise<ApiResponse<PlatformSettings[]>> {
+  async getAll(client: SupabaseClient): Promise<ApiResponse<PlatformSettings[]>> {
     try {
-      const supabase = createClient()
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('platform_settings')
         .select('*')
 
@@ -30,10 +29,9 @@ export const platformSettingsApi = {
   /**
    * Get a specific setting by key
    */
-  async getByKey<T>(key: string): Promise<ApiResponse<T>> {
+  async getByKey<T>(client: SupabaseClient, key: string): Promise<ApiResponse<T>> {
     try {
-      const supabase = createClient()
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('platform_settings')
         .select('value')
         .eq('key', key)
@@ -50,10 +48,13 @@ export const platformSettingsApi = {
   /**
    * Update a specific setting
    */
-  async update(key: string, value: any): Promise<ApiResponse<boolean>> {
+  async update(
+    client: SupabaseClient,
+    key: string,
+    value: any
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const supabase = createClient()
-      const { error } = await supabase
+      const { error } = await client
         .from('platform_settings')
         .upsert({ key, value, updated_at: new Date().toISOString() })
 
@@ -65,3 +66,4 @@ export const platformSettingsApi = {
     }
   },
 }
+

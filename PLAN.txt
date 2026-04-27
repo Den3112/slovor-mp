@@ -1,0 +1,17 @@
+PLAN FOR FIXING SLOVOR MARKETPLACE:
+
+1. FIX SUPABASE QUERY: 
+   In src/entities/listing/hooks/use-listings-search.ts, change 'listings_images' to 'images' 
+   and change 'first_name, last_name' to 'display_name'. This will fix the empty page.
+
+2. CREATE MISSING ASSETS: 
+   Create public/icons/icon-192x192.png to fix 404 error.
+
+3. FIX ESLINT WARNINGS:
+   Add displayName to components in tests.
+   Fix useEffect loops in providers.
+
+4. VERIFY:
+   Run 'npm run verify' to ensure repository is 100% clean.
+
+PLEASE TYPE 'OK' IF YOU APPROVE.

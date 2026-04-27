@@ -1,22 +1,27 @@
 // Blog API
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse, BlogPost } from '@/shared/lib/types/database'
-export type { BlogPost } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export const blogApi = {
   /**
    * Gets published blog posts
    */
-  async listPosts(params?: {
-    limit?: number
-    offset?: number
-  }): Promise<ApiResponse<BlogPost[]>> {
+  async listPosts(
+    client: SupabaseClient,
+    params?: {
+      limit?: number
+      offset?: number
+    }
+  ): Promise<ApiResponse<BlogPost[]>> {
     if (process.env.SKIP_ENV_VALIDATION === '1') {
       return { data: [], error: null }
     }
     try {
-      let query = supabase
+      let query = client
         .from('blog_posts')
         .select(
           `
@@ -47,12 +52,15 @@ export const blogApi = {
   /**
    * Gets a single post by slug
    */
-  async getPostBySlug(slug: string): Promise<ApiResponse<BlogPost>> {
+  async getPostBySlug(
+    slug: string,
+    client: SupabaseClient
+  ): Promise<ApiResponse<BlogPost>> {
     if (process.env.SKIP_ENV_VALIDATION === '1') {
       return { data: null, error: 'Build skip' }
     }
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('blog_posts')
         .select(
           `
@@ -79,9 +87,9 @@ export const blogApi = {
   /**
    * Admin: List all posts
    */
-  async adminListPosts(): Promise<ApiResponse<BlogPost[]>> {
+  async adminListPosts(client: SupabaseClient): Promise<ApiResponse<BlogPost[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('blog_posts')
         .select('*')
         .order('created_at', { ascending: false })
@@ -98,9 +106,12 @@ export const blogApi = {
   /**
    * Admin: Create a new blog post
    */
-  async create(post: Partial<BlogPost>): Promise<ApiResponse<BlogPost>> {
+  async create(
+    post: Partial<BlogPost>,
+    client: SupabaseClient
+  ): Promise<ApiResponse<BlogPost>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('blog_posts')
         .insert(post)
         .select()
@@ -119,10 +130,11 @@ export const blogApi = {
    */
   async update(
     id: string,
-    post: Partial<BlogPost>
+    post: Partial<BlogPost>,
+    client: SupabaseClient
   ): Promise<ApiResponse<BlogPost>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('blog_posts')
         .update({ ...post, updated_at: new Date().toISOString() })
         .eq('id', id)
@@ -140,9 +152,12 @@ export const blogApi = {
   /**
    * Admin: Delete a blog post
    */
-  async delete(id: string): Promise<ApiResponse<boolean>> {
+  async delete(
+    id: string,
+    client: SupabaseClient
+  ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase.from('blog_posts').delete().eq('id', id)
+      const { error } = await client.from('blog_posts').delete().eq('id', id)
 
       if (error) throw error
       return { data: true, error: null }

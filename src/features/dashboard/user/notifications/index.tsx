@@ -6,6 +6,7 @@ import {
   type Notification,
 } from '@/entities/notification/api'
 import { useAuth } from '@/app/providers/auth-provider'
+import { supabase } from '@/shared/lib/supabase/client'
 import { useTranslation } from '@/shared/lib/i18n'
 import { Bell, Loader2 } from 'lucide-react'
 import { Button } from '@/shared/ui/button'
@@ -21,7 +22,7 @@ export function NotificationsView() {
   const loadNotifications = useCallback(async () => {
     if (!user) return
     setIsLoading(true)
-    const { data } = await notificationsApi.getNotifications(user.id)
+    const { data } = await notificationsApi.getNotifications(supabase, user.id)
     if (data) setNotifications(data)
     setIsLoading(false)
   }, [user])
@@ -35,7 +36,7 @@ export function NotificationsView() {
   }, [loadNotifications])
 
   const handleMarkAsRead = async (id: string) => {
-    const { error } = await notificationsApi.markAsRead(id)
+    const { error } = await notificationsApi.markAsRead(supabase, id)
     if (!error) {
       setNotifications((prev) =>
         prev.map((n) => (n.id === id ? { ...n, is_read: true } : n))
@@ -44,7 +45,7 @@ export function NotificationsView() {
   }
 
   const handleMarkAllAsRead = async () => {
-    const { error } = await notificationsApi.markAllAsRead(user!.id)
+    const { error } = await notificationsApi.markAllAsRead(supabase, user!.id)
     if (!error) {
       setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })))
       toast.success(
@@ -54,7 +55,7 @@ export function NotificationsView() {
   }
 
   const handleDelete = async (id: string) => {
-    const { error } = await notificationsApi.delete(id)
+    const { error } = await notificationsApi.delete(supabase, id)
     if (!error) {
       setNotifications((prev) => prev.filter((n) => n.id !== id))
       toast.success(

@@ -115,9 +115,9 @@ function CreateListingFormContent() {
           />
         </div>
 
-        {/* Header - Desktop Only */}
-        <div className="mb-10 hidden text-center md:block">
-          <h1 className="font-heading text-foreground mb-3 text-4xl font-black tracking-tight">
+        {/* Header - Visible on both Mobile and Desktop */}
+        <div className="mb-10 text-center">
+          <h1 className="font-heading text-foreground mb-3 text-2xl font-black tracking-tight md:text-4xl">
             {showPreview ? t('preview') : t('title')}
           </h1>
           <p className="text-muted-foreground font-medium opacity-70">

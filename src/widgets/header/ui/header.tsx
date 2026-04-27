@@ -162,7 +162,7 @@ export function Header() {
                   <UserMenu user={user} signOut={signOut} />
                 ) : (
                   <Link
-                    href={`/${locale}/auth/login`}
+                    href={`/${locale}/login`}
                     className="text-muted-foreground/80 hover:text-primary px-3 py-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all active:scale-95"
                   >
                     {t('common:signIn')}
@@ -200,7 +200,7 @@ export function Header() {
                   size="icon"
                   onClick={() => setMobileMenuOpen(true)}
                   className="bg-card h-10 w-10 rounded-xl sm:h-9 sm:w-9"
-                  aria-label="Open menu"
+                  aria-label={t('common:aria.openMenu') || 'Open menu'}
                 >
                   <Menu className="h-5 w-5" />
                 </Button>

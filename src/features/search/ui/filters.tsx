@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useTransition, useEffect, useRef } from 'react'
+import { useState, useTransition } from 'react'
 import {
   LayoutGrid,
   MapPin,
@@ -57,7 +57,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
   // Dynamic attributes state
   const [dynamicAttrs, setDynamicAttrs] = useState<Record<string, any>>(() => {
     const attrs: Record<string, any> = {}
-    searchParams.forEach((value, key) => {
+    searchParams.forEach((value: string, key: string) => {
       if (key.startsWith('attr_')) {
         const attrKey = key.replace('attr_', '')
         if (attrKey.endsWith('_min')) {
@@ -74,19 +74,10 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
     return attrs
   })
 
-  const initialCategoryRef = useRef(searchParams.get('category') || '')
-
-  useEffect(() => {
-    if (category !== initialCategoryRef.current) {
-      // Guard with setTimeout to avoid synchronous state update during render/effect phase
-      const timer = setTimeout(() => {
-        setDynamicAttrs({})
-        initialCategoryRef.current = category
-      }, 0)
-      return () => clearTimeout(timer)
-    }
-    return () => {}
-  }, [category])
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory)
+    setDynamicAttrs({})
+  }
 
   const applyFilters = () => {
     startTransition(() => {
@@ -145,7 +136,7 @@ export function ListingFilters({ categories }: ListingFiltersProps) {
         <CategorySelect
           categories={categories}
           value={category}
-          onChange={setCategory}
+          onChange={handleCategoryChange}
           locale={locale}
         />
       </div>

@@ -19,7 +19,7 @@ vi.mock('@/shared/lib/supabase/client', () => {
     lte: vi.fn(() => mockChain),
     ilike: vi.fn(() => mockChain),
     or: vi.fn(() => mockChain),
-    then: vi.fn((cb) => cb({ data: [], error: null })),
+    then: vi.fn((cb: any) => cb({ data: [], error: null })),
   }
 
   return {
@@ -67,7 +67,7 @@ describe('Listings API', () => {
         error: null,
       })
 
-      const result = await listingsApi.getAll()
+      const result = await listingsApi.getAll(supabase)
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -81,7 +81,7 @@ describe('Listings API', () => {
         error: new Error('Database error'),
       })
 
-      const result = await listingsApi.getAll()
+      const result = await listingsApi.getAll(supabase)
 
       expect(result.data).toEqual([])
       expect(result.error).toBeDefined()
@@ -111,7 +111,7 @@ describe('Listings API', () => {
         error: null,
       })
 
-      const result = await listingsApi.create(newListing)
+      const result = await listingsApi.create(supabase, newListing)
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -129,7 +129,7 @@ describe('Listings API', () => {
         error: null,
       })
 
-      const result = await listingsApi.update('123', updates)
+      const result = await listingsApi.update(supabase, '123', updates)
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -142,7 +142,7 @@ describe('Listings API', () => {
       const mockFrom = supabase.from as any
       mockFrom().maybeSingle.mockResolvedValue({ data: null, error: null })
 
-      const result = await listingsApi.delete('123')
+      const result = await listingsApi.delete(supabase, '123')
 
       expect(result.error).toBeNull()
     })
@@ -177,7 +177,7 @@ describe('Categories API', () => {
         error: null,
       })
 
-      const result = await categoriesApi.getAll()
+      const result = await categoriesApi.getAll(supabase)
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -205,7 +205,7 @@ describe('Categories API', () => {
         error: null,
       })
 
-      const result = await categoriesApi.getBySlug('electronics')
+      const result = await categoriesApi.getBySlug('electronics', supabase)
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()

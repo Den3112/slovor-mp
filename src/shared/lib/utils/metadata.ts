@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { listingsApi } from '@/shared/lib/api'
+import { supabase } from '@/shared/lib/supabase/client'
 
 type Props = {
   params: Promise<{ id: string; locale?: string }>
@@ -19,7 +20,7 @@ export async function generateListingMetadata({
     }
   }
 
-  const { data: listing } = await listingsApi.getById(id)
+  const { data: listing } = await listingsApi.getById(supabase, id)
 
   if (!listing) {
     return {

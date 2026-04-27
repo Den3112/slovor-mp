@@ -7,7 +7,7 @@ const { mockFrom, mockRpc, mockSupabase } = vi.hoisted(() => {
   const mockSupabase = {
     from: mockFrom,
     rpc: mockRpc,
-  }
+  } as any
   return { mockFrom, mockRpc, mockSupabase }
 })
 
@@ -17,9 +17,9 @@ vi.mock('@/shared/lib/supabase/client', () => ({
 }))
 
 vi.mock('@/entities/listing/api/filters', () => ({
-  applyListingFilters: vi.fn((q) => q),
-  applyListingSorting: vi.fn((q) => q),
-  applyListingPagination: vi.fn((q) => q),
+  applyListingFilters: vi.fn((q: any) => q),
+  applyListingSorting: vi.fn((q: any) => q),
+  applyListingPagination: vi.fn((q: any) => q),
 }))
 
 describe('listingsApi', () => {
@@ -36,7 +36,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getAll({})
+      const response = await listingsApi.getAll(mockSupabase as any, {})
       expect(response.data).toEqual(mockData)
     })
 
@@ -44,7 +44,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementation(() => {
         throw new Error('Query error')
       })
-      const response = await listingsApi.getAll()
+      const response = await listingsApi.getAll(mockSupabase as any, undefined)
       expect(response.error).toBe('Query error')
     })
   })
@@ -58,7 +58,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ order: orderMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getAdminAll()
+      const response = await listingsApi.getAdminAll(mockSupabase as any)
       expect(response.data).toEqual(mockData)
     })
 
@@ -66,7 +66,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Admin error')
       })
-      const res = await listingsApi.getAdminAll()
+      const res = await listingsApi.getAdminAll(mockSupabase as any)
       expect(res.error).toBe('Admin error')
     })
   })
@@ -79,7 +79,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getCount({})
+      const response = await listingsApi.getCount(mockSupabase as any, {})
       expect(response.data).toBe(10)
     })
 
@@ -87,7 +87,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Count error')
       })
-      const res = await listingsApi.getCount()
+      const res = await listingsApi.getCount(mockSupabase as any, undefined)
       expect(res.error).toBe('Count error')
     })
   })
@@ -98,7 +98,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getPendingCount()
+      const response = await listingsApi.getPendingCount(mockSupabase as any)
       expect(response.data).toBe(5)
     })
 
@@ -106,7 +106,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Pending error')
       })
-      const res = await listingsApi.getPendingCount()
+      const res = await listingsApi.getPendingCount(mockSupabase as any)
       expect(res.error).toBe('Pending error')
     })
   })
@@ -123,7 +123,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock1 })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getFeatured(5)
+      const response = await listingsApi.getFeatured(mockSupabase as any, 5)
       expect(response.data).toEqual(mockData)
     })
 
@@ -131,7 +131,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Featured error')
       })
-      const res = await listingsApi.getFeatured()
+      const res = await listingsApi.getFeatured(mockSupabase as any)
       expect(res.error).toBe('Featured error')
     })
   })
@@ -157,7 +157,7 @@ describe('listingsApi', () => {
         return {} as any
       })
 
-      const response = await listingsApi.getById('1')
+      const response = await listingsApi.getById(mockSupabase as any, '1')
       expect(response.data).toEqual(mockListing)
       expect(updateMock).toHaveBeenCalledWith({ views_count: 6 })
     })
@@ -172,7 +172,7 @@ describe('listingsApi', () => {
         select: vi.fn().mockReturnValue(builder),
       } as any)
 
-      const response = await listingsApi.getById('1')
+      const response = await listingsApi.getById(mockSupabase as any, '1')
       expect(response.error).toBe('Listing not found')
     })
 
@@ -180,7 +180,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('ID error')
       })
-      const res = await listingsApi.getById('1')
+      const res = await listingsApi.getById(mockSupabase as any, '1')
       expect(res.error).toBe('ID error')
     })
   })
@@ -195,7 +195,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getForEdit('1')
+      const response = await listingsApi.getForEdit(mockSupabase as any, '1')
       expect(response.data).toEqual(mockData)
     })
 
@@ -208,7 +208,7 @@ describe('listingsApi', () => {
           eq: vi.fn().mockReturnValue({ maybeSingle: maybeSingleMock }),
         }),
       } as any)
-      const res = await listingsApi.getForEdit('1')
+      const res = await listingsApi.getForEdit(mockSupabase as any, '1')
       expect(res.error).toBe('Listing not found')
     })
   })
@@ -230,13 +230,13 @@ describe('listingsApi', () => {
 
       mockFrom.mockReturnValue({ insert: insertMock } as any)
 
-      const response = await listingsApi.create(mockListing)
+      const response = await listingsApi.create(mockSupabase as any, mockListing)
       expect(response.data?.id).toBe('1')
     })
 
     it('fails if content invalid', async () => {
       // Spam: 5+ same chars
-      const response = await listingsApi.create({
+      const response = await listingsApi.create(mockSupabase as any, {
         title: 'AAAAAA',
         description: 'desc',
         location: 'Bratislava',
@@ -248,7 +248,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Create error')
       })
-      const res = await listingsApi.create({
+      const res = await listingsApi.create(mockSupabase as any, {
         title: 'Valid Title',
         description: 'Valid Desc',
         location: 'Bratislava',
@@ -270,7 +270,7 @@ describe('listingsApi', () => {
       const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ update: updateMock } as any)
 
-      const response = await listingsApi.update('1', {
+      const response = await listingsApi.update(mockSupabase as any, '1', {
         title: 'Updated title',
         location: 'Bratislava',
       })
@@ -278,7 +278,7 @@ describe('listingsApi', () => {
     })
 
     it('fails if update validation fails', async () => {
-      const response = await listingsApi.update('1', { title: 'AAAAAA' })
+      const response = await listingsApi.update(mockSupabase as any, '1', { title: 'AAAAAA' })
       expect(response.error).toBeTruthy()
     })
 
@@ -286,7 +286,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Update error')
       })
-      const res = await listingsApi.update('1', {
+      const res = await listingsApi.update(mockSupabase as any, '1', {
         title: 'Valid Title',
         location: 'Bratislava',
       })
@@ -304,7 +304,7 @@ describe('listingsApi', () => {
       const updateMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ update: updateMock } as any)
 
-      const response = await listingsApi.update('1', { title: 'Valid title' })
+      const response = await listingsApi.update(mockSupabase as any, '1', { title: 'Valid title' })
       expect(response.error).toBe('Listing not found or update failed')
     })
   })
@@ -315,7 +315,7 @@ describe('listingsApi', () => {
       const deleteMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ delete: deleteMock } as any)
 
-      const response = await listingsApi.delete('1')
+      const response = await listingsApi.delete(mockSupabase as any, '1')
       expect(response.error).toBeNull()
     })
 
@@ -323,7 +323,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Delete error')
       })
-      const res = await listingsApi.delete('1')
+      const res = await listingsApi.delete(mockSupabase as any, '1')
       expect(res.error).toBe('Delete error')
     })
   })
@@ -338,7 +338,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getByUser('user-1')
+      const response = await listingsApi.getByUser(mockSupabase as any, 'user-1')
       expect(response.data).toEqual(mockData)
     })
 
@@ -346,7 +346,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('User error')
       })
-      const res = await listingsApi.getByUser('1')
+      const res = await listingsApi.getByUser(mockSupabase as any, '1')
       expect(res.error).toBe('User error')
     })
   })
@@ -362,7 +362,7 @@ describe('listingsApi', () => {
       const selectMock = vi.fn().mockReturnValue({ eq: eqMock1 })
       mockFrom.mockReturnValue({ select: selectMock } as any)
 
-      const response = await listingsApi.getForOwner('1', 'owner-1')
+      const response = await listingsApi.getForOwner(mockSupabase as any, '1', 'owner-1')
       expect(response.data).toEqual(mockData)
     })
 
@@ -377,7 +377,7 @@ describe('listingsApi', () => {
           }),
         }),
       } as any)
-      const res = await listingsApi.getForOwner('1', '2')
+      const res = await listingsApi.getForOwner(mockSupabase as any, '1', '2')
       expect(res.error).toBe('Listing not found')
     })
 
@@ -385,7 +385,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Owner error')
       })
-      const res = await listingsApi.getForOwner('1', '2')
+      const res = await listingsApi.getForOwner(mockSupabase as any, '1', '2')
       expect(res.error).toBe('Owner error')
     })
   })
@@ -393,13 +393,13 @@ describe('listingsApi', () => {
   describe('incrementContactClicks', () => {
     it('calls rpc to increment clicks', async () => {
       mockRpc.mockResolvedValue({ error: null })
-      const response = await listingsApi.incrementContactClicks('1')
+      const response = await listingsApi.incrementContactClicks(mockSupabase as any, '1')
       expect(response.data).toBe(true)
     })
 
     it('handles errors in incrementContactClicks', async () => {
       mockRpc.mockResolvedValueOnce({ error: { message: 'RPC Error' } })
-      const res = await listingsApi.incrementContactClicks('1')
+      const res = await listingsApi.incrementContactClicks(mockSupabase as any, '1')
       expect(res.error).toBe('RPC Error')
     })
   })
@@ -407,13 +407,13 @@ describe('listingsApi', () => {
   describe('promote', () => {
     it('calls promote_listing rpc', async () => {
       mockRpc.mockResolvedValue({ error: null })
-      const response = await listingsApi.promote('1', 'top', 7, 10)
+      const response = await listingsApi.promote(mockSupabase as any, '1', 'top', 7, 10)
       expect(response.error).toBeNull()
     })
 
     it('handles promote errors', async () => {
       mockRpc.mockResolvedValueOnce({ error: { message: 'Promote error' } })
-      const res = await listingsApi.promote('1', 'top', 7, 10)
+      const res = await listingsApi.promote(mockSupabase as any, '1', 'top', 7, 10)
       expect(res.error).toBe('Promote error')
     })
   })
@@ -424,7 +424,7 @@ describe('listingsApi', () => {
       const deleteMock = vi.fn().mockReturnValue({ in: inMock })
       mockFrom.mockReturnValue({ delete: deleteMock } as any)
 
-      const response = await listingsApi.bulkDelete(['1', '2'])
+      const response = await listingsApi.bulkDelete(mockSupabase as any, ['1', '2'])
       expect(response.error).toBeNull()
     })
 
@@ -432,7 +432,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Bulk delete error')
       })
-      const res = await listingsApi.bulkDelete(['1'])
+      const res = await listingsApi.bulkDelete(mockSupabase as any, ['1'])
       expect(res.error).toBe('Bulk delete error')
     })
 
@@ -441,7 +441,7 @@ describe('listingsApi', () => {
       const updateMock = vi.fn().mockReturnValue({ in: inMock })
       mockFrom.mockReturnValue({ update: updateMock } as any)
 
-      const response = await listingsApi.bulkUpdateStatus(['1', '2'], 'expired')
+      const response = await listingsApi.bulkUpdateStatus(mockSupabase as any, ['1', '2'], 'expired')
       expect(response.error).toBeNull()
     })
 
@@ -449,7 +449,7 @@ describe('listingsApi', () => {
       mockFrom.mockImplementationOnce(() => {
         throw new Error('Bulk update error')
       })
-      const res = await listingsApi.bulkUpdateStatus(['1'], 'active')
+      const res = await listingsApi.bulkUpdateStatus(mockSupabase as any, ['1'], 'active')
       expect(res.error).toBe('Bulk update error')
     })
   })

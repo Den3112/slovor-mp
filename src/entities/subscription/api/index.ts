@@ -1,20 +1,23 @@
 // Subscriptions API
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse, UserSubscription } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export const subscriptionsApi = {
   /**
    * Get current user subscription
    */
-  async getCurrent(): Promise<ApiResponse<UserSubscription>> {
+  async getCurrent(client: SupabaseClient): Promise<ApiResponse<UserSubscription>> {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) return { data: null, error: 'Not authenticated' }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('user_subscriptions')
         .select('*')
         .eq('user_id', user.id)
@@ -48,15 +51,16 @@ export const subscriptionsApi = {
    * Create or update subscription (simulated for now)
    */
   async subscribe(
+    client: SupabaseClient,
     planType: UserSubscription['plan_type']
   ): Promise<ApiResponse<UserSubscription>> {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) return { data: null, error: 'Not authenticated' }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('user_subscriptions')
         .upsert({
           user_id: user.id,

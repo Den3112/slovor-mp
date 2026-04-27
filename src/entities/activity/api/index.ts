@@ -1,5 +1,8 @@
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export interface ActivityLog {
@@ -15,14 +18,17 @@ export const activityApi = {
   /**
    * Gets activity logs for the current user
    */
-  async getMyLogs(limit = 50): Promise<ApiResponse<ActivityLog[]>> {
+  async getMyLogs(
+    client: SupabaseClient,
+    limit = 50
+  ): Promise<ApiResponse<ActivityLog[]>> {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('activity_logs')
         .select('*')
         .eq('user_id', user.id)

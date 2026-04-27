@@ -18,7 +18,7 @@ export default async function AboutPage() {
   const { t } = await getTranslationServer(['common', 'about'])
 
   return (
-    <main className="bg-background relative min-h-screen overflow-hidden pb-24">
+    <section className="bg-background relative min-h-screen overflow-hidden pb-24">
       <Container className="pt-32 md:pt-40">
         <div className="animate-in fade-in slide-in-from-top-4 mx-auto mb-20 max-w-4xl text-center duration-700">
           <div className="bg-primary/10 text-primary border-primary/20 mx-auto mb-6 inline-flex items-center gap-2 rounded-xl border px-3 py-1 text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -69,6 +69,6 @@ export default async function AboutPage() {
           </div>
         </div>
       </Container>
-    </main>
+    </section>
   )
 }

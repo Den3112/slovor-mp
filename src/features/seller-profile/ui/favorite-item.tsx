@@ -7,7 +7,9 @@ import { Trash2, Heart, MapPin, ExternalLink } from 'lucide-react'
 import { useTranslation } from '@/shared/lib/i18n'
 import type { Listing } from '@/shared/lib/types/database'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/shared/lib/supabase/client'
+import { supabase } from '@/shared/lib/supabase/client'
+import { favoritesApi } from '@/entities/favorite/api'
+import { useAuth } from '@/app/providers/auth-provider'
 
 export function DashboardFavoriteItem({
   listing,
@@ -86,19 +88,12 @@ export function DashboardFavoriteItem({
 
 function RemoveFavoriteButton({ listingId }: { listingId: string }) {
   const router = useRouter()
-  const supabase = createClient()
+  const { user } = useAuth()
 
   const handleRemove = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
     if (!user) return
 
-    await supabase
-      .from('favorites')
-      .delete()
-      .eq('listing_id', listingId)
-      .eq('user_id', user.id)
+    await favoritesApi.toggle(supabase, listingId, user.id)
     router.refresh()
   }
 

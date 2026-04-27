@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { reportsApi, type ReportReason } from '@/shared/lib/api'
 import { useTranslation } from '@/shared/lib/i18n'
 import { useAuth } from '@/app/providers/auth-provider'
+import { supabase } from '@/shared/lib/supabase/client'
 import { Button } from '@/shared/ui/button'
 import { cn } from '@/shared/lib/utils'
 import { ResponsiveDialog } from '@/shared/ui/responsive-dialog'
@@ -47,7 +48,7 @@ export function ReportDialog({
     setIsSubmitting(true)
     setSubmitState('idle')
 
-    const { error } = await reportsApi.create({
+    const { error } = await reportsApi.create(supabase, {
       reporter_id: user.id,
       listing_id: listingId,
       reported_user_id: userId,

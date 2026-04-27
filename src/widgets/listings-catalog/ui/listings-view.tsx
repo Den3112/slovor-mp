@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
+import { supabase } from '@/shared/lib/supabase/client'
 import { listingsApi, type ListingFilterOptions } from '@/entities/listing/api'
 import { Container } from '@/shared/ui/container'
 import type { Listing, Category } from '@/shared/lib/types/database'
@@ -58,7 +59,7 @@ export function ListingsView({
 
     try {
       const nextPage = page + 1
-      const result = await listingsApi.getAll({
+      const result = await listingsApi.getAll(supabase, {
         ...filters,
         page: nextPage,
         limit: ITEMS_PER_PAGE,

@@ -8,7 +8,7 @@
     "start": "next start",
     "clean": "rimraf .next node_modules",
     "clean-next": "rimraf .next",
-    "lint": "cross-env NODE_ENV=development eslint src --cache",
+    "lint": "NODE_ENV=development eslint src --cache",
     "lint:fix": "eslint src --fix --cache",
     "type-check": "tsc --noEmit",
     "format": "prettier --write src --cache",
@@ -74,6 +74,7 @@
     "date-fns": "4.1.0",
     "dotenv": "^17.0.3",
     "embla-carousel-react": "8.6.0",
+    "eslint-visitor-keys": "^5.0.1",
     "framer-motion": "^12.38.0",
     "i18next": "^25.8.0",
     "i18next-resources-to-backend": "^1.2.1",
@@ -143,7 +144,7 @@
     "vitest": "^4.1.0"
   },
   "engines": {
-    "node": "20.x",
+    "node": ">=18.x",
     "npm": ">=9.0.0"
   },
   "volta": {

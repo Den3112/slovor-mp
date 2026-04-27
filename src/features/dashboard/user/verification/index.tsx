@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/app/providers/auth-provider'
+import { supabase } from '@/shared/lib/supabase/client'
 import { verificationApi, type VerificationStatus } from '@/shared/lib/api'
 import { useTranslation } from '@/shared/lib/i18n'
 import {
@@ -35,7 +36,7 @@ export function VerificationView() {
   useEffect(() => {
     async function fetchStatus() {
       if (!user) return
-      const { data } = await verificationApi.getStatus(user.id)
+      const { data } = await verificationApi.getStatus(supabase, user.id)
       if (data) setStatus(data)
       setIsLoading(false)
     }
@@ -46,14 +47,21 @@ export function VerificationView() {
     if (!user) return
     setIsSubmitting(true)
     // Simulated Doc submission with "real" URLs
-    const { data, error } = await verificationApi.submitDocuments(user.id, [
-      'https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1544391490-00aa9cb51720?auto=format&fit=crop&q=80&w=1000',
-    ])
+    const { data, error } = await verificationApi.submitDocuments(
+      supabase,
+      user.id,
+      [
+        'https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&q=80&w=1000',
+        'https://images.unsplash.com/photo-1544391490-00aa9cb51720?auto=format&fit=crop&q=80&w=1000',
+      ]
+    )
 
     if (data) {
       // Refresh status
-      const { data: newStatus } = await verificationApi.getStatus(user.id)
+      const { data: newStatus } = await verificationApi.getStatus(
+        supabase,
+        user.id
+      )
       if (newStatus) setStatus(newStatus)
       setShowingUploadModal(false)
     } else if (error) {

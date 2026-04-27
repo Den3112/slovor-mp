@@ -20,7 +20,7 @@ export default async function ContactPage() {
   const { t } = await getTranslationServer(['common', 'contact'])
 
   return (
-    <main className="bg-background relative min-h-screen pb-24">
+    <section className="bg-background relative min-h-screen pb-24">
       <Container className="relative z-10 pt-32 md:pt-40">
         <div className="animate-in fade-in slide-in-from-top-4 mx-auto mb-20 max-w-4xl text-center duration-700">
           <h1 className="font-heading text-foreground mb-8 text-6xl leading-[1.05] font-bold tracking-tight uppercase md:text-8xl">
@@ -137,6 +137,6 @@ export default async function ContactPage() {
           </div>
         </div>
       </Container>
-    </main>
+    </section>
   )
 }

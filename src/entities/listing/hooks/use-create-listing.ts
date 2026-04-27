@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/app/providers/auth-provider'
+import { supabase } from '@/shared/lib/supabase/client'
 import { categoriesApi, listingsApi, storageApi } from '@/shared/lib/api'
 import { updateListingAction } from '@/shared/lib/actions/listings'
 import { generateListingTranslations } from '@/shared/lib/services/translation'
@@ -51,7 +52,7 @@ export function useCreateListing() {
     if (editId) {
       setIsEditing(true)
       setIsLoadingData(true)
-      listingsApi.getForEdit(editId).then((res) => {
+      listingsApi.getForEdit(supabase, editId).then((res) => {
         if (res.data) {
           const l = res.data
           setFormData({
@@ -86,7 +87,7 @@ export function useCreateListing() {
 
   // Fetch Categories
   useEffect(() => {
-    categoriesApi.getAll().then((res) => {
+    categoriesApi.getAll(supabase).then((res) => {
       if (res.data) setCategories(res.data)
     })
   }, [])
@@ -108,7 +109,7 @@ export function useCreateListing() {
   // Auth Check
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push(`/${locale}/auth/login`)
+      router.push(`/${locale}/login`)
     }
   }, [user, authLoading, router, locale])
 
@@ -195,7 +196,7 @@ export function useCreateListing() {
           ...translations,
         })
       } else {
-        res = await listingsApi.create({
+        res = await listingsApi.create(supabase, {
           ...formData,
           ...translations,
           price: parseFloat(formData.price),
@@ -238,7 +239,7 @@ export function useCreateListing() {
       const path = imageUrl.split('listings-images/')[1]
       if (path) {
         // We don't await this to keep UI fast, but it's good practice to try
-        storageApi.deleteImage(path).catch((err) => {
+        storageApi.deleteImage(supabase, path).catch((err) => {
           console.error('Failed to delete image from storage:', err)
         })
       }
@@ -289,6 +290,7 @@ export function useCreateListing() {
     }
 
     const result = await storageApi.uploadImages(
+      supabase,
       optimizedFiles,
       user.id,
       (current, total, fileName) =>

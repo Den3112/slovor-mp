@@ -19,7 +19,7 @@ export default async function DashboardProfilePage({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect(`/${lang}/auth/login`)
+    redirect(`/${lang}/login`)
   }
 
   // Fetch full profile
@@ -30,11 +30,11 @@ export default async function DashboardProfilePage({
     .single()
 
   if (!profile) {
-    redirect(`/${lang}/auth/login`)
+    redirect(`/${lang}/login`)
   }
 
   // Get active listings for the user
-  const listingsResponse = await listingsApi.getByUser(user.id)
+  const listingsResponse = await listingsApi.getByUser(supabase, user.id)
 
   return (
     <DashboardProfileHub

@@ -1,4 +1,4 @@
-import { createClient } from '@/shared/lib/supabase/client'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 import { withRetry } from '@/shared/lib/supabase/utils'
 import type { ApiResponse, Transaction } from '@/shared/lib/types/database'
@@ -14,8 +14,7 @@ export interface AdminStats {
 }
 
 export const adminApi = {
-  async getDashboardStats(): Promise<ApiResponse<AdminStats>> {
-    const supabase = createClient()
+  async getDashboardStats(client: SupabaseClient): Promise<ApiResponse<AdminStats>> {
     try {
       // Fetch stats in parallel using optimized count-only queries with retries
       const [
@@ -27,22 +26,22 @@ export const adminApi = {
         reportsRes,
       ] = await withRetry<any[]>(() =>
         Promise.all([
-          supabase
+          client
             .from('profiles')
             .select('id', { count: 'exact', head: true }),
-          supabase
+          client
             .from('listings')
             .select('id', { count: 'exact', head: true }),
-          supabase
+          client
             .from('listings')
             .select('id', { count: 'exact', head: true })
             .eq('status', 'active'),
-          supabase
+          client
             .from('listings')
             .select('id', { count: 'exact', head: true })
             .eq('status', 'pending'),
-          supabase.from('transactions').select('amount, type'),
-          supabase
+          client.from('transactions').select('amount, type'),
+          client
             .from('reports')
             .select('id', { count: 'exact', head: true })
             .eq('status', 'pending'),
@@ -80,20 +79,22 @@ export const adminApi = {
     }
   },
 
-  async logAction(action: {
-    target_id: string
-    target_type: 'listing' | 'user' | 'review'
-    action_type: 'approve' | 'reject' | 'ban' | 'verify'
-    reason?: string
-  }): Promise<ApiResponse<null>> {
-    const supabase = createClient()
+  async logAction(
+    client: SupabaseClient,
+    action: {
+      target_id: string
+      target_type: 'listing' | 'user' | 'review'
+      action_type: 'approve' | 'reject' | 'ban' | 'verify'
+      reason?: string
+    }
+  ): Promise<ApiResponse<null>> {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
-      const { error } = await supabase.from('admin_actions').insert([
+      const { error } = await client.from('admin_actions').insert([
         {
           admin_id: user.id,
           ...action,
@@ -108,10 +109,12 @@ export const adminApi = {
     }
   },
 
-  async getActivityLogs(limit = 50): Promise<ApiResponse<any[]>> {
-    const supabase = createClient()
+  async getActivityLogs(
+    client: SupabaseClient,
+    limit = 50
+  ): Promise<ApiResponse<any[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('activity_logs')
         .select('*, profiles(display_name, avatar_url)')
         .order('created_at', { ascending: false })
@@ -125,3 +128,4 @@ export const adminApi = {
     }
   },
 }
+

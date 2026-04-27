@@ -49,7 +49,7 @@ export function useChat(conversationId: string, currentUserId: string) {
           table: 'messages',
           filter: `conversation_id=eq.${conversationId}`,
         },
-        (payload) => {
+        (payload: any) => {
           queryClient.setQueryData(['messages', conversationId], (old: any) => {
             const exists = old?.find((m: any) => m.id === payload.new.id)
             if (exists) return old
@@ -62,7 +62,7 @@ export function useChat(conversationId: string, currentUserId: string) {
           }
         }
       )
-      .on('broadcast', { event: 'typing' }, ({ payload }) => {
+      .on('broadcast', { event: 'typing' }, ({ payload }: { payload: any }) => {
         if (payload.userId !== currentUserId) {
           setOtherUserTyping(payload.typing)
         }

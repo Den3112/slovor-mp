@@ -22,6 +22,7 @@ export function PriceRange({
             value={min}
             onChange={(e) => onMinChange(e.target.value)}
             placeholder={t('filters:priceMin')}
+            aria-label={t('filters:priceMin')}
             className="pl-7"
           />
         </div>
@@ -34,6 +35,7 @@ export function PriceRange({
             value={max}
             onChange={(e) => onMaxChange(e.target.value)}
             placeholder={t('filters:priceMax')}
+            aria-label={t('filters:priceMax')}
             className="pl-7"
           />
         </div>

@@ -49,7 +49,7 @@ describe('listingsApi', () => {
       const query = createMockQuery({ data: mockData, error: null })
       mockFrom.mockReturnValueOnce(query)
 
-      const { data, error } = await listingsApi.getAll({ search: 'iphone' })
+      const { data, error } = await listingsApi.getAll(supabase as any, { search: 'iphone' })
       expect(error).toBeNull()
       expect(data).toEqual(mockData)
       expect(query.or).toHaveBeenCalled()
@@ -63,7 +63,7 @@ describe('listingsApi', () => {
         })
       )
 
-      const { data } = await listingsApi.getAll()
+      const { data } = await listingsApi.getAll(supabase as any)
       expect(data).toEqual(MOCK_LISTINGS)
     })
   })
@@ -76,7 +76,7 @@ describe('listingsApi', () => {
 
       mockFrom.mockReturnValueOnce(selectQuery).mockReturnValueOnce(updateQuery)
 
-      const { data } = await listingsApi.getById('1')
+      const { data } = await listingsApi.getById(supabase as any, '1')
       expect(data).toEqual(mockListing)
       expect(updateQuery.update).toHaveBeenCalledWith({ views_count: 11 })
     })
@@ -93,7 +93,7 @@ describe('listingsApi', () => {
         createMockQuery({ data: { id: 'new', ...newListing }, error: null })
       )
 
-      const { data, error } = await listingsApi.create(newListing)
+      const { data, error } = await listingsApi.create(supabase as any, newListing)
       expect(error).toBeNull()
       expect(data?.id).toBe('new')
     })
@@ -101,7 +101,7 @@ describe('listingsApi', () => {
     it('returns error on failed content validation (moderation check)', async () => {
       // Use a known banned pattern from content-filter.ts (e.g., Slovak profanity)
       const badListing = { title: 'kokot', description: 'some description' }
-      const { data, error } = await listingsApi.create(badListing)
+      const { data, error } = await listingsApi.create(supabase as any, badListing)
       expect(data).toBeNull()
       expect(error).toContain('vulgárne slová')
     })
@@ -112,7 +112,7 @@ describe('listingsApi', () => {
       const query = createMockQuery({ error: null })
       mockFrom.mockReturnValueOnce(query)
 
-      await listingsApi.bulkDelete(['1', '2'])
+      await listingsApi.bulkDelete(supabase as any, ['1', '2'])
       expect(query.delete).toHaveBeenCalled()
       expect(query.in).toHaveBeenCalledWith('id', ['1', '2'])
     })
@@ -121,7 +121,7 @@ describe('listingsApi', () => {
       const query = createMockQuery({ error: null })
       mockFrom.mockReturnValueOnce(query)
 
-      await listingsApi.bulkUpdateStatus(['1'], 'sold')
+      await listingsApi.bulkUpdateStatus(supabase as any, ['1'], 'sold')
       expect(query.update).toHaveBeenCalled()
       expect(query.in).toHaveBeenCalledWith('id', ['1'])
     })

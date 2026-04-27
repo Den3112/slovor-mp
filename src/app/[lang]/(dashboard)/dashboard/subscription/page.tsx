@@ -28,7 +28,7 @@ export default async function SubscriptionPage() {
     redirect('/')
   }
 
-  const { data: subscription } = await subscriptionsApi.getCurrent()
+  const { data: subscription } = await subscriptionsApi.getCurrent(supabase)
 
   return (
     <SubscriptionView

@@ -72,6 +72,8 @@ vi.mock('@/shared/lib/supabase/client', () => ({
   },
 }))
 
+const supabase = { from: vi.fn(() => mockChain) } as any
+
 describe('Listings API - Filters and Sorting', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -96,7 +98,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ categoryId: 'cat1' })
+      const result = await listingsApi.getAll(supabase, { categoryId: 'cat1' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -118,7 +120,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({
+      const result = await listingsApi.getAll(supabase, {
         priceMin: 100,
         priceMax: 500,
       })
@@ -143,7 +145,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ search: 'iPhone' })
+      const result = await listingsApi.getAll(supabase, { search: 'iPhone' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -166,7 +168,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ condition: 'new' })
+      const result = await listingsApi.getAll(supabase, { condition: 'new' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -188,7 +190,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ location: 'Košice' })
+      const result = await listingsApi.getAll(supabase, { location: 'Košice' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -211,7 +213,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ isFeatured: true })
+      const result = await listingsApi.getAll(supabase, { isFeatured: true })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -235,7 +237,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ sort: 'newest' })
+      const result = await listingsApi.getAll(supabase, { sort: 'newest' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -257,7 +259,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ sort: 'oldest' })
+      const result = await listingsApi.getAll(supabase, { sort: 'oldest' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -279,7 +281,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ sort: 'price-low' })
+      const result = await listingsApi.getAll(supabase, { sort: 'price-low' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -301,7 +303,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ sort: 'price-high' })
+      const result = await listingsApi.getAll(supabase, { sort: 'price-high' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -323,7 +325,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ sort: 'views' })
+      const result = await listingsApi.getAll(supabase, { sort: 'views' })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -347,7 +349,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ limit: 10 })
+      const result = await listingsApi.getAll(supabase, { limit: 10 })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -369,7 +371,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({ offset: 10, limit: 10 })
+      const result = await listingsApi.getAll(supabase, { offset: 10, limit: 10 })
 
       expect(result.error).toBeNull()
       expect(result.data).toBeDefined()
@@ -394,7 +396,7 @@ describe('Listings API - Filters and Sorting', () => {
 
       mockResult = { data: mockListings, error: null }
 
-      const result = await listingsApi.getAll({
+      const result = await listingsApi.getAll(supabase, {
         categoryId: 'cat1',
         priceMin: 100,
         priceMax: 500,
@@ -420,7 +422,7 @@ describe('Listings API - Count', () => {
   it('should get total count of listings', async () => {
     mockCountData = { count: 100, error: null }
 
-    const result = await listingsApi.getCount()
+    const result = await listingsApi.getCount(supabase, undefined)
 
     expect(result.error).toBeNull()
     expect(result.data).toBe(100)
@@ -429,7 +431,7 @@ describe('Listings API - Count', () => {
   it('should get count with filters', async () => {
     mockCountData = { count: 25, error: null }
 
-    const result = await listingsApi.getCount({
+    const result = await listingsApi.getCount(supabase, {
       categoryId: 'cat1',
       priceMin: 100,
     })
@@ -464,7 +466,7 @@ describe('Listings API - Featured', () => {
 
     mockResult = { data: mockListings, error: null }
 
-    const result = await listingsApi.getFeatured(6)
+    const result = await listingsApi.getFeatured(supabase, 6)
 
     expect(result.error).toBeNull()
     expect(result.data).toBeDefined()
@@ -490,7 +492,7 @@ describe('Listings API - Get By User', () => {
 
     mockResult = { data: mockListings, error: null }
 
-    const result = await listingsApi.getByUser('user1')
+    const result = await listingsApi.getByUser(supabase, 'user1')
 
     expect(result.error).toBeNull()
     expect(result.data).toBeDefined()

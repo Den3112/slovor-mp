@@ -1,6 +1,9 @@
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import { logError } from '@/shared/lib/utils/logger'
 import type { ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { notificationsApi } from '@/entities/notification/api'
 
 export interface SupportTicket {
@@ -31,19 +34,20 @@ export interface SupportMessage {
 
 export const supportApi = {
   async createTicket(
-    ticket: Omit<SupportTicket, 'id' | 'created_at' | 'updated_at' | 'status'>
+    ticket: Omit<SupportTicket, 'id' | 'created_at' | 'updated_at' | 'status'>,
+    client: SupabaseClient
   ): Promise<ApiResponse<SupportTicket>> {
     try {
       let userId = ticket.user_id
       if (!userId) {
         const {
           data: { user },
-        } = await supabase.auth.getUser()
+        } = await client.auth.getUser()
         if (!user) throw new Error('Not authenticated')
         userId = user.id
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('support_tickets')
         .insert([{ ...ticket, user_id: userId, status: 'open' }])
         .select()
@@ -57,14 +61,14 @@ export const supportApi = {
     }
   },
 
-  async getMyTickets(): Promise<ApiResponse<SupportTicket[]>> {
+  async getMyTickets(client: SupabaseClient): Promise<ApiResponse<SupportTicket[]>> {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('support_tickets')
         .select('*')
         .eq('user_id', user.id)
@@ -78,9 +82,9 @@ export const supportApi = {
     }
   },
 
-  async getTicket(id: string): Promise<ApiResponse<SupportTicket>> {
+  async getTicket(id: string, client: SupabaseClient): Promise<ApiResponse<SupportTicket>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('support_tickets')
         .select('*, user:profiles(display_name, avatar_url, email)')
         .eq('id', id)
@@ -94,9 +98,12 @@ export const supportApi = {
     }
   },
 
-  async getMessages(ticketId: string): Promise<ApiResponse<SupportMessage[]>> {
+  async getMessages(
+    ticketId: string,
+    client: SupabaseClient
+  ): Promise<ApiResponse<SupportMessage[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('support_messages')
         .select('*')
         .eq('ticket_id', ticketId)
@@ -113,15 +120,16 @@ export const supportApi = {
   async sendMessage(
     ticketId: string,
     message: string,
+    client: SupabaseClient,
     isAdmin = false
   ): Promise<ApiResponse<SupportMessage>> {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await client.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('support_messages')
         .insert([
           {
@@ -139,14 +147,14 @@ export const supportApi = {
       // Update ticket status if it's an admin reply
       if (isAdmin) {
         // Fetch ticket to get user_id for notification
-        const { data: ticket } = await supabase
+        const { data: ticket } = await client
           .from('support_tickets')
           .select('user_id, subject')
           .eq('id', ticketId)
           .single()
 
         if (ticket) {
-          await notificationsApi.create({
+          await notificationsApi.create(client, {
             user_id: ticket.user_id,
             type: 'system',
             title: 'Support Ticket Reply',
@@ -156,7 +164,7 @@ export const supportApi = {
           })
         }
 
-        await supabase
+        await client
           .from('support_tickets')
           .update({
             status: 'in_progress',
@@ -164,7 +172,7 @@ export const supportApi = {
           })
           .eq('id', ticketId)
       } else {
-        await supabase
+        await client
           .from('support_tickets')
           .update({ updated_at: new Date().toISOString() })
           .eq('id', ticketId)
@@ -177,9 +185,9 @@ export const supportApi = {
     }
   },
 
-  async getAllTickets(): Promise<ApiResponse<SupportTicket[]>> {
+  async getAllTickets(client: SupabaseClient): Promise<ApiResponse<SupportTicket[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('support_tickets')
         .select('*, user:profiles(display_name, avatar_url, email)')
         .order('created_at', { ascending: false })
@@ -194,10 +202,11 @@ export const supportApi = {
 
   async updateStatus(
     id: string,
-    status: SupportTicket['status']
+    status: SupportTicket['status'],
+    client: SupabaseClient
   ): Promise<ApiResponse<null>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('support_tickets')
         .update({ status, updated_at: new Date().toISOString() })
         .eq('id', id)

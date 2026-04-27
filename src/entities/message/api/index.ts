@@ -1,8 +1,11 @@
 // Messages API
 // Centralized API layer for conversations and messages
 
-import { supabase } from '@/shared/lib/supabase/client'
+// import { supabase } from '@/shared/lib/supabase/client'
+// Global browser client import REMOVED to prevent SSR evaluation crashes.
+// Every method must now receive a SupabaseClient as an argument.
 import type { ApiResponse } from '@/shared/lib/types/database'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { logError } from '@/shared/lib/utils/logger'
 
 export interface Conversation {
@@ -53,13 +56,14 @@ export const messagesApi = {
    * Gets or creates a conversation for a listing between buyer and seller
    */
   async getOrCreateConversation(
+    client: SupabaseClient,
     listingId: string,
     buyerId: string,
     sellerId: string
   ): Promise<ApiResponse<Conversation>> {
     try {
       // First, try to find existing conversation
-      const { data: existing, error: findError } = await supabase
+      const { data: existing, error: findError } = await client
         .from('conversations')
         .select('*')
         .eq('listing_id', listingId)
@@ -76,7 +80,7 @@ export const messagesApi = {
       }
 
       // Create new conversation
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('conversations')
         .insert({
           listing_id: listingId,
@@ -101,10 +105,11 @@ export const messagesApi = {
    * Gets all conversations for a user
    */
   async getConversationsForUser(
+    client: SupabaseClient,
     userId: string
   ): Promise<ApiResponse<Conversation[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('conversations')
         .select(
           `
@@ -141,7 +146,7 @@ export const messagesApi = {
         throw error
       }
 
-      const conversations = (data || []).map((c) => ({
+      const conversations = (data || []).map((c: any) => ({
         ...c,
         last_message: c.messages?.[0] || null,
       }))
@@ -153,19 +158,15 @@ export const messagesApi = {
     }
   },
 
-  // Alias for consistency
-  getConversations(userId: string) {
-    return this.getConversationsForUser(userId)
-  },
-
   /**
    * Gets a single conversation by ID
    */
   async getConversation(
+    client: SupabaseClient,
     conversationId: string
   ): Promise<ApiResponse<Conversation>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('conversations')
         .select(
           `
@@ -205,9 +206,12 @@ export const messagesApi = {
   /**
    * Gets messages for a conversation
    */
-  async getMessages(conversationId: string): Promise<ApiResponse<Message[]>> {
+  async getMessages(
+    client: SupabaseClient,
+    conversationId: string
+  ): Promise<ApiResponse<Message[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('messages')
         .select(
           `
@@ -237,6 +241,7 @@ export const messagesApi = {
    * Sends a new message
    */
   async sendMessage(
+    client: SupabaseClient,
     conversationId: string,
     senderId: string,
     content: string
@@ -246,7 +251,7 @@ export const messagesApi = {
         return { data: null, error: 'Message cannot be empty' }
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('messages')
         .insert({
           conversation_id: conversationId,
@@ -262,7 +267,7 @@ export const messagesApi = {
       }
 
       // Update conversation's updated_at
-      await supabase
+      await client
         .from('conversations')
         .update({ updated_at: new Date().toISOString() })
         .eq('id', conversationId)
@@ -278,11 +283,12 @@ export const messagesApi = {
    * Marks messages as read
    */
   async markAsRead(
+    client: SupabaseClient,
     conversationId: string,
     userId: string
   ): Promise<ApiResponse<boolean>> {
     try {
-      const { error } = await supabase
+      const { error } = await client
         .from('messages')
         .update({ is_read: true })
         .eq('conversation_id', conversationId)
@@ -302,7 +308,10 @@ export const messagesApi = {
   /**
    * Gets unread message count for a user
    */
-  async getUnreadCount(userId: string): Promise<ApiResponse<number>> {
+  async getUnreadCount(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<number>> {
     try {
       if (!userId) {
         return { data: 0, error: null }
@@ -312,7 +321,7 @@ export const messagesApi = {
       console.log('[FIX] getUnreadCount called for user:', userId)
 
       // Get conversation IDs where user is participant
-      const { data: conversations, error: convError } = await supabase
+      const { data: conversations, error: convError } = await client
         .from('conversations')
         .select('id')
         .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
@@ -325,9 +334,9 @@ export const messagesApi = {
         return { data: 0, error: null }
       }
 
-      const conversationIds = conversations.map((c) => c.id)
+      const conversationIds = conversations.map((c: any) => c.id)
 
-      const { count, error } = await supabase
+      const { count, error } = await client
         .from('messages')
         .select('id', { count: 'exact', head: true })
         .in('conversation_id', conversationIds)
@@ -353,26 +362,26 @@ export const messagesApi = {
   /**
    * DANGEROUS: Deletes all messages and conversations for a user
    */
-  async cleanupAllData(userId: string): Promise<ApiResponse<boolean>> {
+  async cleanupAllData(
+    client: SupabaseClient,
+    userId: string
+  ): Promise<ApiResponse<boolean>> {
     try {
-      // Delete conversations where user is buyer or seller
-      // Cascade should delete messages, but doing explicit to be safe if no cascade
-
       // 1. Get IDs
-      const { data: conversations } = await supabase
+      const { data: conversations } = await client
         .from('conversations')
         .select('id')
         .or(`buyer_id.eq.${userId},seller_id.eq.${userId}`)
 
       if (!conversations?.length) return { data: true, error: null }
 
-      const ids = conversations.map((c) => c.id)
+      const ids = conversations.map((c: any) => c.id)
 
       // 2. Delete Messages
-      await supabase.from('messages').delete().in('conversation_id', ids)
+      await client.from('messages').delete().in('conversation_id', ids)
 
       // 3. Delete Conversations
-      await supabase.from('conversations').delete().in('id', ids)
+      await client.from('conversations').delete().in('id', ids)
 
       return { data: true, error: null }
     } catch (error) {

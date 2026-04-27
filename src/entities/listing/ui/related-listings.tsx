@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { listingsApi } from '@/shared/lib/api'
+import { createClient } from '@/shared/lib/supabase/client'
 import { ListingCard } from './listing-card'
 import { useTranslation } from '@/shared/lib/i18n'
 import type { Listing } from '@/shared/lib/types/database'
@@ -25,11 +26,15 @@ export function RelatedListings({
       if (!categoryId) return
 
       setIsLoading(true)
+      const supabase = createClient()
       try {
-        const { data } = await listingsApi.getAll({
-          categoryId,
-          limit: 5, // Fetch 5 to filter out current one and show 4
-        })
+        const { data } = await listingsApi.getAll(
+          supabase,
+          {
+            categoryId,
+            limit: 5, // Fetch 5 to filter out current one and show 4
+          }
+        )
 
         if (data) {
           const filtered = data

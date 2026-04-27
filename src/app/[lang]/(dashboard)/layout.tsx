@@ -17,11 +17,11 @@ export default async function DashboardLayout({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect(`/${lang}/auth/login`)
+    redirect(`/${lang}/login`)
   }
 
   const { getDashboardStats } = await import('@/entities/dashboard/api')
-  const stats = await getDashboardStats(user.id)
+  const stats = await getDashboardStats(supabase, user.id)
 
   return (
     <MainLayout>

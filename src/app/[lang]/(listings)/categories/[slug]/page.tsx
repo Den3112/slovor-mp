@@ -143,17 +143,14 @@ export default async function CategoryPage({
   }
 
   // Get listings with pagination
-  const listingsRes = await listingsApi.getAll(
-    {
-      ...filterOptions,
-      limit: ITEMS_PER_PAGE,
-      offset,
-    },
-    supabase
-  )
+  const listingsRes = await listingsApi.getAll(supabase, {
+    ...filterOptions,
+    limit: ITEMS_PER_PAGE,
+    offset,
+  })
 
   // Get total count for pagination
-  const countRes = await listingsApi.getCount(filterOptions, supabase)
+  const countRes = await listingsApi.getCount(supabase, filterOptions)
 
   return (
     <Suspense

@@ -14,6 +14,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { Button } from '@/shared/ui/button'
 import { toast } from 'sonner'
 import { motion, AnimatePresence } from 'framer-motion'
+import { supabase } from '@/shared/lib/supabase/client'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -46,7 +47,10 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
     async function loadConversations() {
       if (!user) return
       try {
-        const { data } = await messagesApi.getConversations(user.id)
+        const { data } = await messagesApi.getConversationsForUser(
+          supabase,
+          user.id
+        )
         if (data) {
           setConversations(data)
         }
@@ -63,7 +67,7 @@ export function MessagesLayout({ children }: MessagesLayoutProps) {
     if (!user) return
     setIsCleaning(true)
     try {
-      await messagesApi.cleanupAllData(user.id)
+      await messagesApi.cleanupAllData(supabase, user.id)
       setConversations([])
       toast.success(t('messages:clearSuccess'))
       router.push(`/${locale}/dashboard/messages`)

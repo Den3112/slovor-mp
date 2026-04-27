@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/app/providers/auth-provider'
+import { supabase } from '@/shared/lib/supabase/client'
 import { transactionsApi, walletsApi } from '@/shared/lib/api'
 import { useTranslation } from '@/shared/lib/i18n'
 import { toast } from 'sonner'
@@ -35,12 +36,12 @@ export function WalletView() {
       if (!user) return
 
       // 1. Ensure wallet exists
-      await walletsApi.ensureWallet()
+      await walletsApi.ensureWallet(supabase)
 
       // 2. Fetch wallet and transactions
       const [walletRes, transRes] = await Promise.all([
-        walletsApi.getMyWallet(),
-        transactionsApi.getForUser(user.id),
+        walletsApi.getMyWallet(supabase),
+        transactionsApi.getForUser(supabase, user.id),
       ])
 
       if (walletRes.data) setWallet(walletRes.data)
@@ -57,7 +58,7 @@ export function WalletView() {
 
     // Simulate API call
     const amount = parseFloat(refillAmount)
-    const { data } = await transactionsApi.create({
+    const { data } = await transactionsApi.create(supabase, {
       user_id: user.id,
       wallet_id: wallet.id,
       amount,
@@ -74,8 +75,8 @@ export function WalletView() {
     if (data) {
       // Refresh wallet and transactions
       const [walletRes, transRes] = await Promise.all([
-        walletsApi.getMyWallet(),
-        transactionsApi.getForUser(user.id),
+        walletsApi.getMyWallet(supabase),
+        transactionsApi.getForUser(supabase, user.id),
       ])
       if (walletRes.data) setWallet(walletRes.data)
       if (transRes.data) setTransactions(transRes.data)

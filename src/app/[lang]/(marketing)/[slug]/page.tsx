@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { pagesApi } from '@/shared/lib/api'
+import { createClient } from '@/shared/lib/supabase/server'
 import { Container } from '@/shared/ui/container'
 import { Breadcrumbs } from '@/shared/ui/breadcrumbs'
 import { FileText, Clock } from 'lucide-react'
@@ -17,7 +18,8 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
   const { slug } = await params
 
   // Fetch page from database
-  const { data: page, error } = await pagesApi.getBySlug(slug)
+  const supabase = await createClient()
+  const { data: page, error } = await pagesApi.getBySlug(supabase, slug)
 
   // If page doesn't exist in DB, return 404
   // Note: Next.js will prioritize existing folders (like /about, /terms) over this dynamic route
@@ -26,7 +28,7 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden pb-24">
+    <section className="relative min-h-screen overflow-hidden pb-24">
       {/* Background Decor */}
       <div className="absolute top-0 left-1/2 -z-10 h-full w-full -translate-x-1/2 opacity-30">
         <div className="bg-primary/20 absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full blur-[120px]" />
@@ -72,6 +74,6 @@ export default async function PublicStaticPage({ params }: StaticPageProps) {
           </div>
         </div>
       </Container>
-    </main>
+    </section>
   )
 }
