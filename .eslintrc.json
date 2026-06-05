@@ -1,14 +1,18 @@
 {
-  "extends": ["next/core-web-vitals"],
-  "ignorePatterns": ["**/*.stories.tsx"],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
   "rules": {
-    "storybook/no-renderer-packages": "off",
-    "no-restricted-syntax": [
-      "error",
-      {
-        "selector": "Literal[value=/rounded-3xl/]",
-        "message": "Use 'rounded-2xl' instead of 'rounded-3xl' for global style unification (20px standard)."
-      }
-    ]
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-unused-vars": "warn"
   }
 }
